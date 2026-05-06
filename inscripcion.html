@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscripción · IV Foro Internacional de Derecho y Tecnología · CUCEA-UDG · 2026</title>
+<meta name="description" content="Inscripción al IV Foro Internacional de Derecho y Tecnología. Cuarta edición · 21 y 22 de septiembre de 2026 · CUCEA, Universidad de Guadalajara.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============ TOKENS (heredados del prototipo v1.10) ============ */
+:root {
+  --ink: #0E1B2C;
+  --ink-soft: rgba(14, 27, 44, 0.72);
+  --ink-faint: rgba(14, 27, 44, 0.4);
+  --ink-rule: rgba(14, 27, 44, 0.14);
+  --teal: #2A5C5C;
+  --teal-deep: #1F4747;
+  --dorado: #B8923E;
+  --dorado-soft: #C8A858;
+  --granate: #632A3D;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --paper: #F1EAD7;
+  --white: #FFFEFA;
+  --error: #8B2A2A;
+  --success: #2F5D3A;
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  --max: 1100px;
+  --gutter: clamp(20px, 4vw, 56px);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--marfil);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(184, 146, 62, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(42, 92, 92, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main, header, footer, nav { position: relative; z-index: 1; }
+
+a { color: inherit; }
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(245, 239, 224, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ink-rule);
+  z-index: 100;
+  transition: all 0.3s var(--ease);
+}
+
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand-mark {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144;
+}
+
+.brand-rule {
+  width: 24px;
+  height: 1px;
+  background: var(--dorado);
+  display: inline-block;
+}
+
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.nav-back {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s var(--ease);
+}
+
+.nav-back:hover { color: var(--ink); border-bottom-color: var(--dorado); }
+
+.nav-back::before { content: "← "; color: var(--dorado); }
+
+.lang {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.lang span { cursor: pointer; transition: color 0.3s var(--ease); }
+.lang span:hover { color: var(--ink); }
+.lang .active { color: var(--ink); font-weight: 500; }
+
+.nav-cta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+@media (max-width: 760px) {
+  .brand-sub { display: none; }
+  .nav-back { font-size: 10px; }
+}
+
+/* ============ HEADER / RIBBON ============ */
+.ribbon {
+  padding: 130px var(--gutter) 0;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.ribbon-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ribbon-eyebrow::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: var(--dorado);
+}
+
+.ribbon h1 {
+  font-family: var(--serif);
+  font-size: clamp(48px, 7vw, 92px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+
+.ribbon h1 em {
+  font-style: italic;
+  color: var(--dorado-soft);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+
+.ribbon-lead {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 680px;
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 48px;
+}
+
+.ribbon-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink-rule);
+  border-bottom: 1px solid var(--ink-rule);
+  margin-bottom: 60px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.meta-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.meta-value {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144;
+}
+
+/* ============ TABS ============ */
+.tabs-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  background: var(--ink-rule);
+  margin-bottom: 0;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  padding: 22px 24px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  transition: background 0.3s var(--ease);
+  font-family: inherit;
+  color: var(--ink-soft);
+  border-top: 2px solid transparent;
+}
+
+.tab:hover { background: var(--marfil-light); color: var(--ink); }
+
+.tab.active {
+  background: var(--white);
+  color: var(--ink);
+  border-top-color: var(--dorado);
+}
+
+.tab-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--dorado);
+}
+
+.tab-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  line-height: 1.2;
+}
+
+.tab-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+
+@media (max-width: 760px) {
+  .tabs { grid-template-columns: 1fr; }
+  .tab { padding: 16px 20px; }
+}
+
+/* ============ FORM PANELS ============ */
+.panels {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.panel {
+  background: var(--white);
+  padding: clamp(36px, 6vw, 72px);
+  display: none;
+  border: 1px solid var(--ink-rule);
+  border-top: none;
+}
+
+.panel.active { display: block; }
+
+.panel-intro {
+  margin-bottom: 56px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--ink-rule);
+}
+
+.panel-eyebrow {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+
+.panel-intro h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  margin-bottom: 16px;
+}
+
+.panel-intro h2 em {
+  font-style: italic;
+  color: var(--dorado-soft);
+}
+
+.panel-intro p {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  font-variation-settings: "opsz" 144;
+  max-width: 720px;
+}
+
+/* ============ FORM ============ */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 32px;
+}
+
+.field-full { grid-column: 1 / -1; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-label .req {
+  color: var(--granate);
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.field-label .opt {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+.field-hint {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--white);
+  border: none;
+  border-bottom: 1px solid var(--ink-rule);
+  padding: 12px 0;
+  outline: none;
+  transition: border-color 0.3s var(--ease);
+  width: 100%;
+  border-radius: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-bottom-color: var(--dorado);
+}
+
+input::placeholder { color: var(--ink-faint); font-style: italic; }
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%230E1B2C' d='M6 8L0 0h12z' opacity='0.5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 28px;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+  border: 1px solid var(--ink-rule);
+  padding: 12px 14px;
+}
+
+textarea:focus { border-color: var(--dorado); }
+
+/* Radio groups visuales */
+.radio-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0;
+  border: 1px solid var(--ink-rule);
+}
+
+.radio-card {
+  position: relative;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.25s var(--ease);
+  border-right: 1px solid var(--ink-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.radio-card:last-child { border-right: none; }
+
+@media (max-width: 600px) {
+  .radio-group { grid-template-columns: 1fr; }
+  .radio-card { border-right: none; border-bottom: 1px solid var(--ink-rule); }
+  .radio-card:last-child { border-bottom: none; }
+}
+
+.radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-card .radio-title {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.radio-card .radio-desc {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-faint);
+  line-height: 1.4;
+}
+
+.radio-card:hover { background: var(--marfil-light); }
+
+.radio-card.selected {
+  background: var(--ink);
+  color: var(--marfil);
+}
+
+.radio-card.selected .radio-title,
+.radio-card.selected .radio-desc {
+  color: var(--marfil);
+}
+
+.radio-card.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--dorado);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Conditional fields */
+.conditional {
+  display: none;
+  grid-column: 1 / -1;
+  padding: 20px 24px;
+  background: var(--marfil-light);
+  border-left: 2px solid var(--dorado);
+  margin-top: -8px;
+}
+
+.conditional.show { display: block; animation: fadeIn 0.3s var(--ease); }
+
+.conditional-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .conditional-grid { grid-template-columns: 1fr; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Checkbox legal */
+.legal-block {
+  margin-top: 16px;
+  padding: 28px;
+  background: var(--marfil-light);
+  border: 1px solid var(--ink-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.checkbox-row input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--ink-soft);
+  background: var(--white);
+  flex-shrink: 0;
+  margin-top: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s var(--ease);
+}
+
+.checkbox-row input[type="checkbox"]:checked {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.checkbox-row input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--dorado);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.checkbox-row label {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  cursor: pointer;
+  flex: 1;
+}
+
+.checkbox-row label .req { color: var(--granate); margin-left: 2px; }
+
+.checkbox-row a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--dorado);
+  text-underline-offset: 3px;
+}
+
+.checkbox-row a:hover { color: var(--dorado); }
+
+/* Submit */
+.submit-row {
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 16px 32px;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--dorado);
+  transform: translateX(-101%);
+  transition: transform 0.4s var(--ease);
+}
+
+.btn-primary span { position: relative; z-index: 1; }
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover { color: var(--ink); }
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary:disabled:hover::before { transform: translateX(-101%); }
+.btn-primary:disabled:hover { color: var(--marfil); }
+
+.submit-note {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-style: italic;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+/* Error inline */
+.field.error input,
+.field.error select {
+  border-bottom-color: var(--error);
+}
+
+.field-error {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 4px;
+  display: none;
+}
+
+.field.error .field-error { display: block; }
+
+/* ============ CFP PANEL ============ */
+.cfp-info {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 800px) { .cfp-info { grid-template-columns: 1fr; gap: 36px; } }
+
+.cfp-deadlines {
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cfp-deadlines-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 4px;
+}
+
+.cfp-deadline {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(245, 239, 224, 0.14);
+}
+
+.cfp-deadline:last-child { border-bottom: none; padding-bottom: 0; }
+
+.cfp-deadline-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: rgba(245, 239, 224, 0.78);
+  flex: 1;
+}
+
+.cfp-deadline-date {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--marfil);
+  font-variation-settings: "opsz" 144;
+  white-space: nowrap;
+}
+
+.cfp-text p {
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 16px;
+}
+
+.cfp-text strong { color: var(--ink); font-weight: 500; }
+
+.cfp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--ink);
+  padding: 14px 26px;
+  border: 1px solid var(--ink);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+}
+
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--marfil);
+}
+
+/* ============ NEWSLETTER PANEL ============ */
+.newsletter-form {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: end;
+  max-width: 720px;
+}
+
+@media (max-width: 600px) { .newsletter-form { grid-template-columns: 1fr; } }
+
+/* ============ SUCCESS STATE ============ */
+.success-screen {
+  display: none;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 56px 24px;
+}
+
+.success-screen.show {
+  display: block;
+  animation: fadeIn 0.5s var(--ease);
+}
+
+.success-mark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 32px;
+  border: 1px solid var(--dorado);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 32px;
+  color: var(--dorado);
+  font-variation-settings: "opsz" 144;
+}
+
+.success-screen h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  margin-bottom: 20px;
+}
+
+.success-screen h2 em { font-style: italic; color: var(--dorado-soft); }
+
+.success-screen p {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 36px;
+}
+
+.success-detail {
+  background: var(--marfil-light);
+  border: 1px solid var(--ink-rule);
+  padding: 28px;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.success-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ink-rule);
+  font-size: 14px;
+}
+
+.success-detail-row:last-child { border-bottom: none; }
+
+.success-detail-row .label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.success-detail-row .value {
+  font-family: var(--sans);
+  color: var(--ink);
+  text-align: right;
+}
+
+.success-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  margin-top: 100px;
+  padding: 48px var(--gutter);
+  border-top: 1px solid var(--ink-rule);
+  background: var(--paper);
+}
+
+.footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.footer-inner a { color: var(--ink-soft); text-decoration: none; }
+.footer-inner a:hover { color: var(--dorado); }
+
+/* ============ MODAL (Aviso de privacidad) ============ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 27, 44, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+
+.modal-backdrop.show { display: flex; }
+
+.modal {
+  background: var(--white);
+  max-width: 720px;
+  width: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 48px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: transparent;
+  border: 1px solid var(--ink-rule);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.modal-close:hover { color: var(--ink); border-color: var(--ink); }
+
+.modal h3 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  margin-bottom: 6px;
+}
+
+.modal-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 18px;
+}
+
+.modal-body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.modal-body p { margin-bottom: 14px; }
+.modal-body strong { color: var(--ink); font-weight: 500; }
+.modal-body ul { padding-left: 18px; margin-bottom: 14px; }
+.modal-body li { margin-bottom: 6px; }
+
+@media (max-width: 760px) {
+  .form-grid { grid-template-columns: 1fr; gap: 22px; }
+  .field-full { grid-column: auto; }
+  .modal { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">IV Foro</span>
+      <span class="brand-rule"></span>
+      <span class="brand-sub">Derecho · Tecnología · 2026</span>
+    </a>
+    <div class="nav-cta">
+      <a href="index.html" class="nav-back">Volver al sitio</a>
+      <div class="lang">
+        <span class="active" data-lang="es">ES</span>·<span data-lang="en">EN</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ RIBBON ============ -->
+<header class="ribbon">
+  <div class="ribbon-eyebrow">Inscripción · Cuarta edición</div>
+  <h1>Reserva tu <em>asiento</em><br>en la conversación.</h1>
+  <p class="ribbon-lead">
+    El acceso al Foro es <strong>gratuito</strong>. Tu inscripción genera un código QR único que sirve como credencial digital. Quienes acumulen <strong>20 horas efectivas</strong> de participación reciben constancia con valor curricular emitida por la Universidad de Guadalajara.
+  </p>
+  <div class="ribbon-meta">
+    <div class="meta-item">
+      <span class="meta-label">Fechas</span>
+      <span class="meta-value">21 y 22 sep · 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Sedes</span>
+      <span class="meta-value">CUCEA · CUGDL · Ciudad Judicial</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Modalidad</span>
+      <span class="meta-value">Presencial e híbrida</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Costo</span>
+      <span class="meta-value">Gratuito</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TABS ============ -->
+<div class="tabs-wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-target="asistente" role="tab" aria-selected="true">
+      <span class="tab-num">01</span>
+      <span class="tab-title">Asistir al Foro</span>
+      <span class="tab-sub">Público general · QR + constancia</span>
+    </button>
+    <button class="tab" data-target="cfp" role="tab" aria-selected="false">
+      <span class="tab-num">02</span>
+      <span class="tab-title">Enviar ponencia</span>
+      <span class="tab-sub">Call for Papers · libro colectivo</span>
+    </button>
+    <button class="tab" data-target="newsletter" role="tab" aria-selected="false">
+      <span class="tab-num">03</span>
+      <span class="tab-title">Solo actualizaciones</span>
+      <span class="tab-sub">Sin compromiso · low-friction</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ PANELS ============ -->
+<main class="panels">
+
+  <!-- ===== PANEL 1 · ASISTENTE ===== -->
+  <section class="panel active" id="panel-asistente" role="tabpanel">
+
+    <!-- Pre-form -->
+    <div id="asistente-form-wrap">
+      <div class="panel-intro">
+        <div class="panel-eyebrow">Formulario · 02 minutos</div>
+        <h2>Inscripción de <em>asistente</em>.</h2>
+        <p>
+          Con tus datos generamos un código QR único que recibirás por correo. Ese QR es tu credencial digital durante los dos días del Foro. Al ingresar el día 1, validamos tu identidad con INE o credencial UDG y se te coloca un brazalete oficial que acredita tu acceso a las tres sedes.
+        </p>
+      </div>
+
+      <form id="form-asistente" novalidate>
+        <div class="form-grid">
+
+          <!-- Nombre -->
+          <div class="field field-full">
+            <label class="field-label" for="f-nombre">
+              Nombre completo <span class="req">*</span>
+            </label>
+            <input type="text" id="f-nombre" name="nombre" placeholder="Tal como aparecerá en tu constancia" required>
+            <span class="field-hint">Verifica acentos y mayúsculas. La constancia se emite con este texto exacto.</span>
+            <span class="field-error">Captura tu nombre completo.</span>
+          </div>
+
+          <!-- Correo -->
+          <div class="field">
+            <label class="field-label" for="f-correo">
+              Correo electrónico <span class="req">*</span>
+            </label>
+            <input type="email" id="f-correo" name="correo" placeholder="ejemplo@dominio.com" required>
+            <span class="field-error">Captura un correo válido.</span>
+          </div>
+
+          <!-- Confirmar correo -->
+          <div class="field">
+            <label class="field-label" for="f-correo2">
+              Confirmar correo <span class="req">*</span>
+            </label>
+            <input type="email" id="f-correo2" name="correo_confirm" placeholder="Repite tu correo" required>
+            <span class="field-error">Los correos no coinciden.</span>
+          </div>
+
+          <!-- Tipo de participante -->
+          <div class="field field-full">
+            <label class="field-label">
+              Tipo de participante <span class="req">*</span>
+            </label>
+            <div class="radio-group" id="rg-tipo">
+              <label class="radio-card">
+                <input type="radio" name="tipo" value="estudiante">
+                <span class="radio-title">Estudiante</span>
+                <span class="radio-desc">Licenciatura, maestría o doctorado</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="tipo" value="academico">
+                <span class="radio-title">Académico / Investigador</span>
+                <span class="radio-desc">Profesor, PTC, investigador SNII</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="tipo" value="juridico">
+                <span class="radio-title">Profesional jurídico</span>
+                <span class="radio-desc">Abogado, notario, consultor</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="tipo" value="publico">
+                <span class="radio-title">Sector público</span>
+                <span class="radio-desc">Juez, magistrado, funcionario</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="tipo" value="privado">
+                <span class="radio-title">Sector privado</span>
+                <span class="radio-desc">Empresa, consultoría, LegalTech</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="tipo" value="otro">
+                <span class="radio-title">Otro / Comunidad</span>
+                <span class="radio-desc">Periodismo, ONG, ciudadanía</span>
+              </label>
+            </div>
+            <span class="field-error">Selecciona una opción.</span>
+          </div>
+
+          <!-- Conditional: Estudiante -->
+          <div class="conditional" id="cond-estudiante">
+            <div class="conditional-grid">
+              <div class="field">
+                <label class="field-label" for="f-grado">Grado académico cursado</label>
+                <select id="f-grado" name="grado">
+                  <option value="">Selecciona…</option>
+                  <option value="lic">Licenciatura</option>
+                  <option value="maestria">Maestría</option>
+                  <option value="doctorado">Doctorado</option>
+                  <option value="especialidad">Especialidad</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f-programa">Programa académico</label>
+                <input type="text" id="f-programa" name="programa" placeholder="Ej. Lic. en Derecho">
+              </div>
+            </div>
+          </div>
+
+          <!-- Conditional: Académico -->
+          <div class="conditional" id="cond-academico">
+            <div class="conditional-grid">
+              <div class="field">
+                <label class="field-label" for="f-snii">SNII</label>
+                <select id="f-snii" name="snii">
+                  <option value="">No / No aplica</option>
+                  <option value="C">Candidato</option>
+                  <option value="I">Nivel I</option>
+                  <option value="II">Nivel II</option>
+                  <option value="III">Nivel III</option>
+                  <option value="emerito">Emérito</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="f-area">Área / línea de investigación</label>
+                <input type="text" id="f-area" name="area" placeholder="Ej. IA y derechos humanos">
+              </div>
+            </div>
+          </div>
+
+          <!-- Institución -->
+          <div class="field field-full">
+            <label class="field-label" for="f-institucion">
+              Institución u organización <span class="req">*</span>
+            </label>
+            <input type="text" id="f-institucion" name="institucion" placeholder="Ej. Universidad de Guadalajara · CUCEA" required>
+            <span class="field-hint">Si eres parte de UDG, indica además tu centro universitario en el campo siguiente.</span>
+            <span class="field-error">Captura la institución de procedencia.</span>
+          </div>
+
+          <!-- País -->
+          <div class="field">
+            <label class="field-label" for="f-pais">
+              País de procedencia <span class="opt">(opcional)</span>
+            </label>
+            <select id="f-pais" name="pais">
+              <option value="MX" selected>México</option>
+              <option value="AR">Argentina</option>
+              <option value="BR">Brasil</option>
+              <option value="CL">Chile</option>
+              <option value="CO">Colombia</option>
+              <option value="CR">Costa Rica</option>
+              <option value="ES">España</option>
+              <option value="US">Estados Unidos</option>
+              <option value="FR">Francia</option>
+              <option value="GT">Guatemala</option>
+              <option value="IT">Italia</option>
+              <option value="PE">Perú</option>
+              <option value="PT">Portugal</option>
+              <option value="UY">Uruguay</option>
+              <option value="OTRO">Otro</option>
+            </select>
+          </div>
+
+          <!-- Modalidad -->
+          <div class="field field-full">
+            <label class="field-label">
+              Modalidad de asistencia <span class="req">*</span>
+            </label>
+            <div class="radio-group" id="rg-modalidad">
+              <label class="radio-card">
+                <input type="radio" name="modalidad" value="presencial">
+                <span class="radio-title">Presencial</span>
+                <span class="radio-desc">Asistiré físicamente a las sedes</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="modalidad" value="virtual">
+                <span class="radio-title">Virtual</span>
+                <span class="radio-desc">Vía streaming oficial del Foro</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="modalidad" value="mixta">
+                <span class="radio-title">Mixta</span>
+                <span class="radio-desc">Algunas sesiones presenciales, otras virtuales</span>
+              </label>
+            </div>
+            <span class="field-error">Selecciona una modalidad.</span>
+          </div>
+
+          <!-- Cómo se enteró -->
+          <div class="field field-full">
+            <label class="field-label" for="f-fuente">
+              ¿Cómo te enteraste del Foro? <span class="opt">(opcional · ayuda métricas)</span>
+            </label>
+            <select id="f-fuente" name="fuente">
+              <option value="">Selecciona…</option>
+              <option value="redes">Redes sociales (LinkedIn, X, Instagram)</option>
+              <option value="correo">Correo institucional UDG</option>
+              <option value="profesor">Recomendación de profesor / colega</option>
+              <option value="cartel">Cartel / impreso en campus</option>
+              <option value="prensa">Medio de comunicación</option>
+              <option value="prev">Edición anterior del Foro</option>
+              <option value="red">Red académica (FIADI, FODERTICS, AMPLIA, IPIDT)</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <!-- Bloque legal -->
+          <div class="field-full legal-block">
+            <div class="checkbox-row">
+              <input type="checkbox" id="legal-priv" name="acepto_aviso" required>
+              <label for="legal-priv">
+                He leído y acepto el <a href="#" id="open-aviso">Aviso de Privacidad</a> conforme a la LFPDPPP. Autorizo el tratamiento de mis datos personales para los fines del Foro: emisión de constancia, control de asistencia y comunicación oficial.<span class="req">*</span>
+              </label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="legal-cod" name="acepto_codigo" required>
+              <label for="legal-cod">
+                Acepto el <a href="#" id="open-codigo">Código de Conducta</a> del Foro y entiendo que el evento será grabado para fines académicos y de difusión.<span class="req">*</span>
+              </label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="legal-news" name="acepto_news">
+              <label for="legal-news">
+                <span class="opt">(Opcional)</span> Quiero recibir comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología».
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn-primary" id="btn-submit">
+            <span>Generar mi QR</span>
+          </button>
+          <p class="submit-note">
+            Al enviar recibirás un correo con tu QR único. Si no llega en 5 minutos, revisa carpeta de SPAM.
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-screen" id="asistente-success">
+      <div class="success-mark">✓</div>
+      <h2>Inscripción <em>recibida</em>.</h2>
+      <p>Te enviamos a tu correo el código QR único que servirá como tu credencial digital. Llévalo en el celular o impreso el día del evento. Día 1 validamos tu identidad con INE/credencial UDG y se te coloca el brazalete oficial.</p>
+
+      <div class="success-detail">
+        <div class="success-detail-row">
+          <span class="label">Folio</span>
+          <span class="value" id="folio-display">—</span>
+        </div>
+        <div class="success-detail-row">
+          <span class="label">Nombre</span>
+          <span class="value" id="nombre-display">—</span>
+        </div>
+        <div class="success-detail-row">
+          <span class="label">Correo</span>
+          <span class="value" id="correo-display">—</span>
+        </div>
+        <div class="success-detail-row">
+          <span class="label">Modalidad</span>
+          <span class="value" id="modalidad-display">—</span>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <a href="index.html#programa" class="btn-primary"><span>Ver el programa</span></a>
+        <button type="button" class="btn-ghost" onclick="resetForm()">Inscribir otra persona</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== PANEL 2 · CFP ===== -->
+  <section class="panel" id="panel-cfp" role="tabpanel">
+    <div class="panel-intro">
+      <div class="panel-eyebrow">Convocatoria · Call for Papers</div>
+      <h2>Envía tu <em>contribución</em>.</h2>
+      <p>
+        El Comité Científico recibe propuestas en español, inglés y francés sobre los nueve ejes temáticos de la cuarta edición. Los papers aceptados se publican en libro colectivo bajo Editorial Universidad de Guadalajara, con DOI por capítulo.
+      </p>
+    </div>
+
+    <div class="cfp-info">
+      <div class="cfp-text">
+        <p><strong>Quién puede postular.</strong> Académicas, académicos, estudiantes de maestría y doctorado, y profesionales del derecho con investigación original sobre los ejes del Foro.</p>
+        <p><strong>Modalidad de envío.</strong> Resumen extendido de 700–900 palabras vía formulario dedicado. Si el resumen es aceptado, se solicitará el manuscrito completo (15–20 páginas, normas editoriales del libro) para revisión doble ciega.</p>
+        <p><strong>Idiomas aceptados.</strong> Español, inglés y francés.</p>
+        <p><strong>Best Paper Award.</strong> El paper mejor evaluado recibe distinción especial y publicación destacada.</p>
+        <div class="cfp-actions">
+          <a href="cfp.html" class="btn-primary"><span>Ver convocatoria completa</span></a>
+          <a href="cfp.html#enviar" class="btn-ghost">Enviar resumen</a>
+        </div>
+      </div>
+
+      <aside class="cfp-deadlines">
+        <span class="cfp-deadlines-title">Fechas clave</span>
+        <div class="cfp-deadline">
+          <span class="cfp-deadline-label">Apertura de envíos</span>
+          <span class="cfp-deadline-date">1 may · 2026</span>
+        </div>
+        <div class="cfp-deadline">
+          <span class="cfp-deadline-label">Cierre de envíos</span>
+          <span class="cfp-deadline-date">15 jul · 2026</span>
+        </div>
+        <div class="cfp-deadline">
+          <span class="cfp-deadline-label">Notificación de aceptación</span>
+          <span class="cfp-deadline-date">20 ago · 2026</span>
+        </div>
+        <div class="cfp-deadline">
+          <span class="cfp-deadline-label">Manuscrito final</span>
+          <span class="cfp-deadline-date">30 oct · 2026</span>
+        </div>
+        <div class="cfp-deadline">
+          <span class="cfp-deadline-label">Publicación libro</span>
+          <span class="cfp-deadline-date">Q1 · 2027</span>
+        </div>
+      </aside>
+    </div>
+
+    <p style="font-family: var(--sans); font-size: 13px; color: var(--ink-faint); font-style: italic; padding-top: 24px; border-top: 1px solid var(--ink-rule);">
+      ¿Dudas sobre la convocatoria? Escribe a <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: var(--ink); text-decoration: underline; text-decoration-color: var(--dorado); text-underline-offset: 3px;">emmanueldelva@cucea.udg.mx</a> con asunto «IV Foro · CFP».
+    </p>
+  </section>
+
+  <!-- ===== PANEL 3 · NEWSLETTER ===== -->
+  <section class="panel" id="panel-newsletter" role="tabpanel">
+    <div class="panel-intro">
+      <div class="panel-eyebrow">Solo actualizaciones</div>
+      <h2>Quédate al <em>tanto</em>.</h2>
+      <p>
+        Si aún no decides si asistirás pero quieres recibir el programa final, anuncios de ponentes y materiales pos-evento, deja tu correo. Sin compromiso, sin spam, una comunicación por mes máximo.
+      </p>
+    </div>
+
+    <form id="form-newsletter" class="newsletter-form" novalidate>
+      <div class="field">
+        <label class="field-label" for="nl-correo">
+          Correo electrónico <span class="req">*</span>
+        </label>
+        <input type="email" id="nl-correo" name="correo" placeholder="ejemplo@dominio.com" required>
+      </div>
+      <button type="submit" class="btn-primary">
+        <span>Suscribirme</span>
+      </button>
+    </form>
+
+    <p style="font-family: var(--sans); font-size: 12.5px; color: var(--ink-faint); font-style: italic; margin-top: 28px; max-width: 540px;">
+      Al suscribirte aceptas recibir comunicaciones del Foro Internacional de Derecho y Tecnología. Puedes darte de baja en cualquier momento desde el pie de cualquier correo.
+    </p>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
+    <span>CUCEA · Universidad de Guadalajara</span>
+    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
+  </div>
+</footer>
+
+<!-- ============ MODAL: Aviso de Privacidad ============ -->
+<div class="modal-backdrop" id="modal-aviso">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-aviso')">×</button>
+    <div class="modal-eyebrow">Aviso de privacidad simplificado</div>
+    <h3>Tratamiento de datos personales</h3>
+    <div class="modal-body">
+      <p>El <strong>IV Foro Internacional de Derecho y Tecnología</strong>, organizado por la Universidad de Guadalajara a través del Centro Universitario de Ciencias Económico Administrativas (CUCEA), es responsable del tratamiento de los datos personales que proporciones mediante este formulario.</p>
+
+      <p><strong>Finalidades primarias.</strong></p>
+      <ul>
+        <li>Generación y envío del código QR personal de inscripción.</li>
+        <li>Validación de identidad y control de asistencia el día del evento.</li>
+        <li>Cómputo de horas efectivas de participación académica.</li>
+        <li>Emisión y envío de la constancia correspondiente.</li>
+        <li>Comunicación oficial sobre cambios de programa, sede o logística.</li>
+      </ul>
+
+      <p><strong>Finalidades secundarias</strong> (requieren consentimiento expreso vía checkbox).</p>
+      <ul>
+        <li>Envío de información sobre futuras ediciones del Foro.</li>
+        <li>Comunicación sobre actividades del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología».</li>
+      </ul>
+
+      <p><strong>Datos sensibles.</strong> No se recaban datos personales sensibles en los términos de la LFPDPPP.</p>
+
+      <p><strong>Conservación.</strong> Los datos se conservan durante el período activo de la edición y hasta dos años posteriores al cierre, conforme a las políticas de la Universidad de Guadalajara, exclusivamente para fines de auditoría académica y emisión de duplicados de constancia.</p>
+
+      <p><strong>Derechos ARCO.</strong> Puedes ejercer tus derechos de Acceso, Rectificación, Cancelación y Oposición enviando solicitud a <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: var(--ink); text-decoration: underline;">emmanueldelva@cucea.udg.mx</a> con asunto «ARCO · IV Foro».</p>
+
+      <p><strong>Transferencias.</strong> Los datos no se transfieren a terceros distintos del comité organizador, salvo cuando lo exija una autoridad competente.</p>
+
+      <p style="font-style: italic; color: var(--ink-faint); font-size: 12.5px; margin-top: 20px;">Aviso integral disponible en el sitio institucional de la UDG conforme al artículo 16 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y artículo 16 de la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: Código de Conducta ============ -->
+<div class="modal-backdrop" id="modal-codigo">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-codigo')">×</button>
+    <div class="modal-eyebrow">Código de conducta</div>
+    <h3>Compromisos en sede</h3>
+    <div class="modal-body">
+      <p>El IV Foro es un espacio académico plural. Al inscribirte aceptas:</p>
+      <ul>
+        <li><strong>Respeto.</strong> Trato digno a ponentes, asistentes y personal organizador, sin discriminación por razón alguna.</li>
+        <li><strong>Política anti-acoso.</strong> Cero tolerancia a acoso verbal, físico o digital. El comité podrá retirar credenciales de quien incumpla.</li>
+        <li><strong>Grabación.</strong> Las sesiones son grabadas para memoria, libro colectivo y difusión académica posterior.</li>
+        <li><strong>Imagen.</strong> Tu imagen podrá aparecer en planos generales del auditorio. Si deseas excluir tu imagen, indícalo a la entrada.</li>
+        <li><strong>Reportes.</strong> Cualquier incidente se reporta al equipo organizador o vía <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: var(--ink); text-decoration: underline;">emmanueldelva@cucea.udg.mx</a>.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ TABS ============ */
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.target;
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    panels.forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    document.getElementById('panel-' + target).classList.add('active');
+  });
+});
+
+/* ============ RADIO CARDS ============ */
+function bindRadioGroup(groupId, onChange) {
+  const group = document.getElementById(groupId);
+  if (!group) return;
+  const cards = group.querySelectorAll('.radio-card');
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const radio = card.querySelector('input[type="radio"]');
+      radio.checked = true;
+      if (onChange) onChange(radio.value);
+    });
+  });
+}
+
+bindRadioGroup('rg-tipo', (val) => {
+  document.getElementById('cond-estudiante').classList.toggle('show', val === 'estudiante');
+  document.getElementById('cond-academico').classList.toggle('show', val === 'academico');
+});
+
+bindRadioGroup('rg-modalidad');
+
+/* ============ MODALS ============ */
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('open-aviso').addEventListener('click', (e) => {
+  e.preventDefault(); openModal('modal-aviso');
+});
+document.getElementById('open-codigo').addEventListener('click', (e) => {
+  e.preventDefault(); openModal('modal-codigo');
+});
+
+document.querySelectorAll('.modal-backdrop').forEach(bd => {
+  bd.addEventListener('click', (e) => {
+    if (e.target === bd) closeModal(bd.id);
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.show').forEach(m => closeModal(m.id));
+  }
+});
+
+/* ============ FORM VALIDATION ============ */
+const form = document.getElementById('form-asistente');
+
+function setError(fieldId, msg) {
+  const wrap = document.getElementById(fieldId).closest('.field') ||
+               document.querySelector('[data-field="' + fieldId + '"]');
+  if (!wrap) return;
+  wrap.classList.add('error');
+  if (msg) {
+    const errEl = wrap.querySelector('.field-error');
+    if (errEl) errEl.textContent = msg;
+  }
+}
+
+function clearErrors() {
+  document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  clearErrors();
+  let valid = true;
+
+  const nombre = document.getElementById('f-nombre');
+  if (!nombre.value.trim() || nombre.value.trim().split(/\s+/).length < 2) {
+    setError('f-nombre', 'Captura tu nombre completo (mínimo nombre y apellido).');
+    valid = false;
+  }
+
+  const correo = document.getElementById('f-correo');
+  const correo2 = document.getElementById('f-correo2');
+  const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!reEmail.test(correo.value)) { setError('f-correo'); valid = false; }
+  if (correo.value !== correo2.value || !correo2.value) {
+    setError('f-correo2', 'Los correos no coinciden.');
+    valid = false;
+  }
+
+  const tipo = document.querySelector('input[name="tipo"]:checked');
+  if (!tipo) {
+    document.getElementById('rg-tipo').closest('.field').classList.add('error');
+    valid = false;
+  }
+
+  const inst = document.getElementById('f-institucion');
+  if (!inst.value.trim()) { setError('f-institucion'); valid = false; }
+
+  const modalidad = document.querySelector('input[name="modalidad"]:checked');
+  if (!modalidad) {
+    document.getElementById('rg-modalidad').closest('.field').classList.add('error');
+    valid = false;
+  }
+
+  const aviso = document.getElementById('legal-priv');
+  const codigo = document.getElementById('legal-cod');
+  if (!aviso.checked || !codigo.checked) {
+    alert('Debes aceptar el Aviso de Privacidad y el Código de Conducta para continuar.');
+    valid = false;
+  }
+
+  if (!valid) {
+    document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  // === Demo: emular envío al backend ===
+  // En producción aquí va: fetch('/apps-script-endpoint', { method:'POST', body: JSON.stringify(payload) })
+  const payload = {
+    nombre: nombre.value.trim(),
+    correo: correo.value.trim().toLowerCase(),
+    tipo: tipo.value,
+    institucion: inst.value.trim(),
+    modalidad: modalidad.value,
+    pais: document.getElementById('f-pais').value,
+    timestamp: new Date().toISOString()
+  };
+  console.log('[DEMO] Payload listo para Apps Script:', payload);
+
+  // Generar folio mock
+  const folio = 'IV-FORO-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+  document.getElementById('folio-display').textContent = folio;
+  document.getElementById('nombre-display').textContent = payload.nombre;
+  document.getElementById('correo-display').textContent = payload.correo;
+  const modMap = { presencial: 'Presencial', virtual: 'Virtual', mixta: 'Mixta' };
+  document.getElementById('modalidad-display').textContent = modMap[payload.modalidad];
+
+  document.getElementById('asistente-form-wrap').style.display = 'none';
+  document.getElementById('asistente-success').classList.add('show');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+function resetForm() {
+  form.reset();
+  document.querySelectorAll('.radio-card.selected').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.conditional.show').forEach(c => c.classList.remove('show'));
+  clearErrors();
+  document.getElementById('asistente-success').classList.remove('show');
+  document.getElementById('asistente-form-wrap').style.display = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============ NEWSLETTER ============ */
+document.getElementById('form-newsletter').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const correo = document.getElementById('nl-correo').value;
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!re.test(correo)) {
+    alert('Captura un correo válido.');
+    return;
+  }
+  console.log('[DEMO] Newsletter signup:', correo);
+  alert('¡Listo! Te enviamos una confirmación a ' + correo + '. Revisa tu bandeja.');
+  e.target.reset();
+});
+</script>
+
+</body>
+</html>

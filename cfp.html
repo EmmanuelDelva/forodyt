@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call for Papers — IV Foro Internacional de Derecho y Tecnología</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0B2430;
+    --ink-2:      #1a3a4a;
+    --teal:       #0F6B7C;
+    --teal-deep:  #094651;
+    --teal-soft:  #E6F1F2;
+    --accent:     #C08B3C;
+    --accent-2:   #8F6425;
+    --paper:      #FBF8F3;
+    --paper-2:    #F3EEE4;
+    --rule:       #0B2430;
+    --muted:      #5c6c74;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { background: #2a2a28; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 32px auto;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 100% 0%, rgba(15,107,124,0.05) 0%, transparent 40%),
+      radial-gradient(circle at 0% 100%, rgba(192,139,60,0.05) 0%, transparent 40%);
+    padding: 72px 88px 64px;
+    box-shadow: 0 2px 40px rgba(0,0,0,0.2);
+    position: relative;
+    border: 1px solid rgba(11,36,48,0.08);
+  }
+
+  /* ornamental corner lines */
+  .page::before,
+  .page::after {
+    content: "";
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid var(--ink);
+    opacity: 0.7;
+  }
+  .page::before { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+  .page::after  { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+
+  /* ===== HEADER ===== */
+  .masthead {
+    text-align: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    height: 1px;
+    background: var(--teal);
+    flex: 1;
+    max-width: 80px;
+  }
+
+  .edition-mark {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 112px;
+    line-height: 0.85;
+    color: var(--teal-deep);
+    letter-spacing: -0.02em;
+    font-style: italic;
+    font-variation-settings: "opsz" 144;
+    margin: 4px 0 2px;
+  }
+  .edition-mark .sup {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    vertical-align: super;
+    color: var(--accent);
+    margin-left: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-top: 6px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--accent-2);
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+
+  .venue {
+    margin-top: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .venue strong { color: var(--ink); font-weight: 600; }
+
+  /* ===== CONVENING INSTITUTIONS ===== */
+  .convened-by {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px dotted rgba(11,36,48,0.3);
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .convened-by strong {
+    font-style: normal;
+    color: var(--ink);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ===== SECTION ===== */
+  section { margin-top: 44px; scroll-margin-top: 20px; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  p { margin-bottom: 14px; color: var(--ink-2); }
+  p.lead {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  p.lead::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 58px;
+    float: left;
+    line-height: 0.9;
+    margin: 4px 10px 0 0;
+    color: var(--teal-deep);
+  }
+
+  /* ===== ROLES / PEOPLE ===== */
+  .people {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .person {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px dotted rgba(11,36,48,0.2);
+  }
+  .person:last-child { border-bottom: none; }
+  .person .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    padding-top: 3px;
+  }
+  .person .name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .person .affil {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ===== KEY DATES (timeline) ===== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .ti {
+    padding: 22px 20px;
+    border-right: 1px solid rgba(11,36,48,0.2);
+    position: relative;
+  }
+  .ti:last-child { border-right: none; }
+  .ti .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .ti .label {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--muted);
+    text-transform: lowercase;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .ti .date {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .ti.highlight {
+    background: var(--teal-deep);
+    color: var(--paper);
+  }
+  .ti.highlight .step { color: var(--accent); }
+  .ti.highlight .label { color: rgba(251,248,243,0.75); }
+  .ti.highlight .date { color: var(--paper); }
+
+  /* ===== TOPICS ===== */
+  .topics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 32px;
+    margin-top: 6px;
+  }
+  .topic {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 8px 0;
+    align-items: start;
+  }
+  .topic .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 26px;
+    color: var(--accent);
+    line-height: 1;
+    padding-top: 4px;
+    border-right: 1px solid rgba(192,139,60,0.4);
+    text-align: center;
+    padding-right: 8px;
+  }
+  .topic .body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .topic .body strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .topic .body span { color: var(--muted); font-size: 12.5px; }
+
+  /* ===== SUBMISSION BOX ===== */
+  .envelope {
+    margin-top: 16px;
+    background: var(--teal-soft);
+    border-left: 3px solid var(--teal);
+    padding: 22px 26px;
+    font-size: 14px;
+  }
+  .envelope .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--teal-deep);
+  }
+  .envelope h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+  .envelope h4:first-child { margin-top: 0; }
+  .envelope p { color: var(--ink-2); margin-bottom: 0; }
+  .envelope .mail {
+    display: inline-block;
+    background: var(--paper);
+    padding: 3px 10px;
+    border: 1px solid var(--teal);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--teal-deep);
+    margin-top: 4px;
+  }
+  .envelope .badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 9px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+
+  /* ===== SPECS LIST ===== */
+  ul.specs {
+    list-style: none;
+    counter-reset: spec;
+    margin-top: 6px;
+  }
+  ul.specs li {
+    padding: 10px 0 10px 44px;
+    position: relative;
+    border-bottom: 1px dotted rgba(11,36,48,0.15);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  ul.specs li:last-child { border-bottom: none; }
+  ul.specs li::before {
+    counter-increment: spec;
+    content: counter(spec, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  ul.specs li strong {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 14.5px;
+  }
+
+  /* ===== CITATION EXAMPLES ===== */
+  .citations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 28px;
+    margin-top: 10px;
+  }
+  .citation-card {
+    border: 1px solid rgba(11,36,48,0.15);
+    padding: 14px 16px;
+    background: var(--paper-2);
+  }
+  .citation-card h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .citation-card p {
+    font-size: 12.5px;
+    line-height: 1.55;
+    font-family: 'Fraunces', serif;
+    color: var(--ink);
+    margin-bottom: 0;
+  }
+  .citation-card p em {
+    color: var(--accent-2);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    margin-top: 56px;
+    padding-top: 26px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .footer .mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+
+  /* ===== DECORATIVE DIVIDER ===== */
+  .ornament {
+    text-align: center;
+    margin: 30px 0;
+    font-family: 'Fraunces', serif;
+    color: var(--accent);
+    font-size: 18px;
+    letter-spacing: 0.8em;
+  }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 26px 32px;
+    margin: 26px 0;
+    position: relative;
+  }
+  .callout::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: 6px;
+    bottom: 6px;
+    border: 1px solid var(--accent);
+    z-index: -1;
+  }
+  .callout h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .callout p {
+    color: rgba(251,248,243,0.85);
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    .page { padding: 48px 28px; margin: 16px auto; }
+    .edition-mark { font-size: 82px; }
+    .topics, .citations-grid { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: 1fr; }
+    .ti { border-right: none; border-bottom: 1px solid rgba(11,36,48,0.2); }
+    .ti:last-child { border-bottom: none; }
+    .person { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  @media print {
+    html, body { background: white; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; padding: 40px 50px; border: none; }
+    section { break-inside: avoid; }
+    .callout, .envelope { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<article class="page">
+
+  <!-- ============== MASTHEAD ============== -->
+  <header class="masthead">
+    <div class="eyebrow">Call for Papers · 2026</div>
+
+    <div class="edition-mark">IV<span class="sup">ed.</span></div>
+
+    <h1 class="title">Foro Internacional de Derecho y&nbsp;Tecnología</h1>
+
+    <div class="subtitle">
+      “Agentes, Algoritmos y Autonomía:<br>
+      el Derecho ante la Inteligencia que&nbsp;Decide”
+    </div>
+
+    <div class="venue">
+      <strong>21 &amp; 22 de septiembre de 2026</strong> &nbsp;·&nbsp; Modalidad híbrida &nbsp;·&nbsp; Zapopan, Jalisco
+    </div>
+
+    <div class="convened-by">
+      <strong>Convoca</strong>
+      Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Centro Universitario de Ciencias Económico-Administrativas (CUCEA) · Centro Universitario de Guadalajara (CUGDL) · Departamento de Ciencias Sociales y Jurídicas · Academia de Derecho Económico Empresarial e Internacional
+    </div>
+
+    <div class="convened-by" style="margin-top: 14px; padding-top: 14px;">
+      <strong>En colaboración institucional con</strong>
+      Supremo Tribunal de Justicia del Estado de Jalisco · Poder Judicial del Estado de Jalisco
+    </div>
+  </header>
+
+  <!-- ============== DIRECCIÓN ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">I · COMITÉ ORGANIZADOR</span>
+    </div>
+    <div class="people">
+      <div class="person">
+        <span class="role">Dirección Académica</span>
+        <div>
+          <div class="name">Dr. Juan Emmanuel Delva Benavides</div>
+          <div class="affil">Profesor-Investigador · Universidad de Guadalajara · Líder del Cuerpo Académico UDG-CA-1236</div>
+        </div>
+      </div>
+      <div class="person">
+        <span class="role">Secretaría Académica</span>
+        <div>
+          <div class="name">Dr. Jorge Antonio Leos Navarro</div>
+          <div class="affil">Profesor-Investigador · Universidad de Guadalajara</div>
+        </div>
+      </div>
+      <div class="person">
+        <span class="role">Tecnología &amp; Logística</span>
+        <div>
+          <div class="name">Mtro. Iván Said González López</div>
+          <div class="affil">Profesor-Investigador · Universidad de Guadalajara</div>
+        </div>
+      </div>
+      <div class="person">
+        <span class="role">Coordinación Editorial<br>&amp; Comité Científico</span>
+        <div>
+          <div class="name">Dr. Paul Alejandro García Hernández</div>
+          <div class="affil">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== PRESENTACIÓN ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">II · PRESENTACIÓN</span>
+    </div>
+    <p class="lead">
+      La Universidad de Guadalajara, a través del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología», con el respaldo del CUCEA y del CUGDL, y en colaboración institucional con el Supremo Tribunal de Justicia del Estado de Jalisco, convoca a investigadores, académicos, profesionales y estudiantes de doctorado, maestría y licenciatura interesados en la intersección del derecho y la tecnología a contribuir a la <em>cuarta edición</em> del Foro Internacional de Derecho y Tecnología.
+    </p>
+    <p>
+      La jornada inaugural se desarrollará en CUCEA, mientras que la jornada de cierre será itinerante entre CUGDL y la Ciudad Judicial del Estado de Jalisco, articulando un diálogo tripartito entre la academia, la docencia universitaria y la judicatura del Estado.
+    </p>
+    <p>
+      Este evento busca fomentar el diálogo sobre innovaciones tecnológicas en el derecho, compartir mejores prácticas y explorar las nuevas regulaciones que moldearán el futuro legal en un contexto global en permanente transformación.
+    </p>
+    <p>
+      Invitamos a someter contribuciones originales, rigurosas y con vocación propositiva, que ofrezcan análisis doctrinales, estudios comparados y respuestas normativas concretas a los desafíos emergentes de la sociedad digital.
+    </p>
+  </section>
+
+  <!-- ============== FECHAS ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">III · FECHAS CLAVE</span>
+    </div>
+    <div class="timeline">
+      <div class="ti">
+        <span class="step">01 · Recepción</span>
+        <div class="label">envío de trabajos</div>
+        <div class="date">1 de mayo &mdash;<br>15 de julio 2026</div>
+      </div>
+      <div class="ti">
+        <span class="step">02 · Dictamen</span>
+        <div class="label">notificación de aceptación</div>
+        <div class="date">20 de agosto<br>2026</div>
+      </div>
+      <div class="ti highlight">
+        <span class="step">03 · Evento</span>
+        <div class="label">celebración del foro</div>
+        <div class="date">21 &amp; 22 de septiembre 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== TEMÁTICAS ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">IV · LÍNEAS TEMÁTICAS</span>
+    </div>
+    <div class="topics">
+      <div class="topic">
+        <div class="num">i</div>
+        <div class="body">
+          <strong>IA Agéntica y Propiedad Intelectual Generativa</strong>
+          <span>Gobernanza algorítmica, responsabilidad civil y penal de sistemas autónomos, autoría de obras sintéticas, entrenamiento de modelos y AI Act en América Latina.</span>
+        </div>
+      </div>
+      <div class="topic">
+        <div class="num">ii</div>
+        <div class="body">
+          <strong>Tecnologías Emergentes</strong>
+          <span>Computación cuántica, neurotecnologías, realidades extendidas, gemelos digitales y gobernanza anticipatoria.</span>
+        </div>
+      </div>
+      <div class="topic">
+        <div class="num">iii</div>
+        <div class="body">
+          <strong>Ciberseguridad y Soberanía Digital</strong>
+          <span>Protección de datos personales, nueva LFPDPPP, infraestructura crítica y ciberdefensa.</span>
+        </div>
+      </div>
+      <div class="topic">
+        <div class="num">iv</div>
+        <div class="body">
+          <strong>Justicia Digital e Innovación Jurídica</strong>
+          <span>ODR, inteligencia jurídica aumentada, LegalTech, automatización judicial y acceso a la justicia.</span>
+        </div>
+      </div>
+      <div class="topic">
+        <div class="num">v</div>
+        <div class="body">
+          <strong>Derechos Humanos Digitales</strong>
+          <span>Democracia algorítmica, desinformación, neuroderechos y economía de datos.</span>
+        </div>
+      </div>
+      <div class="topic">
+        <div class="num">vi</div>
+        <div class="body">
+          <strong>FinTech y Economía Digital</strong>
+          <span>Criptoactivos, DeFi, tokenización, monedas digitales de banco central y regulación financiera.</span>
+        </div>
+      </div>
+      <div class="topic">
+        <div class="num">vii</div>
+        <div class="body">
+          <strong>Salud Digital y Biotecnologías</strong>
+          <span>Telemedicina, dispositivos conectados, datos biomédicos y edición genética.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <!-- ============== ENVÍO ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">V · ENVÍO Y PROCESO DE SELECCIÓN</span>
+    </div>
+    <p>
+      Los trabajos serán sometidos a revisión por pares bajo modalidad doble ciego. Los seleccionados serán publicados en un libro colectivo con ISBN. Se aceptan contribuciones en <strong>español, inglés y francés</strong>.
+    </p>
+
+    <div class="envelope">
+      <h4>Correspondencia editorial</h4>
+      <p>
+        <span class="mail">emmanueldelva@cucea.udg.mx</span>
+      </p>
+
+      <h4>Asunto del correo</h4>
+      <p class="mono">«ARTÍCULO IV FORO DERECHO Y TECNOLOGÍA: NOMBRE APELLIDOS»</p>
+
+      <h4>Cuerpo del correo</h4>
+      <p>Incluya: <span class="badge">línea temática</span><span class="badge">título</span><span class="badge">cargo</span><span class="badge">institución</span> y <span class="badge">modalidad</span> (presencial / en línea).</p>
+
+      <h4>Archivo adjunto</h4>
+      <p>Formato Word (<span class="mono">.doc</span> o <span class="mono">.docx</span>).</p>
+    </div>
+  </section>
+
+  <!-- ============== ESTRUCTURA ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">VI · ESTRUCTURA Y PRESENTACIÓN</span>
+    </div>
+    <ul class="specs">
+      <li><strong>Extensión.</strong> Mínima de 15 y máxima de 20 páginas, incluyendo referencias y anexos.</li>
+      <li><strong>Encabezado.</strong> Título, nombre completo del autor, un único cargo y una institución de adscripción.</li>
+      <li><strong>Índice.</strong> Sumario de los puntos clave del trabajo. No se requiere <em>abstract</em>.</li>
+      <li><strong>Fuente y formato.</strong> Times New Roman 12 pt, interlineado 1.5 para texto principal; Times New Roman 10 pt, interlineado sencillo para notas al pie.</li>
+      <li><strong>Numeración de secciones.</strong> <br>
+        &nbsp;&nbsp;<span class="mono">I. INTRODUCCIÓN</span> (negritas y mayúsculas)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">1. Subsección</span> (negritas)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">a. Detalle</span> (cursiva)
+      </li>
+      <li><strong>Citas.</strong> En notas al pie, conforme a los estándares de publicaciones jurídicas (véase sección VIII).</li>
+    </ul>
+  </section>
+
+  <!-- ============== REVISIÓN ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">VII · REVISIÓN Y PUBLICACIÓN</span>
+    </div>
+    <p>
+      La evaluación se realizará bajo riguroso anonimato. Cada contribución recibirá un número correlativo por parte del comité organizador; dos miembros del comité científico, sin conocimiento previo de la autoría, dictaminarán cada trabajo garantizando imparcialidad y juicio fundado en la <em>calidad, originalidad y pertinencia</em> del contenido.
+    </p>
+    <p>
+      En una fase ulterior, el comité científico deliberará para seleccionar las contribuciones más sobresalientes, atendiendo a la actualidad del tema, la singularidad de la perspectiva, la claridad expositiva y el aporte al diálogo del Foro. Los trabajos aceptados y presentados serán considerados para su inclusión en el <strong>libro colectivo conmemorativo</strong> de la IV edición.
+    </p>
+
+    <div class="callout">
+      <h4>Recordatorio final</h4>
+      <p>
+        Antes de enviar su propuesta, verifique cuidadosamente el cumplimiento de las normas de estilo y formatos de citación aquí establecidos. La calidad de la presentación y el seguimiento de estas directrices son factores determinantes en el proceso de selección.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============== CITAS ============== -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">VIII · NORMAS DE ESTILO Y CITACIÓN</span>
+    </div>
+
+    <p>Las citas deben presentarse en notas al pie, con los datos suficientes para la localización precisa de cada fuente. Se proporcionan ejemplos de referencia:</p>
+
+    <div class="citations-grid">
+      <div class="citation-card">
+        <h5>Libro</h5>
+        <p>APELLIDO, Nombre, <em>Título del Libro</em>, edición, Lugar de publicación, año.</p>
+      </div>
+      <div class="citation-card">
+        <h5>Artículo de Revista</h5>
+        <p>APELLIDO, Nombre, “Título del Artículo”, <em>Nombre de la Revista</em>, núm., año, págs.</p>
+      </div>
+      <div class="citation-card">
+        <h5>Capítulo de Libro</h5>
+        <p>APELLIDO, Nombre, “Título del Capítulo”, en <em>Nombre del Libro</em>, editor/a, Lugar, año, págs.</p>
+      </div>
+      <div class="citation-card">
+        <h5>Sitio Web</h5>
+        <p>URL (última consulta: dd/mm/aaaa).</p>
+      </div>
+      <div class="citation-card">
+        <h5>Documento en línea</h5>
+        <p>APELLIDO, Nombre (año). <em>Título del documento</em>. Nombre del sitio. URL (última consulta: dd/mm/aaaa).</p>
+      </div>
+      <div class="citation-card">
+        <h5>Artículo de Revista en línea</h5>
+        <p>APELLIDO, Nombre (año). Título. <em>Nombre de la Revista</em>, vol(núm), págs. URL (última consulta: dd/mm/aaaa).</p>
+      </div>
+      <div class="citation-card">
+        <h5>Jurisprudencia</h5>
+        <p>Nombre del Tribunal, Sentencia [núm.] (año). Tema central. URL (última consulta: dd/mm/aaaa).</p>
+      </div>
+      <div class="citation-card">
+        <h5>Legislación</h5>
+        <p>“Nombre de la Ley”, <em>Diario Oficial de la Federación</em>, fecha.</p>
+      </div>
+      <div class="citation-card">
+        <h5>Artículo de Ley</h5>
+        <p>Artículo 6º de la Constitución Política de los Estados Unidos Mexicanos, reformado, <em>DOF</em>, 11 de junio de 2013.</p>
+      </div>
+      <div class="citation-card">
+        <h5>Tesis Aislada / Jurisprudencia</h5>
+        <p>Primera Sala SCJN, Tesis 1a. CXLII/2015 (10a.), <em>Gaceta del Semanario Judicial de la Federación</em>, Libro 19, Tomo I, junio 2015, p. 814.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer">
+    <div>
+      <div class="mark">Foro Internacional de Derecho y Tecnología</div>
+      <div style="margin-top:6px;">CUCEA · CUGDL · Ciudad Judicial · UdeG · Edición IV · MMXXVI</div>
+    </div>
+    <div style="text-align:right;">
+      <div>Zapopan, Jalisco · México</div>
+      <div style="margin-top:6px;">21 &amp; 22 sep · 2026</div>
+    </div>
+  </footer>
+
+</article>
+</body>
+</html>

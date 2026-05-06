@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #F5EFE0; margin: 0; padding: 0; color: #0E1B2C; }
+  .container { max-width: 580px; margin: 0 auto; background: #FFFEFA; padding: 0; }
+  .header { background: #0E1B2C; padding: 32px 40px; border-bottom: 4px solid #B8923E; }
+  .header h1 { color: #F5EFE0; font-size: 22px; font-weight: 300; margin: 0 0 4px 0; letter-spacing: -0.01em; }
+  .header .meta { color: rgba(245, 239, 224, 0.7); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-family: 'Courier New', monospace; }
+  .body { padding: 40px; }
+  .body p { font-size: 15px; line-height: 1.6; color: rgba(14, 27, 44, 0.85); margin: 0 0 16px 0; }
+  .greeting { font-size: 28px; font-weight: 300; color: #0E1B2C; margin: 0 0 24px 0; font-family: Georgia, serif; }
+  .greeting em { color: #B8923E; font-style: italic; }
+  .qr-box { background: #F5EFE0; border: 1px solid rgba(14, 27, 44, 0.14); padding: 24px; margin: 32px 0; text-align: center; }
+  .qr-box .label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(14, 27, 44, 0.5); font-family: 'Courier New', monospace; margin-bottom: 12px; }
+  .folio-box { display: inline-block; padding: 8px 16px; background: #0E1B2C; color: #F5EFE0; font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 0.1em; margin-top: 8px; }
+  .info-list { background: #FAF6EA; padding: 24px; border-left: 3px solid #B8923E; margin: 24px 0; }
+  .info-list h3 { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8923E; font-family: 'Courier New', monospace; margin: 0 0 12px 0; font-weight: 500; }
+  .info-list ul { margin: 0; padding-left: 18px; }
+  .info-list li { font-size: 14px; line-height: 1.6; color: rgba(14, 27, 44, 0.85); margin-bottom: 6px; }
+  .footer { background: #F1EAD7; padding: 28px 40px; text-align: center; }
+  .footer p { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14, 27, 44, 0.5); margin: 4px 0; font-family: 'Courier New', monospace; }
+  a { color: #0E1B2C; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>IV Foro Internacional de Derecho y Tecnología</h1>
+    <div class="meta">21 y 22 sep · 2026 · CUCEA-UDG</div>
+  </div>
+
+  <div class="body">
+    <p class="greeting">Hola, <em>{{NOMBRE}}</em>.</p>
+
+    <p>Tu inscripción al IV Foro Internacional de Derecho y Tecnología fue registrada con éxito. Aquí va tu credencial digital.</p>
+
+    <div class="qr-box">
+      <div class="label">Tu código QR personal</div>
+      {{QR_INLINE}}
+      <div class="folio-box">FOLIO {{FOLIO}}</div>
+    </div>
+
+    <div class="info-list">
+      <h3>Cómo usar tu QR el día del evento</h3>
+      <ul>
+        <li>Llévalo en tu celular o impreso. Cualquiera de los dos formatos funciona.</li>
+        <li>Día 1, al ingresar a CUCEA, presenta tu INE o credencial UDG. Validamos identidad y te colocamos el brazalete oficial.</li>
+        <li>El staff del Foro escanea tu QR al inicio de cada ponencia para acreditar tu asistencia.</li>
+        <li>Al cierre del evento te enviamos por correo tu constancia con el total de horas acumuladas.</li>
+      </ul>
+    </div>
+
+    <div class="info-list" style="border-left-color: #2A5C5C;">
+      <h3>Constancia con valor curricular</h3>
+      <ul>
+        <li>Si acumulas <strong>20 horas efectivas</strong> o más, recibes constancia con valor curricular emitida por la Universidad de Guadalajara.</li>
+        <li>Si acumulas entre 4 y 19 horas, recibes constancia de asistencia.</li>
+        <li>El programa preliminar suma 22 horas efectivas, lo que te da margen para alcanzar la meta.</li>
+      </ul>
+    </div>
+
+    <p>Cualquier duda, escribe a <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a> con asunto «IV Foro · Folio {{FOLIO}}».</p>
+
+    <p style="margin-top: 32px; font-style: italic; color: rgba(14, 27, 44, 0.6);">Te esperamos.</p>
+  </div>
+
+  <div class="footer">
+    <p>CUCEA · Universidad de Guadalajara</p>
+    <p>Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología</p>
+  </div>
+
+</div>
+</body>
+</html>
