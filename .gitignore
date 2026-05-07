@@ -1,0 +1,23 @@
+# Editores y agentes locales
+.claude/
+.vscode/
+.idea/
+.cursor/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs y temporales
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Secretos locales (por si acaso — el proyecto no usa env files, pero blindamos)
+.env
+.env.*
+*.pem
+*.key
+secrets.local.*
