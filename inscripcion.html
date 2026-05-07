@@ -754,39 +754,13 @@ textarea:focus { border-color: var(--dorado); }
   .notice-banner { grid-template-columns: 1fr; gap: 12px; padding: 20px 22px; }
 }
 
-/* Form en pausa: ligero atenuado para reforzar mensaje del banner */
-.form-paused {
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-/* Variante de error y oculto */
+/* Variante de error del banner (se usa solo si el fetch al backend falla) */
 .notice-banner.error {
   background: var(--error);
   border-left-color: var(--ink);
 }
 
 .notice-banner.hidden { display: none; }
-
-/* Indicador de modo preview (solo se muestra con ?preview=1) */
-.preview-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: var(--dorado);
-  color: var(--ink);
-  text-align: center;
-  padding: 7px 14px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  z-index: 200;
-  border-bottom: 1px solid var(--ink);
-}
-
-.preview-banner strong { font-weight: 600; }
 
 /* Estado loading del botón mientras hace fetch */
 .btn-primary.loading { pointer-events: none; opacity: 0.7; }
@@ -1180,18 +1154,6 @@ footer {
     <!-- Pre-form -->
     <div id="asistente-form-wrap">
 
-      <!-- Banner: sistema en pruebas (Tarea 0) -->
-      <div class="notice-banner" id="notice-pruebas" role="status" aria-live="polite">
-        <span class="notice-banner-mark">Aviso</span>
-        <div class="notice-banner-body">
-          <span class="notice-banner-title">Sistema de inscripción en pruebas.</span>
-          <span class="notice-banner-detail">
-            El formulario está visible mientras el comité organizador termina la verificación técnica del backend. <strong>Aún no se aceptan inscripciones.</strong> Te invitamos a regresar a partir de la fecha de apertura oficial. Si dejas tus datos ahora, no quedarán registrados.
-          </span>
-          <span class="notice-banner-meta">Apertura oficial · 15 de mayo de 2026</span>
-        </div>
-      </div>
-
       <!-- Banner de error inline (oculto hasta que un fetch falle) -->
       <div class="notice-banner error hidden" id="form-error-banner" role="alert" aria-live="assertive">
         <span class="notice-banner-mark">Error</span>
@@ -1209,7 +1171,7 @@ footer {
         </p>
       </div>
 
-      <form id="form-asistente" class="form-paused" aria-disabled="true" novalidate>
+      <form id="form-asistente" novalidate>
         <div class="form-grid">
 
           <!-- Nombre -->
@@ -1423,11 +1385,11 @@ footer {
         </div>
 
         <div class="submit-row">
-          <button type="submit" class="btn-primary" id="btn-submit" disabled aria-disabled="true">
-            <span>Inscripciones cerradas · Apertura 15 mayo 2026</span>
+          <button type="submit" class="btn-primary" id="btn-submit">
+            <span>Generar mi QR</span>
           </button>
           <p class="submit-note">
-            El botón se habilitará en cuanto el sistema entre oficialmente en operación. Mientras tanto, tu información no se guarda en ningún lado: vuelve a esta página el 15 de mayo de 2026 para inscribirte.
+            Al enviar recibirás un correo con tu QR único. Si no llega en 5 minutos, revisa carpeta de SPAM o Promociones.
           </p>
         </div>
       </form>
@@ -1719,7 +1681,7 @@ function hideFormError() {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  // Guarda Tarea 0: si el botón está disabled (modo público con banner activo), no procesar.
+  // Anti-doble-submit: si ya se está enviando (botón disabled durante fetch), no procesar otro click.
   if (document.getElementById('btn-submit').disabled) return;
 
   clearErrors();
@@ -1886,43 +1848,6 @@ document.getElementById('form-newsletter').addEventListener('submit', async (e) 
   }
 });
 
-/* ============ PREVIEW MODE (test del Director sin retirar el banner público) ============ */
-function aplicarPreviewMode() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('preview') !== '1') return;
-
-  // Ocultar banner Tarea 0 (no el banner de error)
-  const noticePruebas = document.getElementById('notice-pruebas');
-  if (noticePruebas) noticePruebas.style.display = 'none';
-
-  // Quitar form-paused
-  const f = document.getElementById('form-asistente');
-  if (f) {
-    f.classList.remove('form-paused');
-    f.removeAttribute('aria-disabled');
-  }
-
-  // Habilitar botón submit
-  const btn = document.getElementById('btn-submit');
-  if (btn) {
-    btn.disabled = false;
-    btn.removeAttribute('aria-disabled');
-    const span = btn.querySelector('span');
-    if (span) span.textContent = 'Generar mi QR';
-  }
-
-  // Cambiar copy del submit-note
-  const note = document.querySelector('.submit-note');
-  if (note) note.textContent = 'Modo preview activo · Tu inscripción se procesará y guardará en el sistema. Recibirás correo con QR a la dirección que captures.';
-
-  // Indicador visual fijo arriba
-  const banner = document.createElement('div');
-  banner.className = 'preview-banner';
-  banner.innerHTML = '<strong>Modo preview activo</strong> · Inscripciones procesándose en backend real';
-  document.body.prepend(banner);
-}
-
-aplicarPreviewMode();
 </script>
 
 </body>
