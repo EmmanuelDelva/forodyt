@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Scanner del staff · IV Foro DDT 2026</title>
+<meta name="description" content="Vista interna para el equipo de staff del IV Foro Internacional de Derecho y Tecnología.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- html5-qrcode (cámara + decodificador QR vanilla, sin build step) -->
+<script src="https://unpkg.com/html5-qrcode@2.3.10/html5-qrcode.min.js"></script>
+
+<style>
+:root {
+  --ink: #0E1B2C;
+  --ink-soft: rgba(14, 27, 44, 0.72);
+  --ink-faint: rgba(14, 27, 44, 0.4);
+  --ink-rule: rgba(14, 27, 44, 0.14);
+  --teal: #2A5C5C;
+  --teal-deep: #1F4747;
+  --dorado: #B8923E;
+  --dorado-soft: #C8A858;
+  --granate: #632A3D;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --paper: #F1EAD7;
+  --white: #FFFEFA;
+  --error: #8B2A2A;
+  --success: #2F5D3A;
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { min-height: 100vh; min-height: 100dvh; }
+
+body {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--marfil);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+a { color: inherit; }
+
+/* ============ TOP BAR ============ */
+.bar {
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 14px 18px;
+  padding-top: calc(14px + env(safe-area-inset-top));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 2px solid var(--dorado);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.bar-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.bar-brand .mark {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.01em;
+  color: var(--marfil);
+}
+
+.bar-brand .role {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dorado-soft);
+}
+
+.bar-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.bar-status .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  display: inline-block;
+}
+
+.bar-status.offline .dot { background: var(--error); }
+.bar-status.offline { color: rgba(245, 239, 224, 0.85); }
+
+/* ============ LAYOUT ============ */
+main {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 20px 18px 40px;
+}
+
+.section {
+  background: var(--white);
+  border: 1px solid var(--ink-rule);
+  margin-bottom: 18px;
+  padding: 22px 20px;
+}
+
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--dorado-soft);
+}
+
+.section-text {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ============ FORM SETUP ============ */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.form-input,
+.form-select {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--white);
+  border: none;
+  border-bottom: 1px solid var(--ink-rule);
+  padding: 10px 0;
+  outline: none;
+  transition: border-color 0.3s var(--ease);
+  width: 100%;
+  border-radius: 0;
+  appearance: none;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-bottom-color: var(--dorado);
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%230E1B2C' d='M6 8L0 0h12z' opacity='0.5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 24px;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 14px 22px;
+  border: none;
+  border-radius: 0;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s var(--ease);
+  width: 100%;
+}
+
+.btn:hover { background: var(--teal-deep); }
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.btn-ghost:hover { background: var(--ink); color: var(--marfil); }
+
+.btn-success { background: var(--success); }
+.btn-success:hover { background: #244829; }
+
+.btn-danger { background: var(--granate); }
+.btn-danger:hover { background: #4a1f2d; }
+
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* ============ SCANNER ============ */
+#reader {
+  background: var(--ink);
+  border: 1px solid var(--ink-rule);
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+#reader video, #reader canvas {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+#reader__dashboard {
+  background: var(--marfil-light);
+  padding: 8px;
+  font-family: var(--sans);
+  font-size: 12px;
+}
+
+#reader__scan_region {
+  background: var(--ink) !important;
+}
+
+#reader__scan_region img {
+  filter: invert(1) opacity(0.6);
+}
+
+.scanner-hint {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  text-align: center;
+}
+
+.platica-active {
+  background: var(--marfil-light);
+  border-left: 3px solid var(--dorado);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+.platica-active .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 2px;
+}
+
+.platica-active .value {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-variation-settings: "opsz" 144;
+  color: var(--ink);
+}
+
+/* ============ RESULT CARD ============ */
+.result {
+  border-left: 3px solid var(--dorado);
+  background: var(--white);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  display: none;
+}
+
+.result.show { display: block; animation: fadeIn 0.25s var(--ease); }
+.result.success { border-left-color: var(--success); }
+.result.error { border-left-color: var(--error); background: #FCF6F4; }
+.result.warning { border-left-color: var(--granate); background: #FAF3F4; }
+
+.result-status {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.result.success .result-status { color: var(--success); }
+.result.error .result-status { color: var(--error); }
+.result.warning .result-status { color: var(--granate); }
+
+.result-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.result-meta {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.result-meta-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ink-rule);
+  font-size: 12.5px;
+}
+
+.result-meta-item:last-child { border-bottom: none; }
+
+.result-meta-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.result-meta-item .value {
+  color: var(--ink);
+  text-align: right;
+}
+
+.result-error-msg {
+  font-size: 14px;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+/* ============ OFFLINE QUEUE ============ */
+.queue {
+  background: var(--paper);
+  border: 1px solid var(--ink-rule);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.queue-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--granate);
+}
+
+.queue-count {
+  background: var(--granate);
+  color: var(--marfil);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+}
+
+.queue-list {
+  margin-top: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+
+.queue.expanded .queue-list { display: block; }
+
+.queue-item {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ink-rule);
+}
+
+.queue-item:last-child { border-bottom: none; }
+
+.queue-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden { display: none !important; }
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 12px 22px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+  pointer-events: none;
+  max-width: 90vw;
+  text-align: center;
+  border-left: 3px solid var(--dorado);
+}
+
+.toast.show { opacity: 1; }
+.toast.error { border-left-color: var(--error); }
+
+/* ============ FOOTER ============ */
+.foot {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 40px;
+  padding: 0 18px;
+}
+
+.foot a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--dorado); }
+</style>
+
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-brand">
+    <span class="mark">IV Foro</span>
+    <span class="role">· Staff</span>
+  </div>
+  <div class="bar-status" id="bar-status">
+    <span class="dot"></span><span id="status-text">En línea</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ========== SECTION 1: SETUP ========== -->
+  <section class="section" id="setup-section">
+    <div class="section-eyebrow">Configuración inicial</div>
+    <h2 class="section-title">Datos del <em>staff</em>.</h2>
+    <p class="section-text" style="margin-bottom: 18px;">
+      Captura tu correo institucional y selecciona la plática que estás validando ahora. Esto se guarda local en este dispositivo; puedes cambiarlo en cualquier momento.
+    </p>
+
+    <div class="form-row">
+      <label class="form-label" for="staff-email">Tu correo de staff</label>
+      <input type="email" class="form-input" id="staff-email" placeholder="nombre@cucea.udg.mx" autocomplete="email">
+    </div>
+
+    <div class="form-row">
+      <label class="form-label" for="platica-select">Plática actual</label>
+      <select class="form-select" id="platica-select">
+        <option value="">Selecciona una plática…</option>
+        <!-- Las opciones se inyectan via JS desde la constante PLATICAS -->
+      </select>
+    </div>
+
+    <button class="btn" id="btn-iniciar" disabled>Iniciar escaneo</button>
+  </section>
+
+  <!-- ========== SECTION 2: SCANNER ========== -->
+  <section class="section hidden" id="scanner-section">
+    <div class="section-eyebrow">Escaneo activo</div>
+
+    <div class="platica-active">
+      <div class="label">Plática actual</div>
+      <div class="value" id="platica-current-name">—</div>
+    </div>
+
+    <div id="reader"></div>
+    <p class="scanner-hint">Apunta la cámara al QR del asistente. Se valida automáticamente.</p>
+
+    <div class="result" id="result"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-cambiar-platica">Cambiar plática</button>
+      <button class="btn btn-ghost" id="btn-pausar">Pausar cámara</button>
+    </div>
+  </section>
+
+  <!-- ========== OFFLINE QUEUE ========== -->
+  <div class="queue hidden" id="queue">
+    <div class="queue-header" onclick="toggleQueue()">
+      <span class="queue-title">Pendientes sin enviar</span>
+      <span class="queue-count" id="queue-count">0</span>
+    </div>
+    <div class="queue-list" id="queue-list"></div>
+    <div class="queue-actions">
+      <button class="btn btn-ghost" style="font-size: 11px; padding: 8px 14px;" onclick="flushOffline()">Reintentar envío</button>
+      <button class="btn btn-ghost btn-danger" style="font-size: 11px; padding: 8px 14px; border-color: var(--granate); color: var(--granate);" onclick="clearOfflineQueue()">Vaciar cola</button>
+    </div>
+  </div>
+
+  <p class="foot">
+    Vista interna · IV Foro Internacional de Derecho y Tecnología · 2026<br>
+    <a href="index.html">Volver al sitio público</a>
+  </p>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================================
+ * IV Foro · Staff Scanner
+ * Vanilla JS · sin frameworks · cámara via html5-qrcode
+ * ==========================================================
+ */
+
+// ---------- CONFIG ----------
+// Cuando termines la Tarea 4 (Deploy Web App de Apps Script), reemplaza esto
+// por la URL completa que Apps Script genere. Mientras tanto, las llamadas
+// fallarán y los escaneos quedarán encolados en localStorage hasta tener URL.
+const ENDPOINT = '__APPS_SCRIPT_WEB_APP_URL__';
+
+// Bloques de asistencia del IV Foro. Modelo inicial = 1 entrada por sede × jornada.
+// Cuando se confirmen ponentes y subdivisiones internas, podrás añadir más filas
+// al Sheet y duplicarlas aquí; id_platica DEBE coincidir con el de la pestaña Platicas.
+const PLATICAS = [
+  { id: 1, jornada: 'j1', sede: 'cucea',            fecha: 'Lun 21 sep', inicio: '09:00', fin: '18:30', nombre: 'CUCEA · Jornada 1 completa' },
+  { id: 2, jornada: 'j2', sede: 'cugdl',            fecha: 'Mar 22 sep', inicio: '09:30', fin: '13:30', nombre: 'CUGDL · Jornada 2 matutina' },
+  { id: 3, jornada: 'j2', sede: 'ciudad_judicial',  fecha: 'Mar 22 sep', inicio: '15:00', fin: '18:30', nombre: 'Ciudad Judicial · Jornada 2 vespertina' }
+];
+
+// ---------- STATE ----------
+const state = {
+  staffEmail: localStorage.getItem('foro_staff_email') || '',
+  platicaId: null,
+  scanner: null,
+  scanning: false,
+  online: navigator.onLine,
+  lastScan: 0
+};
+
+const SCAN_DEBOUNCE_MS = 2500; // evita múltiples lecturas del mismo QR
+
+// ---------- DOM HELPERS ----------
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+function show(el) { el.classList.remove('hidden'); }
+function hide(el) { el.classList.add('hidden'); }
+
+function toast(msg, isError = false) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.toggle('error', isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ---------- SETUP ----------
+function init() {
+  // Pre-rellenar email si ya estaba guardado
+  if (state.staffEmail) $('#staff-email').value = state.staffEmail;
+
+  // Llenar dropdown de pláticas
+  const sel = $('#platica-select');
+  PLATICAS.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.fecha} · ${p.inicio}–${p.fin} · ${p.nombre}`;
+    sel.appendChild(opt);
+  });
+
+  // Pre-seleccionar última plática usada
+  const lastPlatica = localStorage.getItem('foro_last_platica');
+  if (lastPlatica) sel.value = lastPlatica;
+
+  // Validar form en cada cambio
+  $('#staff-email').addEventListener('input', validarSetup);
+  $('#platica-select').addEventListener('change', validarSetup);
+  $('#btn-iniciar').addEventListener('click', iniciarEscaneo);
+  $('#btn-cambiar-platica').addEventListener('click', volverASetup);
+  $('#btn-pausar').addEventListener('click', togglePausa);
+
+  validarSetup();
+
+  // Online/offline events
+  window.addEventListener('online', () => {
+    state.online = true;
+    actualizarBadgeOnline();
+    flushOffline(); // intentar sync automático al reconectar
+  });
+  window.addEventListener('offline', () => {
+    state.online = false;
+    actualizarBadgeOnline();
+  });
+  actualizarBadgeOnline();
+
+  // Mostrar cola al cargar si hay pendientes
+  renderQueue();
+}
+
+function validarSetup() {
+  const email = $('#staff-email').value.trim();
+  const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const platica = $('#platica-select').value;
+  const valid = reEmail.test(email) && !!platica;
+  $('#btn-iniciar').disabled = !valid;
+}
+
+function iniciarEscaneo() {
+  state.staffEmail = $('#staff-email').value.trim().toLowerCase();
+  state.platicaId = $('#platica-select').value;
+  localStorage.setItem('foro_staff_email', state.staffEmail);
+  localStorage.setItem('foro_last_platica', state.platicaId);
+
+  const platica = PLATICAS.find(p => String(p.id) === String(state.platicaId));
+  $('#platica-current-name').textContent = platica ? platica.nombre : '—';
+
+  hide($('#setup-section'));
+  show($('#scanner-section'));
+
+  arrancarCamara();
+}
+
+function volverASetup() {
+  pararCamara();
+  hide($('#scanner-section'));
+  show($('#setup-section'));
+  $('#result').classList.remove('show');
+}
+
+function togglePausa() {
+  if (state.scanning) {
+    pararCamara();
+    $('#btn-pausar').textContent = 'Reanudar cámara';
+  } else {
+    arrancarCamara();
+    $('#btn-pausar').textContent = 'Pausar cámara';
+  }
+}
+
+// ---------- CÁMARA / QR ----------
+async function arrancarCamara() {
+  if (state.scanning) return;
+  if (!window.Html5Qrcode) {
+    toast('Librería de cámara no cargó. Recarga la página.', true);
+    return;
+  }
+
+  if (!state.scanner) {
+    state.scanner = new Html5Qrcode('reader', { verbose: false });
+  }
+
+  try {
+    await state.scanner.start(
+      { facingMode: 'environment' },
+      { fps: 10, qrbox: { width: 240, height: 240 }, aspectRatio: 1.0 },
+      onScanSuccess,
+      onScanFailure
+    );
+    state.scanning = true;
+  } catch (err) {
+    toast('No se pudo abrir la cámara. ¿Diste permiso?', true);
+    console.error('Camera error:', err);
+  }
+}
+
+async function pararCamara() {
+  if (!state.scanner || !state.scanning) return;
+  try {
+    await state.scanner.stop();
+    state.scanning = false;
+  } catch (err) {
+    console.warn('Stop error:', err);
+  }
+}
+
+function onScanSuccess(decodedText) {
+  const now = Date.now();
+  if (now - state.lastScan < SCAN_DEBOUNCE_MS) return; // antirebote
+  state.lastScan = now;
+
+  const parsed = parseQR(decodedText);
+  if (!parsed) {
+    mostrarResultadoError('QR inválido', `Lectura: ${decodedText.substring(0, 60)}…`);
+    return;
+  }
+  procesarCheckin(parsed.folio, parsed.hmac);
+}
+
+function onScanFailure(_err) { /* noop — html5-qrcode emite muchos errores triviales */ }
+
+function parseQR(text) {
+  // Formato esperado: FORO|<folio>|<hmac8>
+  const parts = String(text).split('|');
+  if (parts.length !== 3 || parts[0] !== 'FORO') return null;
+  const folio = parts[1];
+  const hmac = parts[2];
+  if (!folio || !hmac || hmac.length !== 8) return null;
+  return { folio: folio, hmac: hmac };
+}
+
+// ---------- CHECK-IN FLOW ----------
+async function procesarCheckin(folio, hmac) {
+  // Validar QR contra el endpoint y, si OK, registrar check-in.
+  if (!ENDPOINT || ENDPOINT.indexOf('__') === 0) {
+    mostrarResultadoError('Endpoint no configurado', 'Avísale al Director: falta pegar la URL del Web App de Apps Script en staff-scanner.html.');
+    return;
+  }
+
+  if (!state.online) {
+    encolarOffline(folio, hmac);
+    mostrarResultadoWarning('Sin conexión', `Folio ${folio} encolado. Se enviará al reconectar.`);
+    return;
+  }
+
+  // Paso 1: validar
+  let val;
+  try {
+    val = await fetchJSON(`${ENDPOINT}?action=validar&folio=${encodeURIComponent(folio)}&hmac=${encodeURIComponent(hmac)}`, {
+      method: 'GET'
+    });
+  } catch (err) {
+    encolarOffline(folio, hmac);
+    mostrarResultadoWarning('Sin red al validar', `Folio ${folio} encolado. Reintenta más tarde.`);
+    return;
+  }
+
+  if (!val.ok) {
+    mostrarResultadoError(val.error || 'QR inválido', `Folio escaneado: ${folio}`);
+    return;
+  }
+
+  // Paso 2: confirmar entrada (la decisión final la hace el staff con el botón)
+  mostrarResultadoConfirm(val, folio, hmac);
+}
+
+function mostrarResultadoConfirm(usuario, folio, hmac) {
+  const r = $('#result');
+  r.className = 'result success show';
+  r.innerHTML = `
+    <div class="result-status">QR válido · confirmar entrada</div>
+    <div class="result-name">${escapeHtml(usuario.nombre || '—')}</div>
+    <div class="result-meta">
+      <div class="result-meta-item"><span class="label">Folio</span><span class="value">${escapeHtml(folio)}</span></div>
+      <div class="result-meta-item"><span class="label">Tipo</span><span class="value">${escapeHtml(usuario.tipo || '—')}</span></div>
+      <div class="result-meta-item"><span class="label">Institución</span><span class="value">${escapeHtml(usuario.institucion || '—')}</span></div>
+      <div class="result-meta-item"><span class="label">Modalidad</span><span class="value">${escapeHtml(usuario.modalidad || '—')}</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-success" id="btn-confirmar">Confirmar entrada</button>
+      <button class="btn btn-ghost" id="btn-cancelar">Cancelar</button>
+    </div>
+  `;
+  $('#btn-confirmar').addEventListener('click', () => confirmarCheckin(folio, hmac, usuario.nombre));
+  $('#btn-cancelar').addEventListener('click', () => r.classList.remove('show'));
+}
+
+async function confirmarCheckin(folio, hmac, nombre) {
+  $('#btn-confirmar').disabled = true;
+  $('#btn-confirmar').textContent = 'Enviando…';
+
+  try {
+    const res = await fetchJSON(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // CORS de Apps Script
+      body: JSON.stringify({
+        action: 'checkin',
+        folio: folio,
+        hmac: hmac,
+        id_platica: state.platicaId,
+        staff_email: state.staffEmail
+      })
+    });
+
+    if (res.ok) {
+      mostrarResultadoSuccess(nombre, folio, res.horas_sumadas);
+      toast(`Registro OK · +${res.horas_sumadas || 0} h`);
+    } else if (res.ya_registrado) {
+      mostrarResultadoWarning('Ya estaba registrado', `${nombre} ya tenía check-in en esta plática.`);
+    } else {
+      mostrarResultadoError(res.error || 'Rechazado', `${nombre} · ${folio}`);
+    }
+  } catch (err) {
+    encolarOffline(folio, hmac);
+    mostrarResultadoWarning('Sin red al confirmar', `Folio ${folio} encolado.`);
+  }
+}
+
+function mostrarResultadoSuccess(nombre, folio, horas) {
+  const r = $('#result');
+  r.className = 'result success show';
+  r.innerHTML = `
+    <div class="result-status">Entrada registrada</div>
+    <div class="result-name">${escapeHtml(nombre || '—')}</div>
+    <div class="result-meta">
+      <div class="result-meta-item"><span class="label">Folio</span><span class="value">${escapeHtml(folio)}</span></div>
+      <div class="result-meta-item"><span class="label">Horas sumadas</span><span class="value">+${horas || 0} h</span></div>
+    </div>
+  `;
+}
+
+function mostrarResultadoError(titulo, detalle) {
+  const r = $('#result');
+  r.className = 'result error show';
+  r.innerHTML = `
+    <div class="result-status">${escapeHtml(titulo)}</div>
+    <div class="result-error-msg">${escapeHtml(detalle || '')}</div>
+  `;
+  toast(titulo, true);
+}
+
+function mostrarResultadoWarning(titulo, detalle) {
+  const r = $('#result');
+  r.className = 'result warning show';
+  r.innerHTML = `
+    <div class="result-status">${escapeHtml(titulo)}</div>
+    <div class="result-error-msg">${escapeHtml(detalle || '')}</div>
+  `;
+}
+
+// ---------- OFFLINE QUEUE ----------
+function encolarOffline(folio, hmac) {
+  const queue = getOfflineQueue();
+  queue.push({
+    folio: folio,
+    hmac: hmac,
+    id_platica: state.platicaId,
+    staff_email: state.staffEmail,
+    ts: Date.now()
+  });
+  localStorage.setItem('foro_offline_queue', JSON.stringify(queue));
+  renderQueue();
+}
+
+function getOfflineQueue() {
+  try {
+    return JSON.parse(localStorage.getItem('foro_offline_queue') || '[]');
+  } catch { return []; }
+}
+
+function renderQueue() {
+  const queue = getOfflineQueue();
+  const wrap = $('#queue');
+  if (queue.length === 0) {
+    hide(wrap);
+    return;
+  }
+  show(wrap);
+  $('#queue-count').textContent = queue.length;
+  const list = $('#queue-list');
+  list.innerHTML = queue.map(item =>
+    `<div class="queue-item">${new Date(item.ts).toLocaleTimeString()} · ${escapeHtml(item.folio)} · plat ${escapeHtml(String(item.id_platica))}</div>`
+  ).join('');
+}
+
+function toggleQueue() {
+  $('#queue').classList.toggle('expanded');
+}
+
+async function flushOffline() {
+  const queue = getOfflineQueue();
+  if (queue.length === 0) return;
+  if (!state.online) {
+    toast('Sigue sin conexión', true);
+    return;
+  }
+  if (!ENDPOINT || ENDPOINT.indexOf('__') === 0) {
+    toast('Endpoint no configurado', true);
+    return;
+  }
+
+  let enviados = 0;
+  let pendientes = [];
+  for (const item of queue) {
+    try {
+      const res = await fetchJSON(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'checkin',
+          folio: item.folio,
+          hmac: item.hmac,
+          id_platica: item.id_platica,
+          staff_email: item.staff_email
+        })
+      });
+      if (res.ok || res.ya_registrado) {
+        enviados++;
+      } else {
+        pendientes.push(item);
+      }
+    } catch {
+      pendientes.push(item);
+    }
+  }
+  localStorage.setItem('foro_offline_queue', JSON.stringify(pendientes));
+  renderQueue();
+  toast(`Sincronizados ${enviados} · pendientes ${pendientes.length}`);
+}
+
+function clearOfflineQueue() {
+  if (!confirm('¿Vaciar la cola de pendientes? No se podrá recuperar.')) return;
+  localStorage.removeItem('foro_offline_queue');
+  renderQueue();
+  toast('Cola vaciada');
+}
+
+// ---------- ONLINE BADGE ----------
+function actualizarBadgeOnline() {
+  const bar = $('#bar-status');
+  const text = $('#status-text');
+  if (state.online) {
+    bar.classList.remove('offline');
+    text.textContent = 'En línea';
+  } else {
+    bar.classList.add('offline');
+    text.textContent = 'Sin conexión';
+  }
+}
+
+// ---------- FETCH ----------
+async function fetchJSON(url, opts) {
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const text = await res.text();
+  try { return JSON.parse(text); } catch { return { ok: false, error: 'Respuesta no JSON' }; }
+}
+
+// ---------- UTILS ----------
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ---------- BOOT ----------
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
