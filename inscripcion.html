@@ -760,6 +760,38 @@ textarea:focus { border-color: var(--dorado); }
   pointer-events: none;
 }
 
+/* Variante de error y oculto */
+.notice-banner.error {
+  background: var(--error);
+  border-left-color: var(--ink);
+}
+
+.notice-banner.hidden { display: none; }
+
+/* Indicador de modo preview (solo se muestra con ?preview=1) */
+.preview-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--dorado);
+  color: var(--ink);
+  text-align: center;
+  padding: 7px 14px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  z-index: 200;
+  border-bottom: 1px solid var(--ink);
+}
+
+.preview-banner strong { font-weight: 600; }
+
+/* Estado loading del botón mientras hace fetch */
+.btn-primary.loading { pointer-events: none; opacity: 0.7; }
+.btn-primary.loading::before { display: none; }
+
 /* Error inline */
 .field.error input,
 .field.error select {
@@ -1149,7 +1181,7 @@ footer {
     <div id="asistente-form-wrap">
 
       <!-- Banner: sistema en pruebas (Tarea 0) -->
-      <div class="notice-banner" role="status" aria-live="polite">
+      <div class="notice-banner" id="notice-pruebas" role="status" aria-live="polite">
         <span class="notice-banner-mark">Aviso</span>
         <div class="notice-banner-body">
           <span class="notice-banner-title">Sistema de inscripción en pruebas.</span>
@@ -1157,6 +1189,15 @@ footer {
             El formulario está visible mientras el comité organizador termina la verificación técnica del backend. <strong>Aún no se aceptan inscripciones.</strong> Te invitamos a regresar a partir de la fecha de apertura oficial. Si dejas tus datos ahora, no quedarán registrados.
           </span>
           <span class="notice-banner-meta">Apertura oficial · 15 de mayo de 2026</span>
+        </div>
+      </div>
+
+      <!-- Banner de error inline (oculto hasta que un fetch falle) -->
+      <div class="notice-banner error hidden" id="form-error-banner" role="alert" aria-live="assertive">
+        <span class="notice-banner-mark">Error</span>
+        <div class="notice-banner-body">
+          <span class="notice-banner-title" id="form-error-title">No pudimos enviar tu inscripción.</span>
+          <span class="notice-banner-detail" id="form-error-detail">Verifica tu conexión a internet e intenta de nuevo. Si el problema persiste, escribe a <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: inherit; text-decoration: underline;">emmanueldelva@cucea.udg.mx</a> con asunto «error inscripción».</span>
         </div>
       </div>
 
@@ -1572,6 +1613,11 @@ footer {
 </div>
 
 <script>
+/* ============ CONFIG ============ */
+// URL del Web App de Apps Script (deploy IV Foro 2026 v1).
+// Si re-deployas con una versión nueva en Apps Script, actualiza aquí.
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55-JzzgzlXOZ0_lWOe1gpHPp0OJB0q2fn4l2B4NTHxBUq6CVA/exec';
+
 /* ============ TABS ============ */
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.panel');
@@ -1657,13 +1703,27 @@ function clearErrors() {
   document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
 }
 
-form.addEventListener('submit', (e) => {
+function showFormError(title, detail) {
+  const el = document.getElementById('form-error-banner');
+  if (!el) return;
+  if (title) document.getElementById('form-error-title').textContent = title;
+  if (detail) document.getElementById('form-error-detail').textContent = detail;
+  el.classList.remove('hidden');
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function hideFormError() {
+  const el = document.getElementById('form-error-banner');
+  if (el) el.classList.add('hidden');
+}
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  // Guarda Tarea 0: sistema en pruebas, no procesar nada hasta que el banner se retire.
-  if (document.getElementById('btn-submit').disabled) {
-    return;
-  }
+  // Guarda Tarea 0: si el botón está disabled (modo público con banner activo), no procesar.
+  if (document.getElementById('btn-submit').disabled) return;
+
   clearErrors();
+  hideFormError();
   let valid = true;
 
   const nombre = document.getElementById('f-nombre');
@@ -1699,41 +1759,81 @@ form.addEventListener('submit', (e) => {
   const aviso = document.getElementById('legal-priv');
   const codigo = document.getElementById('legal-cod');
   if (!aviso.checked || !codigo.checked) {
-    alert('Debes aceptar el Aviso de Privacidad y el Código de Conducta para continuar.');
+    showFormError('Falta aceptar los términos.', 'Debes aceptar el Aviso de Privacidad y el Código de Conducta para continuar.');
     valid = false;
   }
 
   if (!valid) {
-    document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+    document.querySelector('.field.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
-  // === Demo: emular envío al backend ===
-  // En producción aquí va: fetch('/apps-script-endpoint', { method:'POST', body: JSON.stringify(payload) })
+  // Payload completo según esquema del Sheet
   const payload = {
+    action: 'inscripcion',
     nombre: nombre.value.trim(),
     correo: correo.value.trim().toLowerCase(),
     tipo: tipo.value,
+    grado: document.getElementById('f-grado')?.value || '',
+    programa: document.getElementById('f-programa')?.value || '',
+    snii: document.getElementById('f-snii')?.value || '',
+    area: document.getElementById('f-area')?.value || '',
     institucion: inst.value.trim(),
-    modalidad: modalidad.value,
     pais: document.getElementById('f-pais').value,
-    timestamp: new Date().toISOString()
+    modalidad: modalidad.value,
+    fuente: document.getElementById('f-fuente').value || '',
+    acepto_aviso: aviso.checked,
+    acepto_codigo: codigo.checked,
+    acepto_news: document.getElementById('legal-news').checked
   };
-  console.log('[DEMO] Payload listo para Apps Script:', payload);
 
-  // Generar folio mock
-  const folio = 'IV-FORO-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  // UI: estado loading
+  const btn = document.getElementById('btn-submit');
+  const btnSpan = btn.querySelector('span');
+  const btnLabelOriginal = btnSpan.textContent;
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btnSpan.textContent = 'Enviando…';
 
-  document.getElementById('folio-display').textContent = folio;
-  document.getElementById('nombre-display').textContent = payload.nombre;
-  document.getElementById('correo-display').textContent = payload.correo;
-  const modMap = { presencial: 'Presencial', virtual: 'Virtual', mixta: 'Mixta' };
-  document.getElementById('modalidad-display').textContent = modMap[payload.modalidad];
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      redirect: 'follow'
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Respuesta inesperada');
 
-  document.getElementById('asistente-form-wrap').style.display = 'none';
-  document.getElementById('asistente-success').classList.add('show');
+    // Éxito (incluye caso ya_inscrito): mostrar pantalla con folio
+    document.getElementById('folio-display').textContent = data.folio || '—';
+    document.getElementById('nombre-display').textContent = payload.nombre;
+    document.getElementById('correo-display').textContent = payload.correo;
+    const modMap = { presencial: 'Presencial', virtual: 'Virtual', mixta: 'Mixta' };
+    document.getElementById('modalidad-display').textContent = modMap[payload.modalidad];
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (data.ya_inscrito) {
+      const successEl = document.getElementById('asistente-success');
+      const heading = successEl.querySelector('h2');
+      if (heading) heading.innerHTML = 'Ya estabas <em>inscrito</em>.';
+      const para = successEl.querySelector('p');
+      if (para) para.textContent = 'Tu folio es el mismo que generamos antes. Si no encuentras el correo original con tu QR, escríbenos a emmanueldelva@cucea.udg.mx y lo reenviamos.';
+    }
+
+    document.getElementById('asistente-form-wrap').style.display = 'none';
+    document.getElementById('asistente-success').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    console.error('Inscripción fallida:', err);
+    showFormError(
+      'No pudimos enviar tu inscripción.',
+      'Verifica tu conexión a internet e intenta de nuevo. Si el problema persiste, escribe a emmanueldelva@cucea.udg.mx con asunto «error inscripción» citando: ' + (err && err.message ? err.message : 'fallo desconocido')
+    );
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btnSpan.textContent = btnLabelOriginal;
+  }
 });
 
 function resetForm() {
@@ -1747,18 +1847,82 @@ function resetForm() {
 }
 
 /* ============ NEWSLETTER ============ */
-document.getElementById('form-newsletter').addEventListener('submit', (e) => {
+document.getElementById('form-newsletter').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const correo = document.getElementById('nl-correo').value;
+  const correoEl = document.getElementById('nl-correo');
+  const correo = correoEl.value.trim().toLowerCase();
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!re.test(correo)) {
-    alert('Captura un correo válido.');
+    correoEl.focus();
+    correoEl.style.borderBottomColor = 'var(--error)';
+    setTimeout(() => { correoEl.style.borderBottomColor = ''; }, 2500);
     return;
   }
-  console.log('[DEMO] Newsletter signup:', correo);
-  alert('¡Listo! Te enviamos una confirmación a ' + correo + '. Revisa tu bandeja.');
-  e.target.reset();
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  const btnSpan = btn.querySelector('span');
+  const labelOrig = btnSpan.textContent;
+  btn.disabled = true;
+  btnSpan.textContent = 'Enviando…';
+
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'newsletter', correo: correo, origen: 'web_inscripcion' }),
+      redirect: 'follow'
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Respuesta inesperada');
+
+    btnSpan.textContent = data.ya_suscrito ? 'Ya estabas suscrito' : '✓ Suscrito';
+    correoEl.value = '';
+    setTimeout(() => { btnSpan.textContent = labelOrig; btn.disabled = false; }, 3500);
+  } catch (err) {
+    console.error('Newsletter fallido:', err);
+    btnSpan.textContent = 'Error · reintenta';
+    setTimeout(() => { btnSpan.textContent = labelOrig; btn.disabled = false; }, 2500);
+  }
 });
+
+/* ============ PREVIEW MODE (test del Director sin retirar el banner público) ============ */
+function aplicarPreviewMode() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('preview') !== '1') return;
+
+  // Ocultar banner Tarea 0 (no el banner de error)
+  const noticePruebas = document.getElementById('notice-pruebas');
+  if (noticePruebas) noticePruebas.style.display = 'none';
+
+  // Quitar form-paused
+  const f = document.getElementById('form-asistente');
+  if (f) {
+    f.classList.remove('form-paused');
+    f.removeAttribute('aria-disabled');
+  }
+
+  // Habilitar botón submit
+  const btn = document.getElementById('btn-submit');
+  if (btn) {
+    btn.disabled = false;
+    btn.removeAttribute('aria-disabled');
+    const span = btn.querySelector('span');
+    if (span) span.textContent = 'Generar mi QR';
+  }
+
+  // Cambiar copy del submit-note
+  const note = document.querySelector('.submit-note');
+  if (note) note.textContent = 'Modo preview activo · Tu inscripción se procesará y guardará en el sistema. Recibirás correo con QR a la dirección que captures.';
+
+  // Indicador visual fijo arriba
+  const banner = document.createElement('div');
+  banner.className = 'preview-banner';
+  banner.innerHTML = '<strong>Modo preview activo</strong> · Inscripciones procesándose en backend real';
+  document.body.prepend(banner);
+}
+
+aplicarPreviewMode();
 </script>
 
 </body>
