@@ -533,6 +533,9 @@
       foot_col_institutional: 'Institutional',
       foot_col_memorias: 'Past editions',
       foot_col_contact: 'Contact',
+      foot_memoria_i: 'I International Forum on Law and Technology',
+      foot_memoria_ii: 'II International Forum on Law and Technology',
+      foot_memoria_iii: 'III International Forum on Law and Technology',
       foot_brand_tagline_html: 'Law and Technology.<br>Four editions. An open conversation between law and what comes next.',
 
       // Memorias (genéricos)
@@ -914,6 +917,9 @@
       foot_col_institutional: 'Institutionnel',
       foot_col_memorias: 'Éditions précédentes',
       foot_col_contact: 'Contact',
+      foot_memoria_i: 'I Forum International du Droit et de la Technologie',
+      foot_memoria_ii: 'II Forum International du Droit et de la Technologie',
+      foot_memoria_iii: 'III Forum International du Droit et de la Technologie',
       foot_brand_tagline_html: 'Droit et Technologie.<br>Quatre éditions. Une conversation ouverte entre le droit et ce qui vient.',
 
       // Memorias (génériques)
