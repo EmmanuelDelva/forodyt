@@ -1598,6 +1598,26 @@ tabs.forEach(tab => {
   });
 });
 
+/* Permite que enlaces externos abran una pestaña específica vía hash:
+   inscripcion.html#newsletter  → tab 03 (Solo actualizaciones)
+   inscripcion.html#cfp         → tab 02 (Enviar ponencia)
+   inscripcion.html#asistente   → tab 01 (Asistir al Foro) [default] */
+function activateTabFromHash() {
+  const hash = (window.location.hash || '').replace('#', '').trim();
+  if (!hash) return;
+  const targetTab = document.querySelector('.tab[data-target="' + hash + '"]');
+  if (targetTab) {
+    targetTab.click();
+    // Pequeño scroll para asegurar que el panel quede visible bajo el nav fijo
+    setTimeout(() => {
+      const panelsWrap = document.querySelector('.tabs-wrap');
+      if (panelsWrap) panelsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
+}
+activateTabFromHash();
+window.addEventListener('hashchange', activateTabFromHash);
+
 /* ============ RADIO CARDS ============ */
 function bindRadioGroup(groupId, onChange) {
   const group = document.getElementById(groupId);

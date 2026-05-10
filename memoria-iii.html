@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>III Foro Internacional de Derecho y Tecnología · Memoria · 2025</title>
+<meta name="description" content="Memoria de la III edición del Foro Internacional de Derecho y Tecnología, organizada por el Cuerpo Académico UDG-CA-1236 en CUCEA, Universidad de Guadalajara.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #0E1B2C;
+  --ink-soft: rgba(14, 27, 44, 0.72);
+  --ink-faint: rgba(14, 27, 44, 0.4);
+  --ink-rule: rgba(14, 27, 44, 0.14);
+  --teal: #2A5C5C;
+  --teal-deep: #1F4747;
+  --dorado: #B8923E;
+  --dorado-soft: #C8A858;
+  --granate: #632A3D;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --paper: #F1EAD7;
+  --white: #FFFEFA;
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --max: 1100px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--marfil);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(184, 146, 62, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(42, 92, 92, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main, header, footer, nav { position: relative; z-index: 1; }
+a { color: inherit; }
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(245, 239, 224, 0.92);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ink-rule);
+  z-index: 100;
+}
+.nav-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-mark { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
+.brand-rule { width: 24px; height: 1px; background: var(--dorado); display: inline-block; }
+.brand-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.nav-back { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s var(--ease); }
+.nav-back:hover { color: var(--ink); border-bottom-color: var(--dorado); }
+.lang { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-faint); display: flex; gap: 6px; align-items: center; }
+.lang span { cursor: pointer; transition: color 0.3s var(--ease); }
+.lang span:hover { color: var(--ink); }
+.lang .active { color: var(--ink); font-weight: 500; }
+.nav-cta { display: flex; gap: 24px; align-items: center; }
+@media (max-width: 760px) { .brand-sub { display: none; } }
+
+/* ============ MAIN ============ */
+main {
+  flex: 1;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 130px var(--gutter) 60px;
+  width: 100%;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dorado);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.eyebrow::before {
+  content: ""; width: 36px; height: 1px; background: var(--dorado);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+h1 em {
+  font-style: italic;
+  color: var(--dorado-soft);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+
+.lead {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 720px;
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 48px;
+}
+
+/* ============ META ROW ============ */
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: 36px;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink-rule);
+  border-bottom: 1px solid var(--ink-rule);
+  margin-bottom: 64px;
+}
+.meta-item { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
+.meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.meta-value { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; }
+
+/* ============ SECTION (Reseña) ============ */
+.section {
+  margin-bottom: 80px;
+}
+.section-head {
+  display: flex; align-items: baseline;
+  gap: 14px;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink-rule);
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+
+.section p {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 16px;
+  max-width: 760px;
+}
+
+.section p strong { color: var(--ink); font-weight: 500; }
+
+/* ============ GALERÍA ============ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+.gallery-item {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, rgba(42, 92, 92, 0.08), rgba(184, 146, 62, 0.06));
+  border: 1px solid var(--ink-rule);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-item.placeholder {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  flex-direction: column;
+  gap: 6px;
+}
+.gallery-item.placeholder::before {
+  content: "·";
+  font-family: var(--serif);
+  font-size: 32px;
+  color: var(--dorado);
+}
+
+/* ============ OTHER EDITIONS ============ */
+.other-editions {
+  margin-top: 80px;
+  padding: 36px 0 48px;
+  border-top: 1px solid var(--ink-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.other-editions-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.other-editions-links {
+  display: flex; flex-wrap: wrap; gap: 28px;
+}
+.other-editions-links a {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink-rule);
+  padding-bottom: 4px;
+  transition: border-color 0.3s var(--ease);
+  font-variation-settings: "opsz" 144;
+}
+.other-editions-links a:hover { border-bottom-color: var(--dorado); }
+.back-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 4px;
+  transition: all 0.3s var(--ease);
+  margin-top: 32px;
+  display: inline-block;
+}
+.back-link:hover { color: var(--ink); border-bottom-color: var(--dorado); }
+
+/* ============ FOOTER ============ */
+footer {
+  padding: 36px var(--gutter);
+  border-top: 1px solid var(--ink-rule);
+  background: var(--paper);
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.footer-inner a { color: var(--ink-soft); text-decoration: none; }
+.footer-inner a:hover { color: var(--dorado); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">IV Foro</span>
+      <span class="brand-rule"></span>
+      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
+    </a>
+    <div class="nav-cta">
+      <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
+      <div class="lang">
+        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="eyebrow" data-i18n="mem3_eyebrow">III Edición · 2025</div>
+
+  <h1 data-i18n-html="mem3_title_html">III Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
+
+  <p class="lead" data-i18n="mem3_lead">
+    Tercera edición del Foro. Salto internacional con ponentes de seis países y ampliación a los ejes de FinTech, biotecnologías y derechos humanos digitales. Lanzamiento del libro colectivo de la serie «Innovación Jurídica en la era digital».
+  </p>
+
+  <div class="meta-row">
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="mem_meta_dates_label">Fecha</span>
+      <span class="meta-value" data-i18n="mem3_meta_dates_value">2025</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="mem_meta_venue_label">Sede</span>
+      <span class="meta-value" data-i18n="mem3_meta_venue_value">CUCEA · Universidad de Guadalajara</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="mem_meta_modality_label">Modalidad</span>
+      <span class="meta-value" data-i18n="mem3_meta_modality_value">Híbrida</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">I</span>
+      <h2 class="section-title" data-i18n="mem_resena_title">Reseña</h2>
+    </div>
+    <p data-i18n="mem3_resena_p1">
+      <strong>[Por completar.]</strong> Espacio reservado para la reseña detallada de la tercera edición del Foro: contexto institucional, ejes temáticos abordados, ponentes principales, conclusiones y publicaciones derivadas.
+    </p>
+    <p data-i18n="mem3_resena_p2">
+      Esta tercera edición proyectó internacionalmente las bases del Foro como espacio académico plural en el cual juristas, ingenieros, jueces y reguladores de Iberoamérica discuten cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">II</span>
+      <h2 class="section-title" data-i18n="mem_galeria_title">Galería</h2>
+    </div>
+    <div class="gallery-grid">
+      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
+      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
+      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
+      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
+      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
+      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
+    </div>
+  </section>
+
+  <div class="other-editions">
+    <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
+    <div class="other-editions-links">
+      <a href="memoria-ii.html">II Foro · 2024</a>
+      <a href="memoria-i.html">I Foro · 2023</a>
+      <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link" data-i18n="prog_cta_back">← Volver al sitio</a>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
+    <span data-i18n="foot_inst">CUCEA · Universidad de Guadalajara</span>
+    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
+  </div>
+</footer>
+
+<script src="i18n.js" defer></script>
+</body>
+</html>

@@ -405,6 +405,56 @@
       prog_meta_venue_value: 'CUCEA · CUGDL · Judicial City',
       prog_meta_modality_label: 'Format',
       prog_meta_modality_value: 'On-site and hybrid',
+
+      // Ponentes placeholder
+      idx_ponente_pc: 'To be confirmed',
+
+      // Footer columns
+      foot_col_edition: 'Edition IV',
+      foot_col_institutional: 'Institutional',
+      foot_col_memorias: 'Past editions',
+      foot_col_contact: 'Contact',
+      foot_brand_tagline_html: 'Law and Technology.<br>Four editions. An open conversation between law and what comes next.',
+
+      // Memorias (genéricos)
+      mem_meta_dates_label: 'Date',
+      mem_meta_venue_label: 'Venue',
+      mem_meta_modality_label: 'Format',
+      mem_resena_title: 'Overview',
+      mem_galeria_title: 'Gallery',
+      mem_galeria_placeholder: 'Coming soon',
+      mem_other_editions: 'Other editions',
+      mem_link_iv: 'IV Forum · 2026',
+
+      // Memoria I (2023)
+      mem1_eyebrow: 'I Edition · 2023',
+      mem1_title_html: 'I International Forum<br>on Law and <em>Technology</em>.',
+      mem1_lead: 'Founding edition of the Forum. Inaugural gathering at CUCEA with the participation of the Academic Body UDG-CA-1236 «Law and Technology», dedicated to opening institutional dialogue between legal academia and the emerging challenges of the digital society.',
+      mem1_meta_dates_value: '2023',
+      mem1_meta_venue_value: 'CUCEA · University of Guadalajara',
+      mem1_meta_modality_value: 'On-site',
+      mem1_resena_p1: '[To be completed.] Reserved space for the detailed overview of the first edition of the Forum: institutional context, thematic tracks, main speakers, conclusions and resulting publications.',
+      mem1_resena_p2: 'This first edition laid the foundations of the Forum as a plural academic space where lawyers, engineers, judges and regulators from Iberoamerica discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property.',
+
+      // Memoria II (2024)
+      mem2_eyebrow: 'II Edition · 2024',
+      mem2_title_html: 'II International Forum<br>on Law and <em>Technology</em>.',
+      mem2_lead: 'Second edition of the Forum. Thematic consolidation and formation of the Scientific Committee. Hybrid format with broader international participation and deeper focus on AI, cybersecurity and digital intellectual property tracks.',
+      mem2_meta_dates_value: '2024',
+      mem2_meta_venue_value: 'CUCEA · University of Guadalajara',
+      mem2_meta_modality_value: 'Hybrid',
+      mem2_resena_p1: '[To be completed.] Reserved space for the detailed overview of the second edition of the Forum: institutional context, thematic tracks, main speakers, conclusions and resulting publications.',
+      mem2_resena_p2: 'This second edition consolidated the foundations of the Forum as a plural academic space where lawyers, engineers, judges and regulators from Iberoamerica discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property.',
+
+      // Memoria III (2025)
+      mem3_eyebrow: 'III Edition · 2025',
+      mem3_title_html: 'III International Forum<br>on Law and <em>Technology</em>.',
+      mem3_lead: 'Third edition of the Forum. International leap with speakers from six countries and expansion to FinTech, biotechnologies and digital human rights tracks. Launch of the collective book of the «Innovación Jurídica en la era digital» series.',
+      mem3_meta_dates_value: '2025',
+      mem3_meta_venue_value: 'CUCEA · University of Guadalajara',
+      mem3_meta_modality_value: 'Hybrid',
+      mem3_resena_p1: '[To be completed.] Reserved space for the detailed overview of the third edition of the Forum: institutional context, thematic tracks, main speakers, conclusions and resulting publications.',
+      mem3_resena_p2: 'This third edition projected internationally the foundations of the Forum as a plural academic space where lawyers, engineers, judges and regulators from Iberoamerica discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property.',
       cfp_date1_step: '01 · Reception',
       cfp_date1_label: 'paper submission',
       cfp_date1_value_html: '1 May —<br>15 July 2026',
@@ -617,6 +667,56 @@
       prog_meta_venue_value: 'CUCEA · CUGDL · Cité Judiciaire',
       prog_meta_modality_label: 'Modalité',
       prog_meta_modality_value: 'Présentiel et hybride',
+
+      // Ponentes placeholder
+      idx_ponente_pc: 'À confirmer',
+
+      // Footer columns
+      foot_col_edition: 'Édition IV',
+      foot_col_institutional: 'Institutionnel',
+      foot_col_memorias: 'Éditions précédentes',
+      foot_col_contact: 'Contact',
+      foot_brand_tagline_html: 'Droit et Technologie.<br>Quatre éditions. Une conversation ouverte entre le droit et ce qui vient.',
+
+      // Memorias (génériques)
+      mem_meta_dates_label: 'Date',
+      mem_meta_venue_label: 'Lieu',
+      mem_meta_modality_label: 'Modalité',
+      mem_resena_title: 'Aperçu',
+      mem_galeria_title: 'Galerie',
+      mem_galeria_placeholder: 'Bientôt disponible',
+      mem_other_editions: 'Autres éditions',
+      mem_link_iv: 'IV Forum · 2026',
+
+      // Memoria I (2023)
+      mem1_eyebrow: 'I Édition · 2023',
+      mem1_title_html: 'I Forum International<br>du Droit et de la <em>Technologie</em>.',
+      mem1_lead: 'Édition fondatrice du Forum. Réunion inaugurale au CUCEA avec la participation du Corps Académique UDG-CA-1236 « Droit et Technologie », consacrée à ouvrir le dialogue institutionnel entre l\'académie juridique et les défis émergents de la société numérique.',
+      mem1_meta_dates_value: '2023',
+      mem1_meta_venue_value: 'CUCEA · Université de Guadalajara',
+      mem1_meta_modality_value: 'Présentiel',
+      mem1_resena_p1: '[À compléter.] Espace réservé pour l\'aperçu détaillé de la première édition du Forum : contexte institutionnel, axes thématiques, principaux intervenants, conclusions et publications dérivées.',
+      mem1_resena_p2: 'Cette première édition a posé les bases du Forum comme espace académique pluriel où juristes, ingénieurs, juges et régulateurs d\'Ibéro-Amérique discutent de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique.',
+
+      // Memoria II (2024)
+      mem2_eyebrow: 'II Édition · 2024',
+      mem2_title_html: 'II Forum International<br>du Droit et de la <em>Technologie</em>.',
+      mem2_lead: 'Deuxième édition du Forum. Consolidation thématique et constitution du Comité Scientifique. Format hybride avec une participation internationale élargie et un approfondissement sur les axes IA, cybersécurité et propriété intellectuelle numérique.',
+      mem2_meta_dates_value: '2024',
+      mem2_meta_venue_value: 'CUCEA · Université de Guadalajara',
+      mem2_meta_modality_value: 'Hybride',
+      mem2_resena_p1: '[À compléter.] Espace réservé pour l\'aperçu détaillé de la deuxième édition du Forum : contexte institutionnel, axes thématiques, principaux intervenants, conclusions et publications dérivées.',
+      mem2_resena_p2: 'Cette deuxième édition a consolidé les bases du Forum comme espace académique pluriel où juristes, ingénieurs, juges et régulateurs d\'Ibéro-Amérique discutent de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique.',
+
+      // Memoria III (2025)
+      mem3_eyebrow: 'III Édition · 2025',
+      mem3_title_html: 'III Forum International<br>du Droit et de la <em>Technologie</em>.',
+      mem3_lead: 'Troisième édition du Forum. Saut international avec des intervenants de six pays et expansion vers les axes FinTech, biotechnologies et droits humains numériques. Lancement du livre collectif de la série « Innovación Jurídica en la era digital ».',
+      mem3_meta_dates_value: '2025',
+      mem3_meta_venue_value: 'CUCEA · Université de Guadalajara',
+      mem3_meta_modality_value: 'Hybride',
+      mem3_resena_p1: '[À compléter.] Espace réservé pour l\'aperçu détaillé de la troisième édition du Forum : contexte institutionnel, axes thématiques, principaux intervenants, conclusions et publications dérivées.',
+      mem3_resena_p2: 'Cette troisième édition a projeté internationalement les bases du Forum comme espace académique pluriel où juristes, ingénieurs, juges et régulateurs d\'Ibéro-Amérique discutent de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique.',
       cfp_date1_step: '01 · Réception',
       cfp_date1_label: 'envoi des contributions',
       cfp_date1_value_html: '1 mai —<br>15 juillet 2026',
