@@ -523,69 +523,97 @@
     .page { box-shadow: none; margin: 0; max-width: 100%; padding: 40px 50px; border: none; }
     section { break-inside: avoid; }
     .callout, .envelope { break-inside: avoid; }
+    .lang { display: none; }
+  }
+
+  /* ===== LANG SWITCHER (minimalista, esquina superior derecha) ===== */
+  .lang {
+    position: absolute;
+    top: 28px;
+    right: 80px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    z-index: 10;
+    user-select: none;
+  }
+  .lang span { cursor: pointer; transition: color 0.2s; }
+  .lang span:hover { color: var(--ink); }
+  .lang .active { color: var(--ink); font-weight: 600; }
+  @media (max-width: 720px) {
+    .lang { top: 14px; right: 18px; }
   }
 </style>
 </head>
 <body>
 <article class="page">
 
+  <!-- Lang switcher (minimalista, esquina superior derecha) -->
+  <div class="lang">
+    <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
+  </div>
+
   <!-- ============== MASTHEAD ============== -->
   <header class="masthead">
-    <div class="eyebrow">Call for Papers · 2026</div>
+    <div class="eyebrow" data-i18n="cfp_eyebrow">Call for Papers · 2026</div>
 
     <div class="edition-mark">IV<span class="sup">ed.</span></div>
 
-    <h1 class="title">Foro Internacional de Derecho y&nbsp;Tecnología</h1>
+    <h1 class="title" data-i18n="cfp_title">Foro Internacional de Derecho y&nbsp;Tecnología</h1>
 
-    <div class="subtitle">
+    <div class="subtitle" data-i18n-html="cfp_subtitle_html">
       “Agentes, Algoritmos y Autonomía:<br>
       el Derecho ante la Inteligencia que&nbsp;Decide”
     </div>
 
-    <div class="venue">
+    <div class="venue" data-i18n-html="cfp_venue_html">
       <strong>21 &amp; 22 de septiembre de 2026</strong> &nbsp;·&nbsp; Modalidad híbrida &nbsp;·&nbsp; Zapopan, Jalisco
     </div>
 
     <div class="convened-by">
-      <strong>Convoca</strong>
-      Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Centro Universitario de Ciencias Económico-Administrativas (CUCEA) · Centro Universitario de Guadalajara (CUGDL) · Departamento de Ciencias Sociales y Jurídicas · Academia de Derecho Económico Empresarial e Internacional
+      <strong data-i18n="cfp_convoca_label">Convoca</strong>
+      <span data-i18n="cfp_convoca_value">Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Centro Universitario de Ciencias Económico-Administrativas (CUCEA) · Centro Universitario de Guadalajara (CUGDL) · Departamento de Ciencias Sociales y Jurídicas · Academia de Derecho Económico Empresarial e Internacional</span>
     </div>
 
     <div class="convened-by" style="margin-top: 14px; padding-top: 14px;">
-      <strong>En colaboración institucional con</strong>
-      Supremo Tribunal de Justicia del Estado de Jalisco · Poder Judicial del Estado de Jalisco
+      <strong data-i18n="cfp_colab_label">En colaboración institucional con</strong>
+      <span data-i18n="cfp_colab_value">Supremo Tribunal de Justicia del Estado de Jalisco · Poder Judicial del Estado de Jalisco</span>
     </div>
   </header>
 
   <!-- ============== DIRECCIÓN ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">I · COMITÉ ORGANIZADOR</span>
+      <span class="section-num" data-i18n="cfp_section1">I · COMITÉ ORGANIZADOR</span>
     </div>
     <div class="people">
       <div class="person">
-        <span class="role">Dirección Académica</span>
+        <span class="role" data-i18n="cfp_role_direccion">Dirección Académica</span>
         <div>
           <div class="name">Dr. Juan Emmanuel Delva Benavides</div>
           <div class="affil">Profesor-Investigador · Universidad de Guadalajara · Líder del Cuerpo Académico UDG-CA-1236</div>
         </div>
       </div>
       <div class="person">
-        <span class="role">Secretaría Académica</span>
+        <span class="role" data-i18n="cfp_role_secretaria">Secretaría Académica</span>
         <div>
           <div class="name">Dr. Jorge Antonio Leos Navarro</div>
           <div class="affil">Profesor-Investigador · Universidad de Guadalajara</div>
         </div>
       </div>
       <div class="person">
-        <span class="role">Tecnología &amp; Logística</span>
+        <span class="role" data-i18n-html="cfp_role_tecnologia_html">Tecnología &amp; Logística</span>
         <div>
           <div class="name">Mtro. Iván Said González López</div>
           <div class="affil">Profesor-Investigador · Universidad de Guadalajara</div>
         </div>
       </div>
       <div class="person">
-        <span class="role">Coordinación Editorial<br>&amp; Comité Científico</span>
+        <span class="role" data-i18n-html="cfp_role_editorial_html">Coordinación Editorial<br>&amp; Comité Científico</span>
         <div>
           <div class="name">Dr. Paul Alejandro García Hernández</div>
           <div class="affil">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
@@ -597,7 +625,7 @@
   <!-- ============== PRESENTACIÓN ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">II · PRESENTACIÓN</span>
+      <span class="section-num" data-i18n="cfp_section2">II · PRESENTACIÓN</span>
     </div>
     <p class="lead">
       La Universidad de Guadalajara, a través del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología», con el respaldo del CUCEA y del CUGDL, y en colaboración institucional con el Supremo Tribunal de Justicia del Estado de Jalisco, convoca a investigadores, académicos, profesionales y estudiantes de doctorado, maestría y licenciatura interesados en la intersección del derecho y la tecnología a contribuir a la <em>cuarta edición</em> del Foro Internacional de Derecho y Tecnología.
@@ -616,23 +644,23 @@
   <!-- ============== FECHAS ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">III · FECHAS CLAVE</span>
+      <span class="section-num" data-i18n="cfp_section3">III · FECHAS CLAVE</span>
     </div>
     <div class="timeline">
       <div class="ti">
-        <span class="step">01 · Recepción</span>
-        <div class="label">envío de trabajos</div>
-        <div class="date">1 de mayo &mdash;<br>15 de julio 2026</div>
+        <span class="step" data-i18n="cfp_date1_step">01 · Recepción</span>
+        <div class="label" data-i18n="cfp_date1_label">envío de trabajos</div>
+        <div class="date" data-i18n-html="cfp_date1_value_html">1 de mayo &mdash;<br>15 de julio 2026</div>
       </div>
       <div class="ti">
-        <span class="step">02 · Dictamen</span>
-        <div class="label">notificación de aceptación</div>
-        <div class="date">20 de agosto<br>2026</div>
+        <span class="step" data-i18n="cfp_date2_step">02 · Dictamen</span>
+        <div class="label" data-i18n="cfp_date2_label">notificación de aceptación</div>
+        <div class="date" data-i18n-html="cfp_date2_value_html">20 de agosto<br>2026</div>
       </div>
       <div class="ti highlight">
-        <span class="step">03 · Evento</span>
-        <div class="label">celebración del foro</div>
-        <div class="date">21 &amp; 22 de septiembre 2026</div>
+        <span class="step" data-i18n="cfp_date3_step">03 · Evento</span>
+        <div class="label" data-i18n="cfp_date3_label">celebración del foro</div>
+        <div class="date" data-i18n="cfp_date3_value">21 &amp; 22 de septiembre 2026</div>
       </div>
     </div>
   </section>
@@ -640,55 +668,55 @@
   <!-- ============== TEMÁTICAS ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">IV · LÍNEAS TEMÁTICAS</span>
+      <span class="section-num" data-i18n="cfp_section4">IV · LÍNEAS TEMÁTICAS</span>
     </div>
     <div class="topics">
       <div class="topic">
         <div class="num">i</div>
         <div class="body">
-          <strong>IA Agéntica y Propiedad Intelectual Generativa</strong>
+          <strong data-i18n="cfp_topic1_t">IA Agéntica y Propiedad Intelectual Generativa</strong>
           <span>Gobernanza algorítmica, responsabilidad civil y penal de sistemas autónomos, autoría de obras sintéticas, entrenamiento de modelos y AI Act en América Latina.</span>
         </div>
       </div>
       <div class="topic">
         <div class="num">ii</div>
         <div class="body">
-          <strong>Tecnologías Emergentes</strong>
+          <strong data-i18n="cfp_topic2_t">Tecnologías Emergentes</strong>
           <span>Computación cuántica, neurotecnologías, realidades extendidas, gemelos digitales y gobernanza anticipatoria.</span>
         </div>
       </div>
       <div class="topic">
         <div class="num">iii</div>
         <div class="body">
-          <strong>Ciberseguridad y Soberanía Digital</strong>
+          <strong data-i18n="cfp_topic3_t">Ciberseguridad y Soberanía Digital</strong>
           <span>Protección de datos personales, nueva LFPDPPP, infraestructura crítica y ciberdefensa.</span>
         </div>
       </div>
       <div class="topic">
         <div class="num">iv</div>
         <div class="body">
-          <strong>Justicia Digital e Innovación Jurídica</strong>
+          <strong data-i18n="cfp_topic4_t">Justicia Digital e Innovación Jurídica</strong>
           <span>ODR, inteligencia jurídica aumentada, LegalTech, automatización judicial y acceso a la justicia.</span>
         </div>
       </div>
       <div class="topic">
         <div class="num">v</div>
         <div class="body">
-          <strong>Derechos Humanos Digitales</strong>
+          <strong data-i18n="cfp_topic5_t">Derechos Humanos Digitales</strong>
           <span>Democracia algorítmica, desinformación, neuroderechos y economía de datos.</span>
         </div>
       </div>
       <div class="topic">
         <div class="num">vi</div>
         <div class="body">
-          <strong>FinTech y Economía Digital</strong>
+          <strong data-i18n="cfp_topic6_t">FinTech y Economía Digital</strong>
           <span>Criptoactivos, DeFi, tokenización, monedas digitales de banco central y regulación financiera.</span>
         </div>
       </div>
       <div class="topic">
         <div class="num">vii</div>
         <div class="body">
-          <strong>Salud Digital y Biotecnologías</strong>
+          <strong data-i18n="cfp_topic7_t">Salud Digital y Biotecnologías</strong>
           <span>Telemedicina, dispositivos conectados, datos biomédicos y edición genética.</span>
         </div>
       </div>
@@ -700,25 +728,25 @@
   <!-- ============== ENVÍO ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">V · ENVÍO Y PROCESO DE SELECCIÓN</span>
+      <span class="section-num" data-i18n="cfp_section5">V · ENVÍO Y PROCESO DE SELECCIÓN</span>
     </div>
     <p>
       Los trabajos serán sometidos a revisión por pares bajo modalidad doble ciego. Los seleccionados serán publicados en un libro colectivo con ISBN. Se aceptan contribuciones en <strong>español, inglés y francés</strong>.
     </p>
 
     <div class="envelope">
-      <h4>Correspondencia editorial</h4>
+      <h4 data-i18n="cfp_envelope_corr">Correspondencia editorial</h4>
       <p>
         <span class="mail">emmanueldelva@cucea.udg.mx</span>
       </p>
 
-      <h4>Asunto del correo</h4>
+      <h4 data-i18n="cfp_envelope_subject">Asunto del correo</h4>
       <p class="mono">«ARTÍCULO IV FORO DERECHO Y TECNOLOGÍA: NOMBRE APELLIDOS»</p>
 
-      <h4>Cuerpo del correo</h4>
+      <h4 data-i18n="cfp_envelope_body">Cuerpo del correo</h4>
       <p>Incluya: <span class="badge">línea temática</span><span class="badge">título</span><span class="badge">cargo</span><span class="badge">institución</span> y <span class="badge">modalidad</span> (presencial / en línea).</p>
 
-      <h4>Archivo adjunto</h4>
+      <h4 data-i18n="cfp_envelope_attach">Archivo adjunto</h4>
       <p>Formato Word (<span class="mono">.doc</span> o <span class="mono">.docx</span>).</p>
     </div>
   </section>
@@ -726,7 +754,7 @@
   <!-- ============== ESTRUCTURA ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">VI · ESTRUCTURA Y PRESENTACIÓN</span>
+      <span class="section-num" data-i18n="cfp_section6">VI · ESTRUCTURA Y PRESENTACIÓN</span>
     </div>
     <ul class="specs">
       <li><strong>Extensión.</strong> Mínima de 15 y máxima de 20 páginas, incluyendo referencias y anexos.</li>
@@ -745,7 +773,7 @@
   <!-- ============== REVISIÓN ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">VII · REVISIÓN Y PUBLICACIÓN</span>
+      <span class="section-num" data-i18n="cfp_section7">VII · REVISIÓN Y PUBLICACIÓN</span>
     </div>
     <p>
       La evaluación se realizará bajo riguroso anonimato. Cada contribución recibirá un número correlativo por parte del comité organizador; dos miembros del comité científico, sin conocimiento previo de la autoría, dictaminarán cada trabajo garantizando imparcialidad y juicio fundado en la <em>calidad, originalidad y pertinencia</em> del contenido.
@@ -755,7 +783,7 @@
     </p>
 
     <div class="callout">
-      <h4>Recordatorio final</h4>
+      <h4 data-i18n="cfp_callout_title">Recordatorio final</h4>
       <p>
         Antes de enviar su propuesta, verifique cuidadosamente el cumplimiento de las normas de estilo y formatos de citación aquí establecidos. La calidad de la presentación y el seguimiento de estas directrices son factores determinantes en el proceso de selección.
       </p>
@@ -765,7 +793,7 @@
   <!-- ============== CITAS ============== -->
   <section>
     <div class="section-head">
-      <span class="section-num">VIII · NORMAS DE ESTILO Y CITACIÓN</span>
+      <span class="section-num" data-i18n="cfp_section8">VIII · NORMAS DE ESTILO Y CITACIÓN</span>
     </div>
 
     <p>Las citas deben presentarse en notas al pie, con los datos suficientes para la localización precisa de cada fuente. Se proporcionan ejemplos de referencia:</p>
@@ -827,5 +855,9 @@
   </footer>
 
 </article>
+
+<!-- ============ i18n (cargado al final, ejecuta en DOMContentLoaded) ============ -->
+<script src="i18n.js" defer></script>
+
 </body>
 </html>
