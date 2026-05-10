@@ -1264,25 +1264,11 @@ main, header, footer { position: relative; z-index: 1; }
   width: auto;
   height: auto;
   object-fit: contain;
-  /* Tratamiento monocromatico: cualquier logo (en color o con fondo blanco)
-     se renderea como silueta marfil sobre el tile oscuro. Esto unifica los 9
-     logos sin importar el fondo original — patron de "trusted partners" que
-     usan Stripe, Notion, Linear y similares. */
-  filter: brightness(0) invert(1);
-  opacity: 0.78;
-  transition: transform 0.4s var(--ease), opacity 0.4s var(--ease);
+  transition: transform 0.4s var(--ease);
 }
 
 .aliado-cell:hover .aliado-logo {
   transform: scale(1.05);
-  opacity: 1;
-}
-
-/* El tile del Cuerpo Academico ya viene con fondo crema y diseno propio,
-   asi que conserva sus colores originales. */
-.aliado-cell.ca-tile .aliado-logo {
-  filter: none;
-  opacity: 1;
 }
 
 /* ============ FOOTER ============ */
@@ -1621,7 +1607,7 @@ footer {
         <h2 data-i18n-html="idx_ponentes_title_html">Voces de la <em>discusión</em>.</h2>
       </div>
       <p class="section-lead">
-        El Comité Científico está cerrando confirmaciones para la cuarta edición. Las invitaciones se anuncian semanalmente en redes oficiales del Foro. La curaduría preserva el balance entre academia, judicatura, sector forense y organismos reguladores que ha distinguido al evento desde la II edición. Entre los primeros ponentes confirmados destacan el <em>Dr. Alejandro Axel Rivera Martínez</em>, Director General del Instituto Jalisciense de Ciencias Forenses, y el <em>Dr. Manuel Raad Berrio</em>, Magistrado Auxiliar del Consejo Superior de la Judicatura de Colombia.
+        El Comité Científico está cerrando confirmaciones para la cuarta edición. Las invitaciones se anuncian semanalmente en redes oficiales del Foro. La curaduría preserva el balance entre <strong>academia, sectores judicial y legislativo, sector privado y organismos nacionales e internacionales con función reguladora</strong> que ha distinguido al evento desde la I edición. Entre los primeros ponentes confirmados destacan el <em>Dr. Alejandro Axel Rivera Martínez</em>, Director General del Instituto Jalisciense de Ciencias Forenses, y el <em>Dr. Manuel Raad Berrio</em>, Magistrado Auxiliar del Consejo Superior de la Judicatura de Colombia.
       </p>
     </div>
 
@@ -1703,7 +1689,7 @@ footer {
         </p>
         <div class="hero-actions" style="margin-top: 32px;">
           <a href="cfp.html" class="btn-primary"><span>Ver convocatoria completa</span></a>
-          <a href="cfp.html#enviar" class="btn-ghost">Enviar contribución</a>
+          <a href="inscripcion.html#cfp" class="btn-ghost">Enviar contribución</a>
         </div>
       </div>
 
@@ -1825,7 +1811,7 @@ footer {
           <img src="img/comite/fharide-acosta.png" alt="Dra. Fharide Acosta Malacón">
         </div>
         <div class="member-info">
-          <div class="member-role" data-i18n="idx_comite_role_vinculacion">Vinculación Institucional</div>
+          <div class="member-role" data-i18n="idx_comite_role_protocolo">Protocolo y Vinculación Cultural</div>
           <div class="member-name">Dra. Fharide Acosta Malacón</div>
           <div class="member-affil" data-i18n="idx_comite_affil_depto">Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG</div>
         </div>
