@@ -30,6 +30,8 @@
  *   - auditoriaPostEvento()    → reporte de fraude detectado
  *   - procesarConstancias()    → cómputo final + emisión de PDFs en lotes
  *   - cerrarPlatica(id)        → cierra ventana de check-in de una plática
+ *   - enviarNewsletterMasivo(asunto, htmlBody) → envía correo a toda la lista del newsletter
+ *   - _testNewsletter()        → envía correo de prueba SOLO al Director
  */
 
 // ============ CONFIG ============
@@ -924,6 +926,181 @@ function cerrarPlatica(idPlatica) {
     }
   }
   return { ok: false, error: 'Plática no encontrada' };
+}
+
+// ============ NEWSLETTER MASIVO ============
+/**
+ * Envía un correo HTML masivo a todos los suscritos en la pestaña Newsletter.
+ *
+ * Uso desde el editor de Apps Script:
+ *   1. Ejecuta primero `_testNewsletter()` para ver cómo te llega a ti.
+ *   2. Si te gusta, ejecuta `enviarNewsletterMasivo("Asunto", "<p>Cuerpo HTML</p>")`
+ *      pasando el asunto y el cuerpo directamente.
+ *
+ *   Para asuntos/cuerpos largos, mejor edita esta función agregando una
+ *   variante con tu contenido pre-armado, o usa _enviarNewsletterDemo().
+ *
+ * Características:
+ *   - Lotes de 50 destinatarios con sleep de 2 segundos entre lotes
+ *     (evita saturar la cuota de Gmail)
+ *   - Aplica el header editorial del Foro automáticamente
+ *   - Incluye footer con dirección física y enlace de "darse de baja"
+ *     (responder al correo solicitando baja — manualmente)
+ *   - Registra en _logs cada lote enviado para auditoría
+ *
+ * Cuotas relevantes (cuenta Workspace UDG):
+ *   - 1500 correos/día → puedes mandar a una lista de hasta 1500 personas
+ *     en un solo envío. Si tienes más, el script avisa y se detiene.
+ */
+function enviarNewsletterMasivo(asunto, htmlBody) {
+  if (!asunto || !htmlBody) {
+    throw new Error('Faltan parámetros: enviarNewsletterMasivo(asunto, htmlBody)');
+  }
+
+  const sheet = SS.getSheetByName(SHEETS.newsletter);
+  if (!sheet) {
+    throw new Error('No existe la pestaña Newsletter en el Sheet.');
+  }
+
+  const data = sheet.getDataRange().getValues();
+  if (data.length < 2) {
+    Logger.log('Newsletter vacío. Nada que enviar.');
+    return { enviados: 0, fallos: 0 };
+  }
+
+  // Extraer correos (saltando header)
+  const correos = [];
+  for (let i = 1; i < data.length; i++) {
+    const c = String(data[i][0] || '').toLowerCase().trim();
+    if (c && isEmailValid_(c)) correos.push(c);
+  }
+
+  Logger.log('Newsletter: ' + correos.length + ' destinatarios.');
+
+  // Verificar cuota antes de empezar
+  const quota = MailApp.getRemainingDailyQuota();
+  if (quota < correos.length + 5) {
+    throw new Error('Cuota insuficiente. Necesarios: ' + correos.length + ', disponibles: ' + quota + '. Espera 24h o reduce la lista.');
+  }
+
+  const senderName = PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología';
+  const senderEmail = PROPS.getProperty('SENDER_EMAIL') || 'emmanueldelva@cucea.udg.mx';
+
+  // Plantilla con header/footer editorial
+  const htmlCompleto = construirHtmlNewsletter_(htmlBody);
+
+  let enviados = 0;
+  let fallos = 0;
+  const tamanoLote = 50;
+
+  for (let i = 0; i < correos.length; i += tamanoLote) {
+    const lote = correos.slice(i, i + tamanoLote);
+    lote.forEach(correo => {
+      try {
+        MailApp.sendEmail({
+          to: correo,
+          subject: asunto,
+          htmlBody: htmlCompleto,
+          name: senderName,
+          replyTo: senderEmail
+        });
+        enviados++;
+      } catch (err) {
+        fallos++;
+        log_('newsletter', correo, err.message, null);
+      }
+    });
+    log_('newsletterLote', 'lote_' + (i / tamanoLote + 1), 'enviados=' + lote.length, null);
+    if (i + tamanoLote < correos.length) Utilities.sleep(2000);
+  }
+
+  Logger.log('Newsletter completado: ' + enviados + ' enviados, ' + fallos + ' fallos.');
+  return { enviados: enviados, fallos: fallos, total: correos.length };
+}
+
+/**
+ * Envuelve el HTML del cuerpo en un layout editorial coherente con la marca.
+ * Aplica colores, tipografía y estructura del Foro.
+ */
+function construirHtmlNewsletter_(cuerpoHtml) {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #F5EFE0; margin: 0; padding: 0; color: #0E1B2C; }
+  .container { max-width: 580px; margin: 0 auto; background: #FFFEFA; }
+  .header { background: #0E1B2C; padding: 28px 36px; border-bottom: 4px solid #B8923E; }
+  .header h1 { color: #F5EFE0; font-size: 19px; font-weight: 300; margin: 0 0 4px 0; letter-spacing: -0.01em; }
+  .header .meta { color: rgba(245, 239, 224, 0.7); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-family: 'Courier New', monospace; }
+  .body { padding: 36px; font-size: 15px; line-height: 1.6; color: rgba(14, 27, 44, 0.85); }
+  .body p { margin: 0 0 16px 0; }
+  .body h2 { font-family: Georgia, serif; font-size: 24px; color: #0E1B2C; margin: 0 0 16px 0; font-weight: 400; }
+  .body h3 { font-family: Georgia, serif; font-size: 18px; color: #0E1B2C; margin: 24px 0 12px 0; font-weight: 500; }
+  .body a { color: #B8923E; text-decoration: underline; }
+  .body strong { color: #0E1B2C; font-weight: 500; }
+  .footer { background: #F1EAD7; padding: 24px 36px; }
+  .footer p { font-size: 11px; line-height: 1.5; letter-spacing: 0.06em; color: rgba(14, 27, 44, 0.55); margin: 4px 0; font-family: 'Courier New', monospace; }
+  .footer a { color: rgba(14, 27, 44, 0.7); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>IV Foro Internacional de Derecho y Tecnología</h1>
+    <div class="meta">21 y 22 sep · 2026 · CUCEA-UDG</div>
+  </div>
+  <div class="body">
+    ${cuerpoHtml}
+  </div>
+  <div class="footer">
+    <p>Recibes este correo porque te suscribiste para recibir actualizaciones del IV Foro Internacional de Derecho y Tecnología.</p>
+    <p>CUCEA · Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236</p>
+    <p>Para darte de baja, responde a este correo con asunto «Baja newsletter» y removeremos tu correo manualmente en menos de 48 horas.</p>
+  </div>
+</div>
+</body>
+</html>
+  `;
+}
+
+/**
+ * Envía un correo de prueba SOLO al Director (DIRECTOR_EMAIL o SENDER_EMAIL).
+ * Útil para previsualizar cómo se ve el correo antes de mandarlo a toda la lista.
+ *
+ * Edita las dos constantes de abajo para tu campaña actual y ejecuta.
+ */
+function _testNewsletter() {
+  const ASUNTO = 'IV Foro · Apertura oficial de inscripciones';
+
+  const HTML_BODY = `
+    <h2>Las inscripciones del IV Foro están abiertas.</h2>
+    <p>Estimadas y estimados:</p>
+    <p>Es un gusto comunicarles que las inscripciones para la cuarta edición del Foro Internacional de Derecho y Tecnología están <strong>oficialmente abiertas</strong>. El evento se desarrollará los días <strong>21 y 22 de septiembre de 2026</strong> en CUCEA, CUGDL y la Ciudad Judicial del Estado de Jalisco.</p>
+    <h3>Cómo inscribirse</h3>
+    <p>Visita <a href="https://forodyt.vercel.app/inscripcion.html">forodyt.vercel.app/inscripcion.html</a> y completa el formulario en menos de dos minutos. Recibirás un código QR único que servirá como tu credencial digital durante el evento.</p>
+    <h3>Constancia con valor curricular</h3>
+    <p>Quienes acumulen <strong>20 horas efectivas</strong> de participación recibirán constancia con valor curricular emitida por la Universidad de Guadalajara.</p>
+    <p>Cualquier duda, escribe a <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>.</p>
+    <p style="margin-top: 28px;">Te esperamos.</p>
+  `;
+
+  const destinatario = PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL');
+  const senderName = PROPS.getProperty('SENDER_NAME') || 'IV Foro DDT';
+  const html = construirHtmlNewsletter_(HTML_BODY);
+
+  MailApp.sendEmail({
+    to: destinatario,
+    subject: '[PRUEBA] ' + ASUNTO,
+    htmlBody: html,
+    name: senderName,
+    replyTo: PROPS.getProperty('SENDER_EMAIL')
+  });
+
+  Logger.log('Correo de prueba enviado a: ' + destinatario);
+  Logger.log('Si se ve bien, ejecuta enviarNewsletterMasivo() con los mismos parámetros.');
+  return { ok: true, destinatario: destinatario };
 }
 
 function _testInscripcion() {
