@@ -7,334 +7,841 @@
 <meta name="description" content="Memoria de la I edición del Foro Internacional de Derecho y Tecnología (CUCEA-UDG, 14–15 nov 2023). Edición fundacional con 23 ponencias y las presidencias de FIADI, ALGDETIC, AMCID, AMDI, COFECE, INAI y STJ Jalisco reunidas en CUCEA por primera vez en Jalisco.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --ink:#14304E;
-    --ink-deep:#0B1F36;
-    --granate:#632A3D;
-    --dorado:#B68B3A;
-    --teal:#3A8E89;
-    --marfil:#F5F1E8;
-    --papel:#FBF9F2;
-    --tinta:#1A1A1A;
-    --muted:#6b6b6b;
-    --line:rgba(20,48,78,.12);
-    --serif:'Fraunces', Georgia, serif;
-    --sans:'Inter', system-ui, sans-serif;
-    --mono:'JetBrains Mono', monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:var(--sans);background:var(--papel);color:var(--tinta);line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;height:auto;display:block}
-  .container{max-width:1240px;margin:0 auto;padding:0 32px}
-  /* HEADER */
-  header.site{position:sticky;top:0;background:rgba(251,249,242,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:100;padding:18px 0}
-  header.site .container{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-  .logo{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:-.01em;color:var(--ink)}
-  .logo em{font-style:italic;color:var(--granate)}
-  .header-actions{display:flex;align-items:center;gap:24px}
-  .lang{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);display:flex;gap:6px;align-items:center}
-  .lang span{cursor:pointer;transition:color .2s}
-  .lang span:hover{color:var(--ink)}
-  .lang .active{color:var(--ink);font-weight:600}
-  .back{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 16px;border:1px solid var(--line);border-radius:999px;transition:all .2s}
-  .back:hover{background:var(--ink);color:var(--marfil);border-color:var(--ink)}
-  /* HERO */
-  .hero{padding:80px 0 64px;background:linear-gradient(180deg, var(--papel) 0%, var(--marfil) 100%);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-  .hero::before{content:'I';position:absolute;right:-40px;bottom:-180px;font-family:var(--serif);font-size:520px;font-weight:300;color:var(--ink);opacity:.06;line-height:1}
-  .hero .container{position:relative;z-index:2}
-  .badge{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--granate);margin-bottom:24px}
-  h1.title{font-family:var(--serif);font-size:clamp(40px,7vw,84px);line-height:1.02;letter-spacing:-.02em;font-weight:400;color:var(--ink);margin-bottom:32px;max-width:980px}
-  h1.title em{font-style:italic;color:var(--granate);font-weight:300}
-  .lede{font-size:20px;line-height:1.5;color:#333;max-width:780px;margin-bottom:48px;font-weight:300}
-  .lede strong{color:var(--ink);font-weight:500}
-  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:32px;border-top:1px solid var(--line)}
-  .hero-stats div{display:flex;flex-direction:column;gap:6px}
-  .hero-stats span.k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-  .hero-stats span.v{font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:500;line-height:1.2}
-  /* SECCIONES */
-  section{padding:96px 0;border-bottom:1px solid var(--line)}
-  .sec-num{display:flex;align-items:baseline;gap:18px;margin-bottom:48px}
-  .sec-num span.romano{font-family:var(--serif);font-size:64px;font-weight:300;color:var(--ink);line-height:1;font-style:italic;opacity:.45}
-  .sec-num span.label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  h2.sec{font-family:var(--serif);font-size:clamp(32px,5vw,56px);line-height:1.05;letter-spacing:-.02em;font-weight:400;color:var(--ink);margin-bottom:32px;max-width:880px}
-  h2.sec em{font-style:italic;color:var(--granate)}
-  .body{font-size:17px;line-height:1.7;color:#2a2a2a;max-width:780px}
-  .body p{margin-bottom:20px}
-  .body strong{color:var(--ink);font-weight:600}
-  /* NUMERALIA */
-  .numeralia{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-  .numeralia .cell{padding:32px 28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--papel)}
-  .numeralia .cell .n{font-family:var(--serif);font-size:56px;line-height:1;color:var(--ink);font-weight:500;margin-bottom:8px}
-  .numeralia .cell .n em{font-style:italic;color:var(--granate);font-weight:300}
-  .numeralia .cell .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.4}
-  /* EJES */
-  .ejes{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-  .eje{padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--papel);display:flex;gap:20px;align-items:flex-start;transition:background .2s}
-  .eje:hover{background:#fff}
-  .eje .num{font-family:var(--mono);font-size:11px;color:var(--granate);letter-spacing:.1em;padding-top:4px;min-width:32px}
-  .eje .ttl{font-family:var(--serif);font-size:18px;line-height:1.3;color:var(--ink);font-weight:500}
-  /* PONENTES */
-  .ponentes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
-  .ponente{padding:28px;background:var(--papel);border:1px solid var(--line);border-radius:8px;transition:all .2s}
-  .ponente:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(20,48,78,.06)}
-  .ponente .role{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--granate);margin-bottom:10px}
-  .ponente .name{font-family:var(--serif);font-size:20px;line-height:1.25;color:var(--ink);font-weight:500;margin-bottom:8px}
-  .ponente .afil{font-size:14px;color:var(--muted);line-height:1.5}
-  /* PROGRAMA */
-  .timeline{margin-top:48px}
-  .dia{margin-bottom:48px}
-  .dia .dia-h{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--granate);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--granate)}
-  .row{display:grid;grid-template-columns:120px 1fr 220px;gap:24px;padding:16px 0;border-bottom:1px solid var(--line);align-items:start}
-  .row:last-child{border-bottom:none}
-  .row .hr{font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:600}
-  .row .topic{font-size:15px;color:#222;line-height:1.45}
-  .row .topic strong{color:var(--ink)}
-  .row .who{font-size:13px;color:var(--muted);line-height:1.4}
-  /* GALERIA */
-  .galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
-  .galeria figure{position:relative;overflow:hidden;border-radius:6px;aspect-ratio:4/3;background:var(--ink)}
-  .galeria figure.tall{grid-row:span 2;aspect-ratio:auto}
-  .galeria figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-  .galeria figure:hover img{transform:scale(1.04)}
-  .galeria figure figcaption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(11,31,54,.92) 0%,transparent 100%);color:var(--marfil);padding:24px 16px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:0;transition:opacity .3s}
-  .galeria figure:hover figcaption{opacity:1}
-  /* LEGADO */
-  .legado{background:var(--ink);color:var(--marfil);margin-top:0;border-bottom:none}
-  .legado .sec-num span.romano,.legado .sec-num span.label,.legado h2.sec{color:var(--marfil)}
-  .legado h2.sec em{color:var(--dorado)}
-  .legado .body{color:rgba(245,241,232,.85)}
-  .legado .body strong{color:var(--marfil)}
-  .legado .pillar{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
-  .legado .pillar div{padding:28px;background:rgba(245,241,232,.06);border:1px solid rgba(245,241,232,.12);border-radius:8px}
-  .legado .pillar h3{font-family:var(--serif);font-size:20px;color:var(--dorado);margin-bottom:14px;font-weight:500;font-style:italic}
-  .legado .pillar p{font-size:14px;line-height:1.6;color:rgba(245,241,232,.78)}
-  /* FOOTER */
-  footer{background:var(--ink-deep);color:var(--marfil);padding:64px 0 32px}
-  footer .other-ed{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,241,232,.5);margin-bottom:24px}
-  footer .ed-links{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:48px}
-  footer .ed-links a{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--marfil);border-bottom:1px solid transparent;padding-bottom:4px;transition:all .2s}
-  footer .ed-links a:hover{border-bottom-color:var(--dorado);color:var(--dorado)}
-  footer .meta{font-size:12px;color:rgba(245,241,232,.4);padding-top:32px;border-top:1px solid rgba(245,241,232,.1)}
-  /* MEDIA */
-  @media (max-width:900px){
-    .hero-stats,.numeralia,.ponentes-grid,.galeria,.legado .pillar{grid-template-columns:repeat(2,1fr)}
-    .ejes{grid-template-columns:1fr}
-    .row{grid-template-columns:90px 1fr;gap:14px}
-    .row .who{grid-column:2}
-    section{padding:64px 0}
-  }
-  @media (max-width:540px){
-    .hero-stats,.numeralia,.ponentes-grid,.galeria,.legado .pillar{grid-template-columns:1fr}
-    .container{padding:0 20px}
-  }
+:root {
+  /* Paleta adaptada del cartel oficial de la I edición: azul institucional UDG + acentos */
+  --ink: #11355E;                          /* Azul institucional oscuro */
+  --ink-deep: #0A2240;                     /* Azul aún más oscuro */
+  --ink-soft: rgba(17, 53, 94, 0.72);
+  --ink-faint: rgba(17, 53, 94, 0.4);
+  --ink-rule: rgba(17, 53, 94, 0.14);
+  --azul: #2974C9;                         /* Azul medio del cartel */
+  --celeste: #5DAFEF;                      /* Cyan claro del cartel */
+  --azul-soft: rgba(41, 116, 201, 0.85);
+
+  /* Dorado y paleta editorial estándar del sitio (conservados para coherencia) */
+  --dorado: #B8923E;
+  --dorado-soft: #C8A858;
+  --granate: #632A3D;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --paper: #F1EAD7;
+  --white: #FFFEFA;
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  --max: 1100px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--marfil);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(41, 116, 201, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(17, 53, 94, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main, header, footer, nav, section { position: relative; z-index: 1; }
+a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(245, 239, 224, 0.92);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ink-rule);
+  z-index: 100;
+}
+.nav-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-mark { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
+.brand-rule { width: 24px; height: 1px; background: var(--azul); display: inline-block; }
+.brand-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.nav-cta { display: flex; gap: 24px; align-items: center; }
+.nav-back {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid transparent; transition: all 0.3s var(--ease);
+}
+.nav-back:hover { color: var(--ink); border-bottom-color: var(--azul); }
+.nav-back::before { content: "← "; color: var(--azul); }
+.lang { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-faint); display: flex; gap: 6px; align-items: center; }
+.lang span { cursor: pointer; transition: color 0.3s var(--ease); }
+.lang span:hover { color: var(--ink); }
+.lang .active { color: var(--ink); font-weight: 500; }
+@media (max-width: 760px) { .brand-sub { display: none; } }
+
+/* ============ RIBBON HERO ============ */
+.ribbon {
+  padding: 140px var(--gutter) 0;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.ribbon-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--azul);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.ribbon-eyebrow::before {
+  content: ""; width: 36px; height: 1px; background: var(--azul);
+}
+
+.ribbon h1 {
+  font-family: var(--serif);
+  font-size: clamp(48px, 7vw, 92px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.ribbon h1 em {
+  font-style: italic;
+  color: var(--azul);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+
+.ribbon-lead {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 780px;
+  font-variation-settings: "opsz" 144;
+  margin-bottom: 48px;
+}
+.ribbon-lead strong { color: var(--ink); font-weight: 500; }
+
+.ribbon-meta {
+  display: flex; flex-wrap: wrap; gap: 36px;
+  padding: 24px 0;
+  border-top: 1px solid var(--ink-rule);
+  border-bottom: 1px solid var(--ink-rule);
+}
+.meta-item { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
+.meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.meta-value { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; line-height: 1.3; }
+
+/* ============ SECCIÓN BASE ============ */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 96px var(--gutter);
+}
+.section.alt { background: var(--marfil-light); max-width: 100%; padding-left: 0; padding-right: 0; }
+.section.alt .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.section-head { margin-bottom: 56px; }
+.section-eyebrow {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--azul); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.section-eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--azul); display: inline-block; }
+.section h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  color: var(--ink);
+  max-width: 880px;
+}
+.section h2 em { font-style: italic; color: var(--azul); font-variation-settings: "opsz" 144, "SOFT" 100; }
+.section-body {
+  font-family: var(--serif); font-size: 17px; line-height: 1.7;
+  color: var(--ink-soft); max-width: 780px;
+  font-variation-settings: "opsz" 144;
+  margin-top: 32px;
+}
+.section-body p { margin-bottom: 22px; }
+.section-body strong { color: var(--ink); font-weight: 500; }
+.section-body em { color: var(--azul); font-style: italic; }
+
+/* ============ II · NUMERALIA ============ */
+.numeralia-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--ink-rule);
+  border: 1px solid var(--ink-rule);
+  margin-top: 32px;
+}
+.num-cell {
+  background: var(--white);
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.num-cell .num {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144;
+}
+.num-cell .num em {
+  font-style: italic;
+  color: var(--azul);
+  font-weight: 300;
+}
+.num-cell .num-lbl {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-faint); line-height: 1.5;
+}
+@media (max-width: 800px) { .numeralia-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .numeralia-grid { grid-template-columns: 1fr; } }
+
+/* ============ III · EJES ============ */
+.ejes-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--ink-rule);
+  border: 1px solid var(--ink-rule);
+  margin-top: 32px;
+}
+.eje-item {
+  background: var(--white); padding: 26px 28px;
+  display: flex; gap: 20px; align-items: flex-start;
+  transition: background 0.3s var(--ease);
+}
+.eje-item:hover { background: var(--marfil-light); }
+.eje-item .eje-num {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.16em; color: var(--azul);
+  padding-top: 4px; min-width: 32px;
+}
+.eje-item .eje-ttl {
+  font-family: var(--serif); font-size: 18px;
+  line-height: 1.3; color: var(--ink);
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+}
+@media (max-width: 700px) { .ejes-list { grid-template-columns: 1fr; } }
+
+/* ============ IV · PONENTES ============ */
+.ponentes-mem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  background: var(--ink-rule);
+  border: 1px solid var(--ink-rule);
+  margin-top: 32px;
+}
+.ponente-mem {
+  background: var(--white);
+  padding: 28px 26px;
+  border: 1px solid var(--ink-rule);
+  margin: -1px 0 0 -1px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: background 0.3s var(--ease);
+}
+.ponente-mem:hover { background: var(--marfil-light); }
+.ponente-mem .pm-role {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--azul);
+}
+.ponente-mem .pm-name {
+  font-family: var(--serif); font-size: 19px;
+  line-height: 1.25; color: var(--ink); font-weight: 400;
+  font-variation-settings: "opsz" 144;
+}
+.ponente-mem .pm-afil {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--ink-soft); line-height: 1.5;
+}
+@media (max-width: 900px) { .ponentes-mem-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .ponentes-mem-grid { grid-template-columns: 1fr; } }
+
+/* ============ V · PROGRAMA ============ */
+.programa-mem { margin-top: 32px; }
+.dia-mem { margin-bottom: 48px; }
+.dia-mem-h {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--azul); margin-bottom: 18px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--azul);
+}
+.row-mem {
+  display: grid; grid-template-columns: 130px 1fr 240px;
+  gap: 24px; padding: 18px 0;
+  border-bottom: 1px solid var(--ink-rule);
+  align-items: start;
+}
+.row-mem:last-child { border-bottom: none; }
+.row-mem .hr {
+  font-family: var(--mono); font-size: 12.5px;
+  color: var(--ink); font-weight: 500; letter-spacing: 0.04em;
+}
+.row-mem .topic {
+  font-family: var(--serif); font-size: 16px;
+  color: var(--ink); line-height: 1.5;
+  font-variation-settings: "opsz" 144;
+}
+.row-mem .topic strong { color: var(--ink); font-weight: 500; }
+.row-mem .who {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--ink-soft); line-height: 1.45;
+}
+@media (max-width: 800px) {
+  .row-mem { grid-template-columns: 90px 1fr; gap: 14px; }
+  .row-mem .who { grid-column: 2; }
+}
+
+/* ============ VI · GALERÍA ============ */
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 32px;
+}
+.galeria-grid figure {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--ink-deep);
+  border: 1px solid var(--ink-rule);
+}
+.galeria-grid figure.tall { grid-row: span 2; aspect-ratio: auto; }
+.galeria-grid figure img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.galeria-grid figure:hover img { transform: scale(1.04); }
+.galeria-grid figure figcaption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(0deg, rgba(10, 34, 64, 0.92) 0%, transparent 100%);
+  color: var(--marfil); padding: 24px 16px 14px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  opacity: 0; transition: opacity 0.3s var(--ease);
+}
+.galeria-grid figure:hover figcaption { opacity: 1; }
+@media (max-width: 800px) { .galeria-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .galeria-grid { grid-template-columns: 1fr; } .galeria-grid figure.tall { grid-row: auto; } }
+
+/* ============ VII · LEGADO ============ */
+.legado-section {
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 96px 0;
+}
+.legado-section .section-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.legado-section .section-eyebrow { color: var(--dorado); }
+.legado-section .section-eyebrow::before { background: var(--dorado); }
+.legado-section h2 { color: var(--marfil); }
+.legado-section h2 em { color: var(--dorado); }
+.legado-section .section-body { color: rgba(245, 239, 224, 0.82); }
+.legado-section .section-body strong { color: var(--marfil); }
+.legado-section .section-body em { color: var(--dorado-soft); }
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.pillar {
+  padding: 28px 26px;
+  background: rgba(245, 239, 224, 0.04);
+  border: 1px solid rgba(245, 239, 224, 0.12);
+}
+.pillar h3 {
+  font-family: var(--serif); font-size: 19px;
+  font-weight: 400; font-style: italic;
+  color: var(--dorado); margin-bottom: 14px;
+  font-variation-settings: "opsz" 144;
+}
+.pillar p {
+  font-family: var(--sans); font-size: 13.5px;
+  line-height: 1.65; color: rgba(245, 239, 224, 0.78);
+}
+.pillar p strong { color: var(--marfil); font-weight: 500; }
+@media (max-width: 900px) { .pillars-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .pillars-grid { grid-template-columns: 1fr; } }
+
+/* ============ OTHER EDITIONS ============ */
+.other-editions {
+  max-width: var(--max); margin: 0 auto;
+  padding: 56px var(--gutter) 80px;
+  display: flex; flex-wrap: wrap;
+  gap: 24px; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--ink-rule);
+}
+.other-editions-eyebrow {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.other-editions-links { display: flex; flex-wrap: wrap; gap: 28px; }
+.other-editions-links a {
+  font-family: var(--serif); font-size: 16px;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink-rule);
+  padding-bottom: 4px;
+  font-variation-settings: "opsz" 144;
+  transition: border-color 0.3s var(--ease);
+}
+.other-editions-links a:hover { border-bottom-color: var(--azul); color: var(--azul); }
+
+/* ============ FOOTER ============ */
+footer {
+  padding: 36px var(--gutter);
+  border-top: 1px solid var(--ink-rule);
+  background: var(--paper);
+}
+.footer-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.footer-inner a { color: var(--ink-soft); text-decoration: none; }
+.footer-inner a:hover { color: var(--azul); }
 </style>
 </head>
 <body>
 
-<header class="site">
-  <div class="container">
-    <a class="logo" href="index.html">IV Foro Derecho · Tecnología · <em>2026</em></a>
-    <div class="header-actions">
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">IV Foro</span>
+      <span class="brand-rule"></span>
+      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
+    </a>
+    <div class="nav-cta">
+      <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
       <div class="lang">
         <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
       </div>
-      <a class="back" href="index.html" data-i18n="nav_back">← Volver al sitio</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ RIBBON HERO ============ -->
+<header class="ribbon">
+  <div class="ribbon-eyebrow" data-i18n="m1_badge">I Edición · 14–15 Noviembre 2023</div>
+  <h1 data-i18n-html="m1_title_html">I Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
+  <p class="ribbon-lead" data-i18n-html="m1_lede_html">La <strong>edición fundacional</strong>. Dos días en los que CUCEA reunió al Senado de la República, a la Rectoría del CUCEA y, a lo largo del programa, a las <strong>presidencias del Supremo Tribunal de Justicia del Estado de Jalisco, de COFECE, de INAI, de la Academia Mexicana de Ciberseguridad y Derecho Digital (AMCID), de la Academia Mexicana de Derecho Informático (AMDI) y de ALGDETIC</strong>, junto con la presidencia internacional de la <strong>Federación Iberoamericana de Asociaciones de Derecho e Informática (FIADI)</strong>. Por primera vez de manera oficial en Jalisco, la conversación entre el derecho mexicano y las tecnologías que están reescribiendo todo: inteligencia artificial, ciberseguridad, blockchain, ADR digital y privacidad.</p>
+  <div class="ribbon-meta">
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="m1_stat1_k">Fecha</span>
+      <span class="meta-value" data-i18n-html="m1_stat1_v_html">14–15 Nov · 2023</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="m1_stat2_k">Sede</span>
+      <span class="meta-value" data-i18n-html="m1_stat2_v_html">CUCEA · UDG · Zapopan</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="m1_stat3_k">Modalidad</span>
+      <span class="meta-value" data-i18n-html="m1_stat3_v_html">Presencial + virtual</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label" data-i18n="m1_stat4_k">Lema</span>
+      <span class="meta-value" data-i18n-html="m1_stat4_v_html">Innovación jurídica en la era digital</span>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="container">
-    <div class="badge" data-i18n="m1_badge">I Edición · 14–15 Noviembre 2023</div>
-    <h1 class="title" data-i18n-html="m1_title_html">I Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
-    <p class="lede" data-i18n-html="m1_lede_html">La <strong>edición fundacional</strong>. Dos días en los que CUCEA reunió al Senado de la República, a la Rectoría del CUCEA y, a lo largo del programa, a las <strong>presidencias del Supremo Tribunal de Justicia del Estado de Jalisco, de COFECE, de INAI, de la Academia Mexicana de Ciberseguridad y Derecho Digital (AMCID), de la Academia Mexicana de Derecho Informático (AMDI) y de ALGDETIC</strong>, junto con la presidencia internacional de la <strong>Federación Iberoamericana de Asociaciones de Derecho e Informática (FIADI)</strong>. Por primera vez de manera oficial en Jalisco, la conversación entre el derecho mexicano y las tecnologías que están reescribiendo todo: inteligencia artificial, ciberseguridad, blockchain, ADR digital y privacidad.</p>
-    <div class="hero-stats">
-      <div><span class="k" data-i18n="m1_stat1_k">Fecha</span><span class="v" data-i18n-html="m1_stat1_v_html">14–15 Nov<br>2023</span></div>
-      <div><span class="k" data-i18n="m1_stat2_k">Sede</span><span class="v" data-i18n-html="m1_stat2_v_html">CUCEA · UDG<br>Zapopan, Jal.</span></div>
-      <div><span class="k" data-i18n="m1_stat3_k">Modalidad</span><span class="v" data-i18n-html="m1_stat3_v_html">Presencial<br>+ virtual</span></div>
-      <div><span class="k" data-i18n="m1_stat4_k">Lema</span><span class="v" data-i18n-html="m1_stat4_v_html">Innovación jurídica<br>en la era digital</span></div>
+<!-- ============ I · RESEÑA ============ -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m1_s1_label">I · Reseña · El origen</div>
+    <h2 data-i18n-html="m1_s1_title_html">Cuando el derecho mexicano <em>decidió</em> sentarse a la mesa con la tecnología.</h2>
+  </div>
+  <div class="section-body">
+    <p data-i18n-html="m1_s1_p1_html">El 14 de noviembre de 2023, el Auditorio Central de CUCEA se convirtió en algo poco habitual: un punto de encuentro real entre <strong>poder legislativo, judicial, ejecutivo, academia, sector privado y sociedad civil</strong>, todos convocados alrededor de la misma pregunta. La <em>Senadora Alejandra Lagunes Soto Ruiz</em> abrió desde lo legislativo y el <em>Mtro. Luis Gustavo Padilla Montes</em>, Rector del CUCEA, selló el respaldo institucional de la Universidad de Guadalajara. A partir de ahí, dos días intensos de paneles que tocaron lo que entonces apenas se nombraba: regulación de ciberseguridad, justicia alternativa en línea, auditorías algorítmicas, privacidad mental y sucesiones digitales.</p>
+    <p data-i18n-html="m1_s1_p2_html">El Foro nació con una vocación clara: <strong>no ser un congreso académico más</strong>. Desde la primera edición se buscó el cruce real entre quienes legislan, quienes juzgan, quienes regulan y quienes investigan. A lo largo de los dos días participaron, en distintos paneles y ponencias, las presidencias del <strong>Supremo Tribunal de Justicia del Estado de Jalisco</strong> (Magdo. Daniel Espinoza Licón), de la <strong>Comisión Federal de Competencia Económica (COFECE)</strong> (Dra. Andrea Marvan Saltiel), del <strong>Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)</strong> (Mtra. Blanca Lilia Ibarra), de la <strong>Academia Mexicana de Ciberseguridad y Derecho Digital</strong> (Dr. Ernesto Ibarra Sánchez), de la <strong>Academia Mexicana de Derecho Informático</strong> (Mtro. Joel Gómez Treviño) y de la <strong>Red Latinoamericana de Gobierno, Derecho y Nuevas Tecnologías — ALGDETIC</strong> (Ing. Miguel Ángel Gaspar Villalba), junto con la presidencia internacional de <strong>FIADI</strong> (Dra. Bibiana Luz Clara), la <strong>Federación Iberoamericana de Asociaciones de Derecho e Informática</strong>. Sumadas a representantes de <em>California State University Dominguez Hills</em>, la <em>Universidad Alfonso X El Sabio</em>, la <em>Universidad de Newcastle</em> y el <em>CIDE</em>, convirtieron a CUCEA en una de las pocas sedes mexicanas donde, ese año, se discutió con esa profundidad lo que el derecho aún no sabía contestarle a la tecnología.</p>
+    <p data-i18n-html="m1_s1_p3_html">De esta edición salió el compromiso institucional de continuidad. El Foro dejó de ser una idea para convertirse en un evento académico con vocación de permanencia, organizado por <em>los actuales miembros del</em> <strong>Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</strong> —entonces aún en proceso de conformación—, junto con la Academia de Derecho Económico Empresarial, el Departamento de Ciencias Sociales y Jurídicas y la Maestría en Resolución de Conflictos del CUCEA, bajo la dirección académica permanente del <em>Dr. Juan Emmanuel Delva Benavides</em>.</p>
+  </div>
+</section>
+
+<!-- ============ II · NUMERALIA ============ -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m1_s2_label">II · Numeralia · I edición</div>
+      <h2 data-i18n-html="m1_s2_title_html">Los <em>números</em> de un comienzo.</h2>
+    </div>
+    <div class="numeralia-grid">
+      <div class="num-cell">
+        <span class="num">23</span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl1">Ponencias en programa</span>
+      </div>
+      <div class="num-cell">
+        <span class="num">2</span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl2">Días de jornada presencial + virtual</span>
+      </div>
+      <div class="num-cell">
+        <span class="num">7+</span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl3">Países representados</span>
+      </div>
+      <div class="num-cell">
+        <span class="num">5</span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl4">Ejes temáticos abordados</span>
+      </div>
+      <div class="num-cell">
+        <span class="num">6</span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl5">Presidencias institucionales presentes — ALGDETIC · AMCID · AMDI · COFECE · INAI · STJ Jalisco</span>
+      </div>
+      <div class="num-cell">
+        <span class="num"><em>FIADI</em></span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl6">Presidencia internacional — Dra. Bibiana Luz Clara</span>
+      </div>
+      <div class="num-cell">
+        <span class="num"><em>CUCEA</em></span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl7">Auditorio Central · Rectoría como respaldo institucional</span>
+      </div>
+      <div class="num-cell">
+        <span class="num"><em>I</em></span>
+        <span class="num-lbl" data-i18n="m1_s2_lbl8">Edición fundacional · primer paso del Foro</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- I. RESEÑA -->
-<section>
-  <div class="container">
-    <div class="sec-num"><span class="romano">I</span><span class="label" data-i18n="m1_s1_label">Reseña · El origen</span></div>
-    <h2 class="sec" data-i18n-html="m1_s1_title_html">Cuando el derecho mexicano <em>decidió</em> sentarse a la mesa con la tecnología.</h2>
-    <div class="body">
-      <p data-i18n-html="m1_s1_p1_html">El 14 de noviembre de 2023, el Auditorio Central de CUCEA se convirtió en algo poco habitual: un punto de encuentro real entre <strong>poder legislativo, judicial, ejecutivo, academia, sector privado y sociedad civil</strong>, todos convocados alrededor de la misma pregunta. La <em>Senadora Alejandra Lagunes Soto Ruiz</em> abrió desde lo legislativo y el <em>Mtro. Luis Gustavo Padilla Montes</em>, Rector del CUCEA, selló el respaldo institucional de la Universidad de Guadalajara. A partir de ahí, dos días intensos de paneles que tocaron lo que entonces apenas se nombraba: regulación de ciberseguridad, justicia alternativa en línea, auditorías algorítmicas, privacidad mental y sucesiones digitales.</p>
-      <p data-i18n-html="m1_s1_p2_html">El Foro nació con una vocación clara: <strong>no ser un congreso académico más</strong>. Desde la primera edición se buscó el cruce real entre quienes legislan, quienes juzgan, quienes regulan y quienes investigan. A lo largo de los dos días participaron, en distintos paneles y ponencias, las presidencias del <strong>Supremo Tribunal de Justicia del Estado de Jalisco</strong> (Magdo. Daniel Espinoza Licón), de la <strong>Comisión Federal de Competencia Económica (COFECE)</strong> (Dra. Andrea Marvan Saltiel), del <strong>Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)</strong> (Mtra. Blanca Lilia Ibarra), de la <strong>Academia Mexicana de Ciberseguridad y Derecho Digital</strong> (Dr. Ernesto Ibarra Sánchez), de la <strong>Academia Mexicana de Derecho Informático</strong> (Mtro. Joel Gómez Treviño) y de la <strong>Red Latinoamericana de Gobierno, Derecho y Nuevas Tecnologías — ALGDETIC</strong> (Ing. Miguel Ángel Gaspar Villalba), junto con la presidencia internacional de <strong>FIADI</strong> (Dra. Bibiana Luz Clara), la <strong>Federación Iberoamericana de Asociaciones de Derecho e Informática</strong>. Sumadas a representantes de <em>California State University Dominguez Hills</em>, la <em>Universidad Alfonso X El Sabio</em>, la <em>Universidad de Newcastle</em> y el <em>CIDE</em>, convirtieron a CUCEA en una de las pocas sedes mexicanas donde, ese año, se discutió con esa profundidad lo que el derecho aún no sabía contestarle a la tecnología.</p>
-      <p data-i18n-html="m1_s1_p3_html">De esta edición salió el compromiso institucional de continuidad. El Foro dejó de ser una idea para convertirse en un evento académico con vocación de permanencia, organizado por <em>los actuales miembros del</em> <strong>Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</strong> —entonces aún en proceso de conformación—, junto con la Academia de Derecho Económico Empresarial, el Departamento de Ciencias Sociales y Jurídicas y la Maestría en Resolución de Conflictos del CUCEA, bajo la dirección académica permanente del <em>Dr. Juan Emmanuel Delva Benavides</em>.</p>
+<!-- ============ III · EJES ============ -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m1_s3_label">III · Ejes temáticos</div>
+    <h2 data-i18n-html="m1_s3_title_html">Cinco <em>conversaciones</em> que abrieron la agenda.</h2>
+  </div>
+  <div class="section-body" style="margin-top: 0;">
+    <p data-i18n="m1_s3_intro">La I edición trazó por primera vez los ejes que después se consolidarían como columna vertebral del Foro. La curaduría buscó cubrir el espectro completo: desde el debate legislativo en curso hasta los casos de uso emergentes en tribunales.</p>
+  </div>
+  <div class="ejes-list">
+    <div class="eje-item">
+      <span class="eje-num">01</span>
+      <span class="eje-ttl" data-i18n="m1_s3_eje1">Regulación en materia de Ciberseguridad</span>
+    </div>
+    <div class="eje-item">
+      <span class="eje-num">02</span>
+      <span class="eje-ttl" data-i18n="m1_s3_eje2">ADR and technology use cases · Justicia Alternativa en línea</span>
+    </div>
+    <div class="eje-item">
+      <span class="eje-num">03</span>
+      <span class="eje-ttl" data-i18n="m1_s3_eje3">Auditoría en algoritmos de recomendación</span>
+    </div>
+    <div class="eje-item">
+      <span class="eje-num">04</span>
+      <span class="eje-ttl" data-i18n="m1_s3_eje4">Regulación y ciberseguridad en entidades públicas</span>
+    </div>
+    <div class="eje-item">
+      <span class="eje-num">05</span>
+      <span class="eje-ttl" data-i18n="m1_s3_eje5">Privacidad mental, neurociencias y computación cuántica</span>
     </div>
   </div>
 </section>
 
-<!-- II. NUMERALIA -->
-<section style="background:var(--marfil)">
-  <div class="container">
-    <div class="sec-num"><span class="romano">II</span><span class="label" data-i18n="m1_s2_label">Numeralia · I edición</span></div>
-    <h2 class="sec" data-i18n-html="m1_s2_title_html">Los <em>números</em> de un comienzo.</h2>
-    <div class="numeralia">
-      <div class="cell"><div class="n">23</div><div class="lbl" data-i18n="m1_s2_lbl1">Ponencias en programa</div></div>
-      <div class="cell"><div class="n">2</div><div class="lbl" data-i18n="m1_s2_lbl2">Días de jornada presencial + virtual</div></div>
-      <div class="cell"><div class="n">7+</div><div class="lbl" data-i18n="m1_s2_lbl3">Países representados</div></div>
-      <div class="cell"><div class="n">5</div><div class="lbl" data-i18n="m1_s2_lbl4">Ejes temáticos abordados</div></div>
-      <div class="cell"><div class="n">6</div><div class="lbl" data-i18n="m1_s2_lbl5">Presidencias institucionales presentes — ALGDETIC · AMCID · AMDI · COFECE · INAI · STJ Jalisco</div></div>
-      <div class="cell"><div class="n">FIADI</div><div class="lbl" data-i18n="m1_s2_lbl6">Presidencia internacional — Dra. Bibiana Luz Clara</div></div>
-      <div class="cell"><div class="n">CUCEA</div><div class="lbl" data-i18n="m1_s2_lbl7">Auditorio Central · Rectoría como respaldo institucional</div></div>
-      <div class="cell"><div class="n">I</div><div class="lbl" data-i18n="m1_s2_lbl8">Edición fundacional · primer paso del Foro</div></div>
+<!-- ============ IV · PONENTES DESTACADOS ============ -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m1_s4_label">IV · Ponentes destacados</div>
+      <h2 data-i18n-html="m1_s4_title_html">Las <em>voces</em> que abrieron el camino.</h2>
     </div>
-  </div>
-</section>
-
-<!-- III. EJES -->
-<section>
-  <div class="container">
-    <div class="sec-num"><span class="romano">III</span><span class="label" data-i18n="m1_s3_label">Ejes temáticos</span></div>
-    <h2 class="sec" data-i18n-html="m1_s3_title_html">Cinco <em>conversaciones</em> que abrieron la agenda.</h2>
-    <div class="body" style="margin-bottom:0">
-      <p data-i18n="m1_s3_intro">La I edición trazó por primera vez los ejes que después se consolidarían como columna vertebral del Foro. La curaduría buscó cubrir el espectro completo: desde el debate legislativo en curso hasta los casos de uso emergentes en tribunales.</p>
-    </div>
-    <div class="ejes">
-      <div class="eje"><div class="num">01</div><div class="ttl" data-i18n="m1_s3_eje1">Regulación en materia de Ciberseguridad</div></div>
-      <div class="eje"><div class="num">02</div><div class="ttl" data-i18n="m1_s3_eje2">ADR and technology use cases · Justicia Alternativa en línea</div></div>
-      <div class="eje"><div class="num">03</div><div class="ttl" data-i18n="m1_s3_eje3">Auditoría en algoritmos de recomendación</div></div>
-      <div class="eje"><div class="num">04</div><div class="ttl" data-i18n="m1_s3_eje4">Regulación y ciberseguridad en entidades públicas</div></div>
-      <div class="eje"><div class="num">05</div><div class="ttl" data-i18n="m1_s3_eje5">Privacidad mental, neurociencias y computación cuántica</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- IV. PONENTES DESTACADOS -->
-<section style="background:var(--marfil)">
-  <div class="container">
-    <div class="sec-num"><span class="romano">IV</span><span class="label" data-i18n="m1_s4_label">Ponentes destacados</span></div>
-    <h2 class="sec" data-i18n-html="m1_s4_title_html">Las <em>voces</em> que abrieron el camino.</h2>
-    <div class="body" style="margin-bottom:0">
+    <div class="section-body" style="margin-top: 0;">
       <p data-i18n-html="m1_s4_intro_html">La curación de la I edición preservó el balance que después se volvería marca de la casa: <strong>academia + sector judicial + legislativo + regulador + sector privado + organismos internacionales</strong>. Lo que sigue es una selección representativa de quienes efectivamente participaron; el programa completo cubrió 23 intervenciones.</p>
     </div>
-    <div class="ponentes-grid">
-      <div class="ponente"><div class="role" data-i18n="m1_p1_role">Senado de la República</div><div class="name">Sen. Alejandra Lagunes Soto Ruiz</div><div class="afil" data-i18n="m1_p1_afil">Inauguración · Regulación de Ciberseguridad</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p2_role">Rectoría CUCEA · UDG</div><div class="name">Mtro. Luis Gustavo Padilla Montes</div><div class="afil" data-i18n="m1_p2_afil">Respaldo institucional · Bienvenida inaugural</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p3_role">Presidencia · FIADI</div><div class="name">Dra. Bibiana Luz Clara</div><div class="afil" data-i18n="m1_p3_afil">Federación Iberoamericana de Asociaciones de Derecho e Informática · La Justicia Alternativa en línea</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p4_role">Presidencia · STJ Jalisco</div><div class="name">Magdo. Daniel Espinoza Licón</div><div class="afil" data-i18n="m1_p4_afil">Supremo Tribunal de Justicia del Estado de Jalisco · Justicia en línea en el Estado</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p5_role">Presidencia · COFECE</div><div class="name">Dra. Andrea Marvan Saltiel</div><div class="afil" data-i18n="m1_p5_afil">Comisión Federal de Competencia Económica · Regulación y ciberseguridad en entidades públicas</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p6_role">Presidencia · INAI</div><div class="name">Mtra. Blanca Lilia Ibarra Cadena</div><div class="afil" data-i18n="m1_p6_afil">Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales · Panel regulatorio</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p7_role">Presidencia · AMCID</div><div class="name">Dr. Ernesto Ibarra Sánchez</div><div class="afil" data-i18n="m1_p7_afil">Academia Mexicana de Ciberseguridad y Derecho Digital · Ciberseguridad en México</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p8_role">Presidencia · AMDI</div><div class="name">Mtro. Joel Gómez Treviño</div><div class="afil" data-i18n="m1_p8_afil">Academia Mexicana de Derecho Informático · IA en el ámbito jurídico</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p9_role">Presidencia · ALGDETIC</div><div class="name">Ing. Miguel Ángel Gaspar Villalba</div><div class="afil" data-i18n="m1_p9_afil">Red Latinoamericana de Gobierno, Derecho y Nuevas Tecnologías · Auditoría en algoritmos de recomendación</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p10_role">CSU Dominguez Hills · USA</div><div class="name">Dr. John Swarbrick · Dr. Brian Jarret</div><div class="afil" data-i18n="m1_p10_afil">ADR and technology use cases</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p11_role">CIDE</div><div class="name">Dra. Olivia Andrea Mendoza Enríquez</div><div class="afil" data-i18n="m1_p11_afil">Privacidad mental · IA, neurociencias y computación cuántica</div></div>
-      <div class="ponente"><div class="role" data-i18n="m1_p12_role">U. Newcastle · UAX Madrid · OMA</div><div class="name">Dr. Mauricio Figueroa · Dra. García Torres · Dra. Caicedo</div><div class="afil" data-i18n="m1_p12_afil">Sucesiones digitales · IA en automatización de procesos judiciales</div></div>
+    <div class="ponentes-mem-grid">
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p1_role">Senado de la República</span>
+        <h3 class="pm-name">Sen. Alejandra Lagunes Soto Ruiz</h3>
+        <p class="pm-afil" data-i18n="m1_p1_afil">Inauguración · Regulación de Ciberseguridad</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p2_role">Rectoría CUCEA · UDG</span>
+        <h3 class="pm-name">Mtro. Luis Gustavo Padilla Montes</h3>
+        <p class="pm-afil" data-i18n="m1_p2_afil">Respaldo institucional · Bienvenida inaugural</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p3_role">Presidencia · FIADI</span>
+        <h3 class="pm-name">Dra. Bibiana Luz Clara</h3>
+        <p class="pm-afil" data-i18n="m1_p3_afil">Federación Iberoamericana de Asociaciones de Derecho e Informática · La Justicia Alternativa en línea</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p4_role">Presidencia · STJ Jalisco</span>
+        <h3 class="pm-name">Magdo. Daniel Espinoza Licón</h3>
+        <p class="pm-afil" data-i18n="m1_p4_afil">Supremo Tribunal de Justicia del Estado de Jalisco · Justicia en línea en el Estado</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p5_role">Presidencia · COFECE</span>
+        <h3 class="pm-name">Dra. Andrea Marvan Saltiel</h3>
+        <p class="pm-afil" data-i18n="m1_p5_afil">Comisión Federal de Competencia Económica · Regulación y ciberseguridad en entidades públicas</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p6_role">Presidencia · INAI</span>
+        <h3 class="pm-name">Mtra. Blanca Lilia Ibarra Cadena</h3>
+        <p class="pm-afil" data-i18n="m1_p6_afil">Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales · Panel regulatorio</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p7_role">Presidencia · AMCID</span>
+        <h3 class="pm-name">Dr. Ernesto Ibarra Sánchez</h3>
+        <p class="pm-afil" data-i18n="m1_p7_afil">Academia Mexicana de Ciberseguridad y Derecho Digital · Ciberseguridad en México</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p8_role">Presidencia · AMDI</span>
+        <h3 class="pm-name">Mtro. Joel Gómez Treviño</h3>
+        <p class="pm-afil" data-i18n="m1_p8_afil">Academia Mexicana de Derecho Informático · IA en el ámbito jurídico</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p9_role">Presidencia · ALGDETIC</span>
+        <h3 class="pm-name">Ing. Miguel Ángel Gaspar Villalba</h3>
+        <p class="pm-afil" data-i18n="m1_p9_afil">Red Latinoamericana de Gobierno, Derecho y Nuevas Tecnologías · Auditoría en algoritmos de recomendación</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p10_role">CSU Dominguez Hills · USA</span>
+        <h3 class="pm-name">Dr. John Swarbrick · Dr. Brian Jarret</h3>
+        <p class="pm-afil" data-i18n="m1_p10_afil">ADR and technology use cases</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p11_role">CIDE</span>
+        <h3 class="pm-name">Dra. Olivia Andrea Mendoza Enríquez</h3>
+        <p class="pm-afil" data-i18n="m1_p11_afil">Privacidad mental · IA, neurociencias y computación cuántica</p>
+      </article>
+      <article class="ponente-mem">
+        <span class="pm-role" data-i18n="m1_p12_role">U. Newcastle · UAX Madrid · OMA</span>
+        <h3 class="pm-name">Dr. Mauricio Figueroa · Dra. García Torres · Dra. Caicedo</h3>
+        <p class="pm-afil" data-i18n="m1_p12_afil">Sucesiones digitales · IA en automatización de procesos judiciales</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- V. PROGRAMA RESUMEN -->
-<section>
-  <div class="container">
-    <div class="sec-num"><span class="romano">V</span><span class="label" data-i18n="m1_s5_label">Programa</span></div>
-    <h2 class="sec" data-i18n-html="m1_s5_title_html">Dos <em>jornadas</em>, una agenda inaugural.</h2>
-    <div class="timeline">
-      <div class="dia">
-        <div class="dia-h" data-i18n="m1_s5_day1">Martes 14 de noviembre · Día 1</div>
-        <div class="row"><div class="hr">09:00 – 09:45</div><div class="topic" data-i18n-html="m1_s5_d1r1_topic"><strong>Actos protocolarios · Bienvenida</strong></div><div class="who" data-i18n="m1_s5_d1r1_who">Sen. Alejandra Lagunes Soto Ruiz · Mtro. Luis Gustavo Padilla Montes (Rector CUCEA)</div></div>
-        <div class="row"><div class="hr">09:45 – 10:45</div><div class="topic" data-i18n-html="m1_s5_d1r2_topic">Panel · <strong>Regulación en materia de Ciberseguridad</strong></div><div class="who" data-i18n="m1_s5_d1r2_who">Sen. Alejandra Lagunes Soto Ruiz</div></div>
-        <div class="row"><div class="hr">12:00 – 12:50</div><div class="topic" data-i18n-html="m1_s5_d1r3_topic">Panel · <strong>ADR and technology use cases</strong></div><div class="who" data-i18n="m1_s5_d1r3_who">Dr. René Castro · Dr. John Swarbrick (CSU Dominguez Hills)</div></div>
-        <div class="row"><div class="hr">13:00 – 13:30</div><div class="topic" data-i18n-html="m1_s5_d1r4_topic"><strong>La Justicia Alternativa en línea</strong></div><div class="who" data-i18n="m1_s5_d1r4_who">Dra. Bibiana Luz Clara · Presidencia FIADI</div></div>
-        <div class="row"><div class="hr">13:30 – 14:00</div><div class="topic" data-i18n-html="m1_s5_d1r5_topic"><strong>Auditoría en Algoritmos de Recomendación</strong></div><div class="who" data-i18n="m1_s5_d1r5_who">Ing. Miguel Ángel Gaspar · ALGDETIC</div></div>
+<!-- ============ V · PROGRAMA ============ -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m1_s5_label">V · Programa</div>
+    <h2 data-i18n-html="m1_s5_title_html">Dos <em>jornadas</em>, una agenda inaugural.</h2>
+  </div>
+  <div class="programa-mem">
+    <div class="dia-mem">
+      <div class="dia-mem-h" data-i18n="m1_s5_day1">Martes 14 de noviembre · Día 1</div>
+      <div class="row-mem">
+        <span class="hr">09:00 – 09:45</span>
+        <span class="topic" data-i18n-html="m1_s5_d1r1_topic"><strong>Actos protocolarios · Bienvenida</strong></span>
+        <span class="who" data-i18n="m1_s5_d1r1_who">Sen. Alejandra Lagunes Soto Ruiz · Mtro. Luis Gustavo Padilla Montes (Rector CUCEA)</span>
       </div>
-      <div class="dia">
-        <div class="dia-h" data-i18n="m1_s5_day2">Miércoles 15 de noviembre · Día 2</div>
-        <div class="row"><div class="hr">09:00 – 09:50</div><div class="topic" data-i18n-html="m1_s5_d2r1_topic">Panel · <strong>Regulación y ciberseguridad en entidades públicas</strong></div><div class="who" data-i18n="m1_s5_d2r1_who">Dra. Andrea Marvan (COFECE) · Mtra. Blanca Lilia Ibarra (INAI)</div></div>
-        <div class="row"><div class="hr">09:50 – 10:20</div><div class="topic" data-i18n-html="m1_s5_d2r2_topic"><strong>Ciberseguridad en México</strong></div><div class="who" data-i18n="m1_s5_d2r2_who">Dr. Ernesto Ibarra · Academia Mexicana de Ciberseguridad</div></div>
-        <div class="row"><div class="hr">10:20 – 10:50</div><div class="topic" data-i18n-html="m1_s5_d2r3_topic"><strong>Inteligencia artificial en el ámbito jurídico</strong></div><div class="who" data-i18n="m1_s5_d2r3_who">Mtro. Joel Gómez Treviño · Academia Mexicana de Derecho Informático</div></div>
-        <div class="row"><div class="hr">11:00 – 11:45</div><div class="topic" data-i18n-html="m1_s5_d2r4_topic"><strong>Las sucesiones en el mundo digital</strong></div><div class="who" data-i18n="m1_s5_d2r4_who">Dr. Mauricio Figueroa Torres · Univ. Newcastle</div></div>
-        <div class="row"><div class="hr">11:45 – 12:30</div><div class="topic" data-i18n-html="m1_s5_d2r5_topic"><strong>Privacidad mental, IA, neurociencias y computación cuántica</strong></div><div class="who" data-i18n="m1_s5_d2r5_who">Dra. Olivia Andrea Mendoza Enríquez · CIDE</div></div>
-        <div class="row"><div class="hr">12:30 – 13:15</div><div class="topic" data-i18n-html="m1_s5_d2r6_topic"><strong>IA aplicada a la automatización de procesos judiciales</strong></div><div class="who" data-i18n="m1_s5_d2r6_who">Dra. María Luisa García Torres · Dra. Juliana Caicedo · UAX-OMA</div></div>
-        <div class="row"><div class="hr">13:15 – 14:00</div><div class="topic" data-i18n-html="m1_s5_d2r7_topic"><strong>Justicia en línea en el Estado de Jalisco</strong></div><div class="who" data-i18n="m1_s5_d2r7_who">Magdo. Daniel Espinoza Licón · STJ Jalisco</div></div>
+      <div class="row-mem">
+        <span class="hr">09:45 – 10:45</span>
+        <span class="topic" data-i18n-html="m1_s5_d1r2_topic">Panel · <strong>Regulación en materia de Ciberseguridad</strong></span>
+        <span class="who" data-i18n="m1_s5_d1r2_who">Sen. Alejandra Lagunes Soto Ruiz</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">12:00 – 12:50</span>
+        <span class="topic" data-i18n-html="m1_s5_d1r3_topic">Panel · <strong>ADR and technology use cases</strong></span>
+        <span class="who" data-i18n="m1_s5_d1r3_who">Dr. René Castro · Dr. John Swarbrick (CSU Dominguez Hills)</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">13:00 – 13:30</span>
+        <span class="topic" data-i18n-html="m1_s5_d1r4_topic"><strong>La Justicia Alternativa en línea</strong></span>
+        <span class="who" data-i18n="m1_s5_d1r4_who">Dra. Bibiana Luz Clara · Presidencia FIADI</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">13:30 – 14:00</span>
+        <span class="topic" data-i18n-html="m1_s5_d1r5_topic"><strong>Auditoría en Algoritmos de Recomendación</strong></span>
+        <span class="who" data-i18n="m1_s5_d1r5_who">Ing. Miguel Ángel Gaspar · ALGDETIC</span>
+      </div>
+    </div>
+    <div class="dia-mem">
+      <div class="dia-mem-h" data-i18n="m1_s5_day2">Miércoles 15 de noviembre · Día 2</div>
+      <div class="row-mem">
+        <span class="hr">09:00 – 09:50</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r1_topic">Panel · <strong>Regulación y ciberseguridad en entidades públicas</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r1_who">Dra. Andrea Marvan (COFECE) · Mtra. Blanca Lilia Ibarra (INAI)</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">09:50 – 10:20</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r2_topic"><strong>Ciberseguridad en México</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r2_who">Dr. Ernesto Ibarra · Academia Mexicana de Ciberseguridad</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">10:20 – 10:50</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r3_topic"><strong>Inteligencia artificial en el ámbito jurídico</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r3_who">Mtro. Joel Gómez Treviño · Academia Mexicana de Derecho Informático</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">11:00 – 11:45</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r4_topic"><strong>Las sucesiones en el mundo digital</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r4_who">Dr. Mauricio Figueroa Torres · Univ. Newcastle</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">11:45 – 12:30</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r5_topic"><strong>Privacidad mental, IA, neurociencias y computación cuántica</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r5_who">Dra. Olivia Andrea Mendoza Enríquez · CIDE</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">12:30 – 13:15</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r6_topic"><strong>IA aplicada a la automatización de procesos judiciales</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r6_who">Dra. María Luisa García Torres · Dra. Juliana Caicedo · UAX-OMA</span>
+      </div>
+      <div class="row-mem">
+        <span class="hr">13:15 – 14:00</span>
+        <span class="topic" data-i18n-html="m1_s5_d2r7_topic"><strong>Justicia en línea en el Estado de Jalisco</strong></span>
+        <span class="who" data-i18n="m1_s5_d2r7_who">Magdo. Daniel Espinoza Licón · STJ Jalisco</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VI. GALERÍA -->
-<section style="background:var(--marfil)">
-  <div class="container">
-    <div class="sec-num"><span class="romano">VI</span><span class="label" data-i18n="m1_s6_label">Galería</span></div>
-    <h2 class="sec" data-i18n-html="m1_s6_title_html">Cómo se <em>vivió</em>.</h2>
-    <div class="galeria">
-      <figure class="tall"><img src="img/memorias/i/00-cartel-oficial.jpg" alt="Cartel oficial I Foro Internacional de Derecho y Tecnología 2023"><figcaption data-i18n="m1_g0">Cartel oficial · I Edición 2023</figcaption></figure>
-      <figure><img src="img/memorias/i/01-presentacion-ponente-internacional.jpg" alt="Presentación de ponente internacional con la mesa de panelistas y letrero institucional"><figcaption data-i18n="m1_g1">Presentación de ponente · letrero institucional CUCEA</figcaption></figure>
-      <figure><img src="img/memorias/i/02-mesa-principal-letrero.jpg" alt="Mesa principal del I Foro con letrero 1ER FORO INTERNACIONAL DE DERECHO Y TECNOLOGÍA y pantalla CUCEA"><figcaption data-i18n="m1_g2">Mesa principal · pantalla CUCEA</figcaption></figure>
-      <figure><img src="img/memorias/i/03-audiencia-manos-alzadas.jpg" alt="Audiencia con manos alzadas durante dinámica participativa · I Foro"><figcaption data-i18n="m1_g3">Participación del auditorio</figcaption></figure>
-      <figure><img src="img/memorias/i/04-auditorio-cucea-lleno.jpg" alt="Auditorio CUCEA lleno · I Foro 2023"><figcaption data-i18n="m1_g4">Auditorio CUCEA · 14 nov 2023</figcaption></figure>
-      <figure><img src="img/memorias/i/05-mesa-panelistas-letrero.jpg" alt="Mesa de siete panelistas con letrero institucional 1ER FORO INTERNACIONAL DE DERECHO Y TECNOLOGÍA"><figcaption data-i18n="m1_g5">Panel inaugural · siete voces en mesa</figcaption></figure>
-      <figure><img src="img/memorias/i/06-panel-virtual-uax-madrid.jpg" alt="Panel virtual vía Zoom con UAX Madrid, Dra. Caicedo, Dra. García Torres y Rectoría CUCEA"><figcaption data-i18n="m1_g6">Panel virtual · UAX Madrid + Rectoría CUCEA</figcaption></figure>
-      <figure><img src="img/memorias/i/07-grupal-autoridades-publico.jpg" alt="Foto grupal con autoridades, ponentes y audiencia del I Foro"><figcaption data-i18n="m1_g7">Foto grupal · autoridades, ponentes y audiencia</figcaption></figure>
-      <figure><img src="img/memorias/i/08-entrega-constancia-sala-gobierno.jpg" alt="Entrega de constancia en la Sala de Gobierno CUCEA"><figcaption data-i18n="m1_g8">Entrega de constancia · Sala de Gobierno CUCEA</figcaption></figure>
-      <figure><img src="img/memorias/i/09-publico-tres-pantallas.jpg" alt="Sala paralela con tres pantallas CUCEA · I Foro"><figcaption data-i18n="m1_g9">Sala paralela · tres pantallas CUCEA</figcaption></figure>
-      <figure><img src="img/memorias/i/10-conversacion-cercana.jpg" alt="Ponente conversando en formato cercano con público joven · I Foro"><figcaption data-i18n="m1_g10">Conversación cercana con la audiencia</figcaption></figure>
+<!-- ============ VI · GALERÍA ============ -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m1_s6_label">VI · Galería</div>
+      <h2 data-i18n-html="m1_s6_title_html">Cómo se <em>vivió</em>.</h2>
+    </div>
+    <div class="galeria-grid">
+      <figure class="tall">
+        <img src="img/memorias/i/00-cartel-oficial.jpg" alt="Cartel oficial I Foro Internacional de Derecho y Tecnología 2023">
+        <figcaption data-i18n="m1_g0">Cartel oficial · I Edición 2023</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/01-presentacion-ponente-internacional.jpg" alt="Presentación de ponente internacional con la mesa de panelistas y letrero institucional">
+        <figcaption data-i18n="m1_g1">Presentación de ponente · letrero institucional CUCEA</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/02-mesa-principal-letrero.jpg" alt="Mesa principal del I Foro con letrero 1ER FORO INTERNACIONAL DE DERECHO Y TECNOLOGÍA y pantalla CUCEA">
+        <figcaption data-i18n="m1_g2">Mesa principal · pantalla CUCEA</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/03-audiencia-manos-alzadas.jpg" alt="Audiencia con manos alzadas durante dinámica participativa">
+        <figcaption data-i18n="m1_g3">Participación del auditorio</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/04-auditorio-cucea-lleno.jpg" alt="Auditorio CUCEA lleno · I Foro 2023">
+        <figcaption data-i18n="m1_g4">Auditorio CUCEA · 14 nov 2023</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/05-mesa-panelistas-letrero.jpg" alt="Mesa de siete panelistas con letrero institucional 1ER FORO INTERNACIONAL DE DERECHO Y TECNOLOGÍA">
+        <figcaption data-i18n="m1_g5">Panel inaugural · siete voces en mesa</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/06-panel-virtual-uax-madrid.jpg" alt="Panel virtual vía Zoom con UAX Madrid, Dra. Caicedo, Dra. García Torres y Rectoría CUCEA">
+        <figcaption data-i18n="m1_g6">Panel virtual · UAX Madrid + Rectoría CUCEA</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/07-grupal-autoridades-publico.jpg" alt="Foto grupal con autoridades, ponentes y audiencia del I Foro">
+        <figcaption data-i18n="m1_g7">Foto grupal · autoridades, ponentes y audiencia</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/08-entrega-constancia-sala-gobierno.jpg" alt="Entrega de constancia en la Sala de Gobierno CUCEA">
+        <figcaption data-i18n="m1_g8">Entrega de constancia · Sala de Gobierno CUCEA</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/09-publico-tres-pantallas.jpg" alt="Sala paralela con tres pantallas CUCEA">
+        <figcaption data-i18n="m1_g9">Sala paralela · tres pantallas CUCEA</figcaption>
+      </figure>
+      <figure>
+        <img src="img/memorias/i/10-conversacion-cercana.jpg" alt="Ponente conversando en formato cercano con público joven">
+        <figcaption data-i18n="m1_g10">Conversación cercana con la audiencia</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- VII. LEGADO -->
-<section class="legado">
-  <div class="container">
-    <div class="sec-num"><span class="romano">VII</span><span class="label" data-i18n="m1_s7_label">Legado</span></div>
-    <h2 class="sec" data-i18n-html="m1_s7_title_html">Qué <em>quedó</em> después de cerrar el telón.</h2>
-    <div class="body">
+<!-- ============ VII · LEGADO ============ -->
+<section class="legado-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m1_s7_label">VII · Legado</div>
+      <h2 data-i18n-html="m1_s7_title_html">Qué <em>quedó</em> después de cerrar el telón.</h2>
+    </div>
+    <div class="section-body">
       <p data-i18n="m1_s7_intro">La I edición no fue un evento que se agotara en su programa. Sentó cuatro cimientos que las ediciones posteriores han ido capitalizando.</p>
     </div>
-    <div class="pillar">
-      <div>
+    <div class="pillars-grid">
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar1_h">Concentración de presidencias</h3>
         <p data-i18n-html="m1_s7_pillar1_p_html">A lo largo del programa participaron las <strong>presidencias</strong> de FIADI, ALGDETIC, AMCID, AMDI, COFECE, INAI y STJ Jalisco. Una densidad institucional difícil de repetir en una sola sede académica.</p>
-      </div>
-      <div>
+      </article>
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar2_h">Red interinstitucional</h3>
         <p data-i18n="m1_s7_pillar2_p">Articulación operativa entre CUCEA, FIADI, ALGDETIC, AMCID, AMDI, STJ Jalisco, COFECE e INAI como red de continuidad para las ediciones siguientes.</p>
-      </div>
-      <div>
+      </article>
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar3_h">Marco de ejes</h3>
         <p data-i18n-html="m1_s7_pillar3_p_html">Primer trazo de los <strong>ejes temáticos</strong> que en la II edición se consolidan a 7 como columna vertebral del Foro, y que en la IV se expanden a 9 con la incorporación de salud digital e IA agéntica.</p>
-      </div>
-      <div>
+      </article>
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar4_h">Respaldo CUCEA</h3>
         <p data-i18n-html="m1_s7_pillar4_p_html">Respaldo explícito de la <strong>Rectoría del CUCEA</strong> al Foro como evento académico permanente, oficializado desde esta edición.</p>
-      </div>
-      <div>
+      </article>
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar5_h">Internacionalización temprana</h3>
         <p data-i18n="m1_s7_pillar5_p">Presencia desde el día uno de ponentes de Estados Unidos, España, Reino Unido, Argentina, Colombia y Paraguay, marcando la pauta del carácter iberoamericano del Foro.</p>
-      </div>
-      <div>
+      </article>
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar6_h">Dirección académica permanente</h3>
         <p data-i18n-html="m1_s7_pillar6_p_html">Consolidación del <strong>Dr. Juan Emmanuel Delva Benavides</strong> como Director Académico permanente del Foro, rol que sostiene la continuidad editorial y curatorial de las ediciones siguientes.</p>
-      </div>
-      <div>
+      </article>
+      <article class="pillar">
         <h3 data-i18n="m1_s7_pillar7_h">Semilla del Cuerpo Académico</h3>
         <p data-i18n-html="m1_s7_pillar7_p_html">Esta edición sembró el equipo de profesores-investigadores que, dos años después, formaría el <strong>Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</strong>, hoy organizador formal del Foro.</p>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
+<!-- ============ OTHER EDITIONS ============ -->
+<div class="other-editions">
+  <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
+  <div class="other-editions-links">
+    <a href="memoria-ii.html">II Foro · 2024</a>
+    <a href="memoria-iii.html">III Foro · 2025</a>
+    <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
 <footer>
-  <div class="container">
-    <div class="other-ed" data-i18n="mem_other_editions">Otras ediciones</div>
-    <div class="ed-links">
-      <a href="memoria-ii.html">II Foro · 2024</a>
-      <a href="memoria-iii.html">III Foro · 2025</a>
-      <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
-    </div>
-    <div class="meta" data-i18n="m1_footer_meta">© 2026 · IV Foro Internacional de Derecho y Tecnología · CUCEA · Universidad de Guadalajara · emmanueldelva@cucea.udg.mx</div>
+  <div class="footer-inner">
+    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
+    <span data-i18n="foot_inst">CUCEA · Universidad de Guadalajara</span>
+    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
   </div>
 </footer>
 
