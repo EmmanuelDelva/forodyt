@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memorias · IV Foro Internacional de Derecho y Tecnología · CUCEA-UDG</title>
+<meta name="description" content="Memorias del Foro Internacional de Derecho y Tecnología. Tres ediciones (2023, 2024, 2025) que sentaron las bases del Foro como evento académico permanente del Cuerpo Académico UDG-CA-1236.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #0E1B2C;
+  --ink-soft: rgba(14, 27, 44, 0.72);
+  --ink-faint: rgba(14, 27, 44, 0.4);
+  --ink-rule: rgba(14, 27, 44, 0.14);
+  --dorado: #B8923E;
+  --dorado-soft: #C8A858;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --paper: #F1EAD7;
+  --white: #FFFEFA;
+
+  /* Paletas distintivas por edición */
+  --azul-i: #11355E;
+  --azul-i-acento: #2974C9;
+  --vino-ii: #5C2A38;
+  --vino-ii-acento: #8B3A4B;
+  --teal-iii: #1F4747;
+  --teal-iii-acento: #3A8E89;
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  --max: 1200px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans); font-size: 16px; line-height: 1.6;
+  color: var(--ink); background: var(--marfil);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+body::before {
+  content: ""; position: fixed; inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(41, 116, 201, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(139, 58, 75, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(58, 142, 137, 0.04) 0%, transparent 45%);
+  pointer-events: none; z-index: 0;
+}
+main, header, footer, nav, section { position: relative; z-index: 1; }
+a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* ============ NAV ============ */
+.nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(245, 239, 224, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--ink-rule); z-index: 100; }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 18px var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-mark { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
+.brand-rule { width: 24px; height: 1px; background: var(--dorado); display: inline-block; }
+.brand-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.nav-cta { display: flex; gap: 24px; align-items: center; }
+.nav-back { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s var(--ease); }
+.nav-back:hover { color: var(--ink); border-bottom-color: var(--dorado); }
+.nav-back::before { content: "← "; color: var(--dorado); }
+.lang { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-faint); display: flex; gap: 6px; align-items: center; }
+.lang span { cursor: pointer; transition: color 0.3s var(--ease); }
+.lang span:hover { color: var(--ink); }
+.lang .active { color: var(--ink); font-weight: 500; }
+@media (max-width: 760px) { .brand-sub { display: none; } }
+
+/* ============ HERO ============ */
+.hero {
+  max-width: var(--max); margin: 0 auto;
+  padding: 140px var(--gutter) 80px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--dorado);
+  margin-bottom: 28px;
+  display: inline-flex; align-items: center; gap: 16px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after { content: ""; width: 48px; height: 1px; background: var(--dorado); }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(52px, 8vw, 110px);
+  font-weight: 300; line-height: 0.95; letter-spacing: -0.025em;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  color: var(--ink); margin-bottom: 36px;
+}
+.hero h1 em { font-style: italic; color: var(--dorado-soft); font-variation-settings: "opsz" 144, "SOFT" 100; }
+.hero-lead {
+  font-family: var(--serif); font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 300; line-height: 1.55; color: var(--ink-soft);
+  max-width: 720px; margin: 0 auto 64px;
+  font-variation-settings: "opsz" 144;
+}
+.hero-lead strong { color: var(--ink); font-weight: 500; }
+.hero-divider {
+  width: 1px; height: 64px; background: var(--ink-rule);
+  margin: 0 auto 0; position: relative;
+}
+.hero-divider::after {
+  content: "·"; position: absolute; bottom: -12px; left: 50%;
+  transform: translateX(-50%); font-family: var(--serif);
+  font-size: 32px; color: var(--dorado); line-height: 1;
+}
+
+/* ============ EDITIONS TIMELINE ============ */
+.editions {
+  max-width: var(--max); margin: 0 auto;
+  padding: 48px var(--gutter) 64px;
+  display: flex; flex-direction: column; gap: 40px;
+}
+
+.edition-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: 48px;
+  align-items: stretch;
+  padding: 48px 0;
+  border-top: 1px solid var(--ink-rule);
+  transition: all 0.5s var(--ease);
+  text-decoration: none;
+  color: inherit;
+}
+.edition-card:hover { background: linear-gradient(180deg, transparent 0%, rgba(245, 239, 224, 0.5) 100%); }
+.edition-card:last-child { border-bottom: 1px solid var(--ink-rule); }
+
+/* Roman number gigante */
+.edition-roman {
+  font-family: var(--serif);
+  font-size: clamp(140px, 16vw, 220px);
+  font-weight: 200;
+  font-style: italic;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  opacity: 0.18;
+  transition: all 0.5s var(--ease);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.edition-card:hover .edition-roman { opacity: 1; }
+
+/* Cromática por edición */
+.edition-card.ed-i:hover .edition-roman { color: var(--azul-i-acento); }
+.edition-card.ed-ii:hover .edition-roman { color: var(--vino-ii-acento); }
+.edition-card.ed-iii:hover .edition-roman { color: var(--teal-iii-acento); }
+
+/* Línea cromática vertical que aparece en hover */
+.edition-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 0;
+  background: var(--dorado);
+  transition: height 0.5s var(--ease), top 0.5s var(--ease);
+}
+.edition-card:hover::before { height: 60%; top: 20%; }
+.edition-card.ed-i:hover::before { background: var(--azul-i-acento); }
+.edition-card.ed-ii:hover::before { background: var(--vino-ii-acento); }
+.edition-card.ed-iii:hover::before { background: var(--teal-iii-acento); }
+
+/* Contenido */
+.edition-content {
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 16px;
+}
+
+.edition-year {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex; align-items: center; gap: 14px;
+  transition: color 0.5s var(--ease);
+}
+.edition-year::before { content: ""; width: 36px; height: 1px; background: var(--ink-rule); transition: background 0.5s var(--ease), width 0.5s var(--ease); }
+.edition-card.ed-i:hover .edition-year { color: var(--azul-i-acento); }
+.edition-card.ed-i:hover .edition-year::before { background: var(--azul-i-acento); width: 56px; }
+.edition-card.ed-ii:hover .edition-year { color: var(--vino-ii-acento); }
+.edition-card.ed-ii:hover .edition-year::before { background: var(--vino-ii-acento); width: 56px; }
+.edition-card.ed-iii:hover .edition-year { color: var(--teal-iii-acento); }
+.edition-card.ed-iii:hover .edition-year::before { background: var(--teal-iii-acento); width: 56px; }
+
+.edition-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  transition: color 0.5s var(--ease);
+}
+.edition-title em {
+  font-style: italic;
+  color: var(--ink-soft);
+  transition: color 0.5s var(--ease);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+.edition-card.ed-i:hover .edition-title em { color: var(--azul-i); }
+.edition-card.ed-ii:hover .edition-title em { color: var(--vino-ii); }
+.edition-card.ed-iii:hover .edition-title em { color: var(--teal-iii); }
+
+.edition-tema {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 19px);
+  color: var(--ink-soft);
+  margin-top: 4px;
+  font-variation-settings: "opsz" 144;
+}
+
+/* Stats inline */
+.edition-stats {
+  display: flex; flex-wrap: wrap; gap: 32px;
+  margin-top: 20px; padding-top: 24px;
+  border-top: 1px dotted var(--ink-rule);
+}
+.edition-stat { display: flex; flex-direction: column; gap: 2px; }
+.edition-stat .s-k { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); }
+.edition-stat .s-v { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; line-height: 1.2; }
+.edition-card.ed-i:hover .edition-stat .s-v { color: var(--azul-i); }
+.edition-card.ed-ii:hover .edition-stat .s-v { color: var(--vino-ii); }
+.edition-card.ed-iii:hover .edition-stat .s-v { color: var(--teal-iii); }
+
+/* CTA */
+.edition-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: 24px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ink-faint);
+  transition: color 0.5s var(--ease), gap 0.5s var(--ease);
+}
+.edition-cta::after { content: "→"; font-family: var(--serif); font-size: 18px; transform: translateX(0); transition: transform 0.5s var(--ease); }
+.edition-card:hover .edition-cta { gap: 18px; }
+.edition-card:hover .edition-cta::after { transform: translateX(6px); }
+.edition-card.ed-i:hover .edition-cta { color: var(--azul-i-acento); }
+.edition-card.ed-ii:hover .edition-cta { color: var(--vino-ii-acento); }
+.edition-card.ed-iii:hover .edition-cta { color: var(--teal-iii-acento); }
+
+/* Coming soon card (IV edition) */
+.edition-card.coming { opacity: 0.6; pointer-events: auto; }
+.edition-card.coming .edition-roman { font-style: normal; opacity: 0.12; }
+.edition-card.coming:hover { opacity: 1; }
+.edition-card.coming:hover .edition-roman { color: var(--dorado); opacity: 0.9; }
+.edition-card.coming:hover::before { background: var(--dorado); }
+.edition-card.coming:hover .edition-year { color: var(--dorado); }
+.edition-card.coming:hover .edition-year::before { background: var(--dorado); width: 56px; }
+.edition-card.coming:hover .edition-title em { color: var(--dorado-soft); }
+.edition-card.coming:hover .edition-stat .s-v { color: var(--ink); }
+.edition-card.coming:hover .edition-cta { color: var(--dorado); }
+.edition-card.coming .pulse {
+  display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--dorado); margin-right: 10px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 146, 62, 0.6); }
+  50% { opacity: 0.5; transform: scale(1.4); box-shadow: 0 0 0 8px rgba(184, 146, 62, 0); }
+}
+
+@media (max-width: 800px) {
+  .edition-card { grid-template-columns: 1fr; gap: 12px; padding: 40px 0; }
+  .edition-roman { font-size: clamp(90px, 22vw, 140px); justify-content: flex-start; }
+  .edition-stats { gap: 20px; }
+}
+
+/* ============ FOOTER ============ */
+footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); background: var(--paper); margin-top: 80px; }
+.footer-inner { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+.footer-inner a { color: var(--ink-soft); text-decoration: none; }
+.footer-inner a:hover { color: var(--dorado); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">IV Foro</span>
+      <span class="brand-rule"></span>
+      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
+    </a>
+    <div class="nav-cta">
+      <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
+      <div class="lang">
+        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow" data-i18n="memorias_eyebrow">Memorias</div>
+  <h1 data-i18n-html="memorias_title_html">Tres ediciones,<br>una <em>conversación</em>.</h1>
+  <p class="hero-lead" data-i18n-html="memorias_lead_html">Desde 2023, el Foro Internacional de Derecho y Tecnología ha reunido en CUCEA a juristas, jueces, reguladores, académicos y especialistas de tres continentes. Cada edición es un <strong>capítulo</strong> de la serie editorial <em>«Innovación Jurídica en la era digital»</em>. Explora abajo cada memoria.</p>
+  <div class="hero-divider"></div>
+</header>
+
+<main class="editions">
+
+  <a class="edition-card ed-i" href="memoria-i.html">
+    <div class="edition-roman">I</div>
+    <div class="edition-content">
+      <div class="edition-year" data-i18n="memorias_card1_year">14–15 Noviembre 2023 · Edición fundacional</div>
+      <h2 class="edition-title" data-i18n-html="memorias_card1_title_html">I Foro Internacional de Derecho y <em>Tecnología</em></h2>
+      <div class="edition-tema" data-i18n="memorias_card1_tema">«Innovación jurídica en la era digital»</div>
+      <div class="edition-stats">
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_ponentes">Ponentes</span>
+          <span class="s-v" data-i18n="memorias_card1_st1">23 intervenciones</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_paises">Países</span>
+          <span class="s-v" data-i18n="memorias_card1_st2">7+ representados</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_distintivo">Distintivo</span>
+          <span class="s-v" data-i18n="memorias_card1_st3">7 presidencias institucionales</span>
+        </div>
+      </div>
+      <span class="edition-cta" data-i18n="memorias_cta_explore">Explorar memoria</span>
+    </div>
+  </a>
+
+  <a class="edition-card ed-ii" href="memoria-ii.html">
+    <div class="edition-roman">II</div>
+    <div class="edition-content">
+      <div class="edition-year" data-i18n="memorias_card2_year">2–3 Octubre 2024 · Edición de consolidación</div>
+      <h2 class="edition-title" data-i18n-html="memorias_card2_title_html">II Foro Internacional de Derecho y <em>Tecnología</em></h2>
+      <div class="edition-tema" data-i18n="memorias_card2_tema">«Modelando el Futuro Legal»</div>
+      <div class="edition-stats">
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_ponentes">Ponentes</span>
+          <span class="s-v" data-i18n="memorias_card2_st1">36 intervenciones</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_paises">Países</span>
+          <span class="s-v" data-i18n="memorias_card2_st2">8+ representados</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_distintivo">Distintivo</span>
+          <span class="s-v" data-i18n="memorias_card2_st3">Libro «Fronteras dinámicas» · Editorial UDG</span>
+        </div>
+      </div>
+      <span class="edition-cta" data-i18n="memorias_cta_explore">Explorar memoria</span>
+    </div>
+  </a>
+
+  <a class="edition-card ed-iii" href="memoria-iii.html">
+    <div class="edition-roman">III</div>
+    <div class="edition-content">
+      <div class="edition-year" data-i18n="memorias_card3_year">1–2 Octubre 2025 · Edición de expansión</div>
+      <h2 class="edition-title" data-i18n-html="memorias_card3_title_html">III Foro Internacional de Derecho y <em>Tecnología</em></h2>
+      <div class="edition-tema" data-i18n="memorias_card3_tema">«Vidas Digitales, Leyes Reales: Nuevos Retos para el Derecho»</div>
+      <div class="edition-stats">
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_ponentes">Ponentes</span>
+          <span class="s-v" data-i18n="memorias_card3_st1">30+ intervenciones</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_paises">Países</span>
+          <span class="s-v" data-i18n="memorias_card3_st2">6 representados</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_distintivo">Distintivo</span>
+          <span class="s-v" data-i18n="memorias_card3_st3">Dos sedes simultáneas · 6 ejes</span>
+        </div>
+      </div>
+      <span class="edition-cta" data-i18n="memorias_cta_explore">Explorar memoria</span>
+    </div>
+  </a>
+
+  <a class="edition-card coming" href="index.html#hero">
+    <div class="edition-roman">IV</div>
+    <div class="edition-content">
+      <div class="edition-year"><span class="pulse"></span><span data-i18n="memorias_card4_year">21–22 Septiembre 2026 · Próxima edición</span></div>
+      <h2 class="edition-title" data-i18n-html="memorias_card4_title_html">IV Foro Internacional de Derecho y <em>Tecnología</em></h2>
+      <div class="edition-tema" data-i18n="memorias_card4_tema">«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</div>
+      <div class="edition-stats">
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_sedes">Sedes</span>
+          <span class="s-v" data-i18n="memorias_card4_st1">CUCEA · CUGDL · Ciudad Judicial</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_ejes">Ejes</span>
+          <span class="s-v" data-i18n="memorias_card4_st2">9 ejes (7 + 2 emergentes)</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_estado">Estado</span>
+          <span class="s-v" data-i18n="memorias_card4_st3">Convocatoria abierta</span>
+        </div>
+      </div>
+      <span class="edition-cta" data-i18n="memorias_cta_iv">Ver IV edición →</span>
+    </div>
+  </a>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
+    <span data-i18n="foot_inst">CUCEA · Universidad de Guadalajara</span>
+    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
+  </div>
+</footer>
+
+<script src="i18n.js" defer></script>
+</body>
+</html>

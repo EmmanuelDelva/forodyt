@@ -4,286 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>III Foro Internacional de Derecho y Tecnología · Memoria · 2025</title>
-<meta name="description" content="Memoria de la III edición del Foro Internacional de Derecho y Tecnología, organizada por el Cuerpo Académico UDG-CA-1236 en CUCEA, Universidad de Guadalajara.">
+<meta name="description" content="Memoria de la III edición del Foro Internacional de Derecho y Tecnología (CUCEA-UDG, 1–2 oct 2025) — «Vidas Digitales, Leyes Reales». Más de 30 ponentes de 6 países, sedes Torre Smart y Sala de Gobierno.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --ink: #0E1B2C;
-  --ink-soft: rgba(14, 27, 44, 0.72);
-  --ink-faint: rgba(14, 27, 44, 0.4);
-  --ink-rule: rgba(14, 27, 44, 0.14);
-  --teal: #2A5C5C;
-  --teal-deep: #1F4747;
-  --dorado: #B8923E;
-  --dorado-soft: #C8A858;
-  --granate: #632A3D;
-  --marfil: #F5EFE0;
-  --marfil-light: #FAF6EA;
-  --paper: #F1EAD7;
-  --white: #FFFEFA;
+  --ink: #1F4747; --ink-deep: #112B2B;
+  --ink-soft: rgba(31, 71, 71, 0.72); --ink-faint: rgba(31, 71, 71, 0.4); --ink-rule: rgba(31, 71, 71, 0.14);
+  --teal: #3A8E89;
+  --dorado: #B8923E; --dorado-soft: #C8A858;
+  --marfil: #F5EFE0; --marfil-light: #FAF6EA; --paper: #F1EAD7; --white: #FFFEFA;
   --serif: 'Fraunces', 'Times New Roman', serif;
   --sans: 'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
-  --max: 1100px;
-  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1100px; --gutter: clamp(20px, 4vw, 56px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink);
-  background: var(--marfil);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(184, 146, 62, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(42, 92, 92, 0.03) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-main, header, footer, nav { position: relative; z-index: 1; }
+body { font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--ink); background: var(--marfil); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0; background-image: radial-gradient(circle at 20% 30%, rgba(58, 142, 137, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(31, 71, 71, 0.03) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+main, header, footer, nav, section { position: relative; z-index: 1; }
 a { color: inherit; }
-
-/* ============ NAV ============ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  background: rgba(245, 239, 224, 0.92);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--ink-rule);
-  z-index: 100;
-}
-.nav-inner {
-  max-width: var(--max); margin: 0 auto;
-  padding: 18px var(--gutter);
-  display: flex; align-items: center; justify-content: space-between; gap: 32px;
-}
+img { max-width: 100%; height: auto; display: block; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(245, 239, 224, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--ink-rule); z-index: 100; }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 18px var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
 .brand-mark { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
-.brand-rule { width: 24px; height: 1px; background: var(--dorado); display: inline-block; }
+.brand-rule { width: 24px; height: 1px; background: var(--teal); display: inline-block; }
 .brand-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.nav-cta { display: flex; gap: 24px; align-items: center; }
 .nav-back { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s var(--ease); }
-.nav-back:hover { color: var(--ink); border-bottom-color: var(--dorado); }
+.nav-back:hover { color: var(--ink); border-bottom-color: var(--teal); }
+.nav-back::before { content: "← "; color: var(--teal); }
 .lang { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-faint); display: flex; gap: 6px; align-items: center; }
 .lang span { cursor: pointer; transition: color 0.3s var(--ease); }
 .lang span:hover { color: var(--ink); }
 .lang .active { color: var(--ink); font-weight: 500; }
-.nav-cta { display: flex; gap: 24px; align-items: center; }
 @media (max-width: 760px) { .brand-sub { display: none; } }
-
-/* ============ MAIN ============ */
-main {
-  flex: 1;
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 130px var(--gutter) 60px;
-  width: 100%;
-}
-
-.eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--dorado);
-  margin-bottom: 24px;
-  display: flex; align-items: center; gap: 16px;
-}
-.eyebrow::before {
-  content: ""; width: 36px; height: 1px; background: var(--dorado);
-}
-
-h1 {
-  font-family: var(--serif);
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144, "SOFT" 50;
-  color: var(--ink);
-  margin-bottom: 32px;
-}
-h1 em {
-  font-style: italic;
-  color: var(--dorado-soft);
-  font-variation-settings: "opsz" 144, "SOFT" 100;
-}
-
-.lead {
-  font-family: var(--serif);
-  font-size: clamp(17px, 1.6vw, 21px);
-  font-weight: 300;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  max-width: 720px;
-  font-variation-settings: "opsz" 144;
-  margin-bottom: 48px;
-}
-
-/* ============ META ROW ============ */
-.meta-row {
-  display: flex; flex-wrap: wrap; gap: 36px;
-  padding: 24px 0;
-  border-top: 1px solid var(--ink-rule);
-  border-bottom: 1px solid var(--ink-rule);
-  margin-bottom: 64px;
-}
+.ribbon { padding: 140px var(--gutter) 0; max-width: var(--max); margin: 0 auto; }
+.ribbon-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); margin-bottom: 24px; display: flex; align-items: center; gap: 16px; }
+.ribbon-eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--teal); }
+.ribbon h1 { font-family: var(--serif); font-size: clamp(48px, 7vw, 92px); font-weight: 300; line-height: 1; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 50; color: var(--ink); margin-bottom: 20px; }
+.ribbon h1 em { font-style: italic; color: var(--teal); font-variation-settings: "opsz" 144, "SOFT" 100; }
+.ribbon-subtitle { font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2.5vw, 26px); color: var(--teal); margin-bottom: 36px; font-weight: 300; font-variation-settings: "opsz" 144; }
+.ribbon-lead { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 21px); font-weight: 300; line-height: 1.55; color: var(--ink-soft); max-width: 780px; font-variation-settings: "opsz" 144; margin-bottom: 48px; }
+.ribbon-lead strong { color: var(--ink); font-weight: 500; }
+.ribbon-meta { display: flex; flex-wrap: wrap; gap: 36px; padding: 24px 0; border-top: 1px solid var(--ink-rule); border-bottom: 1px solid var(--ink-rule); }
 .meta-item { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
 .meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
-.meta-value { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; }
-
-/* ============ SECTION (Reseña) ============ */
-.section {
-  margin-bottom: 80px;
-}
-.section-head {
-  display: flex; align-items: baseline;
-  gap: 14px;
-  margin-bottom: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--ink-rule);
-}
-.section-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--dorado);
-}
-.section-title {
-  font-family: var(--serif);
-  font-size: clamp(28px, 3vw, 36px);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  font-variation-settings: "opsz" 144, "SOFT" 60;
-}
-
-.section p {
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--ink-soft);
-  font-variation-settings: "opsz" 144;
-  margin-bottom: 16px;
-  max-width: 760px;
-}
-
-.section p strong { color: var(--ink); font-weight: 500; }
-
-/* ============ GALERÍA ============ */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-  margin-top: 12px;
-}
-.gallery-item {
-  aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, rgba(42, 92, 92, 0.08), rgba(184, 146, 62, 0.06));
-  border: 1px solid var(--ink-rule);
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-.gallery-item img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s var(--ease);
-}
-.gallery-item:hover img { transform: scale(1.04); }
-.gallery-item.placeholder {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  flex-direction: column;
-  gap: 6px;
-}
-.gallery-item.placeholder::before {
-  content: "·";
-  font-family: var(--serif);
-  font-size: 32px;
-  color: var(--dorado);
-}
-
-/* ============ OTHER EDITIONS ============ */
-.other-editions {
-  margin-top: 80px;
-  padding: 36px 0 48px;
-  border-top: 1px solid var(--ink-rule);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  align-items: center;
-  justify-content: space-between;
-}
-.other-editions-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.other-editions-links {
-  display: flex; flex-wrap: wrap; gap: 28px;
-}
-.other-editions-links a {
-  font-family: var(--serif);
-  font-size: 16px;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ink-rule);
-  padding-bottom: 4px;
-  transition: border-color 0.3s var(--ease);
-  font-variation-settings: "opsz" 144;
-}
-.other-editions-links a:hover { border-bottom-color: var(--dorado); }
-.back-link {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 4px;
-  transition: all 0.3s var(--ease);
-  margin-top: 32px;
-  display: inline-block;
-}
-.back-link:hover { color: var(--ink); border-bottom-color: var(--dorado); }
-
-/* ============ FOOTER ============ */
-footer {
-  padding: 36px var(--gutter);
-  border-top: 1px solid var(--ink-rule);
-  background: var(--paper);
-}
-.footer-inner {
-  max-width: var(--max); margin: 0 auto;
-  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ink-faint);
-}
+.meta-value { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; line-height: 1.3; }
+.section { max-width: var(--max); margin: 0 auto; padding: 96px var(--gutter); }
+.section.alt { background: var(--marfil-light); max-width: 100%; padding-left: 0; padding-right: 0; }
+.section.alt .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.section-head { margin-bottom: 56px; }
+.section-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
+.section-eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--teal); display: inline-block; }
+.section h2 { font-family: var(--serif); font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; font-variation-settings: "opsz" 144, "SOFT" 50; color: var(--ink); max-width: 880px; }
+.section h2 em { font-style: italic; color: var(--teal); font-variation-settings: "opsz" 144, "SOFT" 100; }
+.section-body { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--ink-soft); max-width: 780px; font-variation-settings: "opsz" 144; margin-top: 32px; }
+.section-body p { margin-bottom: 22px; }
+.section-body strong { color: var(--ink); font-weight: 500; }
+.section-body em { color: var(--teal); font-style: italic; }
+.numeralia-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ink-rule); border: 1px solid var(--ink-rule); margin-top: 32px; }
+.num-cell { background: var(--white); padding: 32px 28px; display: flex; flex-direction: column; gap: 10px; }
+.num-cell .num { font-family: var(--serif); font-size: clamp(40px, 5vw, 64px); font-weight: 400; line-height: 1; color: var(--ink); font-variation-settings: "opsz" 144; }
+.num-cell .num em { font-style: italic; color: var(--teal); font-weight: 300; }
+.num-cell .num-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.5; }
+@media (max-width: 800px) { .numeralia-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .numeralia-grid { grid-template-columns: 1fr; } }
+.ejes-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--ink-rule); border: 1px solid var(--ink-rule); margin-top: 32px; }
+.eje-item { background: var(--white); padding: 26px 28px; display: flex; gap: 20px; align-items: flex-start; transition: background 0.3s var(--ease); }
+.eje-item:hover { background: var(--marfil-light); }
+.eje-item .eje-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--teal); padding-top: 4px; min-width: 32px; }
+.eje-item .eje-ttl { font-family: var(--serif); font-size: 18px; line-height: 1.3; color: var(--ink); font-variation-settings: "opsz" 144; font-weight: 400; }
+.eje-item .eje-ttl em { color: var(--teal); font-style: italic; }
+@media (max-width: 700px) { .ejes-list { grid-template-columns: 1fr; } }
+/* Avatares circulares (organizadores + ponentes) */
+.avatar-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; margin-top: 32px; }
+.avatar-card { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.avatar-card img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; background: var(--marfil); margin-bottom: 14px; border: 2px solid var(--teal); transition: all 0.3s var(--ease); }
+.avatar-card:hover img { transform: scale(1.05); border-color: var(--dorado); }
+.avatar-card .av-role { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; line-height: 1.4; }
+.avatar-card .av-name { font-family: var(--serif); font-size: 13.5px; line-height: 1.3; color: var(--ink); font-weight: 400; font-variation-settings: "opsz" 144; }
+.avatar-card .av-country { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 6px; }
+@media (max-width: 900px) { .avatar-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 540px) { .avatar-grid { grid-template-columns: repeat(2, 1fr); } }
+/* Sedes */
+.sedes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 32px; }
+.sede { padding: 32px 30px; background: var(--white); border: 1px solid var(--ink-rule); }
+.sede .sede-addr { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
+.sede .sede-name { font-family: var(--serif); font-size: clamp(24px, 2.5vw, 32px); color: var(--ink); font-weight: 400; font-style: italic; margin-bottom: 18px; line-height: 1.15; font-variation-settings: "opsz" 144, "SOFT" 50; }
+.sede p { font-family: var(--serif); font-size: 15px; line-height: 1.65; color: var(--ink-soft); font-variation-settings: "opsz" 144; }
+.sede p strong { color: var(--ink); font-weight: 500; }
+@media (max-width: 700px) { .sedes-grid { grid-template-columns: 1fr; } }
+/* Programa */
+.programa-mem { margin-top: 32px; }
+.dia-mem { margin-bottom: 48px; }
+.dia-mem-h { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--teal); }
+.row-mem { display: grid; grid-template-columns: 130px 1fr 240px; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--ink-rule); align-items: start; }
+.row-mem:last-child { border-bottom: none; }
+.row-mem .hr { font-family: var(--mono); font-size: 12.5px; color: var(--ink); font-weight: 500; letter-spacing: 0.04em; }
+.row-mem .topic { font-family: var(--serif); font-size: 16px; color: var(--ink); line-height: 1.5; font-variation-settings: "opsz" 144; }
+.row-mem .topic strong { color: var(--ink); font-weight: 500; }
+.row-mem .who { font-family: var(--sans); font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+@media (max-width: 800px) { .row-mem { grid-template-columns: 90px 1fr; gap: 14px; } .row-mem .who { grid-column: 2; } }
+/* Galería simple */
+.galeria-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px; align-items: center; }
+.galeria-grid figure { background: var(--white); border: 1px solid var(--ink-rule); padding: 0; overflow: hidden; }
+.galeria-grid figure.logo-card { padding: 60px; background: var(--ink); }
+@media (max-width: 700px) { .galeria-grid { grid-template-columns: 1fr; } }
+/* Legado */
+.legado-section { background: var(--ink); color: var(--marfil); padding: 96px 0; }
+.legado-section .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.legado-section .section-eyebrow { color: var(--dorado); }
+.legado-section .section-eyebrow::before { background: var(--dorado); }
+.legado-section h2 { color: var(--marfil); }
+.legado-section h2 em { color: var(--dorado-soft); }
+.legado-section .section-body { color: rgba(245, 239, 224, 0.82); }
+.legado-section .section-body strong { color: var(--marfil); }
+.legado-section .section-body em { color: var(--dorado-soft); }
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.pillar { padding: 28px 26px; background: rgba(245, 239, 224, 0.04); border: 1px solid rgba(245, 239, 224, 0.12); }
+.pillar h3 { font-family: var(--serif); font-size: 19px; font-weight: 400; font-style: italic; color: var(--dorado); margin-bottom: 14px; font-variation-settings: "opsz" 144; }
+.pillar p { font-family: var(--sans); font-size: 13.5px; line-height: 1.65; color: rgba(245, 239, 224, 0.78); }
+.pillar p strong { color: var(--marfil); font-weight: 500; }
+.pillar p em { color: var(--dorado-soft); font-style: italic; }
+@media (max-width: 900px) { .pillars-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .pillars-grid { grid-template-columns: 1fr; } }
+.other-editions { max-width: var(--max); margin: 0 auto; padding: 56px var(--gutter) 80px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; border-top: 1px solid var(--ink-rule); }
+.other-editions-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faint); }
+.other-editions-links { display: flex; flex-wrap: wrap; gap: 28px; }
+.other-editions-links a { font-family: var(--serif); font-size: 16px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink-rule); padding-bottom: 4px; font-variation-settings: "opsz" 144; transition: border-color 0.3s var(--ease); }
+.other-editions-links a:hover { border-bottom-color: var(--teal); color: var(--teal); }
+footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); background: var(--paper); }
+.footer-inner { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
 .footer-inner a { color: var(--ink-soft); text-decoration: none; }
-.footer-inner a:hover { color: var(--dorado); }
+.footer-inner a:hover { color: var(--teal); }
 </style>
 </head>
 <body>
@@ -304,69 +163,238 @@ footer {
   </div>
 </nav>
 
-<main>
-  <div class="eyebrow" data-i18n="mem3_eyebrow">III Edición · 2025</div>
+<header class="ribbon">
+  <div class="ribbon-eyebrow" data-i18n="m3_badge">III Edición · 1–2 Octubre 2025</div>
+  <h1 data-i18n-html="m3_title_html">III Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
+  <div class="ribbon-subtitle" data-i18n="m3_subtitle">«Vidas Digitales, Leyes Reales: Nuevos Retos para el Derecho»</div>
+  <p class="ribbon-lead" data-i18n-html="m3_lede_html">La <strong>expansión</strong>. Por primera vez el Foro se desbordó del Auditorio Central y ocupó dos sedes simultáneas en CUCEA —<strong>Torre Smart (Piso 1)</strong> y <strong>Sala de Gobierno</strong>— para acomodar a más de <strong>30 ponentes de seis países</strong>. España, Argentina, Perú, Colombia, Cuba, Paraguay y México alineados en la misma agenda: IA en tribunales, hipervigilancia, justicia accesible, salud digital, IA + blockchain + cultura, y la administración de justicia en el metaverso. Esta edición agregó dos ejes nuevos: <strong>tecnología y derechos humanos</strong> y <strong>salud digital y derecho</strong>.</p>
+  <div class="ribbon-meta">
+    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat1_k">Fecha</span><span class="meta-value" data-i18n-html="m3_stat1_v_html">1–2 Oct · 2025</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat2_k">Sedes</span><span class="meta-value" data-i18n-html="m3_stat2_v_html">Torre Smart P1 + Sala de Gobierno</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat3_k">Modalidad</span><span class="meta-value" data-i18n-html="m3_stat3_v_html">Híbrida presencial + virtual</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat4_k">Países</span><span class="meta-value" data-i18n-html="m3_stat4_v_html">6 países en programa</span></div>
+  </div>
+</header>
 
-  <h1 data-i18n-html="mem3_title_html">III Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m3_s1_label">I · Reseña · La expansión</div>
+    <h2 data-i18n-html="m3_s1_title_html">La edición en que el Foro <em>creció</em> hasta necesitar dos pisos.</h2>
+  </div>
+  <div class="section-body">
+    <p data-i18n-html="m3_s1_p1_html">El 1 y 2 de octubre de 2025 marcaron un cambio de escala. El <strong>III Foro Internacional de Derecho y Tecnología: «Vidas Digitales, Leyes Reales»</strong> ya no cupo en un solo auditorio: por primera vez ocupó <strong>dos sedes simultáneas en CUCEA</strong> —Torre Smart Piso 1 y Sala de Gobierno— para sostener un programa paralelo de más de 30 ponencias con voces de seis países.</p>
+    <p data-i18n-html="m3_s1_p2_html">La curaduría puso el dedo en lugares incómodos: la <strong>hipervigilancia y la falacia de seguridad</strong> (Dra. Velda Gámez · Tec Monterrey), la <strong>administración de justicia en el metaverso</strong> (Angie Daniela Bernal Caballero · Consejo Superior de la Judicatura de Colombia), la <strong>IA en tribunales y debido proceso</strong> (Dr. Javier Doria Arrieta · Gobierno de Cartagena), el <strong>derecho al descanso como derecho humano en el sector salud</strong> (Dra. Indi Nazir Lleneris · Tec Comfenalco), el <strong>uso de IA en la propaganda electoral</strong> (Dr. Miguel Godínez · IEPC Jalisco), la <strong>protección de datos personales en ecosistemas de IA en Perú</strong> (Milagros Olivos Celis · Universidad del Pacífico) y, en una de las mesas más comentadas, la <strong>mesa redonda «IA: potenciando seguridad e inseguridad»</strong> con el Consejo Estatal de Seguridad Pública de Jalisco, Intrado, KMS Technology, El Colegio de Jalisco y SECIHTI.</p>
+    <p data-i18n-html="m3_s1_p3_html">El comité organizador se consolidó alrededor de seis figuras —el <strong>Dr. Juan Emmanuel Delva Benavides</strong> (Dirección Académica), el <strong>Dr. Jorge Antonio Leos Navarro</strong> (Secretaría Académica), el <strong>Mtro. César Romero Güémez</strong> (Secretaría Técnica), el <strong>Dr. Paul Alejandro García Hernández</strong> (Coordinación Editorial), el <strong>Mtro. Iván Said González López</strong> (Tecnología y Logística) y la <strong>Dra. Fharide Acosta Malacón</strong> (Protocolo y Vinculación Cultural)— articulando una operación que también estrenó un <strong>equipo de apoyo técnico amplio</strong> y una <strong>identidad visual unificada</strong> con avatares para todo el roster. Por primera vez, el Foro entró a la III edición con cara propia, no solo con programa.</p>
+  </div>
+</section>
 
-  <p class="lead" data-i18n="mem3_lead">
-    Tercera edición del Foro. Salto internacional con ponentes de seis países y ampliación a los ejes de FinTech, biotecnologías y derechos humanos digitales. Lanzamiento del libro colectivo de la serie «Innovación Jurídica en la era digital».
-  </p>
-
-  <div class="meta-row">
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="mem_meta_dates_label">Fecha</span>
-      <span class="meta-value" data-i18n="mem3_meta_dates_value">2025</span>
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s2_label">II · Numeralia · III edición</div>
+      <h2 data-i18n-html="m3_s2_title_html">Los <em>números</em> de la expansión.</h2>
     </div>
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="mem_meta_venue_label">Sede</span>
-      <span class="meta-value" data-i18n="mem3_meta_venue_value">CUCEA · Universidad de Guadalajara</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="mem_meta_modality_label">Modalidad</span>
-      <span class="meta-value" data-i18n="mem3_meta_modality_value">Híbrida</span>
+    <div class="numeralia-grid">
+      <div class="num-cell"><span class="num">30+</span><span class="num-lbl" data-i18n="m3_s2_lbl1">Ponentes nacionales e internacionales</span></div>
+      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl2">Países · MX · ES · CO · AR · PE · PRY · CUB</span></div>
+      <div class="num-cell"><span class="num">2</span><span class="num-lbl" data-i18n="m3_s2_lbl3">Sedes simultáneas · Torre Smart + Sala Gobierno</span></div>
+      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl4">Ejes temáticos · +1 salud digital</span></div>
+      <div class="num-cell"><span class="num">1</span><span class="num-lbl" data-i18n="m3_s2_lbl5">Mesa redonda CESP · Intrado · KMS · SECIHTI</span></div>
+      <div class="num-cell"><span class="num"><em>FIADI</em></span><span class="num-lbl" data-i18n="m3_s2_lbl6">Vicepresidencia · Dr. José Heriberto García Peña</span></div>
+      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl7">Miembros del comité organizador formal</span></div>
+      <div class="num-cell"><span class="num">10+</span><span class="num-lbl" data-i18n="m3_s2_lbl8">Equipo apoyo técnico CUCEA</span></div>
     </div>
   </div>
+</section>
 
-  <section class="section">
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m3_s3_label">III · Ejes temáticos</div>
+    <h2 data-i18n-html="m3_s3_title_html">Seis <em>conversaciones</em>, una incorporación clave: salud digital.</h2>
+  </div>
+  <div class="section-body" style="margin-top: 0;">
+    <p data-i18n-html="m3_s3_intro_html">La III edición conservó la columna vertebral de ejes consolidados en la II edición y agregó <strong>salud digital y derecho</strong> como nueva línea —antecedente directo del eje 09 emergente que la IV edición 2026 desplegará por completo.</p>
+  </div>
+  <div class="ejes-list">
+    <div class="eje-item"><span class="eje-num">01</span><span class="eje-ttl" data-i18n="m3_eje1">Inteligencia Artificial</span></div>
+    <div class="eje-item"><span class="eje-num">02</span><span class="eje-ttl" data-i18n="m3_eje2">Tecnologías Emergentes y Derecho</span></div>
+    <div class="eje-item"><span class="eje-num">03</span><span class="eje-ttl" data-i18n="m3_eje3">Ciberseguridad, Privacidad de Datos y Derechos Digitales</span></div>
+    <div class="eje-item"><span class="eje-num">04</span><span class="eje-ttl" data-i18n="m3_eje4">Innovación Jurídica y Resolución de Conflictos</span></div>
+    <div class="eje-item"><span class="eje-num">05</span><span class="eje-ttl" data-i18n="m3_eje5">Tecnología, Sociedad y Derechos Humanos</span></div>
+    <div class="eje-item"><span class="eje-num">06</span><span class="eje-ttl" data-i18n-html="m3_eje6_html">Salud Digital y Derecho · <em>nuevo en III</em></span></div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="section-inner">
     <div class="section-head">
-      <span class="section-num">I</span>
-      <h2 class="section-title" data-i18n="mem_resena_title">Reseña</h2>
+      <div class="section-eyebrow" data-i18n="m3_s4_label">IV · Comité organizador</div>
+      <h2 data-i18n-html="m3_s4_title_html">El <em>equipo</em> que sostuvo dos pisos en paralelo.</h2>
     </div>
-    <p data-i18n="mem3_resena_p1">
-      <strong>[Por completar.]</strong> Espacio reservado para la reseña detallada de la tercera edición del Foro: contexto institucional, ejes temáticos abordados, ponentes principales, conclusiones y publicaciones derivadas.
-    </p>
-    <p data-i18n="mem3_resena_p2">
-      Esta tercera edición proyectó internacionalmente las bases del Foro como espacio académico plural en el cual juristas, ingenieros, jueces y reguladores de Iberoamérica discuten cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <span class="section-num">II</span>
-      <h2 class="section-title" data-i18n="mem_galeria_title">Galería</h2>
-    </div>
-    <div class="gallery-grid">
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-    </div>
-  </section>
-
-  <div class="other-editions">
-    <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
-    <div class="other-editions-links">
-      <a href="memoria-ii.html">II Foro · 2024</a>
-      <a href="memoria-i.html">I Foro · 2023</a>
-      <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+    <div class="avatar-grid">
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-organizadores/Juan Emmanuel Delva Benavides.png" alt="Dr. Juan Emmanuel Delva Benavides">
+        <div class="av-role" data-i18n="m3_org1_role">Director Académico</div>
+        <div class="av-name">Dr. Juan Emmanuel Delva Benavides</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-organizadores/Jorge Antonio Leos Navarro.png" alt="Dr. Jorge Antonio Leos Navarro">
+        <div class="av-role" data-i18n="m3_org2_role">Secretaría Académica</div>
+        <div class="av-name">Dr. Jorge Antonio Leos Navarro</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-organizadores/Mtro. Cesar Romero Guemez.png" alt="Mtro. César Romero Güémez">
+        <div class="av-role" data-i18n="m3_org3_role">Secretaría Técnica</div>
+        <div class="av-name">Mtro. César Romero Güémez</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-organizadores/Dr. Alejandro Paul Garcia.png" alt="Dr. Paul Alejandro García Hernández">
+        <div class="av-role" data-i18n="m3_org4_role">Coordinación Editorial</div>
+        <div class="av-name">Dr. Paul Alejandro García Hernández</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-organizadores/Ivan Said Gonzalez Lopez.png" alt="Mtro. Iván Said González López">
+        <div class="av-role" data-i18n="m3_org5_role">Tecnología y Logística</div>
+        <div class="av-name">Mtro. Iván Said González López</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-organizadores/Fharide Acosta Malacon.png" alt="Dra. Fharide Acosta Malacón">
+        <div class="av-role" data-i18n="m3_org6_role">Protocolo · Vinculación</div>
+        <div class="av-name">Dra. Fharide Acosta Malacón</div>
+      </figure>
     </div>
   </div>
+</section>
 
-  <a href="index.html" class="back-link" data-i18n="prog_cta_back">← Volver al sitio</a>
-</main>
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m3_s5_label">V · Ponentes internacionales</div>
+    <h2 data-i18n-html="m3_s5_title_html">Seis <em>países</em>, una agenda compartida.</h2>
+  </div>
+  <div class="section-body" style="margin-top: 0;">
+    <p data-i18n="m3_s5_intro">Selección curada del programa internacional. España, Colombia, Argentina, Perú, Paraguay y Cuba con afiliaciones académicas y judiciales del primer nivel iberoamericano.</p>
+  </div>
+  <div class="avatar-grid">
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Héctor Ayllon Santiago.png" alt="Dr. Héctor Ayllón Santiago"><div class="av-name">Dr. Héctor Ayllón Santiago</div><div class="av-country" data-i18n="m3_int1_c">URJC · España</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Manuel Raad Berrio.png" alt="Dr. Manuel Raad Berrio"><div class="av-name">Dr. Manuel Raad Berrio</div><div class="av-country" data-i18n="m3_int2_c">U. Sergio Arboleda · Colombia</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Indy Nazir Lleneris.png" alt="Dra. Indi Nazir Lleneris"><div class="av-name">Dra. Indi Nazir Lleneris</div><div class="av-country" data-i18n="m3_int3_c">Comfenalco · Colombia</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Luis Fernando Reyes Ortega.png" alt="Dr. Luis Fernando Reyes Ortega"><div class="av-name">Dr. Luis Fernando Reyes</div><div class="av-country" data-i18n="m3_int4_c">Comfenalco · Colombia</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Milagros Katherine Olivos Celis.png" alt="Milagros Katherine Olivos Celis"><div class="av-name">Milagros K. Olivos Celis</div><div class="av-country" data-i18n="m3_int5_c">U. del Pacífico · Perú</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Miguel Ángel Gaspar Villalba.png" alt="Ing. Miguel Ángel Gaspar Villalba"><div class="av-name">Ing. Miguel Á. Gaspar</div><div class="av-country" data-i18n="m3_int6_c">ALGDETIC · Paraguay</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Juan Carlos Sánchez Aguirre.png" alt="Dr. Juan Carlos Sánchez Aguirre"><div class="av-name">Dr. Juan Carlos Sánchez A.</div><div class="av-country" data-i18n="m3_int7_c">FIADI · Costa Rica</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Jose Heriberto Garcia Peña.png" alt="Dr. José Heriberto García Peña"><div class="av-name">Dr. José H. García Peña</div><div class="av-country" data-i18n="m3_int8_c">FIADI · Cuba</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Rodrigo Alejandro Gómez Torre.png" alt="Dr. Rodrigo Alejandro Gómez Torre"><div class="av-name">Dr. Rodrigo A. Gómez Torre</div><div class="av-country" data-i18n="m3_int9_c">U. de Mendoza · Argentina</div></figure>
+    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Angie Daniela Bernal Caballero.png" alt="Angie Daniela Bernal Caballero"><div class="av-name">Angie D. Bernal Caballero</div><div class="av-country" data-i18n="m3_int10_c">Consejo Sup. Judicatura · Colombia</div></figure>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s6_label">VI · Ponentes nacionales</div>
+      <h2 data-i18n-html="m3_s6_title_html">México en <em>todas</em> sus geografías.</h2>
+    </div>
+    <div class="avatar-grid">
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Daniel Espinosa Licon.png" alt="Dr. Daniel Espinoza Licón"><div class="av-name">Dr. Daniel Espinoza Licón</div><div class="av-country" data-i18n="m3_nac1_c">CUTonalá · STJ Jalisco</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Jesús Manuel Niebla Zatarain.png" alt="Dr. Jesús Manuel Niebla Zatarain"><div class="av-name">Dr. Jesús M. Niebla Z.</div><div class="av-country" data-i18n="m3_nac2_c">UAS · Sinaloa</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Joel Gómez Treviño.png" alt="Dr. Joel Gómez Treviño"><div class="av-name">Dr. Joel Gómez Treviño</div><div class="av-country" data-i18n="m3_nac3_c">U. Panamericana · Monterrey</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Velda Abigail Gámez Bustamante.png" alt="Dra. Velda Abigail Gámez Bustamante"><div class="av-name">Dra. Velda A. Gámez</div><div class="av-country" data-i18n="m3_nac4_c">Tec Monterrey · CDMX</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Gabriel Fatíh Gómez Ávila.png" alt="Mtro. Gabriel Fatíh Gómez Ávila"><div class="av-name">Mtro. Gabriel F. Gómez Á.</div><div class="av-country" data-i18n="m3_nac5_c">El Colegio de Jalisco</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Ruth Ruiz Velasco.png" alt="Mtra. Ruth Irais Ruiz Velasco"><div class="av-name">Mtra. Ruth I. Ruiz Velasco</div><div class="av-country" data-i18n="m3_nac6_c">CESP Jalisco</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Xavier Marconi Montero.png" alt="Mtro. Xavier Marconi Montero"><div class="av-name">Mtro. Xavier Marconi M.</div><div class="av-country" data-i18n="m3_nac7_c">Instituto Justicia Alt. Jalisco</div></figure>
+      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Ramon Willman Zamora.png" alt="Mtro. Ramón Willman Zamora"><div class="av-name">Mtro. Ramón Willman Z.</div><div class="av-country" data-i18n="m3_nac8_c">UDG · Jalisco</div></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m3_s7_label">VII · Sedes simultáneas</div>
+    <h2 data-i18n-html="m3_s7_title_html">Dos <em>pisos</em>, una conversación.</h2>
+  </div>
+  <div class="sedes-grid">
+    <article class="sede">
+      <div class="sede-addr" data-i18n="m3_sede1_addr">Sede principal</div>
+      <div class="sede-name" data-i18n="m3_sede1_name">Torre Smart · Piso 1</div>
+      <p data-i18n-html="m3_sede1_p_html">CUCEA · Universidad de Guadalajara. Periférico Norte N.º 799, Núcleo Universitario Los Belenes, Zapopan, Jalisco. <strong>Mesa de Inteligencia Artificial</strong>, <strong>ciberseguridad</strong>, <strong>derechos humanos digitales</strong>, mesa internacional de IA en tribunales.</p>
+    </article>
+    <article class="sede">
+      <div class="sede-addr" data-i18n="m3_sede2_addr">Sede paralela</div>
+      <div class="sede-name" data-i18n="m3_sede2_name">Sala de Gobierno</div>
+      <p data-i18n-html="m3_sede2_p_html">CUCEA · Universidad de Guadalajara. <strong>Eje de propiedad intelectual</strong>, <strong>justicia alternativa</strong>, <strong>IA + Blockchain + Cultura</strong>, sucesiones digitales, marco europeo de IA y lecciones para América Latina.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s8_label">VIII · Programa · Highlights</div>
+      <h2 data-i18n-html="m3_s8_title_html">Dos <em>días</em> en dos pisos.</h2>
+    </div>
+    <div class="programa-mem">
+      <div class="dia-mem">
+        <div class="dia-mem-h" data-i18n="m3_day1">Miércoles 1 de octubre · Día 1 · Torre Smart Piso 1 + Sala Gobierno</div>
+        <div class="row-mem"><span class="hr">09:10 – 09:40</span><span class="topic" data-i18n-html="m3_d1r1_t"><strong>Ciberseguridad aplicada: tácticas de defensa</strong></span><span class="who" data-i18n="m3_d1r1_w">Ing. Miguel Á. Gaspar · Ciberpadres LATAM / ALGDETIC</span></div>
+        <div class="row-mem"><span class="hr">09:40 – 10:10</span><span class="topic" data-i18n-html="m3_d1r2_t"><strong>Ciberseguridad y derecho informático</strong></span><span class="who" data-i18n="m3_d1r2_w">Joel Gómez Treviño · Lex Informática / Escuela Derecho Digital</span></div>
+        <div class="row-mem"><span class="hr">10:10 – 10:40</span><span class="topic" data-i18n-html="m3_d1r3_t"><strong>Hipervigilancia y la falacia de seguridad</strong></span><span class="who" data-i18n="m3_d1r3_w">Dra. Velda A. Gámez Bustamante · Tec Monterrey</span></div>
+        <div class="row-mem"><span class="hr">11:10 – 11:40</span><span class="topic" data-i18n-html="m3_d1r4_t"><strong>Diseñar para la verdad · arquitectura representacional en mediación digital</strong></span><span class="who" data-i18n="m3_d1r4_w">Dr. Juan Carlos Sánchez Aguirre · UANL</span></div>
+        <div class="row-mem"><span class="hr">11:40 – 12:10</span><span class="topic" data-i18n-html="m3_d1r5_t"><strong>IA y ciberseguridad: riesgos estratégicos</strong></span><span class="who" data-i18n="m3_d1r5_w">Dr. Ernesto Ibarra Sánchez · AMCID</span></div>
+        <div class="row-mem"><span class="hr">12:10 – 12:40</span><span class="topic" data-i18n-html="m3_d1r6_t"><strong>Nuevas tecnologías en la investigación jurídica · OBSERVA D&T FIADI-TEC</strong></span><span class="who" data-i18n="m3_d1r6_w">Dr. José Heriberto García Peña · Tec Monterrey · VP FIADI</span></div>
+        <div class="row-mem"><span class="hr">13:10 – 13:40</span><span class="topic" data-i18n-html="m3_d1r7_t"><strong>Liderazgo en equipos de alto rendimiento con IA</strong></span><span class="who" data-i18n="m3_d1r7_w">Dr. Manuel Raad Berrio · ALGDETIC / Datalimpics</span></div>
+        <div class="row-mem"><span class="hr"><span style="color:var(--teal)" data-i18n="m3_d1r8_hr">Paralelo · Sala Gobierno</span></span><span class="topic" data-i18n-html="m3_d1r8_t"><strong>Justicia accesible · Convención ONU</strong> · <strong>Escalamiento tecnológico</strong> · <strong>IA en propaganda electoral</strong> · <strong>IA + Blockchain + Cultura</strong></span><span class="who" data-i18n="m3_d1r8_w">Reyes Ortega · Willman Zamora · Godínez · Gutiérrez Chimal · Marconi/Leos · Romero Güémez · Vázquez Placencia</span></div>
+      </div>
+      <div class="dia-mem">
+        <div class="dia-mem-h" data-i18n="m3_day2">Jueves 2 de octubre · Día 2 · Cierre</div>
+        <div class="row-mem"><span class="hr">09:10 – 09:45</span><span class="topic" data-i18n-html="m3_d2r1_t"><strong>IA en tribunales: arquitectura, evidencia y debido proceso</strong></span><span class="who" data-i18n="m3_d2r1_w">Dr. Javier Doria Arrieta · Gob. Cartagena · Colombia</span></div>
+        <div class="row-mem"><span class="hr">09:45 – 10:50</span><span class="topic" data-i18n-html="m3_d2r2_t">Mesa redonda · <strong>«IA: potenciando seguridad e inseguridad»</strong></span><span class="who" data-i18n="m3_d2r2_w">CESP Jalisco · Intrado · El Colegio de Jalisco · KMS Technology · SECIHTI</span></div>
+        <div class="row-mem"><span class="hr">11:10 – 11:40</span><span class="topic" data-i18n-html="m3_d2r3_t"><strong>Protección de datos personales en ecosistemas de IA</strong></span><span class="who" data-i18n="m3_d2r3_w">Milagros K. Olivos Celis · U. del Pacífico · Perú</span></div>
+        <div class="row-mem"><span class="hr">11:40 – 12:10</span><span class="topic" data-i18n-html="m3_d2r4_t"><strong>Derecho al descanso como derecho humano en sector salud</strong></span><span class="who" data-i18n="m3_d2r4_w">Dra. Indi Nazir Lleneris · Comfenalco · Colombia</span></div>
+        <div class="row-mem"><span class="hr">12:10 – 12:40</span><span class="topic" data-i18n-html="m3_d2r5_t"><strong>La Administración de Justicia en el Metaverso · DAOs y ODR</strong></span><span class="who" data-i18n="m3_d2r5_w">Angie D. Bernal Caballero · Consejo Sup. Judicatura · Colombia</span></div>
+        <div class="row-mem"><span class="hr">13:10 – 13:40</span><span class="topic" data-i18n-html="m3_d2r6_t"><strong>Tecnología en la impartición de justicia · CLAUSURA</strong></span><span class="who" data-i18n="m3_d2r6_w">Dr. Daniel Espinoza Licón · STJ Jalisco</span></div>
+        <div class="row-mem"><span class="hr"><span style="color:var(--teal)" data-i18n="m3_d2r7_hr">Paralelo · Sala Gobierno</span></span><span class="topic" data-i18n-html="m3_d2r7_t"><strong>IA en proceso judicial</strong> · <strong>PI en era de IA</strong> · <strong>Marco europeo IA y AL</strong> · <strong>Sucesiones digitales</strong></span><span class="who" data-i18n="m3_d2r7_w">Niebla Zatarain · Gómez Torre · Ayllón Santiago · Figueroa Torres · Múltiples investigadores</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m3_s9_label">IX · Galería</div>
+    <h2 data-i18n-html="m3_s9_title_html">Cómo se <em>vivió</em>.</h2>
+  </div>
+  <div class="galeria-grid">
+    <figure><img src="img/memorias/iii/00-cartel-oficial.png" alt="Cartel oficial III Foro 2025"></figure>
+    <figure class="logo-card"><img src="img/memorias/iii/01-logo-blanco.png" alt="Logo III Foro 2025"></figure>
+  </div>
+</section>
+
+<section class="legado-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s10_label">X · Legado · III edición</div>
+      <h2 data-i18n-html="m3_s10_title_html">Qué <em>cambió</em> con esta edición.</h2>
+    </div>
+    <div class="section-body"><p data-i18n="m3_s10_intro">La III edición fue el momento en que el Foro pasó de ser un evento académico bien curado a operar como una plataforma internacional con marca propia.</p></div>
+    <div class="pillars-grid">
+      <article class="pillar"><h3 data-i18n="m3_p1_h">Operación a dos sedes</h3><p data-i18n-html="m3_p1_p_html">Por primera vez el Foro corre en <strong>paralelo en Torre Smart y Sala de Gobierno</strong>. Lección operativa: el modelo escala y soporta programa simultáneo.</p></article>
+      <article class="pillar"><h3 data-i18n="m3_p2_h">Eje salud digital</h3><p data-i18n-html="m3_p2_p_html">Incorporación formal del eje <strong>Salud Digital y Derecho</strong>, antecedente directo del eje 09 emergente que la IV edición 2026 despliega por completo.</p></article>
+      <article class="pillar"><h3 data-i18n="m3_p3_h">Identidad visual unificada</h3><p data-i18n-html="m3_p3_p_html">Primera edición con <strong>sistema de avatares</strong> consistente para todo el roster (organizadores, ponentes, equipo de apoyo).</p></article>
+      <article class="pillar"><h3 data-i18n="m3_p4_h">Comité formal de 6</h3><p data-i18n-html="m3_p4_p_html">Comité organizador documentado y operativo: <strong>Delva · Leos · Romero · García · González · Acosta</strong>. Es la estructura que sostiene la IV edición.</p></article>
+      <article class="pillar"><h3 data-i18n="m3_p5_h">Internacionalización plena</h3><p data-i18n-html="m3_p5_p_html">Seis países en programa: <strong>URJC, Sergio Arboleda, U. del Pacífico Perú, FIADI Cuba/Costa Rica, U. Mendoza Argentina, Consejo Sup. Judicatura Colombia</strong>.</p></article>
+      <article class="pillar"><h3 data-i18n="m3_p6_h">Continuidad editorial</h3><p data-i18n-html="m3_p6_p_html">Apertura del segundo libro colectivo de la serie, con sistema de evaluación depurado a partir del libro <em>«Fronteras dinámicas»</em>.</p></article>
+    </div>
+  </div>
+</section>
+
+<div class="other-editions">
+  <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
+  <div class="other-editions-links">
+    <a href="memoria-i.html">I Foro · 2023</a>
+    <a href="memoria-ii.html">II Foro · 2024</a>
+    <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">

@@ -4,286 +4,167 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>II Foro Internacional de Derecho y Tecnología · Memoria · 2024</title>
-<meta name="description" content="Memoria de la II edición del Foro Internacional de Derecho y Tecnología, organizada por el Cuerpo Académico UDG-CA-1236 en CUCEA, Universidad de Guadalajara.">
+<meta name="description" content="Memoria de la II edición del Foro Internacional de Derecho y Tecnología (CUCEA-UDG, 2-3 oct 2024) — «Modelando el Futuro Legal». 36 ponentes, modalidad híbrida, 7 ejes, libro «Fronteras dinámicas» publicado por Editorial UDG.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --ink: #0E1B2C;
-  --ink-soft: rgba(14, 27, 44, 0.72);
-  --ink-faint: rgba(14, 27, 44, 0.4);
-  --ink-rule: rgba(14, 27, 44, 0.14);
-  --teal: #2A5C5C;
-  --teal-deep: #1F4747;
-  --dorado: #B8923E;
-  --dorado-soft: #C8A858;
-  --granate: #632A3D;
-  --marfil: #F5EFE0;
-  --marfil-light: #FAF6EA;
-  --paper: #F1EAD7;
-  --white: #FFFEFA;
+  --ink: #5C2A38; --ink-deep: #3D1B26;
+  --ink-soft: rgba(92, 42, 56, 0.72); --ink-faint: rgba(92, 42, 56, 0.4); --ink-rule: rgba(92, 42, 56, 0.14);
+  --vino: #8B3A4B;
+  --dorado: #B8923E; --dorado-soft: #C8A858;
+  --marfil: #F5EFE0; --marfil-light: #FAF6EA; --paper: #F1EAD7; --white: #FFFEFA;
   --serif: 'Fraunces', 'Times New Roman', serif;
   --sans: 'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
-  --max: 1100px;
-  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1100px; --gutter: clamp(20px, 4vw, 56px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--ink);
-  background: var(--marfil);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(184, 146, 62, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(42, 92, 92, 0.03) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-main, header, footer, nav { position: relative; z-index: 1; }
+body { font-family: var(--sans); font-size: 16px; line-height: 1.6; color: var(--ink); background: var(--marfil); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0; background-image: radial-gradient(circle at 20% 30%, rgba(139, 58, 75, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(92, 42, 56, 0.03) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+main, header, footer, nav, section { position: relative; z-index: 1; }
 a { color: inherit; }
-
-/* ============ NAV ============ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  background: rgba(245, 239, 224, 0.92);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--ink-rule);
-  z-index: 100;
-}
-.nav-inner {
-  max-width: var(--max); margin: 0 auto;
-  padding: 18px var(--gutter);
-  display: flex; align-items: center; justify-content: space-between; gap: 32px;
-}
+img { max-width: 100%; height: auto; display: block; }
+.nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(245, 239, 224, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--ink-rule); z-index: 100; }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 18px var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
 .brand-mark { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
-.brand-rule { width: 24px; height: 1px; background: var(--dorado); display: inline-block; }
+.brand-rule { width: 24px; height: 1px; background: var(--vino); display: inline-block; }
 .brand-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.nav-cta { display: flex; gap: 24px; align-items: center; }
 .nav-back { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s var(--ease); }
-.nav-back:hover { color: var(--ink); border-bottom-color: var(--dorado); }
+.nav-back:hover { color: var(--ink); border-bottom-color: var(--vino); }
+.nav-back::before { content: "← "; color: var(--vino); }
 .lang { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink-faint); display: flex; gap: 6px; align-items: center; }
 .lang span { cursor: pointer; transition: color 0.3s var(--ease); }
 .lang span:hover { color: var(--ink); }
 .lang .active { color: var(--ink); font-weight: 500; }
-.nav-cta { display: flex; gap: 24px; align-items: center; }
 @media (max-width: 760px) { .brand-sub { display: none; } }
-
-/* ============ MAIN ============ */
-main {
-  flex: 1;
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 130px var(--gutter) 60px;
-  width: 100%;
-}
-
-.eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--dorado);
-  margin-bottom: 24px;
-  display: flex; align-items: center; gap: 16px;
-}
-.eyebrow::before {
-  content: ""; width: 36px; height: 1px; background: var(--dorado);
-}
-
-h1 {
-  font-family: var(--serif);
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144, "SOFT" 50;
-  color: var(--ink);
-  margin-bottom: 32px;
-}
-h1 em {
-  font-style: italic;
-  color: var(--dorado-soft);
-  font-variation-settings: "opsz" 144, "SOFT" 100;
-}
-
-.lead {
-  font-family: var(--serif);
-  font-size: clamp(17px, 1.6vw, 21px);
-  font-weight: 300;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  max-width: 720px;
-  font-variation-settings: "opsz" 144;
-  margin-bottom: 48px;
-}
-
-/* ============ META ROW ============ */
-.meta-row {
-  display: flex; flex-wrap: wrap; gap: 36px;
-  padding: 24px 0;
-  border-top: 1px solid var(--ink-rule);
-  border-bottom: 1px solid var(--ink-rule);
-  margin-bottom: 64px;
-}
+.ribbon { padding: 140px var(--gutter) 0; max-width: var(--max); margin: 0 auto; }
+.ribbon-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--vino); margin-bottom: 24px; display: flex; align-items: center; gap: 16px; }
+.ribbon-eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--vino); }
+.ribbon h1 { font-family: var(--serif); font-size: clamp(48px, 7vw, 92px); font-weight: 300; line-height: 1; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 50; color: var(--ink); margin-bottom: 20px; }
+.ribbon h1 em { font-style: italic; color: var(--vino); font-variation-settings: "opsz" 144, "SOFT" 100; }
+.ribbon-subtitle { font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2.5vw, 26px); color: var(--vino); margin-bottom: 36px; font-weight: 300; font-variation-settings: "opsz" 144; }
+.ribbon-lead { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 21px); font-weight: 300; line-height: 1.55; color: var(--ink-soft); max-width: 780px; font-variation-settings: "opsz" 144; margin-bottom: 48px; }
+.ribbon-lead strong { color: var(--ink); font-weight: 500; }
+.ribbon-meta { display: flex; flex-wrap: wrap; gap: 36px; padding: 24px 0; border-top: 1px solid var(--ink-rule); border-bottom: 1px solid var(--ink-rule); }
 .meta-item { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
 .meta-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
-.meta-value { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; }
-
-/* ============ SECTION (Reseña) ============ */
-.section {
-  margin-bottom: 80px;
-}
-.section-head {
-  display: flex; align-items: baseline;
-  gap: 14px;
-  margin-bottom: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--ink-rule);
-}
-.section-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--dorado);
-}
-.section-title {
-  font-family: var(--serif);
-  font-size: clamp(28px, 3vw, 36px);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  font-variation-settings: "opsz" 144, "SOFT" 60;
-}
-
-.section p {
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--ink-soft);
-  font-variation-settings: "opsz" 144;
-  margin-bottom: 16px;
-  max-width: 760px;
-}
-
-.section p strong { color: var(--ink); font-weight: 500; }
-
-/* ============ GALERÍA ============ */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-  margin-top: 12px;
-}
-.gallery-item {
-  aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, rgba(42, 92, 92, 0.08), rgba(184, 146, 62, 0.06));
-  border: 1px solid var(--ink-rule);
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-.gallery-item img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s var(--ease);
-}
-.gallery-item:hover img { transform: scale(1.04); }
-.gallery-item.placeholder {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  flex-direction: column;
-  gap: 6px;
-}
-.gallery-item.placeholder::before {
-  content: "·";
-  font-family: var(--serif);
-  font-size: 32px;
-  color: var(--dorado);
-}
-
-/* ============ OTHER EDITIONS ============ */
-.other-editions {
-  margin-top: 80px;
-  padding: 36px 0 48px;
-  border-top: 1px solid var(--ink-rule);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  align-items: center;
-  justify-content: space-between;
-}
-.other-editions-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.other-editions-links {
-  display: flex; flex-wrap: wrap; gap: 28px;
-}
-.other-editions-links a {
-  font-family: var(--serif);
-  font-size: 16px;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ink-rule);
-  padding-bottom: 4px;
-  transition: border-color 0.3s var(--ease);
-  font-variation-settings: "opsz" 144;
-}
-.other-editions-links a:hover { border-bottom-color: var(--dorado); }
-.back-link {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 4px;
-  transition: all 0.3s var(--ease);
-  margin-top: 32px;
-  display: inline-block;
-}
-.back-link:hover { color: var(--ink); border-bottom-color: var(--dorado); }
-
-/* ============ FOOTER ============ */
-footer {
-  padding: 36px var(--gutter);
-  border-top: 1px solid var(--ink-rule);
-  background: var(--paper);
-}
-.footer-inner {
-  max-width: var(--max); margin: 0 auto;
-  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
-  font-family: var(--mono); font-size: 11px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--ink-faint);
-}
+.meta-value { font-family: var(--serif); font-size: 17px; color: var(--ink); font-variation-settings: "opsz" 144; line-height: 1.3; }
+.section { max-width: var(--max); margin: 0 auto; padding: 96px var(--gutter); }
+.section.alt { background: var(--marfil-light); max-width: 100%; padding-left: 0; padding-right: 0; }
+.section.alt .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.section-head { margin-bottom: 56px; }
+.section-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--vino); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
+.section-eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--vino); display: inline-block; }
+.section h2 { font-family: var(--serif); font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; font-variation-settings: "opsz" 144, "SOFT" 50; color: var(--ink); max-width: 880px; }
+.section h2 em { font-style: italic; color: var(--vino); font-variation-settings: "opsz" 144, "SOFT" 100; }
+.section-body { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--ink-soft); max-width: 780px; font-variation-settings: "opsz" 144; margin-top: 32px; }
+.section-body p { margin-bottom: 22px; }
+.section-body strong { color: var(--ink); font-weight: 500; }
+.section-body em { color: var(--vino); font-style: italic; }
+.numeralia-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ink-rule); border: 1px solid var(--ink-rule); margin-top: 32px; }
+.num-cell { background: var(--white); padding: 32px 28px; display: flex; flex-direction: column; gap: 10px; }
+.num-cell .num { font-family: var(--serif); font-size: clamp(40px, 5vw, 64px); font-weight: 400; line-height: 1; color: var(--ink); font-variation-settings: "opsz" 144; }
+.num-cell .num em { font-style: italic; color: var(--vino); font-weight: 300; }
+.num-cell .num-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.5; }
+@media (max-width: 800px) { .numeralia-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .numeralia-grid { grid-template-columns: 1fr; } }
+.ejes-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--ink-rule); border: 1px solid var(--ink-rule); margin-top: 32px; }
+.eje-item { background: var(--white); padding: 26px 28px; display: flex; gap: 20px; align-items: flex-start; transition: background 0.3s var(--ease); }
+.eje-item:hover { background: var(--marfil-light); }
+.eje-item .eje-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--vino); padding-top: 4px; min-width: 32px; }
+.eje-item .eje-ttl { font-family: var(--serif); font-size: 18px; line-height: 1.3; color: var(--ink); font-variation-settings: "opsz" 144; font-weight: 400; }
+@media (max-width: 700px) { .ejes-list { grid-template-columns: 1fr; } }
+.ponentes-mem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--ink-rule); border: 1px solid var(--ink-rule); margin-top: 32px; }
+.ponente-mem { background: var(--white); padding: 26px 24px; border: 1px solid var(--ink-rule); margin: -1px 0 0 -1px; display: flex; flex-direction: column; gap: 10px; transition: background 0.3s var(--ease); }
+.ponente-mem:hover { background: var(--marfil-light); }
+.ponente-mem .pm-role { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--vino); }
+.ponente-mem .pm-name { font-family: var(--serif); font-size: 18px; line-height: 1.25; color: var(--ink); font-weight: 400; font-variation-settings: "opsz" 144; }
+.ponente-mem .pm-afil { font-family: var(--sans); font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+@media (max-width: 900px) { .ponentes-mem-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .ponentes-mem-grid { grid-template-columns: 1fr; } }
+.programa-mem { margin-top: 32px; }
+.dia-mem { margin-bottom: 48px; }
+.dia-mem-h { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--vino); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--vino); }
+.row-mem { display: grid; grid-template-columns: 130px 1fr 240px; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--ink-rule); align-items: start; }
+.row-mem:last-child { border-bottom: none; }
+.row-mem .hr { font-family: var(--mono); font-size: 12.5px; color: var(--ink); font-weight: 500; letter-spacing: 0.04em; }
+.row-mem .topic { font-family: var(--serif); font-size: 16px; color: var(--ink); line-height: 1.5; font-variation-settings: "opsz" 144; }
+.row-mem .topic strong { color: var(--ink); font-weight: 500; }
+.row-mem .who { font-family: var(--sans); font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+@media (max-width: 800px) { .row-mem { grid-template-columns: 90px 1fr; gap: 14px; } .row-mem .who { grid-column: 2; } }
+.libro-section { background: var(--ink); color: var(--marfil); padding: 96px 0; }
+.libro-section .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.libro-section .section-eyebrow { color: var(--dorado); }
+.libro-section .section-eyebrow::before { background: var(--dorado); }
+.libro-section h2 { color: var(--marfil); }
+.libro-section h2 em { color: var(--dorado-soft); }
+.libro-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: center; margin-top: 48px; }
+.libro-cover img { border: 4px solid var(--dorado); box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 12px 24px rgba(0,0,0,0.25); }
+.libro-info h3 { font-family: var(--serif); font-size: clamp(28px, 3vw, 38px); line-height: 1.15; color: var(--marfil); font-weight: 400; margin-bottom: 12px; font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 50; }
+.libro-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dorado); margin-bottom: 24px; }
+.libro-info p { font-family: var(--serif); font-size: 16px; line-height: 1.7; color: rgba(245,239,224,0.82); margin-bottom: 18px; font-variation-settings: "opsz" 144; }
+.libro-info p strong { color: var(--marfil); font-weight: 500; }
+.libro-info p em { color: var(--dorado-soft); font-style: italic; }
+.libro-ficha { margin-top: 24px; padding: 22px 24px; background: rgba(245,239,224,0.06); border: 1px solid rgba(245,239,224,0.12); font-family: var(--mono); font-size: 12px; line-height: 1.8; color: rgba(245,239,224,0.78); }
+.libro-ficha b { color: var(--marfil); font-weight: 500; }
+@media (max-width: 800px) { .libro-grid { grid-template-columns: 1fr; gap: 36px; } }
+.capitulos-section { margin-top: 96px; }
+.capitulos-section .section-eyebrow { color: var(--dorado); }
+.capitulos-section .section-eyebrow::before { background: var(--dorado); }
+.capitulos-section h3 { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px); line-height: 1.1; color: var(--marfil); font-weight: 300; margin-bottom: 32px; font-variation-settings: "opsz" 144, "SOFT" 50; max-width: 780px; }
+.capitulos-section h3 em { color: var(--dorado-soft); font-style: italic; }
+.cap-table { border-top: 1px solid rgba(245,239,224,0.12); }
+.cap-row { display: grid; grid-template-columns: 50px 1fr 280px; gap: 24px; padding: 24px 0; border-bottom: 1px solid rgba(245,239,224,0.12); align-items: start; }
+.cap-row .cap-n { font-family: var(--mono); font-size: 11px; color: var(--dorado); letter-spacing: 0.12em; padding-top: 4px; }
+.cap-row .cap-ttl { font-family: var(--serif); font-size: 17px; line-height: 1.4; color: var(--marfil); font-variation-settings: "opsz" 144; }
+.cap-row .cap-aut { font-family: var(--sans); font-size: 13px; color: rgba(245,239,224,0.7); line-height: 1.5; }
+.cap-row .cap-aut strong { color: var(--marfil); font-weight: 500; }
+.cap-row.cap-agenda { background: rgba(184, 146, 62, 0.06); }
+.cap-row.cap-agenda .cap-n { color: var(--dorado-soft); }
+.cap-row.cap-agenda .cap-ttl em { color: var(--dorado); font-style: italic; }
+@media (max-width: 800px) { .cap-row { grid-template-columns: 36px 1fr; gap: 14px; } .cap-row .cap-aut { grid-column: 2; } }
+.galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+.galeria-grid figure { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--ink-deep); border: 1px solid var(--ink-rule); }
+.galeria-grid figure.tall { grid-row: span 2; aspect-ratio: auto; }
+.galeria-grid figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.galeria-grid figure:hover img { transform: scale(1.04); }
+.galeria-grid figure figcaption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(61, 27, 38, 0.92) 0%, transparent 100%); color: var(--marfil); padding: 24px 16px 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; transition: opacity 0.3s var(--ease); }
+.galeria-grid figure:hover figcaption { opacity: 1; }
+@media (max-width: 800px) { .galeria-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .galeria-grid { grid-template-columns: 1fr; } .galeria-grid figure.tall { grid-row: auto; } }
+.legado-section { background: var(--ink); color: var(--marfil); padding: 96px 0; }
+.legado-section .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.legado-section .section-eyebrow { color: var(--dorado); }
+.legado-section .section-eyebrow::before { background: var(--dorado); }
+.legado-section h2 { color: var(--marfil); }
+.legado-section h2 em { color: var(--dorado-soft); }
+.legado-section .section-body { color: rgba(245, 239, 224, 0.82); }
+.legado-section .section-body strong { color: var(--marfil); }
+.legado-section .section-body em { color: var(--dorado-soft); }
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.pillar { padding: 28px 26px; background: rgba(245, 239, 224, 0.04); border: 1px solid rgba(245, 239, 224, 0.12); }
+.pillar h3 { font-family: var(--serif); font-size: 19px; font-weight: 400; font-style: italic; color: var(--dorado); margin-bottom: 14px; font-variation-settings: "opsz" 144; }
+.pillar p { font-family: var(--sans); font-size: 13.5px; line-height: 1.65; color: rgba(245, 239, 224, 0.78); }
+.pillar p strong { color: var(--marfil); font-weight: 500; }
+.pillar p em { color: var(--dorado-soft); font-style: italic; }
+@media (max-width: 900px) { .pillars-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .pillars-grid { grid-template-columns: 1fr; } }
+.other-editions { max-width: var(--max); margin: 0 auto; padding: 56px var(--gutter) 80px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; border-top: 1px solid var(--ink-rule); }
+.other-editions-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faint); }
+.other-editions-links { display: flex; flex-wrap: wrap; gap: 28px; }
+.other-editions-links a { font-family: var(--serif); font-size: 16px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink-rule); padding-bottom: 4px; font-variation-settings: "opsz" 144; transition: border-color 0.3s var(--ease); }
+.other-editions-links a:hover { border-bottom-color: var(--vino); color: var(--vino); }
+footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); background: var(--paper); }
+.footer-inner { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
 .footer-inner a { color: var(--ink-soft); text-decoration: none; }
-.footer-inner a:hover { color: var(--dorado); }
+.footer-inner a:hover { color: var(--vino); }
 </style>
 </head>
 <body>
@@ -304,69 +185,239 @@ footer {
   </div>
 </nav>
 
-<main>
-  <div class="eyebrow" data-i18n="mem2_eyebrow">II Edición · 2024</div>
+<header class="ribbon">
+  <div class="ribbon-eyebrow" data-i18n="m2_badge">II Edición · 2–3 Octubre 2024</div>
+  <h1 data-i18n-html="m2_title_html">II Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
+  <div class="ribbon-subtitle" data-i18n="m2_subtitle">«Modelando el Futuro Legal»</div>
+  <p class="ribbon-lead" data-i18n-html="m2_lede_html">La <strong>edición de consolidación</strong>. CUCEA pasó de probar el formato a convertirlo en plataforma estable: <strong>36 ponentes</strong>, <strong>modalidad híbrida</strong> real con transmisiones en vivo, <strong>7 ejes temáticos</strong> definidos como columna vertebral del Foro y, sobre todo, el primer <strong>libro colectivo</strong> de la serie editorial publicado por la Editorial UDG: <em>«Fronteras dinámicas: derecho y tecnología en la era digital»</em>. Aquí el Foro deja de ser idea y se convierte en institución.</p>
+  <div class="ribbon-meta">
+    <div class="meta-item"><span class="meta-label" data-i18n="m2_stat1_k">Fecha</span><span class="meta-value" data-i18n-html="m2_stat1_v_html">2–3 Oct · 2024</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m2_stat2_k">Sede</span><span class="meta-value" data-i18n-html="m2_stat2_v_html">CUCEA · UDG · Zapopan</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m2_stat3_k">Modalidad</span><span class="meta-value" data-i18n-html="m2_stat3_v_html">Híbrida presencial + virtual</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m2_stat4_k">Editorial</span><span class="meta-value" data-i18n-html="m2_stat4_v_html">Editorial UDG · Libro colectivo</span></div>
+  </div>
+</header>
 
-  <h1 data-i18n-html="mem2_title_html">II Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m2_s1_label">I · Reseña · La consolidación</div>
+    <h2 data-i18n-html="m2_s1_title_html">De evento <em>fundacional</em> a plataforma editorial.</h2>
+  </div>
+  <div class="section-body">
+    <p data-i18n-html="m2_s1_p1_html">Si la I edición fue el experimento, la II fue la prueba de que el experimento funciona. <strong>El II Foro Internacional de Derecho y Tecnología: «Modelando el Futuro Legal»</strong>, celebrado el miércoles 2 y jueves 3 de octubre de 2024 en el Auditorio Central del CUCEA, multiplicó por más de uno y medio el volumen del programa fundacional —<strong>36 ponentes nacionales e internacionales</strong> repartidos en dos días intensos— y formalizó el carácter híbrido del Foro como la modalidad estable hacia adelante.</p>
+    <p data-i18n-html="m2_s1_p2_html">La curaduría profundizó en ejes que en 2023 apenas se habían enunciado: la <strong>Ley de IA de la Unión Europea</strong> (Dr. Héctor Ayllón Santiago, UAX Madrid), los <strong>esfuerzos de gobernanza global de la IA</strong> en clave ONU/UNESCO/OCDE (Mtra. Ana Isabel Solís, El Colegio de Jalisco), el <strong>derecho a la privacidad mental</strong> (Dra. Olivia Andrea Mendoza, CIDE), las <strong>políticas públicas iberoamericanas de IA</strong> desde SEGIB (Mtro. Carlos Germán Guerrero Argote) y el <strong>capitalismo de vigilancia</strong> (Andrés Cantillo Otero, Universidad Externado de Colombia). En paralelo, la mesa <em>«Tecnologías para la Seguridad Ciudadana»</em> reunió por primera vez en CUCEA al C5 Escudo Urbano, la Comisión Estatal de Búsqueda de Personas Desaparecidas y El Colegio de Jalisco en un mismo bloque.</p>
+    <p data-i18n-html="m2_s1_p3_html">La II edición también amplió la conversación a más universidades de Jalisco: a la histórica presencia de CUCEA-UDG se sumaron <strong>El Colegio de Jalisco</strong> e <strong>ITESO</strong>, consolidando una red local que complementa la mirada internacional. Y en el frente iberoamericano, esta fue la primera edición en recibir a una representación del <strong>Gobierno de Cartagena, Colombia</strong> —el Dr. Javier Doria Arrieta, Secretario del Interior y Asuntos Gubernamentales de la Gobernación de Bolívar— con el proyecto <em>«Justo Bolívar»</em> de IA aplicada al acceso a la justicia con enfoque territorial.</p>
+    <p data-i18n-html="m2_s1_p4_html">El día 2 de octubre por la tarde, el Foro extendió su programa con un <strong>evento paralelo en el Auditorio del Supremo Tribunal de Justicia del Estado de Jalisco</strong> orientado al sector judicial, con magistrados, jueces y estudiantes en sala, abordando las temáticas del Foro aterrizadas a la operación jurisdiccional. Fue la primera vez que el Foro instaló sede espejo fuera de CUCEA.</p>
+    <p data-i18n-html="m2_s1_p5_html">Pero la verdadera consagración llegó después del evento. En 2025, la Editorial UDG publicó <strong><em>«Fronteras dinámicas: derecho y tecnología en la era digital — Perspectivas críticas y soluciones jurídicas para un nuevo paradigma social»</em></strong>, libro colectivo coordinado por el Dr. Juan Emmanuel Delva Benavides, con capítulos derivados de las mejores ponencias de esta edición y una <strong>agenda estratégica de políticas públicas</strong> firmada por el comité editorial. Es el primer hito editorial físico de la serie.</p>
+  </div>
+</section>
 
-  <p class="lead" data-i18n="mem2_lead">
-    Segunda edición del Foro. Consolidación temática y conformación del Comité Científico. Modalidad híbrida con ampliación de la participación internacional y profundización en los ejes de IA, ciberseguridad y propiedad intelectual digital.
-  </p>
-
-  <div class="meta-row">
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="mem_meta_dates_label">Fecha</span>
-      <span class="meta-value" data-i18n="mem2_meta_dates_value">2024</span>
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m2_s2_label">II · Numeralia · II edición</div>
+      <h2 data-i18n-html="m2_s2_title_html">Los <em>números</em> de la consolidación.</h2>
     </div>
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="mem_meta_venue_label">Sede</span>
-      <span class="meta-value" data-i18n="mem2_meta_venue_value">CUCEA · Universidad de Guadalajara</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="mem_meta_modality_label">Modalidad</span>
-      <span class="meta-value" data-i18n="mem2_meta_modality_value">Híbrida</span>
+    <div class="numeralia-grid">
+      <div class="num-cell"><span class="num">36</span><span class="num-lbl" data-i18n="m2_s2_lbl1">Ponentes nacionales e internacionales</span></div>
+      <div class="num-cell"><span class="num">2</span><span class="num-lbl" data-i18n="m2_s2_lbl2">Días · modalidad híbrida consolidada</span></div>
+      <div class="num-cell"><span class="num">7</span><span class="num-lbl" data-i18n="m2_s2_lbl3">Ejes temáticos columna vertebral</span></div>
+      <div class="num-cell"><span class="num">1</span><span class="num-lbl" data-i18n="m2_s2_lbl4">Libro colectivo · Editorial UDG</span></div>
+      <div class="num-cell"><span class="num">8+</span><span class="num-lbl" data-i18n="m2_s2_lbl5">Países · MX · CO · ES · AR · UK · USA · CUB · PRY</span></div>
+      <div class="num-cell"><span class="num">5</span><span class="num-lbl" data-i18n="m2_s2_lbl6">Sectores · público · privado · academia · sociedad civil · org. internacionales</span></div>
+      <div class="num-cell"><span class="num">3</span><span class="num-lbl" data-i18n="m2_s2_lbl7">Idiomas oficiales · ES · EN · FR</span></div>
+      <div class="num-cell"><span class="num">∞</span><span class="num-lbl" data-i18n="m2_s2_lbl8">Transmisión en vivo · Facebook Live CUCEA</span></div>
     </div>
   </div>
+</section>
 
-  <section class="section">
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m2_s3_label">III · Ejes consolidados</div>
+    <h2 data-i18n-html="m2_s3_title_html">Siete <em>conversaciones</em> que se vuelven columna vertebral.</h2>
+  </div>
+  <div class="section-body" style="margin-top: 0;">
+    <p data-i18n="m2_s3_intro">La II edición fijó los siete ejes que aún hoy estructuran al Foro —y que la IV edición 2026 ha extendido a nueve con la incorporación de IA agéntica y salud digital. Esta es la arquitectura temática que nació aquí.</p>
+  </div>
+  <div class="ejes-list">
+    <div class="eje-item"><span class="eje-num">01</span><span class="eje-ttl" data-i18n="m2_eje1">Inteligencia Artificial y Derecho</span></div>
+    <div class="eje-item"><span class="eje-num">02</span><span class="eje-ttl" data-i18n="m2_eje2">Privacidad de Datos, Seguridad Cibernética y Seguridad Ciudadana</span></div>
+    <div class="eje-item"><span class="eje-num">03</span><span class="eje-ttl" data-i18n="m2_eje3">Blockchain, Criptoactivos y Metaversos</span></div>
+    <div class="eje-item"><span class="eje-num">04</span><span class="eje-ttl" data-i18n="m2_eje4">Tecnologías Emergentes y Regulación</span></div>
+    <div class="eje-item"><span class="eje-num">05</span><span class="eje-ttl" data-i18n="m2_eje5">Tecnología y Medio Ambiente</span></div>
+    <div class="eje-item"><span class="eje-num">06</span><span class="eje-ttl" data-i18n="m2_eje6">Derecho Digital y Propiedad Intelectual</span></div>
+    <div class="eje-item"><span class="eje-num">07</span><span class="eje-ttl" data-i18n="m2_eje7">Innovación y Tecnología en Resolución de Conflictos</span></div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="section-inner">
     <div class="section-head">
-      <span class="section-num">I</span>
-      <h2 class="section-title" data-i18n="mem_resena_title">Reseña</h2>
+      <div class="section-eyebrow" data-i18n="m2_s4_label">IV · Voces internacionales</div>
+      <h2 data-i18n-html="m2_s4_title_html">Ocho <em>países</em>, treinta y seis voces.</h2>
     </div>
-    <p data-i18n="mem2_resena_p1">
-      <strong>[Por completar.]</strong> Espacio reservado para la reseña detallada de la segunda edición del Foro: contexto institucional, ejes temáticos abordados, ponentes principales, conclusiones y publicaciones derivadas.
-    </p>
-    <p data-i18n="mem2_resena_p2">
-      Esta segunda edición consolidó las bases del Foro como espacio académico plural en el cual juristas, ingenieros, jueces y reguladores de Iberoamérica discuten cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <span class="section-num">II</span>
-      <h2 class="section-title" data-i18n="mem_galeria_title">Galería</h2>
+    <div class="section-body" style="margin-top: 0;">
+      <p data-i18n-html="m2_s4_intro_html">Selección curada del programa. La II edición reunió perfiles de alto nivel del sector judicial, regulatorio, académico y de organismos internacionales — incluyendo SEGIB, STJ Jalisco, IEPC Jalisco, CIDE, UAX Madrid, Asociación de Internautas (España), Universidad Externado de Colombia, Tec de Monterrey, El Colegio de Jalisco, ITESO, Gobierno de Cartagena (Colombia), ALGDETIC y California State University Dominguez Hills.</p>
     </div>
-    <div class="gallery-grid">
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-      <figure class="gallery-item placeholder" data-i18n="mem_galeria_placeholder">Próximamente</figure>
-    </div>
-  </section>
-
-  <div class="other-editions">
-    <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
-    <div class="other-editions-links">
-      <a href="memoria-i.html">I Foro · 2023</a>
-      <a href="memoria-iii.html">III Foro · 2025</a>
-      <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+    <div class="ponentes-mem-grid">
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p1_role">STJ Jalisco · Magistratura</span><h3 class="pm-name">Magdo. Daniel Espinosa Licón</h3><p class="pm-afil" data-i18n="m2_p1_afil">Avances en tecnología desde el Supremo Tribunal de Justicia</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p2_role">UAX Madrid · OMA</span><h3 class="pm-name">Dr. Héctor Ayllón Santiago</h3><p class="pm-afil" data-i18n="m2_p2_afil">Ley de Inteligencia Artificial de la Unión Europea · Códigos de conducta</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p3_role">CIDE</span><h3 class="pm-name">Dra. Olivia Andrea Mendoza Enríquez</h3><p class="pm-afil" data-i18n="m2_p3_afil">Derecho a la privacidad mental</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p4_role">El Colegio de Jalisco</span><h3 class="pm-name">Mtra. Ana Isabel Solís Ramírez</h3><p class="pm-afil" data-i18n="m2_p4_afil">Gobernanza global de IA: ONU, UNESCO, OCDE</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p5_role">Asociación de Internautas · España</span><h3 class="pm-name">Dra. Ofelia Tejerina Rodríguez</h3><p class="pm-afil" data-i18n="m2_p5_afil">Presidenta · Códigos de conducta en el Reglamento europeo de IA</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p6_role">SEGIB · Iberoamérica</span><h3 class="pm-name">Mtro. Carlos Germán Guerrero Argote</h3><p class="pm-afil" data-i18n="m2_p6_afil">Políticas públicas de IA en Iberoamérica</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p7_role">Centro Conciliación Laboral · Jalisco</span><h3 class="pm-name">Dr. Rodrigo Moreno Trujillo</h3><p class="pm-afil" data-i18n="m2_p7_afil">Presidente · Digitalización de procesos de conciliación</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p8_role">Universidad Autónoma de Sinaloa</span><h3 class="pm-name">Dr. Jesús Manuel Niebla Zatarain</h3><p class="pm-afil" data-i18n="m2_p8_afil">Esquemas colaborativos con IA para manejo de material digital</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p9_role">Tecnológico de Monterrey</span><h3 class="pm-name">Dra. Velda Abigail Gámez Bustamante</h3><p class="pm-afil" data-i18n="m2_p9_afil">Mitos del metaverso y criptoactivos</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p10_role">U. Externado de Colombia</span><h3 class="pm-name">Andrés Eduardo Cantillo Otero</h3><p class="pm-afil" data-i18n="m2_p10_afil">Posicionamiento del capitalismo de vigilancia en protección de datos</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p11_role">U. Alfonso X El Sabio · OMA</span><h3 class="pm-name">Dra. María Luisa García Torres · Dra. Juliana Caicedo</h3><p class="pm-afil" data-i18n="m2_p11_afil">IA generativa en profesiones jurídicas · Protección de activos digitales</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p12_role">ALGDETIC · Presidencia 2024</span><h3 class="pm-name">Dr. Manuel Raad Berrio</h3><p class="pm-afil" data-i18n="m2_p12_afil">Presidente · Tecnología en sistemas adversariales vs. restaurativos</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p13_role">Glenfirm LLP · USA</span><h3 class="pm-name">Mtro. Francisco Mendoza Sepúlveda</h3><p class="pm-afil" data-i18n="m2_p13_afil">Fraudes bancarios por internet</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p14_role">CalState Dominguez Hills</span><h3 class="pm-name">Dr. Brian Jarret · Dr. René Castro · Dr. John Swarbrick</h3><p class="pm-afil" data-i18n="m2_p14_afil">Technological development in ADR</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p15_role">IEPC Jalisco</span><h3 class="pm-name">Miguel Godínez Terriquez</h3><p class="pm-afil" data-i18n="m2_p15_afil">Sistema de votación mediante urna electrónica</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p16_role">Cyberlegal</span><h3 class="pm-name">Mtra. Alicia Edith Trejo Jiménez</h3><p class="pm-afil" data-i18n="m2_p16_afil">Identidad Digital en México</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p17_role">Gobierno de Cartagena · Colombia</span><h3 class="pm-name">Dr. Javier Doria Arrieta</h3><p class="pm-afil" data-i18n="m2_p17_afil">Secretario del Interior · Gobernación de Bolívar · «Justo Bolívar» IA para acceso a la justicia</p></article>
+      <article class="ponente-mem"><span class="pm-role" data-i18n="m2_p18_role">Fundación U. Tecnológico Comfenalco</span><h3 class="pm-name">Dra. Indy Nazir Lleneris · Luis Fernando Reyes Ortega</h3><p class="pm-afil" data-i18n="m2_p18_afil">Derecho al descanso · Convención sobre derechos de personas con discapacidad</p></article>
     </div>
   </div>
+</section>
 
-  <a href="index.html" class="back-link" data-i18n="prog_cta_back">← Volver al sitio</a>
-</main>
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="m2_s5_label">V · Programa · Highlights</div>
+    <h2 data-i18n-html="m2_s5_title_html">Dos <em>días</em>, treinta y seis intervenciones.</h2>
+  </div>
+  <div class="programa-mem">
+    <div class="dia-mem">
+      <div class="dia-mem-h" data-i18n="m2_day1">Miércoles 2 de octubre · Día 1</div>
+      <div class="row-mem"><span class="hr">09:00 – 09:45</span><span class="topic" data-i18n-html="m2_d1r1_t"><strong>Inauguración</strong> · Autoridades universitarias e invitados</span><span class="who" data-i18n="m2_d1r1_w">Rectoría UDG · CUCEA · Comité organizador</span></div>
+      <div class="row-mem"><span class="hr">09:45 – 10:45</span><span class="topic" data-i18n-html="m2_d1r2_t"><strong>Avances en tecnología desde el STJ Jalisco</strong></span><span class="who" data-i18n="m2_d1r2_w">Magdo. Daniel Espinosa Licón</span></div>
+      <div class="row-mem"><span class="hr">11:10 – 11:40</span><span class="topic" data-i18n-html="m2_d1r3_t"><strong>Propiedad Intelectual relacionada con IA</strong></span><span class="who" data-i18n="m2_d1r3_w">Mtro. Marco Antonio Romero Güémez · UDG</span></div>
+      <div class="row-mem"><span class="hr">11:40 – 12:10</span><span class="topic" data-i18n-html="m2_d1r4_t"><strong>Digitalización del Centro de Conciliación Laboral Jalisco</strong></span><span class="who" data-i18n="m2_d1r4_w">Dr. Rodrigo Moreno Trujillo · Presidente del Centro</span></div>
+      <div class="row-mem"><span class="hr">12:10 – 12:40</span><span class="topic" data-i18n-html="m2_d1r5_t"><strong>Ley de IA de la Unión Europea</strong></span><span class="who" data-i18n="m2_d1r5_w">Dr. Héctor Ayllón Santiago · UAX Madrid / OMA</span></div>
+      <div class="row-mem"><span class="hr">13:10 – 13:40</span><span class="topic" data-i18n-html="m2_d1r6_t"><strong>Gobernanza global · ONU, UNESCO, OCDE</strong></span><span class="who" data-i18n="m2_d1r6_w">Mtra. Ana Isabel Solís Ramírez · El Colegio de Jalisco</span></div>
+      <div class="row-mem"><span class="hr">13:40 – 14:10</span><span class="topic" data-i18n-html="m2_d1r7_t"><strong>Derecho a la privacidad mental</strong></span><span class="who" data-i18n="m2_d1r7_w">Dra. Olivia Andrea Mendoza Enríquez · CIDE</span></div>
+      <div class="row-mem"><span class="hr">14:10 – 14:45</span><span class="topic" data-i18n-html="m2_d1r8_t"><strong>Taller de Inteligencia Artificial</strong></span><span class="who" data-i18n="m2_d1r8_w">Dr. César Lozano Díaz · ITESO</span></div>
+      <div class="row-mem"><span class="hr">14:50 – 15:10</span><span class="topic" data-i18n-html="m2_d1r9_t"><strong>Inmersión de la tecnología en el modelo jurídico mexicano</strong></span><span class="who" data-i18n="m2_d1r9_w">Dr. Saúl Adolfo Lamas Meza · UDG</span></div>
+      <div class="row-mem"><span class="hr">15:20 – 16:00</span><span class="topic" data-i18n-html="m2_d1r10_t"><strong>Urna electrónica</strong> · Mesa internacional ADR</span><span class="who" data-i18n="m2_d1r10_w">Miguel Godínez Terriquez (IEPC) · CSU Dominguez Hills</span></div>
+      <div class="row-mem"><span class="hr">17:00 – 19:30</span><span class="topic" data-i18n-html="m2_d1r11_t">Evento paralelo · <strong>STJ Jalisco</strong> · Sede espejo del Foro</span><span class="who" data-i18n="m2_d1r11_w">STJ Jalisco · Comité organizador</span></div>
+    </div>
+    <div class="dia-mem">
+      <div class="dia-mem-h" data-i18n="m2_day2">Jueves 3 de octubre · Día 2</div>
+      <div class="row-mem"><span class="hr">09:10 – 10:20</span><span class="topic" data-i18n-html="m2_d2r1_t">Mesa · <strong>«Tecnologías para la Seguridad Ciudadana»</strong></span><span class="who" data-i18n="m2_d2r1_w">El Colegio de Jalisco · CEB Personas · C5 Escudo Urbano · CIS</span></div>
+      <div class="row-mem"><span class="hr">10:20 – 10:45</span><span class="topic" data-i18n-html="m2_d2r2_t"><strong>Fraudes Bancarios por Internet</strong></span><span class="who" data-i18n="m2_d2r2_w">Mtro. Francisco Mendoza Sepúlveda · Glenfirm LLP</span></div>
+      <div class="row-mem"><span class="hr">11:10 – 11:40</span><span class="topic" data-i18n-html="m2_d2r3_t"><strong>IA generativa en profesiones jurídicas</strong> · <strong>Industrias 4.0</strong></span><span class="who" data-i18n="m2_d2r3_w">Dra. Ma. Luisa García Torres (UAX/OMA) · Mtro. Andrei Naumov (Qdata)</span></div>
+      <div class="row-mem"><span class="hr">11:40 – 12:10</span><span class="topic" data-i18n-html="m2_d2r4_t"><strong>Derechos Humanos y ciber-economía</strong> · <strong>SEGIB</strong></span><span class="who" data-i18n="m2_d2r4_w">Mtro. Emanuel Saldaña (CUCEI) · Mtro. Guerrero Argote (SEGIB)</span></div>
+      <div class="row-mem"><span class="hr">12:10 – 12:40</span><span class="topic" data-i18n-html="m2_d2r5_t"><strong>Reglamento europeo IA · Códigos de conducta</strong></span><span class="who" data-i18n="m2_d2r5_w">Dra. Ofelia Tejerina Rodríguez · Presidenta Asociación de Internautas (España)</span></div>
+      <div class="row-mem"><span class="hr">13:10 – 13:40</span><span class="topic" data-i18n-html="m2_d2r6_t"><strong>Mitos del metaverso · Forense vs. IA</strong></span><span class="who" data-i18n="m2_d2r6_w">Dra. Velda Gámez (Tec Monterrey) · Ing. Flavio Díaz Portela</span></div>
+      <div class="row-mem"><span class="hr">13:40 – 14:10</span><span class="topic" data-i18n-html="m2_d2r7_t"><strong>Protección de activos digitales</strong></span><span class="who" data-i18n="m2_d2r7_w">Dra. Juliana Caicedo Buitrago · UAX Madrid / OMA</span></div>
+      <div class="row-mem"><span class="hr">14:10 – 14:40</span><span class="topic" data-i18n-html="m2_d2r8_t"><strong>Sistemas adversariales vs. restaurativos</strong></span><span class="who" data-i18n="m2_d2r8_w">Dr. Manuel Raad Berrio · Presidente ALGDETIC (2024)</span></div>
+      <div class="row-mem"><span class="hr">16:30 – 17:00</span><span class="topic" data-i18n-html="m2_d2r9_t"><strong>Identidad Digital en México</strong></span><span class="who" data-i18n="m2_d2r9_w">Mtra. Alicia Edith Trejo Jiménez · Cyberlegal</span></div>
+      <div class="row-mem"><span class="hr">17:00 – 17:40</span><span class="topic" data-i18n-html="m2_d2r10_t"><strong>«Justo Bolívar»: IA para acceso a la justicia</strong></span><span class="who" data-i18n="m2_d2r10_w">Dr. Javier Doria Arrieta · Gob. Cartagena, Colombia</span></div>
+      <div class="row-mem"><span class="hr">17:40 – 18:00</span><span class="topic" data-i18n-html="m2_d2r11_t"><strong>Clausura</strong></span><span class="who" data-i18n="m2_d2r11_w">Autoridades universitarias e invitados</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="libro-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m2_s6_label">VI · Producción editorial</div>
+      <h2 data-i18n-html="m2_s6_title_html">El primer <em>libro</em> de la serie.</h2>
+    </div>
+    <div class="libro-grid">
+      <div class="libro-cover">
+        <img src="img/memorias/ii/01-libro-fronteras-dinamicas.jpeg" alt="Libro Fronteras dinámicas">
+      </div>
+      <div class="libro-info">
+        <div class="libro-meta" data-i18n="m2_libro_meta">Editorial UDG · 2025</div>
+        <h3 data-i18n="m2_libro_title">Fronteras dinámicas: derecho y tecnología en la era digital</h3>
+        <p data-i18n-html="m2_libro_p1_html">Perspectivas críticas y soluciones jurídicas para un nuevo paradigma social. <strong>Primer libro colectivo</strong> de la serie editorial <em>«Modelando el Futuro Legal»</em>, derivado del II Foro.</p>
+        <p data-i18n-html="m2_libro_p2_html">Coordinado por el <strong>Dr. Juan Emmanuel Delva Benavides</strong>, reúne capítulos de los autores destacados de la edición y cierra con una <strong>agenda estratégica de políticas públicas</strong> firmada por el comité editorial.</p>
+        <div class="libro-ficha" data-i18n-html="m2_libro_ficha_html"><b>Coordinador</b> · Dr. Juan Emmanuel Delva Benavides<br><b>Editorial</b> · Editorial Universidad de Guadalajara<br><b>Sello</b> · CUCEA · Serie «Modelando el Futuro Legal»<br><b>Evaluación</b> · Peer review doble ciego<br><b>Idioma</b> · Español (ES)<br><b>Estado</b> · Publicado 2025 · ISBN en proceso</div>
+      </div>
+    </div>
+
+    <div class="capitulos-section">
+      <div class="section-head" style="margin-bottom: 32px;">
+        <div class="section-eyebrow" data-i18n="m2_cap_eyebrow">Índice de capítulos · Coautores</div>
+        <h3 data-i18n-html="m2_cap_title_html">Los <em>capítulos</em> que conforman el libro.</h3>
+      </div>
+      <div class="cap-table">
+        <div class="cap-row"><span class="cap-n">01</span><span class="cap-ttl" data-i18n="m2_cap1_t">La inteligencia generativa en las profesiones jurídicas: por una IA ética y sostenible</span><span class="cap-aut" data-i18n-html="m2_cap1_a_html"><strong>Dra. María Luisa García Torres</strong><br>Universidad Alfonso X el Sabio · Madrid</span></div>
+        <div class="cap-row"><span class="cap-n">02</span><span class="cap-ttl" data-i18n="m2_cap2_t">Transparencia y trazabilidad de las creaciones por IA</span><span class="cap-aut" data-i18n-html="m2_cap2_a_html"><strong>Dra. Verónica Juliana Caicedo Buitrago</strong><br>Universidad Alfonso X el Sabio · Madrid</span></div>
+        <div class="cap-row"><span class="cap-n">03</span><span class="cap-ttl" data-i18n="m2_cap3_t">Desafíos del derecho en los albores de la era digital</span><span class="cap-aut" data-i18n-html="m2_cap3_a_html"><strong>Dr. Saúl Adolfo Lamas Meza</strong><br>Investigador postdoctoral · UDG</span></div>
+        <div class="cap-row"><span class="cap-n">04</span><span class="cap-ttl" data-i18n="m2_cap4_t">Esfuerzos de gobernanza global para la IA. Análisis ONU, UNESCO, OCDE</span><span class="cap-aut" data-i18n-html="m2_cap4_a_html"><strong>Mtra. Ana Isabel Solís Ramírez</strong><br>Doctoranda · El Colegio de Jalisco</span></div>
+        <div class="cap-row"><span class="cap-n">05</span><span class="cap-ttl" data-i18n="m2_cap5_t">Reglamento de la Unión Europea sobre Inteligencia Artificial</span><span class="cap-aut" data-i18n-html="m2_cap5_a_html"><strong>Dr. Héctor Ayllón Santiago</strong><br>Universidad Alfonso X el Sabio · Madrid</span></div>
+        <div class="cap-row"><span class="cap-n">06</span><span class="cap-ttl" data-i18n="m2_cap6_t">Capitalismo de la vigilancia en el derecho de protección de datos personales</span><span class="cap-aut" data-i18n-html="m2_cap6_a_html"><strong>Andrés Eduardo Cantillo Otero</strong><br>Universidad Externado de Colombia</span></div>
+        <div class="cap-row"><span class="cap-n">07</span><span class="cap-ttl" data-i18n="m2_cap7_t">«Justo Bolívar»: IA para el acceso a la justicia con enfoque territorial</span><span class="cap-aut" data-i18n-html="m2_cap7_a_html"><strong>Dr. Javier Doria Arrieta</strong><br>Gobernación de Bolívar · Cartagena, Colombia</span></div>
+        <div class="cap-row"><span class="cap-n">08</span><span class="cap-ttl" data-i18n="m2_cap8_t">Avances en la implementación de la Convención sobre derechos de personas con discapacidad</span><span class="cap-aut" data-i18n-html="m2_cap8_a_html"><strong>Luis Fernando Reyes Ortega · Juan Diego Uribe Muñoz</strong><br>Fundación U. Tecnológico Comfenalco · Colombia</span></div>
+        <div class="cap-row"><span class="cap-n">09</span><span class="cap-ttl" data-i18n="m2_cap9_t">Derecho al descanso como derecho fundamental: caso Ricardo Gaitán</span><span class="cap-aut" data-i18n-html="m2_cap9_a_html"><strong>Indy Nazir Lleneris</strong><br>Docente investigadora · Comfenalco · Colombia</span></div>
+        <div class="cap-row cap-agenda"><span class="cap-n">10</span><span class="cap-ttl" data-i18n-html="m2_cap10_t_html"><em>Agenda estratégica: políticas públicas para la regulación de la tecnología en Latinoamérica</em></span><span class="cap-aut" data-i18n-html="m2_cap10_a_html"><strong>Dr. Juan Emmanuel Delva Benavides · Dr. Jorge Antonio Leos Navarro · Mtro. Iván Said González López · Dr. Paul Alejandro García Hernández</strong><br>Comité editorial · CUCEA · UDG</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m2_s7_label">VII · Memoria fotográfica</div>
+      <h2 data-i18n-html="m2_s7_title_html">Cómo se <em>vivió</em>.</h2>
+    </div>
+    <div class="galeria-grid">
+      <figure class="tall"><img src="img/memorias/ii/00-cartel-oficial.jpg" alt="Cartel oficial II Foro 2024"><figcaption data-i18n="m2_g0">Cartel oficial · II Edición 2024</figcaption></figure>
+      <figure><img src="img/memorias/ii/09-galeria-09.jpg" alt="II Foro panel internacional"><figcaption data-i18n="m2_g1">Panel internacional · Auditorio CUCEA</figcaption></figure>
+      <figure><img src="img/memorias/ii/04-galeria-04.jpg" alt="II Foro auditorio"><figcaption data-i18n="m2_g2">Auditorio · 2 octubre 2024</figcaption></figure>
+      <figure><img src="img/memorias/ii/15-galeria-15.jpg" alt="II Foro panorámica auditorio"><figcaption data-i18n="m2_g3">Panorámica del auditorio</figcaption></figure>
+      <figure><img src="img/memorias/ii/02-galeria-02.jpg" alt="II Foro apertura"><figcaption data-i18n="m2_g4">Apertura del programa</figcaption></figure>
+      <figure><img src="img/memorias/ii/06-galeria-06.jpg" alt="II Foro sesión matutina"><figcaption data-i18n="m2_g5">Sesión matutina</figcaption></figure>
+      <figure><img src="img/memorias/ii/12-galeria-12.jpg" alt="II Foro ponencia magistral"><figcaption data-i18n="m2_g6">Ponencia magistral</figcaption></figure>
+      <figure><img src="img/memorias/ii/17-galeria-17.jpg" alt="II Foro mesa seguridad ciudadana"><figcaption data-i18n="m2_g7">Mesa de seguridad ciudadana</figcaption></figure>
+      <figure><img src="img/memorias/ii/08-galeria-08.jpg" alt="II Foro ponente virtual"><figcaption data-i18n="m2_g8">Ponente virtual · modalidad híbrida</figcaption></figure>
+      <figure><img src="img/memorias/ii/13-galeria-13.jpg" alt="II Foro receso"><figcaption data-i18n="m2_g9">Receso · networking</figcaption></figure>
+      <figure><img src="img/memorias/ii/03-galeria-03.jpg" alt="II Foro auditorio CUCEA"><figcaption data-i18n="m2_g10">Auditorio CUCEA lleno</figcaption></figure>
+      <figure><img src="img/memorias/ii/11-galeria-11.jpg" alt="II Foro clausura"><figcaption data-i18n="m2_g11">Clausura · 3 octubre 2024</figcaption></figure>
+      <figure class="tall"><img src="img/memorias/ii/16-galeria-16.jpg" alt="II Foro evento paralelo STJ"><figcaption data-i18n="m2_g12">Evento paralelo · STJ Jalisco</figcaption></figure>
+      <figure><img src="img/memorias/ii/05-galeria-05.jpg" alt="II Foro panel ADR"><figcaption data-i18n="m2_g13">Panel ADR · Dominguez Hills</figcaption></figure>
+      <figure><img src="img/memorias/ii/14-galeria-14.jpg" alt="II Foro magistrados STJ"><figcaption data-i18n="m2_g14">Magistrados y jueces · STJ Jalisco</figcaption></figure>
+      <figure><img src="img/memorias/ii/07-galeria-07.jpg" alt="II Foro jornada 2"><figcaption data-i18n="m2_g15">Jornada 2 · sesión vespertina</figcaption></figure>
+      <figure><img src="img/memorias/ii/18-galeria-18.jpg" alt="II Foro sede espejo STJ"><figcaption data-i18n="m2_g16">Sede espejo STJ Jalisco</figcaption></figure>
+      <figure><img src="img/memorias/ii/10-galeria-10.jpg" alt="II Foro ponentes internacionales"><figcaption data-i18n="m2_g17">Ponentes internacionales</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="legado-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m2_s8_label">VIII · Legado · II edición</div>
+      <h2 data-i18n-html="m2_s8_title_html">Qué <em>quedó</em> instalado.</h2>
+    </div>
+    <div class="section-body"><p data-i18n="m2_s8_intro">La II edición convirtió al Foro en una institución académica con producción editorial verificable, arquitectura temática propia y un puente real hacia el diseño de políticas públicas.</p></div>
+    <div class="pillars-grid">
+      <article class="pillar"><h3 data-i18n="m2_pillar1_h">Comité Científico</h3><p data-i18n-html="m2_pillar1_p_html">Conformación formal del comité que ejecuta el <strong>peer review en doble ciego</strong> de los papers del CFP. Garantiza calidad editorial para la serie.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar2_h">7 ejes columna vertebral</h3><p data-i18n="m2_pillar2_p">Fijación de los siete ejes temáticos que estructuran el Foro hasta la IV edición, ampliados después a nueve con IA agéntica y salud digital.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar3_h">Libro colectivo publicado</h3><p data-i18n-html="m2_pillar3_p_html"><em>«Fronteras dinámicas»</em> · primer libro físico de la serie <em>«Modelando el Futuro Legal»</em> con la Editorial UDG. La memoria deja de ser PDF interno y se vuelve obra citable.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar4_h">Del Foro a la política pública</h3><p data-i18n-html="m2_pillar4_p_html">El libro cierra con la <strong>«Agenda estratégica»</strong> firmada por <strong>Delva · Leos · González · García</strong>. Por primera vez, el contenido del Foro se traslada formalmente a propuesta de incidencia regulatoria regional.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar5_h">Modalidad híbrida real</h3><p data-i18n="m2_pillar5_p">Transmisión en vivo por Facebook Live CUCEA y ponentes virtuales con plena equivalencia académica respecto a los presenciales.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar6_h">SEGIB en el programa</h3><p data-i18n-html="m2_pillar6_p_html">Primera presencia de la <strong>Secretaría General Iberoamericana</strong> con políticas públicas de IA, marcando el carácter iberoamericano del Foro.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar7_h">Mesa interinstitucional</h3><p data-i18n-html="m2_pillar7_p_html">Coordinación efectiva entre <strong>C5 Escudo Urbano, Comisión de Búsqueda y El Colegio de Jalisco</strong> en un mismo bloque de seguridad ciudadana.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar8_h">Sede espejo STJ Jalisco</h3><p data-i18n-html="m2_pillar8_p_html">Por primera vez el Foro instaló un <strong>evento paralelo en el Auditorio del STJ Jalisco</strong> — preludio del modelo de sedes espejo del IV Foro.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar9_h">Red Jalisco ampliada</h3><p data-i18n-html="m2_pillar9_p_html">Incorporación al diálogo de <strong>El Colegio de Jalisco</strong> e <strong>ITESO</strong>, complementando la red CUCEA-UDG.</p></article>
+      <article class="pillar"><h3 data-i18n="m2_pillar10_h">Llegada del Gobierno de Cartagena</h3><p data-i18n-html="m2_pillar10_p_html">Primera vez que el Foro recibe al <strong>Gobierno de Cartagena, Colombia</strong> con <em>«Justo Bolívar»</em>.</p></article>
+    </div>
+  </div>
+</section>
+
+<div class="other-editions">
+  <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
+  <div class="other-editions-links">
+    <a href="memoria-i.html">I Foro · 2023</a>
+    <a href="memoria-iii.html">III Foro · 2025</a>
+    <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+  </div>
+</div>
 
 <footer>
   <div class="footer-inner">
