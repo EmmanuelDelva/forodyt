@@ -111,11 +111,18 @@ img { max-width: 100%; height: auto; display: block; }
 .row-mem .topic strong { color: var(--ink); font-weight: 500; }
 .row-mem .who { font-family: var(--sans); font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
 @media (max-width: 800px) { .row-mem { grid-template-columns: 90px 1fr; gap: 14px; } .row-mem .who { grid-column: 2; } }
-/* Galería simple */
-.galeria-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px; align-items: center; }
-.galeria-grid figure { background: var(--white); border: 1px solid var(--ink-rule); padding: 0; overflow: hidden; }
-.galeria-grid figure.logo-card { padding: 60px; background: var(--ink); }
-@media (max-width: 700px) { .galeria-grid { grid-template-columns: 1fr; } }
+/* Galería con fotos del evento */
+.galeria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+.galeria-grid figure { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--ink-deep); border: 1px solid var(--ink-rule); }
+.galeria-grid figure.tall { grid-row: span 2; aspect-ratio: auto; }
+.galeria-grid figure.logo-card { background: var(--ink); display: flex; align-items: center; justify-content: center; }
+.galeria-grid figure.logo-card img { width: 70%; height: auto; max-height: 65%; object-fit: contain; }
+.galeria-grid figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.galeria-grid figure:hover img { transform: scale(1.04); }
+.galeria-grid figure figcaption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(17, 43, 43, 0.92) 0%, transparent 100%); color: var(--marfil); padding: 24px 16px 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; transition: opacity 0.3s var(--ease); }
+.galeria-grid figure:hover figcaption { opacity: 1; }
+@media (max-width: 800px) { .galeria-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .galeria-grid { grid-template-columns: 1fr; } .galeria-grid figure.tall { grid-row: auto; } }
 /* Legado */
 .legado-section { background: var(--ink); color: var(--marfil); padding: 96px 0; }
 .legado-section .section-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
@@ -364,8 +371,34 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
     <h2 data-i18n-html="m3_s9_title_html">Cómo se <em>vivió</em>.</h2>
   </div>
   <div class="galeria-grid">
-    <figure><img src="img/memorias/iii/00-cartel-oficial.png" alt="Cartel oficial III Foro 2025"></figure>
-    <figure class="logo-card"><img src="img/memorias/iii/01-logo-blanco.png" alt="Logo III Foro 2025"></figure>
+    <figure class="tall">
+      <img src="img/memorias/iii/00-cartel-oficial.png" alt="Cartel oficial III Foro Internacional de Derecho y Tecnología 2025">
+      <figcaption data-i18n="m3_g0">Cartel oficial · III Edición 2025</figcaption>
+    </figure>
+    <figure><img src="img/memorias/iii/02-galeria-01.jpg" alt="III Foro · apertura 1 octubre 2025"><figcaption data-i18n="m3_g1">Apertura · Torre Smart · 1 oct</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-02.jpg" alt="III Foro · panel inaugural"><figcaption data-i18n="m3_g2">Panel inaugural · día 1</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-03.jpg" alt="III Foro · mesa de bienvenida"><figcaption data-i18n="m3_g3">Mesa de bienvenida</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-04.jpg" alt="III Foro · ponentes internacionales"><figcaption data-i18n="m3_g4">Ponentes internacionales</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-05.jpg" alt="III Foro · primera sesión paralela"><figcaption data-i18n="m3_g5">Primera sesión paralela</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-06.jpg" alt="III Foro · auditorio activo día 1"><figcaption data-i18n="m3_g6">Auditorio activo · 1 oct</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-07.jpg" alt="III Foro · mesa internacional IA"><figcaption data-i18n="m3_g7">Mesa internacional · IA</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-08.jpg" alt="III Foro · panel principal"><figcaption data-i18n="m3_g8">Vista del panel principal</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-09.jpg" alt="III Foro · pausa de networking"><figcaption data-i18n="m3_g9">Pausa de networking</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-10.jpg" alt="III Foro · sesión vespertina día 1"><figcaption data-i18n="m3_g10">Sesión vespertina · día 1</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-11.jpg" alt="III Foro · sesión paralela Sala Gobierno"><figcaption data-i18n="m3_g11">Sala de Gobierno · sesión paralela</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-12.jpg" alt="III Foro · diálogo con ponentes"><figcaption data-i18n="m3_g12">Diálogo con ponentes</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-13.jpg" alt="III Foro · conversaciones"><figcaption data-i18n="m3_g13">Conversaciones del Foro</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-14.jpg" alt="III Foro · cierre del día 1"><figcaption data-i18n="m3_g14">Cierre del día 1</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-15.jpg" alt="III Foro · apertura día 2"><figcaption data-i18n="m3_g15">Apertura del día 2 · Torre Smart</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-16.jpg" alt="III Foro · panel matutino 2 oct"><figcaption data-i18n="m3_g16">Panel matutino · 2 oct</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-17.jpg" alt="III Foro · mesa redonda IA"><figcaption data-i18n="m3_g17">Mesa redonda · IA y seguridad</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-18.jpg" alt="III Foro · ponentes y moderadores"><figcaption data-i18n="m3_g18">Ponentes y moderadores</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-19.jpg" alt="III Foro · audiencia atenta"><figcaption data-i18n="m3_g19">Audiencia atenta</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-20.jpg" alt="III Foro · reflexión final"><figcaption data-i18n="m3_g20">Reflexión final</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-21.jpg" alt="III Foro · mesa de magistratura"><figcaption data-i18n="m3_g21">Mesa de magistratura</figcaption></figure>
+    <figure class="tall"><img src="img/memorias/iii/02-galeria-22.jpg" alt="III Foro · clausura"><figcaption data-i18n="m3_g22">Clausura del Foro</figcaption></figure>
+    <figure><img src="img/memorias/iii/02-galeria-23.jpg" alt="III Foro · foto grupal final"><figcaption data-i18n="m3_g23">Foto grupal final</figcaption></figure>
+    <figure class="logo-card"><img src="img/memorias/iii/01-logo-blanco.png" alt="Logo III Foro 2025"><figcaption data-i18n="m3_g_logo">Identidad visual · III Edición</figcaption></figure>
   </div>
 </section>
 
