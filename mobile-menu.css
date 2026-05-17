@@ -280,3 +280,16 @@
 
 /* lock body scroll */
 body.mm-locked { overflow: hidden; }
+
+/* ===== MOBILE NAV FIT =====
+ * En mobile el nav debe caber en ~390px sin scroll horizontal.
+ * Ocultamos el switcher de idioma de desktop (esta dentro del overlay)
+ * y el subtitulo de la marca en pantallas mas chicas.
+ */
+@media (max-width: 1024px) {
+  .nav .lang { display: none; }
+}
+@media (max-width: 700px) {
+  .brand-sub,
+  .brand-rule { display: none; }
+}

@@ -52,18 +52,17 @@
       + '<ul class="mm-links" role="list">';
 
     links.forEach(function (link, i) {
-      var i18n = link.getAttribute('data-i18n') || '';
       var href = link.getAttribute('href') || '#';
       var text = link.textContent.trim();
       var num  = ROMANS[i] || (i + 1);
-      // data-i18n va en .mm-label (no en <a>) para que i18n.js no destruya
-      // el <span class="mm-num"> al hacer textContent = translation.
+      // No usamos data-i18n aqui: el restore-to-ES de i18n.js depende del
+      // ORIGINAL map capturado al cargar la pagina, y nuestros elementos
+      // se inyectan despues. Mejor: source of truth = el desktop nav-link,
+      // que SI esta en ORIGINAL. Sincronizamos en cada cambio de idioma.
       html += '<li>'
            +   '<a href="' + escapeHtml(href) + '">'
            +     '<span class="mm-num">' + num + '</span>'
-           +     '<span class="mm-label"'
-           +       (i18n ? ' data-i18n="' + escapeHtml(i18n) + '"' : '')
-           +     '>' + escapeHtml(text) + '</span>'
+           +     '<span class="mm-label">' + escapeHtml(text) + '</span>'
            +   '</a>'
            + '</li>';
     });
@@ -77,10 +76,10 @@
     if (backLink) {
       var backText = backLink.textContent.trim() || 'Volver al sitio';
       var backHref = backLink.getAttribute('href') || 'index.html';
-      var backI18n = backLink.getAttribute('data-i18n') || '';
-      html += '<a class="mm-volver" href="' + escapeHtml(backHref) + '"'
-           +   (backI18n ? ' data-i18n="' + escapeHtml(backI18n) + '"' : '')
-           +   '>' + escapeHtml(backText) + '</a>';
+      // Mismo motivo que arriba: no data-i18n directo. Sincronizamos despues.
+      html += '<a class="mm-volver" href="' + escapeHtml(backHref) + '">'
+           +    '<span class="mm-volver-label">' + escapeHtml(backText) + '</span>'
+           +  '</a>';
     }
 
     html += '</div>';
@@ -113,6 +112,20 @@
         s.classList.toggle('active', s.getAttribute('data-lang') === lang);
       });
     }
+    // Mirror text of desktop nav-links into mm-labels. i18n.js solo conoce
+    // los elementos que existian al cargar, asi que dejamos que i18n.js
+    // traduzca el desktop nav y copiamos su resultado al overlay.
+    function syncMmLabels() {
+      var navAnchors = document.querySelectorAll('.nav .nav-links li a');
+      var labels     = overlay.querySelectorAll('.mm-links .mm-label');
+      navAnchors.forEach(function (a, i) {
+        if (labels[i]) labels[i].textContent = a.textContent.trim();
+      });
+      if (backLink) {
+        var volverLabel = overlay.querySelector('.mm-volver-label');
+        if (volverLabel) volverLabel.textContent = backLink.textContent.trim();
+      }
+    }
 
     // ===== events =====
     trigger.addEventListener('click', open);
@@ -131,6 +144,7 @@
         if (window.foroI18n && typeof window.foroI18n.setLang === 'function') {
           window.foroI18n.setLang(lang);
           syncLangActive();
+          syncMmLabels();
         }
       });
     });
@@ -143,9 +157,16 @@
     var desktopLang = document.querySelector('.nav .lang');
     if (desktopLang) {
       desktopLang.addEventListener('click', function () {
-        setTimeout(syncLangActive, 0);
+        setTimeout(function () {
+          syncLangActive();
+          syncMmLabels();
+        }, 0);
       });
     }
+
+    // Sincronizacion inicial: si i18n.js ya aplico EN/FR antes de inyectar,
+    // los mm-labels reflejan el texto actual del desktop nav (que ya esta traducido).
+    syncMmLabels();
   }
 
   function escapeHtml(s) {
