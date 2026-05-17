@@ -56,12 +56,14 @@
       var href = link.getAttribute('href') || '#';
       var text = link.textContent.trim();
       var num  = ROMANS[i] || (i + 1);
+      // data-i18n va en .mm-label (no en <a>) para que i18n.js no destruya
+      // el <span class="mm-num"> al hacer textContent = translation.
       html += '<li>'
-           +   '<a href="' + escapeHtml(href) + '"'
-           +     (i18n ? ' data-i18n="' + escapeHtml(i18n) + '"' : '')
-           +   '>'
+           +   '<a href="' + escapeHtml(href) + '">'
            +     '<span class="mm-num">' + num + '</span>'
-           +     '<span class="mm-label">' + escapeHtml(text) + '</span>'
+           +     '<span class="mm-label"'
+           +       (i18n ? ' data-i18n="' + escapeHtml(i18n) + '"' : '')
+           +     '>' + escapeHtml(text) + '</span>'
            +   '</a>'
            + '</li>';
     });
