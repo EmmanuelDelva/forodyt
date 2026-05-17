@@ -166,7 +166,8 @@ main, header, footer { position: relative; z-index: 1; }
   color: var(--ink-soft);
 }
 
-.lang span { padding: 0 4px; }
+.lang span { padding: 0 4px; cursor: pointer; transition: color 0.3s var(--ease); }
+.lang span:hover { color: var(--ink); }
 .lang .active { color: var(--ink); font-weight: 500; }
 
 .btn-primary {
