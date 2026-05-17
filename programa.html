@@ -363,6 +363,12 @@ footer {
 
 .footer-inner a { color: var(--ink-soft); text-decoration: none; }
 .footer-inner a:hover { color: var(--dorado); }
+.nav-links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 500; color: #0B2430; text-decoration: none; letter-spacing: 0.02em; position: relative; padding: 4px 0; transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.nav-links a::after { content: ""; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: #C08B3C; transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.nav-links a:hover { color: #094651; }
+.nav-links a:hover::after { width: 100%; }
+@media (max-width: 1024px) { .nav-links { display: none; } }
 </style>
 </head>
 <body>
@@ -375,6 +381,15 @@ footer {
       <span class="brand-rule"></span>
       <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
     </a>
+    <ul class="nav-links">
+      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
+      <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
+      <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="index.html#ejes" data-i18n="nav_link_ejes">Ejes</a></li>
+      <li><a href="index.html#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="index.html#comite" data-i18n="nav_link_comite">Comité</a></li>
+    </ul>
     <div class="nav-cta">
       <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
       <div class="lang">
