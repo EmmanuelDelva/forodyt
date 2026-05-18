@@ -434,6 +434,9 @@
       idx_ponente_raad_affil: 'Auxiliary Magistrate · Superior Council of the Judiciary · Colombia',
       idx_ponente_raad_topic_html: 'Track iv · Digital Justice  |  Track ii · Emerging Technologies',
       idx_ponente_raad_talk: '«21st-century courts: emerging technologies and new paradigms in the administration of justice»',
+      idx_ponente_ibarra_affil_html: 'Founder and President · Mexican Academy of Cybersecurity and Digital Law (AMCID)<br>Vice President · Ibero-American Federation of Associations of Law and Informatics (FIADI)',
+      idx_ponente_ibarra_topic_html: 'Track iii · Cybersecurity and Digital Sovereignty  |  Track ii · Emerging Technologies',
+      idx_ponente_ibarra_talk: '«Cybersecurity and Quantum Computing: Q-Day and How to Prepare»',
       idx_ponentes_cta_text: 'List in progress · Confirmations are published weekly',
       idx_ponentes_cta_btn: 'Receive updates',
 
@@ -1219,6 +1222,9 @@
       idx_ponente_raad_affil: 'Magistrat Auxiliaire · Conseil Supérieur de la Magistrature · Colombie',
       idx_ponente_raad_topic_html: 'Axe iv · Justice Numérique  |  Axe ii · Technologies Émergentes',
       idx_ponente_raad_talk: '« Tribunaux du XXIe siècle : technologies émergentes et nouveaux paradigmes dans l\'administration de la justice »',
+      idx_ponente_ibarra_affil_html: 'Fondateur et Président · Académie Mexicaine de Cybersécurité et Droit Numérique (AMCID)<br>Vice-Président · Fédération Ibéro-Américaine des Associations de Droit et d\'Informatique (FIADI)',
+      idx_ponente_ibarra_topic_html: 'Axe iii · Cybersécurité et Souveraineté Numérique  |  Axe ii · Technologies Émergentes',
+      idx_ponente_ibarra_talk: '« Cybersécurité et Informatique Quantique : le Q-Day et comment se préparer »',
       idx_ponentes_cta_text: 'Liste en construction · Les confirmations sont publiées chaque semaine',
       idx_ponentes_cta_btn: 'Recevoir les mises à jour',
 
