@@ -1159,21 +1159,40 @@ main, header, footer { position: relative; z-index: 1; }
   color: var(--ink-soft);
 }
 
-/* ============ ALIADOS ============ */
+/* ============ ALIADOS ============
+ * Estilo natural: fondo beige unificado (match exacto al Canva donde se prepararon
+ * los logos), sin tiles ni bordes. Los logos respiran en una superficie compartida,
+ * leen como un mural institucional en lugar de badges separados.
+ */
 .aliados {
-  padding: 100px var(--gutter);
-  background: var(--ink);
-  color: var(--marfil);
+  padding: 120px var(--gutter);
+  background: #c5b9a5;
+  color: var(--ink);
   text-align: center;
+  position: relative;
 }
+
+/* sutil textura/grano para profundidad sin distraer */
+.aliados::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,0.18) 0%, transparent 45%),
+    radial-gradient(circle at 82% 78%, rgba(14,27,44,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.aliados > * { position: relative; z-index: 1; }
 
 .aliados-eyebrow {
   font-family: var(--mono);
   font-size: 11px;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--dorado);
-  margin-bottom: 16px;
+  color: var(--ink);
+  opacity: 0.55;
+  margin-bottom: 18px;
 }
 
 .aliados h2 {
@@ -1181,97 +1200,83 @@ main, header, footer { position: relative; z-index: 1; }
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 300;
   font-style: italic;
-  margin-bottom: 60px;
+  color: var(--ink);
+  margin-bottom: 80px;
   font-variation-settings: "opsz" 144, "SOFT" 80;
 }
 
-.aliados-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  max-width: 900px;
-  margin: 0 auto;
+.aliados h2 em {
+  color: var(--teal-deep);
 }
 
+/* Grid amplio, los logos respiran */
 .aliados-list {
   display: flex !important;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  align-items: center;
+  gap: 56px 64px;
   max-width: 1240px;
   margin: 0 auto;
 }
 
 .aliados-list .aliado-cell {
-  flex: 0 1 calc(20% - 16px);
-  min-width: 180px;
+  flex: 0 1 calc(20% - 64px);
+  min-width: 170px;
 }
 
 @media (max-width: 1200px) {
-  .aliados-list .aliado-cell { flex: 0 1 calc(25% - 16px); }
+  .aliados-list { gap: 48px 56px; }
+  .aliados-list .aliado-cell { flex: 0 1 calc(25% - 56px); }
 }
 
 @media (max-width: 900px) {
-  .aliados-list .aliado-cell { flex: 0 1 calc(33.333% - 16px); }
+  .aliados-list { gap: 40px 44px; }
+  .aliados-list .aliado-cell { flex: 0 1 calc(33.333% - 44px); }
 }
 
 @media (max-width: 600px) {
-  .aliados-list .aliado-cell { flex: 0 1 calc(50% - 12px); }
+  .aliados-list { gap: 36px 32px; }
+  .aliados-list .aliado-cell { flex: 0 1 calc(50% - 32px); }
 }
 
 @media (max-width: 420px) {
   .aliados-list .aliado-cell { flex: 0 1 100%; }
 }
 
+/* Sin tiles, sin bordes — logos al natural sobre el fondo compartido */
 .aliado-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120px;
-  padding: 20px 24px;
-  /* Fondo marfil para que mix-blend-mode multiply transparente los blancos de los logos */
-  background: var(--white);
-  border: 1px solid rgba(14, 27, 44, 0.06);
-  transition: all 0.4s var(--ease);
+  height: 110px;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  transition: transform 0.4s var(--ease);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
-.aliado-cell::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(184, 146, 62, 0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-}
+.aliado-cell::before { display: none; }
 
 .aliado-cell:hover {
-  box-shadow: 0 8px 24px rgba(14, 27, 44, 0.08);
-  border-color: rgba(184, 146, 62, 0.6);
-  background: var(--white);
-  transform: translateY(-2px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transform: translateY(-3px);
 }
 
-.aliado-cell:hover::before {
-  opacity: 1;
+/* Anular las clases especiales — ya no hace falta diferenciar tiles */
+.aliado-cell.ca-tile,
+.aliado-cell.algdetic-tile,
+.aliado-cell.ca-tile:hover,
+.aliado-cell.algdetic-tile:hover {
+  background: transparent;
+  padding: 8px 16px;
+  border: none;
+  box-shadow: none;
 }
-
-.aliado-cell.ca-tile {
-  /* El logo del CA viene con fondo crema. Padding ligeramente menor para que la "tarjeta" del logo respire dentro de la tile sin que el crema domine. */
-  padding: 14px 18px;
-}
-
-.aliado-cell.algdetic-tile {
-  /* ALGDETIC tiene texto blanco (no se ve sobre tile blanco). Mantenemos su fondo beige
-     original del Canva y el tile usa el mismo color para que se integre limpio. */
-  background: #c5b9a5;
-}
-.aliado-cell.algdetic-tile:hover { background: #c5b9a5; border-color: rgba(184, 146, 62, 0.6); }
 
 .aliado-logo {
   max-width: 100%;
@@ -1279,8 +1284,6 @@ main, header, footer { position: relative; z-index: 1; }
   width: auto;
   height: auto;
   object-fit: contain;
-  /* Logos limpios con alpha real (chromakey aplicado en preproceso). Sin blend-mode
-     para preservar colores vibrantes en blanco tile. */
   transition: transform 0.4s var(--ease);
 }
 
