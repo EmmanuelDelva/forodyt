@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>III Foro Internacional de Derecho y Tecnología · Memoria · 2025</title>
-<meta name="description" content="Memoria de la III edición del Foro Internacional de Derecho y Tecnología (CUCEA-UDG, 1–2 oct 2025) — «Vidas Digitales, Leyes Reales». Más de 30 ponentes de 6 países, sedes Torre Smart y Sala de Gobierno.">
+<meta name="description" content="Memoria de la III edición del Foro Internacional de Derecho y Tecnología (CUCEA-UDG, 1–2 oct 2025) — «Vidas Digitales, Leyes Reales». 33 ponentes de 8 países, sedes Torre Smart y Sala de Gobierno.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -156,6 +156,282 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 .nav-links a:hover { color: #094651; }
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 1024px) { .nav-links { display: none; } }
+
+/* === Memoria III v2.0 complementario === */
+/*
+  CSS complementario para memoria-iii.html v2.0
+  Agregar al stylesheet principal del sitio.
+  Mantiene la paleta III: ink #14304E · granate #632A3D · dorado #B89A52 · teal #2F7B7D · marfil #F4ECD8
+*/
+
+/* === Tarjeta de ponente con tema (extensión de .avatar-card existente) === */
+.avatar-card .av-topic {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: rgba(20, 48, 78, 0.78);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(20, 48, 78, 0.12);
+  text-align: center;
+}
+
+/* Tarjeta destacada (Doria Arrieta, Espinoza Licón clausura) */
+.avatar-card.highlight {
+  position: relative;
+}
+.avatar-card.highlight::before {
+  content: "★";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #B89A52;
+  color: #14304E;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(20, 48, 78, 0.2);
+}
+
+/* === Mesa redonda grid (variante de avatar-grid con borde unificador) === */
+.mesa-grid {
+  background: linear-gradient(135deg, rgba(99, 42, 61, 0.04) 0%, rgba(184, 154, 82, 0.04) 100%);
+  border: 1px solid rgba(99, 42, 61, 0.18);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* === Sección del segundo libro · book-card y book-toc === */
+.book-card {
+  background: linear-gradient(135deg, #14304E 0%, #1f4368 100%);
+  color: #F4ECD8;
+  padding: 2.5rem;
+  border-radius: 6px;
+  margin: 2rem 0;
+  box-shadow: 0 8px 24px rgba(20, 48, 78, 0.22);
+}
+
+.book-meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(244, 236, 216, 0.15);
+  font-size: 0.95rem;
+}
+.book-meta-row:last-child { border-bottom: none; }
+
+.book-meta-k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #B89A52;
+}
+.book-meta-v {
+  font-family: 'Fraunces', Georgia, serif;
+  text-align: right;
+}
+
+.book-toc {
+  margin-top: 1.5rem;
+}
+.toc-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(20, 48, 78, 0.1);
+}
+.toc-item:last-child { border-bottom: none; }
+
+.toc-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: #B89A52;
+  min-width: 60px;
+  line-height: 1;
+}
+.toc-item h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #14304E;
+  margin: 0 0 0.35rem 0;
+  line-height: 1.3;
+}
+.toc-item p {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: rgba(20, 48, 78, 0.72);
+  margin: 0;
+}
+
+/* === CTA edición IV — disruptivo pero coherente con la paleta del sitio ===
+ * Fondo teal-deep como acento maximalizado (en el sitio el teal es solo accent).
+ * Numeral romano IV gigante como elemento editorial. Tipografia marfil sobre teal.
+ * Boton primario dorado solido. Secundarios outlined marfil con hover dorado.
+ */
+.section.cta-iv {
+  background: linear-gradient(180deg, #094651 0%, #0B2430 100%);
+  color: #F4ECD8;
+  text-align: center;
+  padding: 7rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Numeral IV decorativo de fondo, italic Fraunces */
+.section.cta-iv::before {
+  content: "IV";
+  position: absolute;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(20rem, 38vw, 32rem);
+  font-weight: 700;
+  font-style: italic;
+  font-variation-settings: "opsz" 144;
+  color: rgba(184, 154, 82, 0.05);
+  top: 50%;
+  right: -3%;
+  transform: translateY(-50%);
+  line-height: 0.85;
+  pointer-events: none;
+  letter-spacing: -0.04em;
+}
+
+/* Línea dorada decorativa arriba */
+.section.cta-iv::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #B89A52 50%, transparent);
+}
+
+.cta-iv .section-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.cta-iv .section-eyebrow {
+  color: #C8A858;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.cta-iv .section-eyebrow::before {
+  background: #C8A858;
+  width: 28px;
+}
+
+.cta-iv h2 {
+  color: #F4ECD8;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.05;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.cta-iv h2 em {
+  color: #C8A858;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.cta-iv .section-body {
+  color: rgba(244, 236, 216, 0.82);
+  max-width: 620px;
+  margin: 2rem auto 0;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.cta-iv .section-body p {
+  margin: 0 0 14px;
+}
+
+.cta-iv .section-body em {
+  color: #C8A858;
+  font-style: italic;
+}
+
+.cta-iv .section-body strong {
+  color: #F4ECD8;
+  font-weight: 500;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid transparent;
+}
+
+.cta-btn.primary {
+  background: #B89A52;
+  color: #0B2430;
+  font-weight: 600;
+  border-color: #B89A52;
+}
+.cta-btn.primary:hover {
+  background: #C8A858;
+  border-color: #C8A858;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(184, 154, 82, 0.32);
+}
+
+.cta-btn.secondary {
+  background: transparent;
+  color: #F4ECD8;
+  border-color: rgba(244, 236, 216, 0.28);
+}
+.cta-btn.secondary:hover {
+  background: rgba(244, 236, 216, 0.06);
+  border-color: #C8A858;
+  color: #C8A858;
+  transform: translateY(-3px);
+}
+
+/* === Responsive === */
+@media (max-width: 720px) {
+  .book-meta-row { flex-direction: column; gap: 0.25rem; }
+  .book-meta-v { text-align: left; }
+  .toc-item { flex-direction: column; gap: 0.5rem; }
+  .toc-num { font-size: 1.5rem; }
+  .cta-buttons { flex-direction: column; align-items: stretch; }
+}
+
 </style>
 <link rel="stylesheet" href="mobile-menu.css">
 </head>
@@ -190,24 +466,35 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   <div class="ribbon-eyebrow" data-i18n="m3_badge">III Edición · 1–2 Octubre 2025</div>
   <h1 data-i18n-html="m3_title_html">III Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
   <div class="ribbon-subtitle" data-i18n="m3_subtitle">«Vidas Digitales, Leyes Reales: Nuevos Retos para el Derecho»</div>
-  <p class="ribbon-lead" data-i18n-html="m3_lede_html">La <strong>expansión</strong>. Por primera vez el Foro se desbordó del Auditorio Central y ocupó dos sedes simultáneas en CUCEA —<strong>Torre Smart (Piso 1)</strong> y <strong>Sala de Gobierno</strong>— para acomodar a más de <strong>30 ponentes de seis países</strong>. España, Argentina, Perú, Colombia, Cuba, Paraguay y México alineados en la misma agenda: IA en tribunales, hipervigilancia, justicia accesible, salud digital, IA + blockchain + cultura, y la administración de justicia en el metaverso. Esta edición agregó dos ejes nuevos: <strong>tecnología y derechos humanos</strong> y <strong>salud digital y derecho</strong>.</p>
+  <p class="ribbon-lead" data-i18n-html="m3_lede_html">La <strong>expansión</strong>. Por primera vez el Foro se desbordó del Auditorio Central y ocupó dos sedes simultáneas en CUCEA —<strong>Torre Smart</strong> y <strong>Sala de Gobierno</strong>— para albergar a <strong>33 ponentes de ocho países</strong>. España, Argentina, Perú, Colombia, Cuba, Paraguay y México alineados en la misma agenda: IA en tribunales, hipervigilancia, justicia accesible, salud digital, IA + blockchain + cultura, y la administración de justicia en el metaverso, así como <strong>derechos humanos</strong> y <strong>salud digital y derecho</strong>.</p>
   <div class="ribbon-meta">
     <div class="meta-item"><span class="meta-label" data-i18n="m3_stat1_k">Fecha</span><span class="meta-value" data-i18n-html="m3_stat1_v_html">1–2 Oct · 2025</span></div>
-    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat2_k">Sedes</span><span class="meta-value" data-i18n-html="m3_stat2_v_html">Torre Smart P1 + Sala de Gobierno</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat2_k">Sedes</span><span class="meta-value" data-i18n-html="m3_stat2_v_html">Torre Smart + Sala de Gobierno</span></div>
     <div class="meta-item"><span class="meta-label" data-i18n="m3_stat3_k">Modalidad</span><span class="meta-value" data-i18n-html="m3_stat3_v_html">Híbrida presencial + virtual</span></div>
-    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat4_k">Países</span><span class="meta-value" data-i18n-html="m3_stat4_v_html">6 países en programa</span></div>
+    <div class="meta-item"><span class="meta-label" data-i18n="m3_stat4_k">Países</span><span class="meta-value" data-i18n-html="m3_stat4_v_html">8 países en programa</span></div>
   </div>
 </header>
 
+
 <section class="section">
-  <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s1_label">I · Reseña · La expansión</div>
-    <h2 data-i18n-html="m3_s1_title_html">La edición en que el Foro <em>creció</em> hasta necesitar dos pisos.</h2>
-  </div>
-  <div class="section-body">
-    <p data-i18n-html="m3_s1_p1_html">El 1 y 2 de octubre de 2025 marcaron un cambio de escala. El <strong>III Foro Internacional de Derecho y Tecnología: «Vidas Digitales, Leyes Reales»</strong> ya no cupo en un solo auditorio: por primera vez ocupó <strong>dos sedes simultáneas en CUCEA</strong> —Torre Smart Piso 1 y Sala de Gobierno— para sostener un programa paralelo de más de 30 ponencias con voces de seis países.</p>
-    <p data-i18n-html="m3_s1_p2_html">La curaduría puso el dedo en lugares incómodos: la <strong>hipervigilancia y la falacia de seguridad</strong> (Dra. Velda Gámez · Tec Monterrey), la <strong>administración de justicia en el metaverso</strong> (Angie Daniela Bernal Caballero · Consejo Superior de la Judicatura de Colombia), la <strong>IA en tribunales y debido proceso</strong> (Dr. Javier Doria Arrieta · Gobierno de Cartagena), el <strong>derecho al descanso como derecho humano en el sector salud</strong> (Dra. Indi Nazir Lleneris · Tec Comfenalco), el <strong>uso de IA en la propaganda electoral</strong> (Dr. Miguel Godínez · IEPC Jalisco), la <strong>protección de datos personales en ecosistemas de IA en Perú</strong> (Milagros Olivos Celis · Universidad del Pacífico) y, en una de las mesas más comentadas, la <strong>mesa redonda «IA: potenciando seguridad e inseguridad»</strong> con el Consejo Estatal de Seguridad Pública de Jalisco, Intrado, KMS Technology, El Colegio de Jalisco y SECIHTI.</p>
-    <p data-i18n-html="m3_s1_p3_html">El comité organizador se consolidó alrededor de seis figuras —el <strong>Dr. Juan Emmanuel Delva Benavides</strong> (Dirección Académica), el <strong>Dr. Jorge Antonio Leos Navarro</strong> (Secretaría Académica), el <strong>Mtro. César Romero Güémez</strong> (Secretaría Técnica), el <strong>Dr. Paul Alejandro García Hernández</strong> (Coordinación Editorial), el <strong>Mtro. Iván Said González López</strong> (Tecnología y Logística) y la <strong>Dra. Fharide Acosta Malacón</strong> (Protocolo y Vinculación Cultural)— articulando una operación que también estrenó un <strong>equipo de apoyo técnico amplio</strong> y una <strong>identidad visual unificada</strong> con avatares para todo el roster. Por primera vez, el Foro entró a la III edición con cara propia, no solo con programa.</p>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s1_label">I · Reseña · La expansión</div>
+      <h2 data-i18n-html="m3_s1_title_html">La edición en que el Foro <em>creció</em> hasta necesitar dos espacios de manera simultánea.</h2>
+    </div>
+    <div class="section-body">
+      <p data-i18n-html="m3_s1_p1_html">El <strong>1 y 2 de octubre de 2025</strong> marcaron el momento en que el Foro dejó de ser un evento contenido en un solo auditorio. Por primera vez ocupó <strong>dos sedes simultáneas en CUCEA</strong> —Torre Smart y Sala de Gobierno— para sostener un programa paralelo de <strong>33 ponentes</strong> repartidos en <strong>8 países</strong>.</p>
+
+      <p data-i18n-html="m3_s1_p2_html">La curaduría puso el dedo en tres conversaciones que el derecho mexicano todavía no había sentado a la misma mesa: la <strong>hipervigilancia como falacia de seguridad</strong> (Dra. Velda Gámez · Tec Monterrey), la <strong>administración de justicia en el metaverso vía DAOs</strong> (Angie Daniela Bernal Caballero · Universidad Libre, Colombia) y el <strong>derecho al descanso como derecho humano del personal de salud</strong> (Dra. Indi Nazir Lleneris · Tec Comfenalco) — esta última, el ancla del nuevo eje <em>Salud Digital y Derecho</em> que la IV edición 2026 despliega por completo.</p>
+
+      <p data-i18n-html="m3_s1_p3_html"><strong>Tres hitos institucionales sostienen esta edición.</strong> Primero, el <strong>primer cargo ejecutivo de gobierno extranjero en programa</strong>: el Dr. Javier Doria Arrieta llegó al Foro no solo como académico sino como <strong>Secretario del Interior y Asuntos Gubernamentales del Gobierno de Cartagena</strong>, abriendo el Día 2 con «IA en tribunales: arquitectura, evidencia y debido proceso».</p>
+
+      <p data-i18n-html="m3_s1_p4_html">Segundo, la <strong>primera mesa interinstitucional de seguridad pública estatal</strong>: la mesa redonda «IA: potenciando seguridad e inseguridad» reunió en una sola conversación al Consejo Estatal de Seguridad Pública de Jalisco, Intrado, El Colegio de Jalisco, KMS Technology y SECIHTI — la primera vez que el Foro articula academia, gobierno estatal y sector privado en un solo formato.</p>
+
+      <p data-i18n-html="m3_s1_p5_html">Tercero, el <strong>primer cinturón de micro-presentaciones de investigadores tempranos</strong>: el Día 2 estrenó un bloque de <strong>seis papers de 10 minutos</strong> para voces emergentes de Cuba, Colombia y México (Universidad Central «Marta Abreu» de Las Villas, Universidad Libre, Universidad Autónoma del Estado de México, Tec Comfenalco) — formato inédito que se convierte en antecedente directo del <em>track multidisciplinar</em> de la IV edición.</p>
+
+      <p data-i18n-html="m3_s1_p6_html">El comité organizador se consolidó alrededor de <strong>seis figuras</strong> —Delva · Leos · Romero · García · González · Acosta— operando con un equipo ampliado de apoyo técnico CUCEA y, por primera vez, un <strong>sistema de avatares unificado para todo el roster</strong>. La III edición no solo tuvo programa: <strong>tuvo cara propia</strong>.</p>
+    </div>
   </div>
 </section>
 
@@ -218,14 +505,13 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
       <h2 data-i18n-html="m3_s2_title_html">Los <em>números</em> de la expansión.</h2>
     </div>
     <div class="numeralia-grid">
-      <div class="num-cell"><span class="num">30+</span><span class="num-lbl" data-i18n="m3_s2_lbl1">Ponentes nacionales e internacionales</span></div>
-      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl2">Países · MX · ES · CO · AR · PE · PRY · CUB</span></div>
+      <div class="num-cell"><span class="num">33</span><span class="num-lbl" data-i18n="m3_s2_lbl1">Ponentes nacionales e internacionales</span></div>
+      <div class="num-cell"><span class="num">8</span><span class="num-lbl" data-i18n="m3_s2_lbl2">Países · MX · ES · CO · AR · PE · PRY · CUB · CR</span></div>
       <div class="num-cell"><span class="num">2</span><span class="num-lbl" data-i18n="m3_s2_lbl3">Sedes simultáneas · Torre Smart + Sala Gobierno</span></div>
       <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl4">Ejes temáticos · +1 salud digital</span></div>
-      <div class="num-cell"><span class="num">1</span><span class="num-lbl" data-i18n="m3_s2_lbl5">Mesa redonda CESP · Intrado · KMS · SECIHTI</span></div>
-      <div class="num-cell"><span class="num"><em>FIADI</em></span><span class="num-lbl" data-i18n="m3_s2_lbl6">Vicepresidencia · Dr. José Heriberto García Peña</span></div>
-      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl7">Miembros del comité organizador formal</span></div>
-      <div class="num-cell"><span class="num">10+</span><span class="num-lbl" data-i18n="m3_s2_lbl8">Equipo apoyo técnico CUCEA</span></div>
+      <div class="num-cell"><span class="num">1</span><span class="num-lbl" data-i18n="m3_s2_lbl5">Mesa redonda interinstitucional · CESP · Intrado · Colegio Jalisco · KMS · SECIHTI</span></div>
+      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl7">Bloque de micro-presentaciones · CUB · CO · MX</span></div>
+      <div class="num-cell"><span class="num">6</span><span class="num-lbl" data-i18n="m3_s2_lbl9">Comité organizador formal</span></div>
     </div>
   </div>
 </section>
@@ -252,7 +538,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   <div class="section-inner">
     <div class="section-head">
       <div class="section-eyebrow" data-i18n="m3_s4_label">IV · Comité organizador</div>
-      <h2 data-i18n-html="m3_s4_title_html">El <em>equipo</em> que sostuvo dos pisos en paralelo.</h2>
+      <h2 data-i18n-html="m3_s4_title_html">El <em>equipo</em> que sostuvo dos espacios simultáneos.</h2>
     </div>
     <div class="avatar-grid">
       <figure class="avatar-card">
@@ -289,25 +575,108 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   </div>
 </section>
 
+
 <section class="section">
-  <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s5_label">V · Ponentes internacionales</div>
-    <h2 data-i18n-html="m3_s5_title_html">Seis <em>países</em>, una agenda compartida.</h2>
-  </div>
-  <div class="section-body" style="margin-top: 0;">
-    <p data-i18n="m3_s5_intro">Selección curada del programa internacional. España, Colombia, Argentina, Perú, Paraguay y Cuba con afiliaciones académicas y judiciales del primer nivel iberoamericano.</p>
-  </div>
-  <div class="avatar-grid">
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Héctor Ayllon Santiago.png" alt="Dr. Héctor Ayllón Santiago"><div class="av-name">Dr. Héctor Ayllón Santiago</div><div class="av-country" data-i18n="m3_int1_c">URJC · España</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Manuel Raad Berrio.png" alt="Dr. Manuel Raad Berrio"><div class="av-name">Dr. Manuel Raad Berrio</div><div class="av-country" data-i18n="m3_int2_c">U. Sergio Arboleda · Colombia</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Indy Nazir Lleneris.png" alt="Dra. Indi Nazir Lleneris"><div class="av-name">Dra. Indi Nazir Lleneris</div><div class="av-country" data-i18n="m3_int3_c">Comfenalco · Colombia</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Luis Fernando Reyes Ortega.png" alt="Dr. Luis Fernando Reyes Ortega"><div class="av-name">Dr. Luis Fernando Reyes</div><div class="av-country" data-i18n="m3_int4_c">Comfenalco · Colombia</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Milagros Katherine Olivos Celis.png" alt="Milagros Katherine Olivos Celis"><div class="av-name">Milagros K. Olivos Celis</div><div class="av-country" data-i18n="m3_int5_c">U. del Pacífico · Perú</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Miguel Ángel Gaspar Villalba.png" alt="Ing. Miguel Ángel Gaspar Villalba"><div class="av-name">Ing. Miguel Á. Gaspar</div><div class="av-country" data-i18n="m3_int6_c">ALGDETIC · Paraguay</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Juan Carlos Sánchez Aguirre.png" alt="Dr. Juan Carlos Sánchez Aguirre"><div class="av-name">Dr. Juan Carlos Sánchez A.</div><div class="av-country" data-i18n="m3_int7_c">FIADI · Costa Rica</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Jose Heriberto Garcia Peña.png" alt="Dr. José Heriberto García Peña"><div class="av-name">Dr. José H. García Peña</div><div class="av-country" data-i18n="m3_int8_c">FIADI · Cuba</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Rodrigo Alejandro Gómez Torre.png" alt="Dr. Rodrigo Alejandro Gómez Torre"><div class="av-name">Dr. Rodrigo A. Gómez Torre</div><div class="av-country" data-i18n="m3_int9_c">U. de Mendoza · Argentina</div></figure>
-    <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Angie Daniela Bernal Caballero.png" alt="Angie Daniela Bernal Caballero"><div class="av-name">Angie D. Bernal Caballero</div><div class="av-country" data-i18n="m3_int10_c">Consejo Sup. Judicatura · Colombia</div></figure>
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s5_label">V · Ponentes internacionales</div>
+      <h2 data-i18n-html="m3_s5_title_html">Ocho países, una <em>agenda compartida</em>.</h2>
+    </div>
+    <div class="section-body">
+      <p data-i18n="m3_s5_intro">Selección curada del programa internacional. España, Colombia, Argentina, Perú, Paraguay, Costa Rica y Cuba con afiliaciones académicas, judiciales y de gobierno del primer nivel iberoamericano.</p>
+    </div>
+    <div class="avatar-grid">
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Héctor Ayllon Santiago.png" alt="Dr. Héctor Ayllón Santiago">
+        <div class="av-name">Dr. Héctor Ayllón Santiago</div>
+        <div class="av-country" data-i18n="m3_int1_c">URJC · España</div>
+        <div class="av-topic" data-i18n="m3_int1_t">«Marco europeo de IA: lecciones para América Latina»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Manuel Raad Berrio.png" alt="Dr. Manuel Raad Berrio">
+        <div class="av-name">Dr. Manuel Raad Berrio</div>
+        <div class="av-country" data-i18n="m3_int2_c">Sergio Arboleda + ALGDETIC · Colombia</div>
+        <div class="av-topic" data-i18n="m3_int2_t">«Liderazgo en equipos de alto rendimiento con IA»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Indy Nazir Lleneris.png" alt="Dra. Indi Nazir Lleneris">
+        <div class="av-name">Dra. Indi Nazir Lleneris</div>
+        <div class="av-country" data-i18n="m3_int3_c">Comfenalco · Colombia</div>
+        <div class="av-topic" data-i18n="m3_int3_t">«Derecho al descanso como derecho humano en sector salud»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Luis Fernando Reyes Ortega.png" alt="Dr. Luis Fernando Reyes Ortega">
+        <div class="av-name">Dr. Luis Fernando Reyes</div>
+        <div class="av-country" data-i18n="m3_int4_c">Comfenalco · Colombia</div>
+        <div class="av-topic" data-i18n="m3_int4_t">«Justicia accesible y Convención ONU sobre Discapacidad»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Milagros Katherine Olivos Celis.png" alt="Milagros Katherine Olivos Celis">
+        <div class="av-name">Milagros K. Olivos Celis</div>
+        <div class="av-country" data-i18n="m3_int5_c">U. del Pacífico · Perú</div>
+        <div class="av-topic" data-i18n="m3_int5_t">«Protección de datos personales en ecosistemas de IA»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Miguel Ángel Gaspar Villalba.png" alt="Ing. Miguel Ángel Gaspar Villalba">
+        <div class="av-name">Ing. Miguel Á. Gaspar</div>
+        <div class="av-country" data-i18n="m3_int6_c">ALGDETIC · Paraguay</div>
+        <div class="av-topic" data-i18n="m3_int6_t">«Ciberseguridad aplicada: tácticas de defensa»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Juan Carlos Sánchez Aguirre.png" alt="Dr. Juan Carlos Sánchez Aguirre">
+        <div class="av-name">Dr. Juan Carlos Sánchez A.</div>
+        <div class="av-country" data-i18n="m3_int7_c">FIADI · Costa Rica / UANL</div>
+        <div class="av-topic" data-i18n="m3_int7_t">«Diseñar para la verdad: arquitectura representacional en mediación digital»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Jose Heriberto Garcia Peña.png" alt="Dr. José Heriberto García Peña">
+        <div class="av-name">Dr. José H. García Peña</div>
+        <div class="av-country" data-i18n="m3_int8_c">VP FIADI · Cuba / Tec Monterrey</div>
+        <div class="av-topic" data-i18n="m3_int8_t">«Nuevas tecnologías en investigación jurídica · OBSERVA D&amp;T FIADI-Tec»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Rodrigo Alejandro Gómez Torre.png" alt="Dr. Rodrigo Alejandro Gómez Torre">
+        <div class="av-name">Dr. Rodrigo A. Gómez Torre</div>
+        <div class="av-country" data-i18n="m3_int9_c">U. de Mendoza · Argentina</div>
+        <div class="av-topic" data-i18n="m3_int9_t">«Propiedad intelectual en la era de la IA»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Angie Daniela Bernal Caballero.png" alt="Angie Daniela Bernal Caballero">
+        <div class="av-name">Angie D. Bernal Caballero</div>
+        <div class="av-country" data-i18n="m3_int10_c">U. Libre · Colombia</div>
+        <div class="av-topic" data-i18n="m3_int10_t">«La administración de justicia en el metaverso · DAOs y ODR»</div>
+      </figure>
+      <figure class="avatar-card highlight">
+        <img src="img/memorias/iii/avatares-ponentes/Javier Doria Arrieta.svg" alt="Dr. Javier Doria Arrieta">
+        <div class="av-name">Dr. Javier Doria Arrieta</div>
+        <div class="av-country" data-i18n="m3_int11_c">Sec. Interior · Gob. Cartagena · Colombia</div>
+        <div class="av-topic" data-i18n="m3_int11_t">«IA en tribunales: arquitectura, evidencia y debido proceso»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Iván Leonardo Rodríguez.svg" alt="Iván Leonardo Rodríguez">
+        <div class="av-name">Iván L. Rodríguez</div>
+        <div class="av-country" data-i18n="m3_int12_c">Comfenalco · Colombia</div>
+        <div class="av-topic" data-i18n="m3_int12_t">«Protección de derechos de autor en el entorno digital»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Frank Darián Alonso García.svg" alt="Frank Darián Alonso García">
+        <div class="av-name">Frank D. Alonso García</div>
+        <div class="av-country" data-i18n="m3_int13_c">U. Central «Marta Abreu» · Cuba</div>
+        <div class="av-topic" data-i18n="m3_int13_t">«Responsabilidad civil por daños causados por sistemas de IA»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Lázaro Alejandro Marichal Martos.svg" alt="Lázaro Alejandro Marichal Martos">
+        <div class="av-name">Lázaro A. Marichal Martos</div>
+        <div class="av-country" data-i18n="m3_int14_c">U. Central «Marta Abreu» · Cuba</div>
+        <div class="av-topic" data-i18n="m3_int14_t">«Propuesta regulatoria para el uso de la IA en personas jurídicas»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Vania Jacomino González.svg" alt="Vania Jacomino González">
+        <div class="av-name">Vania Jacomino González</div>
+        <div class="av-country" data-i18n="m3_int15_c">U. Central «Marta Abreu» · Cuba</div>
+        <div class="av-topic" data-i18n="m3_int15_t">«Los sistemas de IA: ¿sujetos u objetos en la relación jurídica civil?»</div>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -317,28 +686,148 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
       <div class="section-eyebrow" data-i18n="m3_s6_label">VI · Ponentes nacionales</div>
       <h2 data-i18n-html="m3_s6_title_html">México en <em>todas</em> sus geografías.</h2>
     </div>
+    <div class="section-body">
+      <p data-i18n="m3_s6_intro">Trece voces del ecosistema jurídico-tecnológico mexicano: poder judicial, academia federal y estatal, gobierno y sector privado especializado.</p>
+    </div>
     <div class="avatar-grid">
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Daniel Espinosa Licon.png" alt="Dr. Daniel Espinoza Licón"><div class="av-name">Dr. Daniel Espinoza Licón</div><div class="av-country" data-i18n="m3_nac1_c">CUTonalá · STJ Jalisco</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Jesús Manuel Niebla Zatarain.png" alt="Dr. Jesús Manuel Niebla Zatarain"><div class="av-name">Dr. Jesús M. Niebla Z.</div><div class="av-country" data-i18n="m3_nac2_c">UAS · Sinaloa</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Joel Gómez Treviño.png" alt="Dr. Joel Gómez Treviño"><div class="av-name">Dr. Joel Gómez Treviño</div><div class="av-country" data-i18n="m3_nac3_c">U. Panamericana · Monterrey</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Velda Abigail Gámez Bustamante.png" alt="Dra. Velda Abigail Gámez Bustamante"><div class="av-name">Dra. Velda A. Gámez</div><div class="av-country" data-i18n="m3_nac4_c">Tec Monterrey · CDMX</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Gabriel Fatíh Gómez Ávila.png" alt="Mtro. Gabriel Fatíh Gómez Ávila"><div class="av-name">Mtro. Gabriel F. Gómez Á.</div><div class="av-country" data-i18n="m3_nac5_c">El Colegio de Jalisco</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Ruth Ruiz Velasco.png" alt="Mtra. Ruth Irais Ruiz Velasco"><div class="av-name">Mtra. Ruth I. Ruiz Velasco</div><div class="av-country" data-i18n="m3_nac6_c">CESP Jalisco</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Xavier Marconi Montero.png" alt="Mtro. Xavier Marconi Montero"><div class="av-name">Mtro. Xavier Marconi M.</div><div class="av-country" data-i18n="m3_nac7_c">Instituto Justicia Alt. Jalisco</div></figure>
-      <figure class="avatar-card"><img src="img/memorias/iii/avatares-ponentes/Ramon Willman Zamora.png" alt="Mtro. Ramón Willman Zamora"><div class="av-name">Mtro. Ramón Willman Z.</div><div class="av-country" data-i18n="m3_nac8_c">UDG · Jalisco</div></figure>
+      <figure class="avatar-card highlight">
+        <img src="img/memorias/iii/avatares-ponentes/Daniel Espinosa Licon.png" alt="Dr. Daniel Espinoza Licón">
+        <div class="av-name">Dr. Daniel Espinoza Licón</div>
+        <div class="av-country" data-i18n="m3_nac1_c">STJ Jalisco · CUTonalá</div>
+        <div class="av-topic" data-i18n="m3_nac1_t">«Tecnología en la impartición de justicia» · CLAUSURA</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Joel Gómez Treviño.png" alt="Dr. Joel Gómez Treviño">
+        <div class="av-name">Dr. Joel Gómez Treviño</div>
+        <div class="av-country" data-i18n="m3_nac2_c">Lex Informática · Escuela Derecho Digital</div>
+        <div class="av-topic" data-i18n="m3_nac2_t">«Ciberseguridad y derecho informático»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Velda Abigail Gámez Bustamante.png" alt="Dra. Velda Abigail Gámez Bustamante">
+        <div class="av-name">Dra. Velda A. Gámez B.</div>
+        <div class="av-country" data-i18n="m3_nac3_c">Tec Monterrey · CDMX</div>
+        <div class="av-topic" data-i18n="m3_nac3_t">«Hipervigilancia y la falacia de seguridad»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Jesús Manuel Niebla Zatarain.png" alt="Dr. Jesús Manuel Niebla Zatarain">
+        <div class="av-name">Dr. Jesús M. Niebla Z.</div>
+        <div class="av-country" data-i18n="m3_nac4_c">U. Autónoma de Sinaloa</div>
+        <div class="av-topic" data-i18n="m3_nac4_t">«IA en el proceso judicial: usos y límites»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Yaritza Pérez Pacheco.svg" alt="Yaritza Pérez Pacheco">
+        <div class="av-name">Yaritza Pérez Pacheco</div>
+        <div class="av-country" data-i18n="m3_nac5_c">UAEMex · Edomex</div>
+        <div class="av-topic" data-i18n="m3_nac5_t">«Discriminación algorítmica y protección igualitaria»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Ernesto Ibarra Sánchez.svg" alt="Dr. Ernesto Ibarra Sánchez">
+        <div class="av-name">Dr. Ernesto Ibarra Sánchez</div>
+        <div class="av-country" data-i18n="m3_nac6_c">AMCID · U. Panamericana · CDMX</div>
+        <div class="av-topic" data-i18n="m3_nac6_t">«IA y ciberseguridad: riesgos estratégicos y respuestas normativas»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Mauricio Figueroa Torres.svg" alt="Mtro. Mauricio Figueroa Torres">
+        <div class="av-name">Mtro. Mauricio Figueroa T.</div>
+        <div class="av-country" data-i18n="m3_nac7_c">Facultad de Derecho · UNAM</div>
+        <div class="av-topic" data-i18n="m3_nac7_t">«Sucesiones digitales: patrimonio y cuentas en línea»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Nicia Guillén Yparrea.svg" alt="Dra. Nicia Guillén Yparrea">
+        <div class="av-name">Dra. Nicia Guillén Y.</div>
+        <div class="av-country" data-i18n="m3_nac8_c">Tec Monterrey + U. Salamanca</div>
+        <div class="av-topic" data-i18n="m3_nac8_t">«IA aplicada: casos de uso y métricas de impacto»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Antonio Canchola.svg" alt="Dr. Antonio Canchola">
+        <div class="av-name">Dr. Antonio Canchola</div>
+        <div class="av-country" data-i18n="m3_nac9_c">Tec Monterrey · Monterrey</div>
+        <div class="av-topic" data-i18n="m3_nac9_t">«IA aplicada en operaciones universitarias: casos y métricas»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Miguel Ángel Vázquez Placencia.svg" alt="Lic. Miguel Ángel Vázquez Placencia">
+        <div class="av-name">Lic. Miguel Á. Vázquez P.</div>
+        <div class="av-country" data-i18n="m3_nac10_c">Gobierno del Estado de Jalisco</div>
+        <div class="av-topic" data-i18n="m3_nac10_t">«Gobierno y datos personales: marcos de cumplimiento»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Andrea Marvan Saltiel.svg" alt="Dra. Andrea Marvan Saltiel">
+        <div class="av-name">Dra. Andrea Marvan Saltiel</div>
+        <div class="av-country" data-i18n="m3_nac11_c">Gobierno Federal · CDMX</div>
+        <div class="av-topic" data-i18n="m3_nac11_t">«IA y gobernanza federal: arquitectura institucional»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Xavier Marconi Montero.png" alt="Xavier Marconi Montero">
+        <div class="av-name">Xavier Marconi Montero</div>
+        <div class="av-country" data-i18n="m3_nac12_c">UDG · Jalisco</div>
+        <div class="av-topic" data-i18n="m3_nac12_t">«IA + Blockchain + Cultura»</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Ramon Willman Zamora.png" alt="Dr. Ramón Willman Zamora">
+        <div class="av-name">Dr. Ramón Willman Zamora</div>
+        <div class="av-country" data-i18n="m3_nac13_c">Escalamiento tecnológico · Jalisco</div>
+        <div class="av-topic" data-i18n="m3_nac13_t">«Escalamiento tecnológico y empresa»</div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s7_label">VII · Mesa redonda interinstitucional</div>
+      <h2 data-i18n-html="m3_s7_title_html">«IA: <em>potenciando</em> seguridad e inseguridad».</h2>
+    </div>
+    <div class="section-body">
+      <p data-i18n="m3_s7_intro">El Día 2 abrió con la <strong>primera mesa interinstitucional de seguridad pública estatal</strong> en la historia del Foro: cinco voces de academia, gobierno estatal, ciencia y tecnología, y sector privado especializado en torno a cómo la IA simultáneamente refuerza y desafía la seguridad ciudadana.</p>
+    </div>
+    <div class="avatar-grid mesa-grid">
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Ruth Ruiz Velasco.png" alt="Ruth Ruiz Velasco">
+        <div class="av-name">Ruth Ruiz Velasco</div>
+        <div class="av-country" data-i18n="m3_mesa1_c">C5 Escudo Urbano · CESP Jalisco</div>
+        <div class="av-topic" data-i18n="m3_mesa1_t">Seguridad pública estatal y tecnología de vigilancia</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Gabriel Fatíh Gómez Ávila.png" alt="Gabriel Fatíh Gómez Ávila">
+        <div class="av-name">Gabriel F. Gómez Ávila</div>
+        <div class="av-country" data-i18n="m3_mesa2_c">CIS Pensamiento Estratégico</div>
+        <div class="av-topic" data-i18n="m3_mesa2_t">Inteligencia estratégica y análisis de riesgo</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Fernando Jiménez Sánchez.svg" alt="Dr. Fernando Jiménez Sánchez">
+        <div class="av-name">Dr. Fernando Jiménez S.</div>
+        <div class="av-country" data-i18n="m3_mesa3_c">El Colegio de Jalisco</div>
+        <div class="av-topic" data-i18n="m3_mesa3_t">Investigación académica en seguridad ciudadana</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Ana Isabel Solís Ramírez.svg" alt="Mtra. Ana Isabel Solís Ramírez">
+        <div class="av-name">Mtra. Ana I. Solís Ramírez</div>
+        <div class="av-country" data-i18n="m3_mesa4_c">El Colegio de Jalisco</div>
+        <div class="av-topic" data-i18n="m3_mesa4_t">Gobernanza global de IA · ONU, UNESCO, OCDE</div>
+      </figure>
+      <figure class="avatar-card">
+        <img src="img/memorias/iii/avatares-ponentes/Antonio Rodríguez.svg" alt="Antonio Rodríguez">
+        <div class="av-name">Antonio Rodríguez</div>
+        <div class="av-country" data-i18n="m3_mesa5_c">Grupo Petrorian · KMS Technology</div>
+        <div class="av-topic" data-i18n="m3_mesa5_t">Sector privado en arquitectura de seguridad</div>
+      </figure>
+    </div>
+    <div class="section-body">
+      <p data-i18n-html="m3_s7_close_html"><strong>Aliados institucionales convocantes:</strong> Consejo Estatal de Seguridad Pública de Jalisco (CESP) · Intrado · El Colegio de Jalisco · KMS Technology · Secretaría de Ciencia, Humanidades, Tecnología e Innovación (SECIHTI).</p>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s7_label">VII · Sedes simultáneas</div>
+    <div class="section-eyebrow" data-i18n="m3_s8_label">VIII · Sedes simultáneas</div>
     <h2 data-i18n-html="m3_s7_title_html">Dos <em>pisos</em>, una conversación.</h2>
   </div>
   <div class="sedes-grid">
     <article class="sede">
       <div class="sede-addr" data-i18n="m3_sede1_addr">Sede principal</div>
-      <div class="sede-name" data-i18n="m3_sede1_name">Torre Smart · Piso 1</div>
+      <div class="sede-name" data-i18n="m3_sede1_name">Torre Smart</div>
       <p data-i18n-html="m3_sede1_p_html">CUCEA · Universidad de Guadalajara. Periférico Norte N.º 799, Núcleo Universitario Los Belenes, Zapopan, Jalisco. <strong>Mesa de Inteligencia Artificial</strong>, <strong>ciberseguridad</strong>, <strong>derechos humanos digitales</strong>, mesa internacional de IA en tribunales.</p>
     </article>
     <article class="sede">
@@ -352,12 +841,12 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section alt">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s8_label">VIII · Programa · Highlights</div>
-      <h2 data-i18n-html="m3_s8_title_html">Dos <em>días</em> en dos pisos.</h2>
+      <div class="section-eyebrow" data-i18n="m3_s9_label">IX · Programa · Highlights</div>
+      <h2 data-i18n-html="m3_s8_title_html">Dos <em>días</em> simultáneos de conversación.</h2>
     </div>
     <div class="programa-mem">
       <div class="dia-mem">
-        <div class="dia-mem-h" data-i18n="m3_day1">Miércoles 1 de octubre · Día 1 · Torre Smart Piso 1 + Sala Gobierno</div>
+        <div class="dia-mem-h" data-i18n="m3_day1">Miércoles 1 de octubre · Día 1 · Torre Smart + Sala Gobierno</div>
         <div class="row-mem"><span class="hr">09:10 – 09:40</span><span class="topic" data-i18n-html="m3_d1r1_t"><strong>Ciberseguridad aplicada: tácticas de defensa</strong></span><span class="who" data-i18n="m3_d1r1_w">Ing. Miguel Á. Gaspar · Ciberpadres LATAM / ALGDETIC</span></div>
         <div class="row-mem"><span class="hr">09:40 – 10:10</span><span class="topic" data-i18n-html="m3_d1r2_t"><strong>Ciberseguridad y derecho informático</strong></span><span class="who" data-i18n="m3_d1r2_w">Joel Gómez Treviño · Lex Informática / Escuela Derecho Digital</span></div>
         <div class="row-mem"><span class="hr">10:10 – 10:40</span><span class="topic" data-i18n-html="m3_d1r3_t"><strong>Hipervigilancia y la falacia de seguridad</strong></span><span class="who" data-i18n="m3_d1r3_w">Dra. Velda A. Gámez Bustamante · Tec Monterrey</span></div>
@@ -381,9 +870,33 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   </div>
 </section>
 
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_s10_label">X · Editorial · El segundo libro de la serie</div>
+      <h2 data-i18n-html="m3_s9_title_html">Vidas Digitales, Leyes Reales: <em>Nuevos Retos</em> para el Derecho.</h2>
+    </div>
+    <div class="section-body">
+      <p data-i18n-html="m3_s9_intro_html">Continuidad directa de la serie editorial inaugurada con <em>Fronteras Dinámicas: Derecho y Tecnología en la era digital</em> (II Foro, Editorial UDG, 2025). El segundo volumen toma el lema del III Foro como título y compila capítulos invitados de los ponentes magistrales.</p>
+    </div>
+
+    <div class="book-card">
+      <div class="book-meta">
+        <div class="book-meta-row"><span class="book-meta-k" data-i18n="m3_book_k1">Coordinador</span><span class="book-meta-v">Dr. Juan Emmanuel Delva Benavides · Mtro. Iván Said González López</span></div>
+        <div class="book-meta-row"><span class="book-meta-k" data-i18n="m3_book_k2">Editorial</span><span class="book-meta-v">Editorial Universidad de Guadalajara</span></div>
+        <div class="book-meta-row"><span class="book-meta-k" data-i18n="m3_book_k3">Sello</span><span class="book-meta-v" data-i18n="m3_book_v3">CUCEA · Serie «Modelando el Futuro Legal» · Vol. 2</span></div>
+        <div class="book-meta-row"><span class="book-meta-k" data-i18n="m3_book_k4">Evaluación</span><span class="book-meta-v" data-i18n="m3_book_v4">Peer review doble ciego · en curso</span></div>
+        <div class="book-meta-row"><span class="book-meta-k" data-i18n="m3_book_k5">Idiomas</span><span class="book-meta-v" data-i18n="m3_book_v5">Español, inglés</span></div>
+        <div class="book-meta-row"><span class="book-meta-k" data-i18n="m3_book_k6">Estado</span><span class="book-meta-v" data-i18n="m3_book_v6">Manuscrito en evaluación · ISBN en proceso</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section class="section">
   <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s9_label">IX · Galería</div>
+    <div class="section-eyebrow" data-i18n="m3_s11_label">XI · Galería</div>
     <h2 data-i18n-html="m3_s9_title_html">Cómo se <em>vivió</em>.</h2>
   </div>
   <div class="galeria-grid">
@@ -419,20 +932,67 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="legado-section">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s10_label">X · Legado · III edición</div>
-      <h2 data-i18n-html="m3_s10_title_html">Qué <em>cambió</em> con esta edición.</h2>
+      <div class="section-eyebrow" data-i18n="m3_s12_label">XII · Legado · III edición</div>
+      <h2 data-i18n-html="m3_s11_title_html">Seis piezas que <em>cambiaron</em> con esta edición.</h2>
     </div>
-    <div class="section-body"><p data-i18n="m3_s10_intro">La III edición fue el momento en que el Foro pasó de ser un evento académico bien curado a operar como una plataforma internacional con marca propia.</p></div>
+    <div class="section-body">
+      <p data-i18n="m3_s11_intro">La III edición fue el momento en que el Foro pasó de ser un evento académico bien curado a operar como una plataforma internacional con marca propia, formato escalable y continuidad editorial.</p>
+    </div>
     <div class="pillars-grid">
-      <article class="pillar"><h3 data-i18n="m3_p1_h">Operación a dos sedes</h3><p data-i18n-html="m3_p1_p_html">Por primera vez el Foro corre en <strong>paralelo en Torre Smart y Sala de Gobierno</strong>. Lección operativa: el modelo escala y soporta programa simultáneo.</p></article>
-      <article class="pillar"><h3 data-i18n="m3_p2_h">Eje salud digital</h3><p data-i18n-html="m3_p2_p_html">Incorporación formal del eje <strong>Salud Digital y Derecho</strong>, antecedente directo del eje 09 emergente que la IV edición 2026 despliega por completo.</p></article>
-      <article class="pillar"><h3 data-i18n="m3_p3_h">Identidad visual unificada</h3><p data-i18n-html="m3_p3_p_html">Primera edición con <strong>sistema de avatares</strong> consistente para todo el roster (organizadores, ponentes, equipo de apoyo).</p></article>
-      <article class="pillar"><h3 data-i18n="m3_p4_h">Comité formal de 6</h3><p data-i18n-html="m3_p4_p_html">Comité organizador documentado y operativo: <strong>Delva · Leos · Romero · García · González · Acosta</strong>. Es la estructura que sostiene la IV edición.</p></article>
-      <article class="pillar"><h3 data-i18n="m3_p5_h">Internacionalización plena</h3><p data-i18n-html="m3_p5_p_html">Seis países en programa: <strong>URJC, Sergio Arboleda, U. del Pacífico Perú, FIADI Cuba/Costa Rica, U. Mendoza Argentina, Consejo Sup. Judicatura Colombia</strong>.</p></article>
-      <article class="pillar"><h3 data-i18n="m3_p6_h">Continuidad editorial</h3><p data-i18n-html="m3_p6_p_html">Apertura del segundo libro colectivo de la serie, con sistema de evaluación depurado a partir del libro <em>«Fronteras dinámicas»</em>.</p></article>
+
+      <article class="pillar">
+        <h3 data-i18n="m3_p1_h">Operación a dos sedes</h3>
+        <p data-i18n-html="m3_p1_p_html">Por primera vez el Foro corre en <strong>paralelo en Torre Smart y Sala de Gobierno</strong>. Lección operativa: el modelo escala y soporta programa simultáneo.</p>
+      </article>
+
+      <article class="pillar">
+        <h3 data-i18n="m3_p2_h">Primera mesa interinstitucional de seguridad pública estatal</h3>
+        <p data-i18n-html="m3_p2_p_html">La mesa redonda <em>«IA: potenciando seguridad e inseguridad»</em> articuló por primera vez <strong>Academia + Gobierno + Empresa + Investigación</strong> en un mismo formato.</p>
+      </article>
+
+      <article class="pillar">
+        <h3 data-i18n="m3_p3_h">Primer cargo ejecutivo de gobierno extranjero en programa</h3>
+        <p data-i18n-html="m3_p3_p_html">El <strong>Dr. Javier Doria Arrieta</strong> llegó como Secretario del Interior y Asuntos Gubernamentales del Gobierno de Cartagena. Marca un nuevo nivel de perfil institucional internacional para el Foro.</p>
+      </article>
+
+      <article class="pillar">
+        <h3 data-i18n="m3_p4_h">Nacimiento del eje salud digital</h3>
+        <p data-i18n-html="m3_p4_p_html">Incorporación formal del eje <strong>Salud Digital y Derecho</strong> a partir del trabajo de la <em>Dra. Indi Nazir Lleneris</em> (Comfenalco) sobre el caso Ricardo Gaitán. Antecedente directo del <strong>eje 09 emergente</strong> que la IV edición 2026 despliega por completo.</p>
+      </article>
+
+      <article class="pillar">
+        <h3 data-i18n="m3_p5_h">Segundo libro colectivo abierto</h3>
+        <p data-i18n-html="m3_p5_p_html">Continuidad de la serie editorial UDG iniciada con <em>Fronteras Dinámicas</em>. Demuestra que la editorial es proyecto serial, no evento único.</p>
+      </article>
+
+      <article class="pillar">
+        <h3 data-i18n="m3_p6_h">Primer formato de micro-presentaciones</h3>
+        <p data-i18n-html="m3_p6_p_html">Bloque de <strong>6 papers de 10 minutos</strong> para investigadores tempranos de Cuba, Colombia y México. Antecedente del <em>track multidisciplinar</em> de la IV edición y de la apertura a voces emergentes que el Foro consolida desde aquí.</p>
+      </article>
+
     </div>
   </div>
 </section>
+
+<section class="section cta-iv">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-eyebrow" data-i18n="m3_cta_label">¿Y ahora?</div>
+      <h2 data-i18n-html="m3_cta_title_html">¿Quieres ser parte de la <em>IV edición</em>?</h2>
+    </div>
+    <div class="section-body">
+      <p data-i18n-html="m3_cta_p1_html">El <strong>IV Foro Internacional de Derecho y Tecnología</strong> se realizará el <strong>21 y 22 de septiembre de 2026</strong> en CUCEA, Zapopan, modalidad híbrida.</p>
+      <p data-i18n-html="m3_cta_p2_html">Tema central: <em>«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</em> — 9 ejes temáticos, dos ejes emergentes (IA agéntica + PI generativa, salud digital + biotecnologías), publicación en libro colectivo Editorial UDG.</p>
+      <p data-i18n-html="m3_cta_p3_html"><strong>Convocatoria abierta del 1 de mayo al 15 de julio de 2026.</strong> Notificación de aceptación: 20 de agosto de 2026.</p>
+    </div>
+    <div class="cta-buttons">
+      <a href="cfp.html" class="cta-btn primary" data-i18n="m3_cta_btn1">Convocatoria abierta →</a>
+      <a href="programa.html" class="cta-btn secondary" data-i18n="m3_cta_btn2">Ver programa IV</a>
+      <a href="index.html#ponentes" class="cta-btn secondary" data-i18n="m3_cta_btn3">Roster IV</a>
+    </div>
+  </div>
+</section>
+
 
 <div class="other-editions">
   <span class="other-editions-eyebrow" data-i18n="mem_other_editions">Otras ediciones</span>
