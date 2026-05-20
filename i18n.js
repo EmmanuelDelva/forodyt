@@ -589,6 +589,9 @@
       idx_ponente_ibarra_affil_html: 'Founder and President · Mexican Academy of Cybersecurity and Digital Law (AMCID)<br>Vice President · Ibero-American Federation of Associations of Law and Informatics (FIADI)',
       idx_ponente_ibarra_topic_html: 'Track iii · Cybersecurity and Digital Sovereignty  |  Track ii · Emerging Technologies',
       idx_ponente_ibarra_talk: '«Cybersecurity and Quantum Computing: Q-Day and How to Prepare»',
+      idx_ponente_gomez_affil_html: 'Trainer of Magistrates and Judges · Argentina<br>Professor · University of Cuyo',
+      idx_ponente_gomez_topic_html: 'Track i · Agentic AI and Generative Intellectual Property',
+      idx_ponente_gomez_talk: '«The Concept of Authorship in the Age of Generative Intellectual Property»',
       idx_ponentes_cta_text: 'List in progress · Confirmations are published weekly',
       idx_ponentes_cta_btn: 'Receive updates',
 
@@ -1517,6 +1520,9 @@
       idx_ponente_ibarra_affil_html: 'Fondateur et Président · Académie Mexicaine de Cybersécurité et Droit Numérique (AMCID)<br>Vice-Président · Fédération Ibéro-Américaine des Associations de Droit et d\'Informatique (FIADI)',
       idx_ponente_ibarra_topic_html: 'Axe iii · Cybersécurité et Souveraineté Numérique  |  Axe ii · Technologies Émergentes',
       idx_ponente_ibarra_talk: '« Cybersécurité et Informatique Quantique : le Q-Day et comment se préparer »',
+      idx_ponente_gomez_affil_html: 'Formateur de Magistrats et Juges · Argentine<br>Professeur · Université de Cuyo',
+      idx_ponente_gomez_topic_html: 'Axe i · IA Agentique et Propriété Intellectuelle Générative',
+      idx_ponente_gomez_talk: '« Le concept d\'auteur à l\'ère de la Propriété Intellectuelle Générative »',
       idx_ponentes_cta_text: 'Liste en construction · Les confirmations sont publiées chaque semaine',
       idx_ponentes_cta_btn: 'Recevoir les mises à jour',
 
