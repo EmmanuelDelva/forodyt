@@ -150,6 +150,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - **hreflang ES/EN/FR** en las 8 páginas; `i18n.js` sincroniza URL/`canonical`/`og`; `sitemap.xml` con `xhtml:link`.
 - `<meta keywords>` con términos de tendencia en las 8 páginas.
 - Creación de este `CLAUDE.md` como memoria operativa del proyecto.
+- Títulos `<title>` de 4 páginas (index, inscripcion, memorias, programa): «CUCEA-UDG» → «Cuerpo Académico «Derecho y Tecnología» · UDG». Las apariciones de CUCEA-UDG en afiliaciones, footer y descripciones de memorias se conservan (es la sede real).
 
 ---
 
