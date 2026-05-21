@@ -132,8 +132,31 @@
     overlay.querySelector('.mm-close').addEventListener('click', close);
 
     overlay.querySelectorAll('.mm-links a, .mm-volver').forEach(function (a) {
-      a.addEventListener('click', function () {
-        // pequeño delay para que la navegacion arranque antes de cerrar
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href') || '';
+        var hashIdx = href.indexOf('#');
+        // Anchor a la pagina actual: cerrar overlay PRIMERO (quita mm-locked /
+        // overflow:hidden) y luego hacer scroll manual. Si no, el scroll nativo
+        // ocurre con el body bloqueado y el anchor "no funciona".
+        if (hashIdx !== -1) {
+          var beforeHash = href.substring(0, hashIdx);
+          var currentPage = location.pathname.split('/').pop();
+          var isSamePage = beforeHash === '' || beforeHash === currentPage || beforeHash === './' + currentPage;
+          if (isSamePage) {
+            var target = document.getElementById(href.substring(hashIdx + 1));
+            e.preventDefault();
+            close();
+            if (target) {
+              requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+              });
+            }
+            return;
+          }
+        }
+        // Link a otra pagina: cerrar con un leve delay y dejar que navegue.
         setTimeout(close, 120);
       });
     });

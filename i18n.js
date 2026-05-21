@@ -212,7 +212,7 @@
       cfp_topic8_t: 'Tecnología, Sostenibilidad y Derecho Ecológico Digital',
       cfp_topic8_d: 'Huella ambiental de la IA y data centers, sostenibilidad del cómputo intensivo, derecho a reparar, obsolescencia programada, dominio público digital y bioderecho computacional.',
       cfp_topic9_t: 'Resolución de Conflictos Tecnológicos y ODR',
-      cfp_topic9_d: 'Online Dispute Resolution, mediación asistida por IA, justicia predictiva, arbitraje digital, plataformas de e-resolución y acceso digital a la justicia.',
+      cfp_topic9_d: 'Resolución de disputas en línea (ODR), mediación asistida por IA, justicia predictiva, arbitraje digital, plataformas de resolución electrónica y acceso digital a la justicia.',
       cfp_envelope_corr: 'Correspondencia editorial',
       cfp_envelope_subject: 'Asunto del correo',
       cfp_envelope_body: 'Cuerpo del correo',
@@ -220,7 +220,7 @@
       cfp_callout_title: 'Recordatorio final',
 
       // ===== FOOTER (común) =====
-      foot_copy: '© 2026 · IV Foro Internacional de Derecho y Tecnología',
+      foot_copy: '© 2026 · Foro Internacional de Derecho y Tecnología · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»',
       foot_inst: 'CUCEA · Universidad de Guadalajara',
       // ===== Memoria III v2.0 =====
       m3_s1_p1_html: 'El <strong>1 y 2 de octubre de 2025</strong> marcaron el momento en que el Foro dejó de ser un evento contenido en un solo auditorio. Por primera vez ocupó <strong>dos sedes simultáneas en CUCEA</strong> —Torre Smart y Sala de Gobierno— para sostener un programa paralelo de <strong>33 ponentes</strong> repartidos en <strong>8 países</strong>.',
@@ -596,7 +596,7 @@
       idx_ponentes_cta_btn: 'Receive updates',
 
       // Trayectoria - 4 ediciones
-      idx_trayectoria_lead_html: 'Since 2023, the Forum has gathered at CUCEA jurists, engineers, judges, regulators and academics from three continents to discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property. Each edition is a chapter of the editorial series <em>Innovación Jurídica en la era digital</em>.',
+      idx_trayectoria_lead_html: 'Since 2023, the Forum has gathered at CUCEA jurists, engineers, judges, regulators and academics from three continents to discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property. Each edition culminates in a <strong>double-blind peer-reviewed collective book</strong>, published by the University of Guadalajara within the editorial series <em>Innovación Jurídica en la era digital</em>.',
       idx_edition_label: ' Edition',
       idx_status_memoria: 'Memoir',
       idx_status_proxima: 'Upcoming',
@@ -621,9 +621,9 @@
       idx_eje2_title: 'Emerging<br>Technologies',
       idx_eje2_desc: 'Quantum computing, neurotechnologies, extended realities, digital twins and anticipatory governance.',
       idx_eje3_title: 'Cybersecurity<br>and Digital Sovereignty',
-      idx_eje3_desc: 'Personal data protection, new LFPDPPP, critical infrastructure and cyberdefense.',
+      idx_eje3_desc: 'Personal data protection, the new Federal Law on Protection of Personal Data Held by Private Parties, critical infrastructure and cyberdefense.',
       idx_eje4_title: 'Digital Justice<br>and Legal Innovation',
-      idx_eje4_desc: 'ODR, augmented legal intelligence, LegalTech, judicial automation and access to justice.',
+      idx_eje4_desc: 'Online dispute resolution (ODR), augmented legal intelligence, legal technology, judicial automation and access to justice.',
       idx_eje5_title: 'Digital<br>Human Rights',
       idx_eje5_desc: 'Algorithmic democracy, disinformation, neurorights and data economy.',
       idx_eje6_title: 'FinTech<br>and Digital Economy',
@@ -632,8 +632,8 @@
       idx_eje7_desc: 'Telemedicine, connected devices, biomedical data and gene editing.',
       idx_eje8_title: 'Technology, Sustainability<br>and Digital Ecological Law',
       idx_eje8_desc: 'Environmental footprint of AI and data centers, sustainability of intensive computing, right to repair, planned obsolescence, digital public domain and computational bioethics.',
-      idx_eje9_title: 'Technological Conflict<br>Resolution and ODR',
-      idx_eje9_desc: 'Online Dispute Resolution, AI-assisted mediation, predictive justice, digital arbitration, e-resolution platforms and digital access to justice.',
+      idx_eje9_title: 'Technological Conflict<br>Resolution and Online Disputes',
+      idx_eje9_desc: 'Online dispute resolution (ODR), AI-assisted mediation, predictive justice, digital arbitration, electronic resolution platforms and digital access to justice.',
 
       // Aliados
       idx_aliados_eyebrow: 'Institutional frameworks and associated networks',
@@ -673,15 +673,15 @@
       cfp_pres_p4: 'We invite original, rigorous and proactive contributions that offer doctrinal analyses, comparative studies and concrete normative responses to the emerging challenges of the digital society.',
       cfp_topic1_d: 'Algorithmic governance, civil and criminal liability of autonomous systems, authorship of synthetic works, model training and AI Act in Latin America.',
       cfp_topic2_d: 'Quantum computing, neurotechnologies, extended realities, digital twins and anticipatory governance.',
-      cfp_topic3_d: 'Personal data protection, new LFPDPPP, critical infrastructure and cyber-defense.',
-      cfp_topic4_d: 'ODR, augmented legal intelligence, LegalTech, judicial automation and access to justice.',
+      cfp_topic3_d: 'Personal data protection, the new Federal Law on Protection of Personal Data Held by Private Parties, critical infrastructure and cyber-defense.',
+      cfp_topic4_d: 'Online dispute resolution (ODR), augmented legal intelligence, legal technology, judicial automation and access to justice.',
       cfp_topic5_d: 'Algorithmic democracy, disinformation, neuro-rights and data economy.',
       cfp_topic6_d: 'Crypto-assets, DeFi, tokenization, central bank digital currencies and financial regulation.',
       cfp_topic7_d: 'Telemedicine, connected devices, biomedical data and gene editing.',
       cfp_topic8_t: 'Technology, Sustainability and Digital Ecological Law',
       cfp_topic8_d: 'Environmental footprint of AI and data centers, sustainability of intensive computing, right to repair, planned obsolescence, digital public domain and computational bioethics.',
-      cfp_topic9_t: 'Technological Conflict Resolution and ODR',
-      cfp_topic9_d: 'Online Dispute Resolution, AI-assisted mediation, predictive justice, digital arbitration, e-resolution platforms and digital access to justice.',
+      cfp_topic9_t: 'Technological Conflict Resolution and Online Disputes',
+      cfp_topic9_d: 'Online dispute resolution (ODR), AI-assisted mediation, predictive justice, digital arbitration, electronic resolution platforms and digital access to justice.',
       cfp_envio_p1_html: 'Submissions will undergo double-blind peer review. Selected contributions will be published in a collective book with ISBN. Contributions are accepted in <strong>Spanish, English and French</strong>.',
       cfp_envelope_body_p_html: 'Include: <span class="badge">thematic track</span><span class="badge">title</span><span class="badge">position</span><span class="badge">institution</span> and <span class="badge">format</span> (on-site / online).',
       cfp_envelope_attach_p_html: 'Word format (<span class="mono">.doc</span> or <span class="mono">.docx</span>).',
@@ -1155,7 +1155,7 @@
       cfp_topic6_t: 'FinTech and Digital Economy',
       cfp_topic7_t: 'Digital Health and Biotechnologies',
       cfp_topic8_t: 'Technology, Sustainability and Digital Ecological Law',
-      cfp_topic9_t: 'Technological Conflict Resolution and ODR',
+      cfp_topic9_t: 'Technological Conflict Resolution and Online Disputes',
       cfp_envelope_corr: 'Editorial correspondence',
       cfp_envelope_subject: 'Email subject',
       cfp_envelope_body: 'Email body',
@@ -1163,7 +1163,7 @@
       cfp_callout_title: 'Final reminder',
 
       // ===== FOOTER =====
-      foot_copy: '© 2026 · IV International Forum on Law and Technology',
+      foot_copy: '© 2026 · International Forum on Law and Technology · Academic Body UDG-CA-1236 «Law and Technology»',
       foot_inst: 'CUCEA · University of Guadalajara',
       // ===== Memoria III v2.0 =====
       m3_s1_p4_html: 'Second, the <strong>first inter-institutional roundtable on state public security</strong>: «AI: empowering security and insecurity» brought together in one conversation the Jalisco State Public Security Council, Intrado, El Colegio de Jalisco, KMS Technology and SECIHTI.',
@@ -1527,7 +1527,7 @@
       idx_ponentes_cta_btn: 'Recevoir les mises à jour',
 
       // Trayectoria - 4 éditions
-      idx_trayectoria_lead_html: 'Depuis 2023, le Forum a réuni au CUCEA juristes, ingénieurs, juges, régulateurs et académiques de trois continents pour discuter de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique. Chaque édition est un chapitre de la série éditoriale <em>Innovación Jurídica en la era digital</em>.',
+      idx_trayectoria_lead_html: 'Depuis 2023, le Forum a réuni au CUCEA juristes, ingénieurs, juges, régulateurs et académiques de trois continents pour discuter de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique. Chaque édition aboutit à un <strong>livre collectif évalué en double aveugle</strong>, publié par l\'Université de Guadalajara au sein de la série éditoriale <em>Innovación Jurídica en la era digital</em>.',
       idx_edition_label: ' Édition',
       idx_status_memoria: 'Mémoire',
       idx_status_proxima: 'À venir',
@@ -1552,9 +1552,9 @@
       idx_eje2_title: 'Technologies<br>Émergentes',
       idx_eje2_desc: 'Informatique quantique, neurotechnologies, réalités étendues, jumeaux numériques et gouvernance anticipatoire.',
       idx_eje3_title: 'Cybersécurité<br>et Souveraineté Numérique',
-      idx_eje3_desc: 'Protection des données personnelles, nouvelle LFPDPPP, infrastructure critique et cyberdéfense.',
+      idx_eje3_desc: 'Protection des données personnelles, la nouvelle Loi Fédérale de Protection des Données Personnelles en Possession des Particuliers, infrastructure critique et cyberdéfense.',
       idx_eje4_title: 'Justice Numérique<br>et Innovation Juridique',
-      idx_eje4_desc: 'ODR, intelligence juridique augmentée, LegalTech, automatisation judiciaire et accès à la justice.',
+      idx_eje4_desc: 'Résolution des litiges en ligne (ODR), intelligence juridique augmentée, technologie juridique, automatisation judiciaire et accès à la justice.',
       idx_eje5_title: 'Droits<br>Humains Numériques',
       idx_eje5_desc: 'Démocratie algorithmique, désinformation, neurodroits et économie des données.',
       idx_eje6_title: 'FinTech<br>et Économie Numérique',
@@ -1563,8 +1563,8 @@
       idx_eje7_desc: 'Télémédecine, dispositifs connectés, données biomédicales et édition génétique.',
       idx_eje8_title: 'Technologie, Durabilité<br>et Droit Écologique Numérique',
       idx_eje8_desc: 'Empreinte environnementale de l\'IA et des centres de données, durabilité du calcul intensif, droit à la réparation, obsolescence programmée, domaine public numérique et bioéthique computationnelle.',
-      idx_eje9_title: 'Résolution des Conflits<br>Technologiques et ODR',
-      idx_eje9_desc: 'Online Dispute Resolution, médiation assistée par IA, justice prédictive, arbitrage numérique, plateformes d\'e-résolution et accès numérique à la justice.',
+      idx_eje9_title: 'Résolution des Conflits<br>Technologiques et Litiges en Ligne',
+      idx_eje9_desc: 'Résolution des litiges en ligne (ODR), médiation assistée par IA, justice prédictive, arbitrage numérique, plateformes de résolution électronique et accès numérique à la justice.',
 
       // Aliados
       idx_aliados_eyebrow: 'Cadres institutionnels et réseaux associés',
@@ -1604,15 +1604,15 @@
       cfp_pres_p4: 'Nous invitons à soumettre des contributions originales, rigoureuses et avec une vocation propositionnelle, qui offrent des analyses doctrinales, des études comparatives et des réponses normatives concrètes aux défis émergents de la société numérique.',
       cfp_topic1_d: 'Gouvernance algorithmique, responsabilité civile et pénale des systèmes autonomes, autorité d\'œuvres synthétiques, entraînement de modèles et AI Act en Amérique Latine.',
       cfp_topic2_d: 'Informatique quantique, neurotechnologies, réalités étendues, jumeaux numériques et gouvernance anticipative.',
-      cfp_topic3_d: 'Protection des données personnelles, nouvelle LFPDPPP, infrastructure critique et cyber-défense.',
-      cfp_topic4_d: 'ODR, intelligence juridique augmentée, LegalTech, automatisation judiciaire et accès à la justice.',
+      cfp_topic3_d: 'Protection des données personnelles, la nouvelle Loi Fédérale de Protection des Données Personnelles en Possession des Particuliers, infrastructure critique et cyber-défense.',
+      cfp_topic4_d: 'Résolution des litiges en ligne (ODR), intelligence juridique augmentée, technologie juridique, automatisation judiciaire et accès à la justice.',
       cfp_topic5_d: 'Démocratie algorithmique, désinformation, neuro-droits et économie des données.',
       cfp_topic6_d: 'Crypto-actifs, DeFi, tokenisation, monnaies numériques de banque centrale et régulation financière.',
       cfp_topic7_d: 'Télémédecine, dispositifs connectés, données biomédicales et édition génétique.',
       cfp_topic8_t: 'Technologie, Durabilité et Droit Écologique Numérique',
       cfp_topic8_d: 'Empreinte environnementale de l\'IA et des centres de données, durabilité du calcul intensif, droit à la réparation, obsolescence programmée, domaine public numérique et bioéthique computationnelle.',
-      cfp_topic9_t: 'Résolution des Conflits Technologiques et ODR',
-      cfp_topic9_d: 'Online Dispute Resolution, médiation assistée par IA, justice prédictive, arbitrage numérique, plateformes d\'e-résolution et accès numérique à la justice.',
+      cfp_topic9_t: 'Résolution des Conflits Technologiques et Litiges en Ligne',
+      cfp_topic9_d: 'Résolution des litiges en ligne (ODR), médiation assistée par IA, justice prédictive, arbitrage numérique, plateformes de résolution électronique et accès numérique à la justice.',
       cfp_envio_p1_html: 'Les soumissions seront évaluées en double aveugle. Les contributions sélectionnées seront publiées dans un livre collectif avec ISBN. Les contributions sont acceptées en <strong>espagnol, anglais et français</strong>.',
       cfp_envelope_body_p_html: 'Inclure : <span class="badge">axe thématique</span><span class="badge">titre</span><span class="badge">poste</span><span class="badge">institution</span> et <span class="badge">modalité</span> (présentiel / en ligne).',
       cfp_envelope_attach_p_html: 'Format Word (<span class="mono">.doc</span> ou <span class="mono">.docx</span>).',
@@ -2085,7 +2085,7 @@
       cfp_topic6_t: 'FinTech et Économie Numérique',
       cfp_topic7_t: 'Santé Numérique et Biotechnologies',
       cfp_topic8_t: 'Technologie, Durabilité et Droit Écologique Numérique',
-      cfp_topic9_t: 'Résolution des Conflits Technologiques et ODR',
+      cfp_topic9_t: 'Résolution des Conflits Technologiques et Litiges en Ligne',
       cfp_envelope_corr: 'Correspondance éditoriale',
       cfp_envelope_subject: 'Objet du courriel',
       cfp_envelope_body: 'Corps du courriel',
@@ -2093,7 +2093,7 @@
       cfp_callout_title: 'Rappel final',
 
       // ===== FOOTER =====
-      foot_copy: '© 2026 · IV Forum International du Droit et de la Technologie',
+      foot_copy: '© 2026 · Forum International du Droit et de la Technologie · Corps Académique UDG-CA-1236 « Droit et Technologie »',
       foot_inst: 'CUCEA · Université de Guadalajara',
       // ===== Memoria III v2.0 =====
       m3_s1_p4_html: 'Deuxièmement, la <strong>première table ronde interinstitutionnelle sur la sécurité publique étatique</strong> : « IA : potentialisant sécurité et insécurité » a réuni en une seule conversation le Conseil de Sécurité Publique de Jalisco, Intrado, El Colegio de Jalisco, KMS Technology et SECIHTI.',

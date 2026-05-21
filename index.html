@@ -38,6 +38,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+/* Compensa el nav fijo al saltar a anclas (#trayectoria, #ejes, #ponentes, #comite) */
+section[id], [id="comite"] { scroll-margin-top: 88px; }
 
 body {
   font-family: var(--sans);
@@ -1396,6 +1398,13 @@ footer {
   .programa-tabs { overflow-x: auto; }
   .programa-tab .day { font-size: 24px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
+  /* Fix overflow horizontal: el h1 a 48px no cabia en pantallas chicas */
+  .hero h1 { font-size: clamp(32px, 8.5vw, 104px); overflow-wrap: break-word; word-break: break-word; }
+  .hero-eyebrow { display: flex; flex-wrap: wrap; letter-spacing: 0.16em; }
+  /* Legibilidad: el section-lead serif light en fondo oscuro perdia contraste */
+  .section-lead { font-size: 16.5px; }
+  .ponentes .section-lead { color: rgba(245, 239, 224, 0.95); }
+  .ponentes h2 em { color: #D4B968; }
 }
 
 /* Animaciones de entrada */
@@ -1488,7 +1497,7 @@ footer {
         <h2 data-i18n-html="idx_trayectoria_title_html">Cuatro <em>ediciones</em>,<br>una conversación.</h2>
       </div>
       <p class="section-lead" data-i18n-html="idx_trayectoria_lead_html">
-        Desde 2023, el Foro ha reunido en CUCEA a juristas, ingenieras, jueces, reguladores y académicos de tres continentes para discutir cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital. Cada edición es un capítulo de la serie editorial <em>Innovación Jurídica en la era digital</em>.
+        Desde 2023, el Foro ha reunido en CUCEA a juristas, ingenieros, jueces, reguladores y académicos de tres continentes para discutir cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital. Cada edición culmina en un <strong>libro colectivo con arbitraje doble ciego</strong>, publicado por la Universidad de Guadalajara dentro de la serie editorial <em>Innovación Jurídica en la era digital</em>.
       </p>
     </div>
 
@@ -1572,14 +1581,14 @@ footer {
         <div class="eje-num">iii</div>
         <span class="eje-tag" data-i18n="idx_eje_tag_eje">Eje</span>
         <h3 data-i18n-html="idx_eje3_title">Ciberseguridad<br>y Soberanía Digital</h3>
-        <p data-i18n="idx_eje3_desc">Protección de datos personales, nueva LFPDPPP, infraestructura crítica y ciberdefensa.</p>
+        <p data-i18n="idx_eje3_desc">Protección de datos personales, la nueva Ley Federal de Protección de Datos Personales en Posesión de los Particulares, infraestructura crítica y ciberdefensa.</p>
       </article>
 
       <article class="eje">
         <div class="eje-num">iv</div>
         <span class="eje-tag" data-i18n="idx_eje_tag_eje">Eje</span>
         <h3 data-i18n-html="idx_eje4_title">Justicia Digital<br>e Innovación Jurídica</h3>
-        <p data-i18n="idx_eje4_desc">ODR, inteligencia jurídica aumentada, LegalTech, automatización judicial y acceso a la justicia.</p>
+        <p data-i18n="idx_eje4_desc">Resolución de disputas en línea (ODR), inteligencia jurídica aumentada, tecnología legal, automatización judicial y acceso a la justicia.</p>
       </article>
 
       <article class="eje">
@@ -1613,8 +1622,8 @@ footer {
       <article class="eje emergent">
         <div class="eje-num">ix</div>
         <span class="eje-tag" data-i18n="idx_eje_tag_emergente">Emergente</span>
-        <h3 data-i18n-html="idx_eje9_title">Resolución de Conflictos<br>Tecnológicos y ODR</h3>
-        <p data-i18n="idx_eje9_desc">Online Dispute Resolution, mediación asistida por IA, justicia predictiva, arbitraje digital, plataformas de e-resolución y acceso digital a la justicia.</p>
+        <h3 data-i18n-html="idx_eje9_title">Resolución de Conflictos<br>Tecnológicos y Disputas en Línea</h3>
+        <p data-i18n="idx_eje9_desc">Resolución de disputas en línea (ODR), mediación asistida por IA, justicia predictiva, arbitraje digital, plataformas de resolución electrónica y acceso digital a la justicia.</p>
       </article>
     </div>
   </div>
@@ -1954,7 +1963,7 @@ footer {
   </div>
 
   <div class="footer-bottom">
-    <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología · CUCEA-UDG</span>
+    <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>
     <em>Innovación Jurídica en la era digital</em>
     <span>v1.11</span>
   </div>
