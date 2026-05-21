@@ -222,7 +222,7 @@
 
       // ===== FOOTER (común) =====
       foot_copy: '© 2026 · Foro Internacional de Derecho y Tecnología · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»',
-      foot_inst: 'CUCEA · Universidad de Guadalajara',
+      foot_inst: 'Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»',
       // ===== Memoria III v2.0 =====
       m3_s1_p1_html: 'El <strong>1 y 2 de octubre de 2025</strong> marcaron el momento en que el Foro dejó de ser un evento contenido en un solo auditorio. Por primera vez ocupó <strong>dos sedes simultáneas en CUCEA</strong> —Torre Smart y Sala de Gobierno— para sostener un programa paralelo de <strong>33 ponentes</strong> repartidos en <strong>8 países</strong>.',
       m3_s1_p2_html: 'La curaduría puso el dedo en tres conversaciones que el derecho mexicano todavía no había sentado a la misma mesa: la <strong>hipervigilancia como falacia de seguridad</strong> (Dra. Velda Gámez · Tec Monterrey), la <strong>administración de justicia en el metaverso vía DAOs</strong> (Angie Daniela Bernal Caballero · Universidad Libre, Colombia) y el <strong>derecho al descanso como derecho humano del personal de salud</strong> (Dra. Indi Nazir Lleneris · Tec Comfenalco) — esta última, el ancla del nuevo eje <em>Salud Digital y Derecho</em> que la IV edición 2026 despliega por completo.',
@@ -1166,7 +1166,7 @@
 
       // ===== FOOTER =====
       foot_copy: '© 2026 · International Forum on Law and Technology · Academic Body UDG-CA-1236 «Law and Technology»',
-      foot_inst: 'CUCEA · University of Guadalajara',
+      foot_inst: 'Academic Body UDG-CA-1236 «Law and Technology»',
       // ===== Memoria III v2.0 =====
       m3_s1_p4_html: 'Second, the <strong>first inter-institutional roundtable on state public security</strong>: «AI: empowering security and insecurity» brought together in one conversation the Jalisco State Public Security Council, Intrado, El Colegio de Jalisco, KMS Technology and SECIHTI.',
       m3_s1_p5_html: 'Third, the <strong>first lightning-talk belt of early-career researchers</strong>: Day 2 premiered a block of <strong>six 10-minute papers</strong> for emerging voices from Cuba, Colombia and Mexico — an unprecedented format and direct antecedent of the IV edition\'s <em>multidisciplinary track</em>.',
@@ -2097,7 +2097,7 @@
 
       // ===== FOOTER =====
       foot_copy: '© 2026 · Forum International du Droit et de la Technologie · Corps Académique UDG-CA-1236 « Droit et Technologie »',
-      foot_inst: 'CUCEA · Université de Guadalajara',
+      foot_inst: 'Corps Académique UDG-CA-1236 « Droit et Technologie »',
       // ===== Memoria III v2.0 =====
       m3_s1_p4_html: 'Deuxièmement, la <strong>première table ronde interinstitutionnelle sur la sécurité publique étatique</strong> : « IA : potentialisant sécurité et insécurité » a réuni en une seule conversation le Conseil de Sécurité Publique de Jalisco, Intrado, El Colegio de Jalisco, KMS Technology et SECIHTI.',
       m3_s1_p5_html: 'Troisièmement, la <strong>première ceinture de micro-présentations de chercheurs en début de carrière</strong> : le Jour 2 a inauguré un bloc de <strong>six communications de 10 minutes</strong> pour des voix émergentes de Cuba, Colombie et Mexique — format inédit qui devient l\'antécédent direct du <em>track pluridisciplinaire</em> de la IV<sup>e</sup> édition.',
