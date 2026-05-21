@@ -1401,6 +1401,9 @@ footer {
   /* Fix overflow horizontal: el h1 a 48px no cabia en pantallas chicas */
   .hero h1 { font-size: clamp(32px, 8.5vw, 104px); overflow-wrap: break-word; word-break: break-word; }
   .hero-eyebrow { display: flex; flex-wrap: wrap; letter-spacing: 0.16em; }
+  /* hero-meta con auto-fit minmax(180px) generaba 3 columnas fijas = 604px de overflow.
+     En movil forzamos una sola columna apilada. */
+  .hero-meta { grid-template-columns: 1fr; gap: 20px; }
   /* Legibilidad: el section-lead serif light en fondo oscuro perdia contraste */
   .section-lead { font-size: 16.5px; }
   .ponentes .section-lead { color: rgba(245, 239, 224, 0.95); }
