@@ -424,13 +424,17 @@ main, header, footer { position: relative; z-index: 1; }
 }
 
 .edition {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   background: var(--ink);
   padding: 36px 24px;
   position: relative;
-  transition: background 0.3s var(--ease);
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
-.edition:hover { background: var(--teal-deep); }
+.edition:hover { background: var(--teal-deep); transform: translateY(-4px); }
+.edition:focus-visible { outline: 2px solid var(--dorado); outline-offset: 2px; }
 
 .edition.current {
   background: var(--teal-deep);
@@ -1557,7 +1561,7 @@ footer {
     </div>
 
     <div class="timeline">
-      <article class="edition">
+      <a class="edition" href="memoria-i.html" aria-label="Ver la memoria de la I Edición">
         <div class="edition-num">I<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2023</div>
         <h3 class="edition-title" data-i18n="idx_ed1_title">Origen del Foro Internacional</h3>
@@ -1566,9 +1570,9 @@ footer {
           <span><i data-i18n="idx_stat_presencial">Modalidad presencial</i></span>
         </div>
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
-      </article>
+      </a>
 
-      <article class="edition">
+      <a class="edition" href="memoria-ii.html" aria-label="Ver la memoria de la II Edición">
         <div class="edition-num">II<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2024</div>
         <h3 class="edition-title" data-i18n="idx_ed2_title">Consolidación temática y comité científico</h3>
@@ -1577,9 +1581,9 @@ footer {
           <span><i data-i18n="idx_stat_hibrida">Modalidad híbrida</i></span>
         </div>
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
-      </article>
+      </a>
 
-      <article class="edition">
+      <a class="edition" href="memoria-iii.html" aria-label="Ver la memoria de la III Edición">
         <div class="edition-num">III<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2025</div>
         <h3 class="edition-title" data-i18n="idx_ed3_title">Salto internacional: 8 países, 33 ponentes</h3>
@@ -1588,9 +1592,9 @@ footer {
           <span><i data-i18n="idx_ed3_stat2">33 ponentes</i></span>
         </div>
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
-      </article>
+      </a>
 
-      <article class="edition current">
+      <a class="edition current" href="cfp.html" aria-label="Convocatoria abierta de la IV Edición">
         <div class="edition-num">IV<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2026</div>
         <h3 class="edition-title" data-i18n="idx_ed4_title">Justicia agéntica e inteligencia regulada</h3>
@@ -1599,7 +1603,7 @@ footer {
           <span><i data-i18n="idx_ed4_stat2">Convocatoria abierta</i></span>
         </div>
         <span class="edition-status" data-i18n="idx_status_proxima">Próxima</span>
-      </article>
+      </a>
     </div>
   </div>
 </section>
