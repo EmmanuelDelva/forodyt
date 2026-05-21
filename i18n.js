@@ -577,7 +577,7 @@
       prog_meta_modality_value: 'On-site and hybrid',
 
       // Ponentes placeholder + confirmados
-      idx_ponente_pc: 'To be confirmed',
+      idx_ponente_pc: 'More speakers will be confirmed soon',
       idx_ponente_confirmed_badge: 'CONFIRMED',
       idx_ponentes_lead_html: 'The Scientific Committee is finalizing confirmations for the fourth edition. Invitations are announced weekly on the Forum\'s official channels. The curation preserves the balance between <strong>academia, judiciary and legislative sectors, private sector and national and international bodies with regulatory functions</strong> that has distinguished the event since the I edition. Among the first confirmed speakers are <em>Dr. Alejandro Axel Rivera Martínez</em>, Director General of the Jalisco Institute of Forensic Sciences, and <em>Dr. Manuel Raad Berrio</em>, Auxiliary Magistrate of the Superior Council of the Judiciary of Colombia.',
       idx_ponente_rivera_affil: 'Director General · Jalisco Institute of Forensic Sciences',
@@ -1508,7 +1508,7 @@
       prog_meta_modality_value: 'Présentiel et hybride',
 
       // Ponentes placeholder + confirmados
-      idx_ponente_pc: 'À confirmer',
+      idx_ponente_pc: 'D\'autres intervenants seront confirmés prochainement',
       idx_ponente_confirmed_badge: 'CONFIRMÉ',
       idx_ponentes_lead_html: 'Le Comité Scientifique est en train de finaliser les confirmations pour la quatrième édition. Les invitations sont annoncées chaque semaine sur les canaux officiels du Forum. La curation préserve l\'équilibre entre <strong>académie, secteurs judiciaire et législatif, secteur privé et organismes nationaux et internationaux à fonction régulatrice</strong> qui distingue l\'événement depuis la I édition. Parmi les premiers intervenants confirmés figurent le <em>Dr. Alejandro Axel Rivera Martínez</em>, Directeur Général de l\'Institut Jaliscien des Sciences Forensiques, et le <em>Dr. Manuel Raad Berrio</em>, Magistrat Auxiliaire du Conseil Supérieur de la Magistrature de Colombie.',
       idx_ponente_rivera_affil: 'Directeur Général · Institut Jaliscien des Sciences Forensiques',
