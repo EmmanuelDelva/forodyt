@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://forodyt.vercel.app/sitemap.xml
