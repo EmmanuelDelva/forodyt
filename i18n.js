@@ -2286,12 +2286,41 @@
     return DEFAULT_LANG;
   }
 
+  // Base canónica de la página (sin query/hash), capturada una sola vez.
+  var SEO_BASE = null;
+  function getSeoBase() {
+    if (SEO_BASE !== null) return SEO_BASE;
+    var c = document.querySelector('link[rel="canonical"]');
+    var href = c ? c.getAttribute('href') : (location.origin + location.pathname);
+    SEO_BASE = href.split('?')[0].split('#')[0];
+    return SEO_BASE;
+  }
+
+  // Sincroniza canonical, og:url y og:locale con el idioma activo (hreflang).
+  function updateSeoTags(lang) {
+    var base = getSeoBase();
+    var url = (lang === DEFAULT_LANG) ? base : base + '?lang=' + lang;
+    var c = document.querySelector('link[rel="canonical"]');
+    if (c) c.setAttribute('href', url);
+    var ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', url);
+    var localeMap = { es: 'es_MX', en: 'en_US', fr: 'fr_FR' };
+    var ogLocale = document.querySelector('meta[property="og:locale"]');
+    if (ogLocale) ogLocale.setAttribute('content', localeMap[lang] || 'es_MX');
+    document.documentElement.setAttribute('lang', lang);
+  }
+
   function setLang(lang) {
     if (SUPPORTED.indexOf(lang) === -1) return;
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
     applyI18n(lang);
     updateSwitcher(lang);
-    document.documentElement.setAttribute('lang', lang);
+    updateSeoTags(lang);
+    // Refleja el idioma en la URL para que sea compartible e indexable.
+    try {
+      var newUrl = location.pathname + (lang === DEFAULT_LANG ? '' : '?lang=' + lang) + location.hash;
+      history.replaceState(null, '', newUrl);
+    } catch (e) {}
   }
 
   function applyI18n(lang) {
@@ -2382,7 +2411,7 @@
     bindSwitcher();
     applyI18n(lang);
     updateSwitcher(lang);
-    document.documentElement.setAttribute('lang', lang);
+    updateSeoTags(lang);
   }
 
   if (document.readyState === 'loading') {
