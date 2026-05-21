@@ -174,6 +174,7 @@
 
       // ===== CFP =====
       cfp_eyebrow: 'Call for Papers · 2026',
+      cfp_util_menu: 'Menú', cfp_util_cerrar: 'Cerrar',
       cfp_title: 'Foro Internacional de Derecho y Tecnología',
       cfp_subtitle_html: '“Agentes, Algoritmos y Autonomía:<br>el Derecho ante la Inteligencia que Decide”',
       cfp_venue_html: '<strong>21 y 22 de septiembre de 2026</strong>  ·  Modalidad híbrida  ·  Zapopan, Jalisco',
@@ -517,6 +518,7 @@
 
       // ===== CFP =====
       cfp_eyebrow: 'Call for Papers · 2026',
+      cfp_util_menu: 'Menu', cfp_util_cerrar: 'Close',
       cfp_title: 'International Forum on Law and Technology',
       cfp_subtitle_html: '"Agents, Algorithms and Autonomy:<br>the Law before the Intelligence that Decides"',
       cfp_venue_html: '<strong>21 & 22 September 2026</strong>  ·  Hybrid format  ·  Zapopan, Jalisco',
@@ -1448,6 +1450,7 @@
 
       // ===== CFP =====
       cfp_eyebrow: 'Call for Papers · 2026',
+      cfp_util_menu: 'Menu', cfp_util_cerrar: 'Fermer',
       cfp_title: 'Forum International du Droit et de la Technologie',
       cfp_subtitle_html: '« Agents, Algorithmes et Autonomie :<br>le Droit face à l\'Intelligence qui Décide »',
       cfp_venue_html: '<strong>21 et 22 septembre 2026</strong>  ·  Format hybride  ·  Zapopan, Jalisco',

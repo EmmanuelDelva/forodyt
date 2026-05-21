@@ -527,35 +527,220 @@
     .lang { display: none; }
   }
 
-  /* ===== LANG SWITCHER (minimalista, esquina superior derecha) ===== */
-  .lang {
+  /* ===== UTILITY BAR (minimalista, esquina superior derecha) ===== */
+  .cfp-utilbar {
     position: absolute;
-    top: 28px;
+    top: 26px;
     right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--muted);
+    z-index: 20;
+    user-select: none;
+  }
+  .cfp-utilbar .sep { color: rgba(11,36,48,0.22); }
+  .cfp-util-link {
+    color: var(--muted);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    transition: color 0.2s;
+  }
+  .cfp-util-link:hover { color: var(--teal); }
+
+  .lang {
     display: flex;
     gap: 6px;
     align-items: center;
-    z-index: 10;
-    user-select: none;
   }
   .lang span { cursor: pointer; transition: color 0.2s; }
   .lang span:hover { color: var(--ink); }
   .lang .active { color: var(--ink); font-weight: 600; }
   @media (max-width: 720px) {
-    .lang { top: 14px; right: 18px; }
+    .cfp-utilbar { top: 13px; right: 16px; gap: 9px; }
   }
+  @media print { .cfp-utilbar { display: none; } }
+
+  /* ===== MENU OVERLAY (paleta CFP, estilo editorial) ===== */
+  .cfp-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    background-image:
+      radial-gradient(circle at 100% 0%, rgba(15,107,124,0.16) 0%, transparent 45%),
+      radial-gradient(circle at 0% 100%, rgba(192,139,60,0.12) 0%, transparent 45%);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0.42s;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 36px 36px;
+    overflow-y: auto;
+  }
+  .cfp-menu-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cfp-menu-overlay::before,
+  .cfp-menu-overlay::after {
+    content: "";
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(251,248,243,0.45);
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s;
+  }
+  .cfp-menu-overlay::before { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+  .cfp-menu-overlay::after  { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+  .cfp-menu-overlay.is-open::before,
+  .cfp-menu-overlay.is-open::after { opacity: 1; }
+
+  .cfp-menu-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(251,248,243,0.16);
+  }
+  .cfp-menu-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+  }
+  .cfp-menu-brand em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .cfp-menu-close {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .cfp-menu-close::before {
+    content: "×";
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cfp-menu-close:hover::before { transform: rotate(90deg); }
+
+  .cfp-menu-links {
+    list-style: none;
+    flex: 1;
+  }
+  .cfp-menu-links li {
+    border-bottom: 1px solid rgba(251,248,243,0.08);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cfp-menu-overlay.is-open .cfp-menu-links li { opacity: 1; transform: translateY(0); }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(1) { transition-delay: 0.08s; }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(2) { transition-delay: 0.13s; }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(3) { transition-delay: 0.18s; }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(4) { transition-delay: 0.23s; }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(5) { transition-delay: 0.28s; }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(6) { transition-delay: 0.33s; }
+  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(7) { transition-delay: 0.38s; }
+  .cfp-menu-links a {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 14px;
+    align-items: baseline;
+    padding: 19px 0;
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--paper);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    transition: color 0.25s, padding-left 0.3s cubic-bezier(0.22,1,0.36,1);
+  }
+  .cfp-menu-links a:hover { color: var(--accent); padding-left: 7px; }
+  @media (max-width: 380px) { .cfp-menu-links a { font-size: 28px; padding: 15px 0; } }
+  .cfp-menu-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: right;
+    align-self: center;
+    border-right: 1px solid rgba(192,139,60,0.35);
+    padding-right: 6px;
+  }
+  .cfp-menu-foot {
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(251,248,243,0.16);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.45s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.45s;
+  }
+  .cfp-menu-overlay.is-open .cfp-menu-foot { opacity: 1; transform: translateY(0); }
+  .cfp-menu-volver {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .cfp-menu-volver::before { content: "←"; font-size: 13px; }
+  body.cfp-menu-locked { overflow: hidden; }
 </style>
 </head>
 <body>
 <article class="page">
 
-  <!-- Lang switcher (minimalista, esquina superior derecha) -->
-  <div class="lang">
-    <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
+  <!-- Utility bar minimalista: volver al sitio · menú · idiomas -->
+  <div class="cfp-utilbar">
+    <a class="cfp-util-link" href="index.html" data-i18n="nav_back">Volver al sitio</a>
+    <span class="sep">·</span>
+    <button class="cfp-util-link" id="cfp-menu-open" type="button" aria-haspopup="dialog" data-i18n="cfp_util_menu">Menú</button>
+    <span class="sep">·</span>
+    <div class="lang">
+      <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
+    </div>
   </div>
 
   <!-- ============== MASTHEAD ============== -->
@@ -885,8 +1070,54 @@
 
 </article>
 
+<!-- ============ MENU OVERLAY ============ -->
+<div class="cfp-menu-overlay" id="cfp-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menú principal">
+  <div class="cfp-menu-head">
+    <div class="cfp-menu-brand">IV Foro <em>· 2026</em></div>
+    <button class="cfp-menu-close" id="cfp-menu-close" type="button" aria-label="Cerrar menú" data-i18n="cfp_util_cerrar">Cerrar</button>
+  </div>
+  <ul class="cfp-menu-links" role="list">
+    <li><a href="memorias.html"><span class="cfp-menu-num">i</span><span data-i18n="nav_link_memorias">Memorias</span></a></li>
+    <li><a href="cfp.html"><span class="cfp-menu-num">ii</span><span data-i18n="nav_link_convocatoria">Convocatoria</span></a></li>
+    <li><a href="programa.html"><span class="cfp-menu-num">iii</span><span data-i18n="nav_link_programa">Programa</span></a></li>
+    <li><a href="index.html#trayectoria"><span class="cfp-menu-num">iv</span><span data-i18n="nav_link_trayectoria">Trayectoria</span></a></li>
+    <li><a href="index.html#ejes"><span class="cfp-menu-num">v</span><span data-i18n="nav_link_ejes">Ejes</span></a></li>
+    <li><a href="index.html#ponentes"><span class="cfp-menu-num">vi</span><span data-i18n="nav_link_ponentes">Ponentes</span></a></li>
+    <li><a href="index.html#comite"><span class="cfp-menu-num">vii</span><span data-i18n="nav_link_comite">Comité</span></a></li>
+  </ul>
+  <div class="cfp-menu-foot">
+    <a class="cfp-menu-volver" href="index.html" data-i18n="nav_back">Volver al sitio</a>
+  </div>
+</div>
+
 <!-- ============ i18n (cargado al final, ejecuta en DOMContentLoaded) ============ -->
 <script src="i18n.js" defer></script>
+<script>
+(function () {
+  var overlay = document.getElementById('cfp-menu');
+  var openBtn = document.getElementById('cfp-menu-open');
+  var closeBtn = document.getElementById('cfp-menu-close');
+  if (!overlay || !openBtn || !closeBtn) return;
+  function open() {
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('cfp-menu-locked');
+  }
+  function close() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('cfp-menu-locked');
+  }
+  openBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  overlay.querySelectorAll('.cfp-menu-links a, .cfp-menu-volver').forEach(function (a) {
+    a.addEventListener('click', function () { setTimeout(close, 120); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+  });
+})();
+</script>
 
 </body>
 </html>
