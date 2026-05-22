@@ -151,6 +151,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - `<meta keywords>` con términos de tendencia en las 8 páginas.
 - Creación de este `CLAUDE.md` como memoria operativa del proyecto.
 - Títulos `<title>` de 4 páginas (index, inscripcion, memorias, programa): «CUCEA-UDG» → «Cuerpo Académico «Derecho y Tecnología» · UDG». Las apariciones de CUCEA-UDG en afiliaciones, footer y descripciones de memorias se conservan (es la sede real).
+- Imagen de compartir en redes (`og:image`/`twitter:image`): `img/og-forodyt.jpg` reemplazada por una foto del auditorio lleno del II Foro, recortada a 1200×630. Todas las páginas la referencian; no requirió editar HTML.
 
 ---
 
