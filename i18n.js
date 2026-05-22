@@ -594,6 +594,9 @@
       idx_ponente_gomez_affil_html: 'Trainer of Magistrates and Judges · Argentina<br>Professor · University of Cuyo',
       idx_ponente_gomez_topic_html: 'Track i · Agentic AI and Generative Intellectual Property',
       idx_ponente_gomez_talk: '«The Concept of Authorship in the Age of Generative Intellectual Property»',
+      idx_ponente_gamez_affil_html: 'Director of Admissions · School of Social Sciences and Government · Tec de Monterrey<br>Research Professor in Cybersecurity and Digital Law',
+      idx_ponente_gamez_topic_html: 'Track v · Digital Human Rights  |  Track iii · Cybersecurity and Digital Sovereignty',
+      idx_ponente_gamez_talk: '«Freedom in the Face of AI: the Andromeda Algorithm Case»',
       idx_ponentes_cta_text: 'List in progress · Confirmations are published weekly',
       idx_ponentes_cta_btn: 'Receive updates',
 
@@ -1526,6 +1529,9 @@
       idx_ponente_gomez_affil_html: 'Formateur de Magistrats et Juges · Argentine<br>Professeur · Université de Cuyo',
       idx_ponente_gomez_topic_html: 'Axe i · IA Agentique et Propriété Intellectuelle Générative',
       idx_ponente_gomez_talk: '« Le concept d\'auteur à l\'ère de la Propriété Intellectuelle Générative »',
+      idx_ponente_gamez_affil_html: 'Directrice des admissions · École des sciences sociales et du gouvernement · Tec de Monterrey<br>Professeure-chercheuse en cybersécurité et droit du numérique',
+      idx_ponente_gamez_topic_html: 'Axe v · Droits Humains Numériques  |  Axe iii · Cybersécurité et Souveraineté Numérique',
+      idx_ponente_gamez_talk: '« La liberté face à l\'IA : le cas de l\'algorithme Andromède »',
       idx_ponentes_cta_text: 'Liste en construction · Les confirmations sont publiées chaque semaine',
       idx_ponentes_cta_btn: 'Recevoir les mises à jour',
 

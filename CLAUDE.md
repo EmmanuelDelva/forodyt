@@ -119,7 +119,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 
 ## 8. Datos del evento
 
-- **Ponentes confirmados IV:** Alejandro Axel Rivera Martínez · Manuel Raad Berrio · Ernesto Ibarra Sánchez · Rodrigo Alejandro Gómez Torre. Hay 1 placeholder «Próximamente seguiremos confirmando más ponentes».
+- **Ponentes confirmados IV:** Alejandro Axel Rivera Martínez · Velda Abigail Gámez Bustamante · Manuel Raad Berrio · Ernesto Ibarra Sánchez · Rodrigo Alejandro Gómez Torre. Hay 1 placeholder «Próximamente seguiremos confirmando más ponentes». El orden busca alternar hombres y mujeres para que la paridad se note.
 - **Footer:** acredita al «Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»» — no a CUCEA. Incluye Instagram `@forodyt_oficial` y Facebook.
 - **Ejes temáticos:** 9 ejes / líneas temáticas unificados en todo el sitio.
 - Las cards de edición en `index.html` enlazan a su memoria (I→memoria-i, II→memoria-ii, III→memoria-iii, IV→cfp).
@@ -152,6 +152,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - Creación de este `CLAUDE.md` como memoria operativa del proyecto.
 - Títulos `<title>` de 4 páginas (index, inscripcion, memorias, programa): «CUCEA-UDG» → «Cuerpo Académico «Derecho y Tecnología» · UDG». Las apariciones de CUCEA-UDG en afiliaciones, footer y descripciones de memorias se conservan (es la sede real).
 - Imagen de compartir en redes (`og:image`/`twitter:image`): `img/og-forodyt.jpg` reemplazada por una foto del auditorio lleno del II Foro, recortada a 1200×630. Todas las páginas la referencian; no requirió editar HTML.
+- Confirmada la **Dra. Velda Abigail Gámez Bustamante** (Tec de Monterrey) como 5ª ponente IV, en posición 2 (tras Rivera Martínez): tarjeta en index.html + keys EN/FR en i18n.js + foto `img/ponentes/velda-gamez.jpg` recortada a 400×400.
 
 ---
 
