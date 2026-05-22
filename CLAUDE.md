@@ -153,6 +153,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - Títulos `<title>` de 4 páginas (index, inscripcion, memorias, programa): «CUCEA-UDG» → «Cuerpo Académico «Derecho y Tecnología» · UDG». Las apariciones de CUCEA-UDG en afiliaciones, footer y descripciones de memorias se conservan (es la sede real).
 - Imagen de compartir en redes (`og:image`/`twitter:image`): `img/og-forodyt.jpg` reemplazada por una foto del auditorio lleno del II Foro, recortada a 1200×630. Todas las páginas la referencian; no requirió editar HTML.
 - Confirmada la **Dra. Velda Abigail Gámez Bustamante** (Tec de Monterrey) como 5ª ponente IV, en posición 2 (tras Rivera Martínez): tarjeta en index.html + keys EN/FR en i18n.js + foto `img/ponentes/velda-gamez.jpg` recortada a 400×400.
+- Schema `Event` de index.html: añadidos `performer` (los 5 ponentes confirmados), `price` y `priceCurrency` en `offers`, corrigiendo 3 avisos no críticos de Google Search Console.
 
 ---
 
