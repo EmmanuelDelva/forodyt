@@ -119,7 +119,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 
 ## 8. Datos del evento
 
-- **Ponentes confirmados IV:** Alejandro Axel Rivera Martínez · Velda Abigail Gámez Bustamante · Manuel Raad Berrio · Ernesto Ibarra Sánchez · Rodrigo Alejandro Gómez Torre. Hay 1 placeholder «Próximamente seguiremos confirmando más ponentes». El orden busca alternar hombres y mujeres para que la paridad se note.
+- **Ponentes confirmados IV:** Alejandro Axel Rivera Martínez · María Luisa García Torres · Manuel Raad Berrio · Velda Abigail Gámez Bustamante · Ernesto Ibarra Sánchez · Rodrigo Alejandro Gómez Torre. Hay 1 placeholder «Próximamente seguiremos confirmando más ponentes». El orden busca alternar hombres y mujeres para que la paridad se note (H-M-H-M-H-H con 6 ponentes; las mujeres en pos 2 y 4).
 - **Footer:** acredita al «Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»» — no a CUCEA. Incluye Instagram `@forodyt_oficial` y Facebook.
 - **Ejes temáticos:** 9 ejes / líneas temáticas unificados en todo el sitio.
 - Las cards de edición en `index.html` enlazan a su memoria (I→memoria-i, II→memoria-ii, III→memoria-iii, IV→cfp).
@@ -154,6 +154,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - Imagen de compartir en redes (`og:image`/`twitter:image`): `img/og-forodyt.jpg` reemplazada por una foto del auditorio lleno del II Foro, recortada a 1200×630. Todas las páginas la referencian; no requirió editar HTML.
 - Confirmada la **Dra. Velda Abigail Gámez Bustamante** (Tec de Monterrey) como 5ª ponente IV, en posición 2 (tras Rivera Martínez): tarjeta en index.html + keys EN/FR en i18n.js + foto `img/ponentes/velda-gamez.jpg` recortada a 400×400.
 - Schema `Event` de index.html: añadidos `performer` (los 5 ponentes confirmados), `price` y `priceCurrency` en `offers`, corrigiendo 3 avisos no críticos de Google Search Console.
+- Confirmada la **Dra. María Luisa García Torres** (Universidad Alfonso X el Sabio · IusConnect, España) como 6ª ponente IV, en posición 2; Velda Gámez se desplazó a la posición 4 para mantener la paridad H-M-H-M visible. Tarjeta + traducciones EN/FR + foto recortada a 400×400.
 
 ---
 

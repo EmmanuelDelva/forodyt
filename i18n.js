@@ -597,6 +597,9 @@
       idx_ponente_gamez_affil_html: 'Director of Admissions · School of Social Sciences and Government · Tec de Monterrey<br>Research Professor in Cybersecurity and Digital Law',
       idx_ponente_gamez_topic_html: 'Track v · Digital Human Rights  |  Track iii · Cybersecurity and Digital Sovereignty',
       idx_ponente_gamez_talk: '«Freedom in the Face of AI: the Andromeda Algorithm Case»',
+      idx_ponente_garcia_torres_affil_html: 'Head of Studies, Law Area · Universidad Alfonso X el Sabio · Spain<br>Founding Partner and Strategic Director · IusConnect, S.L.',
+      idx_ponente_garcia_torres_topic_html: 'Track i · Agentic AI and Generative Intellectual Property  |  Track iv · Digital Justice and Legal Innovation',
+      idx_ponente_garcia_torres_talk: '«Digital Evidence in the Age of Agentic AI: Authenticity, Vulnerability and Early Preservation of Evidence»',
       idx_ponentes_cta_text: 'List in progress · Confirmations are published weekly',
       idx_ponentes_cta_btn: 'Receive updates',
 
@@ -1532,6 +1535,9 @@
       idx_ponente_gamez_affil_html: 'Directrice des admissions · École des sciences sociales et du gouvernement · Tec de Monterrey<br>Professeure-chercheuse en cybersécurité et droit du numérique',
       idx_ponente_gamez_topic_html: 'Axe v · Droits Humains Numériques  |  Axe iii · Cybersécurité et Souveraineté Numérique',
       idx_ponente_gamez_talk: '« La liberté face à l\'IA : le cas de l\'algorithme Andromède »',
+      idx_ponente_garcia_torres_affil_html: 'Cheffe des études · Domaine du Droit · Universidad Alfonso X el Sabio · Espagne<br>Associée fondatrice et Directrice stratégique · IusConnect, S.L.',
+      idx_ponente_garcia_torres_topic_html: 'Axe i · IA Agentique et Propriété Intellectuelle Générative  |  Axe iv · Justice Numérique et Innovation Juridique',
+      idx_ponente_garcia_torres_talk: '« La preuve numérique à l\'ère de l\'IA agentique : authenticité, vulnérabilité et préservation précoce des preuves »',
       idx_ponentes_cta_text: 'Liste en construction · Les confirmations sont publiées chaque semaine',
       idx_ponentes_cta_btn: 'Recevoir les mises à jour',
 
