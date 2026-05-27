@@ -156,11 +156,28 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - Schema `Event` de index.html: añadidos `performer` (los 5 ponentes confirmados), `price` y `priceCurrency` en `offers`, corrigiendo 3 avisos no críticos de Google Search Console.
 - Confirmada la **Dra. María Luisa García Torres** (Universidad Alfonso X el Sabio · IusConnect, España) como 6ª ponente IV, en posición 2; Velda Gámez se desplazó a la posición 4 para mantener la paridad H-M-H-M visible. Tarjeta + traducciones EN/FR + foto recortada a 400×400.
 
+### Sesión 2026-05-27 — Migración a dominio canónico forodyt.com + AI opt-out + analytics
+
+- **Dominio propio activo**: `forodyt.com` (registrado en Cloudflare Registrar el 2026-05-25). Vercel ya servía el sitio en `forodyt.com` con TLS auto; faltaba migrar las URLs hardcoded en el repo.
+- **Search & replace masivo**: 120 ocurrencias de `forodyt.vercel.app` → `forodyt.com` en 11 archivos (los 8 HTML + sitemap.xml + robots.txt + i18n.js no requirió cambios porque usa `location.origin`). Vía `perl -i -pe`.
+- **`<title>` acortados** (4 páginas): index/programa/inscripcion/memorias bajaron de 95-110 chars a ≤75. Mejor CTR en SERP.
+- **`robots.txt` con AI opt-out granular**: bloquea GPTBot, CCBot, Google-Extended, Bytespider, anthropic-ai, Omgilibot, FacebookBot, Diffbot, Amazonbot, cohere-ai, AI2Bot, ImagesiftBot. **Permite** ClaudeBot, Claude-Web, PerplexityBot, YouBot, Applebot-Extended (los que sí citan fuente y envían tráfico real).
+- **`sitemap.xml`**: 8 URLs migradas + `lastmod=2026-05-27`. Reenviado a GSC bajo la propiedad nueva.
+- **JSON-LD `Organization`**: añadidos `email: contacto@forodyt.com` + `founder` (Person Director Dr. Emmanuel Delva con sameAs LinkedIn `dr-emmanuel-delva` + ORCID `0000-0002-2859-378X` + Google Scholar). `sameAs` actualizado: cambia FB share-URL legacy por FB Page propia del Foro (id=61580204966427).
+- **Analytics**: snippet de **Cloudflare Web Analytics** + **Vercel Speed Insights** inyectado antes de `</body>` en los 8 HTML. CF token = placeholder `CF_TOKEN_FORODYT` por reemplazar manualmente (el dashboard de CF se atascó en automatización; pasos manuales en §10).
+- **Footer Contacto del index**: ahora muestra **ambos** correos en orden: `contacto@forodyt.com` (canónico nuevo, alias vía Cloudflare Email Routing) + `emmanueldelva@cucea.udg.mx` (institucional UDG, sin tocar). El cucea sigue siendo el remitente del Apps Script y de todas las páginas internas (inscripción, ARCO, etc.).
+- **GSC**: nueva propiedad de dominio `forodyt.com` verificada vía Cloudflare Domain Connect (TXT 1-click, mismo método que delvayasociados). Sitemap `https://forodyt.com/sitemap.xml` enviado correctamente; estado inicial "No se ha podido obtener" (normal en los primeros minutos; Google rastrea en 24-48 h).
+- **FB Page del Foro**: encontrada y editada como admin: `Foro Internacional de Derecho y Tecnología` (id=61580204966427). Cambios: Presentación con bio del IV Foro + forodyt.com; Enlace oficial `https://www.forodyt.com`; Email cambiado de `foro.derechoytecnlogia@gmail.com` (typo) → `contacto@forodyt.com`.
+- **IG @forodyt_oficial**: bio actualizada a "IV Foro Internacional de Derecho y Tecnología · Multisede-UDG · 21-22 sept 2026 · Híbrido · forodyt.com" (103/150). El campo "Sitio web" solo es editable desde la app móvil — pendiente cambio manual desde celular para `forodyt.vercel.app` → `forodyt.com`.
+
+**Commit clave de esta sesión**: `ecd0e00 — feat(seo): migra a dominio canonico forodyt.com + AI opt-out + analytics + contacto profesional`.
+
 ---
 
 ## 10. Pendientes abiertos
 
-- Dominio propio (mayor impacto SEO; hoy es subdominio de vercel.app).
-- Estrategia de backlinks institucionales.
-- Conversión de imágenes a WebP (requiere instalar `cwebp`).
+- **CF Web Analytics token**: crear site `forodyt.com` en `dash.cloudflare.com/<account>/web-analytics`, copiar el token de 32 chars del snippet generado y reemplazar `CF_TOKEN_FORODYT` en los 8 HTML con `perl -i -pe 's/CF_TOKEN_FORODYT/<TOKEN>/g' *.html`. Commit + push.
+- **IG website link**: editar `forodyt.vercel.app` → `forodyt.com` desde la app móvil de Instagram (IG no permite editar links desde desktop).
+- Estrategia de backlinks institucionales (UDG, CUCEA, AMCID, ALGDETIC, universidades de ponentes).
+- Conversión de imágenes a WebP (requiere instalar `cwebp` o servir vía Vercel Image Optimization).
 - Seguir confirmando ponentes de la IV edición.
