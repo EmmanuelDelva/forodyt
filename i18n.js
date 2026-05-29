@@ -581,7 +581,7 @@
       // Ponentes placeholder + confirmados
       idx_ponente_pc: 'More speakers will be confirmed soon',
       idx_ponente_confirmed_badge: 'CONFIRMED',
-      idx_ponentes_lead_html: 'The Scientific Committee is finalizing confirmations for the fourth edition. Invitations are announced weekly on the Forum\'s official channels. The curation preserves the balance between <strong>academia, judiciary and legislative sectors, private sector and national and international bodies with regulatory functions</strong> that has distinguished the event since the I edition. Among the first confirmed speakers are <em>Dr. Alejandro Axel Rivera Martínez</em>, Director General of the Jalisco Institute of Forensic Sciences, and <em>Dr. Manuel Raad Berrio</em>, Auxiliary Magistrate of the Superior Council of the Judiciary of Colombia.',
+      idx_ponentes_lead_html: 'The Scientific Committee is finalizing confirmations for the fourth edition. Invitations are announced weekly on the Forum\'s official channels. The curation preserves the balance between <strong>academia, judiciary and legislative sectors, private sector and national and international bodies with regulatory functions</strong> that has distinguished the event since the I edition.',
       idx_ponente_rivera_affil: 'Director General · Jalisco Institute of Forensic Sciences',
       idx_ponente_rivera_topic_html: 'Track iv · Digital Justice  |  Track v · Digital Human Rights',
       idx_ponente_rivera_talk: '«Technology, forensic sciences and rights: AI-based craniometric identification at the Jalisco Institute of Forensic Sciences»',
@@ -1525,7 +1525,7 @@
       // Ponentes placeholder + confirmados
       idx_ponente_pc: 'D\'autres intervenants seront confirmés prochainement',
       idx_ponente_confirmed_badge: 'CONFIRMÉ',
-      idx_ponentes_lead_html: 'Le Comité Scientifique est en train de finaliser les confirmations pour la quatrième édition. Les invitations sont annoncées chaque semaine sur les canaux officiels du Forum. La curation préserve l\'équilibre entre <strong>académie, secteurs judiciaire et législatif, secteur privé et organismes nationaux et internationaux à fonction régulatrice</strong> qui distingue l\'événement depuis la I édition. Parmi les premiers intervenants confirmés figurent le <em>Dr. Alejandro Axel Rivera Martínez</em>, Directeur Général de l\'Institut Jaliscien des Sciences Forensiques, et le <em>Dr. Manuel Raad Berrio</em>, Magistrat Auxiliaire du Conseil Supérieur de la Magistrature de Colombie.',
+      idx_ponentes_lead_html: 'Le Comité Scientifique est en train de finaliser les confirmations pour la quatrième édition. Les invitations sont annoncées chaque semaine sur les canaux officiels du Forum. La curation préserve l\'équilibre entre <strong>académie, secteurs judiciaire et législatif, secteur privé et organismes nationaux et internationaux à fonction régulatrice</strong> qui distingue l\'événement depuis la I édition.',
       idx_ponente_rivera_affil: 'Directeur Général · Institut Jaliscien des Sciences Forensiques',
       idx_ponente_rivera_topic_html: 'Axe iv · Justice Numérique  |  Axe v · Droits Humains Numériques',
       idx_ponente_rivera_talk: '« Technologie, sciences forensiques et droits : identification craniométrique avec IA à l\'Institut Jaliscien des Sciences Forensiques »',
