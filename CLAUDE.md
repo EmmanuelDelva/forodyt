@@ -119,7 +119,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 
 ## 8. Datos del evento
 
-- **Ponentes confirmados IV (8):** Alejandro Axel Rivera Martínez · María Luisa García Torres · Guillermo Raúl Zepeda Lecuona · Velda Abigail Gámez Bustamante · Manuel Raad Berrio · Ernesto Ibarra Sánchez · Rodrigo Alejandro Gómez Torre · José Vega Sacasa. Hay 1 placeholder «Próximamente seguiremos confirmando más ponentes». El orden busca alternar hombres y mujeres para que la paridad se note (mujeres en pos 2 y 4). El array `performer` del schema Event en index.html debe mantenerse sincronizado con esta lista.
+- **Ponentes confirmados IV (9):** Alejandro Axel Rivera Martínez · María Luisa García Torres · Guillermo Raúl Zepeda Lecuona · Velda Abigail Gámez Bustamante · Manuel Raad Berrio · Juliana Caicedo Buitrago · Ernesto Ibarra Sánchez · Rodrigo Alejandro Gómez Torre · José Vega Sacasa. Hay 1 placeholder «Próximamente seguiremos confirmando más ponentes». El orden busca alternar hombres y mujeres para que la paridad se note (mujeres en pos 2, 4 y 6). El array `performer` del schema Event en index.html debe mantenerse sincronizado con esta lista.
 - **Footer:** acredita al «Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»» — no a CUCEA. Incluye Instagram `@forodyt_oficial` y Facebook.
 - **Ejes temáticos:** 9 ejes / líneas temáticas unificados en todo el sitio.
 - Las cards de edición en `index.html` enlazan a su memoria (I→memoria-i, II→memoria-ii, III→memoria-iii, IV→cfp).
@@ -157,6 +157,8 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - Confirmada la **Dra. María Luisa García Torres** (Universidad Alfonso X el Sabio · IusConnect, España) como 6ª ponente IV, en posición 2; Velda Gámez se desplazó a la posición 4 para mantener la paridad H-M-H-M visible. Tarjeta + traducciones EN/FR + foto recortada a 400×400.
 - Confirmado el **Dr. José Vega Sacasa** (APPIF · Fintegrity Group, Panamá) como 7º ponente IV, en posición 7. Tema: trazabilidad y auditoría forense de criptoactivos (líneas vi FinTech + iii Ciberseguridad). Tarjeta + traducciones EN/FR + foto 400×400 + añadido al array `performer` del schema.
 - Confirmado el **Dr. Guillermo Raúl Zepeda Lecuona** (Director General del IJA · Poder Judicial de Jalisco) como 8º ponente IV, insertado en posición 3 (los hombres bajaron un lugar, mujeres intactas en 2 y 4). Tema: innovación jurídica y resolución de conflictos (líneas iv + ix). Tarjeta + EN/FR + performer del schema. Foto recortada cerrada (opción A) porque la original trae banderas MX/Jalisco de fondo; asoman bordes leves.
+- Confirmada la **Dra. Juliana Caicedo Buitrago** (Presidenta del Observatorio Mundial de la Abogacía · OMA) como 9ª ponente IV, en posición 6 (mujeres ahora en 2, 4 y 6). Tema: caja negra de la IA agéntica, trazabilidad y control de sistemas autónomos (líneas i + iv). Tarjeta + EN/FR + performer del schema + foto 400×400.
+- Quitada del lead de la sección Ponentes la frase «Entre los primeros ponentes confirmados destacan…» (ES/EN/FR), ya obsoleta con 9 tarjetas.
 
 ### Sesión 2026-05-27 — Migración a dominio canónico forodyt.com + AI opt-out + analytics
 
