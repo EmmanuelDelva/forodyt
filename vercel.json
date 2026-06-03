@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "forodyt.vercel.app" }],
+      "destination": "https://forodyt.com/:path*",
+      "permanent": true
+    }
+  ]
+}
