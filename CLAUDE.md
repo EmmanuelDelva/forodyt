@@ -22,7 +22,7 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 
 ## 2. Reglas de oro — leer antes de tocar cualquier archivo
 
-1. **Verifica siempre en producción** (`https://forodyt.vercel.app`), nunca en URLs de preview de Vercel: los previews tienen muro SSO y dan falsos negativos.
+1. **Verifica siempre en producción** en `https://forodyt.com` (dominio canónico). ⚠️ **Desde 2026-06-03**, `forodyt.vercel.app` y `www.forodyt.com` **redirigen al apex `forodyt.com`** y ya NO sirven el sitio directamente (ver §9). Nunca verifiques en URLs de *preview* de Vercel: tienen muro SSO y dan falsos negativos.
 2. **Todo texto visible nuevo o modificado debe traducirse** en `i18n.js` para `en` y `fr`. Si no, queda sin traducir y el switcher "se rompe" a ojos del usuario.
 3. **Contenido con acentos:** editar con la herramienta Edit o con bash/perl (`open '<:raw'`). NUNCA con PowerShell — produce mojibake (`tecnologÃ­a`).
 4. **Cadenas en francés con apóstrofo** (`l'IA`, `d'autres`, `l'Université`) van escapadas `\'`. Un apóstrofo suelto lanza `SyntaxError` y rompe TODO `i18n.js`.
@@ -175,6 +175,18 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 - **IG @forodyt_oficial**: bio actualizada a "IV Foro Internacional de Derecho y Tecnología · Multisede-UDG · 21-22 sept 2026 · Híbrido · forodyt.com" (103/150). El campo "Sitio web" solo es editable desde la app móvil — pendiente cambio manual desde celular para `forodyt.vercel.app` → `forodyt.com`.
 
 **Commit clave de esta sesión**: `ecd0e00 — feat(seo): migra a dominio canonico forodyt.com + AI opt-out + analytics + contacto profesional`.
+
+### Sesión 2026-06-03 — Fix canónico del apex (forodyt.com sirve; www y vercel.app redirigen)
+
+Disparador: aviso de GSC "Página con redirección" para forodyt.com + correo spam ("Advik Gupta", misma plantilla que el de delvayasociados — **ignorar**: el sitio SÍ tiene sitemap, robots, canonical, hreflang y viewport).
+
+- **Problema real**: el sitio declara `forodyt.com` (apex) como canónico en TODO (sitemap, `canonical`, `og:url`, `hreflang`, `robots`), pero **Vercel servía `www.forodyt.com` como principal** y el apex redirigía a www (307). Resultado: cada URL del sitemap (apex) redirigía → "Página con redirección" en Google. Además `forodyt.vercel.app` seguía sirviendo 200 (contenido duplicado).
+- **Fix (panel de Vercel → proyecto forodyt → Settings → Domains)**: `forodyt.com` (apex) cambiado a **"Connect to an environment: Production"** → ahora **sirve 200**; `www.forodyt.com` → **307 → forodyt.com**; `forodyt.vercel.app` → **307 → forodyt.com**. Verificado por curl: apex y URLs del sitemap (`/cfp.html`, `/programa.html`) ahora dan **200**; www y vercel.app redirigen al apex.
+- **`vercel.json` (commit `791bc87`, revertido en `05e9972`)**: se intentó un redirect host-based `forodyt.vercel.app → forodyt.com`, pero Vercel **NO aplica `redirects` con `has: host` al propio dominio `.vercel.app`** de un sitio estático. El método correcto es la config de dominios (arriba). Archivo eliminado por quedar como config muerta.
+- **GSC**: "Página con redirección" = **1 URL benigna** (`http://www.forodyt.com/`, variante http+www que redirige correctamente al canónico) → **NO se validó** (fallaría; redirige como debe). El resto sin indexar (7 en "Descubierta: actualmente sin indexar") se indexará ahora que el apex sirve 200. 3 indexadas a la fecha.
+- **Trampa nueva (Vercel)**: la gestión de dominios migró al **nivel de cuenta** (`/~/domains`); la página del proyecto (`/forodyt/settings/domains`) puede salir **vacía por glitch de render** → recargar (`location.reload()`) hasta que liste los dominios. El control de redirección está ahí: **Edit** por dominio → radio "Connect to an environment" (sirve) vs "Redirect to Another Domain" (tipo 307/308 + destino). El selector de tipo 307→308 es finicky; un 307 en www/vercel.app→apex es aceptable.
+
+**Commits**: `791bc87` (vercel.json, revertido) · `05e9972` (elimina vercel.json) · este update de `CLAUDE.md`.
 
 ---
 
