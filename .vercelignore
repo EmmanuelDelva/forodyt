@@ -1,0 +1,8 @@
+# Archivos internos del repo que NO deben publicarse en forodyt.com
+# (estaban accesibles públicamente: CLAUDE.md, docs/, apps-script/, backups)
+CLAUDE.md
+PROMPT-CLAUDE-CODE.md
+README.md
+docs/
+apps-script/
+*.backup-v1
