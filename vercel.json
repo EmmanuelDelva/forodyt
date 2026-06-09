@@ -1,4 +1,7 @@
 {
+  "rewrites": [
+    { "source": "/registroscomite", "destination": "/registroscomite.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

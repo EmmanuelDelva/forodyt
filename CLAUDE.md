@@ -65,7 +65,8 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 | `memoria-i/ii/iii.html` | Memorias de las ediciones I, II, III |
 | `programa.html` | Programa preliminar |
 | `inscripcion.html` | Formulario de inscripción |
-| `staff-scanner.html` | Vista interna de staff, NO enlazada en el menú público |
+| `staff-scanner.html` | Vista interna de staff (escáner QR), NO enlazada en el menú público |
+| `registroscomite.html` | Hub interno del comité para el día del evento (acceso al escáner, pasos, troubleshooting). URL limpia `/registroscomite` vía rewrite en `vercel.json`. noindex, NO enlazada en el menú público |
 | `i18n.js` | Sistema de traducción trilingüe (~2400 líneas) |
 | `mobile-menu.css` / `mobile-menu.js` | Menú móvil editorial |
 | `sitemap.xml`, `robots.txt` | SEO / indexación |
@@ -188,6 +189,12 @@ Disparador: aviso de GSC "Página con redirección" para forodyt.com + correo sp
 - **Trampa nueva (Vercel)**: la gestión de dominios migró al **nivel de cuenta** (`/~/domains`); la página del proyecto (`/forodyt/settings/domains`) puede salir **vacía por glitch de render** → recargar (`location.reload()`) hasta que liste los dominios. El control de redirección está ahí: **Edit** por dominio → radio "Connect to an environment" (sirve) vs "Redirect to Another Domain" (tipo 307/308 + destino). El selector de tipo 307→308 es finicky; un 307 en www/vercel.app→apex es aceptable.
 
 **Commits**: `791bc87` (vercel.json, revertido) · `05e9972` (elimina vercel.json) · este update de `CLAUDE.md`.
+
+### Sesión 2026-06-09 — Auditoría SEO (agente) + hub /registroscomite
+
+- **Auditoría completa con agente** (11 hallazgos; informe en `Claude-Work/HISTORIAL/2026-06-09_auditoria-seo-agente-forodyt-delva.md`). Aplicado en `26c6e9c`: `.vercelignore` (CLAUDE.md/docs/apps-script/backups estaban PÚBLICOS → ahora 404), lazy loading en las 92 imgs de memorias + 2 del comité (67.5 MB eager en memoria-iii), `favicon.svg` + link en las 9 páginas (borrador: monograma F con tokens de marca — reemplazable por logo oficial), 2 anclas rotas en inscripcion.html, headers de seguridad en `vercel.json` (nosniff/XFO DENY/Referrer-Policy; SIN CSP ni Permissions-Policy a propósito: inline scripts + cámara del scanner), 4 meta descriptions recortadas a 151-159 chars, `404.html` con marca.
+- **Pendientes de la auditoría**: recompresión de ~90 imágenes (chip/tarea aparte con sharp), H1+jerarquía de cfp.html (tocan i18n.js), switcher de idiomas por teclado, y **staff-key en el Apps Script** (el `?action=validar` no exige credencial — decisión del director antes del evento).
+- **Hub del comité NUEVO**: `registroscomite.html` — página interna (noindex, no enlazada) para el día del evento: CTA al escáner (`staff-scanner.html`), datos del evento, 6 pasos del flujo de registro (correo staff → plática → escanear → confirmar → cola offline), troubleshooting (cámara/QR/folio inválido) y enlaces rápidos. **URL limpia `https://forodyt.com/registroscomite`** vía `rewrites` en `vercel.json` (NO usar `cleanUrls: true` global — cambiaría las URLs .html ya indexadas). Verificada en local (desktop + 375px sin overflow) antes del push.
 
 ---
 

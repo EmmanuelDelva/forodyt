@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Registros del Comité · IV Foro DDT 2026</title>
+<meta name="description" content="Plataforma interna del comité organizador: acreditación y escaneo de códigos QR durante el IV Foro Internacional de Derecho y Tecnología.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0E1B2C;
+  --ink-soft: rgba(14, 27, 44, 0.72);
+  --ink-faint: rgba(14, 27, 44, 0.4);
+  --ink-rule: rgba(14, 27, 44, 0.14);
+  --teal: #2A5C5C;
+  --teal-deep: #1F4747;
+  --dorado: #B8923E;
+  --dorado-soft: #C8A858;
+  --granate: #632A3D;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --paper: #F1EAD7;
+  --white: #FFFEFA;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--marfil);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== Header ===== */
+header {
+  border-bottom: 1px solid var(--ink-rule);
+  background: var(--marfil-light);
+}
+.header-inner {
+  padding: 28px 0 26px;
+  text-align: center;
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.kicker .num { color: var(--dorado); }
+h1 {
+  font-family: var(--serif);
+  font-weight: 480;
+  font-size: clamp(30px, 7vw, 44px);
+  line-height: 1.08;
+  margin-top: 10px;
+  letter-spacing: -0.01em;
+}
+.sub {
+  margin-top: 10px;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  max-width: 48ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.badge-interno {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--granate);
+  border: 1px solid rgba(99, 42, 61, 0.35);
+  border-radius: 999px;
+  padding: 5px 14px;
+  background: rgba(99, 42, 61, 0.05);
+}
+
+/* ===== Cards ===== */
+main { padding: 34px 0 10px; }
+.card {
+  background: var(--white);
+  border: 1px solid var(--ink-rule);
+  border-radius: 16px;
+  padding: 26px 24px;
+  margin-bottom: 18px;
+}
+.card-title {
+  font-family: var(--serif);
+  font-weight: 520;
+  font-size: 21px;
+  margin-bottom: 4px;
+}
+.card-lead { font-size: 14px; color: var(--ink-soft); }
+
+/* CTA principal */
+.card-cta {
+  background: var(--teal-deep);
+  border-color: var(--teal-deep);
+  color: var(--marfil);
+  text-align: center;
+  padding: 34px 24px;
+}
+.card-cta .card-title { color: var(--white); font-size: 24px; }
+.card-cta .card-lead { color: rgba(245, 239, 224, 0.78); max-width: 44ch; margin: 6px auto 0; }
+.btn-scanner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  background: var(--dorado);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 16px 34px;
+  transition: transform .2s ease, background .25s ease;
+}
+.btn-scanner:hover, .btn-scanner:focus-visible { background: var(--dorado-soft); transform: translateY(-1px); }
+.btn-scanner svg { width: 20px; height: 20px; }
+.cta-hint {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: rgba(245, 239, 224, 0.55);
+}
+
+/* Datos del evento */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+.meta-item {
+  border-left: 2px solid var(--dorado);
+  padding-left: 12px;
+}
+.meta-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.meta-value { font-size: 14.5px; font-weight: 500; margin-top: 2px; }
+
+/* Pasos */
+ol.pasos { list-style: none; counter-reset: paso; margin-top: 18px; }
+ol.pasos li {
+  counter-increment: paso;
+  position: relative;
+  padding: 0 0 18px 52px;
+}
+ol.pasos li:last-child { padding-bottom: 0; }
+ol.pasos li::before {
+  content: counter(paso, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--dorado);
+  border: 1px solid var(--ink-rule);
+  border-radius: 10px;
+  width: 38px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--marfil-light);
+}
+ol.pasos b { font-weight: 600; }
+ol.pasos .nota { display: block; font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+/* Fallas comunes */
+.falla { border-top: 1px solid var(--ink-rule); padding: 14px 0; }
+.falla:first-of-type { margin-top: 14px; }
+.falla:last-of-type { padding-bottom: 0; }
+.falla-q { font-weight: 600; font-size: 14.5px; }
+.falla-a { font-size: 14px; color: var(--ink-soft); margin-top: 3px; }
+.falla-a code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  background: var(--paper);
+  border-radius: 6px;
+  padding: 1px 7px;
+}
+
+/* Enlaces rápidos */
+.quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.quick a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--ink-rule);
+  border-radius: 999px;
+  padding: 10px 18px;
+  transition: all .25s ease;
+  background: var(--white);
+}
+.quick a:hover, .quick a:focus-visible { background: var(--ink); color: var(--marfil); border-color: var(--ink); }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--ink-rule);
+  margin-top: 34px;
+  padding: 26px 0 38px;
+  text-align: center;
+}
+.foot-line {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.foot-line a { color: var(--teal); text-decoration: none; }
+.foot-line a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <p class="kicker"><span class="num">IV</span> Foro Internacional de Derecho y Tecnología · 2026</p>
+    <h1>Registros del Comité</h1>
+    <p class="sub">Plataforma de acreditación del evento: escaneo de códigos QR, validación de folios y registro de entradas por plática.</p>
+    <span class="badge-interno">Uso interno · Comité organizador y staff</span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- CTA principal: el escáner -->
+    <section class="card card-cta" aria-labelledby="cta-title">
+      <h2 class="card-title" id="cta-title">Escáner de códigos QR</h2>
+      <p class="card-lead">Valida el QR del gafete o del correo de confirmación de cada asistente y registra su entrada en tiempo real.</p>
+      <a class="btn-scanner" href="/staff-scanner.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></svg>
+        Abrir escáner
+      </a>
+      <p class="cta-hint">Requiere cámara · funciona en el navegador del teléfono, sin instalar nada</p>
+    </section>
+
+    <!-- Datos del evento -->
+    <section class="card" aria-labelledby="evento-title">
+      <h2 class="card-title" id="evento-title">El día del evento</h2>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <p class="meta-label">Fechas</p>
+          <p class="meta-value">21 y 22 de septiembre de 2026</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Sede</p>
+          <p class="meta-value">CUCEA · Universidad de Guadalajara</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Modalidad</p>
+          <p class="meta-value">Híbrida (presencial + virtual)</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Acreditación</p>
+          <p class="meta-value">QR individual por asistente</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo registrar -->
+    <section class="card" aria-labelledby="pasos-title">
+      <h2 class="card-title" id="pasos-title">Cómo registrar entradas</h2>
+      <p class="card-lead">El flujo completo toma unos segundos por asistente.</p>
+      <ol class="pasos">
+        <li><b>Abre el escáner</b> con el botón de arriba y permite el acceso a la cámara cuando el navegador lo pida.</li>
+        <li><b>Escribe tu correo institucional</b> de staff — queda asociado a cada registro que hagas.</li>
+        <li><b>Elige la plática o sesión</b> que vas a registrar. Puedes cambiarla en cualquier momento con «Cambiar plática».</li>
+        <li><b>Apunta la cámara al código QR</b> del gafete o del correo de confirmación del asistente.<span class="nota">El sistema valida el folio automáticamente contra la base de inscripciones.</span></li>
+        <li><b>Confirma la entrada</b> cuando aparezcan los datos del asistente en pantalla.</li>
+        <li><b>¿Se fue el internet?</b> Sigue escaneando: los registros se guardan en una cola local y se reenvían con «Reintentar envío» cuando vuelva la señal.</li>
+      </ol>
+    </section>
+
+    <!-- Si algo falla -->
+    <section class="card" aria-labelledby="fallas-title">
+      <h2 class="card-title" id="fallas-title">Si algo falla</h2>
+      <div class="falla">
+        <p class="falla-q">La cámara no enciende</p>
+        <p class="falla-a">Revisa que el navegador tenga permiso de cámara (candado en la barra de direcciones → Permisos → Cámara). En iPhone usa Safari; en Android, Chrome.</p>
+      </div>
+      <div class="falla">
+        <p class="falla-q">El QR no se deja leer (pantalla rota, brillo, impresión defectuosa)</p>
+        <p class="falla-a">Sube el brillo de la pantalla del asistente o aleja un poco la cámara. Si no hay manera, toma su <code>folio</code> y nombre y repórtalo al coordinador de registro para asentarlo manualmente.</p>
+      </div>
+      <div class="falla">
+        <p class="falla-q">El sistema marca el folio como no válido o ya registrado</p>
+        <p class="falla-a">Verifica que el QR sea de esta edición (formato <code>FORO|folio|clave</code>). Si el asistente insiste en que se inscribió, canalízalo a la mesa de registro — no confirmes entradas dudosas.</p>
+      </div>
+      <div class="falla">
+        <p class="falla-q">Pantalla pausada o lenta</p>
+        <p class="falla-a">Usa «Pausar cámara» entre tandas para ahorrar batería, y recarga la página si el teléfono se calienta; la cola offline no se pierde.</p>
+      </div>
+    </section>
+
+    <!-- Enlaces rápidos -->
+    <section class="card" aria-labelledby="quick-title">
+      <h2 class="card-title" id="quick-title">Enlaces rápidos</h2>
+      <div class="quick">
+        <a href="/staff-scanner.html">Escáner QR</a>
+        <a href="/programa.html">Programa</a>
+        <a href="/inscripcion.html">Inscripción</a>
+        <a href="/">Sitio del Foro</a>
+        <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-line">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · <a href="https://forodyt.com">forodyt.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
