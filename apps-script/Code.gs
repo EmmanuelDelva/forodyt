@@ -75,7 +75,10 @@ function doPost(e) {
         result = crearInscripcion(payload);
         break;
       case 'checkin':
-        result = registrarCheckin(payload);
+        // El check-in es operación de staff: exige la clave compartida.
+        result = staffKeyValida_(payload.staff_key)
+          ? registrarCheckin(payload)
+          : { ok: false, error: 'staff_key_invalida' };
         break;
       case 'newsletter':
         result = suscribirNewsletter(payload);
@@ -97,11 +100,29 @@ function doPost(e) {
 function doGet(e) {
   const ctx = readRequestContext_(e);
   if (e.parameter && e.parameter.action === 'validar') {
+    // validar expone datos del inscrito: exige la clave de staff.
+    if (!staffKeyValida_(e.parameter.key)) {
+      log_('doGet', 'validar', 'staff_key_invalida', ctx);
+      return jsonResponse_({ ok: false, error: 'staff_key_invalida' });
+    }
     const result = validarQR(e.parameter.folio, e.parameter.hmac);
     log_('doGet', 'validar', result.ok ? 'ok' : (result.error || 'fail'), ctx);
     return jsonResponse_(result);
   }
   return jsonResponse_({ ok: true, msg: 'IV Foro endpoint activo' });
+}
+
+/**
+ * Clave compartida del staff (scanner / check-in).
+ * Se configura en Project Settings > Script Properties como STAFF_KEY.
+ * Si STAFF_KEY no está configurada, NO se exige (rollout en 2 fases:
+ * primero se actualiza este código sin romper nada; el candado se activa
+ * en el momento en que se agrega la propiedad).
+ */
+function staffKeyValida_(key) {
+  const expected = PROPS.getProperty('STAFF_KEY');
+  if (!expected) return true;
+  return String(key || '').trim().toUpperCase() === expected.trim().toUpperCase();
 }
 
 function jsonResponse_(obj) {

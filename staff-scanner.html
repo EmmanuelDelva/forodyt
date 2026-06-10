@@ -523,6 +523,11 @@ main {
     </div>
 
     <div class="form-row">
+      <label class="form-label" for="staff-key">Clave de staff</label>
+      <input type="text" class="form-input" id="staff-key" placeholder="FORO26-······" autocomplete="off" autocapitalize="characters" spellcheck="false" style="font-family: var(--mono); letter-spacing: 0.08em;">
+    </div>
+
+    <div class="form-row">
       <label class="form-label" for="platica-select">Plática actual</label>
       <select class="form-select" id="platica-select">
         <option value="">Selecciona una plática…</option>
@@ -599,6 +604,7 @@ const PLATICAS = [
 // ---------- STATE ----------
 const state = {
   staffEmail: localStorage.getItem('foro_staff_email') || '',
+  staffKey: localStorage.getItem('foro_staff_key') || '',
   platicaId: null,
   scanner: null,
   scanning: false,
@@ -625,8 +631,9 @@ function toast(msg, isError = false) {
 
 // ---------- SETUP ----------
 function init() {
-  // Pre-rellenar email si ya estaba guardado
+  // Pre-rellenar email y clave si ya estaban guardados
   if (state.staffEmail) $('#staff-email').value = state.staffEmail;
+  if (state.staffKey) $('#staff-key').value = state.staffKey;
 
   // Llenar dropdown de pláticas
   const sel = $('#platica-select');
@@ -643,6 +650,7 @@ function init() {
 
   // Validar form en cada cambio
   $('#staff-email').addEventListener('input', validarSetup);
+  $('#staff-key').addEventListener('input', validarSetup);
   $('#platica-select').addEventListener('change', validarSetup);
   $('#btn-iniciar').addEventListener('click', iniciarEscaneo);
   $('#btn-cambiar-platica').addEventListener('click', volverASetup);
@@ -669,15 +677,18 @@ function init() {
 function validarSetup() {
   const email = $('#staff-email').value.trim();
   const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const key = $('#staff-key').value.trim();
   const platica = $('#platica-select').value;
-  const valid = reEmail.test(email) && !!platica;
+  const valid = reEmail.test(email) && key.length >= 6 && !!platica;
   $('#btn-iniciar').disabled = !valid;
 }
 
 function iniciarEscaneo() {
   state.staffEmail = $('#staff-email').value.trim().toLowerCase();
+  state.staffKey = $('#staff-key').value.trim().toUpperCase();
   state.platicaId = $('#platica-select').value;
   localStorage.setItem('foro_staff_email', state.staffEmail);
+  localStorage.setItem('foro_staff_key', state.staffKey);
   localStorage.setItem('foro_last_platica', state.platicaId);
 
   const platica = PLATICAS.find(p => String(p.id) === String(state.platicaId));
@@ -784,7 +795,7 @@ async function procesarCheckin(folio, hmac) {
   // Paso 1: validar
   let val;
   try {
-    val = await fetchJSON(`${ENDPOINT}?action=validar&folio=${encodeURIComponent(folio)}&hmac=${encodeURIComponent(hmac)}`, {
+    val = await fetchJSON(`${ENDPOINT}?action=validar&folio=${encodeURIComponent(folio)}&hmac=${encodeURIComponent(hmac)}&key=${encodeURIComponent(state.staffKey)}`, {
       method: 'GET'
     });
   } catch (err) {
@@ -794,6 +805,10 @@ async function procesarCheckin(folio, hmac) {
   }
 
   if (!val.ok) {
+    if (val.error === 'staff_key_invalida') {
+      mostrarResultadoError('Clave de staff incorrecta', 'Vuelve a Configuración («Cambiar plática») y captura la clave que te compartió el comité.');
+      return;
+    }
     mostrarResultadoError(val.error || 'QR inválido', `Folio escaneado: ${folio}`);
     return;
   }
@@ -836,7 +851,8 @@ async function confirmarCheckin(folio, hmac, nombre) {
         folio: folio,
         hmac: hmac,
         id_platica: state.platicaId,
-        staff_email: state.staffEmail
+        staff_email: state.staffEmail,
+        staff_key: state.staffKey
       })
     });
 
@@ -894,6 +910,7 @@ function encolarOffline(folio, hmac) {
     hmac: hmac,
     id_platica: state.platicaId,
     staff_email: state.staffEmail,
+    staff_key: state.staffKey,
     ts: Date.now()
   });
   localStorage.setItem('foro_offline_queue', JSON.stringify(queue));
@@ -949,7 +966,8 @@ async function flushOffline() {
           folio: item.folio,
           hmac: item.hmac,
           id_platica: item.id_platica,
-          staff_email: item.staff_email
+          staff_email: item.staff_email,
+          staff_key: item.staff_key || state.staffKey
         })
       });
       if (res.ok || res.ya_registrado) {
