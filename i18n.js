@@ -175,7 +175,7 @@
       // ===== CFP =====
       cfp_eyebrow: 'Call for Papers · 2026',
       cfp_util_menu: 'Menú', cfp_util_cerrar: 'Cerrar',
-      cfp_title: 'Foro Internacional de Derecho y Tecnología',
+      cfp_title: 'Call for Papers — IV Foro Internacional de Derecho y Tecnología',
       cfp_subtitle_html: '“Agentes, Algoritmos y Autonomía:<br>el Derecho ante la Inteligencia que Decide”',
       cfp_venue_html: '<strong>21 y 22 de septiembre de 2026</strong>  ·  Modalidad híbrida  ·  Zapopan, Jalisco',
       cfp_convoca_label: 'Convoca',
@@ -519,7 +519,7 @@
       // ===== CFP =====
       cfp_eyebrow: 'Call for Papers · 2026',
       cfp_util_menu: 'Menu', cfp_util_cerrar: 'Close',
-      cfp_title: 'International Forum on Law and Technology',
+      cfp_title: 'Call for Papers — 4th International Forum on Law and Technology',
       cfp_subtitle_html: '"Agents, Algorithms and Autonomy:<br>the Law before the Intelligence that Decides"',
       cfp_venue_html: '<strong>21 & 22 September 2026</strong>  ·  Hybrid format  ·  Zapopan, Jalisco',
       cfp_convoca_label: 'Convened by',
@@ -1469,7 +1469,7 @@
       // ===== CFP =====
       cfp_eyebrow: 'Call for Papers · 2026',
       cfp_util_menu: 'Menu', cfp_util_cerrar: 'Fermer',
-      cfp_title: 'Forum International du Droit et de la Technologie',
+      cfp_title: 'Call for Papers — 4e Forum International du Droit et de la Technologie',
       cfp_subtitle_html: '« Agents, Algorithmes et Autonomie :<br>le Droit face à l\'Intelligence qui Décide »',
       cfp_venue_html: '<strong>21 et 22 septembre 2026</strong>  ·  Format hybride  ·  Zapopan, Jalisco',
       cfp_convoca_label: 'Convoqué par',
@@ -2429,15 +2429,36 @@
 
   function updateSwitcher(lang) {
     document.querySelectorAll('.lang [data-lang]').forEach(el => {
-      el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      const active = el.getAttribute('data-lang') === lang;
+      el.classList.toggle('active', active);
+      el.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
   }
 
   function bindSwitcher() {
+    // Foco visible para navegación por teclado (header y menú móvil).
+    // Inyectado aquí porque i18n.js es el único asset cargado en TODAS las páginas.
+    if (!document.getElementById('foro-lang-focus-style')) {
+      const st = document.createElement('style');
+      st.id = 'foro-lang-focus-style';
+      st.textContent = '[data-lang][role="button"]:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:3px;}';
+      document.head.appendChild(st);
+    }
+    const labels = { es: 'Espanol', en: 'English', fr: 'Francais' };
     document.querySelectorAll('.lang [data-lang]').forEach(el => {
+      const lang = el.getAttribute('data-lang');
+      // Accesibilidad: son <span>, no <button> — sin esto el teclado los brinca.
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', labels[lang] || lang);
       el.addEventListener('click', () => {
-        const lang = el.getAttribute('data-lang');
         setLang(lang);
+      });
+      el.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') {
+          ev.preventDefault();
+          setLang(lang);
+        }
       });
     });
   }

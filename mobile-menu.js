@@ -162,12 +162,24 @@
     });
 
     overlay.querySelectorAll('[data-mm-lang] [data-lang]').forEach(function (s) {
-      s.addEventListener('click', function () {
-        var lang = s.getAttribute('data-lang');
+      var mmLabels = { es: 'Espanol', en: 'English', fr: 'Francais' };
+      var mmLang = s.getAttribute('data-lang');
+      // Accesibilidad: mismos atributos que el switcher del header (i18n.js).
+      s.setAttribute('role', 'button');
+      s.setAttribute('tabindex', '0');
+      s.setAttribute('aria-label', mmLabels[mmLang] || mmLang);
+      function activarIdioma() {
         if (window.foroI18n && typeof window.foroI18n.setLang === 'function') {
-          window.foroI18n.setLang(lang);
+          window.foroI18n.setLang(mmLang);
           syncLangActive();
           syncMmLabels();
+        }
+      }
+      s.addEventListener('click', activarIdioma);
+      s.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ' || ev.key === 'Spacebar') {
+          ev.preventDefault();
+          activarIdioma();
         }
       });
     });
