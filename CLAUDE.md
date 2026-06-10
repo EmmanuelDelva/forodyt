@@ -204,6 +204,14 @@ Disparador: aviso de GSC "Página con redirección" para forodyt.com + correo sp
 - Verificación visual de 4 muestras (galería iii 5.3MB→316KB, galería ii, avatar convertido a JPEG, avatar con alpha): nítidas, sin banding.
 - **Trampa de entorno (esta sesión)**: el sandbox de Bash/git-bash falló con `fork: Permission denied` de forma persistente (npm ni siquiera arranca). Ejecutar npm/node/git vía PowerShell **solo como runner de comandos** es seguro — el riesgo de mojibake de §6 aplica a leer/escribir CONTENIDO de archivos con acentos desde PS, no a lanzar procesos.
 
+### Sesión 2026-06-09 (3) — i18n fixes + staff-key ACTIVADO end-to-end (commit `ff9658e`)
+
+- **H1 del CFP** (cerraba hallazgo #8 de la auditoría): `cfp.html` duplicaba el H1 del index. Ahora key `cfp_title` = "Call for Papers — IV Foro…" en los 3 idiomas (EN "4th International Forum on Law and Technology", FR "4e Forum International du Droit et de la Technologie" — terminología oficial ya existente en el diccionario). Verificado en vivo.
+- **Switcher de idiomas operable por teclado** (cerraba hallazgo #11): `bindSwitcher()`/`updateSwitcher()` de `i18n.js` ahora añaden por JS `role=button`, `tabindex=0`, `aria-label` y `aria-pressed` a los `span[data-lang]` del header, con handler Enter/Espacio y un `<style>` `:focus-visible` inyectado (i18n.js es el único asset presente en las 8 páginas — `mobile-menu.css` NO está en cfp). `mobile-menu.js`: mismo tratamiento para el switcher del overlay. **Patrón**: atributos a11y por JS = cero churn en los 8 HTML.
+- **Prueba trilingüe obligada ejecutada**: `node --check` en ambos JS + navegador local (`npx serve`): `foroI18n` vivo, H1 correcto en ES/EN/FR, **cambio de idioma con SOLO teclado** (focus + Enter) verificado.
+- **Staff-key ACTIVADO en producción** (cerraba la nota de seguridad): vía Chrome en `script.google.com` (cuenta CUCEA, proyecto **"IV Foro 2026 Backend"**): Code.gs reemplazado con la copia parcheada del repo (clipboard vía PowerShell `Set-Clipboard -Encoding UTF8` + Ctrl+A/V, verificación de 3 matches de `staffKeyValida_` y acentos intactos ANTES de guardar) → **Implementar → Administrar implementaciones → ✏️ → Nueva versión** (Versión 2, 9-jun; **misma URL** del ENDPOINT, verificado por ID) → Script Property `STAFF_KEY` agregada. **Probado en vivo**: sin clave → `staff_key_invalida`; con clave → pasa al `HMAC inválido` del folio dummy. La clave vive en `Claude-Work/RESULTADOS/FIDDT2026/2026-06-09_staff-key-registro-qr.md`.
+- **Trampa PowerShell nueva**: en strings interpoladas, `"$E?param"` se parsea como variable `E?` (vacía) → URL malformada; usar `"${E}?param"`. Y mensajes de commit multilínea con comillas internas rompen `git commit -m` → usar `git commit -F <archivo>`.
+
 ---
 
 ## 10. Pendientes abiertos
