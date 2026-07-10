@@ -1101,7 +1101,7 @@ html.js .circuito.in-view circle { animation: nodo 0.5s var(--ease) forwards; }
 .aliados h2 { text-align: center; margin-bottom: clamp(40px, 5vw, 70px); }
 .aliados-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: clamp(28px, 4vw, 56px) clamp(24px, 3vw, 48px);
   align-items: center;
   justify-items: center;
@@ -1327,12 +1327,37 @@ body.semblanza-lock { overflow: hidden; }
   @keyframes girarSello { to { transform: rotate(360deg); } }
 }
 
+/* ═══════════ JORNADA VIRTUAL · AVISO ═══════════ */
+.jv { background: var(--marfil-2); border-top: 1px solid var(--ink-rule); border-bottom: 1px solid var(--ink-rule); }
+.jv-inner { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: clamp(30px, 5vw, 70px); align-items: center; }
+.jv-eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dorado-deep); }
+.jv-vivo { color: var(--lacre); display: inline-flex; align-items: center; gap: 7px; }
+.jv-vivo::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--lacre); animation: latido 2.2s ease-in-out infinite; }
+.jv h2 { margin-top: 18px; font-family: var(--serif); font-weight: 560; font-size: clamp(28px, 3.6vw, 46px); line-height: 1.1; letter-spacing: -0.01em; font-variation-settings: "opsz" 144, "SOFT" 30; }
+.jv h2 em { font-style: italic; color: var(--teal); font-variation-settings: "opsz" 144, "SOFT" 78; }
+.jv p { margin-top: 14px; font-size: 15px; color: var(--ink-soft); max-width: 620px; }
+.jv .btn-primary { margin-top: 26px; }
+.jv-sello { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.jv-fecha { background: var(--noche); padding: 24px 38px 20px; text-align: center; }
+.jv-fecha b { display: block; font-family: var(--serif); font-size: 66px; font-weight: 620; line-height: 0.9; color: var(--dorado); }
+.jv-fecha span { display: block; margin-top: 9px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.3em; color: rgba(245, 239, 224, 0.6); }
+.jv-hito { border: 2px solid var(--lacre); position: relative; padding: 11px 18px 9px; transform: rotate(-2deg); }
+.jv-hito::before { content: ""; position: absolute; inset: 3px; border: 1px solid rgba(126, 42, 34, 0.45); pointer-events: none; }
+.jv-hito span { font-family: var(--mono); font-size: 9.5px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lacre); }
+@media (max-width: 860px) {
+  .jv-inner { grid-template-columns: 1fr; }
+  .jv-sello { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; }
+}
+
 /* ═══════════ RESPONSIVE ═══════════ */
 @media (max-width: 1120px) {
   .ponentes-grid { grid-template-columns: repeat(3, 1fr); }
   .ponente.destacado { grid-column: span 3; }
   .comite-grid { grid-template-columns: repeat(2, 1fr); }
-  .aliados-list { grid-template-columns: repeat(4, 1fr); }
+  .aliados-list { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .aliados-list { grid-template-columns: repeat(2, 1fr); }
 }
 /* el nav se adelgaza por etapas medidas: solo cabe completo a ≥1250px */
 @media (max-width: 1320px) {
@@ -1657,6 +1682,22 @@ body.semblanza-lock { overflow: hidden; }
         <h3 data-i18n-html="idx_eje9_title">Resolución de Conflictos<br>Tecnológicos y Disputas en Línea</h3>
         <p data-i18n="idx_eje9_desc">Resolución de disputas en línea (ODR), mediación asistida por IA, justicia predictiva, arbitraje digital, plataformas de resolución electrónica y acceso digital a la justicia.</p>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JORNADA VIRTUAL · AVISO ============ -->
+<section class="jv" id="jornada">
+  <div class="section-inner jv-inner">
+    <div class="reveal">
+      <div class="jv-eyebrow"><span class="jv-vivo" data-f18n="jv_vivo">En línea</span><span data-f18n="jv_eyebrow">Jornada previa · viernes 18 de septiembre de 2026</span></div>
+      <h2 data-f18n-html="jv_t">El Foro empieza <em>antes</em>.</h2>
+      <p data-f18n="jv_p">Las ponencias aceptadas en la convocatoria se presentan al mundo en una jornada virtual internacional de acceso abierto, coorganizada entre México y España por el Cuerpo Académico, la Universidad de Guadalajara, el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides.</p>
+      <a class="btn-primary" href="jornada-virtual.html"><span data-f18n="jv_btn">Conoce la jornada virtual</span></a>
+    </div>
+    <div class="jv-sello reveal" data-d="1">
+      <div class="jv-fecha"><b>18</b><span>SEP · 2026 · EN LÍNEA</span></div>
+      <div class="jv-hito"><span data-f18n="jv_hito">Primera coorganización México — España</span></div>
     </div>
   </div>
 </section>
@@ -1987,6 +2028,8 @@ body.semblanza-lock { overflow: hidden; }
       <div class="aliado-cell reveal" data-d="2"><a class="aliado-link" href="https://cienciasforenses.jalisco.gob.mx/" target="_blank" rel="noopener noreferrer" aria-label="Instituto Jalisciense de Ciencias Forenses — sitio oficial"><img class="aliado-logo" src="img/aliados/ijcf.png" width="480" height="115" loading="lazy" decoding="async" alt="Instituto Jalisciense de Ciencias Forenses · Scientia Lux Iustitiae"></a></div>
       <div class="aliado-cell reveal" data-d="3"><a class="aliado-link" href="https://www.ramajudicial.gov.co/" target="_blank" rel="noopener noreferrer" aria-label="Rama Judicial de Colombia — sitio oficial"><img class="aliado-logo" src="img/aliados/csj-colombia.png" width="480" height="136" loading="lazy" decoding="async" alt="Consejo Superior de la Judicatura · Rama Judicial · República de Colombia"></a></div>
       <div class="aliado-cell reveal" data-d="4"><a class="aliado-link" href="https://www.amcid.org/" target="_blank" rel="noopener noreferrer" aria-label="AMCID — sitio oficial"><img class="aliado-logo" src="img/aliados/amcid.png" width="480" height="165" loading="lazy" decoding="async" alt="AMCID · Academia Mexicana de Ciberseguridad y Derecho Digital"></a></div>
+      <div class="aliado-cell reveal" data-d="1"><img class="aliado-logo" src="img/aliados/oma.png" width="852" height="725" loading="lazy" decoding="async" alt="Observatorio Mundial de la Abogacía"></div>
+      <div class="aliado-cell reveal" data-d="2"><a class="aliado-link" href="https://hesperides.edu.es/" target="_blank" rel="noopener noreferrer" aria-label="Universidad de las Hespérides — sitio oficial"><img class="aliado-logo" src="img/aliados/hesperides.png" width="309" height="161" loading="lazy" decoding="async" alt="Universidad de las Hespérides"></a></div>
     </div>
   </div>
 </section>
@@ -2143,6 +2186,10 @@ body.semblanza-lock { overflow: hidden; }
       pon_lead: 'The Scientific Committee is finalizing the roster of the fourth edition. Confirmations are announced on the Forum\'s official social media. The curation preserves the balance among <strong>academia, the judicial and legislative branches, the private sector, and national and international regulatory bodies</strong> that has distinguished the event since the first edition.',
       tray_lead: 'Since 2023 the Forum has brought together at CUCEA jurists, engineers, judges, regulators and scholars from three continents to discuss how law should respond to artificial intelligence, the crypto economy, cybersecurity and digital intellectual property. Each edition culminates in a <strong>collective book with double-blind peer review</strong>.',
       ed3_title: 'Eight countries, thirty-three speakers',
+      jv_vivo: 'Online', jv_eyebrow: 'Pre-forum day · Friday, September 18, 2026',
+      jv_t: 'The Forum begins <em>early</em>.',
+      jv_p: 'The papers accepted through the call are presented to the world in an open-access international online session, co-organized between Mexico and Spain by the research group, the University of Guadalajara, the Observatorio Mundial de la Abogacía and the Universidad de las Hespérides.',
+      jv_btn: 'Discover the online session', jv_hito: 'First Mexico — Spain co-organization',
       cinta_tema: 'Agents · Algorithms · Autonomy', cinta_ponentes: '33 speakers · 3rd edition', cinta_paises: '8 countries'
     },
     fr: {
@@ -2159,6 +2206,10 @@ body.semblanza-lock { overflow: hidden; }
       pon_lead: 'Le Comité scientifique achève la composition de la quatrième édition. Les confirmations sont annoncées sur les réseaux officiels du Forum. La programmation préserve l\'équilibre entre <strong>le monde académique, les secteurs judiciaire et législatif, le secteur privé et les organismes nationaux et internationaux à fonction régulatrice</strong> qui distingue l\'événement depuis la première édition.',
       tray_lead: 'Depuis 2023, le Forum réunit au CUCEA juristes, ingénieurs, juges, régulateurs et universitaires de trois continents pour discuter de la réponse que le droit doit apporter à l\'intelligence artificielle, à la cryptoéconomie, à la cybersécurité et à la propriété intellectuelle numérique. Chaque édition culmine avec un <strong>ouvrage collectif évalué en double aveugle</strong>.',
       ed3_title: 'Huit pays, trente-trois intervenants',
+      jv_vivo: 'En ligne', jv_eyebrow: 'Journée préalable · vendredi 18 septembre 2026',
+      jv_t: 'Le Forum commence <em>avant</em>.',
+      jv_p: 'Les communications retenues par l\'appel sont présentées au monde lors d\'une journée virtuelle internationale en accès libre, coorganisée entre le Mexique et l\'Espagne par le corps académique, l\'Université de Guadalajara, l\'Observatorio Mundial de la Abogacía et l\'Universidad de las Hespérides.',
+      jv_btn: 'Découvrir la journée virtuelle', jv_hito: 'Première coorganisation Mexique — Espagne',
       cinta_tema: 'Agents · Algorithmes · Autonomie', cinta_ponentes: '33 intervenants · IIIe édition', cinta_paises: '8 pays'
     }
   };

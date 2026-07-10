@@ -791,6 +791,11 @@
       <strong data-i18n="cfp_colab_label">En colaboración institucional con</strong>
       <span data-i18n="cfp_colab_value">Supremo Tribunal de Justicia del Estado de Jalisco · Poder Judicial del Estado de Jalisco</span>
     </div>
+
+    <div class="convened-by" style="margin-top: 14px; padding-top: 14px;">
+      <strong id="jvnLabel">Jornada virtual · viernes 18 de septiembre</strong>
+      <span id="jvnTexto">Los trabajos aceptados se presentan en línea en la Jornada Virtual Internacional, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a></span>
+    </div>
   </header>
 
   <!-- ============== DIRECCIÓN ============== -->
@@ -1138,6 +1143,34 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
   });
+})();
+</script>
+
+<script>
+/* aviso de la jornada virtual: trilingüe vía observador de <html lang>,
+   sin tocar i18n.js (mismo patrón que el puente f18n del index) */
+(function () {
+  var T = {
+    es: { l: 'Jornada virtual · viernes 18 de septiembre',
+          t: 'Los trabajos aceptados se presentan en línea en la Jornada Virtual Internacional, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a>' },
+    en: { l: 'Online session · Friday, September 18',
+          t: 'Accepted papers are presented online at the International Virtual Session, co-organized with the Observatorio Mundial de la Abogacía and the Universidad de las Hespérides (Spain) — <a href="jornada-virtual.html">discover the session →</a>' },
+    fr: { l: 'Journée virtuelle · vendredi 18 septembre',
+          t: 'Les travaux retenus sont présentés en ligne lors de la Journée virtuelle internationale, coorganisée avec l\'Observatorio Mundial de la Abogacía et l\'Universidad de las Hespérides (Espagne) — <a href="jornada-virtual.html">découvrir la journée →</a>' }
+  };
+  var label = document.getElementById('jvnLabel');
+  var texto = document.getElementById('jvnTexto');
+  if (!label || !texto) return;
+  function aplicar() {
+    var lang = document.documentElement.lang || 'es';
+    var d = T[lang] || T.es;
+    label.textContent = d.l;
+    texto.innerHTML = d.t;
+  }
+  aplicar();
+  if ('MutationObserver' in window) {
+    new MutationObserver(aplicar).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  }
 })();
 </script>
 
