@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=block" rel="stylesheet">
+<style>
+:root {
+  --ink:#0E1B2C; --teal:#2A5C5C; --dorado:#B8923E; --dorado-soft:#C8A858; --dorado-deep:#96742D;
+  --marfil:#F5EFE0; --lacre:#A63B2C; --noche:#0A1422;
+  --mono:'JetBrains Mono',monospace; --serif:'Fraunces',Georgia,serif; --sans:'Inter',sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; background:var(--noche); overflow:hidden; position:relative; font-family:var(--sans); }
+body::before { content:""; position:absolute; inset:0; z-index:0;
+  background:radial-gradient(ellipse 900px 500px at 78% 18%, rgba(184,146,62,.14), transparent 60%); }
+body::after { content:""; position:absolute; inset:0; opacity:.06; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.marca { position:absolute; width:34px; height:34px; border:2px solid rgba(200,168,88,.75); z-index:5; }
+.marca.tl { top:26px; left:26px; border-right:none; border-bottom:none; }
+.marca.tr { top:26px; right:26px; border-left:none; border-bottom:none; }
+.marca.bl { bottom:26px; left:26px; border-right:none; border-top:none; }
+.marca.br { bottom:26px; right:26px; border-left:none; border-top:none; }
+.contenido { position:absolute; left:84px; top:96px; z-index:3; max-width:840px; }
+.eyebrow { display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:15.5px; font-weight:400;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--dorado-soft); }
+.eyebrow::before { content:""; width:54px; height:2px; background:var(--dorado); }
+h1 { margin-top:30px; font-family:var(--serif); font-weight:520; font-size:118px; line-height:1.0;
+  color:var(--marfil); font-variation-settings:"opsz" 144,"SOFT" 30; letter-spacing:-0.015em; }
+h1 em { font-style:italic; color:var(--dorado-soft); font-variation-settings:"opsz" 144,"SOFT" 80; }
+h1 .punto { color:var(--lacre); }
+.detalle { margin-top:34px; font-family:var(--mono); font-size:16.5px; letter-spacing:.14em;
+  color:rgba(245,239,224,.66); text-transform:uppercase; }
+/* estampa de lacre */
+.estampa { position:absolute; right:76px; top:88px; z-index:4; transform:rotate(7deg);
+  border:2.5px solid var(--lacre); padding:20px 26px 17px; text-align:center; }
+.estampa::before { content:""; position:absolute; inset:5px; border:1px solid rgba(166,59,44,.55); }
+.estampa .cierra { font-family:var(--mono); font-size:13.5px; letter-spacing:.3em; color:var(--lacre); text-transform:uppercase; display:flex; align-items:center; gap:9px; justify-content:center; }
+.estampa .cierra::after { content:""; width:8px; height:8px; border-radius:50%; background:var(--lacre); }
+.estampa .fecha { margin-top:8px; font-family:var(--serif); font-weight:600; font-size:44px; color:var(--lacre); line-height:1; letter-spacing:.02em; }
+.estampa .anio { margin-top:5px; font-family:var(--mono); font-size:12px; letter-spacing:.42em; color:rgba(166,59,44,.9); }
+/* fila de numerales */
+.numerales { position:absolute; left:84px; bottom:96px; z-index:3; display:flex; align-items:baseline; gap:22px;
+  font-family:var(--serif); font-style:italic; font-weight:520; font-size:31px; color:var(--dorado);
+  font-variation-settings:"opsz" 100,"SOFT" 60; }
+.numerales span { opacity:.92; }
+.numerales i { font-style:normal; font-size:13px; color:rgba(200,168,88,.5); }
+.numerales .em { color:var(--lacre); }
+.pie { position:absolute; left:84px; bottom:46px; z-index:3; font-family:var(--mono); font-size:15px;
+  letter-spacing:.2em; color:rgba(245,239,224,.55); text-transform:uppercase; }
+.pie b { color:var(--dorado-soft); font-weight:500; }
+</style>
+</head>
+<body>
+<div class="marca tl"></div><div class="marca tr"></div><div class="marca bl"></div><div class="marca br"></div>
+<div class="contenido">
+  <div class="eyebrow">IV Foro Internacional de Derecho y Tecnología</div>
+  <h1>Convocatoria<br><em>abierta</em><span class="punto">.</span></h1>
+  <div class="detalle">Nueve ejes · Tres idiomas · Arbitraje doble ciego</div>
+</div>
+<div class="estampa">
+  <div class="cierra">Cierra</div>
+  <div class="fecha">1 · AGO</div>
+  <div class="anio">2026</div>
+</div>
+<div class="numerales">
+  <span>I</span><i>·</i><span>II</span><i>·</i><span>III</span><i>·</i><span>IV</span><i>·</i><span>V</span><i>·</i><span>VI</span><i>·</i><span>VII</span><i>·</i><span class="em">VIII</span><i>·</i><span class="em">IX</span>
+</div>
+<div class="pie">Envía tu ponencia — <b>forodyt.com</b></div>
+</body>
+</html>

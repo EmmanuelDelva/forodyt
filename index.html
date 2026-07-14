@@ -1485,7 +1485,7 @@ body.semblanza-lock { overflow: hidden; }
       <div class="cuenta cuenta-cfp">
         <span class="cuenta-label" data-f18n="cnt_cfp">Cierra la convocatoria</span>
         <span class="cuenta-num"><b id="countCfp">000</b><i data-f18n="cnt_dias2">días</i></span>
-        <span class="cuenta-fecha">15 · JUL · 2026</span>
+        <span class="cuenta-fecha">1 · AGO · 2026</span>
       </div>
     </div>
     <div class="hero-actions">
@@ -1907,23 +1907,15 @@ body.semblanza-lock { overflow: hidden; }
         <div class="lacre" aria-hidden="true"><span>IV</span></div>
         <h3 data-i18n="idx_cfp_dates_title">Fechas críticas</h3>
         <ul class="cfp-deadlines" id="deadlines">
-          <li data-ini="2026-05-01" data-fin="2026-06-30">
-            <span class="deadline-label" data-i18n="idx_cfp_dl1_label">Apertura de convocatoria</span>
-            <span class="deadline-date" data-i18n="idx_cfp_dl1_date">May · 2026</span>
+          <li data-ini="2026-05-01" data-fin="2026-08-01">
+            <span class="deadline-label" data-i18n="idx_cfp_dl1_label">Recepción de trabajos</span>
+            <span class="deadline-date" data-i18n="idx_cfp_dl1_date">1 may — 1 ago · 2026</span>
           </li>
-          <li data-ini="2026-06-01" data-fin="2026-06-30">
-            <span class="deadline-label" data-i18n="idx_cfp_dl2_label">Envío de resumen extendido</span>
-            <span class="deadline-date" data-i18n="idx_cfp_dl2_date">Jun · 2026</span>
-          </li>
-          <li data-ini="2026-07-01" data-fin="2026-07-31">
+          <li data-ini="2026-08-02" data-fin="2026-08-20">
             <span class="deadline-label" data-i18n="idx_cfp_dl3_label">Notificación de aceptación</span>
-            <span class="deadline-date" data-i18n="idx_cfp_dl3_date">Jul · 2026</span>
+            <span class="deadline-date" data-i18n="idx_cfp_dl3_date">20 · ago · 2026</span>
           </li>
-          <li data-ini="2026-08-01" data-fin="2026-08-31">
-            <span class="deadline-label" data-i18n="idx_cfp_dl4_label">Envío de manuscrito final</span>
-            <span class="deadline-date" data-i18n="idx_cfp_dl4_date">Ago · 2026</span>
-          </li>
-          <li data-ini="2026-09-01" data-fin="2026-09-22">
+          <li data-ini="2026-08-21" data-fin="2026-09-22">
             <span class="deadline-label" data-i18n="idx_cfp_dl5_label">Foro · IV edición</span>
             <span class="deadline-date" style="color: var(--dorado-deep);" data-i18n="idx_cfp_dl5_date">21-22 Sep · 2026</span>
           </li>
@@ -2328,7 +2320,7 @@ body.semblanza-lock { overflow: hidden; }
       setTimeout(function () { el.textContent = final; }, delay + 2500); // failsafe
     }
     reloj('countForo', new Date(2026, 8, 21), 900);
-    reloj('countCfp', new Date(2026, 6, 15), 1150);
+    reloj('countCfp', new Date(2026, 7, 1), 1150);
   })();
 
   /* ───── estado de las fechas críticas: pasada / activa / por venir ───── */

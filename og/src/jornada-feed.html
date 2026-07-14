@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=block" rel="stylesheet">
+<style>
+:root {
+  --ink:#0E1B2C; --teal:#2A5C5C; --dorado:#B8923E; --dorado-soft:#C8A858; --dorado-deep:#96742D;
+  --marfil:#F5EFE0; --lacre:#A63B2C; --noche:#0A1422;
+  --mono:'JetBrains Mono',monospace; --serif:'Fraunces',Georgia,serif; --sans:'Inter',sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1080px; height:1350px; background:var(--noche); overflow:hidden; position:relative; font-family:var(--sans); }
+body::before { content:""; position:absolute; inset:0; z-index:0;
+  background:radial-gradient(ellipse 800px 700px at 75% 22%, rgba(184,146,62,.16), transparent 62%); }
+body::after { content:""; position:absolute; inset:0; opacity:.06; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.marca { position:absolute; width:36px; height:36px; border:2px solid rgba(200,168,88,.75); z-index:5; }
+.marca.tl { top:34px; left:34px; border-right:none; border-bottom:none; }
+.marca.tr { top:34px; right:34px; border-left:none; border-bottom:none; }
+.marca.bl { bottom:34px; left:34px; border-right:none; border-top:none; }
+.marca.br { bottom:34px; right:34px; border-left:none; border-top:none; }
+.ghost { position:absolute; right:-30px; top:340px; z-index:0;
+  font-family:var(--serif); font-weight:620; font-size:640px; line-height:1;
+  color:transparent; -webkit-text-stroke:2.5px rgba(200,168,88,.26); font-variation-settings:"opsz" 144,"SOFT" 40; }
+.contenido { position:absolute; left:84px; top:120px; z-index:3; max-width:900px; }
+.eyebrow { display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:19px;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--dorado-soft); }
+.eyebrow::before { content:""; width:54px; height:2px; background:var(--dorado); }
+h1 { margin-top:44px; font-family:var(--serif); font-weight:530; font-size:132px; line-height:1.02;
+  color:var(--marfil); font-variation-settings:"opsz" 144,"SOFT" 30; letter-spacing:-0.015em; }
+h1 em { font-style:italic; color:var(--dorado-soft); font-variation-settings:"opsz" 144,"SOFT" 80; }
+.detalle { margin-top:56px; font-family:var(--mono); font-size:24px; letter-spacing:.18em;
+  color:rgba(245,239,224,.8); text-transform:uppercase; line-height:2.1; }
+.detalle b { color:var(--dorado-soft); font-weight:500; }
+.linea { margin-top:52px; max-width:780px; font-family:var(--sans); font-weight:300; font-size:29px; line-height:1.55; color:rgba(245,239,224,.72); }
+.linea b { font-weight:500; color:var(--marfil); }
+.estampa { position:absolute; left:84px; bottom:230px; z-index:4; transform:rotate(-2deg);
+  border:3px solid var(--lacre); padding:20px 28px 17px; }
+.estampa::before { content:""; position:absolute; inset:6px; border:1px solid rgba(166,59,44,.55); }
+.estampa span { font-family:var(--mono); font-size:19px; letter-spacing:.26em; color:var(--lacre); text-transform:uppercase; }
+.pie { position:absolute; left:84px; bottom:96px; z-index:3; font-family:var(--mono); font-size:21px;
+  letter-spacing:.2em; color:rgba(245,239,224,.55); text-transform:uppercase; }
+.pie b { color:var(--dorado-soft); font-weight:500; }
+</style>
+</head>
+<body>
+<div class="marca tl"></div><div class="marca tr"></div><div class="marca bl"></div><div class="marca br"></div>
+<div class="ghost">18</div>
+<div class="contenido">
+  <div class="eyebrow">IV Foro Internacional de Derecho y Tecnología</div>
+  <h1>El Foro<br>empieza<br><em>antes</em>.</h1>
+  <div class="detalle">Jornada virtual internacional<br><b>Viernes 18 · septiembre · 2026</b><br>En línea · Acceso abierto · ES — EN — FR</div>
+  <div class="linea">Los trabajos aceptados en el <b>call for papers</b> se presentan al mundo, en coorganización entre México y España.</div>
+</div>
+<div class="estampa"><span>Primera coorganización México — España</span></div>
+<div class="pie">Envía tu ponencia antes del 1 de agosto — <b>forodyt.com</b></div>
+</body>
+</html>
