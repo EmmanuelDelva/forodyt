@@ -30,7 +30,8 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 6. **No reintroducir imágenes base64** en el HTML. Las imágenes viven como archivos en `img/`.
 7. **Numerales romanos de ediciones en MAYÚSCULAS** y con formato uniforme en todo el sitio.
 8. **`git add` por archivo concreto**, nunca `git add -A` (evita subir backups, scripts temporales, basura).
-9. **Commits directos a `main`** con mensaje descriptivo + línea `Co-Authored-By`. Push y verificar.
+9. **Correo oficial del Foro = `contacto@forodyt.com`.** Es la cara pública: va en footer, contacto, JSON-LD y en TODO copy de difusión (redes, WhatsApp, kits para aliados). `emmanueldelva@cucea.udg.mx` es el correo del Director y **solo** se usa para la recepción de artículos del CFP (cfp.html, jornada-virtual.html, inscripcion.html) con asunto «ARTÍCULO IV FORO DERECHO Y TECNOLOGÍA: NOMBRE APELLIDOS». No sustituir uno por otro sin instrucción expresa. (Corrección del director, 2026-08-06.)
+10. **Commits directos a `main`** con mensaje descriptivo + línea `Co-Authored-By`. Push y verificar.
 
 ---
 
