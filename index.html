@@ -75,7 +75,8 @@
     "price": "0",
     "priceCurrency": "MXN",
     "availability": "https://schema.org/InStock",
-    "validFrom": "2026-05-01"
+    "validFrom": "2026-05-01",
+    "validThrough": "2026-08-15"
   },
   "performer": [
     { "@type": "Person", "name": "José Luis Álvarez Pulido" },
@@ -1327,6 +1328,31 @@ body.semblanza-lock { overflow: hidden; }
   @keyframes girarSello { to { transform: rotate(360deg); } }
 }
 
+/* ═══════════ FAJA DE PRÓRROGA ═══════════
+   la banda de papel que se ciñe al pliego cuando hay enmienda:
+   la fecha vencida se tacha, la vigente ocupa su lugar */
+.faja { display: block; background: var(--lacre); color: var(--marfil); text-decoration: none; border-top: 1px solid rgba(245,239,224,0.16); border-bottom: 1px solid rgba(245,239,224,0.16); scroll-margin-top: 84px; }
+.faja-inner { max-width: 1380px; margin: 0 auto; padding: 17px clamp(20px, 4vw, 48px) 15px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 26px; }
+.faja-kicker { display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--marfil); flex: none; }
+.faja-punto { width: 7px; height: 7px; border-radius: 50%; background: var(--marfil); flex: none; animation: latido 2.2s ease-in-out infinite; }
+.faja-cuerpo { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; padding-left: 26px; border-left: 1px solid rgba(245,239,224,0.3); }
+.faja-rotulo { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,239,224,0.72); }
+.faja-fechas { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; }
+.faja-antes { position: relative; text-decoration: none; font-family: var(--serif); font-style: italic; font-size: 17px; font-variation-settings: "opsz" 60, "SOFT" 84; color: rgba(245,239,224,0.72); white-space: nowrap; }
+.faja-antes::after { content: ""; position: absolute; left: -3px; right: -3px; top: 55%; height: 1.5px; background: var(--marfil); transform: rotate(-1.4deg); }
+.faja-flecha { position: relative; flex: none; width: 30px; height: 1px; background: rgba(245,239,224,0.6); align-self: center; }
+.faja-flecha::after { content: ""; position: absolute; right: -1px; top: 50%; width: 6px; height: 6px; border-top: 1px solid rgba(245,239,224,0.6); border-right: 1px solid rgba(245,239,224,0.6); transform: translateY(-50%) rotate(45deg); }
+.faja-ahora { text-decoration: none; font-family: var(--serif); font-weight: 620; font-size: clamp(19px, 2vw, 24px); line-height: 1.05; letter-spacing: -0.01em; font-variation-settings: "opsz" 144, "SOFT" 34; color: var(--marfil); white-space: nowrap; }
+.faja-cta { margin-left: auto; display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--marfil); }
+.faja-cta i { font-style: normal; transition: transform 0.45s var(--ease); }
+.faja:hover .faja-cta i { transform: translateX(6px); }
+.faja:focus-visible { outline: 2px solid var(--marfil); outline-offset: -6px; }
+@media (max-width: 900px) { .faja-cta { margin-left: 0; } }
+@media (max-width: 640px) {
+  .faja-inner { padding: 14px 20px 13px; gap: 8px 14px; }
+  .faja-cuerpo { width: 100%; padding-left: 0; border-left: none; }
+}
+
 /* ═══════════ JORNADA VIRTUAL · AVISO ═══════════ */
 .jv { background: var(--marfil-2); border-top: 1px solid var(--ink-rule); border-bottom: 1px solid var(--ink-rule); }
 .jv-inner { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: clamp(30px, 5vw, 70px); align-items: center; }
@@ -1485,7 +1511,7 @@ body.semblanza-lock { overflow: hidden; }
       <div class="cuenta cuenta-cfp">
         <span class="cuenta-label" data-f18n="cnt_cfp">Cierra la convocatoria</span>
         <span class="cuenta-num"><b id="countCfp">000</b><i data-f18n="cnt_dias2">días</i></span>
-        <span class="cuenta-fecha">1 · AGO · 2026</span>
+        <span class="cuenta-fecha">15 · AGO · 2026</span>
       </div>
     </div>
     <div class="hero-actions">
@@ -1495,6 +1521,23 @@ body.semblanza-lock { overflow: hidden; }
   </div>
 
 </header>
+
+<!-- ============ FAJA DE PRÓRROGA · la enmienda ceñida al pliego ============
+     La fecha vencida no se borra: se tacha y se le pone la nueva al lado. -->
+<a class="faja" id="prorroga" href="cfp.html" aria-label="Prórroga definitiva: la convocatoria cierra el 15 de agosto de 2026. Consulta las bases.">
+  <div class="faja-inner">
+    <span class="faja-kicker"><span class="faja-punto" aria-hidden="true"></span><span data-f18n="faja_kicker">Prórroga definitiva</span></span>
+    <span class="faja-cuerpo">
+      <span class="faja-rotulo" data-f18n="faja_rotulo">Cierre de la convocatoria</span>
+      <span class="faja-fechas">
+        <del class="faja-antes" datetime="2026-08-01" data-f18n="faja_antes">1 de agosto</del>
+        <span class="faja-flecha" aria-hidden="true"></span>
+        <ins class="faja-ahora" datetime="2026-08-15" data-f18n="faja_ahora">15 de agosto de 2026</ins>
+      </span>
+    </span>
+    <span class="faja-cta"><span data-f18n="faja_cta">Consulta las bases</span><i aria-hidden="true">→</i></span>
+  </div>
+</a>
 
 <!-- ============ PRENSA · cifras ============ -->
 <div class="prensa" role="region" aria-label="Cifras del Foro">
@@ -1907,11 +1950,11 @@ body.semblanza-lock { overflow: hidden; }
         <div class="lacre" aria-hidden="true"><span>IV</span></div>
         <h3 data-i18n="idx_cfp_dates_title">Fechas críticas</h3>
         <ul class="cfp-deadlines" id="deadlines">
-          <li data-ini="2026-05-01" data-fin="2026-08-01">
+          <li data-ini="2026-05-01" data-fin="2026-08-15">
             <span class="deadline-label" data-i18n="idx_cfp_dl1_label">Recepción de trabajos</span>
-            <span class="deadline-date" data-i18n="idx_cfp_dl1_date">1 may — 1 ago · 2026</span>
+            <span class="deadline-date" data-i18n="idx_cfp_dl1_date">1 may — 15 ago · 2026</span>
           </li>
-          <li data-ini="2026-08-02" data-fin="2026-08-20">
+          <li data-ini="2026-08-16" data-fin="2026-08-20">
             <span class="deadline-label" data-i18n="idx_cfp_dl3_label">Notificación de aceptación</span>
             <span class="deadline-date" data-i18n="idx_cfp_dl3_date">20 · ago · 2026</span>
           </li>
@@ -2186,6 +2229,8 @@ body.semblanza-lock { overflow: hidden; }
       jv_t: 'The Forum begins <em>early</em>.',
       jv_p: 'The papers accepted through the call are presented to the world in an open-access international online session, co-organized between Mexico and Spain by the research group, the University of Guadalajara, the Observatorio Mundial de la Abogacía and the Universidad de las Hespérides.',
       jv_btn: 'Discover the online session', jv_hito: 'First Mexico — Spain co-organization',
+      faja_kicker: 'Final extension', faja_rotulo: 'Call for papers closes',
+      faja_antes: 'August 1', faja_ahora: 'August 15, 2026', faja_cta: 'Read the guidelines',
       cinta_tema: 'Agents · Algorithms · Autonomy', cinta_ponentes: '33 speakers · 3rd edition', cinta_paises: '8 countries'
     },
     fr: {
@@ -2206,6 +2251,8 @@ body.semblanza-lock { overflow: hidden; }
       jv_t: 'Le Forum commence <em>avant</em>.',
       jv_p: 'Les communications retenues par l\'appel sont présentées au monde lors d\'une journée virtuelle internationale en accès libre, coorganisée entre le Mexique et l\'Espagne par le corps académique, l\'Université de Guadalajara, l\'Observatorio Mundial de la Abogacía et l\'Universidad de las Hespérides.',
       jv_btn: 'Découvrir la journée virtuelle', jv_hito: 'Première coorganisation Mexique — Espagne',
+      faja_kicker: 'Prorogation définitive', faja_rotulo: 'Clôture de l\'appel',
+      faja_antes: '1er août', faja_ahora: '15 août 2026', faja_cta: 'Consulter les bases',
       cinta_tema: 'Agents · Algorithmes · Autonomie', cinta_ponentes: '33 intervenants · IIIe édition', cinta_paises: '8 pays'
     }
   };
@@ -2300,7 +2347,7 @@ body.semblanza-lock { overflow: hidden; }
   }
   document.querySelectorAll('.cifra').forEach(function (c) { c.setAttribute('data-count-host', ''); });
 
-  /* ───── dos relojes: foro (21 sep) y cierre de convocatoria (15 jul) ─────
+  /* ───── dos relojes: foro (21 sep) y cierre de convocatoria (15 ago) ─────
      el valor correcto se fija de inmediato (no depende de rAF:
      pestañas ocultas no disparan frames); el rodillo solo es adorno */
   (function () {
@@ -2324,7 +2371,7 @@ body.semblanza-lock { overflow: hidden; }
       setTimeout(function () { el.textContent = final; }, delay + 2500); // failsafe
     }
     reloj('countForo', new Date(2026, 8, 21), 900);
-    reloj('countCfp', new Date(2026, 7, 1), 1150);
+    reloj('countCfp', new Date(2026, 7, 15), 1150);
   })();
 
   /* ───── estado de las fechas críticas: pasada / activa / por venir ───── */

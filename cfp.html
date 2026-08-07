@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>Call for Papers — IV Foro Internacional de Derecho y Tecnología</title>
-<meta name="description" content="Convocatoria del IV Foro Internacional de Derecho y Tecnología: ponencias del 1 mayo al 1 agosto 2026. Libro colectivo con ISBN. Español, inglés y francés.">
+<meta name="description" content="Convocatoria del IV Foro Internacional de Derecho y Tecnología: ponencias del 1 mayo al 15 agosto 2026. Libro colectivo con ISBN. Español, inglés y francés.">
 <meta name="keywords" content="call for papers derecho y tecnología, convocatoria de ponencias 2026, congreso jurídico internacional, inteligencia artificial y derecho, IA generativa, ciberseguridad, propiedad intelectual, protección de datos, libro colectivo con ISBN, derecho digital, LegalTech">
 <meta name="author" content="Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»">
 <link rel="canonical" href="https://forodyt.com/cfp.html">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Foro Internacional de Derecho y Tecnología">
 <meta property="og:title" content="Convocatoria de Ponencias · IV Foro Internacional de Derecho y Tecnología">
-<meta property="og:description" content="Recepción de trabajos del 1 de mayo al 1 de agosto de 2026. Publicación en libro colectivo con ISBN. Se aceptan contribuciones en español, inglés y francés.">
+<meta property="og:description" content="Recepción de trabajos del 1 de mayo al 15 de agosto de 2026. Publicación en libro colectivo con ISBN. Se aceptan contribuciones en español, inglés y francés.">
 <meta property="og:url" content="https://forodyt.com/cfp.html">
 <meta property="og:image" content="https://forodyt.com/og/og-cfp.png">
 <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Convocatoria de Ponencias · IV Foro Internacional de Derecho y Tecnología">
-<meta name="twitter:description" content="Recepción de trabajos del 1 de mayo al 1 de agosto de 2026. Publicación en libro colectivo con ISBN.">
+<meta name="twitter:description" content="Recepción de trabajos del 1 de mayo al 15 de agosto de 2026. Publicación en libro colectivo con ISBN.">
 <meta name="twitter:image" content="https://forodyt.com/og/og-cfp.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -265,6 +265,53 @@
   }
 
   /* ===== KEY DATES (timeline) ===== */
+  /* ===== FE DE ERRATAS · la enmienda al pliego ===== */
+  .errata {
+    --lacre: #7E2A22;
+    margin-top: 18px;
+    padding: 18px 22px 16px;
+    border-top: 1px solid rgba(11,36,48,0.16);
+    border-bottom: 1px solid rgba(11,36,48,0.16);
+    background: rgba(126,42,34,0.045);
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    grid-template-areas: "rotulo rotulo" "linea sello" "glosa sello";
+    column-gap: 22px;
+    row-gap: 9px;
+    align-items: end;
+  }
+  .errata-rotulo {
+    grid-area: rotulo;
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; font-weight: 500; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--lacre);
+  }
+  .errata-rotulo::before { content: ""; width: 26px; height: 1px; background: var(--lacre); flex: none; }
+  .errata-linea { grid-area: linea; margin: 2px 0 0; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
+  .errata-vieja {
+    position: relative; text-decoration: none;
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 19px; color: var(--muted); white-space: nowrap;
+  }
+  .errata-vieja::after { content: ""; position: absolute; left: -3px; right: -3px; top: 54%; height: 2px; background: var(--lacre); transform: rotate(-1.4deg); }
+  .errata-flecha { position: relative; flex: none; width: 38px; height: 1px; margin: 0 8px; background: var(--lacre); }
+  .errata-flecha::after { content: ""; position: absolute; right: -1px; top: 50%; width: 7px; height: 7px; border-top: 1px solid var(--lacre); border-right: 1px solid var(--lacre); transform: translateY(-50%) rotate(45deg); }
+  .errata-nueva {
+    text-decoration: none; font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 27px; line-height: 1.05; letter-spacing: -0.015em; color: var(--lacre);
+  }
+  .errata-sello { grid-area: sello; position: relative; align-self: center; justify-self: end; padding: 10px 15px 8px; border: 2px solid var(--lacre); transform: rotate(-2.4deg); }
+  .errata-sello::before { content: ""; position: absolute; inset: 3px; border: 1px solid rgba(126,42,34,0.45); pointer-events: none; }
+  .errata-sello span { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lacre); white-space: nowrap; }
+  .errata-glosa { grid-area: glosa; margin: 0; max-width: 52ch; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .errata-glosa i { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink); }
+  @media (max-width: 620px) {
+    .errata { grid-template-columns: minmax(0,1fr); grid-template-areas: "rotulo" "linea" "sello" "glosa"; row-gap: 13px; }
+    .errata-sello { justify-self: start; }
+    .errata-nueva { font-size: 23px; }
+  }
+
   .timeline {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -877,7 +924,7 @@
       <div class="ti">
         <span class="step" data-i18n="cfp_date1_step">01 · Recepción</span>
         <div class="label" data-i18n="cfp_date1_label">envío de trabajos</div>
-        <div class="date" data-i18n-html="cfp_date1_value_html">1 de mayo &mdash;<br>1 de agosto 2026</div>
+        <div class="date" data-i18n-html="cfp_date1_value_html">1 de mayo &mdash;<br>15 de agosto 2026</div>
       </div>
       <div class="ti">
         <span class="step" data-i18n="cfp_date2_step">02 · Dictamen</span>
@@ -890,6 +937,18 @@
         <div class="date" data-i18n="cfp_date3_value">21 &amp; 22 de septiembre 2026</div>
       </div>
     </div>
+
+    <!-- fe de erratas: la fecha vencida se tacha, no se borra -->
+    <aside class="errata" role="note" aria-labelledby="errata-tit">
+      <span class="errata-rotulo" id="errata-tit" data-i18n="cfp_errata_rotulo">Prórroga definitiva</span>
+      <p class="errata-linea">
+        <del class="errata-vieja" datetime="2026-08-01" data-i18n="cfp_errata_vieja">1 de agosto</del>
+        <span class="errata-flecha" aria-hidden="true"></span>
+        <ins class="errata-nueva" datetime="2026-08-15" data-i18n="cfp_errata_nueva">15 de agosto de 2026</ins>
+      </p>
+      <span class="errata-sello"><span data-i18n="cfp_errata_sello">Definitiva</span></span>
+      <p class="errata-glosa" data-i18n-html="cfp_errata_glosa_html">Donde decía <i>1 de agosto</i>, léase <i>15 de agosto de 2026</i>. La recepción de artículos se amplía y esta es la fecha de cierre definitiva. El resto de la convocatoria no cambia: artículo completo de 15 a 20 páginas, en un solo envío.</p>
+    </aside>
   </section>
 
   <!-- ============== TEMÁTICAS ============== -->
