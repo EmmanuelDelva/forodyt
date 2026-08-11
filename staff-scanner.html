@@ -595,6 +595,14 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55
 // Bloques de asistencia del IV Foro. Modelo inicial = 1 entrada por sede × jornada.
 // Cuando se confirmen ponentes y subdivisiones internas, podrás añadir más filas
 // al Sheet y duplicarlas aquí; id_platica DEBE coincidir con el de la pestaña Platicas.
+//
+// PENDIENTE — CINETECA (confirmada como sede por la Dirección, 2026-08-06).
+// El recorrido oficial de la IV edición es: CUCEA inaugural → jornadas en CUGDL
+// y Cineteca → cierre en Ciudad Judicial. Falta dar de alta el bloque de la
+// Cineteca: en cuanto se confirmen fecha y horario, añadir la fila al Sheet
+// (pestaña Platicas) y replicarla aquí con el MISMO id, p. ej.:
+//   { id: N, jornada: 'j2', sede: 'cineteca', fecha: '…', inicio: '…', fin: '…', nombre: 'Cineteca · …' }
+// No inventar horarios: este arreglo gobierna el control de acceso con QR.
 const PLATICAS = [
   { id: 1, jornada: 'j1', sede: 'cucea',            fecha: 'Lun 21 sep', inicio: '09:00', fin: '18:30', nombre: 'CUCEA · Jornada 1 completa' },
   { id: 2, jornada: 'j2', sede: 'cugdl',            fecha: 'Mar 22 sep', inicio: '09:30', fin: '13:30', nombre: 'CUGDL · Jornada 2 matutina' },

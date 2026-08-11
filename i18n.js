@@ -49,7 +49,7 @@
       // ===== INDEX · HERO =====
       idx_hero_eyebrow: 'Cuarta edición · 21–22 septiembre 2026',
       idx_hero_title_html: 'Foro Internacional de<br>Derecho y <em>Tecnología</em>.',
-      idx_hero_lead: 'Dos jornadas itinerantes entre tres sedes para discutir cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital.',
+      idx_hero_lead: 'Dos jornadas itinerantes entre cuatro sedes para discutir cómo el derecho debe responder a la inteligencia artificial, la criptoeconomía, la ciberseguridad y la propiedad intelectual digital.',
       idx_hero_meta_dates_label: 'Fechas',
       idx_hero_meta_dates_value: '21 y 22 sep · 2026',
       idx_hero_meta_venue_label: 'Sede',
@@ -100,7 +100,7 @@
       // ===== INSCRIPCION · PANEL ASISTENTE =====
       ins_panel1_eyebrow: 'Formulario · 02 minutos',
       ins_panel1_title_html: 'Inscripción de <em>asistente</em>.',
-      ins_panel1_intro: 'Con tus datos generamos un código QR único que recibirás por correo. Ese QR es tu credencial digital durante los dos días del Foro. Al ingresar el día 1, validamos tu identidad con INE o credencial UDG y se te coloca un brazalete oficial que acredita tu acceso a las tres sedes.',
+      ins_panel1_intro: 'Con tus datos generamos un código QR único que recibirás por correo. Ese QR es tu credencial digital durante los dos días del Foro. Al ingresar el día 1, validamos tu identidad con INE o credencial UDG y se te coloca un brazalete oficial que acredita tu acceso a las cuatro sedes.',
       ins_label_nombre: 'Nombre completo',
       ins_placeholder_nombre: 'Tal como aparecerá en tu constancia',
       ins_hint_nombre: 'Verifica acentos y mayúsculas. La constancia se emite con este texto exacto.',
@@ -398,7 +398,7 @@
       // ===== INDEX · HERO =====
       idx_hero_eyebrow: 'Fourth edition · 21 and 22 September · 2026',
       idx_hero_title_html: 'International Forum<br>on Law<br><span class="accent">and Technology</span>',
-      idx_hero_lead: 'Two itinerant days across three venues to discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property.',
+      idx_hero_lead: 'Two itinerant days across four venues to discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property.',
       idx_hero_meta_dates_label: 'Dates',
       idx_hero_meta_dates_value: '21 & 22 Sep · 2026',
       idx_hero_meta_venue_label: 'Venue',
@@ -449,7 +449,7 @@
       // ===== INSCRIPCION · PANEL ASISTENTE =====
       ins_panel1_eyebrow: 'Form · 2 minutes',
       ins_panel1_title_html: 'Attendee <em>registration</em>.',
-      ins_panel1_intro: 'With your details we generate a unique QR code that you will receive by email. That QR is your digital credential during the two days of the Forum. On day 1, we validate your identity with a government-issued ID or UDG credential and place an official wristband that grants access to all three venues.',
+      ins_panel1_intro: 'With your details we generate a unique QR code that you will receive by email. That QR is your digital credential during the two days of the Forum. On day 1, we validate your identity with a government-issued ID or UDG credential and place an official wristband that grants access to all four venues.',
       ins_label_nombre: 'Full name',
       ins_placeholder_nombre: 'As it will appear on your certificate',
       ins_hint_nombre: 'Verify accents and capitalization. The certificate is issued with this exact text.',
@@ -703,7 +703,7 @@
 
       // CFP completo (cfp.html) - secciones largas
       cfp_pres_p1_html: 'The University of Guadalajara, through the Academic Body UDG-CA-1236 «Law and Technology», with the support of CUCEA, CUGDL and CUTlajomulco, and in institutional collaboration with the Supreme Court of Justice of the State of Jalisco, invites researchers, academics, professionals and doctoral, master\'s and bachelor\'s students interested in the intersection of law and technology to contribute to the <em>fourth edition</em> of the International Forum on Law and Technology.',
-      cfp_pres_p2: 'The opening day will take place at CUCEA, while the closing day will be itinerant between CUGDL and the Judicial City of the State of Jalisco, articulating a tripartite dialogue between academia, university teaching and the State judiciary.',
+      cfp_pres_p2: 'The opening day will take place at CUCEA; the working sessions will be itinerant between CUGDL and the Cineteca, and the closing will be held at the Judicial City of the State of Jalisco, articulating a tripartite dialogue between academia, university teaching and the State judiciary.',
       cfp_pres_p3: 'This event seeks to foster dialogue on technological innovations in law, share best practices and explore new regulations that will shape the legal future in a constantly transforming global context.',
       cfp_pres_p4: 'We invite original, rigorous and proactive contributions that offer doctrinal analyses, comparative studies and concrete normative responses to the emerging challenges of the digital society.',
       cfp_topic1_d: 'Algorithmic governance, civil and criminal liability of autonomous systems, authorship of synthetic works, model training and AI Act in Latin America.',
@@ -1363,7 +1363,7 @@
       // ===== INDEX · HERO =====
       idx_hero_eyebrow: 'Quatrième édition · 21 et 22 septembre · 2026',
       idx_hero_title_html: 'Forum International<br>du Droit<br><span class="accent">et de la Technologie</span>',
-      idx_hero_lead: 'Deux journées itinérantes entre trois sites pour discuter de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique.',
+      idx_hero_lead: 'Deux journées itinérantes entre quatre sites pour discuter de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique.',
       idx_hero_meta_dates_label: 'Dates',
       idx_hero_meta_dates_value: '21 et 22 sept. · 2026',
       idx_hero_meta_venue_label: 'Lieu',
@@ -1414,7 +1414,7 @@
       // ===== INSCRIPCION · PANEL ASISTENTE =====
       ins_panel1_eyebrow: 'Formulaire · 2 minutes',
       ins_panel1_title_html: 'Inscription <em>participant</em>.',
-      ins_panel1_intro: 'Avec vos données, nous générons un code QR unique que vous recevrez par courriel. Ce QR est votre identifiant numérique pendant les deux jours du Forum. Le jour 1, nous validons votre identité avec une pièce officielle ou la carte UDG et nous vous remettons un bracelet officiel donnant accès aux trois sites.',
+      ins_panel1_intro: 'Avec vos données, nous générons un code QR unique que vous recevrez par courriel. Ce QR est votre identifiant numérique pendant les deux jours du Forum. Le jour 1, nous validons votre identité avec une pièce officielle ou la carte UDG et nous vous remettons un bracelet officiel donnant accès aux quatre sites.',
       ins_label_nombre: 'Nom complet',
       ins_placeholder_nombre: 'Tel qu\'il apparaîtra sur votre attestation',
       ins_hint_nombre: 'Vérifiez accents et majuscules. L\'attestation est émise avec ce texte exact.',
@@ -1668,7 +1668,7 @@
 
       // CFP complet (cfp.html) - sections longues
       cfp_pres_p1_html: 'L\'Université de Guadalajara, à travers le Corps Académique UDG-CA-1236 « Droit et Technologie », avec le soutien du CUCEA, du CUGDL et du CUTlajomulco, et en collaboration institutionnelle avec la Cour Suprême de Justice de l\'État de Jalisco, invite chercheurs, académiques, professionnels et étudiants en doctorat, master et licence intéressés par l\'intersection du droit et de la technologie à contribuer à la <em>quatrième édition</em> du Forum International du Droit et de la Technologie.',
-      cfp_pres_p2: 'La journée d\'ouverture aura lieu au CUCEA, tandis que la journée de clôture sera itinérante entre le CUGDL et la Cité Judiciaire de l\'État de Jalisco, articulant un dialogue tripartite entre l\'académie, l\'enseignement universitaire et la magistrature de l\'État.',
+      cfp_pres_p2: 'La journée d\'ouverture aura lieu au CUCEA ; les sessions de travail seront itinérantes entre le CUGDL et la Cineteca, et la clôture se tiendra à la Cité Judiciaire de l\'État de Jalisco, articulant un dialogue tripartite entre l\'académie, l\'enseignement universitaire et la magistrature de l\'État.',
       cfp_pres_p3: 'Cet événement vise à favoriser le dialogue sur les innovations technologiques dans le droit, à partager les meilleures pratiques et à explorer les nouvelles régulations qui façonneront l\'avenir juridique dans un contexte mondial en transformation permanente.',
       cfp_pres_p4: 'Nous invitons à soumettre des contributions originales, rigoureuses et avec une vocation propositionnelle, qui offrent des analyses doctrinales, des études comparatives et des réponses normatives concrètes aux défis émergents de la société numérique.',
       cfp_topic1_d: 'Gouvernance algorithmique, responsabilité civile et pénale des systèmes autonomes, autorité d\'œuvres synthétiques, entraînement de modèles et AI Act en Amérique Latine.',
