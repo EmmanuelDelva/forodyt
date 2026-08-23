@@ -483,10 +483,39 @@ body::after {
   letter-spacing: 0.18em;
   color: var(--ink-soft);
 }
+a.cuenta {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+a.cuenta::after {
+  content: "\2192";
+  position: absolute; right: 16px; bottom: 12px;
+  font-family: var(--mono); font-size: 12px; opacity: 0;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+a.cuenta:hover { transform: translateY(-3px); }
+a.cuenta:hover::after { opacity: 0.75; transform: translateX(4px); }
+a.cuenta:focus-visible { outline: 2px solid var(--dorado); outline-offset: 3px; }
+.cuenta-linea {
+  background: rgba(251, 247, 236, 0.6);
+  border: 1px solid var(--ink-rule);
+}
+.cuenta-linea:hover { border-color: var(--teal); }
+.cuenta-linea .cuenta-label { color: var(--teal); }
+.cuenta-linea .cuenta-label::after {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: latido 2.2s ease-in-out infinite;
+}
+.cuenta-linea .cuenta-num b { color: var(--teal-deep); }
 .cuenta-foro {
   background: var(--noche);
   border: 1px solid var(--noche);
 }
+.cuenta-foro:hover { border-color: var(--dorado); }
 .cuenta-foro .cuenta-label { color: var(--dorado-soft); }
 .cuenta-foro .cuenta-num b { color: var(--dorado); }
 .cuenta-foro .cuenta-num i,
@@ -1512,16 +1541,16 @@ body.semblanza-lock { overflow: hidden; }
       </div>
     </div>
     <div class="hero-counts" aria-live="off">
-      <div class="cuenta cuenta-foro">
-        <span class="cuenta-label" data-f18n="cnt_foro">Faltan para el foro</span>
+      <a class="cuenta cuenta-linea" href="programa.html#jornada-en-linea" aria-label="Días para la jornada en línea del 18 de septiembre de 2026. Ver su programa.">
+        <span class="cuenta-label" data-f18n="cnt_linea">Faltan para la jornada en línea</span>
+        <span class="cuenta-num"><b id="countLinea">000</b><i data-f18n="cnt_dias">días</i></span>
+        <span class="cuenta-fecha">18 · SEP · 2026 · <span data-f18n="cnt_linea_modo">EN LÍNEA</span></span>
+      </a>
+      <a class="cuenta cuenta-foro" href="programa.html#jornada-hibrida" aria-label="Días para la jornada híbrida en Zapopan, 21 y 22 de septiembre de 2026. Ver su programa.">
+        <span class="cuenta-label" data-f18n="cnt_foro">Faltan para la jornada híbrida</span>
         <span class="cuenta-num"><b id="countForo">000</b><i data-f18n="cnt_dias">días</i></span>
-        <span class="cuenta-fecha">21 — 22 · SEP · 2026</span>
-      </div>
-      <div class="cuenta cuenta-cfp">
-        <span class="cuenta-label" data-f18n="cnt_cfp">Convocatoria</span>
-        <span class="cuenta-num"><b class="cuenta-estado" data-f18n="cnt_cfp_estado">Cerrada</b></span>
-        <span class="cuenta-fecha">15 · AGO · 2026</span>
-      </div>
+        <span class="cuenta-fecha">21 — 22 · SEP · 2026 · ZAPOPAN</span>
+      </a>
     </div>
     <div class="hero-actions">
       <a href="cfp.html" class="btn-primary"><span data-i18n="idx_cfp_cta">Ver las bases</span></a>
@@ -2249,7 +2278,7 @@ body.semblanza-lock { overflow: hidden; }
       meta_fecha: 'Date', meta_fecha_small: '2026 · Confirmed',
       meta_sede: 'Venue', meta_modalidad: 'Format', meta_modalidad_v: 'Hybrid', meta_modalidad_small: 'On-site + virtual',
       meta_idiomas: 'Languages', meta_idiomas_small: 'Three official languages',
-      cnt_foro: 'Days to the forum', cnt_cfp: 'Call for papers', cnt_cfp_estado: 'Closed', cnt_dias: 'days', cnt_dias2: 'days',
+      cnt_foro: 'Days to the hybrid session', cnt_linea: 'Days to the online session', cnt_linea_modo: 'ONLINE', cnt_cfp: 'Call for papers', cnt_cfp_estado: 'Closed', cnt_dias: 'days', cnt_dias2: 'days',
       sello: 'Confirmed',
       cifra_ediciones: 'Editions', cifra_ejes: 'Thematic tracks', cifra_ponentes: 'Confirmed speakers', cifra_paises: 'Countries gathered',
       ctx_ediciones: 'uninterrupted since 2023', ctx_ejes: 'seven consolidated · two emerging', ctx_ponentes: 'and the list keeps growing', ctx_paises: 'at the 3rd edition · 2025',
@@ -2271,7 +2300,7 @@ body.semblanza-lock { overflow: hidden; }
       meta_fecha: 'Date', meta_fecha_small: '2026 · Confirmées',
       meta_sede: 'Siège', meta_modalidad: 'Format', meta_modalidad_v: 'Hybride', meta_modalidad_small: 'Présentiel + virtuel',
       meta_idiomas: 'Langues', meta_idiomas_small: 'Trois langues officielles',
-      cnt_foro: 'Jours avant le forum', cnt_cfp: 'Appel à communications', cnt_cfp_estado: 'Clôturé', cnt_dias: 'jours', cnt_dias2: 'jours',
+      cnt_foro: 'Jours avant la journée hybride', cnt_linea: 'Jours avant la journée en ligne', cnt_linea_modo: 'EN LIGNE', cnt_cfp: 'Appel à communications', cnt_cfp_estado: 'Clôturé', cnt_dias: 'jours', cnt_dias2: 'jours',
       sello: 'Confirmé',
       cifra_ediciones: 'Éditions', cifra_ejes: 'Axes thématiques', cifra_ponentes: 'Intervenants confirmés', cifra_paises: 'Pays réunis',
       ctx_ediciones: 'sans interruption depuis 2023', ctx_ejes: 'sept consolidés · deux émergents', ctx_ponentes: 'et la liste continue de grandir', ctx_paises: 'à la IIIe édition · 2025',
@@ -2381,7 +2410,7 @@ body.semblanza-lock { overflow: hidden; }
   }
   document.querySelectorAll('.cifra').forEach(function (c) { c.setAttribute('data-count-host', ''); });
 
-  /* ───── un reloj: el foro (21 sep); el cierre de convocatoria pasa a sello estático ─────
+  /* ───── dos relojes: la jornada en línea (18 sep) y la híbrida en Zapopan (21-22 sep) ─────
      el valor correcto se fija de inmediato (no depende de rAF:
      pestañas ocultas no disparan frames); el rodillo solo es adorno */
   (function () {
@@ -2404,7 +2433,8 @@ body.semblanza-lock { overflow: hidden; }
       setTimeout(function () { requestAnimationFrame(tick); }, delay);
       setTimeout(function () { el.textContent = final; }, delay + 2500); // failsafe
     }
-    reloj('countForo', new Date(2026, 8, 21), 900);
+    reloj('countLinea', new Date(2026, 8, 18), 900);
+    reloj('countForo', new Date(2026, 8, 21), 1100);
   })();
 
   /* ───── estado de las fechas críticas: pasada / activa / por venir ───── */

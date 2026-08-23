@@ -280,6 +280,72 @@ h1 em {
 }
 
 /* ============ ACTIONS ============ */
+.jornadas {
+  width: 100%;
+  max-width: 780px;
+  margin: 54px auto 0;
+  display: grid;
+  gap: 22px;
+}
+.jornada {
+  position: relative;
+  text-align: left;
+  padding: 30px 32px 28px;
+  background: rgba(251, 247, 236, 0.6);
+  border: 1px solid var(--ink-rule);
+  scroll-margin-top: 110px;
+}
+.jornada::before {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--dorado);
+}
+.jornada:target { border-color: var(--dorado); background: rgba(251, 247, 236, 0.95); }
+.jornada-num {
+  position: absolute; top: 24px; right: 30px;
+  font-family: var(--serif); font-size: 46px; font-weight: 620; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1px rgba(150, 116, 45, 0.32);
+  user-select: none; pointer-events: none;
+}
+.jornada-fecha {
+  display: block;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.26em; text-transform: uppercase; color: var(--dorado-deep);
+}
+.jornada h2 {
+  font-family: var(--serif); font-size: clamp(23px, 3vw, 30px); font-weight: 580;
+  line-height: 1.15; margin: 10px 0 8px; color: var(--ink);
+}
+.jornada-modo {
+  display: block;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.jornada-nota {
+  margin: 18px 0 0; max-width: 58ch;
+  font-family: var(--sans); font-size: 14.5px; line-height: 1.75; color: var(--ink-soft);
+}
+.jornada-pie {
+  margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--ink-rule);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px;
+}
+.jornada-estado {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--lacre);
+  padding: 6px 12px 5px; border: 1px solid var(--lacre); white-space: nowrap;
+}
+.jornada-link {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--dorado); padding-bottom: 2px;
+  transition: color .3s, border-color .3s;
+}
+.jornada-link:hover { color: var(--dorado-deep); border-color: var(--dorado-deep); }
+@media (max-width: 700px) {
+  .jornada { padding: 24px 22px 22px; }
+  .jornada-num { font-size: 34px; top: 18px; right: 20px; }
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -434,19 +500,32 @@ footer {
     Mientras tanto, ya puedes inscribirte o suscribirte para recibir el programa final por correo.
   </p>
 
-  <div class="meta-row">
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="prog_meta_dates_label">Fechas</span>
-      <span class="meta-value" data-i18n="prog_meta_dates_value">21 y 22 sep · 2026</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="prog_meta_venue_label">Sedes</span>
-      <span class="meta-value" data-i18n="prog_meta_venue_value">CUCEA · CUGDL · Cineteca · Ciudad Judicial</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label" data-i18n="prog_meta_modality_label">Modalidad</span>
-      <span class="meta-value" data-i18n="prog_meta_modality_value">Presencial e híbrida</span>
-    </div>
+  <div class="jornadas">
+
+    <section class="jornada" id="jornada-en-linea">
+      <span class="jornada-num" aria-hidden="true">01</span>
+      <span class="jornada-fecha" data-i18n="prog_j1_fecha">Viernes 18 · sep · 2026</span>
+      <h2 data-i18n="prog_j1_titulo">Jornada Virtual Internacional</h2>
+      <span class="jornada-modo" data-i18n="prog_j1_modo">En línea · Acceso abierto · ES · EN · FR</span>
+      <p class="jornada-nota" data-i18n="prog_j1_nota">Se presentan los trabajos aceptados en la convocatoria. El orden de las mesas y los horarios se publican en esta página en cuanto el Comité Científico cierre la composición.</p>
+      <div class="jornada-pie">
+        <span class="jornada-estado" data-i18n="prog_estado">Programa en preparación</span>
+        <a href="jornada-virtual.html" class="jornada-link" data-i18n="prog_j1_link">Conocer la jornada virtual →</a>
+      </div>
+    </section>
+
+    <section class="jornada" id="jornada-hibrida">
+      <span class="jornada-num" aria-hidden="true">02</span>
+      <span class="jornada-fecha" data-i18n="prog_j2_fecha">Lunes 21 y martes 22 · sep · 2026</span>
+      <h2 data-i18n="prog_j2_titulo">Jornada híbrida · Zapopan</h2>
+      <span class="jornada-modo" data-i18n="prog_j2_modo">CUCEA · CUGDL · Cineteca · Ciudad Judicial</span>
+      <p class="jornada-nota" data-i18n="prog_j2_nota">Dos días de mesas itinerantes entre las cuatro sedes, con transmisión para quienes sigan el Foro a distancia. Los horarios por sede y la composición de las mesas se publican en esta página.</p>
+      <div class="jornada-pie">
+        <span class="jornada-estado" data-i18n="prog_estado">Programa en preparación</span>
+        <a href="ejes-foro.html" class="jornada-link" data-i18n="prog_j2_link">Ver los nueve ejes →</a>
+      </div>
+    </section>
+
   </div>
 
   <div class="actions">
