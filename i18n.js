@@ -72,7 +72,7 @@
       idx_programa_title_html: 'Dos jornadas,<br>tres <em>sedes</em>.',
       idx_cfp_eyebrow: 'Convocatoria editorial',
       idx_cfp_title_html: 'Call for <em>Papers</em><br>IV edición.',
-      idx_cfp_cta: 'Ver convocatoria completa',
+      idx_cfp_cta: 'Ver las bases',
       idx_comite_eyebrow: 'Comité organizador',
       idx_comite_title_html: 'Quien <em>convoca</em>.',
 
@@ -92,8 +92,8 @@
       // ===== INSCRIPCION · TABS =====
       ins_tab1_title: 'Asistir al Foro',
       ins_tab1_sub: 'Público general · QR + constancia',
-      ins_tab2_title: 'Enviar ponencia',
-      ins_tab2_sub: 'Call for Papers · libro colectivo',
+      ins_tab2_title: 'Call for Papers',
+      ins_tab2_sub: 'Convocatoria cerrada · libro colectivo',
       ins_tab3_title: 'Solo actualizaciones',
       ins_tab3_sub: 'Sin compromiso · low-friction',
 
@@ -156,9 +156,9 @@
       ins_success_btn_otra: 'Inscribir otra persona',
 
       // ===== INSCRIPCION · PANEL CFP =====
-      ins_panel2_eyebrow: 'Convocatoria · Call for Papers',
-      ins_panel2_title_html: 'Envía tu <em>contribución</em>.',
-      ins_panel2_intro: 'El Comité Científico recibe propuestas en español, inglés y francés sobre los nueve ejes temáticos de la cuarta edición. Los papers aceptados se publican en libro colectivo bajo Editorial Universidad de Guadalajara, con DOI por capítulo.',
+      ins_panel2_eyebrow: 'Convocatoria · Call for Papers cerrado',
+      ins_panel2_title_html: 'La convocatoria <em>cerró</em>.',
+      ins_panel2_intro: 'La recepción de trabajos cerró el 15 de agosto de 2026 y el proceso de dictaminación finalizó. Los papers aceptados se publican en libro colectivo bajo Editorial Universidad de Guadalajara, con DOI por capítulo. La inscripción para asistir al Foro sigue abierta en la pestaña 01.',
 
       // ===== INSCRIPCION · PANEL NEWSLETTER =====
       ins_panel3_eyebrow: 'Solo actualizaciones',
@@ -173,7 +173,7 @@
       ins_error_detail_html: 'Verifica tu conexión a internet e intenta de nuevo. Si el problema persiste, escribe a <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: inherit; text-decoration: underline;">emmanueldelva@cucea.udg.mx</a> con asunto «error inscripción».',
 
       // ===== CFP =====
-      cfp_eyebrow: 'Call for Papers · 2026',
+      cfp_eyebrow: 'Call for Papers · 2026 · Cerrada',
       cfp_util_menu: 'Menú', cfp_util_cerrar: 'Cerrar',
       cfp_title: 'Call for Papers — IV Foro Internacional de Derecho y Tecnología',
       cfp_subtitle_html: '“Agentes, Algoritmos y Autonomía:<br>el Derecho ante la Inteligencia que Decide”',
@@ -196,10 +196,10 @@
       cfp_role_editorial_html: 'Coordinación Editorial<br>y Comité Científico',
       cfp_date1_step: '01 · Recepción',
       cfp_date1_label: 'envío de trabajos',
-      cfp_date1_value_html: '1 de mayo —<br>15 de agosto 2026',
+      cfp_date1_value_html: '1 de mayo —<br>15 de agosto 2026<span class="ti-cerrado">Cerrada</span>',
       cfp_date2_step: '02 · Dictamen',
       cfp_date2_label: 'notificación de aceptación',
-      cfp_date2_value_html: '20 de agosto<br>2026',
+      cfp_date2_value_html: '20 de agosto<br>2026<span class="ti-cerrado">Finalizado</span>',
       cfp_date3_step: '03 · Evento',
       cfp_date3_label: 'celebración del foro',
       cfp_date3_value: '21 y 22 de septiembre 2026',
@@ -208,6 +208,10 @@
       cfp_errata_nueva: '15 de agosto de 2026',
       cfp_errata_sello: 'Definitiva',
       cfp_errata_glosa_html: 'Donde decía <i>1 de agosto</i>, léase <i>15 de agosto de 2026</i>. La recepción de artículos se amplía y esta es la fecha de cierre definitiva. El resto de la convocatoria no cambia: artículo completo de 15 a 20 páginas, en un solo envío.',
+      cfp_clausura_rotulo: 'Cierre de la convocatoria',
+      cfp_clausura_fecha: '15 de agosto de 2026',
+      cfp_clausura_sello: 'Cerrada',
+      cfp_clausura_glosa_html: 'La recepción de artículos cerró en la fecha señalada. El Comité Científico concluyó el proceso de dictaminación doble ciego. Estas bases quedan publicadas como documento de consulta de la cuarta edición.',
       cfp_topic1_t: 'IA Agéntica y Propiedad Intelectual Generativa',
       cfp_topic2_t: 'Tecnologías Emergentes',
       cfp_topic3_t: 'Ciberseguridad y Soberanía Digital',
@@ -223,7 +227,7 @@
       cfp_envelope_subject: 'Asunto del correo',
       cfp_envelope_body: 'Cuerpo del correo',
       cfp_envelope_attach: 'Archivo adjunto',
-      cfp_callout_title: 'Recordatorio final',
+      cfp_callout_title: 'Estado de la convocatoria',
 
       // ===== FOOTER (común) =====
       foot_copy: '© 2026 · Foro Internacional de Derecho y Tecnología · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»',
@@ -375,8 +379,8 @@
       m3_cta_title_html: '¿Quieres ser parte de la <em>IV edición</em>?',
       m3_cta_p1_html: 'El <strong>IV Foro Internacional de Derecho y Tecnología</strong> se realizará el <strong>21 y 22 de septiembre de 2026</strong> en CUCEA, Zapopan, modalidad híbrida.',
       m3_cta_p2_html: 'Tema central: <em>«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</em> — 9 ejes temáticos, dos emergentes (IA agéntica + PI generativa, salud digital + biotecnologías), publicación en libro colectivo Editorial UDG.',
-      m3_cta_p3_html: '<strong>Convocatoria abierta del 1 de mayo al 15 de agosto de 2026.</strong> Notificación de aceptación: 20 de agosto de 2026.',
-      m3_cta_btn1: 'Convocatoria abierta →',
+      m3_cta_p3_html: '<strong>La convocatoria se cerró el 15 de agosto de 2026.</strong> El proceso de dictaminación finalizó.',
+      m3_cta_btn1: 'Ver las bases →',
       m3_cta_btn2: 'Ver programa IV',
       m3_cta_btn3: 'Roster IV',
     
@@ -421,7 +425,7 @@
       idx_programa_title_html: 'Two days,<br>three <em>venues</em>.',
       idx_cfp_eyebrow: 'Editorial call',
       idx_cfp_title_html: 'Call for <em>Papers</em><br>4th edition.',
-      idx_cfp_cta: 'Read full call',
+      idx_cfp_cta: 'Read the guidelines',
       idx_comite_eyebrow: 'Organizing Committee',
       idx_comite_title_html: 'Those who make the Forum<br><em>possible</em>.',
 
@@ -441,8 +445,8 @@
       // ===== INSCRIPCION · TABS =====
       ins_tab1_title: 'Attend the Forum',
       ins_tab1_sub: 'General audience · QR + certificate',
-      ins_tab2_title: 'Submit a paper',
-      ins_tab2_sub: 'Call for Papers · edited volume',
+      ins_tab2_title: 'Call for Papers',
+      ins_tab2_sub: 'Call closed · edited volume',
       ins_tab3_title: 'Updates only',
       ins_tab3_sub: 'No commitment · low-friction',
 
@@ -505,9 +509,20 @@
       ins_success_btn_otra: 'Register another person',
 
       // ===== INSCRIPCION · PANEL CFP =====
-      ins_panel2_eyebrow: 'Call · Call for Papers',
-      ins_panel2_title_html: 'Submit your <em>contribution</em>.',
-      ins_panel2_intro: 'The Scientific Committee accepts proposals in Spanish, English and French on the nine thematic tracks of the fourth edition. Accepted papers are published in an edited volume by University of Guadalajara Press, with DOI per chapter.',
+      ins_panel2_eyebrow: 'Call for Papers · closed',
+      ins_panel2_title_html: 'The call has <em>closed</em>.',
+      ins_panel2_intro: 'Submissions closed on August 15, 2026 and the review process is complete. Accepted papers are published in an edited volume by University of Guadalajara Press, with DOI per chapter. Registration to attend the Forum remains open under tab 01.',
+      ins_cfp_quien_html: '<strong>Who submitted.</strong> Academics, master\'s and doctoral students, and legal professionals with original research on the Forum\'s tracks.',
+      ins_cfp_modalidad_html: '<strong>Submission format.</strong> A full 15–20 page article (per the book\'s editorial standards) in a single submission, with no prior abstract. Double-blind review was managed by the Scientific Committee.',
+      ins_cfp_idiomas_html: '<strong>Accepted languages.</strong> Spanish, English and French.',
+      ins_cfp_award_html: '<strong>Best Paper Award.</strong> The highest-rated paper receives a special distinction and featured publication.',
+      ins_cfp_btn_bases: 'Read the guidelines',
+      ins_cfp_btn_jornada: 'About the virtual session',
+      ins_cfp_fechas_title: 'Key dates',
+      ins_cfp_f1: 'Submissions open',
+      ins_cfp_f2: 'Submissions close',
+      ins_cfp_f3: 'Acceptance notification',
+      ins_cfp_f4: 'Book publication',
 
       // ===== INSCRIPCION · PANEL NEWSLETTER =====
       ins_panel3_eyebrow: 'Updates only',
@@ -522,7 +537,7 @@
       ins_error_detail_html: 'Check your internet connection and try again. If the problem persists, write to <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: inherit; text-decoration: underline;">emmanueldelva@cucea.udg.mx</a> with subject «registration error».',
 
       // ===== CFP =====
-      cfp_eyebrow: 'Call for Papers · 2026',
+      cfp_eyebrow: 'Call for Papers · 2026 · Closed',
       cfp_util_menu: 'Menu', cfp_util_cerrar: 'Close',
       cfp_title: 'Call for Papers — 4th International Forum on Law and Technology',
       cfp_subtitle_html: '"Agents, Algorithms and Autonomy:<br>the Law before the Intelligence that Decides"',
@@ -572,9 +587,9 @@
       prog_eyebrow: 'Preliminary program',
       prog_title_html: 'In <em>preparation</em>.',
       prog_message_html: 'We are currently working on the program and the speakers\' schedule. The full program will be announced in the weeks leading up to the event, once the Scientific Committee has confirmed all speakers and panel compositions.',
-      prog_subtext: 'In the meantime, you can already register, submit a paper or subscribe to receive the final program by email.',
+      prog_subtext: 'In the meantime, you can already register or subscribe to receive the final program by email.',
       prog_cta_inscripcion: 'Register for the Forum',
-      prog_cta_cfp: 'Read the call for papers',
+      prog_cta_cfp: 'Read the guidelines',
       prog_cta_back: '← Back to the site',
       prog_meta_dates_label: 'Dates',
       prog_meta_dates_value: '21 & 22 Sep · 2026',
@@ -623,6 +638,12 @@
       idx_ponente_troncoso_affil_html: 'Auxiliary Magistrate · Superior Council of the Judiciary · Colombia<br>Doctor of Contemporary Procedural Law · University of Medellín',
       idx_ponente_troncoso_topic_html: 'Track iv · Digital Justice and Legal Innovation  |  Track i · Agentic AI and Generative Intellectual Property',
       idx_ponente_troncoso_talk: '«Toward an Augmented Legal Intelligence in the Evidentiary Assessment of Criminal Trials»',
+      idx_ponente_rosales_affil_html: 'Professor · Universidad Tecnológica de Bolívar · Cartagena de Indias, Colombia<br>Alternate Judge · Labor Chamber · Superior Court of the Judicial District of Cartagena',
+      idx_ponente_rosales_topic_html: 'Track iv · Digital Justice and Legal Innovation  |  Track v · Digital Human Rights',
+      idx_ponente_rosales_talk: '«Digital Work, Analog Evidence: The Evidentiary Challenges of Technology-Mediated Employment Relationships»',
+      idx_ponente_reyes_affil_html: 'Doctor of Contemporary Procedural Law · Universidad de Medellín<br>Member of the Colombian Institute of Procedural Law · Cartagena de Indias, Colombia',
+      idx_ponente_reyes_topic_html: 'Track iv · Digital Justice and Legal Innovation  |  Track i · Agentic AI and Generative Intellectual Property',
+      idx_ponente_reyes_talk: '«The Judge in the Age of Algorithms: Risks of Technological Assistance from the Standpoint of Procedural and Evidence Law in Colombia»',
       idx_ponente_gamez_affil_html: 'Director of Admissions · School of Social Sciences and Government · Tec de Monterrey<br>Research Professor in Cybersecurity and Digital Law',
       idx_ponente_gamez_topic_html: 'Track v · Digital Human Rights  |  Track iii · Cybersecurity and Digital Sovereignty',
       idx_ponente_gamez_talk: '«Freedom in the Face of AI: the Andromeda Algorithm Case»',
@@ -648,7 +669,7 @@
       idx_ed3_stat2: '33 speakers',
       idx_ed4_title: 'Agentic justice and regulated intelligence',
       idx_ed4_stat1: '9 tracks (7 + 2 emerging)',
-      idx_ed4_stat2: 'Open call',
+      idx_ed4_stat2: 'Call closed',
 
       // Ejes temáticos
       idx_eje_tag_eje: 'Track',
@@ -677,11 +698,11 @@
       idx_aliados_title_html: 'The Forum <em>does not walk</em> alone.',
 
       // CFP del index
-      idx_cfp_p1_html: 'The Scientific Committee invites researchers and professionals in law and technology to submit original contributions to the <strong>fourth edition</strong> of the International Forum on Law and Technology.',
+      idx_cfp_p1_html: 'The Scientific Committee invited researchers and professionals in law and technology to submit original contributions to the <strong>fourth edition</strong> of the International Forum on Law and Technology.',
       idx_cfp_p2_html: 'Accepted contributions will be published in the collective book of the series <strong><em>Innovación Jurídica en la era digital</em></strong>, after double-blind peer review by two members of the Scientific Committee.',
-      idx_cfp_p3: 'Contributions are accepted in Spanish, English and French. The nine thematic tracks are open for submission.',
-      idx_cfp_btn_full: 'Read full call',
-      idx_cfp_btn_send: 'Submit contribution',
+      idx_cfp_p3: 'The call received contributions in Spanish, English and French across the nine thematic tracks. Submissions closed on August 15, 2026 and the review process is complete.',
+      idx_cfp_btn_full: 'Read the guidelines',
+      idx_cfp_btn_inscribir: 'Register for the Forum',
       idx_cfp_dates_title: 'Critical dates',
       idx_cfp_dl1_label: 'Paper submissions',
       idx_cfp_dl1_date: '1 May — 15 Aug · 2026',
@@ -702,10 +723,10 @@
       idx_cfp_norm6: '· Double-blind · Scientific Committee',
 
       // CFP completo (cfp.html) - secciones largas
-      cfp_pres_p1_html: 'The University of Guadalajara, through the Academic Body UDG-CA-1236 «Law and Technology», with the support of CUCEA, CUGDL and CUTlajomulco, and in institutional collaboration with the Supreme Court of Justice of the State of Jalisco, invites researchers, academics, professionals and doctoral, master\'s and bachelor\'s students interested in the intersection of law and technology to contribute to the <em>fourth edition</em> of the International Forum on Law and Technology.',
+      cfp_pres_p1_html: 'The University of Guadalajara, through the Academic Body UDG-CA-1236 «Law and Technology», with the support of CUCEA, CUGDL and CUTlajomulco, and in institutional collaboration with the Supreme Court of Justice of the State of Jalisco, invited researchers, academics, professionals and doctoral, master\'s and bachelor\'s students interested in the intersection of law and technology to contribute to the <em>fourth edition</em> of the International Forum on Law and Technology.',
       cfp_pres_p2: 'The opening day will take place at CUCEA; the working sessions will be itinerant between CUGDL and the Cineteca, and the closing will be held at the Judicial City of the State of Jalisco, articulating a tripartite dialogue between academia, university teaching and the State judiciary.',
       cfp_pres_p3: 'This event seeks to foster dialogue on technological innovations in law, share best practices and explore new regulations that will shape the legal future in a constantly transforming global context.',
-      cfp_pres_p4: 'We invite original, rigorous and proactive contributions that offer doctrinal analyses, comparative studies and concrete normative responses to the emerging challenges of the digital society.',
+      cfp_pres_p4: 'The call invited original, rigorous and proactive contributions offering doctrinal analyses, comparative studies and concrete normative responses to the emerging challenges of the digital society.',
       cfp_topic1_d: 'Algorithmic governance, civil and criminal liability of autonomous systems, authorship of synthetic works, model training and AI Act in Latin America.',
       cfp_topic2_d: 'Quantum computing, neurotechnologies, extended realities, digital twins and anticipatory governance.',
       cfp_topic3_d: 'Personal data protection, the new Federal Law on Protection of Personal Data Held by Private Parties, critical infrastructure and cyber-defense.',
@@ -717,7 +738,7 @@
       cfp_topic8_d: 'Environmental footprint of AI and data centers, sustainability of intensive computing, right to repair, planned obsolescence, digital public domain and computational bioethics.',
       cfp_topic9_t: 'Technological Conflict Resolution and Online Disputes',
       cfp_topic9_d: 'Online dispute resolution (ODR), AI-assisted mediation, predictive justice, digital arbitration, electronic resolution platforms and digital access to justice.',
-      cfp_envio_p1_html: 'Submissions will undergo double-blind peer review. Selected contributions will be published in a collective book with ISBN. Contributions are accepted in <strong>Spanish, English and French</strong>.',
+      cfp_envio_p1_html: 'The papers received underwent double-blind peer review. Selected contributions will be published in a collective book with ISBN. Contributions were received in <strong>Spanish, English and French</strong>.',
       cfp_envelope_body_p_html: 'Include: <span class="badge">thematic track</span><span class="badge">title</span><span class="badge">position</span><span class="badge">institution</span> and <span class="badge">format</span> (on-site / online).',
       cfp_envelope_attach_p_html: 'Word format (<span class="mono">.doc</span> or <span class="mono">.docx</span>).',
       cfp_spec1_html: '<strong>Length.</strong> Minimum 15 and maximum 20 pages, including references and annexes.',
@@ -725,9 +746,9 @@
       cfp_spec3_html: '<strong>Index.</strong> Summary of the key points of the work. No <em>abstract</em> required.',
       cfp_spec4_html: '<strong>Font and format.</strong> Times New Roman 12 pt, line spacing 1.5 for main text; Times New Roman 10 pt, single line spacing for footnotes.',
       cfp_spec6_html: '<strong>Citations.</strong> In footnotes, according to the standards of legal publications (see section VIII).',
-      cfp_rev_p1_html: 'The evaluation will be carried out under strict anonymity. Each contribution will receive a sequential number from the organizing committee; two members of the scientific committee, without prior knowledge of the authorship, will judge each work guaranteeing impartiality and judgment based on <em>quality, originality and relevance</em> of the content.',
-      cfp_rev_p2_html: 'In a later phase, the scientific committee will deliberate to select the most outstanding contributions, considering the topicality of the subject, the uniqueness of the perspective, the clarity of exposition and the contribution to the Forum\'s dialogue. Accepted and presented works will be considered for inclusion in the <strong>commemorative collective book</strong> of the IV edition.',
-      cfp_callout_body: 'Before submitting your proposal, carefully verify compliance with the style and citation standards established here. The quality of the presentation and adherence to these guidelines are determining factors in the selection process.',
+      cfp_rev_p1_html: 'The evaluation was carried out under strict anonymity. Each contribution received a sequential number from the organizing committee; two members of the scientific committee, without prior knowledge of the authorship, judged each work guaranteeing impartiality and judgment based on <em>quality, originality and relevance</em> of the content.',
+      cfp_rev_p2_html: 'In a later phase, the scientific committee deliberated to select the most outstanding contributions, considering the topicality of the subject, the uniqueness of the perspective, the clarity of exposition and the contribution to the Forum\'s dialogue. Accepted and presented works will be considered for inclusion in the <strong>commemorative collective book</strong> of the IV edition.',
+      cfp_callout_body: 'Submissions closed on August 15, 2026 and the review process is complete. These guidelines remain published as a reference document for the fourth edition; the style and citation standards set out here govern the editing of the collective book.',
       cfp_citas_intro: 'Citations must be presented in footnotes, with sufficient data for the precise location of each source. Reference examples are provided:',
 
       // Footer columns
@@ -1152,7 +1173,7 @@
       memorias_card4_tema: '«Agents, Algorithms and Autonomy: Law facing the Intelligence that Decides»',
       memorias_card4_st1: 'CUCEA · CUGDL · Cineteca · Judicial City',
       memorias_card4_st2: '9 tracks (7 + 2 emerging)',
-      memorias_card4_st3: 'Call open',
+      memorias_card4_st3: 'Call closed',
 
       // Memoria II (2024)
       mem2_eyebrow: 'II Edition · 2024',
@@ -1175,10 +1196,10 @@
       mem3_resena_p2: 'This third edition projected internationally the foundations of the Forum as a plural academic space where lawyers, engineers, judges and regulators from Iberoamerica discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property.',
       cfp_date1_step: '01 · Reception',
       cfp_date1_label: 'paper submission',
-      cfp_date1_value_html: '1 May —<br>15 August 2026',
+      cfp_date1_value_html: '1 May —<br>15 August 2026<span class="ti-cerrado">Closed</span>',
       cfp_date2_step: '02 · Decision',
       cfp_date2_label: 'acceptance notification',
-      cfp_date2_value_html: '20 August<br>2026',
+      cfp_date2_value_html: '20 August<br>2026<span class="ti-cerrado">Completed</span>',
       cfp_date3_step: '03 · Event',
       cfp_date3_label: 'forum dates',
       cfp_date3_value: '21 & 22 September 2026',
@@ -1187,6 +1208,10 @@
       cfp_errata_nueva: 'August 15, 2026',
       cfp_errata_sello: 'Final',
       cfp_errata_glosa_html: 'Where it read <i>August 1</i>, read <i>August 15, 2026</i>. Submissions run longer and this closing date is final. The rest of the call is unchanged: a full 15-to-20-page article, in a single submission.',
+      cfp_clausura_rotulo: 'Call for papers closed',
+      cfp_clausura_fecha: 'August 15, 2026',
+      cfp_clausura_sello: 'Closed',
+      cfp_clausura_glosa_html: 'Submissions closed on the date shown. The Scientific Committee completed the double-blind review. These guidelines remain published as a reference document for the fourth edition.',
       cfp_topic1_t: 'Agentic AI and Generative Intellectual Property',
       cfp_topic2_t: 'Emerging Technologies',
       cfp_topic3_t: 'Cybersecurity and Digital Sovereignty',
@@ -1200,7 +1225,7 @@
       cfp_envelope_subject: 'Email subject',
       cfp_envelope_body: 'Email body',
       cfp_envelope_attach: 'Attachment',
-      cfp_callout_title: 'Final reminder',
+      cfp_callout_title: 'Status of the call',
 
       // ===== FOOTER =====
       foot_copy: '© 2026 · International Forum on Law and Technology · Academic Body UDG-CA-1236 «Law and Technology»',
@@ -1340,8 +1365,8 @@
       m3_cta_title_html: 'Want to be part of the <em>IV edition</em>?',
       m3_cta_p1_html: 'The <strong>IV International Forum on Law and Technology</strong> will take place on <strong>September 21 and 22, 2026</strong> at CUCEA, Zapopan, hybrid format.',
       m3_cta_p2_html: 'Central theme: <em>«Agents, Algorithms and Autonomy: Law before Decision-Making Intelligence»</em> — 9 thematic tracks, two emerging ones (agentic AI + generative IP, digital health + biotechnologies), publication in the Editorial UDG collective book.',
-      m3_cta_p3_html: '<strong>Open call from May 1 to August 15, 2026.</strong> Acceptance notification: August 20, 2026.',
-      m3_cta_btn1: 'Open call →',
+      m3_cta_p3_html: '<strong>The call closed on August 15, 2026.</strong> The review process is complete.',
+      m3_cta_btn1: 'Read the guidelines →',
       m3_cta_btn2: 'IV program',
       m3_cta_btn3: 'IV roster',
     
@@ -1386,7 +1411,7 @@
       idx_programa_title_html: 'Deux journées,<br>trois <em>sites</em>.',
       idx_cfp_eyebrow: 'Appel éditorial',
       idx_cfp_title_html: 'Call for <em>Papers</em><br>4e édition.',
-      idx_cfp_cta: 'Voir l\'appel complet',
+      idx_cfp_cta: 'Consulter les bases',
       idx_comite_eyebrow: 'Comité d\'organisation',
       idx_comite_title_html: 'Ceux qui rendent le Forum<br><em>possible</em>.',
 
@@ -1406,8 +1431,8 @@
       // ===== INSCRIPCION · TABS =====
       ins_tab1_title: 'Assister au Forum',
       ins_tab1_sub: 'Public général · QR + attestation',
-      ins_tab2_title: 'Soumettre une communication',
-      ins_tab2_sub: 'Call for Papers · ouvrage collectif',
+      ins_tab2_title: 'Call for Papers',
+      ins_tab2_sub: 'Appel clôturé · ouvrage collectif',
       ins_tab3_title: 'Mises à jour uniquement',
       ins_tab3_sub: 'Sans engagement · low-friction',
 
@@ -1470,9 +1495,20 @@
       ins_success_btn_otra: 'Inscrire une autre personne',
 
       // ===== INSCRIPCION · PANEL CFP =====
-      ins_panel2_eyebrow: 'Appel · Call for Papers',
-      ins_panel2_title_html: 'Soumettez votre <em>contribution</em>.',
-      ins_panel2_intro: 'Le Comité Scientifique reçoit des propositions en espagnol, anglais et français sur les neuf axes thématiques de la quatrième édition. Les contributions acceptées sont publiées dans un ouvrage collectif aux Presses de l\'Université de Guadalajara, avec DOI par chapitre.',
+      ins_panel2_eyebrow: 'Appel · Call for Papers clôturé',
+      ins_panel2_title_html: 'L\'appel est <em>clôturé</em>.',
+      ins_panel2_intro: 'La réception des travaux s\'est clôturée le 15 août 2026 et l\'évaluation est achevée. Les contributions acceptées sont publiées dans un ouvrage collectif aux Presses de l\'Université de Guadalajara, avec DOI par chapitre. Les inscriptions pour assister au Forum restent ouvertes sous l\'onglet 01.',
+      ins_cfp_quien_html: '<strong>Qui a postulé.</strong> Universitaires, étudiants de master et de doctorat, et professionnels du droit menant une recherche originale sur les axes du Forum.',
+      ins_cfp_modalidad_html: '<strong>Modalité d\'envoi.</strong> Un article complet de 15 à 20 pages (normes éditoriales de l\'ouvrage) en un seul envoi, sans résumé préalable. L\'évaluation en double aveugle a été gérée par le Comité scientifique.',
+      ins_cfp_idiomas_html: '<strong>Langues acceptées.</strong> Espagnol, anglais et français.',
+      ins_cfp_award_html: '<strong>Best Paper Award.</strong> Le travail le mieux évalué reçoit une distinction spéciale et une publication mise en avant.',
+      ins_cfp_btn_bases: 'Consulter les bases',
+      ins_cfp_btn_jornada: 'Découvrir la journée virtuelle',
+      ins_cfp_fechas_title: 'Dates clés',
+      ins_cfp_f1: 'Ouverture des envois',
+      ins_cfp_f2: 'Clôture des envois',
+      ins_cfp_f3: 'Notification d\'acceptation',
+      ins_cfp_f4: 'Publication de l\'ouvrage',
 
       // ===== INSCRIPCION · PANEL NEWSLETTER =====
       ins_panel3_eyebrow: 'Mises à jour uniquement',
@@ -1487,7 +1523,7 @@
       ins_error_detail_html: 'Vérifiez votre connexion Internet et réessayez. Si le problème persiste, écrivez à <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: inherit; text-decoration: underline;">emmanueldelva@cucea.udg.mx</a> avec l\'objet «erreur inscription».',
 
       // ===== CFP =====
-      cfp_eyebrow: 'Call for Papers · 2026',
+      cfp_eyebrow: 'Call for Papers · 2026 · Clôturé',
       cfp_util_menu: 'Menu', cfp_util_cerrar: 'Fermer',
       cfp_title: 'Call for Papers — 4e Forum International du Droit et de la Technologie',
       cfp_subtitle_html: '« Agents, Algorithmes et Autonomie :<br>le Droit face à l\'Intelligence qui Décide »',
@@ -1537,9 +1573,9 @@
       prog_eyebrow: 'Programme préliminaire',
       prog_title_html: 'En <em>préparation</em>.',
       prog_message_html: 'Nous travaillons actuellement sur le programme et l\'horaire des intervenants. Le programme complet sera annoncé dans les semaines précédant l\'événement, une fois que le Comité Scientifique aura confirmé tous les intervenants et la composition des panels.',
-      prog_subtext: 'En attendant, vous pouvez déjà vous inscrire, soumettre une communication ou vous abonner pour recevoir le programme final par courriel.',
+      prog_subtext: 'En attendant, vous pouvez déjà vous inscrire ou vous abonner pour recevoir le programme final par courriel.',
       prog_cta_inscripcion: 'S\'inscrire au Forum',
-      prog_cta_cfp: 'Voir l\'appel à contributions',
+      prog_cta_cfp: 'Consulter les bases',
       prog_cta_back: '← Retour au site',
       prog_meta_dates_label: 'Dates',
       prog_meta_dates_value: '21 et 22 sept. · 2026',
@@ -1585,9 +1621,15 @@
       idx_ponente_gaspar_affil_html: 'Associé cofondateur · ALGDETIC<br>Président · CiberPadres LATAM<br>Directeur · Paraguay Ciberseguro',
       idx_ponente_gaspar_topic_html: 'Axe iii · Cybersécurité et Souveraineté Numérique  |  Axe v · Droits Humains Numériques  |  Axe vii · Santé Numérique et Biotechnologies',
       idx_ponente_gaspar_talk: '« Enfances connectées, enfances protégées : cybersécurité et santé numérique de l\'enfance »',
-      idx_ponente_troncoso_affil_html: 'Magistrat auxiliaire · Conseil supérieur de la magistrature · Colombie<br>Docteur en droit procédural contemporain · Université de Medellín',
+      idx_ponente_troncoso_affil_html: 'Magistrat auxiliaire · Conseil supérieur de la magistrature · Colombie<br>Docteur en droit processuel contemporain · Université de Medellín',
       idx_ponente_troncoso_topic_html: 'Axe iv · Justice Numérique et Innovation Juridique  |  Axe i · IA Agentique et Propriété Intellectuelle Générative',
       idx_ponente_troncoso_talk: '« Vers une intelligence juridique augmentée dans l\'appréciation probatoire du procès pénal »',
+      idx_ponente_rosales_affil_html: 'Enseignante · Universidad Tecnológica de Bolívar · Cartagena de Indias, Colombie<br>Juge suppléante · Chambre sociale · Tribunal supérieur du district judiciaire de Cartagena',
+      idx_ponente_rosales_topic_html: 'Axe iv · Justice Numérique et Innovation Juridique  |  Axe v · Droits Humains Numériques',
+      idx_ponente_rosales_talk: '« Travail numérique, preuve analogique : les défis probatoires des relations de travail médiées par la technologie »',
+      idx_ponente_reyes_affil_html: 'Docteur en droit processuel contemporain · Université de Medellín<br>Membre de l\'Institut colombien de droit processuel · Carthagène des Indes, Colombie',
+      idx_ponente_reyes_topic_html: 'Axe iv · Justice Numérique et Innovation Juridique  |  Axe i · IA Agentique et Propriété Intellectuelle Générative',
+      idx_ponente_reyes_talk: '« Le juge à l\'ère des algorithmes : risques de l\'assistance technologique, une perspective de droit processuel et probatoire en Colombie »',
       idx_ponente_gamez_affil_html: 'Directrice des admissions · École des sciences sociales et du gouvernement · Tec de Monterrey<br>Professeure-chercheuse en cybersécurité et droit du numérique',
       idx_ponente_gamez_topic_html: 'Axe v · Droits Humains Numériques  |  Axe iii · Cybersécurité et Souveraineté Numérique',
       idx_ponente_gamez_talk: '« La liberté face à l\'IA : le cas de l\'algorithme Andromède »',
@@ -1613,7 +1655,7 @@
       idx_ed3_stat2: '33 intervenants',
       idx_ed4_title: 'Justice agentique et intelligence régulée',
       idx_ed4_stat1: '9 axes (7 + 2 émergents)',
-      idx_ed4_stat2: 'Appel ouvert',
+      idx_ed4_stat2: 'Appel clôturé',
 
       // Axes thématiques
       idx_eje_tag_eje: 'Axe',
@@ -1642,11 +1684,11 @@
       idx_aliados_title_html: 'Le Forum <em>ne marche pas</em> seul.',
 
       // CFP de l\'index
-      idx_cfp_p1_html: 'Le Comité Scientifique invite les chercheurs et professionnels du droit et de la technologie à soumettre des contributions originales pour la <strong>quatrième édition</strong> du Forum International du Droit et de la Technologie.',
+      idx_cfp_p1_html: 'Le Comité Scientifique a invité les chercheurs et professionnels du droit et de la technologie à soumettre des contributions originales pour la <strong>quatrième édition</strong> du Forum International du Droit et de la Technologie.',
       idx_cfp_p2_html: 'Les contributions acceptées seront publiées dans le livre collectif de la série <strong><em>Innovación Jurídica en la era digital</em></strong>, après évaluation en double aveugle par deux membres du Comité Scientifique.',
-      idx_cfp_p3: 'Les contributions sont acceptées en espagnol, anglais et français. Les neuf axes thématiques sont ouverts à la soumission.',
-      idx_cfp_btn_full: 'Voir l\'appel complet',
-      idx_cfp_btn_send: 'Soumettre une contribution',
+      idx_cfp_p3: 'L\'appel a reçu des contributions en espagnol, anglais et français dans les neuf axes thématiques. La réception s\'est clôturée le 15 août 2026 et l\'évaluation est achevée.',
+      idx_cfp_btn_full: 'Consulter les bases',
+      idx_cfp_btn_inscribir: 'S\'inscrire au Forum',
       idx_cfp_dates_title: 'Dates critiques',
       idx_cfp_dl1_label: 'Réception des travaux',
       idx_cfp_dl1_date: '1 mai — 15 août · 2026',
@@ -1667,10 +1709,10 @@
       idx_cfp_norm6: '· Double aveugle · Comité Scientifique',
 
       // CFP complet (cfp.html) - sections longues
-      cfp_pres_p1_html: 'L\'Université de Guadalajara, à travers le Corps Académique UDG-CA-1236 « Droit et Technologie », avec le soutien du CUCEA, du CUGDL et du CUTlajomulco, et en collaboration institutionnelle avec la Cour Suprême de Justice de l\'État de Jalisco, invite chercheurs, académiques, professionnels et étudiants en doctorat, master et licence intéressés par l\'intersection du droit et de la technologie à contribuer à la <em>quatrième édition</em> du Forum International du Droit et de la Technologie.',
+      cfp_pres_p1_html: 'L\'Université de Guadalajara, à travers le Corps Académique UDG-CA-1236 « Droit et Technologie », avec le soutien du CUCEA, du CUGDL et du CUTlajomulco, et en collaboration institutionnelle avec la Cour Suprême de Justice de l\'État de Jalisco, a invité chercheurs, académiques, professionnels et étudiants en doctorat, master et licence intéressés par l\'intersection du droit et de la technologie à contribuer à la <em>quatrième édition</em> du Forum International du Droit et de la Technologie.',
       cfp_pres_p2: 'La journée d\'ouverture aura lieu au CUCEA ; les sessions de travail seront itinérantes entre le CUGDL et la Cineteca, et la clôture se tiendra à la Cité Judiciaire de l\'État de Jalisco, articulant un dialogue tripartite entre l\'académie, l\'enseignement universitaire et la magistrature de l\'État.',
       cfp_pres_p3: 'Cet événement vise à favoriser le dialogue sur les innovations technologiques dans le droit, à partager les meilleures pratiques et à explorer les nouvelles régulations qui façonneront l\'avenir juridique dans un contexte mondial en transformation permanente.',
-      cfp_pres_p4: 'Nous invitons à soumettre des contributions originales, rigoureuses et avec une vocation propositionnelle, qui offrent des analyses doctrinales, des études comparatives et des réponses normatives concrètes aux défis émergents de la société numérique.',
+      cfp_pres_p4: 'L\'appel invitait à soumettre des contributions originales, rigoureuses et à vocation propositionnelle, offrant des analyses doctrinales, des études comparatives et des réponses normatives concrètes aux défis émergents de la société numérique.',
       cfp_topic1_d: 'Gouvernance algorithmique, responsabilité civile et pénale des systèmes autonomes, autorité d\'œuvres synthétiques, entraînement de modèles et AI Act en Amérique Latine.',
       cfp_topic2_d: 'Informatique quantique, neurotechnologies, réalités étendues, jumeaux numériques et gouvernance anticipative.',
       cfp_topic3_d: 'Protection des données personnelles, la nouvelle Loi Fédérale de Protection des Données Personnelles en Possession des Particuliers, infrastructure critique et cyber-défense.',
@@ -1682,7 +1724,7 @@
       cfp_topic8_d: 'Empreinte environnementale de l\'IA et des centres de données, durabilité du calcul intensif, droit à la réparation, obsolescence programmée, domaine public numérique et bioéthique computationnelle.',
       cfp_topic9_t: 'Résolution des Conflits Technologiques et Litiges en Ligne',
       cfp_topic9_d: 'Résolution des litiges en ligne (ODR), médiation assistée par IA, justice prédictive, arbitrage numérique, plateformes de résolution électronique et accès numérique à la justice.',
-      cfp_envio_p1_html: 'Les soumissions seront évaluées en double aveugle. Les contributions sélectionnées seront publiées dans un livre collectif avec ISBN. Les contributions sont acceptées en <strong>espagnol, anglais et français</strong>.',
+      cfp_envio_p1_html: 'Les travaux reçus ont été évalués en double aveugle. Les contributions sélectionnées seront publiées dans un livre collectif avec ISBN. Les contributions ont été reçues en <strong>espagnol, anglais et français</strong>.',
       cfp_envelope_body_p_html: 'Inclure : <span class="badge">axe thématique</span><span class="badge">titre</span><span class="badge">poste</span><span class="badge">institution</span> et <span class="badge">modalité</span> (présentiel / en ligne).',
       cfp_envelope_attach_p_html: 'Format Word (<span class="mono">.doc</span> ou <span class="mono">.docx</span>).',
       cfp_spec1_html: '<strong>Longueur.</strong> Minimum 15 et maximum 20 pages, références et annexes incluses.',
@@ -1690,9 +1732,9 @@
       cfp_spec3_html: '<strong>Index.</strong> Résumé des points clés du travail. Pas d\'<em>abstract</em> requis.',
       cfp_spec4_html: '<strong>Police et format.</strong> Times New Roman 12 pt, interligne 1,5 pour le texte principal ; Times New Roman 10 pt, interligne simple pour les notes de bas de page.',
       cfp_spec6_html: '<strong>Citations.</strong> En notes de bas de page, conformément aux standards des publications juridiques (voir section VIII).',
-      cfp_rev_p1_html: 'L\'évaluation sera réalisée sous strict anonymat. Chaque contribution recevra un numéro corrélatif du comité d\'organisation ; deux membres du comité scientifique, sans connaissance préalable de l\'autorité, jugeront chaque travail garantissant l\'impartialité et un jugement fondé sur la <em>qualité, originalité et pertinence</em> du contenu.',
-      cfp_rev_p2_html: 'Dans une phase ultérieure, le comité scientifique délibérera pour sélectionner les contributions les plus remarquables, en tenant compte de l\'actualité du sujet, de la singularité de la perspective, de la clarté de l\'exposition et de l\'apport au dialogue du Forum. Les travaux acceptés et présentés seront pris en compte pour inclusion dans le <strong>livre collectif commémoratif</strong> de la IV édition.',
-      cfp_callout_body: 'Avant de soumettre votre proposition, vérifiez soigneusement la conformité aux normes de style et formats de citation établis ici. La qualité de la présentation et le respect de ces directives sont des facteurs déterminants dans le processus de sélection.',
+      cfp_rev_p1_html: 'L\'évaluation a été réalisée sous strict anonymat. Chaque contribution a reçu un numéro corrélatif du comité d\'organisation ; deux membres du comité scientifique, sans connaissance préalable de l\'autorité, ont jugé chaque travail en garantissant l\'impartialité et un jugement fondé sur la <em>qualité, originalité et pertinence</em> du contenu.',
+      cfp_rev_p2_html: 'Dans une phase ultérieure, le comité scientifique a délibéré pour sélectionner les contributions les plus remarquables, en tenant compte de l\'actualité du sujet, de la singularité de la perspective, de la clarté de l\'exposition et de l\'apport au dialogue du Forum. Les travaux acceptés et présentés seront pris en compte pour inclusion dans le <strong>livre collectif commémoratif</strong> de la IV édition.',
+      cfp_callout_body: 'La réception des travaux s\'est clôturée le 15 août 2026 et le processus d\'évaluation est achevé. Ces bases restent publiées comme document de consultation de la quatrième édition ; les normes de style et les formats de citation établis ici régissent l\'édition du livre collectif.',
       cfp_citas_intro: 'Les citations doivent être présentées en notes de bas de page, avec suffisamment de données pour la localisation précise de chaque source. Des exemples de référence sont fournis :',
 
       // Footer columns
@@ -2116,7 +2158,7 @@
       memorias_card4_tema: '« Agents, Algorithmes et Autonomie : le Droit face à l\'Intelligence qui Décide »',
       memorias_card4_st1: 'CUCEA · CUGDL · Cineteca · Cité Judiciaire',
       memorias_card4_st2: '9 axes (7 + 2 émergents)',
-      memorias_card4_st3: 'Appel ouvert',
+      memorias_card4_st3: 'Appel clôturé',
 
       // Memoria II (2024)
       mem2_eyebrow: 'II Édition · 2024',
@@ -2139,10 +2181,10 @@
       mem3_resena_p2: 'Cette troisième édition a projeté internationalement les bases du Forum comme espace académique pluriel où juristes, ingénieurs, juges et régulateurs d\'Ibéro-Amérique discutent de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique.',
       cfp_date1_step: '01 · Réception',
       cfp_date1_label: 'envoi des contributions',
-      cfp_date1_value_html: '1 mai —<br>15 août 2026',
+      cfp_date1_value_html: '1 mai —<br>15 août 2026<span class="ti-cerrado">Clôturé</span>',
       cfp_date2_step: '02 · Décision',
       cfp_date2_label: 'notification d\'acceptation',
-      cfp_date2_value_html: '20 août<br>2026',
+      cfp_date2_value_html: '20 août<br>2026<span class="ti-cerrado">Achevé</span>',
       cfp_date3_step: '03 · Événement',
       cfp_date3_label: 'dates du forum',
       cfp_date3_value: '21 et 22 septembre 2026',
@@ -2151,6 +2193,10 @@
       cfp_errata_nueva: '15 août 2026',
       cfp_errata_sello: 'Définitive',
       cfp_errata_glosa_html: 'Là où il était écrit <i>1er août</i>, lire <i>15 août 2026</i>. La réception des articles est prolongée et cette date de clôture est définitive. Le reste de l\'appel ne change pas : un article complet de 15 à 20 pages, en un seul envoi.',
+      cfp_clausura_rotulo: 'Clôture de l\'appel',
+      cfp_clausura_fecha: '15 août 2026',
+      cfp_clausura_sello: 'Clôturé',
+      cfp_clausura_glosa_html: 'La réception des articles s\'est achevée à la date indiquée. Le Comité scientifique a terminé l\'évaluation en double aveugle. Ces bases restent publiées comme document de consultation de la quatrième édition.',
       cfp_topic1_t: 'IA Agentique et Propriété Intellectuelle Générative',
       cfp_topic2_t: 'Technologies Émergentes',
       cfp_topic3_t: 'Cybersécurité et Souveraineté Numérique',
@@ -2164,7 +2210,7 @@
       cfp_envelope_subject: 'Objet du courriel',
       cfp_envelope_body: 'Corps du courriel',
       cfp_envelope_attach: 'Pièce jointe',
-      cfp_callout_title: 'Rappel final',
+      cfp_callout_title: 'État de l\'appel',
 
       // ===== FOOTER =====
       foot_copy: '© 2026 · Forum International du Droit et de la Technologie · Corps Académique UDG-CA-1236 « Droit et Technologie »',
@@ -2304,8 +2350,8 @@
       m3_cta_title_html: 'Voulez-vous faire partie de la <em>IV<sup>e</sup> édition</em> ?',
       m3_cta_p1_html: 'Le <strong>IV<sup>e</sup> Forum International de Droit et Technologie</strong> aura lieu les <strong>21 et 22 septembre 2026</strong> au CUCEA, Zapopan, format hybride.',
       m3_cta_p2_html: 'Thème central : <em>« Agents, Algorithmes et Autonomie : le Droit face à l\'Intelligence qui Décide »</em> — 9 axes thématiques, deux émergents (IA agentique + PI générative, santé numérique + biotechnologies), publication dans le livre collectif Editorial UDG.',
-      m3_cta_p3_html: '<strong>Appel à communications ouvert du 1<sup>er</sup> mai au 15 août 2026.</strong> Notification d\'acceptation : 20 août 2026.',
-      m3_cta_btn1: 'Appel ouvert →',
+      m3_cta_p3_html: '<strong>L\'appel a été clôturé le 15 août 2026.</strong> L\'évaluation est achevée.',
+      m3_cta_btn1: 'Consulter les bases →',
       m3_cta_btn2: 'Programme IV',
       m3_cta_btn3: 'Roster IV',
     

@@ -841,6 +841,9 @@ textarea:focus { border-color: var(--dorado); }
 
 .cfp-deadline:last-child { border-bottom: none; padding-bottom: 0; }
 
+.cfp-deadline--pasada { opacity: 0.6; }
+.cfp-deadline--pasada .cfp-deadline-date { text-decoration: line-through; text-decoration-thickness: 1px; }
+
 .cfp-deadline-label {
   font-family: var(--sans);
   font-size: 13px;
@@ -1170,8 +1173,8 @@ footer {
     </button>
     <button class="tab" data-target="cfp" role="tab" aria-selected="false">
       <span class="tab-num">02</span>
-      <span class="tab-title" data-i18n="ins_tab2_title">Enviar ponencia</span>
-      <span class="tab-sub" data-i18n="ins_tab2_sub">Call for Papers · libro colectivo</span>
+      <span class="tab-title" data-i18n="ins_tab2_title">Call for Papers</span>
+      <span class="tab-sub" data-i18n="ins_tab2_sub">Convocatoria cerrada · libro colectivo</span>
     </button>
     <button class="tab" data-target="newsletter" role="tab" aria-selected="false">
       <span class="tab-num">03</span>
@@ -1467,48 +1470,48 @@ footer {
   <!-- ===== PANEL 2 · CFP ===== -->
   <section class="panel" id="panel-cfp" role="tabpanel">
     <div class="panel-intro">
-      <div class="panel-eyebrow" data-i18n="ins_panel2_eyebrow">Convocatoria · Call for Papers</div>
-      <h2 data-i18n-html="ins_panel2_title_html">Envía tu <em>contribución</em>.</h2>
+      <div class="panel-eyebrow" data-i18n="ins_panel2_eyebrow">Convocatoria · Call for Papers cerrado</div>
+      <h2 data-i18n-html="ins_panel2_title_html">La convocatoria <em>cerró</em>.</h2>
       <p data-i18n="ins_panel2_intro">
-        El Comité Científico recibe propuestas en español, inglés y francés sobre los nueve ejes temáticos de la cuarta edición. Los papers aceptados se publican en libro colectivo bajo Editorial Universidad de Guadalajara, con DOI por capítulo.
+        La recepción de trabajos cerró el 15 de agosto de 2026 y el proceso de dictaminación finalizó. Los papers aceptados se publican en libro colectivo bajo Editorial Universidad de Guadalajara, con DOI por capítulo. La inscripción para asistir al Foro sigue abierta en la pestaña 01.
       </p>
     </div>
 
     <div class="cfp-info">
       <div class="cfp-text">
-        <p><strong>Quién puede postular.</strong> Académicas, académicos, estudiantes de maestría y doctorado, y profesionales del derecho con investigación original sobre los ejes del Foro.</p>
-        <p><strong>Modalidad de envío.</strong> Artículo completo de 15–20 páginas (normas editoriales del libro) en un solo envío, sin resumen previo, al correo <strong>emmanueldelva@cucea.udg.mx</strong> con asunto «ARTÍCULO IV FORO DERECHO Y TECNOLOGÍA: NOMBRE APELLIDOS». La revisión doble ciega la gestiona el Comité Científico.</p>
-        <p><strong>Idiomas aceptados.</strong> Español, inglés y francés.</p>
-        <p><strong>Best Paper Award.</strong> El paper mejor evaluado recibe distinción especial y publicación destacada.</p>
+        <p data-i18n-html="ins_cfp_quien_html"><strong>Quiénes postularon.</strong> Académicas, académicos, estudiantes de maestría y doctorado, y profesionales del derecho con investigación original sobre los ejes del Foro.</p>
+        <p data-i18n-html="ins_cfp_modalidad_html"><strong>Modalidad de envío.</strong> Artículo completo de 15–20 páginas (normas editoriales del libro) en un solo envío, sin resumen previo. La revisión doble ciega la gestionó el Comité Científico.</p>
+        <p data-i18n-html="ins_cfp_idiomas_html"><strong>Idiomas aceptados.</strong> Español, inglés y francés.</p>
+        <p data-i18n-html="ins_cfp_award_html"><strong>Best Paper Award.</strong> El paper mejor evaluado recibe distinción especial y publicación destacada.</p>
         <div class="cfp-actions">
-          <a href="cfp.html" class="btn-primary"><span>Ver convocatoria completa</span></a>
-          <a href="cfp.html" class="btn-ghost">Enviar artículo</a>
+          <a href="cfp.html" class="btn-primary"><span data-i18n="ins_cfp_btn_bases">Ver las bases</span></a>
+          <a href="jornada-virtual.html" class="btn-ghost" data-i18n="ins_cfp_btn_jornada">Conocer la jornada virtual</a>
         </div>
       </div>
 
       <aside class="cfp-deadlines">
-        <span class="cfp-deadlines-title">Fechas clave</span>
-        <div class="cfp-deadline">
-          <span class="cfp-deadline-label">Apertura de envíos</span>
+        <span class="cfp-deadlines-title" data-i18n="ins_cfp_fechas_title">Fechas clave</span>
+        <div class="cfp-deadline cfp-deadline--pasada">
+          <span class="cfp-deadline-label" data-i18n="ins_cfp_f1">Apertura de envíos</span>
           <span class="cfp-deadline-date">1 may · 2026</span>
         </div>
-        <div class="cfp-deadline">
-          <span class="cfp-deadline-label">Cierre de envíos</span>
+        <div class="cfp-deadline cfp-deadline--pasada">
+          <span class="cfp-deadline-label" data-i18n="ins_cfp_f2">Cierre de envíos</span>
           <span class="cfp-deadline-date">15 ago · 2026</span>
         </div>
-        <div class="cfp-deadline">
-          <span class="cfp-deadline-label">Notificación de aceptación</span>
+        <div class="cfp-deadline cfp-deadline--pasada">
+          <span class="cfp-deadline-label" data-i18n="ins_cfp_f3">Notificación de aceptación</span>
           <span class="cfp-deadline-date">20 ago · 2026</span>
         </div>
         <div class="cfp-deadline">
-          <span class="cfp-deadline-label">Publicación libro</span>
+          <span class="cfp-deadline-label" data-i18n="ins_cfp_f4">Publicación libro</span>
           <span class="cfp-deadline-date">Q1 · 2027</span>
         </div>
       </aside>
     </div>
 
     <p style="font-family: var(--sans); font-size: 13px; color: var(--ink-faint); font-style: italic; padding-top: 24px; border-top: 1px solid var(--ink-rule);">
-      ¿Dudas sobre la convocatoria? Escribe a <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: var(--ink); text-decoration: underline; text-decoration-color: var(--dorado); text-underline-offset: 3px;">emmanueldelva@cucea.udg.mx</a> con asunto «IV Foro · CFP».
+      ¿Dudas sobre el dictamen de un trabajo enviado? Escribe a <a href="mailto:emmanueldelva@cucea.udg.mx" style="color: var(--ink); text-decoration: underline; text-decoration-color: var(--dorado); text-underline-offset: 3px;">emmanueldelva@cucea.udg.mx</a> con asunto «IV Foro · CFP».
     </p>
   </section>
 
