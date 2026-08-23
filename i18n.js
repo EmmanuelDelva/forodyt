@@ -665,7 +665,7 @@
       idx_ponentes_cta_btn: 'Receive updates',
 
       // Trayectoria - 4 ediciones
-      idx_trayectoria_lead_html: 'Since 2023, the Forum has gathered at CUCEA jurists, engineers, judges, regulators and academics from three continents to discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property. Each edition culminates in a <strong>double-blind peer-reviewed collective book</strong>, published by the University of Guadalajara within the editorial series <em>Innovación Jurídica en la era digital</em>.',
+      idx_trayectoria_lead_html: 'Since 2023, the Forum has gathered at the University of Guadalajara jurists, engineers, judges, regulators and academics from three continents to discuss how the law must respond to artificial intelligence, the crypto-economy, cybersecurity and digital intellectual property. Each edition culminates in a <strong>double-blind peer-reviewed collective book</strong>, published by the University of Guadalajara within the editorial series <em>Innovación Jurídica en la era digital</em>.',
       idx_edition_label: ' Edition',
       idx_status_memoria: 'Memoir',
       idx_status_proxima: 'Upcoming',
@@ -1159,7 +1159,7 @@
       // ===== MEMORIAS (página índice) =====
       memorias_eyebrow: 'Memoirs',
       memorias_title_html: 'Three editions,<br>one <em>conversation</em>.',
-      memorias_lead_html: 'Since 2023, the International Forum on Law and Technology has gathered at CUCEA jurists, judges, regulators, academics and specialists from three continents. Each edition is a <strong>chapter</strong> of the editorial series <em>«Legal Innovation in the Digital Era»</em>. Explore each memoir below.',
+      memorias_lead_html: 'Since 2023, the International Forum on Law and Technology has gathered at the University of Guadalajara jurists, judges, regulators, academics and specialists from three continents. Each edition is a <strong>chapter</strong> of the editorial series <em>«Legal Innovation in the Digital Era»</em>. Explore each memoir below.',
       memorias_stat_ponentes: 'Speakers', memorias_stat_paises: 'Countries',
       memorias_stat_distintivo: 'Highlight', memorias_stat_sedes: 'Venues',
       memorias_stat_ejes: 'Tracks', memorias_stat_estado: 'Status',
@@ -1662,7 +1662,7 @@
       idx_ponentes_cta_btn: 'Recevoir les mises à jour',
 
       // Trayectoria - 4 éditions
-      idx_trayectoria_lead_html: 'Depuis 2023, le Forum a réuni au CUCEA juristes, ingénieurs, juges, régulateurs et académiques de trois continents pour discuter de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique. Chaque édition aboutit à un <strong>livre collectif évalué en double aveugle</strong>, publié par l\'Université de Guadalajara au sein de la série éditoriale <em>Innovación Jurídica en la era digital</em>.',
+      idx_trayectoria_lead_html: 'Depuis 2023, le Forum a réuni à l\'Université de Guadalajara juristes, ingénieurs, juges, régulateurs et académiques de trois continents pour discuter de la manière dont le droit doit répondre à l\'intelligence artificielle, à la crypto-économie, à la cybersécurité et à la propriété intellectuelle numérique. Chaque édition aboutit à un <strong>livre collectif évalué en double aveugle</strong>, publié par l\'Université de Guadalajara au sein de la série éditoriale <em>Innovación Jurídica en la era digital</em>.',
       idx_edition_label: ' Édition',
       idx_status_memoria: 'Mémoire',
       idx_status_proxima: 'À venir',
@@ -2155,7 +2155,7 @@
       // ===== MEMORIAS (page index) =====
       memorias_eyebrow: 'Mémoires',
       memorias_title_html: 'Trois éditions,<br>une <em>conversation</em>.',
-      memorias_lead_html: 'Depuis 2023, le Forum International du Droit et de la Technologie a réuni au CUCEA juristes, juges, régulateurs, académiques et spécialistes de trois continents. Chaque édition est un <strong>chapitre</strong> de la série éditoriale <em>« Innovation Juridique à l\'ère numérique »</em>. Explorez chaque mémoire ci-dessous.',
+      memorias_lead_html: 'Depuis 2023, le Forum International du Droit et de la Technologie a réuni à l\'Université de Guadalajara juristes, juges, régulateurs, académiques et spécialistes de trois continents. Chaque édition est un <strong>chapitre</strong> de la série éditoriale <em>« Innovation Juridique à l\'ère numérique »</em>. Explorez chaque mémoire ci-dessous.',
       memorias_stat_ponentes: 'Intervenants', memorias_stat_paises: 'Pays',
       memorias_stat_distintivo: 'Distinctif', memorias_stat_sedes: 'Sites',
       memorias_stat_ejes: 'Axes', memorias_stat_estado: 'Statut',
