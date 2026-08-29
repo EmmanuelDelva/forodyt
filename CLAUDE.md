@@ -268,6 +268,16 @@ Disparador: aviso de GSC "Página con redirección" para forodyt.com + correo sp
 - **Paridad sin reordenar**: con los 7 añadidos al final la parrilla queda en 30 (18 H / 12 M) y las 8 filas siguen teniendo al menos una mujer, así que NO se movió a nadie. La reordenación se hará UNA sola vez, cuando estén las 18 altas.
 - Cifra de portada XXIII/23 → **XXX/30**.
 
+### Sesión 2026-08-23 (2) — Cierre del cotejo: 41 ponentes + parrilla con paridad Y mezcla de sectores
+
+- **Las 11 altas que faltaban** (30 → **41 ponentes**): Arrazola Cortés · Lozano Martínez · Viniegra · Vega Gómez · Sossa Azuela · Gustavo E. Juárez · Doria Arrieta · Sánchez-Aguirre · García Barrera · Juárez Tello · Vázquez Placencia. El cotejo con el programa v9 queda **cerrado**.
+- **Los cinco de mesa conjunta NO llevan el sello «Ponencia por confirmar»**: se les puso el TEMA CONJUNTO de su mesa, que sí está en el programa («Derecho ecológico digital…» y «Diseño y desarrollo de herramienta para seguimiento de casos de corrupción»), con la coletilla «tema conjunto de mesa». El sello queda solo para quien no tiene título de ninguna clase.
+- ⚠️ **Regla de paridad AMPLIADA a dos objetivos.** `_tools/parrilla.py` ya no optimiza solo el género: ahora clasifica a los 41 por **sector** (P público 17 · A academia 18 · R privado 6) y busca que, en los tres anchos, **ninguna fila quede sin mujer NI sea de un solo sector**. El espacio es 41! y no admite enumeración: usa descenso estocástico con reinicios. Resultado verificado en el DOM: **11 filas, 0 sin mujer, 0 monosectoriales**, racha máxima de género 3 y de sector **2** (nunca tres del mismo mundo seguidos).
+- **41 tarjetas + la celda extra de la destacada = 42 celdas**: 10 filas de 4 y una última de 2. Para que cierre a ras hacen falta **43** ponentes (4k−1).
+- ⚠️ **Discrepancias programa vs. web, publicadas como dice el programa** (regla de la casa) y pendientes de confirmar: **Arrazola Cortés y Lozano Martínez** aparecen como CUGDL en el programa —dan la ponencia del centro anfitrión— pero la única fuente institucional abrible sitúa a Arrazola en **UDGVirtual** (correo @udgvirtual.udg.mx) y una publicación de 2024 en CUTlajomulco.
+- **Suprimido por el pase adversarial**: el doctorado FLACSO de Arrazola, el cargo de «vocera» de Viniegra, la licenciatura y maestría fiscal de García Barrera, y varias glosas del tema de mesa. La semblanza de Sánchez-Aguirre se reescribió: era relleno que describía el programa, no a él.
+- **Trampa nueva (me costó un `git checkout`)**: los agentes devuelven algunos campos FR **con el apóstrofo ya escapado**, porque el schema se lo pide. Escapar otra vez produce `\'` y rompe `i18n.js`. Hay que **normalizar primero** (`re.sub(r"\+'", "'", s)`) y escapar UNA sola vez. Y NUNCA reparar con un `replace` global de `\'` → `'`: desescapa los cientos de apóstrofos legítimos del resto del archivo.
+
 ## 10. Pendientes abiertos
 
 - **CF Web Analytics token**: crear site `forodyt.com` en `dash.cloudflare.com/<account>/web-analytics`, copiar el token de 32 chars del snippet generado y reemplazar `CF_TOKEN_FORODYT` en los 8 HTML con `perl -i -pe 's/CF_TOKEN_FORODYT/<TOKEN>/g' *.html`. Commit + push.
