@@ -1,155 +1,150 @@
 # -*- coding: utf-8 -*-
-"""Calcula el orden de la parrilla de ponentes con DOS objetivos a la vez:
-paridad de genero y mezcla de sectores (publico · academia · privado).
+"""Orden de la parrilla de ponentes del IV Foro.
 
-⚠️ MODELO DE FILAS — leer antes de tocar:
-La primera tarjeta (Alvarez Pulido) lleva `.ponente.destacado`, que en CSS es
-`grid-column: span 2`. Ocupa DOS celdas. Por tanto la tarjeta n (1-indexada)
-cae en la celda n para todo n>=2, y la fila es floor(celda/cols).
+CRITERIO (fijado por el director el 2026-08-23):
+  1. Los perfiles de MAS PESO salen primero. El peso lo da el rol en el programa
+     (magistral, inaugural, apertura) y el rango institucional.
+  2. Anclas fijas: Alvarez Pulido en la 1 (destacada) y Miguel Angel Gaspar en la 2,
+     porque da la conferencia inaugural. Juan Carlos Contreras en la SEGUNDA FILA.
+  3. Se respeta la alternancia de genero: ninguna fila sin mujer.
+  4. La mezcla de sectores (publico · academia · privado) pasa a criterio secundario.
 
-Anchos reales de la parrilla: 4 col (>1120px) · 3 col (<=1120px) · 2 col (<=920px).
-
-Objetivo, por fila y en los tres anchos:
-  - que NINGUNA fila quede sin mujer
-  - que ninguna fila sea de un solo sector (se premia que haya tres)
-  - rachas cortas de un mismo genero y de un mismo sector
-Restriccion dura: Alvarez Pulido se queda en la posicion 1.
-
-Busqueda: descenso estocastico con reinicios. El espacio es 41! y no admite
-enumeracion; con ~40 reinicios converge a un optimo estable en segundos.
+⚠️ MODELO DE FILAS: la primera tarjeta lleva `.ponente.destacado`, que es
+`grid-column: span 2` — ocupa DOS celdas. La tarjeta n cae en la celda n para
+todo n>=2, y la fila es floor(celda/cols). Anchos: 4 col (>1120px) · 3 col
+(<=1120px) · 2 col (<=920px).
 """
 import random
 
 COLS = (4, 3, 2)
 DESTACADA_SPAN = 2
 
-# (slug, genero, sector) — sector: P=publico · A=academia · R=privado
+# (slug, genero, sector, peso)
+#   sector: P=publico · A=academia · R=privado
+#   peso 1-10: rol en el programa + rango institucional. Ajustable a mano.
 PONENTES = [
-    ('alvarez',             'H', 'P'),   # queda SIEMPRE en la posicion 1
-    ('gonzalez',            'M', 'P'),
-    ('gaspar',              'H', 'R'),
-    ('garcia_torres',       'M', 'A'),
-    ('rivera',              'H', 'P'),
-    ('zepeda',              'H', 'A'),
-    ('raad',                'H', 'P'),
-    ('barrios',             'M', 'P'),
-    ('ibarra',              'H', 'R'),
-    ('gomez',               'H', 'P'),
-    ('gamez',               'M', 'A'),
-    ('vega',                'H', 'R'),
-    ('troncoso',            'H', 'P'),
-    ('reyes',               'H', 'A'),
-    ('caicedo',             'M', 'R'),
-    ('tinajero',            'H', 'P'),
-    ('marquez',             'H', 'P'),
-    ('rosales',             'M', 'A'),
-    ('jimenez',             'H', 'A'),
-    ('contreras',           'H', 'P'),
-    ('olmos',               'M', 'P'),
-    ('villarreal',          'H', 'P'),
-    ('gomez_avila',         'H', 'R'),
-    ('romero_gutierrez',    'M', 'A'),
-    ('willman',             'H', 'A'),
-    ('hernandez_alcantara', 'M', 'P'),
-    ('rojas_sanchez',       'H', 'P'),
-    ('lozano_valdivia',     'M', 'A'),
-    ('nava_lopez',          'M', 'P'),
-    ('pinto_garcia',        'M', 'A'),
-    ('arrazola',            'H', 'A'),
-    ('lozano_martinez',     'H', 'A'),
-    ('viniegra',            'M', 'R'),
-    ('vega_gomez',          'H', 'A'),
-    ('sossa',               'H', 'A'),
-    ('gustavo_juarez',      'H', 'A'),
-    ('doria',               'H', 'A'),
-    ('sanchez_aguirre',     'H', 'A'),
-    ('garcia_barrera',      'M', 'A'),
-    ('juarez_tello',        'H', 'P'),
-    ('vazquez_placencia',   'H', 'P'),
+    ('alvarez',             'H', 'P', 10),  # Magistrado Presidente STJ · magistral + clausura
+    ('gaspar',              'H', 'R',  9),  # conferencia INAUGURAL
+    ('contreras',           'H', 'P',  9),  # Director General · Escudo Urbano C5 Jalisco
+    ('rivera',              'H', 'P',  9),  # Director General IJCF · ponencia de apertura dia 2
+    ('sossa',               'H', 'A',  9),  # Director del CIC-IPN · emerito · Premio Nacional
+    ('raad',                'H', 'P',  8),  # Magistrado Auxiliar CSJ · Presidente de ALGDETIC
+    ('gonzalez',            'M', 'P',  8),  # Consejo Superior de la Judicatura · Colombia
+    ('zepeda',              'H', 'A',  8),  # Director General del IJA
+    ('olmos',               'M', 'P',  8),  # Directora General C5i Aguascalientes
+    ('villarreal',          'H', 'P',  8),  # Director General C5i Guanajuato
+    ('caicedo',             'M', 'R',  8),  # Presidenta del Observatorio Mundial de la Abogacia
+    ('troncoso',            'H', 'P',  8),  # Magistrado Auxiliar CSJ Colombia
+    ('barrios',             'M', 'P',  7),  # Directora Seccional · Rama Judicial
+    ('reyes',               'H', 'A',  7),  # Decano de Derecho · Unilibre Cartagena
+    ('tinajero',            'H', 'P',  7),  # Secretario Tecnico SEAJAL
+    ('marquez',             'H', 'P',  7),  # Juez de Control · PJ Jalisco
+    ('vega_gomez',          'H', 'A',  7),  # Presidente IEEE Seccion Guadalajara
+    ('gustavo_juarez',      'H', 'A',  7),  # ex Presidente Seccion Argentina IEEE
+    ('gamez',               'M', 'A',  7),  # Tec de Monterrey
+    ('ibarra',              'H', 'R',  6),  # AMCID · FIADI
+    ('vega',                'H', 'R',  6),  # Presidente APPIF · Panama
+    ('garcia_torres',       'M', 'A',  6),  # U. Alfonso X el Sabio · IusConnect
+    ('gomez',               'H', 'P',  6),  # capacitador CSJN Argentina
+    ('jimenez',             'H', 'A',  6),  # Investigador por Mexico · coordina mesa
+    ('rojas_sanchez',       'H', 'P',  6),  # Hospital Civil de Guadalajara
+    ('vazquez_placencia',   'H', 'P',  6),  # Director General · Contraloria de Jalisco
+    ('juarez_tello',        'H', 'P',  6),  # Director de Tecnologias · SEAJAL
+    ('garcia_barrera',      'M', 'A',  6),  # UANL · dirigio volumen en Thomson Reuters
+    ('rosales',             'M', 'A',  5),
+    ('gomez_avila',         'H', 'R',  5),
+    ('viniegra',            'M', 'R',  5),
+    ('nava_lopez',          'M', 'P',  5),
+    ('doria',               'H', 'A',  5),
+    ('hernandez_alcantara', 'M', 'P',  5),
+    ('lozano_valdivia',     'M', 'A',  5),
+    ('arrazola',            'H', 'A',  5),
+    ('lozano_martinez',     'H', 'A',  5),
+    ('romero_gutierrez',    'M', 'A',  4),
+    ('willman',             'H', 'A',  4),
+    ('sanchez_aguirre',     'H', 'A',  4),
+    ('pinto_garcia',        'M', 'A',  4),
 ]
 
+IDX = {p[0]: i for i, p in enumerate(PONENTES)}
 N = len(PONENTES)
 CELDA = [0] + [k + DESTACADA_SPAN - 1 for k in range(1, N)]
 
+FIJOS = {0: IDX['alvarez'], 1: IDX['gaspar']}          # posiciones 1 y 2
+FILA2 = IDX['contreras']                                # debe caer en la fila 2 (4 col)
+
 
 def filas(orden, cols):
-    """Agrupa los indices del orden por fila, con el modelo de celdas correcto."""
     out = {}
-    for pos, idx in enumerate(orden):
-        out.setdefault(CELDA[pos] // cols, []).append(idx)
+    for pos, i in enumerate(orden):
+        out.setdefault(CELDA[pos] // cols, []).append(i)
     return [out[f] for f in sorted(out)]
-
-
-def racha(orden, campo):
-    peor = act = 1
-    for a, b in zip(orden, orden[1:]):
-        act = act + 1 if PONENTES[a][campo] == PONENTES[b][campo] else 1
-        peor = max(peor, act)
-    return peor
 
 
 def puntua(orden):
     total = 0
+    # 1 · los pesados primero: a mayor peso, mas caro caer tarde
+    for pos, i in enumerate(orden):
+        total += pos * PONENTES[i][3] * 2
+    # 2 · Contreras en la fila 2 (celdas 4-7 con 4 columnas)
+    pos_c = orden.index(FILA2)
+    if not (4 <= CELDA[pos_c] <= 7):
+        total += 900
+    # 3 · ninguna fila sin mujer · 4 · mezcla de sectores (secundaria)
     for c in COLS:
-        peso = 3 if c == 4 else (2 if c == 3 else 1)
+        peso = 4 if c == 4 else (2 if c == 3 else 1)
         for f in filas(orden, c):
             if len(f) < 2:
                 continue
-            gen = {PONENTES[i][1] for i in f}
-            sec = {PONENTES[i][2] for i in f}
-            if 'M' not in gen:
-                total += 10 * peso              # fila sin ninguna mujer
-            if len(sec) == 1:
-                total += 8 * peso               # fila de un solo sector
-            elif len(sec) == 2 and len(f) >= 4:
-                total += 2 * peso               # se premia la fila con tres sectores
-    total += max(0, racha(orden, 1) - 3) * 6    # rachas de genero
-    total += max(0, racha(orden, 2) - 3) * 5    # rachas de sector
+            if 'M' not in {PONENTES[i][1] for i in f}:
+                total += 260 * peso
+            if len({PONENTES[i][2] for i in f}) == 1:
+                total += 40 * peso
     return total
 
 
-def optimiza(reinicios=12, pasos=4000, semilla=7):
-    """Descenso estocastico con reinicios. Corta en cuanto alcanza 0 o se estanca."""
+def optimiza(reinicios=10, pasos=6000, semilla=11):
     rnd = random.Random(semilla)
-    mejor, mejor_s = None, None
+    libres = [i for i in range(N) if i not in FIJOS.values()]
+    mejor = mejor_s = None
     for _ in range(reinicios):
-        orden = [0] + rnd.sample(range(1, N), N - 1)
+        resto = libres[:]
+        rnd.shuffle(resto)
+        orden = [FIJOS[0], FIJOS[1]] + resto
         s = puntua(orden)
-        sin_mejora = 0
+        quieto = 0
         for _ in range(pasos):
-            i, j = rnd.randrange(1, N), rnd.randrange(1, N)
+            i, j = rnd.randrange(2, N), rnd.randrange(2, N)
             if i == j:
                 continue
             orden[i], orden[j] = orden[j], orden[i]
             s2 = puntua(orden)
             if s2 < s:
-                s, sin_mejora = s2, 0
-            elif s2 == s:
-                sin_mejora += 1
+                s, quieto = s2, 0
             else:
                 orden[i], orden[j] = orden[j], orden[i]
-                sin_mejora += 1
-            if s == 0 or sin_mejora > 1200:
+                quieto += 1
+            if quieto > 1500:
                 break
         if mejor_s is None or s < mejor_s:
             mejor, mejor_s = list(orden), s
-        if mejor_s == 0:
-            break
     return mejor, mejor_s
 
 
 if __name__ == '__main__':
     orden, s = optimiza()
-    print('puntuacion %d  (0 = ninguna fila sin mujer ni de un solo sector, en los 3 anchos)\n' % s)
-    for c in COLS:
-        print('  %d columnas:' % c)
-        for f in filas(orden, c):
-            g = ''.join(PONENTES[i][1] for i in f)
-            k = ''.join(PONENTES[i][2] for i in f)
-            print('     %-5s %-5s' % (g, k))
-        print()
-    print('ORDEN (%d):' % N)
-    print([PONENTES[i][0] for i in orden])
+    print('puntuacion %d\n' % s)
+    print('FILAS EN 4 COLUMNAS (la vista de escritorio)')
+    for nf, f in enumerate(filas(orden, 4), 1):
+        det = '  '.join('%-19s %s%s%d' % (PONENTES[i][0], PONENTES[i][1], PONENTES[i][2], PONENTES[i][3]) for i in f)
+        print('  fila %-2d  %s' % (nf, det))
     print()
-    print('mujeres en las posiciones:', [p + 1 for p, i in enumerate(orden) if PONENTES[i][1] == 'M'])
-    print('racha max genero:', racha(orden, 1), '· racha max sector:', racha(orden, 2))
+    sinM = [n for n, f in enumerate(filas(orden, 4), 1) if 'M' not in {PONENTES[i][1] for i in f}]
+    print('filas sin mujer (4 col):', sinM or 'ninguna')
+    sinM3 = [n for n, f in enumerate(filas(orden, 3), 1) if len(f) > 1 and 'M' not in {PONENTES[i][1] for i in f}]
+    print('filas sin mujer (3 col):', sinM3 or 'ninguna')
+    print('peso medio por fila (4 col):',
+          [round(sum(PONENTES[i][3] for i in f) / len(f), 1) for f in filas(orden, 4)])
+    print()
+    print('ORDEN:')
+    print([PONENTES[i][0] for i in orden])

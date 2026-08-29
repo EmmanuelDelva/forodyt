@@ -278,6 +278,23 @@ Disparador: aviso de GSC "Página con redirección" para forodyt.com + correo sp
 - **Suprimido por el pase adversarial**: el doctorado FLACSO de Arrazola, el cargo de «vocera» de Viniegra, la licenciatura y maestría fiscal de García Barrera, y varias glosas del tema de mesa. La semblanza de Sánchez-Aguirre se reescribió: era relleno que describía el programa, no a él.
 - **Trampa nueva (me costó un `git checkout`)**: los agentes devuelven algunos campos FR **con el apóstrofo ya escapado**, porque el schema se lo pide. Escapar otra vez produce `\'` y rompe `i18n.js`. Hay que **normalizar primero** (`re.sub(r"\+'", "'", s)`) y escapar UNA sola vez. Y NUNCA reparar con un `replace` global de `\'` → `'`: desescapa los cientos de apóstrofos legítimos del resto del archivo.
 
+### Sesión 2026-08-23 (3) — La parrilla se ordena por PESO DE PERFIL, no por dispersión
+
+El director rechazó el acomodo por mezcla de sectores. **Criterio nuevo y vigente**, en `_tools/parrilla.py`:
+
+1. **Los perfiles de más peso salen primero.** Cada ponente lleva un `peso` de 1 a 10 en la tabla del script, dado por su rol en el programa (magistral, inaugural, apertura) y su rango institucional. El coste es `posición × peso`: a mayor peso, más caro caer tarde.
+2. **Anclas fijas**: Álvarez Pulido en la 1 (tarjeta destacada) y **Miguel Ángel Gaspar en la 2, porque da la conferencia inaugural**. **Juan Carlos Contreras en la segunda fila** (celdas 4-7).
+3. Ninguna fila sin mujer — se mantiene como restricción dura.
+4. La mezcla de sectores baja a criterio **secundario** (penalización 40 frente a 260 de la paridad).
+
+Resultado verificado en el DOM: peso medio por fila **9.0 · 8.8 · 7.8 · 7.5 · 6.8 · 5.8 · 5.8 · 5.2 · 5.2 · 4.8 · 4.5** y **0 filas sin mujer** en 4 columnas. Fila 1: Álvarez · Gaspar · Mayra González. Fila 2: Rivera · Sossa · Contreras · Caicedo.
+
+⚠️ En 3 columnas la fila 1 queda sin mujer: son solo Álvarez (que ocupa dos celdas) y Gaspar, y ambos están anclados. Es consecuencia inevitable de las dos anclas.
+
+**Bug que cometí y conviene no repetir**: la primera versión del coste era `posición × (10 − peso)`, que empuja a los LIGEROS al frente. El signo correcto es `posición × peso`. Se detecta mirando la línea «peso medio por fila»: debe ir en descenso.
+
+**Para ajustar el orden en el futuro** basta cambiar el número de `peso` de quien corresponda en la tabla de `_tools/parrilla.py` y volver a correrlo; no hay que tocar el HTML a mano.
+
 ## 10. Pendientes abiertos
 
 - **CF Web Analytics token**: crear site `forodyt.com` en `dash.cloudflare.com/<account>/web-analytics`, copiar el token de 32 chars del snippet generado y reemplazar `CF_TOKEN_FORODYT` en los 8 HTML con `perl -i -pe 's/CF_TOKEN_FORODYT/<TOKEN>/g' *.html`. Commit + push.
