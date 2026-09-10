@@ -1,0 +1,11 @@
+{
+  "scope": "IV ForoDyT 2026 · CUCEA · Motion Engine",
+  "status": "ENGINE_PHASE_1_COMPLETE",
+  "productionFreeze": "BLOCKED_BY_VENUE_OPS",
+  "lastQA": "2026-09-09",
+  "blockers": [
+    "Venue Ops CUCEA: carga/descarga, responsable de sede y contacto técnico pendientes de confirmación.",
+    "Venue Ops CUCEA: PA/micrófonos, proyección, laptop/clicker, streaming/plataforma e internet dedicado pendientes de confirmación.",
+    "Venue Ops CUCEA: accesibilidad y emergencias/protección civil pendientes de confirmación."
+  ]
+}

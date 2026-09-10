@@ -1,0 +1,25 @@
+{
+  "name": "forodyt-motion-engine",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts --no-open",
+    "validate": "node scripts/validate.mjs",
+    "render:venue": "node scripts/render-venue.mjs",
+    "render:session": "node scripts/render-session.mjs",
+    "render:lower-third": "node scripts/render-lower-third.mjs",
+    "render:all": "node scripts/render-all.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.506",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.506",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.7",
+    "typescript": "5.9.2"
+  }
+}
