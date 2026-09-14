@@ -20,8 +20,8 @@
   "fr": "Le programme <em>définitif</em>, heure par heure."
  },
  "ui.lead_html": {
-  "en": "An international online session on <b>Friday 18 September</b> and two in-person days, <b>Monday 21 and Tuesday 22</b>, spread across CUCEA, CUGDL, the Cineteca FICG and Judicial City. Every session can be saved to your schedule, added to your calendar and viewed in your local time.",
-  "fr": "Une journée virtuelle internationale le <b>vendredi 18 septembre</b> et deux journées en présentiel, le <b>lundi 21 et le mardi 22</b>, réparties entre le CUCEA, le CUGDL, la Cineteca FICG et la Cité Judiciaire. Chaque session peut être enregistrée dans votre agenda, ajoutée à votre calendrier et affichée à votre heure locale."
+  "en": "Two in-person days, <b>Monday 21 and Tuesday 22 September</b>, spread across CUCEA, CUGDL, the Cineteca FICG and Judicial City, and an international online session on <b>Friday 18</b>. Every session can be saved to your schedule, added to your calendar and viewed in your local time.",
+  "fr": "Deux journées en présentiel, le <b>lundi 21 et le mardi 22 septembre</b>, réparties entre le CUCEA, le CUGDL, la Cineteca FICG et la Cité Judiciaire, et une journée virtuelle internationale le <b>vendredi 18</b>. Chaque session peut être enregistrée dans votre agenda, ajoutée à votre calendrier et affichée à votre heure locale."
  },
  "ui.version_label": {
   "en": "Version of 10 September 2026",

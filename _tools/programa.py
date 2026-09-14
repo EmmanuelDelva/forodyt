@@ -110,6 +110,9 @@ def f(key, es, attr='data-f18n'):
     return f'{attr}="{key}"'
 
 UI = DATA['ui']
+# Orden de presentación (decisión del director, 2026-09-14): primero los días presenciales (21 · 22) y al final la
+# Jornada Virtual (18). Los cálculos, el JSON-LD y programa-data.json siguen el orden cronológico de DATA['dias'].
+DIAS_VISTA = [d for d in DATA['dias'] if d['modo'] != 'virtual'] + [d for d in DATA['dias'] if d['modo'] == 'virtual']
 def ui(k): return UI[k]
 def ui_attr(k, html_=False): return f('ui.' + k, UI[k], 'data-f18n-html' if html_ else 'data-f18n')
 
@@ -414,7 +417,7 @@ button { font:inherit; color:inherit; background:none; border:0; cursor:pointer;
 .hero-p .lead { margin-top:24px; max-width:680px; font-size:16.5px; color:var(--ink-soft); position:relative; z-index:1; }
 .hero-p .lead b { font-weight:500; color:var(--ink); }
 
-/* los tres actos: 18 · 21 · 22 */
+/* los tres actos: 21 · 22 · 18 (presenciales primero, jornada virtual al final) */
 .actos { margin-top:40px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--ink-rule); border:1px solid var(--ink-rule); position:relative; z-index:1; max-width:980px; }
 .acto { display:flex; gap:18px; align-items:flex-start; padding:22px 24px 20px; background:var(--papel); text-decoration:none; color:inherit; transition:background .4s var(--ease); position:relative; }
 .acto:hover { background:#FBF7EC; }
@@ -1070,7 +1073,7 @@ NAV = '''<nav class="nav">
 
 def actos_html():
     out = []
-    for d in DATA['dias']:
+    for d in DIAS_VISTA:
         sedes = ' · '.join(b['sede'] for b in d['bloques'])
         for lang in ('en', 'fr'):
             I18N.setdefault('dia.' + d['id'] + '.sedes', {})[lang] = ' · '.join(tr('bloque.' + b['id'] + '.sede', b['sede'], lang) for b in d['bloques'])
@@ -1085,7 +1088,7 @@ def actos_html():
 
 def riel_html():
     chips = []
-    for d in DATA['dias']:
+    for d in DIAS_VISTA:
         for b in d['bloques']:
             key = {'virtual': 'rail_d18', 'cucea': 'rail_cucea', 'cugdl': 'rail_cugdl', 'cineteca': 'rail_cineteca', 'ciudad-judicial': 'rail_cj'}[b['id']]
             txt = ui(key); num, resto = txt.split(' ', 1)[0], txt.split(' ', 1)[1]
@@ -1136,7 +1139,7 @@ def hero_html():
             f'</header>')
 
 def pagina_html():
-    dias = ''.join(dia_html(d) for d in DATA['dias'])
+    dias = ''.join(dia_html(d) for d in DIAS_VISTA)
     banda = (f'<section class="banda"><div class="banda-inner"><div class="reveal">'
              f'<h2 {ui_attr("banda_t_html", True)}>{ui("banda_t_html")}</h2>'
              f'<p {ui_attr("pie_hibrido")}>{esc(ui("pie_hibrido"))}</p></div>'
@@ -1298,7 +1301,7 @@ JS_JV = r"""
 """
 
 def fragmento_jv():
-    d = DATA['dias'][0]; b = d['bloques'][0]
+    d = next(x for x in DATA['dias'] if x['modo'] == 'virtual'); b = d['bloques'][0]
     return ('<!-- PROGRAMA-JV:INICIO — generado por _tools/programa.py; no editar a mano -->\n'
             f'<div class="jvp">'
             f'<div class="tz" role="group" aria-label="Zona horaria"><button type="button" data-tz="gdl" aria-pressed="true" {ui_attr("tz_gdl")}>{esc(ui("tz_gdl"))}</button><button type="button" data-tz="local" aria-pressed="false" {ui_attr("tz_local")}>{esc(ui("tz_local"))}</button></div>'
@@ -1334,7 +1337,7 @@ def guiones_html(fotos=True):
         return f'<span class="g-foto g-mono">{esc(monograma(nombre))}</span>'
     def parrafos(t): return ''.join(f'<p>{esc(x.strip())}</p>' for x in re.split(r'\n\s*\n', t) if x.strip())
     secciones = []; n = 0
-    for d in DATA['dias']:
+    for d in DIAS_VISTA:
         for b in d['bloques']:
             for s in b['sesiones']:
                 if not s['ponentes'] and not s.get('modera'): continue
