@@ -245,7 +245,8 @@ function instalarPlaticasIV() {
  *
  * Script Properties necesarias:
  *   FIRMA_DIGITAL_FILE_ID   id en Drive de firma-digital-apellido-delva-black-CANON.png (compartir con la cuenta que ejecuta el script)
-  *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID   (opcionales) ids de los PNG de img/aliados/ (solo UdeG y Cuerpo Académico; no CUCEA)
+  *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID   (opcionales) ids en Drive de img/aliados/udg.png y de
+  *                                         img/aliados/ca-derecho-tecnologia-lockup.png (lockup completo del CA; no CUCEA)
  *   CONSTANCIAS_FOLDER_ID   (opcional) carpeta de Drive donde guardar copia de cada PDF
  *
  * Pasos: instalarDisparadoresBloques() una vez → crea cinco disparadores «cerrarBloque» (fin del bloque + 60 min,
