@@ -59,7 +59,8 @@ def render_flat(tpl, ctx):
         tpl = tpl[:m.start()] + (a if cond(c, ctx) else b) + tpl[m.end():]
     return re.sub(r'<\?= (.*?) \?>', lambda m: str(evalx(m.group(1), ctx)), tpl)
 
-base = dict(firma_src=data_uri(FIRMA), logos=LOGOS, fecha_emision='21 de septiembre de 2026', institucion='')
+AGUA = data_uri(os.path.join(ROOT, 'img', 'marca', os.environ.get('CONSTANCIA_AGUA', 'foro-mapa-conexiones-dorado.png')))
+base = dict(firma_src=data_uri(FIRMA), logos=LOGOS, agua_src=AGUA, fecha_emision='21 de septiembre de 2026', institucion='')
 muestras = {
     'bloque-cucea': dict(base, tipo='bloque', nombre='Nombre Apellido Apellido', institucion='Universidad de Guadalajara',
                          sede='CUCEA', recinto='el Auditorio Lic. Raúl Padilla López (CUCEA)', fecha_larga='lunes 21 de septiembre de 2026',
