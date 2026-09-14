@@ -18,7 +18,7 @@ def data_uri(path, mime='image/png'):
     return 'data:%s;base64,%s' % (mime, base64.b64encode(open(path, 'rb').read()).decode())
 
 FIRMA = sys.argv[1] if len(sys.argv) > 1 else '/tmp/claude-0/-home-user-forodyt/c3f8bfc7-8b90-5a15-92b4-edd8e7d60d42/scratchpad/constancias/firma-digital-apellido-delva-black-CANON.png'
-LOGOS = {k: data_uri(os.path.join(ROOT, 'img', 'aliados', f + '.png')) for k, f in (('udg', 'udg'), ('ca', 'ca-derecho-tecnologia'), ('cucea', 'cucea'))}
+LOGOS = {k: data_uri(os.path.join(ROOT, 'img', 'aliados', f + '.png')) for k, f in (('udg', 'udg'), ('ca', 'ca-derecho-tecnologia'))}
 
 HORAS_TXT = {1: 'una hora', 2: 'dos horas', 3: 'tres horas', 4: 'cuatro horas', 5: 'cinco horas', 6: 'seis horas', 7: 'siete horas', 8: 'ocho horas', 9: 'nueve horas', 10: 'diez horas', 11: 'once horas', 12: 'doce horas'}
 

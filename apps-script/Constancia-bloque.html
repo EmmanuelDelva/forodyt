@@ -3,110 +3,98 @@
   Constancia de asistencia por BLOQUE (una sede · una jornada) y constancia con VALOR CURRICULAR (10 h).
   Plantilla HtmlService: Asistencia.gs la rellena con HtmlService.createTemplateFromFile('Constancia-bloque').
   Variables:  tipo ('bloque' | 'valor') · nombre · institucion · sede · recinto · fecha_larga · horario · horas (entero)
-              · horas_txt · sesiones · folio · fecha_emision · firma_src (data URI) · logos {udg, ca, cucea} (data URI o '')
+              · horas_txt · sesiones · folio · fecha_emision · firma_src (data URI) · logos {udg, ca} (data URI o '')
               · firmantes (solo 'valor': [{nombre, cargo, firma_src}] ×3 centros universitarios)
-  Diseño: mismos tokens del sitio (tinta #0E1B2C · teal #2A5C5C · dorado #B8923E · marfil #F5EFE0 · papel #FBF8EF).
-  Solo tablas y posicionamiento absoluto: el conversor HTML→PDF de Apps Script no soporta flex/grid.
-  Vista previa local: python3 _tools/constancia_preview.py (Chromium, con Fraunces/Inter vía Google Fonts).
+  Sistema tipográfico: el de la constancia de la III edición (Milagros Olivos Celis, 25-05-2026) que el director
+  pidió conservar: Fraunces (títulos y cuerpo) · Manrope (rótulos en versalitas espaciadas) · Italianno (línea
+  caligráfica) · Inter y JetBrains Mono (pie). Colores: tinta #1F2937 · teal profundo #1F4747 · teal #3A8E89 ·
+  dorado #B8923E · marfil #F5EFE0 · gris #4A5568. Sin marco: papel blanco, numeral IV como marca de agua.
+  Logos: Universidad de Guadalajara y Cuerpo Académico (NO CUCEA, decisión del director 2026-09-14).
+  Solo tablas y posicionamiento absoluto: el conversor HTML→PDF de Apps Script no soporta flex/grid y cae a
+  Georgia/Arial si no tiene las fuentes. Vista previa fiel: python3 _tools/constancia_preview.py (Chromium con
+  las fuentes instaladas) + sh _tools/out/constancias/render.sh
 -->
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <title>Constancia · IV Foro Internacional de Derecho y Tecnología</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600&family=Italianno&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   @page { size: A4 portrait; margin: 0; }
   html, body { margin: 0; padding: 0; }
-  body { width: 210mm; height: 297mm; background: #FBF8EF; color: #0E1B2C; font-family: 'Fraunces', Georgia, 'Times New Roman', serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { width: 210mm; height: 297mm; background: #FFFFFF; color: #1F2937; font-family: 'Fraunces', Georgia, 'Times New Roman', serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .hoja { position: relative; width: 210mm; height: 297mm; overflow: hidden; }
-  .marco { position: absolute; left: 10mm; top: 10mm; right: 10mm; bottom: 10mm; border: 0.9pt solid #B8923E; }
-  .marco2 { position: absolute; left: 12.5mm; top: 12.5mm; right: 12.5mm; bottom: 12.5mm; border: 0.35pt solid #C8A858; }
-  .esq { position: absolute; width: 9mm; height: 9mm; border-color: #B8923E; border-style: solid; border-width: 0; }
-  .esq.a { left: 8.5mm; top: 8.5mm; border-left-width: 1.6pt; border-top-width: 1.6pt; }
-  .esq.b { right: 8.5mm; top: 8.5mm; border-right-width: 1.6pt; border-top-width: 1.6pt; }
-  .esq.c { left: 8.5mm; bottom: 8.5mm; border-left-width: 1.6pt; border-bottom-width: 1.6pt; }
-  .esq.d { right: 8.5mm; bottom: 8.5mm; border-right-width: 1.6pt; border-bottom-width: 1.6pt; }
-  .agua { position: absolute; left: 0; right: 0; top: 96mm; text-align: center; font-size: 340pt; line-height: 1; font-style: italic; font-weight: 600; color: #B8923E; opacity: 0.075; letter-spacing: -0.03em; }
-  .cuerpo { position: absolute; left: 22mm; right: 22mm; top: 20mm; text-align: center; }
+  .agua { position: absolute; left: 0; right: 0; top: 58mm; text-align: center; font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 560pt; line-height: 1; color: #B8923E; opacity: 0.055; letter-spacing: -0.04em; }
+  .cuerpo { position: absolute; left: 22mm; right: 22mm; top: 12mm; text-align: center; }
   .logos { width: 100%; border-collapse: collapse; }
-  .logos td { text-align: center; vertical-align: middle; padding: 0 4mm; }
-  .logos img { height: 9mm; }
-  .logos img.ca { height: 8mm; }
-  .logos img.cucea { height: 6.2mm; }
-  .eyebrow { margin-top: 6mm; font-family: 'Inter', Arial, Helvetica, sans-serif; font-size: 6.3pt; letter-spacing: 0.24em; text-transform: uppercase; color: #0E1B2C; }
-  .marca { margin-top: 3.5mm; font-size: 21pt; font-weight: 600; letter-spacing: -0.005em; line-height: 1.15; }
-  .marca i { color: #2A5C5C; }
-  .edicion { margin-top: 1.5mm; font-family: 'Inter', Arial, sans-serif; font-size: 6.8pt; letter-spacing: 0.3em; text-transform: uppercase; color: #96742D; }
-  .lema { margin-top: 2mm; font-style: italic; font-size: 9.6pt; color: #2A5C5C; }
-  .filete { width: 70mm; height: 1.1pt; background: #B8923E; margin: 6mm auto 0; }
-  .otorga { margin-top: 6mm; font-family: 'Inter', Arial, sans-serif; font-size: 6.8pt; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: #2A5C5C; }
-  .titulo { margin-top: 2.5mm; font-size: 33pt; font-weight: 500; letter-spacing: 0.16em; line-height: 1; }
-  .subtitulo { margin-top: 1.8mm; font-family: 'Inter', Arial, sans-serif; font-size: 7.4pt; letter-spacing: 0.3em; text-transform: uppercase; color: #0E1B2C; }
-  .bloque-txt { margin-top: 3.2mm; font-style: italic; font-size: 13.5pt; color: #96742D; }
-  .persona { margin: 7mm auto 0; width: 100%; border-top: 1pt solid #2A5C5C; border-bottom: 1pt solid #2A5C5C; background: #F5EFE0; padding: 6mm 4mm 5.5mm; }
-  .nombre { font-size: 24pt; font-weight: 600; line-height: 1.12; color: #0E1B2C; }
-  .institucion { margin-top: 2mm; font-style: italic; font-size: 11pt; color: #2A5C5C; }
-  .certifica { margin: 6.5mm auto 0; width: 150mm; font-size: 10.6pt; line-height: 1.55; color: #24303A; }
-  .certifica b { font-weight: 600; color: #0E1B2C; }
+  .logos td { text-align: center; vertical-align: middle; padding: 0 5mm 2.5mm; }
+  .logos img { height: 10mm; }
+  .logos img.ca { height: 10mm; }
+  .cabecera { border-bottom: 0.7pt solid #1F4747; padding-bottom: 2.6mm; font-family: 'Manrope', Arial, Helvetica, sans-serif; font-weight: 500; font-size: 7.6pt; letter-spacing: 0.27em; white-space: nowrap; text-transform: uppercase; color: #1F4747; }
+  .edicion { margin-top: 3.5mm; font-family: 'Manrope', Arial, sans-serif; font-weight: 600; font-size: 8.5pt; letter-spacing: 0.34em; text-transform: uppercase; color: #B8923E; }
+  .marca { margin-top: 2mm; font-size: 18pt; font-weight: 500; line-height: 1.2; color: #1F4747; }
+  .marca i { font-style: italic; color: #B8923E; }
+  .lema { margin-top: 2.2mm; font-style: italic; font-weight: 500; font-size: 11pt; color: #3A8E89; }
+  .filete { width: 62mm; height: 0.9pt; background: #B8923E; margin: 4mm auto 0; }
+  .otorga { margin-top: 5.5mm; font-family: 'Manrope', Arial, sans-serif; font-weight: 500; font-size: 9pt; letter-spacing: 0.36em; text-transform: uppercase; color: #3A8E89; }
+  .titulo { margin-top: 2mm; font-size: 34pt; font-weight: 500; letter-spacing: 0.3em; line-height: 1.1; color: #1F4747; }
+  .caligrafia { margin-top: 1.5mm; font-family: 'Italianno', 'Brush Script MT', cursive; font-size: 24pt; line-height: 1.1; color: #B8923E; }
+  .persona { margin: 5.5mm auto 0; width: 100%; border-top: 1pt solid #3A8E89; border-bottom: 1pt solid #3A8E89; background: #F5EFE0; padding: 5mm 4mm 4.5mm; }
+  .nombre { font-size: 24pt; font-weight: 600; line-height: 1.15; color: #1F4747; }
+  .institucion { margin-top: 2.2mm; font-style: italic; font-size: 12pt; color: #3A8E89; }
+  .certifica { margin: 5mm auto 0; width: 152mm; font-size: 11pt; line-height: 1.6; color: #1F2937; }
+  .certifica b { font-weight: 600; color: #1F4747; }
   .detalles { width: 100%; border-collapse: collapse; margin-top: 6mm; }
-  .detalles td { width: 19%; text-align: center; vertical-align: top; padding: 0 2mm; border-left: 0.5pt solid #DDD3BE; }
-  .detalles td.folio-td { width: 24%; }
-  .detalles .v.folio { font-family: 'Courier New', monospace; font-size: 7.6pt; letter-spacing: 0.02em; line-height: 1.4; word-break: keep-all; }
-  .detalles td:first-child { border-left: 0; }
-  .detalles .k { font-family: 'Inter', Arial, sans-serif; font-size: 6.2pt; letter-spacing: 0.26em; text-transform: uppercase; color: #96742D; font-weight: 600; }
-  .detalles .v { margin-top: 1.4mm; font-size: 9.6pt; line-height: 1.35; color: #0E1B2C; }
+  .detalles td { text-align: center; vertical-align: top; padding: 0 3mm; }
+  .detalles .k { font-family: 'Manrope', Arial, sans-serif; font-weight: 600; font-size: 7.5pt; letter-spacing: 0.32em; text-transform: uppercase; color: #B8923E; }
+  .detalles .v { margin-top: 1.6mm; font-size: 9.5pt; font-weight: 500; line-height: 1.4; color: #1F4747; }
   .detalles .v.num { font-size: 15pt; font-weight: 600; line-height: 1.1; }
-  .sesiones { margin-top: 5mm; font-family: 'Inter', Arial, sans-serif; font-size: 7pt; letter-spacing: 0.08em; color: #687079; }
-  .sesiones b { color: #96742D; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; }
-  .cierre { margin-top: 5mm; font-style: italic; font-size: 9.4pt; color: #24303A; }
-  .firmas { position: absolute; left: 22mm; right: 22mm; bottom: 36mm; border-collapse: collapse; }
+  .sesiones { margin-top: 4mm; font-family: 'Manrope', Arial, sans-serif; font-size: 7.5pt; letter-spacing: 0.04em; line-height: 1.6; color: #4A5568; }
+  .sesiones b { color: #B8923E; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
+  .cierre { margin: 4.5mm auto 0; width: 150mm; font-style: italic; font-size: 10pt; line-height: 1.5; color: #1F2937; }
+  .firmas { width: 100%; margin-top: 9mm; border-collapse: collapse; }
   .firmas td { text-align: center; vertical-align: top; padding: 0 3mm; }
-  .firma-box { height: 16mm; line-height: 16mm; }
-  .firma-img { max-height: 14mm; max-width: 100%; vertical-align: bottom; }
-  .firma-vacia { height: 16mm; }
-  .firma-linea { width: 100%; height: 0.55pt; background: #687079; margin-top: 1.5mm; }
-  .firma-nombre { margin-top: 2mm; font-size: 10.2pt; font-weight: 600; line-height: 1.2; }
-  .firma-cargo { margin-top: 1mm; font-family: 'Inter', Arial, sans-serif; font-size: 6.3pt; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #96742D; line-height: 1.5; }
-  .firmas.cuatro .firma-nombre { font-size: 8.8pt; }
-  .firmas.cuatro .firma-cargo { font-size: 5.6pt; letter-spacing: 0.12em; }
-  .pie { position: absolute; left: 18mm; right: 18mm; bottom: 15mm; border-top: 0.55pt solid #DDD3BE; padding-top: 2.6mm; font-family: 'Inter', Arial, sans-serif; font-size: 6.4pt; color: #687079; line-height: 1.55; }
+  .firma-box { height: 14mm; line-height: 14mm; }
+  .firma-img { max-height: 12.5mm; max-width: 100%; vertical-align: bottom; }
+  .firma-vacia { height: 14mm; }
+  .firma-linea { width: 100%; height: 0.6pt; background: #3A8E89; margin-top: 1.2mm; }
+  .firma-nombre { margin-top: 2.4mm; font-size: 11pt; font-weight: 600; line-height: 1.2; color: #1F4747; white-space: nowrap; }
+  .firma-cargo { margin-top: 1.6mm; font-family: 'Manrope', Arial, sans-serif; font-weight: 600; font-size: 8pt; letter-spacing: 0.3em; text-transform: uppercase; color: #B8923E; line-height: 1.5; }
+  .firma-sub { margin-top: 1.4mm; font-style: italic; font-size: 8.5pt; line-height: 1.45; color: #4A5568; }
+  .firmas.cuatro .firma-nombre { font-size: 9pt; white-space: normal; }
+  .firmas.cuatro .firma-cargo { font-size: 6.4pt; letter-spacing: 0.18em; }
+  .firmas.cuatro .firma-sub { font-size: 7.6pt; }
+  .pie { position: absolute; left: 18mm; right: 18mm; bottom: 14mm; border-top: 0.5pt solid #D9D3C3; padding-top: 2.8mm; font-family: 'Inter', Arial, sans-serif; font-size: 7.5pt; color: #4A5568; line-height: 1.6; }
   .pie table { width: 100%; border-collapse: collapse; }
   .pie td { vertical-align: top; }
-  .pie .der { text-align: right; font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
-  .pie .folio { color: #0E1B2C; font-weight: 600; }
-  .verif { margin-top: 1.2mm; font-size: 5.9pt; color: #8a8f96; }
+  .pie .der { text-align: right; font-family: 'JetBrains Mono', 'Courier New', monospace; letter-spacing: 0.02em; }
 </style>
 </head>
 <body>
 <div class="hoja">
-  <div class="marco"></div><div class="marco2"></div>
-  <div class="esq a"></div><div class="esq b"></div><div class="esq c"></div><div class="esq d"></div>
   <div class="agua">IV</div>
 
   <div class="cuerpo">
-    <? if (logos && (logos.udg || logos.ca || logos.cucea)) { ?>
+    <? if (logos && (logos.udg || logos.ca)) { ?>
     <table class="logos"><tr>
       <? if (logos.udg) { ?><td><img src="<?= logos.udg ?>" alt="Universidad de Guadalajara"></td><? } ?>
-      <? if (logos.ca) { ?><td><img class="ca" src="<?= logos.ca ?>" alt="Cuerpo Académico Derecho y Tecnología"></td><? } ?>
-      <? if (logos.cucea) { ?><td><img class="cucea" src="<?= logos.cucea ?>" alt="CUCEA"></td><? } ?>
+      <? if (logos.ca) { ?><td><img class="ca" src="<?= logos.ca ?>" alt="Cuerpo Académico UDG-CA-1236 Derecho y Tecnología"></td><? } ?>
     </tr></table>
     <? } ?>
-    <div class="eyebrow">Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
+    <div class="cabecera">Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
+    <div class="edicion">IV edición · 18 · 21 · 22 de septiembre de 2026</div>
     <div class="marca">Foro Internacional de Derecho y <i>Tecnología</i></div>
-    <div class="edicion">IV edición · 18 · 21 · 22 de septiembre de 2026 · Guadalajara · Zapopan · en línea</div>
     <div class="lema">«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</div>
     <div class="filete"></div>
 
     <? if (tipo === 'valor') { ?>
     <div class="otorga">La Universidad de Guadalajara y el Director del Foro otorgan la presente</div>
     <div class="titulo">CONSTANCIA</div>
-    <div class="subtitulo">con valor curricular</div>
-    <div class="bloque-txt">por su participación en la IV edición · <?= horas ?> horas acreditadas</div>
+    <div class="caligrafia">con valor curricular · <?= horas ?> horas acreditadas</div>
     <? } else { ?>
     <div class="otorga">El Director del Foro otorga la presente</div>
     <div class="titulo">CONSTANCIA</div>
-    <div class="subtitulo">de asistencia</div>
-    <div class="bloque-txt"><?= sede ?> · <?= fecha_larga ?></div>
+    <div class="caligrafia">de asistencia · <?= sede ?></div>
     <? } ?>
 
     <div class="persona">
@@ -115,43 +103,41 @@
     </div>
 
     <? if (tipo === 'valor') { ?>
-    <p class="certifica">acreditó su asistencia a las actividades académicas de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, con una duración total verificada de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Acreditó su asistencia a las actividades académicas de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, con una duración total verificada de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } else { ?>
-    <p class="certifica">acreditó su asistencia al bloque académico celebrado en el <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, de <?= horario ?>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en el <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, de <?= horario ?>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
 
     <table class="detalles"><tr>
-      <td><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
-      <td><div class="k">Fecha</div><div class="v"><?= fecha_larga ?></div></td>
-      <td><div class="k">Horario</div><div class="v"><?= horario ?></div></td>
-      <td><div class="k">Duración</div><div class="v num"><?= horas ?> h</div></td>
-      <td class="folio-td"><div class="k">Folio</div><div class="v folio"><?= folio ?></div></td>
+      <td style="width:28%"><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
+      <td style="width:26%"><div class="k">Fecha</div><div class="v"><?= fecha_larga ?></div></td>
+      <td style="width:28%"><div class="k">Horario</div><div class="v"><?= horario ?></div></td>
+      <td style="width:18%"><div class="k">Duración</div><div class="v num"><?= horas ?> h</div></td>
     </tr></table>
     <? if (sesiones) { ?><div class="sesiones"><b>Sesiones</b> · <?= sesiones ?></div><? } ?>
     <div class="cierre">Se extiende la presente para los fines académicos, institucionales y curriculares que a la persona interesada convengan.</div>
-  </div>
 
   <? if (tipo === 'valor') { ?>
   <table class="firmas cuatro"><tr>
-    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director · IV Foro Internacional de Derecho y Tecnología</div></td>
+    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236</div></td>
     <? for (var i = 0; i < firmantes.length; i++) { ?>
     <td style="width:25%"><? if (firmantes[i].firma_src) { ?><div class="firma-box"><img class="firma-img" src="<?= firmantes[i].firma_src ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firmantes[i].nombre ?></div><div class="firma-cargo"><?= firmantes[i].cargo ?></div></td>
     <? } ?>
   </tr></table>
   <? } else { ?>
   <table class="firmas"><tr>
-    <td style="width:30%"></td>
-    <td style="width:40%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director · IV Foro Internacional de<br>Derecho y Tecnología</div></td>
-    <td style="width:30%"></td>
+    <td style="width:22%"></td>
+    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director · Académico</div><div class="firma-sub">IV Foro Internacional de Derecho y Tecnología<br>Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:22%"></td>
   </tr></table>
   <? } ?>
+  </div>
 
   <div class="pie">
     <table><tr>
       <td>Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»<br>Zapopan, Jalisco, México · <?= fecha_emision ?></td>
-      <td class="der"><span class="folio"><?= folio ?></span><br>contacto@forodyt.com · forodyt.com</td>
+      <td class="der"><?= folio ?><br>contacto@forodyt.com · forodyt.com</td>
     </tr></table>
-    <div class="verif">Constancia emitida electrónicamente a partir del registro de asistencia verificado del Foro (código QR en sede o transmisión en línea con presencia verificada). Cualquier aclaración: contacto@forodyt.com, indicando el folio.</div>
   </div>
 </div>
 </body>

@@ -108,9 +108,19 @@ def personas_de(sesion_filter):
     return out
 
 COMITE = {'delva', 'leos', 'romero', 'said', 'paul', 'acosta'}   # tienen ficha en la sección Comité, no tarjeta de ponente
+# 2026-09-14 (director): en el index solo se publican las personas que YA tienen fotografía; las demás
+# quedan en programa.html (con monograma) hasta que llegue su foto. Se listan al correr el script.
+SOLO_CON_FOTO = True
 MAIN = [p for p in personas_de(lambda d, b, s: d['modo'] == 'presencial' and s['id'] != 'd21-cfp') if p['slug'] not in COMITE]
-CFP = personas_de(lambda d, b, s: s['id'] == 'd21-cfp')
-JV = personas_de(lambda d, b, s: d['modo'] == 'virtual')
+CFP_TODOS = personas_de(lambda d, b, s: s['id'] == 'd21-cfp')
+JV_TODOS = personas_de(lambda d, b, s: d['modo'] == 'virtual')
+SIN_FOTO = [p for p in MAIN + CFP_TODOS + JV_TODOS if p['slug'] not in FOTOS]
+if SOLO_CON_FOTO:
+    CFP = [p for p in CFP_TODOS if p['slug'] in FOTOS]
+    JV = [p for p in JV_TODOS if p['slug'] in FOTOS]
+    MAIN = [p for p in MAIN if p['slug'] in FOTOS]
+else:
+    CFP, JV = CFP_TODOS, JV_TODOS
 POR_SLUG = {p['slug']: p for p in MAIN + CFP + JV}
 
 # ───────────── index.html ─────────────
@@ -295,3 +305,6 @@ print(f'index.html: parrilla principal {len(orden_main)} · jóvenes CFP {len(CF
 print('tarjetas generadas:', ', '.join(p['slug'] for p in generadas))
 sin_sem = [p['slug'] for p in generadas if p['slug'] not in nuevo]
 print('sin semblanza (modal «en preparación»):', ', '.join(sin_sem) or 'ninguna')
+if SIN_FOTO:
+    print(f'\nSIN FOTO → no publicados en el index ({len(SIN_FOTO)}); siguen en programa.html con monograma:')
+    for p in SIN_FOTO: print(f'  · {p["nombre"]}  ({p["sesion"]})')

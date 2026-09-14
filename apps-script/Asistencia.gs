@@ -245,7 +245,7 @@ function instalarPlaticasIV() {
  *
  * Script Properties necesarias:
  *   FIRMA_DIGITAL_FILE_ID   id en Drive de firma-digital-apellido-delva-black-CANON.png (compartir con la cuenta que ejecuta el script)
- *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID · LOGO_CUCEA_FILE_ID   (opcionales) ids de los PNG de img/aliados/
+  *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID   (opcionales) ids de los PNG de img/aliados/ (solo UdeG y Cuerpo Académico; no CUCEA)
  *   CONSTANCIAS_FOLDER_ID   (opcional) carpeta de Drive donde guardar copia de cada PDF
  *
  * Pasos: instalarDisparadoresBloques() una vez → crea cinco disparadores «cerrarBloque» (fin del bloque + 60 min,
@@ -297,7 +297,7 @@ function datosBloque_(platica, usuario, folioConst) {
     horas: horas, horas_txt: horasTexto_(horas), sesiones: info.sesiones, folio: folioConst,
     fecha_emision: fechaLargaEs_(new Date(), false),
     firma_src: imagenDataUri_('FIRMA_DIGITAL_FILE_ID'),
-    logos: { udg: imagenDataUri_('LOGO_UDG_FILE_ID'), ca: imagenDataUri_('LOGO_CA_FILE_ID'), cucea: imagenDataUri_('LOGO_CUCEA_FILE_ID') }
+    logos: { udg: imagenDataUri_('LOGO_UDG_FILE_ID'), ca: imagenDataUri_('LOGO_CA_FILE_ID') }   // sin CUCEA (decisión del director)
   };
 }
 /** emitirConstanciasBloque(idPlatica) — una constancia por cada check-in válido del bloque que aún no la tenga. */
