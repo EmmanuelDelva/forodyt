@@ -5,15 +5,16 @@
 1. Crea un Google Sheets nuevo, nombre: **IV-Foro-Inscripciones-2026**.
 2. Crea las pestañas (en orden): `Usuarios`, `Platicas`, `CheckIns`, `_config`, `_logs`, `Newsletter`.
 3. Pega los headers según `docs/esquema-sheets.md`.
-4. Pre-puebla `Platicas` con el programa preliminar (15 sesiones aprox.).
+4. Puebla `Platicas` con los cinco bloques del programa definitivo corriendo `instalarPlaticasIV()` (`Asistencia.gs`) desde el editor.
 5. Pre-puebla `_config` con los valores default:
 
 | Key | Value |
 |---|---|
 | `meta_horas_valor_curricular` | `20` |
 | `meta_horas_asistencia_minima` | `4` |
-| `tolerancia_inicio_min` | `5` |
-| `tolerancia_fin_min` | `10` |
+| `tolerancia_inicio_min` | `60` |
+| `tolerancia_fin_min` | `60` |
+| `minutos_minimos_virtual` | `10` |
 | `umbral_zoom_porcentaje` | `75` |
 | `endpoint_publico_activo` | `TRUE` |
 
@@ -110,6 +111,8 @@ Si algo falla en producción:
 Configurar trigger time-based para `procesarConstancias()`:
 - **Día 22 de septiembre 23:30** (después del cierre del Foro).
 - Tipo: time-driven, día específico.
+
+Jornada Virtual (18 de septiembre): correr una vez `instalarDisparadorJornadaVirtual()` (`Asistencia.gs`). Crea el trigger `cerrarJornadaVirtual` a las 11:30 (GDL) del 18, que consolida la asistencia por transmisión y emite la constancia a quienes estuvieron conectados.
 
 Y trigger semanal para enviar reporte automático al Director:
 - **Lunes 9:00 a.m.**, función `reporteSemanalAlDirector()` (a implementar).

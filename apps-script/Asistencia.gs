@@ -19,10 +19,20 @@
  *      y en doGet, antes del healthcheck:
  *        if (e.parameter.action === 'stream_codigo_nuevo') return jsonResponse_(staffKeyValida_(e.parameter.key) ? streamCodigoNuevo(e.parameter.id_platica, e.parameter.minutos) : { ok:false, error:'staff_key_invalida' });
  *   3. Crear en el Sheet las pestañas StreamLatidos, StreamRetos y StreamCodigos (se crean solas en el primer uso si no existen).
- *   4. Pestaña Platicas: dar de alta los 5 bloques del programa definitivo con estos id (deben coincidir con staff-scanner.html y programa-data.json):
+ *   4. Pestaña Platicas: correr UNA vez instalarPlaticasIV() desde el editor. Da de alta los 5 bloques del programa
+ *      definitivo con estos id (deben coincidir con staff-scanner.html y programa-data.json):
  *        1 CUCEA · lun 21 · 09:00–14:10  |  2 CUGDL · lun 21 · 16:05–18:50  |  3 Cineteca FICG · mar 22 · 10:05–13:30
  *        4 Ciudad Judicial · mar 22 · 16:00–18:45  |  5 Jornada Virtual · vie 18 · 07:00–11:00 (hora GDL)
- *   5. En en-vivo.html poner MODO_PRUEBA = false.
+ *      y bajar meta_horas_valor_curricular en _config (con estos bloques el máximo alcanzable es 18.09 h).
+ *   5. Correr UNA vez instalarDisparadorJornadaVirtual(): el 18-sep a las 11:30 (GDL) consolida la asistencia
+ *      de la Jornada Virtual y emite las constancias de quienes estuvieron conectados.
+ *   6. En en-vivo.html poner MODO_PRUEBA = false.
+ *
+ * REGLAS DE ACREDITACIÓN (ver consolidarStream)
+ *   - Bloques presenciales seguidos a distancia: >= 75 % de minutos verificados + código de presencia si hubo.
+ *   - Jornada Virtual (bloque 5): regla laxa; basta con >= 10 minutos verificados (minutos_minimos_virtual en _config).
+ *   - Escáner QR (Code.gs): ventana desde 60 min antes del inicio hasta 60 min después del cierre de la sede;
+ *     el bloque virtual no tiene ventana (no se escanea).
  *
  * SEGURIDAD
  *   - El token de sesión es HMAC8(folio|correo|YYYY-MM-DD) con HMAC_SECRET: sirve un día y no se puede fabricar sin el secreto.
@@ -126,11 +136,20 @@ function streamCodigoNuevo(idPlatica, minutos) {
  * consolidarStream() — correr manualmente al cierre de cada día (o antes de procesarConstancias()).
  * Por cada folio y plática: minutos = latidos distintos dentro de la ventana, descontando los
  * posteriores a una comprobación de pantalla sin respuesta hasta la siguiente respondida.
- * Acredita con >= umbral_stream_porcentaje (default 75) y, si hubo códigos en la plática, >= 1 correcto.
+ *
+ * Dos reglas (decisión del director, 2026-09-14):
+ *   - Bloques PRESENCIALES seguidos por transmisión (1–4): >= umbral_stream_porcentaje (default 75 %) de los
+ *     minutos del bloque y, si la moderación dictó códigos en ese bloque, al menos uno correcto.
+ *   - Bloque VIRTUAL (Jornada Virtual del 18, sede = virtual): regla LAXA. Basta con haber estado conectado:
+ *     >= minutos_minimos_virtual (default 10) minutos verificados; los códigos no son obligatorios
+ *     (codigo_obligatorio_virtual = TRUE en _config si se quiere exigirlos). Quien se conectó recibe su
+ *     constancia al término de la jornada (ver cerrarJornadaVirtual()).
  */
 function consolidarStream() {
   const config = leerConfig_();
   const umbral = (Number(config.umbral_stream_porcentaje) || Number(config.umbral_zoom_porcentaje) || 75) / 100;
+  const minVirtual = Number(config.minutos_minimos_virtual) || 10;
+  const codigoVirtual = config.codigo_obligatorio_virtual === true || String(config.codigo_obligatorio_virtual).toUpperCase() === 'TRUE';
   const lat = hoja_(STREAM_SHEETS.latidos, ['folio', 'id_platica', 'minuto_utc', 'sesion', 'recibido']).getDataRange().getValues().slice(1);
   const retos = hoja_(STREAM_SHEETS.retos, ['folio', 'bloque', 'tipo', 'resultado', 'codigo', 'recibido']).getDataRange().getValues().slice(1);
   const codigos = hoja_(STREAM_SHEETS.codigos, ['id_platica', 'codigo', 'valido_desde', 'valido_hasta', 'creado_por']).getDataRange().getValues().slice(1);
@@ -159,10 +178,89 @@ function consolidarStream() {
     if (yaCheckedIn_(folio, id)) return;
     const total = (new Date(pl.hora_fin) - new Date(pl.hora_inicio)) / 60000;
     const pct = minutos[k].size / total;
-    const okCodigo = !platicasConCodigo[id] || codigoOk[k];
-    if (pct >= umbral && okCodigo) { registrarCheckinFila_(folio, id, 'web@forodyt.com', true, '', 'web_stream'); validos++; }
-    else { registrarCheckinFila_(folio, id, 'web@forodyt.com', false, pct < umbral ? 'porcentaje_insuficiente' : 'sin_codigo_presencia', 'web_stream'); rechazados++; }
+    const virtual = esPlaticaVirtual_(pl);
+    const okMinutos = virtual ? minutos[k].size >= minVirtual : pct >= umbral;
+    const okCodigo = virtual ? (!codigoVirtual || !platicasConCodigo[id] || codigoOk[k]) : (!platicasConCodigo[id] || codigoOk[k]);
+    if (okMinutos && okCodigo) { registrarCheckinFila_(folio, id, 'web@forodyt.com', true, '', 'web_stream'); validos++; }
+    else { registrarCheckinFila_(folio, id, 'web@forodyt.com', false, !okMinutos ? 'porcentaje_insuficiente' : 'sin_codigo_presencia', 'web_stream'); rechazados++; }
   });
   log_('consolidarStream', 'todas', `validos=${validos} rechazados=${rechazados}`, null);
   return { validos, rechazados };
+}
+
+// ============ INSTALACIÓN: BLOQUES DEL PROGRAMA DEFINITIVO ============
+/**
+ * Los cinco bloques de asistencia del programa definitivo (v10.09.2026). Mismos id que
+ * staff-scanner.html (PLATICAS) y programa-data.json (en-vivo.html). Horas en Guadalajara (UTC-6,
+ * México ya no aplica horario de verano). horas_valor = duración real del bloque en horas.
+ */
+const PLATICAS_IV = [
+  { id_platica: 1, nombre_sesion: 'CUCEA · Lunes 21 · inauguración, conferencia inaugural y Mesas 1–4', eje: 'varios', sede: 'cucea',           jornada: 'j1_lun_21_sep', hora_inicio: '2026-09-21T09:00:00-06:00', hora_fin: '2026-09-21T14:10:00-06:00', horas_valor: 5.17, tipo: 'mesa', formato: 'hibrido' },
+  { id_platica: 2, nombre_sesion: 'CUGDL · Lunes 21 · Mesas 5–7',                                        eje: 'varios', sede: 'cugdl',           jornada: 'j1_lun_21_sep', hora_inicio: '2026-09-21T16:05:00-06:00', hora_fin: '2026-09-21T18:50:00-06:00', horas_valor: 2.75, tipo: 'mesa', formato: 'hibrido' },
+  { id_platica: 3, nombre_sesion: 'Cineteca FICG · Martes 22 · Mesas 8–10 y jóvenes investigadores',    eje: 'varios', sede: 'cineteca',        jornada: 'j2_mar_22_sep', hora_inicio: '2026-09-22T10:05:00-06:00', hora_fin: '2026-09-22T13:30:00-06:00', horas_valor: 3.42, tipo: 'mesa', formato: 'hibrido' },
+  { id_platica: 4, nombre_sesion: 'Ciudad Judicial · Martes 22 · ponencia inaugural, presentación editorial, Mesa 11 y clausura', eje: 'varios', sede: 'ciudad_judicial', jornada: 'j2_mar_22_sep', hora_inicio: '2026-09-22T16:00:00-06:00', hora_fin: '2026-09-22T18:45:00-06:00', horas_valor: 2.75, tipo: 'mesa', formato: 'hibrido' },
+  { id_platica: 5, nombre_sesion: 'Jornada Virtual Internacional · Viernes 18 · Mesas V1–V4',            eje: 'varios', sede: 'virtual',         jornada: 'jv_vie_18_sep', hora_inicio: '2026-09-18T07:00:00-06:00', hora_fin: '2026-09-18T11:00:00-06:00', horas_valor: 4.0,  tipo: 'mesa', formato: 'virtual' }
+];
+
+/**
+ * instalarPlaticasIV() — correr UNA vez desde el editor. Da de alta (o actualiza por id_platica) los cinco
+ * bloques en la pestaña Platicas respetando los encabezados existentes. Las columnas que la hoja no tenga se
+ * ignoran; zoom_id queda vacío y cerrada = FALSE. Es idempotente: se puede volver a correr sin duplicar filas.
+ *
+ * ⚠️ Con estos bloques la suma máxima es 18.09 h: la meta de 20 h de _config (meta_horas_valor_curricular) sería
+ * inalcanzable. Ajustarla (p. ej. 14 = las cuatro sedes presenciales, o 16) antes de procesarConstancias().
+ */
+function instalarPlaticasIV() {
+  const sheet = SS.getSheetByName(SHEETS.platicas);
+  if (!sheet) throw new Error('No existe la pestaña ' + SHEETS.platicas);
+  let data = sheet.getDataRange().getValues();
+  if (!data.length || !data[0].some(Boolean)) {
+    sheet.getRange(1, 1, 1, 12).setValues([['id_platica', 'nombre_sesion', 'eje', 'sede', 'jornada', 'hora_inicio', 'hora_fin', 'horas_valor', 'tipo', 'formato', 'zoom_id', 'cerrada']]);
+    data = sheet.getDataRange().getValues();
+  }
+  const headers = data[0].map(h => String(h).trim());
+  const idxId = headers.indexOf('id_platica');
+  if (idxId === -1) throw new Error('La pestaña Platicas no tiene la columna id_platica');
+  const filaDe = {};
+  for (let i = 1; i < data.length; i++) filaDe[String(data[i][idxId])] = i + 1;
+  let altas = 0, cambios = 0;
+  PLATICAS_IV.forEach(p => {
+    const valores = { ...p, hora_inicio: new Date(p.hora_inicio), hora_fin: new Date(p.hora_fin), zoom_id: '', cerrada: false };
+    const fila = headers.map(h => (h in valores ? valores[h] : ''));
+    const row = filaDe[String(p.id_platica)];
+    if (row) {
+      // conserva lo que ya hubiera en columnas que no gestionamos (p. ej. zoom_id capturado a mano)
+      const actual = sheet.getRange(row, 1, 1, headers.length).getValues()[0];
+      headers.forEach((h, j) => { if (!(h in valores)) fila[j] = actual[j]; if (h === 'zoom_id' && actual[j]) fila[j] = actual[j]; });
+      sheet.getRange(row, 1, 1, headers.length).setValues([fila]); cambios++;
+    } else { sheet.appendRow(fila); altas++; }
+  });
+  const cols = ['hora_inicio', 'hora_fin'].map(h => headers.indexOf(h) + 1).filter(Boolean);
+  cols.forEach(c => sheet.getRange(2, c, Math.max(sheet.getLastRow() - 1, 1), 1).setNumberFormat('yyyy-mm-dd hh:mm'));
+  log_('instalarPlaticasIV', 'Platicas', `altas=${altas} actualizadas=${cambios}`, null);
+  Logger.log(`instalarPlaticasIV: ${altas} altas, ${cambios} actualizadas. Revisa meta_horas_valor_curricular en _config (máximo alcanzable: 18.09 h).`);
+  return { altas, actualizadas: cambios };
+}
+
+// ============ CIERRE AUTOMÁTICO DE LA JORNADA VIRTUAL ============
+/**
+ * cerrarJornadaVirtual() — consolida la asistencia por transmisión y emite las constancias de quienes
+ * ya alcanzan un nivel (para la Jornada Virtual: 4 h = meta_horas_asistencia_minima → constancia de asistencia).
+ * procesarConstancias() es idempotente por folio (constancia_enviada = TRUE), así que correrla el 18 no duplica
+ * nada el 22: quien además asista a las sedes presenciales NO recibe una segunda constancia salvo que se
+ * limpie su flag a mano (decisión del director; alternativa: dejar constancia_enviada y solo actualizar nivel).
+ *
+ * instalarDisparadorJornadaVirtual() la programa para el viernes 18 de septiembre de 2026 a las 11:30 (hora GDL),
+ * media hora después del cierre del bloque 5. Correr UNA vez desde el editor; acepta los permisos de triggers.
+ */
+function cerrarJornadaVirtual() {
+  const r = consolidarStream();
+  const c = procesarConstancias();
+  log_('cerrarJornadaVirtual', '5', `stream=${JSON.stringify(r)} constancias=${JSON.stringify(c)}`, null);
+  return { stream: r, constancias: c };
+}
+function instalarDisparadorJornadaVirtual() {
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'cerrarJornadaVirtual').forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('cerrarJornadaVirtual').timeBased().at(new Date('2026-09-18T11:30:00-06:00')).create();
+  Logger.log('Disparador creado: cerrarJornadaVirtual el 2026-09-18 11:30 (GDL).');
 }

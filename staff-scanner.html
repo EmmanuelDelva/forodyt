@@ -533,6 +533,7 @@ main {
         <option value="">Selecciona una plática…</option>
         <!-- Las opciones se inyectan via JS desde la constante PLATICAS -->
       </select>
+      <p class="section-text platica-hint" id="platica-hint" aria-live="polite"></p>
     </div>
 
     <button class="btn" id="btn-iniciar" disabled>Iniciar escaneo</button>
@@ -600,14 +601,27 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55
 // programa definitivo (pdf/ForoDyT-IV-2026-Programa-General.pdf y _tools/programa.json).
 // ⚠️ ACTUALIZADO 2026-09-14 con el PROGRAMA DEFINITIVO (v10.09.2026): cinco bloques, uno por
 // sede y jornada. La pestaña Platicas del Sheet debe tener EXACTAMENTE estos id, horas y
-// horas_valor antes del 18 de septiembre; en-vivo.html usa los mismos id (programa-data.json).
+// horas_valor antes del 18 de septiembre (instalarPlaticasIV() en apps-script/Asistencia.gs
+// los da de alta); en-vivo.html usa los mismos id (programa-data.json).
+//
+// VENTANA DE ESCANEO (la valida el backend, no esta página): cada QR se acepta desde UNA HORA
+// ANTES del inicio de la sede hasta UNA HORA DESPUÉS de su cierre (CUCEA termina 14:10 → se
+// escanea hasta 15:10), porque el público rota entre mesas. El bloque de la Jornada Virtual
+// no se escanea: su asistencia se acredita desde la transmisión (en-vivo.html).
+const VENTANA_MIN = 60;
 const PLATICAS = [
-  { id: 1, jornada: 'j1', sede: 'cucea',            fecha: 'Lun 21 sep', inicio: '09:00', fin: '14:10', nombre: 'CUCEA · Lunes 21 · matutina' },
-  { id: 2, jornada: 'j1', sede: 'cugdl',            fecha: 'Lun 21 sep', inicio: '16:05', fin: '18:50', nombre: 'CUGDL · Lunes 21 · vespertina' },
-  { id: 3, jornada: 'j2', sede: 'cineteca',         fecha: 'Mar 22 sep', inicio: '10:05', fin: '13:30', nombre: 'Cineteca FICG · Martes 22 · matutina' },
-  { id: 4, jornada: 'j2', sede: 'ciudad_judicial',  fecha: 'Mar 22 sep', inicio: '16:00', fin: '18:45', nombre: 'Ciudad Judicial · Martes 22 · vespertina' },
-  { id: 5, jornada: 'jv', sede: 'virtual',          fecha: 'Vie 18 sep', inicio: '07:00', fin: '11:00', nombre: 'Jornada Virtual · Viernes 18 · en línea (hora GDL)' }
+  { id: 1, jornada: 'j1', sede: 'cucea',            fecha: 'Lun 21 sep', inicio: '09:00', fin: '14:10', nombre: 'CUCEA · Lunes 21 · matutina', sesiones: 'Inauguración · conferencia inaugural · Mesas 1–4' },
+  { id: 2, jornada: 'j1', sede: 'cugdl',            fecha: 'Lun 21 sep', inicio: '16:05', fin: '18:50', nombre: 'CUGDL · Lunes 21 · vespertina', sesiones: 'Bienvenida · Mesas 5–7' },
+  { id: 3, jornada: 'j2', sede: 'cineteca',         fecha: 'Mar 22 sep', inicio: '10:05', fin: '13:30', nombre: 'Cineteca FICG · Martes 22 · matutina', sesiones: 'Bienvenida · Mesas 8–10 · jóvenes investigadores' },
+  { id: 4, jornada: 'j2', sede: 'ciudad_judicial',  fecha: 'Mar 22 sep', inicio: '16:00', fin: '18:45', nombre: 'Ciudad Judicial · Martes 22 · vespertina', sesiones: 'Ponencia inaugural · presentación editorial · Mesa 11 · clausura' },
+  { id: 5, jornada: 'jv', sede: 'virtual',          fecha: 'Vie 18 sep', inicio: '07:00', fin: '11:00', nombre: 'Jornada Virtual · Viernes 18 · en línea (hora GDL)', virtual: true, sesiones: 'Mesas V1–V4 (no se escanea: asistencia por transmisión)' }
 ];
+
+function sumaMinutos(hhmm, min) {
+  const [h, m] = hhmm.split(':').map(Number);
+  const t = h * 60 + m + min;
+  return String(Math.floor(t / 60) % 24).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+}
 
 // ---------- STATE ----------
 const state = {
@@ -648,13 +662,25 @@ function init() {
   PLATICAS.forEach(p => {
     const opt = document.createElement('option');
     opt.value = p.id;
-    opt.textContent = `${p.fecha} · ${p.inicio}–${p.fin} · ${p.nombre}`;
+    opt.textContent = p.virtual
+      ? `${p.fecha} · ${p.inicio}–${p.fin} · ${p.nombre} · sin escaneo`
+      : `${p.fecha} · ${p.inicio}–${p.fin} · ${p.nombre} · escaneo hasta ${sumaMinutos(p.fin, VENTANA_MIN)}`;
     sel.appendChild(opt);
   });
+  const selHint = $('#platica-hint');
+  const pintarHint = () => {
+    const p = PLATICAS.find(x => String(x.id) === String(sel.value));
+    if (!p) { selHint.textContent = ''; return; }
+    selHint.innerHTML = p.virtual
+      ? `<b>${p.nombre}</b>: ${p.sesiones}. Este bloque no se escanea: la asistencia se acredita desde la transmisión en vivo.`
+      : `<b>${p.nombre}</b>: ${p.sesiones}. El QR se acepta desde las <b>${sumaMinutos(p.inicio, -VENTANA_MIN)}</b> hasta las <b>${sumaMinutos(p.fin, VENTANA_MIN)}</b> (una hora antes del inicio y una hora después del cierre de la sede).`;
+  };
+  sel.addEventListener('change', pintarHint);
 
   // Pre-seleccionar última plática usada
   const lastPlatica = localStorage.getItem('foro_last_platica');
   if (lastPlatica) sel.value = lastPlatica;
+  pintarHint();
 
   // Validar form en cada cambio
   $('#staff-email').addEventListener('input', validarSetup);

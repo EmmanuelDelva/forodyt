@@ -72,14 +72,15 @@ Tu decisión, Emmanuel. Si optas por Zoom Webinar, el SS implementa la función 
 
 9:00 — Inicio Mesa I (CUCEA)
        → Staff escanea QR de cada asistente al entrar
-       → Cierre de ventana 9:05 + 10 min cortesía = 9:15
+       → Ventana de escaneo del bloque CUCEA (09:00–14:10): de 08:00 a 15:10
+         (una hora antes del inicio y una hora después del cierre de la sede; el público rota entre mesas)
 
 9:00 — Mismo Mesa I se transmite vía Zoom Webinar
        → Asistentes virtuales se conectan con su link único
 
 11:00 — Cambio de sede a Ciudad Judicial (Mesa II)
         → Asistentes presenciales se trasladan
-        → Si Mesa II inicia 12:00, ventana abre 11:55–12:10
+        → Cada sede es un bloque; su ventana abre una hora antes del inicio y cierra una hora después del fin
 
 22:00 — Cierre día 1
         → Staff descarga CSV de Zoom de las sesiones del día
