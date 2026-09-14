@@ -64,11 +64,13 @@ Sitio web del **IV Foro Internacional de Derecho y Tecnología** (CUCEA — Univ
 | `cfp.html` | Call for Papers / convocatoria |
 | `memorias.html` | Índice de ediciones anteriores |
 | `memoria-i/ii/iii.html` | Memorias de las ediciones I, II, III |
-| `programa.html` | Programa preliminar |
+| `programa.html` | **Programa definitivo (GENERADO)**: lo escribe `_tools/programa.py` a partir de `_tools/programa.json` (datos ES) + `_tools/programa.i18n.json` (EN/FR). **No editar a mano**: corregir los datos y volver a correr `python3 _tools/programa.py` |
+| `pdf/` | Los dos programas oficiales en PDF (general y jornada virtual), enlazados desde programa.html |
 | `inscripcion.html` | Formulario de inscripción |
 | `staff-scanner.html` | Vista interna de staff (escáner QR), NO enlazada en el menú público |
 | `registroscomite.html` | Hub interno del comité para el día del evento (acceso al escáner, pasos, troubleshooting). URL limpia `/registroscomite` vía rewrite en `vercel.json`. noindex, NO enlazada en el menú público |
-| `i18n.js` | Sistema de traducción trilingüe (~2400 líneas) |
+| `i18n.js` | Sistema de traducción trilingüe (~2400 líneas). programa.html y jornada-virtual.html llevan además su propio mini-diccionario `data-f18n` |
+| `_tools/programa.py` · `programa.json` · `programa.i18n.json` | Generador y datos del programa (versionados, excluidos de Vercel). El generador también reescribe los tres bloques marcados `PROGRAMA-JV:*` de `jornada-virtual.html` |
 | `mobile-menu.css` / `mobile-menu.js` | Menú móvil editorial |
 | `sitemap.xml`, `robots.txt` | SEO / indexación |
 | `googled59b34f81ee321b0.html` | Archivo de verificación de Google Search Console — NO borrar |
@@ -295,7 +297,20 @@ Resultado verificado en el DOM: peso medio por fila **9.0 · 8.8 · 7.8 · 7.5 �
 
 **Para ajustar el orden en el futuro** basta cambiar el número de `peso` de quien corresponda en la tabla de `_tools/parrilla.py` y volver a correrlo; no hay que tocar el HTML a mano.
 
+### Sesión 2026-09-14 — Programa definitivo en línea (programa.html, jornada-virtual.html, index.html)
+
+- **Fuente**: los dos PDF definitivos del director (Programa General v10.09.2026, 2 hojas; Jornada Virtual 18-sep). Transcritos a `_tools/programa.json` (25 sesiones: 6 virtuales + 19 presenciales; 67 voces; 15 mesas) y cotejados campo por campo contra el texto del PDF (245 campos, 0 discrepancias reales).
+- **`programa.html` reescrito desde cero** (antes era el placeholder «En preparación»). Ahora es una página **generada** por `_tools/programa.py`: hero con los tres actos (18 · 21 · 22) como navegador, panel **«Ahora en curso / A continuación»** que lee el reloj (antes del evento: cuenta regresiva; los días del Foro: sesión en curso con punto rojo y siguientes; después: enlace a memorias), cifras calculadas, riel pegajoso con scrollspy por sede, **filtro por eje (I–IX)**, **búsqueda** sin acentos, **«Mi agenda»** (estrella por sesión, localStorage `forodyt_agenda`, píldora flotante) con descarga **.ics** (por sesión, todo el programa o mi agenda; horas en UTC), **hora local** (Intl; localStorage `forodyt_tz`), cabeceras de sede estilo PDF (noche/teal + chip dorado de horario), hilo temporal con avatares duotono (fotos de `img/ponentes/` cuando el ponente ya está en el sitio; monograma si no), nombres enlazados a la ficha del index (`index.html#semblanza-<slug>` — enlace profundo nuevo en el modal del index), hoja de estilos de **impresión** (9 páginas A4 limpias), JSON-LD `Event` con `subEvent` por sede, OG propio `og/og-programa.png`. Verificado con Playwright: filtros, agenda, .ics (25 VEVENT), hora local (Bogotá/Madrid), puente de idioma por MutationObserver, 4 momentos del reloj simulado, 390 px sin desbordes, 0 errores JS.
+- **Trilingüe**: 266 cadenas nuevas EN/FR (traducidas por bloques, verificadas por agentes con dos lentes —fidelidad y lengua— y 24 correcciones aplicadas; reutilizan las traducciones ya publicadas de títulos de ponencia). Convención EN del sitio: «program», no «programme».
+- **`jornada-virtual.html`**: la sección `#estructura` (tres «momentos» genéricos) se sustituye por el programa real V1–V4 con el mismo componente (bloques marcados `PROGRAMA-JV:*`), selector de hora local y enlace al programa completo. «Acceso abierto» → **«Acceso libre con registro»** (el PDF dice «enlace de conexión para personas registradas») en hero, cinta, metas y en `jv_p` del index; JSON-LD con hora `15:00–19:00+02:00`.
+- **`index.html` / `i18n.js`**: CTA del hero «Programa preliminar» → **«Programa definitivo»** (ES/EN/FR); las claves `prog_*` viejas se eliminaron; **siete tarjetas «Ponencia por confirmar» reciben lo que dice el programa**: Márquez «El juez penal en el siglo XXI»; Contreras, Villarreal, Viniegra y Gómez Ávila el tema conjunto de la Mesa 5; Tinajero el de la Mesa 2; Jiménez «Modera · Mesa 5». Villarreal pasa a **«Dr.»** (así lo trae el programa). Queda una sola con sello: **Michelle Olmos**.
+- ⚠️ **Discrepancias programa ↔ sitio, para decisión del director (NO se tocó la parrilla):** (1) **Tres ponentes publicados no aparecen en el programa definitivo**: Michelle Olmos Álvarez, Jeofrey Troncoso Mojica y Claudia Barrios de la Cruz — si se cayeron, hay que retirarlos de la parrilla, la cifra XLI y el `performer`. (2) **Personas del programa que no están en la parrilla**: Mesa 10 (Luz Celina Camarena Romero, José Jesús Bravo Vergara y el moderador Antonio Gil Fons), los cuatro jóvenes investigadores del CFP y los ~23 autores de la Jornada Virtual (por diseño). (3) El pendiente de García Torres y Caicedo **queda resuelto**: presentan en la Mesa V1 de la Jornada Virtual. (4) Gaspar y Raad aparecen **dos veces** cada uno (inaugural CUCEA + ponencia inaugural Ciudad Judicial; presentación editorial + Mesa 11): se publicó tal cual. (5) La Mesa 10 no trae eje en el PDF y se publica sin chip de eje.
+- **Trampas nuevas**: `[hidden]` no oculta elementos con `display:flex/grid` propio → regla global `[hidden]{display:none!important}` en la página generada. `jornada-virtual.html` ya usaba `.bloque` para otra cosa: el fragmento del programa usa `.pbloque` allí. Las capturas de página completa con Playwright dejan las fotos `loading="lazy"` en negro (falso negativo conocido). El `Workflow` tool falló esta sesión con «permission handler … updatedInput failed schema validation» en todos sus subagentes; los agentes sueltos (`Agent`) sí funcionaron.
+
 ## 10. Pendientes abiertos
+
+- **Decidir sobre Olmos, Troncoso y Barrios** (publicados en la parrilla, ausentes del programa definitivo) y si se dan de alta en la parrilla los ponentes de la Mesa 10 (Camarena, Bravo Vergara, Gil Fons). Ver sesión 2026-09-14.
+- **Fotos** para los ponentes del programa que aún salen con monograma (Mesa 10, jóvenes CFP, autores de la Jornada Virtual): basta añadir el archivo a `img/ponentes/`, el slug en `programa.json` y el mapa `FOTOS` de `programa.py`.
 
 - **CF Web Analytics token**: crear site `forodyt.com` en `dash.cloudflare.com/<account>/web-analytics`, copiar el token de 32 chars del snippet generado y reemplazar `CF_TOKEN_FORODYT` en los 8 HTML con `perl -i -pe 's/CF_TOKEN_FORODYT/<TOKEN>/g' *.html`. Commit + push.
 - **IG website link**: editar `forodyt.vercel.app` → `forodyt.com` desde la app móvil de Instagram (IG no permite editar links desde desktop).

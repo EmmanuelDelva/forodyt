@@ -1,0 +1,1187 @@
+{
+  "version": "10.09.2026",
+  "version_txt": "Programa definitivo · versión del 10 de septiembre de 2026",
+  "tema": "«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»",
+  "ejes": {
+    "1": "IA Agéntica y Propiedad Intelectual Generativa",
+    "2": "Tecnologías Emergentes",
+    "3": "Ciberseguridad y Soberanía Digital",
+    "4": "Justicia Digital e Innovación Jurídica",
+    "5": "Derechos Humanos Digitales",
+    "6": "FinTech y Economía Digital",
+    "7": "Salud Digital y Biotecnologías",
+    "8": "Tecnología, Sostenibilidad y Derecho Ecológico Digital",
+    "9": "Resolución de Conflictos Tecnológicos y Disputas en Línea"
+  },
+  "dias": [
+    {
+      "id": "d18",
+      "fecha": "2026-09-18",
+      "num": "18",
+      "anchor": "jornada-en-linea",
+      "dow": "Viernes",
+      "mes": "septiembre",
+      "etiqueta": "Jornada Virtual Internacional",
+      "sub": "Día previo · transmisión en línea · 12 minutos por exposición",
+      "modo": "virtual",
+      "bloques": [
+        {
+          "id": "virtual",
+          "tz": "Europe/Madrid",
+          "sede": "En línea",
+          "sede_sub": "Dos continentes, una sesión · enlace de conexión para personas registradas",
+          "horario": "15:00–19:00 España · 7:00–11:00 Guadalajara",
+          "temas": "IA agéntica · Prueba y gobernanza · Persona y autonomía · Identidad digital · Justicia y datos",
+          "sesiones": [
+            {
+              "id": "jv-apertura",
+              "ini": "15:00",
+              "fin": "15:10",
+              "tipo": "ceremonia",
+              "kicker": "Apertura",
+              "titulo": null,
+              "desc": "Bienvenida y apertura de la Jornada Virtual Internacional.",
+              "ejes": [],
+              "ponentes": [],
+              "modera": null
+            },
+            {
+              "id": "v1",
+              "ini": "15:10",
+              "fin": "16:10",
+              "tipo": "mesa",
+              "num": "V1",
+              "kicker": "Mesa V1 — Ejes 1 · 4 · 5",
+              "titulo": "IA, prueba, gobernanza y derechos en sistemas automatizados",
+              "desc": null,
+              "ejes": [
+                1,
+                4,
+                5
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Federico González Barrera",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad Carlos III de Madrid (España)",
+                  "talk": "«Derecho al olvido como derecho fundamental en el ámbito de la violencia sexual digital»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. Juliana Caicedo Buitrago",
+                      "slug": "caicedo"
+                    }
+                  ],
+                  "afil": "Presidenta del Observatorio Mundial de la Abogacía (OMA)",
+                  "talk": "«La caja negra de la inteligencia artificial agéntica y los desafíos jurídicos de la trazabilidad y el control de sistemas autónomos»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. María Luisa García Torres",
+                      "slug": "garcia_torres"
+                    }
+                  ],
+                  "afil": "Universidad Alfonso X el Sabio · IusConnect (España)",
+                  "talk": "«La prueba digital en la era de la Inteligencia Artificial agéntica: autenticidad, vulnerabilidad y preservación temprana de la evidencia»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. David López Jiménez",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de Sevilla (España)",
+                  "talk": "«La ley invisible de la IA: códigos de buenas prácticas, estándares técnicos y nuevas formas de poder regulatorio»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Iván Miguel García López",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad Panamericana (México)",
+                  "talk": "«Gobernanza algorítmica de la decisión administrativa universitaria: hacia un marco regulatorio para los modelos abiertos de lenguaje de gran escala en las instituciones de educación superior»"
+                }
+              ]
+            },
+            {
+              "id": "v2",
+              "ini": "16:15",
+              "fin": "17:03",
+              "tipo": "mesa",
+              "num": "V2",
+              "kicker": "Mesa V2 — Ejes 5 · 7 · 9",
+              "titulo": "Persona, autonomía, salud y justicia predictiva",
+              "desc": null,
+              "ejes": [
+                5,
+                7,
+                9
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. Maryori Nahiry Molina Luna",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Pontificia Universidad Católica de Valparaíso (Chile)",
+                  "talk": "«De la protección de datos a la protección de la autonomía: hacia un nuevo paradigma jurídico para la gobernanza de la persuasión algorítmica desde un enfoque de derechos humanos»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Niza Inés Sepúlveda Asprilla",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de la Costa, Barranquilla (Colombia)",
+                  "talk": "«Derechos humanos digitales, neuroderechos y sostenibilidad cognitiva: la autonomía cognitiva frente al poder algorítmico en la era de las decisiones automatizadas»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Lourdes Katherin Ccolque Ccahuana",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad Continental (Perú)",
+                  "talk": "«Inteligencia artificial en la decisión médica y responsabilidad penal: criterios para la reconstrucción de la imputación individual mediante trazabilidad, información y supervisión humana»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. María del Carmen Vida Carrión",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de Sevilla (España)",
+                  "talk": "«Derecho de la Persona y el Derecho de Daños frente a la Justicia Predictiva: la reducción del sujeto a patrones algorítmicos de comportamiento y los mecanismos de protección civil»"
+                }
+              ]
+            },
+            {
+              "id": "v3",
+              "ini": "17:08",
+              "fin": "17:56",
+              "tipo": "mesa",
+              "num": "V3",
+              "kicker": "Mesa V3 — Ejes 3 · 5 · 7",
+              "titulo": "Identidad y vida digital: infancias, vejez y memoria en la red",
+              "desc": null,
+              "ejes": [
+                3,
+                5,
+                7
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Héctor Ayllón Santiago",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Ayllón & Asociados Abogados · ICAM (España)",
+                  "talk": "«Derechos de personas fallecidas reactivadas por la IA: los ghostbots»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Claudia Isabel Calderón Maldonado",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "María Cristina León Carvajal",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad Católica de Cuenca (Ecuador)",
+                  "talk": "«Sharenting y redes sociales en la identidad digital infantil en Ecuador»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Bryan Daniel Vaca Garfias",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Angelica Vianey Martínez Hurtado",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad Vizcaya de las Américas, Morelia (México)",
+                  "talk": "«Jurisdicción digital privada: propiedad intelectual, ciberseguridad y gobernanza algorítmica en ecosistemas digitales como Roblox»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Lucero Moreno Murguía",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Arturo González Mendoza",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Dr. Hipólito Aguilar Sierra",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "UdeG · INR · La Salle México",
+                  "talk": "«Envejecer con dignidad en tiempos digitales: algoritmos, rehabilitación y derechos humanos»"
+                }
+              ]
+            },
+            {
+              "id": "v4",
+              "ini": "18:01",
+              "fin": "18:49",
+              "tipo": "mesa",
+              "num": "V4",
+              "kicker": "Mesa V4 — Ejes 4 · 6",
+              "titulo": "Justicia, datos y regulación financiera en la era de la IA",
+              "desc": null,
+              "ejes": [
+                4,
+                6
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Alba Lancharro Castellanos",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "U. Pablo de Olavide, Sevilla · U. de Bolonia (España · Italia)",
+                  "talk": "«La cadena de custodia en la era de la Inteligencia Artificial»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Alma Cossette Guadarrama Muñoz",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Dr. Hipólito Aguilar Sierra",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad La Salle México",
+                  "talk": "«La vulneración del derecho al debido proceso en la era del Prompt Injection en México»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Laura Fernández González",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Gustavo Collazo Barroso",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Sandra Rodríguez Pe",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "CONABI · Futura Sit SRL (Cuba)",
+                  "talk": "«Protección de datos personales, inteligencia artificial y responsabilidad empresarial en los servicios legales. Estudio de caso del software Legalsit»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Berta Teruel Muñoz",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de Sevilla (España)",
+                  "talk": "«Fintech y la nueva arquitectura regulatoria de los pagos en Europa: análisis jurídico del paquete PSD3/PSR ante el paradigma de la inteligencia artificial»"
+                }
+              ]
+            },
+            {
+              "id": "jv-cierre",
+              "ini": "18:50",
+              "fin": "19:00",
+              "tipo": "ceremonia",
+              "kicker": "Cierre",
+              "titulo": null,
+              "desc": "Cierre de la Jornada Virtual Internacional e invitación a las jornadas presenciales del 21 y 22 de septiembre.",
+              "ejes": [],
+              "ponentes": [],
+              "modera": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d21",
+      "fecha": "2026-09-21",
+      "num": "21",
+      "anchor": "jornada-hibrida",
+      "dow": "Lunes",
+      "mes": "septiembre",
+      "etiqueta": "Día uno",
+      "sub": "CUCEA por la mañana · CUGDL por la tarde",
+      "modo": "presencial",
+      "bloques": [
+        {
+          "id": "cucea",
+          "tz": "America/Mexico_City",
+          "sede": "CUCEA",
+          "sede_sub": "Centro Universitario de Ciencias Económico Administrativas · Zapopan",
+          "horario": "9:00–14:10",
+          "temas": "IA agéntica · Justicia digital · Derechos humanos · CFP",
+          "sesiones": [
+            {
+              "id": "d21-inauguracion",
+              "ini": "09:00",
+              "fin": "10:00",
+              "tipo": "ceremonia",
+              "kicker": "Inauguración",
+              "titulo": null,
+              "desc": "Ceremonia inaugural con autoridades universitarias.",
+              "ejes": [],
+              "ponentes": [],
+              "modera": null
+            },
+            {
+              "id": "d21-inaugural",
+              "ini": "10:00",
+              "fin": "10:45",
+              "tipo": "conferencia",
+              "kicker": "Conferencia inaugural",
+              "titulo": null,
+              "desc": null,
+              "ejes": [],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Ing. Miguel Ángel Gaspar",
+                      "slug": "gaspar"
+                    }
+                  ],
+                  "afil": "ALGDETIC · CiberPadres LATAM (Paraguay)",
+                  "talk": "«Infancias conectadas, infancias protegidas: ciberseguridad y salud digital de la niñez»"
+                }
+              ]
+            },
+            {
+              "id": "m1",
+              "ini": "11:05",
+              "fin": "11:40",
+              "tipo": "mesa",
+              "num": "1",
+              "kicker": "Mesa 1 — Eje 1 · IA agéntica y PI generativa",
+              "titulo": "Autoría e inteligencia artificial generativa",
+              "desc": null,
+              "ejes": [
+                1
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Rodrigo Alejandro Gómez Torre",
+                      "slug": "gomez"
+                    }
+                  ],
+                  "afil": "CSJN Argentina · U. Nacional de Cuyo",
+                  "talk": "«El concepto de autoría en los tiempos de la Propiedad Intelectual Generativa»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. María Teresa Romero Gutiérrez",
+                      "slug": "romero_gutierrez"
+                    }
+                  ],
+                  "afil": "CU Tlajomulco, UdeG",
+                  "talk": "«Ciencia sin autor»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Ramón Willman Zamora",
+                      "slug": "willman"
+                    }
+                  ],
+                  "afil": "Coordinador de Transferencia Tecnológica y del Conocimiento · Universidad de Guadalajara",
+                  "talk": "«Propiedad intelectual y transferencia de tecnología en la era de la inteligencia artificial»"
+                }
+              ]
+            },
+            {
+              "id": "m2",
+              "ini": "11:40",
+              "fin": "12:20",
+              "tipo": "mesa",
+              "num": "2",
+              "kicker": "Mesa 2 — Ejes 4 · 3",
+              "titulo": "Diseño y desarrollo de herramienta para seguimiento de casos de corrupción",
+              "desc": null,
+              "ejes": [
+                4,
+                3
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Gilberto Tinajero Díaz",
+                      "slug": "tinajero"
+                    }
+                  ],
+                  "afil": "Secretario Técnico · Secretaría Ejecutiva del Sistema Estatal Anticorrupción de Jalisco",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mtro. Miguel Ángel Juárez Tello",
+                      "slug": "juarez_tello"
+                    }
+                  ],
+                  "afil": "Director de Tecnologías y Plataformas · Secretaría Ejecutiva del Sistema Estatal Anticorrupción de Jalisco",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Abog. Miguel Ángel Vázquez Placencia",
+                      "slug": "vazquez_placencia"
+                    }
+                  ],
+                  "afil": "Director General de Promoción y Seguimiento al Combate a la Corrupción · Contraloría del Estado de Jalisco",
+                  "talk": null
+                }
+              ]
+            },
+            {
+              "id": "m3",
+              "ini": "12:20",
+              "fin": "12:50",
+              "tipo": "mesa",
+              "num": "3",
+              "kicker": "Mesa 3 — Eje 5 · Derechos humanos digitales",
+              "titulo": "Libertad, autonomía y derechos en el entorno digital",
+              "desc": null,
+              "ejes": [
+                5
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. Velda Abigail Gámez Bustamante",
+                      "slug": "gamez"
+                    }
+                  ],
+                  "afil": "Tecnológico de Monterrey",
+                  "talk": "«La libertad frente a la IA: el caso del algoritmo Andrómeda»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Johanna Mildred Pinto García",
+                      "slug": "pinto_garcia"
+                    }
+                  ],
+                  "afil": "UNAM",
+                  "talk": "«Los derechos epistémicos como cuarta generación de derechos humanos»"
+                }
+              ]
+            },
+            {
+              "id": "d21-cfp",
+              "ini": "13:05",
+              "fin": "13:40",
+              "tipo": "especial",
+              "kicker": "Sesión especial — Multieje · CFP",
+              "titulo": "Jóvenes investigadores del Call for Papers",
+              "desc": null,
+              "ejes": [],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mabel Alejandra Torres Ureña",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de Guadalajara",
+                  "talk": "«La regulación jurídica de la Inteligencia Artificial en México»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Saúl Adolfo Lamas Meza",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de Guadalajara",
+                  "talk": "«La evolución de la práctica legal en la era de los algoritmos»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Johnatan Moisés Rodríguez Zambrano",
+                      "slug": null
+                    },
+                    {
+                      "nombre": "Karina Sánchez de Jesús",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "CUCEA, UdeG",
+                  "talk": "«Deepfakes y manipulación de la información en redes sociales»"
+                }
+              ]
+            },
+            {
+              "id": "d21-libro",
+              "ini": "13:40",
+              "fin": "14:10",
+              "tipo": "especial",
+              "kicker": "Sesión especial — Presentación editorial",
+              "titulo": "Presentación del libro",
+              "desc": null,
+              "ejes": [],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Manuel Raad Berrio",
+                      "slug": "raad"
+                    }
+                  ],
+                  "afil": "Magistrado Auxiliar, CSJ · Presidente de ALGDETIC",
+                  "talk": "«Evaluar para aprender y aprender a evaluar»"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cugdl",
+          "tz": "America/Mexico_City",
+          "sede": "CUGDL",
+          "sede_sub": "Centro Universitario de Guadalajara",
+          "horario": "16:05–18:50",
+          "temas": "Derechos · Seguridad · Economía digital · Derecho ecológico",
+          "sesiones": [
+            {
+              "id": "m4",
+              "ini": "16:05",
+              "fin": "16:30",
+              "tipo": "mesa",
+              "num": "4",
+              "kicker": "Mesa 4 — Eje 5",
+              "titulo": null,
+              "desc": null,
+              "ejes": [
+                5
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Iván Arrazola Cortés",
+                      "slug": "arrazola"
+                    },
+                    {
+                      "nombre": "Dr. Francisco Javier Lozano Martínez",
+                      "slug": "lozano_martinez"
+                    }
+                  ],
+                  "afil": "Profesores Investigadores del CUGDL · CA Consolidado UDG-1097 «Cultura de paz y participación ciudadana»",
+                  "talk": "«De la privacidad a la autonomía: derechos humanos frente al poder algorítmico»"
+                }
+              ]
+            },
+            {
+              "id": "m5",
+              "ini": "16:30",
+              "fin": "17:20",
+              "tipo": "mesa",
+              "num": "5",
+              "kicker": "Mesa 5 — Eje 3 · Seguridad ciudadana",
+              "titulo": "Inteligencia artificial, capacidades, riesgos y desafíos para la seguridad",
+              "desc": null,
+              "ejes": [
+                3
+              ],
+              "modera": {
+                "nombre": "Dr. Fernando Jiménez Sánchez",
+                "slug": "jimenez",
+                "afil": "El Colegio de Jalisco"
+              },
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Lic. Juan Carlos Contreras Vargas",
+                      "slug": "contreras"
+                    }
+                  ],
+                  "afil": "Escudo Urbano C5 · Gobierno de Jalisco",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Manuel de Jesús Villarreal Romero",
+                      "slug": "villarreal"
+                    }
+                  ],
+                  "afil": "Sistema Estatal C5i · Guanajuato",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dafne Viniegra",
+                      "slug": "viniegra"
+                    }
+                  ],
+                  "afil": "Cofundadora, presidenta y vocera de ILAS A.C.",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Gabriel Fatíh Gómez Ávila",
+                      "slug": "gomez_avila"
+                    }
+                  ],
+                  "afil": "KMS Technology",
+                  "talk": null
+                }
+              ]
+            },
+            {
+              "id": "m6",
+              "ini": "17:30",
+              "fin": "18:05",
+              "tipo": "mesa",
+              "num": "6",
+              "kicker": "Mesa 6 — Ejes 3 · 6",
+              "titulo": "Ciberseguridad, criptoactivos y economía digital",
+              "desc": null,
+              "ejes": [
+                3,
+                6
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mtro. Ernesto Ibarra Sánchez",
+                      "slug": "ibarra"
+                    }
+                  ],
+                  "afil": "AMCID · FIADI",
+                  "talk": "«Ciberseguridad y Cómputo Cuántico: el Q-Day y cómo prepararse»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. José Vega Sacasa",
+                      "slug": "vega"
+                    }
+                  ],
+                  "afil": "APPIF · Fintegrity Group (Panamá)",
+                  "talk": "«Trazabilidad y auditoría forense de los criptoactivos»"
+                }
+              ]
+            },
+            {
+              "id": "m7",
+              "ini": "18:10",
+              "fin": "18:50",
+              "tipo": "mesa",
+              "num": "7",
+              "kicker": "Mesa 7 — Eje 8 · Derecho ecológico digital",
+              "titulo": "Derecho ecológico digital: centros de datos, energía y agua",
+              "desc": null,
+              "ejes": [
+                8
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Carlos Jesahel Vega Gómez",
+                      "slug": "vega_gomez"
+                    }
+                  ],
+                  "afil": "CUTlajomulco · Presidente del IEEE Sección Guadalajara",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Juan Humberto Sossa Azuela",
+                      "slug": "sossa"
+                    }
+                  ],
+                  "afil": "Centro de Investigación en Computación · IPN",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "M.Sc. Ing. Gustavo E. Juárez",
+                      "slug": "gustavo_juarez"
+                    }
+                  ],
+                  "afil": "Laboratorio de IA · U. Nacional de Tucumán (Argentina)",
+                  "talk": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d22",
+      "fecha": "2026-09-22",
+      "num": "22",
+      "anchor": "dia-dos",
+      "dow": "Martes",
+      "mes": "septiembre",
+      "etiqueta": "Día dos",
+      "sub": "Cineteca FICG por la mañana · Ciudad Judicial por la tarde",
+      "modo": "presencial",
+      "bloques": [
+        {
+          "id": "cineteca",
+          "tz": "America/Mexico_City",
+          "sede": "Cineteca FICG",
+          "sede_sub": "Centro Cultural Universitario · Zapopan",
+          "horario": "10:05–13:30",
+          "temas": "Ciencias forenses · Mediación y ODR · Salud digital · Guerra algorítmica",
+          "sesiones": [
+            {
+              "id": "d22-apertura",
+              "ini": "10:05",
+              "fin": "10:45",
+              "tipo": "conferencia",
+              "kicker": "Ponencia de apertura",
+              "titulo": null,
+              "desc": null,
+              "ejes": [],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Alejandro Axel Rivera Martínez",
+                      "slug": "rivera"
+                    }
+                  ],
+                  "afil": "Director General del Instituto Jalisciense de Ciencias Forenses",
+                  "talk": "«Tecnología, ciencias forenses y derechos: identificación craneométrica con IA»"
+                }
+              ]
+            },
+            {
+              "id": "m8",
+              "ini": "11:05",
+              "fin": "11:50",
+              "tipo": "mesa",
+              "num": "8",
+              "kicker": "Mesa 8 — Eje 9 · Resolución de conflictos y ODR",
+              "titulo": "Resolución de conflictos y mediación en la era digital",
+              "desc": null,
+              "ejes": [
+                9
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Javier Doria Arrieta",
+                      "slug": "doria"
+                    }
+                  ],
+                  "afil": "Cartagena, Colombia",
+                  "talk": "«MED-IA-CCIÓN: una nueva línea de acción para la mediación escolar y la gestión pacífica de conflictos en entornos educativos»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Guillermo Raúl Zepeda Lecuona",
+                      "slug": "zepeda"
+                    }
+                  ],
+                  "afil": "Instituto de Justicia Alternativa · El Colegio de Jalisco",
+                  "talk": "«Innovación jurídica y resolución de conflictos»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Juan Carlos Sánchez-Aguirre",
+                      "slug": "sanchez_aguirre"
+                    },
+                    {
+                      "nombre": "Myrna Elia García Barrera",
+                      "slug": "garcia_barrera"
+                    }
+                  ],
+                  "afil": "UANL",
+                  "talk": "«Veracidad representativa y violencia simbólica en la ciudad digital»"
+                }
+              ]
+            },
+            {
+              "id": "m9",
+              "ini": "11:50",
+              "fin": "12:45",
+              "tipo": "mesa",
+              "num": "9",
+              "kicker": "Mesa 9 — Eje 7 · Salud digital y biotecnologías",
+              "titulo": "Salud digital y biotecnologías",
+              "desc": null,
+              "ejes": [
+                7
+              ],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mtra. Sahara Janeth Hernández Alcántara",
+                      "slug": "hernandez_alcantara"
+                    }
+                  ],
+                  "afil": "Poder Judicial de la Federación",
+                  "talk": "«Marco jurídico de la telemedicina»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Antonio Gerardo Rojas Sánchez",
+                      "slug": "rojas_sanchez"
+                    }
+                  ],
+                  "afil": "Hospital Civil de Guadalajara «Fray Antonio Alcalde»",
+                  "talk": "«El expediente clínico electrónico y el derecho sanitario en México»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dra. Elia Guadalupe Lozano Valdivia",
+                      "slug": "lozano_valdivia"
+                    }
+                  ],
+                  "afil": "CUCSH, UdeG",
+                  "talk": "«Transformación tecnológica de la salud, Health Care 5.0: vulnerabilidad y riesgos de violencia estructural para los derechos humanos en México»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Gretta Odett Nava López",
+                      "slug": "nava_lopez"
+                    }
+                  ],
+                  "afil": "Jefa del Departamento de Innovación · Hospital Civil de Guadalajara",
+                  "talk": "«Sistema Institucional de Innovación en Salud del Hospital Civil de Guadalajara»"
+                }
+              ]
+            },
+            {
+              "id": "m10",
+              "ini": "12:50",
+              "fin": "13:30",
+              "tipo": "mesa",
+              "num": "10",
+              "kicker": "Mesa 10",
+              "titulo": "Guerra algorítmica y derecho internacional humanitario",
+              "desc": "IA, sistemas autónomos, derecho y responsabilidad jurídica en los conflictos armados",
+              "ejes": [],
+              "modera": {
+                "nombre": "Dr. Antonio Gil Fons",
+                "slug": null,
+                "afil": "Profesor e investigador de la Universidad de Guadalajara · Docente de Relaciones Internacionales en la Universidad Autónoma de Guadalajara · Perfil PRODEP · Candidato a Investigador Nacional"
+              },
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mtra. Luz Celina Camarena Romero",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Doctorante en la Universidad de Salamanca, España · Especialista en seguridad nacional y crimen organizado transnacional",
+                  "talk": null
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. José Jesús Bravo Vergara",
+                      "slug": null
+                    }
+                  ],
+                  "afil": "Universidad de Guadalajara · Centro de Estudios para América del Norte · Departamento de Estudios del Pacífico · SNI Nivel I",
+                  "talk": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ciudad-judicial",
+          "tz": "America/Mexico_City",
+          "sede": "Ciudad Judicial",
+          "sede_sub": "Auditorio de Ciudad Judicial del Estado de Jalisco",
+          "horario": "16:00–18:45",
+          "temas": "Justicia digital · Magistratura · Clausura",
+          "sesiones": [
+            {
+              "id": "d22-inaugural",
+              "ini": "16:00",
+              "fin": "16:30",
+              "tipo": "conferencia",
+              "kicker": "Ponencia inaugural",
+              "titulo": null,
+              "desc": null,
+              "ejes": [],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Ing. Miguel Ángel Gaspar",
+                      "slug": "gaspar"
+                    }
+                  ],
+                  "afil": "ALGDETIC · CiberPadres LATAM (Paraguay)",
+                  "talk": "«Ciberseguridad e inteligencia artificial en el sector judicial»"
+                }
+              ]
+            },
+            {
+              "id": "m11",
+              "ini": "16:30",
+              "fin": "17:30",
+              "tipo": "mesa",
+              "num": "11",
+              "kicker": "Mesa 11 — Eje 4 · Justicia digital",
+              "titulo": "Magistrados y jueces del siglo XXI: la IA en la administración de justicia",
+              "desc": null,
+              "ejes": [
+                4
+              ],
+              "modera": {
+                "nombre": "Dr. Juan Emmanuel Delva Benavides",
+                "slug": "delva",
+                "afil": null
+              },
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Ing. Mayra Isabel González Núñez",
+                      "slug": "gonzalez"
+                    }
+                  ],
+                  "afil": "Consejo Superior de la Judicatura · Rama Judicial de Colombia",
+                  "talk": "«La IA no transforma instituciones: las personas sí. Innovación pública y nuevas capacidades para la justicia del futuro»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Juez Christopher Daniel Márquez González",
+                      "slug": "marquez"
+                    }
+                  ],
+                  "afil": "Juez de Control · Poder Judicial del Estado de Jalisco",
+                  "talk": "«El juez penal en el siglo XXI»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mtra. Silvia Margarita Rosales Buelvas",
+                      "slug": "rosales"
+                    }
+                  ],
+                  "afil": "U. Tecnológica de Bolívar · Conjuez, Sala Laboral (Cartagena)",
+                  "talk": "«Trabajo digital, prueba analógica: los retos probatorios de las relaciones laborales mediadas por tecnología»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Manuel Raad Berrio",
+                      "slug": "raad"
+                    }
+                  ],
+                  "afil": "Magistrado Auxiliar, CSJ · Presidente de ALGDETIC",
+                  "talk": "«Tribunales del siglo XXI: tecnologías emergentes y nuevos paradigmas en la administración de justicia»"
+                },
+                {
+                  "personas": [
+                    {
+                      "nombre": "Dr. Luis Fernando Reyes Ortega",
+                      "slug": "reyes"
+                    }
+                  ],
+                  "afil": "Decano de Derecho · Universidad Libre, Cartagena",
+                  "talk": "«El juez en la era de los algoritmos: riesgos de la asistencia tecnológica, perspectiva desde el derecho procesal y probatorio en Colombia»"
+                }
+              ]
+            },
+            {
+              "id": "d22-magistral",
+              "ini": "17:30",
+              "fin": "18:00",
+              "tipo": "conferencia",
+              "kicker": "Conferencia magistral",
+              "titulo": null,
+              "desc": null,
+              "ejes": [],
+              "modera": null,
+              "ponentes": [
+                {
+                  "personas": [
+                    {
+                      "nombre": "Mag. José Luis Álvarez Pulido",
+                      "slug": "alvarez"
+                    }
+                  ],
+                  "afil": "Magistrado Presidente del Supremo Tribunal de Justicia del Estado de Jalisco y del Consejo de la Judicatura",
+                  "talk": "«La transformación digital de la justicia en Jalisco: tribunales más ágiles, cercanos y humanos»"
+                }
+              ]
+            },
+            {
+              "id": "d22-clausura",
+              "ini": "18:00",
+              "fin": "18:45",
+              "tipo": "ceremonia",
+              "kicker": "Clausura",
+              "titulo": null,
+              "desc": "Ceremonia de clausura, presidida por el Magistrado Presidente del Supremo Tribunal de Justicia del Estado de Jalisco.",
+              "ejes": [],
+              "ponentes": [],
+              "modera": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ui": {
+    "meta_title": "Programa definitivo · IV Foro Internacional de Derecho y Tecnología · 2026",
+    "meta_desc": "Programa definitivo del IV Foro Internacional de Derecho y Tecnología: jornada virtual internacional el 18 de septiembre y dos días presenciales, 21 y 22 de septiembre de 2026, en CUCEA, CUGDL, Cineteca FICG y Ciudad Judicial. Horarios, mesas y ponentes.",
+    "eyebrow": "Programa definitivo · IV edición",
+    "h1_html": "El programa <em>definitivo</em>, hora por hora.",
+    "lead_html": "Una jornada virtual internacional el <b>viernes 18 de septiembre</b> y dos días presenciales, el <b>lunes 21 y el martes 22</b>, repartidos entre CUCEA, CUGDL, la Cineteca FICG y Ciudad Judicial. Cada sesión se puede guardar en tu agenda, añadir a tu calendario y ver en tu hora local.",
+    "version_label": "Versión del 10 de septiembre de 2026",
+    "cif_dias": "días",
+    "cif_sedes": "sedes presenciales",
+    "cif_mesas": "mesas",
+    "cif_voces": "voces",
+    "cif_ejes": "ejes temáticos",
+    "cif_sedes_ctx": "más una jornada en línea",
+    "cif_mesas_ctx": "once presenciales · cuatro virtuales",
+    "cif_voces_ctx": "ponentes y moderadores",
+    "cif_ejes_ctx": "de los nueve de la edición",
+    "cif_dias_ctx": "18 · 21 · 22 de septiembre",
+    "now_en_curso": "Ahora en curso",
+    "now_siguiente": "A continuación",
+    "now_hoy_termino": "Las sesiones de hoy han terminado",
+    "now_faltan_virtual": "Faltan {n} días para la jornada virtual",
+    "now_faltan_presencial": "Faltan {n} días para las jornadas presenciales",
+    "now_manana": "La jornada virtual es mañana",
+    "now_manana_p": "Las jornadas presenciales empiezan mañana",
+    "now_concluyo": "La IV edición ha concluido",
+    "now_concluyo_sub": "Consulta las memorias de la edición",
+    "now_hasta": "hasta las {h}",
+    "now_desde": "desde las {h}",
+    "now_en": "en {sede}",
+    "rail_label": "Ir a",
+    "rail_d18": "Vie 18 · En línea",
+    "rail_cucea": "Lun 21 · CUCEA",
+    "rail_cugdl": "Lun 21 · CUGDL",
+    "rail_cineteca": "Mar 22 · Cineteca FICG",
+    "rail_cj": "Mar 22 · Ciudad Judicial",
+    "filtro_label": "Filtrar por eje",
+    "filtro_todos": "Todos",
+    "filtro_buscar": "Buscar ponente, tema o palabra",
+    "filtro_agenda": "Solo mi agenda",
+    "filtro_limpiar": "Limpiar filtros",
+    "filtro_sin_resultados": "Ninguna sesión coincide con el filtro.",
+    "filtro_n": "{n} sesiones",
+    "agenda_add": "Guardar en mi agenda",
+    "agenda_del": "Quitar de mi agenda",
+    "agenda_vacia": "Tu agenda está vacía: marca las sesiones que te interesan con la estrella.",
+    "agenda_titulo": "Mi agenda",
+    "agenda_n": "{n} sesiones guardadas",
+    "ics_sesion": "Añadir al calendario",
+    "ics_todo": "Descargar todo el programa (.ics)",
+    "ics_agenda": "Descargar mi agenda (.ics)",
+    "pdf_general": "Programa general (PDF)",
+    "pdf_jornada": "Jornada virtual (PDF)",
+    "imprimir": "Imprimir",
+    "tz_gdl": "Hora de Guadalajara",
+    "tz_es": "Hora de España",
+    "tz_local": "Tu hora local",
+    "tz_detectada": "Zona horaria detectada: {tz}",
+    "tz_nota_virtual": "Los horarios de la jornada virtual se muestran en hora de España (CEST, UTC+2) y de Guadalajara (UTC−6). Activa «Tu hora local» para verlos en tu zona.",
+    "modera": "Modera",
+    "tema_mesa": "Tema de la mesa",
+    "sesion_especial": "Sesión especial",
+    "sede_label": "Sede",
+    "horario_label": "Horario",
+    "temas_label": "En esta sede",
+    "continua": "La jornada continúa en {sede} a las {h}",
+    "continua_dia": "Continúa el martes 22 en la Cineteca FICG",
+    "virtual_registro": "El enlace de conexión se envía a las personas registradas.",
+    "virtual_cta": "Inscribirse para recibir el enlace",
+    "virtual_min": "12 minutos por exposición",
+    "ver_ficha": "Ver ficha",
+    "sin_foto": "Sin fotografía",
+    "cta_inscripcion": "Inscribirse al Foro",
+    "cta_jornada": "Conocer la jornada virtual",
+    "cta_ejes": "Ver los nueve ejes",
+    "cta_volver": "Volver al sitio",
+    "pie_organiza": "Organiza el Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+    "pie_hibrido": "Transmisión híbrida conforme al programa definitivo · #ForoDyT",
+    "jv_est_eyebrow": "El programa de la jornada",
+    "jv_est_t_html": "Así se ordena <em>el 18 de septiembre</em>.",
+    "jv_est_lead": "Cuatro mesas virtuales con los trabajos aceptados en la convocatoria, doce minutos por exposición. Los horarios se muestran en hora de España y de Guadalajara; activa tu hora local para verlos en tu zona.",
+    "jv_est_link": "Ver el programa completo del Foro →",
+    "og_title": "Programa definitivo · IV Foro Internacional de Derecho y Tecnología",
+    "og_desc": "18 de septiembre en línea · 21 y 22 de septiembre en CUCEA, CUGDL, Cineteca FICG y Ciudad Judicial. Horarios, mesas y ponentes de la IV edición.",
+    "banda_t_html": "La conversación empieza <em>el 18</em> y sigue el 21 y 22."
+  }
+}

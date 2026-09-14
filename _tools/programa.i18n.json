@@ -1,0 +1,1066 @@
+{
+ "version_txt": {
+  "en": "Final program · version of 10 September 2026",
+  "fr": "Programme définitif · version du 10 septembre 2026"
+ },
+ "ui.meta_title": {
+  "en": "Final Program · IV International Forum on Law and Technology · 2026",
+  "fr": "Programme définitif · IVe Forum International du Droit et de la Technologie · 2026"
+ },
+ "ui.meta_desc": {
+  "en": "Final program of the IV International Forum on Law and Technology: an international online session on 18 September and two in-person days, 21 and 22 September 2026, at CUCEA, CUGDL, Cineteca FICG and Judicial City. Times, panels and speakers.",
+  "fr": "Programme définitif du IVe Forum International du Droit et de la Technologie : journée virtuelle internationale le 18 septembre et deux journées en présentiel, les 21 et 22 septembre 2026, au CUCEA, au CUGDL, à la Cineteca FICG et à la Cité Judiciaire. Horaires, tables et intervenants."
+ },
+ "ui.eyebrow": {
+  "en": "Final program · IV edition",
+  "fr": "Programme définitif · IVe édition"
+ },
+ "ui.h1_html": {
+  "en": "The <em>final</em> program, hour by hour.",
+  "fr": "Le programme <em>définitif</em>, heure par heure."
+ },
+ "ui.lead_html": {
+  "en": "An international online session on <b>Friday 18 September</b> and two in-person days, <b>Monday 21 and Tuesday 22</b>, spread across CUCEA, CUGDL, the Cineteca FICG and Judicial City. Every session can be saved to your schedule, added to your calendar and viewed in your local time.",
+  "fr": "Une journée virtuelle internationale le <b>vendredi 18 septembre</b> et deux journées en présentiel, le <b>lundi 21 et le mardi 22</b>, réparties entre le CUCEA, le CUGDL, la Cineteca FICG et la Cité Judiciaire. Chaque session peut être enregistrée dans votre agenda, ajoutée à votre calendrier et affichée à votre heure locale."
+ },
+ "ui.version_label": {
+  "en": "Version of 10 September 2026",
+  "fr": "Version du 10 septembre 2026"
+ },
+ "ui.cif_dias": {
+  "en": "days",
+  "fr": "jours"
+ },
+ "ui.cif_sedes": {
+  "en": "in-person venues",
+  "fr": "sites en présentiel"
+ },
+ "ui.cif_mesas": {
+  "en": "panels",
+  "fr": "tables"
+ },
+ "ui.cif_voces": {
+  "en": "voices",
+  "fr": "voix"
+ },
+ "ui.cif_ejes": {
+  "en": "thematic tracks",
+  "fr": "axes thématiques"
+ },
+ "ui.cif_sedes_ctx": {
+  "en": "plus one online session",
+  "fr": "plus une journée en ligne"
+ },
+ "ui.cif_mesas_ctx": {
+  "en": "eleven in person · four online",
+  "fr": "onze en présentiel · quatre virtuelles"
+ },
+ "ui.cif_voces_ctx": {
+  "en": "speakers and chairs",
+  "fr": "intervenants et modérateurs"
+ },
+ "ui.cif_ejes_ctx": {
+  "en": "of the edition's nine",
+  "fr": "sur les neuf de l'édition"
+ },
+ "ui.cif_dias_ctx": {
+  "en": "18 · 21 · 22 September",
+  "fr": "18 · 21 · 22 septembre"
+ },
+ "ui.now_en_curso": {
+  "en": "Now in progress",
+  "fr": "En cours"
+ },
+ "ui.now_siguiente": {
+  "en": "Up next",
+  "fr": "À suivre"
+ },
+ "ui.now_hoy_termino": {
+  "en": "Today's sessions have ended",
+  "fr": "Les sessions d'aujourd'hui sont terminées"
+ },
+ "ui.now_faltan_virtual": {
+  "en": "{n} days until the online session",
+  "fr": "Plus que {n} jours avant la journée virtuelle"
+ },
+ "ui.now_faltan_presencial": {
+  "en": "{n} days until the in-person days",
+  "fr": "Plus que {n} jours avant les journées en présentiel"
+ },
+ "ui.now_manana": {
+  "en": "The online session is tomorrow",
+  "fr": "La journée virtuelle a lieu demain"
+ },
+ "ui.now_manana_p": {
+  "en": "The in-person days start tomorrow",
+  "fr": "Les journées en présentiel commencent demain"
+ },
+ "ui.now_concluyo": {
+  "en": "The IV edition has concluded",
+  "fr": "La IVe édition est terminée"
+ },
+ "ui.now_concluyo_sub": {
+  "en": "See the edition's proceedings",
+  "fr": "Consulter les actes de l'édition"
+ },
+ "ui.now_hasta": {
+  "en": "until {h}",
+  "fr": "jusqu'à {h}"
+ },
+ "ui.now_desde": {
+  "en": "from {h}",
+  "fr": "à partir de {h}"
+ },
+ "ui.now_en": {
+  "en": "at {sede}",
+  "fr": "à {sede}"
+ },
+ "ui.rail_label": {
+  "en": "Go to",
+  "fr": "Aller à"
+ },
+ "ui.rail_d18": {
+  "en": "Fri 18 · Online",
+  "fr": "Ven 18 · En ligne"
+ },
+ "ui.rail_cucea": {
+  "en": "Mon 21 · CUCEA",
+  "fr": "Lun 21 · CUCEA"
+ },
+ "ui.rail_cugdl": {
+  "en": "Mon 21 · CUGDL",
+  "fr": "Lun 21 · CUGDL"
+ },
+ "ui.rail_cineteca": {
+  "en": "Tue 22 · Cineteca FICG",
+  "fr": "Mar 22 · Cineteca FICG"
+ },
+ "ui.rail_cj": {
+  "en": "Tue 22 · Judicial City",
+  "fr": "Mar 22 · Cité Judiciaire"
+ },
+ "ui.filtro_label": {
+  "en": "Filter by track",
+  "fr": "Filtrer par axe"
+ },
+ "ui.filtro_todos": {
+  "en": "All",
+  "fr": "Tous"
+ },
+ "ui.filtro_buscar": {
+  "en": "Search speaker, topic or keyword",
+  "fr": "Rechercher un intervenant, un thème ou un mot"
+ },
+ "ui.filtro_agenda": {
+  "en": "My schedule only",
+  "fr": "Mon agenda seulement"
+ },
+ "ui.filtro_limpiar": {
+  "en": "Clear filters",
+  "fr": "Effacer les filtres"
+ },
+ "ui.filtro_sin_resultados": {
+  "en": "No session matches the filter.",
+  "fr": "Aucune session ne correspond au filtre."
+ },
+ "ui.filtro_n": {
+  "en": "{n} sessions",
+  "fr": "{n} sessions"
+ },
+ "ui.agenda_add": {
+  "en": "Save to my schedule",
+  "fr": "Enregistrer dans mon agenda"
+ },
+ "ui.agenda_del": {
+  "en": "Remove from my schedule",
+  "fr": "Retirer de mon agenda"
+ },
+ "ui.agenda_vacia": {
+  "en": "Your schedule is empty: mark the sessions you're interested in with the star.",
+  "fr": "Votre agenda est vide : marquez les sessions qui vous intéressent avec l'étoile."
+ },
+ "ui.agenda_titulo": {
+  "en": "My schedule",
+  "fr": "Mon agenda"
+ },
+ "ui.agenda_n": {
+  "en": "{n} sessions saved",
+  "fr": "{n} sessions enregistrées"
+ },
+ "ui.ics_sesion": {
+  "en": "Add to calendar",
+  "fr": "Ajouter au calendrier"
+ },
+ "ui.ics_todo": {
+  "en": "Download the full program (.ics)",
+  "fr": "Télécharger tout le programme (.ics)"
+ },
+ "ui.ics_agenda": {
+  "en": "Download my schedule (.ics)",
+  "fr": "Télécharger mon agenda (.ics)"
+ },
+ "ui.pdf_general": {
+  "en": "General program (PDF)",
+  "fr": "Programme général (PDF)"
+ },
+ "ui.pdf_jornada": {
+  "en": "Online session (PDF)",
+  "fr": "Journée virtuelle (PDF)"
+ },
+ "ui.imprimir": {
+  "en": "Print",
+  "fr": "Imprimer"
+ },
+ "ui.tz_gdl": {
+  "en": "Guadalajara time",
+  "fr": "Heure de Guadalajara"
+ },
+ "ui.tz_es": {
+  "en": "Spain time",
+  "fr": "Heure d'Espagne"
+ },
+ "ui.tz_local": {
+  "en": "Your local time",
+  "fr": "Votre heure locale"
+ },
+ "ui.tz_detectada": {
+  "en": "Detected time zone: {tz}",
+  "fr": "Fuseau horaire détecté : {tz}"
+ },
+ "ui.tz_nota_virtual": {
+  "en": "Online session times are shown in Spain time (CEST, UTC+2) and Guadalajara time (UTC−6). Turn on «Your local time» to see them in your zone.",
+  "fr": "Les horaires de la journée virtuelle sont affichés à l'heure d'Espagne (CEST, UTC+2) et de Guadalajara (UTC−6). Activez « Votre heure locale » pour les voir dans votre fuseau."
+ },
+ "ui.modera": {
+  "en": "Chair",
+  "fr": "Modération"
+ },
+ "ui.tema_mesa": {
+  "en": "Panel topic",
+  "fr": "Thème de la table"
+ },
+ "ui.sesion_especial": {
+  "en": "Special Session",
+  "fr": "Session spéciale"
+ },
+ "ui.sede_label": {
+  "en": "Venue",
+  "fr": "Lieu"
+ },
+ "ui.horario_label": {
+  "en": "Times",
+  "fr": "Horaire"
+ },
+ "ui.temas_label": {
+  "en": "At this venue",
+  "fr": "Sur ce site"
+ },
+ "ui.continua": {
+  "en": "The day continues at {sede} at {h}",
+  "fr": "La journée se poursuit à {sede} à {h}"
+ },
+ "ui.continua_dia": {
+  "en": "Continues on Tuesday 22 at the Cineteca FICG",
+  "fr": "Suite le mardi 22 à la Cineteca FICG"
+ },
+ "ui.virtual_registro": {
+  "en": "The connection link is sent to registered participants.",
+  "fr": "Le lien de connexion est envoyé aux personnes inscrites."
+ },
+ "ui.virtual_cta": {
+  "en": "Register to receive the link",
+  "fr": "S'inscrire pour recevoir le lien"
+ },
+ "ui.virtual_min": {
+  "en": "12 minutes per presentation",
+  "fr": "12 minutes par exposé"
+ },
+ "ui.ver_ficha": {
+  "en": "View profile",
+  "fr": "Voir la fiche"
+ },
+ "ui.sin_foto": {
+  "en": "No photo",
+  "fr": "Sans photographie"
+ },
+ "ui.cta_inscripcion": {
+  "en": "Register for the Forum",
+  "fr": "S'inscrire au Forum"
+ },
+ "ui.cta_jornada": {
+  "en": "Discover the online session",
+  "fr": "Découvrir la journée virtuelle"
+ },
+ "ui.cta_ejes": {
+  "en": "See the nine tracks",
+  "fr": "Voir les neuf axes"
+ },
+ "ui.cta_volver": {
+  "en": "Back to the site",
+  "fr": "Retour au site"
+ },
+ "ui.pie_organiza": {
+  "en": "Organised by the Academic Body UDG-CA-1236 «Law and Technology» · University of Guadalajara",
+  "fr": "Organisé par le Corps Académique UDG-CA-1236 « Droit et Technologie » · Université de Guadalajara"
+ },
+ "ui.pie_hibrido": {
+  "en": "Hybrid broadcast as per the final program · #ForoDyT",
+  "fr": "Diffusion hybride conformément au programme définitif · #ForoDyT"
+ },
+ "ui.jv_est_eyebrow": {
+  "en": "The session program",
+  "fr": "Le programme de la journée"
+ },
+ "ui.jv_est_t_html": {
+  "en": "This is how <em>18 September</em> unfolds.",
+  "fr": "Ainsi s'organise <em>le 18 septembre</em>."
+ },
+ "ui.jv_est_lead": {
+  "en": "Four online panels with the papers accepted through the call, twelve minutes per presentation. Times are shown in Spain and Guadalajara time; turn on your local time to see them in your zone.",
+  "fr": "Quatre tables virtuelles avec les travaux acceptés dans le cadre de l'appel, douze minutes par exposé. Les horaires sont affichés à l'heure d'Espagne et de Guadalajara ; activez votre heure locale pour les voir dans votre fuseau."
+ },
+ "ui.jv_est_link": {
+  "en": "See the full Forum program →",
+  "fr": "Voir le programme complet du Forum →"
+ },
+ "ui.og_title": {
+  "en": "Final Program · IV International Forum on Law and Technology",
+  "fr": "Programme définitif · IVe Forum International du Droit et de la Technologie"
+ },
+ "ui.og_desc": {
+  "en": "18 September online · 21 and 22 September at CUCEA, CUGDL, Cineteca FICG and Judicial City. Times, panels and speakers of the IV edition.",
+  "fr": "18 septembre en ligne · 21 et 22 septembre au CUCEA, au CUGDL, à la Cineteca FICG et à la Cité Judiciaire. Horaires, tables et intervenants de la IVe édition."
+ },
+ "dia.d18.dow": {
+  "en": "Friday",
+  "fr": "Vendredi"
+ },
+ "dia.d18.mes": {
+  "en": "September",
+  "fr": "septembre"
+ },
+ "dia.d18.etiqueta": {
+  "en": "International Online Session",
+  "fr": "Journée Virtuelle Internationale"
+ },
+ "dia.d18.sub": {
+  "en": "Preliminary day · online broadcast · 12 minutes per presentation",
+  "fr": "Journée préalable · diffusion en ligne · 12 minutes par exposé"
+ },
+ "bloque.virtual.sede": {
+  "en": "Online",
+  "fr": "En ligne"
+ },
+ "bloque.virtual.sede_sub": {
+  "en": "Two continents, one session · connection link for registered participants",
+  "fr": "Deux continents, une session · lien de connexion pour les personnes inscrites"
+ },
+ "bloque.virtual.horario": {
+  "en": "15:00–19:00 Spain · 7:00–11:00 Guadalajara",
+  "fr": "15:00–19:00 Espagne · 7:00–11:00 Guadalajara"
+ },
+ "bloque.virtual.temas": {
+  "en": "Agentic AI · Evidence and governance · Person and autonomy · Digital identity · Justice and data",
+  "fr": "IA agentique · Preuve et gouvernance · Personne et autonomie · Identité numérique · Justice et données"
+ },
+ "s.jv-apertura.kicker": {
+  "en": "Opening",
+  "fr": "Ouverture"
+ },
+ "s.jv-apertura.desc": {
+  "en": "Welcome and opening of the International Online Session.",
+  "fr": "Accueil et ouverture de la Journée Virtuelle Internationale."
+ },
+ "s.v1.kicker": {
+  "en": "Panel V1 — Tracks 1 · 4 · 5",
+  "fr": "Table V1 — Axes 1 · 4 · 5"
+ },
+ "s.v1.titulo": {
+  "en": "AI, evidence, governance and rights in automated systems",
+  "fr": "IA, preuve, gouvernance et droits dans les systèmes automatisés"
+ },
+ "s.v1.p0.afil": {
+  "en": "Universidad Carlos III de Madrid (Spain)",
+  "fr": "Universidad Carlos III de Madrid (Espagne)"
+ },
+ "s.v1.p0.talk": {
+  "en": "«The Right to Be Forgotten as a Fundamental Right in the Context of Digital Sexual Violence»",
+  "fr": "« Le droit à l'oubli comme droit fondamental dans le domaine de la violence sexuelle numérique »"
+ },
+ "s.v1.p1.afil": {
+  "en": "President of the World Observatory of the Legal Profession (OMA)",
+  "fr": "Présidente de l'Observatoire Mondial de la Profession d'Avocat (OMA)"
+ },
+ "s.v1.p1.talk": {
+  "en": "«The Black Box of Agentic AI: Legal Challenges of Traceability and Control of Autonomous Systems»",
+  "fr": "« La boîte noire de l'IA agentique : les défis juridiques de la traçabilité et du contrôle des systèmes autonomes »"
+ },
+ "s.v1.p2.afil": {
+  "en": "Universidad Alfonso X el Sabio · IusConnect (Spain)",
+  "fr": "Universidad Alfonso X el Sabio · IusConnect (Espagne)"
+ },
+ "s.v1.p2.talk": {
+  "en": "«Digital Evidence in the Age of Agentic Artificial Intelligence: Authenticity, Vulnerability and Early Preservation of Evidence»",
+  "fr": "« La preuve numérique à l'ère de l'Intelligence Artificielle agentique : authenticité, vulnérabilité et préservation précoce des preuves »"
+ },
+ "s.v1.p3.afil": {
+  "en": "Universidad de Sevilla (Spain)",
+  "fr": "Universidad de Sevilla (Espagne)"
+ },
+ "s.v1.p3.talk": {
+  "en": "«The Invisible Law of AI: Codes of Good Practice, Technical Standards and New Forms of Regulatory Power»",
+  "fr": "« La loi invisible de l'IA : codes de bonnes pratiques, normes techniques et nouvelles formes de pouvoir réglementaire »"
+ },
+ "s.v1.p4.afil": {
+  "en": "Universidad Panamericana (Mexico)",
+  "fr": "Universidad Panamericana (Mexique)"
+ },
+ "s.v1.p4.talk": {
+  "en": "«Algorithmic Governance of University Administrative Decision-Making: Towards a Regulatory Framework for Open Large Language Models in Higher Education Institutions»",
+  "fr": "« Gouvernance algorithmique de la décision administrative universitaire : vers un cadre réglementaire pour les grands modèles de langage ouverts dans les établissements d'enseignement supérieur »"
+ },
+ "s.v2.kicker": {
+  "en": "Panel V2 — Tracks 5 · 7 · 9",
+  "fr": "Table V2 — Axes 5 · 7 · 9"
+ },
+ "s.v2.titulo": {
+  "en": "Person, autonomy, health and predictive justice",
+  "fr": "Personne, autonomie, santé et justice prédictive"
+ },
+ "s.v2.p0.afil": {
+  "en": "Pontificia Universidad Católica de Valparaíso (Chile)",
+  "fr": "Pontificia Universidad Católica de Valparaíso (Chili)"
+ },
+ "s.v2.p0.talk": {
+  "en": "«From Data Protection to the Protection of Autonomy: Towards a New Legal Paradigm for the Governance of Algorithmic Persuasion from a Human Rights Perspective»",
+  "fr": "« De la protection des données à la protection de l'autonomie : vers un nouveau paradigme juridique pour la gouvernance de la persuasion algorithmique dans une perspective de droits humains »"
+ },
+ "s.v2.p1.afil": {
+  "en": "Universidad de la Costa, Barranquilla (Colombia)",
+  "fr": "Universidad de la Costa, Barranquilla (Colombie)"
+ },
+ "s.v2.p1.talk": {
+  "en": "«Digital Human Rights, Neurorights and Cognitive Sustainability: Cognitive Autonomy in the Face of Algorithmic Power in the Age of Automated Decisions»",
+  "fr": "« Droits humains numériques, neurodroits et durabilité cognitive : l'autonomie cognitive face au pouvoir algorithmique à l'ère des décisions automatisées »"
+ },
+ "s.v2.p2.afil": {
+  "en": "Universidad Continental (Peru)",
+  "fr": "Universidad Continental (Pérou)"
+ },
+ "s.v2.p2.talk": {
+  "en": "«Artificial Intelligence in Medical Decision-Making and Criminal Liability: Criteria for Reconstructing Individual Imputation through Traceability, Information and Human Oversight»",
+  "fr": "« Intelligence artificielle dans la décision médicale et responsabilité pénale : critères pour la reconstruction de l'imputation individuelle par la traçabilité, l'information et la supervision humaine »"
+ },
+ "s.v2.p3.afil": {
+  "en": "Universidad de Sevilla (Spain)",
+  "fr": "Universidad de Sevilla (Espagne)"
+ },
+ "s.v2.p3.talk": {
+  "en": "«The Law of Persons and Tort Law in the Face of Predictive Justice: The Reduction of the Subject to Algorithmic Behavioural Patterns and Civil-Law Protection Mechanisms»",
+  "fr": "« Le droit des personnes et le droit de la responsabilité civile face à la justice prédictive : la réduction du sujet à des schémas comportementaux algorithmiques et les mécanismes de protection du droit civil »"
+ },
+ "s.v3.kicker": {
+  "en": "Panel V3 — Tracks 3 · 5 · 7",
+  "fr": "Table V3 — Axes 3 · 5 · 7"
+ },
+ "s.v3.titulo": {
+  "en": "Identity and digital life: childhood, old age and memory online",
+  "fr": "Identité et vie numérique : enfances, vieillesse et mémoire en ligne"
+ },
+ "s.v3.p0.afil": {
+  "en": "Ayllón & Asociados Abogados · ICAM (Spain)",
+  "fr": "Ayllón & Asociados Abogados · ICAM (Espagne)"
+ },
+ "s.v3.p0.talk": {
+  "en": "«Rights of Deceased Persons Reactivated by AI: Ghostbots»",
+  "fr": "« Les droits des personnes décédées réactivées par l'IA : les ghostbots »"
+ },
+ "s.v3.p1.afil": {
+  "en": "Universidad Católica de Cuenca (Ecuador)",
+  "fr": "Universidad Católica de Cuenca (Équateur)"
+ },
+ "s.v3.p1.talk": {
+  "en": "«Sharenting and Social Media in Children's Digital Identity in Ecuador»",
+  "fr": "« Sharenting et réseaux sociaux dans l'identité numérique des enfants en Équateur »"
+ },
+ "s.v3.p2.afil": {
+  "en": "Universidad Vizcaya de las Américas, Morelia (Mexico)",
+  "fr": "Universidad Vizcaya de las Américas, Morelia (Mexique)"
+ },
+ "s.v3.p2.talk": {
+  "en": "«Private Digital Jurisdiction: Intellectual Property, Cybersecurity and Algorithmic Governance in Digital Ecosystems such as Roblox»",
+  "fr": "« Juridiction numérique privée : propriété intellectuelle, cybersécurité et gouvernance algorithmique dans les écosystèmes numériques tels que Roblox »"
+ },
+ "s.v3.p3.afil": {
+  "en": "UdeG · INR · La Salle México",
+  "fr": "UdeG · INR · La Salle México"
+ },
+ "s.v3.p3.talk": {
+  "en": "«Ageing with Dignity in Digital Times: Algorithms, Rehabilitation and Human Rights»",
+  "fr": "« Vieillir dans la dignité à l'ère numérique : algorithmes, réadaptation et droits humains »"
+ },
+ "s.v4.kicker": {
+  "en": "Panel V4 — Tracks 4 · 6",
+  "fr": "Table V4 — Axes 4 · 6"
+ },
+ "s.v4.titulo": {
+  "en": "Justice, data and financial regulation in the age of AI",
+  "fr": "Justice, données et régulation financière à l'ère de l'IA"
+ },
+ "s.v4.p0.afil": {
+  "en": "U. Pablo de Olavide, Seville · U. of Bologna (Spain · Italy)",
+  "fr": "U. Pablo de Olavide, Séville · U. de Bologne (Espagne · Italie)"
+ },
+ "s.v4.p0.talk": {
+  "en": "«The Chain of Custody in the Age of Artificial Intelligence»",
+  "fr": "« La chaîne de conservation de la preuve à l'ère de l'Intelligence Artificielle »"
+ },
+ "s.v4.p1.afil": {
+  "en": "Universidad La Salle México",
+  "fr": "Universidad La Salle México"
+ },
+ "s.v4.p1.talk": {
+  "en": "«The Violation of the Right to Due Process in the Age of Prompt Injection in Mexico»",
+  "fr": "« La violation du droit à une procédure régulière à l'ère du Prompt Injection au Mexique »"
+ },
+ "s.v4.p2.afil": {
+  "en": "CONABI · Futura Sit SRL (Cuba)",
+  "fr": "CONABI · Futura Sit SRL (Cuba)"
+ },
+ "s.v4.p2.talk": {
+  "en": "«Personal Data Protection, Artificial Intelligence and Corporate Liability in Legal Services. Case Study of the Legalsit Software»",
+  "fr": "« Protection des données personnelles, intelligence artificielle et responsabilité des entreprises dans les services juridiques. Étude de cas du logiciel Legalsit »"
+ },
+ "s.v4.p3.afil": {
+  "en": "Universidad de Sevilla (Spain)",
+  "fr": "Universidad de Sevilla (Espagne)"
+ },
+ "s.v4.p3.talk": {
+  "en": "«Fintech and the New Regulatory Architecture of Payments in Europe: Legal Analysis of the PSD3/PSR Package in the Face of the Artificial Intelligence Paradigm»",
+  "fr": "« Fintech et la nouvelle architecture réglementaire des paiements en Europe : analyse juridique du paquet PSD3/PSR face au paradigme de l'intelligence artificielle »"
+ },
+ "s.jv-cierre.kicker": {
+  "en": "Closing",
+  "fr": "Clôture"
+ },
+ "s.jv-cierre.desc": {
+  "en": "Closing of the International Online Session and invitation to the in-person sessions on 21 and 22 September.",
+  "fr": "Clôture de la Journée Virtuelle Internationale et invitation aux journées en présentiel des 21 et 22 septembre."
+ },
+ "dia.d21.dow": {
+  "en": "Monday",
+  "fr": "Lundi"
+ },
+ "dia.d21.mes": {
+  "en": "September",
+  "fr": "septembre"
+ },
+ "dia.d21.etiqueta": {
+  "en": "Day one",
+  "fr": "Jour un"
+ },
+ "dia.d21.sub": {
+  "en": "CUCEA in the morning · CUGDL in the afternoon",
+  "fr": "CUCEA le matin · CUGDL l'après-midi"
+ },
+ "bloque.cucea.sede": {
+  "en": "CUCEA",
+  "fr": "CUCEA"
+ },
+ "bloque.cucea.sede_sub": {
+  "en": "University Center for Economic and Administrative Sciences · Zapopan",
+  "fr": "Centre Universitaire de Sciences Économiques et Administratives · Zapopan"
+ },
+ "bloque.cucea.horario": {
+  "en": "9:00–14:10",
+  "fr": "9:00–14:10"
+ },
+ "bloque.cucea.temas": {
+  "en": "Agentic AI · Digital justice · Human rights · CFP",
+  "fr": "IA agentique · Justice numérique · Droits humains · CFP"
+ },
+ "s.d21-inauguracion.kicker": {
+  "en": "Opening Ceremony",
+  "fr": "Cérémonie d'ouverture"
+ },
+ "s.d21-inauguracion.desc": {
+  "en": "Opening ceremony with university authorities.",
+  "fr": "Cérémonie d'ouverture avec les autorités universitaires."
+ },
+ "s.d21-inaugural.kicker": {
+  "en": "Inaugural Lecture",
+  "fr": "Conférence inaugurale"
+ },
+ "s.d21-inaugural.p0.afil": {
+  "en": "ALGDETIC · CiberPadres LATAM (Paraguay)",
+  "fr": "ALGDETIC · CiberPadres LATAM (Paraguay)"
+ },
+ "s.d21-inaugural.p0.talk": {
+  "en": "«Connected Childhoods, Protected Childhoods: Cybersecurity and Digital Health for Children»",
+  "fr": "« Enfances connectées, enfances protégées : cybersécurité et santé numérique de l'enfance »"
+ },
+ "s.m1.kicker": {
+  "en": "Panel 1 — Track 1 · Agentic AI and Generative Intellectual Property",
+  "fr": "Table 1 — Axe 1 · IA Agentique et Propriété Intellectuelle Générative"
+ },
+ "s.m1.titulo": {
+  "en": "Authorship and generative artificial intelligence",
+  "fr": "Qualité d'auteur et intelligence artificielle générative"
+ },
+ "s.m1.p0.afil": {
+  "en": "CSJN Argentina · National University of Cuyo",
+  "fr": "CSJN Argentine · Université Nationale de Cuyo"
+ },
+ "s.m1.p0.talk": {
+  "en": "«The Concept of Authorship in the Age of Generative Intellectual Property»",
+  "fr": "« Le concept d'auteur à l'ère de la Propriété Intellectuelle Générative »"
+ },
+ "s.m1.p1.afil": {
+  "en": "CU Tlajomulco, UdeG",
+  "fr": "CU Tlajomulco, UdeG"
+ },
+ "s.m1.p1.talk": {
+  "en": "«Science Without an Author»",
+  "fr": "« Science sans auteur »"
+ },
+ "s.m1.p2.afil": {
+  "en": "Coordinator of Technology and Knowledge Transfer · University of Guadalajara",
+  "fr": "Coordinateur du transfert technologique et des connaissances · Université de Guadalajara"
+ },
+ "s.m1.p2.talk": {
+  "en": "«Intellectual Property and Technology Transfer in the Age of Artificial Intelligence»",
+  "fr": "« Propriété intellectuelle et transfert de technologie à l'ère de l'intelligence artificielle »"
+ },
+ "s.m2.kicker": {
+  "en": "Panel 2 — Tracks 4 · 3",
+  "fr": "Table 2 — Axes 4 · 3"
+ },
+ "s.m2.titulo": {
+  "en": "Design and development of a tool for tracking corruption cases",
+  "fr": "Conception et développement d'un outil de suivi des affaires de corruption"
+ },
+ "s.m2.p0.afil": {
+  "en": "Technical Secretary · Executive Secretariat of the Jalisco State Anti-Corruption System",
+  "fr": "Secrétaire technique · Secrétariat exécutif du Système anticorruption de l'État de Jalisco"
+ },
+ "s.m2.p1.afil": {
+  "en": "Director of Technology and Platforms · Executive Secretariat of the Jalisco State Anti-Corruption System",
+  "fr": "Directeur des technologies et des plateformes · Secrétariat exécutif du Système anticorruption de l'État de Jalisco"
+ },
+ "s.m2.p2.afil": {
+  "en": "Director General for Anti-Corruption Promotion and Monitoring · Jalisco State Comptroller's Office",
+  "fr": "Directeur général de la promotion et du suivi de la lutte contre la corruption · Contrôle général de l'État de Jalisco"
+ },
+ "s.m3.kicker": {
+  "en": "Panel 3 — Track 5 · Digital Human Rights",
+  "fr": "Table 3 — Axe 5 · Droits Humains Numériques"
+ },
+ "s.m3.titulo": {
+  "en": "Freedom, autonomy and rights in the digital environment",
+  "fr": "Liberté, autonomie et droits dans l'environnement numérique"
+ },
+ "s.m3.p0.afil": {
+  "en": "Tecnológico de Monterrey",
+  "fr": "Tecnológico de Monterrey"
+ },
+ "s.m3.p0.talk": {
+  "en": "«Freedom in the Face of AI: the Andromeda Algorithm Case»",
+  "fr": "« La liberté face à l'IA : le cas de l'algorithme Andromède »"
+ },
+ "s.m3.p1.afil": {
+  "en": "UNAM",
+  "fr": "UNAM"
+ },
+ "s.m3.p1.talk": {
+  "en": "«Epistemic Rights as a Fourth Generation of Human Rights»",
+  "fr": "« Les droits épistémiques comme quatrième génération des droits humains »"
+ },
+ "s.d21-cfp.kicker": {
+  "en": "Special Session — Multi-track · CFP",
+  "fr": "Session spéciale — Multi-axes · CFP"
+ },
+ "s.d21-cfp.titulo": {
+  "en": "Young Researchers of the Call for Papers",
+  "fr": "Jeunes chercheurs de l'appel à communications"
+ },
+ "s.d21-cfp.p0.afil": {
+  "en": "University of Guadalajara",
+  "fr": "Université de Guadalajara"
+ },
+ "s.d21-cfp.p0.talk": {
+  "en": "«The Legal Regulation of Artificial Intelligence in Mexico»",
+  "fr": "« La réglementation juridique de l'Intelligence Artificielle au Mexique »"
+ },
+ "s.d21-cfp.p1.afil": {
+  "en": "University of Guadalajara",
+  "fr": "Université de Guadalajara"
+ },
+ "s.d21-cfp.p1.talk": {
+  "en": "«The Evolution of Legal Practice in the Age of Algorithms»",
+  "fr": "« L'évolution de la pratique juridique à l'ère des algorithmes »"
+ },
+ "s.d21-cfp.p2.afil": {
+  "en": "CUCEA, UdeG",
+  "fr": "CUCEA, UdeG"
+ },
+ "s.d21-cfp.p2.talk": {
+  "en": "«Deepfakes and Information Manipulation on Social Media»",
+  "fr": "« Deepfakes et manipulation de l'information sur les réseaux sociaux »"
+ },
+ "s.d21-libro.kicker": {
+  "en": "Special Session — Book Launch",
+  "fr": "Session spéciale — Présentation éditoriale"
+ },
+ "s.d21-libro.titulo": {
+  "en": "Book Presentation",
+  "fr": "Présentation du livre"
+ },
+ "s.d21-libro.p0.afil": {
+  "en": "Auxiliary Magistrate, CSJ · President of ALGDETIC",
+  "fr": "Magistrat Auxiliaire, CSJ · Président d'ALGDETIC"
+ },
+ "s.d21-libro.p0.talk": {
+  "en": "«Evaluating to Learn and Learning to Evaluate»",
+  "fr": "« Évaluer pour apprendre et apprendre à évaluer »"
+ },
+ "bloque.cugdl.sede": {
+  "en": "CUGDL",
+  "fr": "CUGDL"
+ },
+ "bloque.cugdl.sede_sub": {
+  "en": "Guadalajara University Center",
+  "fr": "Centre Universitaire de Guadalajara"
+ },
+ "bloque.cugdl.horario": {
+  "en": "16:05–18:50",
+  "fr": "16:05–18:50"
+ },
+ "bloque.cugdl.temas": {
+  "en": "Rights · Security · Digital economy · Ecological law",
+  "fr": "Droits · Sécurité · Économie numérique · Droit écologique"
+ },
+ "s.m4.kicker": {
+  "en": "Panel 4 — Track 5",
+  "fr": "Table 4 — Axe 5"
+ },
+ "s.m4.p0.afil": {
+  "en": "Research Professors, CUGDL · Consolidated Academic Body UDG-1097 «Culture of Peace and Citizen Participation»",
+  "fr": "Professeurs-chercheurs du CUGDL · Corps Académique Consolidé UDG-1097 « Culture de paix et participation citoyenne »"
+ },
+ "s.m4.p0.talk": {
+  "en": "«From Privacy to Autonomy: Human Rights in the Face of Algorithmic Power»",
+  "fr": "« De la vie privée à l’autonomie : les droits humains face au pouvoir algorithmique »"
+ },
+ "s.m5.kicker": {
+  "en": "Panel 5 — Track 3 · Citizen security",
+  "fr": "Table 5 — Axe 3 · Sécurité citoyenne"
+ },
+ "s.m5.titulo": {
+  "en": "Artificial intelligence, capabilities, risks and challenges for security",
+  "fr": "Intelligence artificielle, capacités, risques et défis pour la sécurité"
+ },
+ "s.m5.modera.afil": {
+  "en": "El Colegio de Jalisco",
+  "fr": "El Colegio de Jalisco"
+ },
+ "s.m5.p0.afil": {
+  "en": "Escudo Urbano C5 · Government of Jalisco",
+  "fr": "Escudo Urbano C5 · Gouvernement du Jalisco"
+ },
+ "s.m5.p1.afil": {
+  "en": "C5i State System · Guanajuato",
+  "fr": "Système d'État C5i · Guanajuato"
+ },
+ "s.m5.p2.afil": {
+  "en": "Co-founder, President and Spokesperson of ILAS A.C.",
+  "fr": "Cofondatrice, présidente et porte-parole d'ILAS A.C."
+ },
+ "s.m5.p3.afil": {
+  "en": "KMS Technology",
+  "fr": "KMS Technology"
+ },
+ "s.m6.kicker": {
+  "en": "Panel 6 — Tracks 3 · 6",
+  "fr": "Table 6 — Axes 3 · 6"
+ },
+ "s.m6.titulo": {
+  "en": "Cybersecurity, crypto-assets and digital economy",
+  "fr": "Cybersécurité, crypto-actifs et économie numérique"
+ },
+ "s.m6.p0.afil": {
+  "en": "AMCID · FIADI",
+  "fr": "AMCID · FIADI"
+ },
+ "s.m6.p0.talk": {
+  "en": "«Cybersecurity and Quantum Computing: Q-Day and How to Prepare»",
+  "fr": "« Cybersécurité et Informatique Quantique : le Q-Day et comment se préparer »"
+ },
+ "s.m6.p1.afil": {
+  "en": "APPIF · Fintegrity Group (Panama)",
+  "fr": "APPIF · Fintegrity Group (Panama)"
+ },
+ "s.m6.p1.talk": {
+  "en": "«Traceability and Forensic Audit of Crypto-Assets»",
+  "fr": "« Traçabilité et audit forensique des crypto-actifs »"
+ },
+ "s.m7.kicker": {
+  "en": "Panel 7 — Track 8 · Digital ecological law",
+  "fr": "Table 7 — Axe 8 · Droit écologique numérique"
+ },
+ "s.m7.titulo": {
+  "en": "Digital ecological law: data centers, energy and water",
+  "fr": "Droit écologique numérique : centres de données, énergie et eau"
+ },
+ "s.m7.p0.afil": {
+  "en": "CUTlajomulco · Chair, IEEE Guadalajara Section",
+  "fr": "CUTlajomulco · Président de la Section Guadalajara de l'IEEE"
+ },
+ "s.m7.p1.afil": {
+  "en": "Computing Research Center · IPN",
+  "fr": "Centre de Recherche en Informatique · IPN"
+ },
+ "s.m7.p2.afil": {
+  "en": "AI Laboratory · U. Nacional de Tucumán (Argentina)",
+  "fr": "Laboratoire d'IA · U. Nacional de Tucumán (Argentine)"
+ },
+ "dia.d22.dow": {
+  "en": "Tuesday",
+  "fr": "Mardi"
+ },
+ "dia.d22.mes": {
+  "en": "September",
+  "fr": "septembre"
+ },
+ "dia.d22.etiqueta": {
+  "en": "Day two",
+  "fr": "Jour deux"
+ },
+ "dia.d22.sub": {
+  "en": "Cineteca FICG in the morning · Judicial City in the afternoon",
+  "fr": "Cineteca FICG le matin · Cité Judiciaire l'après-midi"
+ },
+ "bloque.cineteca.sede": {
+  "en": "Cineteca FICG",
+  "fr": "Cineteca FICG"
+ },
+ "bloque.cineteca.sede_sub": {
+  "en": "University Cultural Center · Zapopan",
+  "fr": "Centre Culturel Universitaire · Zapopan"
+ },
+ "bloque.cineteca.horario": {
+  "en": "10:05–13:30",
+  "fr": "10:05–13:30"
+ },
+ "bloque.cineteca.temas": {
+  "en": "Forensic sciences · Mediation and ODR · Digital health · Algorithmic warfare",
+  "fr": "Sciences forensiques · Médiation et ODR · Santé numérique · Guerre algorithmique"
+ },
+ "s.d22-apertura.kicker": {
+  "en": "Opening Talk",
+  "fr": "Communication d'ouverture"
+ },
+ "s.d22-apertura.p0.afil": {
+  "en": "Director General of the Jalisco Institute of Forensic Sciences",
+  "fr": "Directeur Général de l'Institut de Sciences Forensiques du Jalisco"
+ },
+ "s.d22-apertura.p0.talk": {
+  "en": "«Technology, forensic sciences and rights: AI-based craniometric identification»",
+  "fr": "« Technologie, sciences forensiques et droits : identification craniométrique avec IA »"
+ },
+ "s.m8.kicker": {
+  "en": "Panel 8 — Track 9 · Conflict Resolution and ODR",
+  "fr": "Table 8 — Axe 9 · Résolution des conflits et ODR"
+ },
+ "s.m8.titulo": {
+  "en": "Conflict Resolution and Mediation in the Digital Age",
+  "fr": "Résolution des conflits et médiation à l'ère numérique"
+ },
+ "s.m8.p0.afil": {
+  "en": "Cartagena, Colombia",
+  "fr": "Cartagena, Colombie"
+ },
+ "s.m8.p0.talk": {
+  "en": "«MED-IA-CCIÓN: A New Line of Action for School Mediation and the Peaceful Management of Conflict in Educational Settings»",
+  "fr": "« MED-IA-CCIÓN : une nouvelle ligne d’action pour la médiation scolaire et la gestion pacifique des conflits en milieu éducatif »"
+ },
+ "s.m8.p1.afil": {
+  "en": "Alternative Justice Institute · El Colegio de Jalisco",
+  "fr": "Institut de Justice Alternative · El Colegio de Jalisco"
+ },
+ "s.m8.p1.talk": {
+  "en": "«Legal Innovation and Conflict Resolution»",
+  "fr": "« Innovation juridique et résolution des conflits »"
+ },
+ "s.m8.p2.afil": {
+  "en": "UANL",
+  "fr": "UANL"
+ },
+ "s.m8.p2.talk": {
+  "en": "«Representational Veracity and Symbolic Violence in the Digital City»",
+  "fr": "« Véracité représentative et violence symbolique dans la ville numérique »"
+ },
+ "s.m9.kicker": {
+  "en": "Panel 9 — Track 7 · Digital Health and Biotechnologies",
+  "fr": "Table 9 — Axe 7 · Santé Numérique et Biotechnologies"
+ },
+ "s.m9.titulo": {
+  "en": "Digital Health and Biotechnologies",
+  "fr": "Santé Numérique et Biotechnologies"
+ },
+ "s.m9.p0.afil": {
+  "en": "Federal Judiciary of Mexico",
+  "fr": "Pouvoir judiciaire fédéral du Mexique"
+ },
+ "s.m9.p0.talk": {
+  "en": "«The Legal Framework of Telemedicine»",
+  "fr": "« Le cadre juridique de la télémédecine »"
+ },
+ "s.m9.p1.afil": {
+  "en": "Hospital Civil de Guadalajara «Fray Antonio Alcalde»",
+  "fr": "Hospital Civil de Guadalajara « Fray Antonio Alcalde »"
+ },
+ "s.m9.p1.talk": {
+  "en": "«The Electronic Clinical Record and Health Law in Mexico»",
+  "fr": "« Le dossier clinique électronique et le droit de la santé au Mexique »"
+ },
+ "s.m9.p2.afil": {
+  "en": "CUCSH, UdeG",
+  "fr": "CUCSH, UdeG"
+ },
+ "s.m9.p2.talk": {
+  "en": "«The Technological Transformation of Health, Health Care 5.0: Vulnerability and Risks of Structural Violence for Human Rights in Mexico»",
+  "fr": "« La transformation technologique de la santé, Health Care 5.0 : vulnérabilité et risques de violence structurelle pour les droits humains au Mexique »"
+ },
+ "s.m9.p3.afil": {
+  "en": "Head of the Innovation Department · Hospital Civil de Guadalajara",
+  "fr": "Cheffe du Département d’innovation · Hospital Civil de Guadalajara"
+ },
+ "s.m9.p3.talk": {
+  "en": "«The Institutional Health Innovation System of the Hospital Civil de Guadalajara»",
+  "fr": "« Le Système institutionnel d’innovation en santé de l’Hospital Civil de Guadalajara »"
+ },
+ "s.m10.kicker": {
+  "en": "Panel 10",
+  "fr": "Table 10"
+ },
+ "s.m10.titulo": {
+  "en": "Algorithmic Warfare and International Humanitarian Law",
+  "fr": "Guerre algorithmique et droit international humanitaire"
+ },
+ "s.m10.desc": {
+  "en": "AI, autonomous systems, law and legal liability in armed conflicts",
+  "fr": "IA, systèmes autonomes, droit et responsabilité juridique dans les conflits armés"
+ },
+ "s.m10.modera.afil": {
+  "en": "Professor and Researcher at the University of Guadalajara · Lecturer in International Relations at the Universidad Autónoma de Guadalajara · PRODEP Profile · National Researcher Candidate",
+  "fr": "Professeur-chercheur à l'Université de Guadalajara · Enseignant en Relations Internationales à l'Universidad Autónoma de Guadalajara · Profil PRODEP · Candidat Chercheur National"
+ },
+ "s.m10.p0.afil": {
+  "en": "Doctoral Candidate at the Universidad de Salamanca, Spain · Specialist in National Security and Transnational Organized Crime",
+  "fr": "Doctorante à l'Universidad de Salamanca, Espagne · Spécialiste en sécurité nationale et criminalité organisée transnationale"
+ },
+ "s.m10.p1.afil": {
+  "en": "University of Guadalajara · Center for North American Studies · Department of Pacific Studies · SNI Level I",
+  "fr": "Université de Guadalajara · Centre d'Études pour l'Amérique du Nord · Département d'Études du Pacifique · SNI Niveau I"
+ },
+ "bloque.ciudad-judicial.sede": {
+  "en": "Judicial City",
+  "fr": "Cité Judiciaire"
+ },
+ "bloque.ciudad-judicial.sede_sub": {
+  "en": "Auditorium of the Judicial City of the State of Jalisco",
+  "fr": "Auditorium de la Cité Judiciaire de l'État de Jalisco"
+ },
+ "bloque.ciudad-judicial.horario": {
+  "en": "16:00–18:45",
+  "fr": "16:00–18:45"
+ },
+ "bloque.ciudad-judicial.temas": {
+  "en": "Digital justice · Judiciary · Closing Ceremony",
+  "fr": "Justice numérique · Magistrature · Cérémonie de clôture"
+ },
+ "s.d22-inaugural.kicker": {
+  "en": "Inaugural Talk",
+  "fr": "Communication inaugurale"
+ },
+ "s.d22-inaugural.p0.afil": {
+  "en": "ALGDETIC · CiberPadres LATAM (Paraguay)",
+  "fr": "ALGDETIC · CiberPadres LATAM (Paraguay)"
+ },
+ "s.d22-inaugural.p0.talk": {
+  "en": "«Cybersecurity and Artificial Intelligence in the Judicial Sector»",
+  "fr": "« Cybersécurité et intelligence artificielle dans le secteur judiciaire »"
+ },
+ "s.m11.kicker": {
+  "en": "Panel 11 — Track 4 · Digital Justice",
+  "fr": "Table 11 — Axe 4 · Justice Numérique"
+ },
+ "s.m11.titulo": {
+  "en": "Magistrates and Judges of the 21st Century: AI in the Administration of Justice",
+  "fr": "Magistrats et juges du XXIe siècle : l'IA dans l'administration de la justice"
+ },
+ "s.m11.p0.afil": {
+  "en": "Superior Council of the Judiciary · Judicial Branch of Colombia",
+  "fr": "Conseil Supérieur de la Magistrature · Pouvoir Judiciaire de Colombie"
+ },
+ "s.m11.p0.talk": {
+  "en": "«AI Does Not Transform Institutions—People Do: Public Innovation and New Capabilities for the Justice of the Future»",
+  "fr": "« L'IA ne transforme pas les institutions, mais les personnes oui : innovation publique et nouvelles capacités pour la justice de demain »"
+ },
+ "s.m11.p1.afil": {
+  "en": "Pre-trial Judge · Judiciary of the State of Jalisco",
+  "fr": "Juge de contrôle · Pouvoir Judiciaire de l'État de Jalisco"
+ },
+ "s.m11.p1.talk": {
+  "en": "«The Criminal Judge in the 21st Century»",
+  "fr": "« Le juge pénal au XXIe siècle »"
+ },
+ "s.m11.p2.afil": {
+  "en": "U. Tecnológica de Bolívar · Ad hoc Judge, Labor Chamber (Cartagena)",
+  "fr": "U. Tecnológica de Bolívar · Juge suppléante, Chambre sociale (Cartagena)"
+ },
+ "s.m11.p2.talk": {
+  "en": "«Digital Work, Analog Evidence: The Evidentiary Challenges of Technology-Mediated Employment Relationships»",
+  "fr": "« Travail numérique, preuve analogique : les défis probatoires des relations de travail médiées par la technologie »"
+ },
+ "s.m11.p3.afil": {
+  "en": "Auxiliary Magistrate, CSJ · President of ALGDETIC",
+  "fr": "Magistrat Auxiliaire, CSJ · Président d'ALGDETIC"
+ },
+ "s.m11.p3.talk": {
+  "en": "«21st-century courts: emerging technologies and new paradigms in the administration of justice»",
+  "fr": "« Tribunaux du XXIe siècle : technologies émergentes et nouveaux paradigmes dans l'administration de la justice »"
+ },
+ "s.m11.p4.afil": {
+  "en": "Dean of Law · Universidad Libre, Cartagena",
+  "fr": "Doyen de la Faculté de Droit · Universidad Libre, Cartagena"
+ },
+ "s.m11.p4.talk": {
+  "en": "«The Judge in the Age of Algorithms: Risks of Technological Assistance from the Standpoint of Procedural and Evidence Law in Colombia»",
+  "fr": "« Le juge à l'ère des algorithmes : risques de l'assistance technologique, une perspective de droit processuel et probatoire en Colombie »"
+ },
+ "s.d22-magistral.kicker": {
+  "en": "Keynote Lecture",
+  "fr": "Conférence magistrale"
+ },
+ "s.d22-magistral.p0.afil": {
+  "en": "Chief Justice of the Supreme Court of Justice of the State of Jalisco and President of the Judicial Council",
+  "fr": "Magistrat Président du Tribunal Suprême de Justice de l'État de Jalisco et du Conseil de la Magistrature"
+ },
+ "s.d22-magistral.p0.talk": {
+  "en": "«The Digital Transformation of Justice in Jalisco: Swifter, Closer and More Human Courts»",
+  "fr": "« La transformation numérique de la justice à Jalisco : des tribunaux plus agiles, proches et humains »"
+ },
+ "s.d22-clausura.kicker": {
+  "en": "Closing Ceremony",
+  "fr": "Cérémonie de clôture"
+ },
+ "s.d22-clausura.desc": {
+  "en": "Closing ceremony, presided over by the Chief Justice of the Supreme Court of Justice of the State of Jalisco.",
+  "fr": "Cérémonie de clôture, présidée par le Magistrat Président du Tribunal Suprême de Justice de l'État de Jalisco."
+ },
+ "ui.banda_t_html": {
+  "en": "The conversation starts <em>on the 18th</em> and continues on the 21st and 22nd.",
+  "fr": "La conversation commence <em>le 18</em> et se poursuit les 21 et 22."
+ }
+}
