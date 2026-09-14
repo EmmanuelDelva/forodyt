@@ -40,7 +40,7 @@ Hola Claude. Estoy implementando el sistema de inscripción del **IV Foro Intern
 
 **Decisiones tomadas que no se reabren**:
 - Meta de horas para constancia con valor curricular: **20 horas efectivas**.
-- Sin gafetes impresos. Brazalete de tela día 1 + INE/credencial UDG.
+- Sin gafetes impresos ni brazaletes (decisión del director, 2026-09-14). Solo validación de identidad con INE/credencial UDG el día 1.
 - Cuenta de despliegue Apps Script: `emmanueldelva@cucea.udg.mx` (Workspace UDG).
 - Stack: vanilla HTML+CSS+JS. Sin frameworks. Sin shadcn. Sin React.
 - Paleta y tipografías: ya definidas en los HTMLs (Fraunces + Inter + JetBrains Mono).

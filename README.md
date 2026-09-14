@@ -102,7 +102,7 @@ Al cierre del evento, ejecutar manualmente la función `procesarConstancias()` d
 
 - ✅ Meta de horas para constancia con valor curricular: **20 horas efectivas**
 - ✅ AVI: combinado UDG institucional + finalidades específicas del Foro (texto en `inscripcion.html` modal)
-- ✅ Sin gafete impreso; brazalete de tela día 1 + INE/credencial UDG
+- ✅ Sin gafete impreso ni brazalete (decisión del director, 2026-09-14): solo validación de identidad con INE/credencial UDG el día 1
 - ✅ Validación virtual: Zoom Webinar con regla 75% asistencia → bloque completo
 - ✅ Escaneo invertido (staff escanea al asistente, no al revés)
 - ✅ Anti-fraude: HMAC en QR + cruce de check-ins simultáneos en sedes distintas

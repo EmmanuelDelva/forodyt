@@ -1,5 +1,7 @@
 # Anti-fraude — decisiones de diseño
 
+> ⚠️ **Actualización 2026-09-14 (decisión del director): NO habrá brazaletes.** La «Capa 2» de este documento queda sin efecto; el día 1 solo se valida la identidad con INE/credencial UDG y el QR (HMAC) sigue siendo la única credencial. Se conserva el texto original como memoria del diseño.
+
 ## El riesgo concreto
 
 Foro académico gratuito con constancia de valor curricular. El incentivo a falsificar es real: estudiantes que necesitan horas para titulación, profesores que reportan a su universidad, profesionales que acreditan educación continua.
