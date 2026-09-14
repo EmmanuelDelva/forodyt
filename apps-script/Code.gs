@@ -633,7 +633,7 @@ function suscribirNewsletter(payload) {
  */
 function procesarConstancias() {
   const config = leerConfig_();
-  const META_VALOR = Number(config.meta_horas_valor_curricular) || 20;
+  const META_VALOR = Number(config.meta_horas_valor_curricular) || 10;   // 10 h por decisión del director (2026-09-14)
   const META_BASE = Number(config.meta_horas_asistencia_minima) || 4;
 
   const usuariosSheet = SS.getSheetByName(SHEETS.usuarios);

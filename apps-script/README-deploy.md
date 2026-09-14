@@ -10,7 +10,7 @@
 
 | Key | Value |
 |---|---|
-| `meta_horas_valor_curricular` | `20` |
+| `meta_horas_valor_curricular` | `10` |
 | `meta_horas_asistencia_minima` | `4` |
 | `tolerancia_inicio_min` | `60` |
 | `tolerancia_fin_min` | `60` |

@@ -83,7 +83,7 @@ Parámetros editables sin tocar código.
 
 | Key | Default | Descripción |
 |-----|---------|-------------|
-| `meta_horas_valor_curricular` | 20 | Horas para emitir constancia con valor |
+| `meta_horas_valor_curricular` | 10 | Horas para emitir constancia con valor curricular (director + tres centros universitarios; decisión 2026-09-14) |
 | `meta_horas_asistencia_minima` | 4 | Horas mínimas para constancia base |
 | `tolerancia_inicio_min` | 60 | Minutos de gracia al inicio de la sede |
 | `tolerancia_fin_min` | 60 | Minutos de gracia al cierre de la sede |

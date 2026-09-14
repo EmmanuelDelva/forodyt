@@ -23,7 +23,7 @@
  *      definitivo con estos id (deben coincidir con staff-scanner.html y programa-data.json):
  *        1 CUCEA · lun 21 · 09:00–14:10  |  2 CUGDL · lun 21 · 16:05–18:50  |  3 Cineteca FICG · mar 22 · 10:05–13:30
  *        4 Ciudad Judicial · mar 22 · 16:00–18:45  |  5 Jornada Virtual · vie 18 · 07:00–11:00 (hora GDL)
- *      y bajar meta_horas_valor_curricular en _config (con estos bloques el máximo alcanzable es 18.09 h).
+ *      y poner meta_horas_valor_curricular = 10 en _config (decisión del director; el máximo alcanzable es 18.09 h).
  *   5. Correr UNA vez instalarDisparadorJornadaVirtual(): el 18-sep a las 11:30 (GDL) consolida la asistencia
  *      de la Jornada Virtual y emite las constancias de quienes estuvieron conectados.
  *   6. En en-vivo.html poner MODO_PRUEBA = false.
@@ -207,8 +207,8 @@ const PLATICAS_IV = [
  * bloques en la pestaña Platicas respetando los encabezados existentes. Las columnas que la hoja no tenga se
  * ignoran; zoom_id queda vacío y cerrada = FALSE. Es idempotente: se puede volver a correr sin duplicar filas.
  *
- * ⚠️ Con estos bloques la suma máxima es 18.09 h: la meta de 20 h de _config (meta_horas_valor_curricular) sería
- * inalcanzable. Ajustarla (p. ej. 14 = las cuatro sedes presenciales, o 16) antes de procesarConstancias().
+ * Con estos bloques la suma máxima es 18.09 h. Decisión del director (2026-09-14): meta_horas_valor_curricular = 10
+ * en _config (constancia con valor curricular firmada por el director y los tres centros universitarios).
  */
 function instalarPlaticasIV() {
   const sheet = SS.getSheetByName(SHEETS.platicas);
@@ -238,7 +238,7 @@ function instalarPlaticasIV() {
   const cols = ['hora_inicio', 'hora_fin'].map(h => headers.indexOf(h) + 1).filter(Boolean);
   cols.forEach(c => sheet.getRange(2, c, Math.max(sheet.getLastRow() - 1, 1), 1).setNumberFormat('yyyy-mm-dd hh:mm'));
   log_('instalarPlaticasIV', 'Platicas', `altas=${altas} actualizadas=${cambios}`, null);
-  Logger.log(`instalarPlaticasIV: ${altas} altas, ${cambios} actualizadas. Revisa meta_horas_valor_curricular en _config (máximo alcanzable: 18.09 h).`);
+  Logger.log(`instalarPlaticasIV: ${altas} altas, ${cambios} actualizadas. Revisa meta_horas_valor_curricular = 10 en _config (máximo alcanzable: 18.09 h).`);
   return { altas, actualizadas: cambios };
 }
 

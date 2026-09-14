@@ -37,7 +37,7 @@ La página elige sola la pestaña de la sede cuyo bloque está en curso (lee `pr
 ## 5. Qué falta para publicar
 
 1. Backend: pegar `apps-script/Asistencia.gs` en el proyecto, añadir los `case` en `doPost`/`doGet` (instrucciones en la cabecera del archivo), **Manage deployments → Edit → Nueva versión** (nunca «New deployment»).
-2. Sheet: correr `instalarPlaticasIV()` desde el editor. Da de alta los cinco bloques con sus `id` (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual), `hora_inicio`/`hora_fin` en hora de Guadalajara y `horas_valor` (duración real; suma máxima 18.09 h → bajar `meta_horas_valor_curricular` de 20). `staff-scanner.html` ya usa esos mismos id. Después correr `instalarDisparadorJornadaVirtual()`.
+2. Sheet: correr `instalarPlaticasIV()` desde el editor. Da de alta los cinco bloques con sus `id` (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual), `hora_inicio`/`hora_fin` en hora de Guadalajara y `horas_valor` (duración real; suma máxima 18.09 h; `meta_horas_valor_curricular` = 10 por decisión del director). `staff-scanner.html` ya usa esos mismos id. Después correr `instalarDisparadorJornadaVirtual()`.
 3. `en-vivo.html`: rellenar `STREAMS` con los ids/enlaces reales y poner `MODO_PRUEBA = false`.
 4. Publicar: quitar `<meta name="robots" content="noindex, nofollow">` y la franja «Borrador» de `en-vivo.html`, quitar `hidden` a la tarjeta `.cuenta-vivo` del hero de `index.html`, y añadir la página al `sitemap.xml`.
 5. Prueba de humo el día antes: sesión con un folio real, 3 latidos, un código generado desde el hub, y correr `consolidarStream()` para ver el check-in en *CheckIns*.
