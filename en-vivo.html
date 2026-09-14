@@ -281,9 +281,10 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       <h3 data-f18n="como_t">Cómo se acredita</h3>
       <ol style="padding-left:18px;font-size:14px;color:var(--ink-soft);display:flex;flex-direction:column;gap:10px">
         <li data-f18n-html="como_1"><b>Latidos por minuto.</b> Mientras la pestaña esté visible y haya transmisión en curso, la página envía un latido cada minuto con tu folio y la sede. Si cambias de pestaña o cierras la página, se detiene.</li>
-        <li data-f18n-html="como_2"><b>Comprobaciones de presencia.</b> Cada 12 a 25 minutos aparece un aviso de «¿Sigues ahí?» con 90 segundos para responder. Si no respondes, los minutos siguientes no cuentan hasta que vuelvas.</li>
-        <li data-f18n-html="como_3"><b>Códigos de presencia.</b> La moderación dicta un código breve en momentos no anunciados de cada bloque. Escríbelo aquí: demuestra que sigues la transmisión y no solo la tienes abierta.</li>
-        <li data-f18n-html="como_4"><b>Umbral.</b> Un bloque se acredita con al menos el 75 % de sus minutos verificados y, cuando se hayan dictado códigos, al menos uno correcto. Es el mismo umbral que se aplica a la asistencia por Zoom y equivale al registro con QR en sede. En la <b>Jornada Virtual del 18</b> basta con haber estado conectado: la constancia se emite al cerrar la jornada.</li>
+        <li data-f18n-html="como_2"><b>Comprobaciones de presencia.</b> Cada determinados minutos aparecerá un aviso de «¿Sigues ahí?» con 90 segundos para responder. Si no respondes, los minutos siguientes no cuentan hasta que vuelvas.</li>
+        <li data-f18n-html="como_3"><b>Códigos de presencia.</b> La moderación pudiera dictar un código breve en momentos no anunciados de cada bloque. Escríbelo aquí: demuestra que sigues la transmisión y no solo la tienes abierta.</li>
+        <li data-f18n-html="como_4"><b>Umbral.</b> Un bloque se acredita con al menos el 75 % de sus minutos verificados y, si se llegan a dictar códigos, al menos uno correcto. Es el mismo umbral que se aplica a la asistencia por Zoom y equivale al registro con QR en sede. Aplica de la misma manera para la <b>Jornada Virtual del 18</b>.</li>
+        <li data-f18n-html="como_5"><b>Constancia.</b> La constancia se emitirá al cerrar la jornada, al correo registrado.</li>
       </ol>
       <h3 style="margin-top:22px" data-f18n="hoy_t">Bloques de la edición</h3>
       <ul class="sesiones-hoy" id="bloquesLista"></ul>
@@ -353,9 +354,10 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       codigo: 'Presence code (read out by the chair)', codigo_btn: 'Validate code', salir: 'End attendance session',
       como_t: 'How it is credited',
       como_1: '<b>One heartbeat per minute.</b> While the tab is visible and a stream is running, the page sends a heartbeat every minute with your code and the venue. Switch tabs or close the page and it stops.',
-      como_2: '<b>Presence checks.</b> Every 12 to 25 minutes an “Are you still there?” prompt appears with 90 seconds to answer. If you do not, the following minutes do not count until you come back.',
-      como_3: '<b>Presence codes.</b> The chair reads out a short code at unannounced moments of each block. Type it here: it proves you are following the stream, not just keeping it open.',
-      como_4: '<b>Threshold.</b> A block is credited with at least 75% of its minutes verified and, when codes were issued, at least one correct code. It is the same threshold applied to Zoom attendance and equals the QR check-in on site. For the <b>online session on the 18th</b>, having been connected is enough: the certificate is issued when the session closes.',
+      como_2: '<b>Presence checks.</b> Every so often an “Are you still there?” prompt will appear with 90 seconds to answer. If you do not, the following minutes do not count until you come back.',
+      como_3: '<b>Presence codes.</b> The chair may read out a short code at unannounced moments of each block. Type it here: it proves you are following the stream, not just keeping it open.',
+      como_4: '<b>Threshold.</b> A block is credited with at least 75% of its minutes verified and, if codes are issued, at least one correct code. It is the same threshold applied to Zoom attendance and equals the QR check-in on site. The same rule applies to the <b>International Online Session on the 18th</b>.',
+      como_5: '<b>Certificate.</b> The certificate will be issued when the session closes, to the email you registered with.',
       hoy_t: 'Blocks of the edition', reto_eyebrow: 'Presence check', reto_t: 'Are you still there?', reto_p: 'Confirm so your minutes keep counting.', reto_btn: 'I\'m here',
       hola: 'Welcome, {n}. Code {f}.', err_campos: 'Enter your code and the email you registered with.', err_login: 'We could not validate your code. Check both fields or write to contacto@forodyt.com.',
       cod_ok: 'Code accepted for this block.', cod_bad: 'Incorrect or expired code.', cod_sin: 'Identify yourself first.', prueba: 'Test mode: nothing is sent to the server; this is what would be sent.',
@@ -373,9 +375,10 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       codigo: 'Code de présence (dicté par la modération)', codigo_btn: 'Valider le code', salir: 'Fermer la session de présence',
       como_t: 'Comment la présence est créditée',
       como_1: '<b>Un battement par minute.</b> Tant que l\'onglet est visible et qu\'une diffusion est en cours, la page envoie un battement chaque minute avec votre folio et le site. Changez d\'onglet ou fermez la page et cela s\'arrête.',
-      como_2: '<b>Vérifications de présence.</b> Toutes les 12 à 25 minutes, un message « Êtes-vous toujours là ? » apparaît avec 90 secondes pour répondre. Sans réponse, les minutes suivantes ne comptent pas jusqu\'à votre retour.',
-      como_3: '<b>Codes de présence.</b> La modération dicte un code court à des moments non annoncés de chaque bloc. Saisissez-le ici : cela prouve que vous suivez la diffusion et pas seulement qu\'elle est ouverte.',
-      como_4: '<b>Seuil.</b> Un bloc est crédité avec au moins 75 % de ses minutes vérifiées et, lorsque des codes ont été dictés, au moins un code correct. C\'est le même seuil que pour la présence via Zoom, équivalent au pointage QR sur place. Pour la <b>journée virtuelle du 18</b>, il suffit d\'avoir été connecté : l\'attestation est émise à la clôture de la journée.',
+      como_2: '<b>Vérifications de présence.</b> À intervalles réguliers, un message « Êtes-vous toujours là ? » apparaîtra avec 90 secondes pour répondre. Sans réponse, les minutes suivantes ne comptent pas jusqu\'à votre retour.',
+      como_3: '<b>Codes de présence.</b> La modération pourra dicter un code court à des moments non annoncés de chaque bloc. Saisissez-le ici : cela prouve que vous suivez la diffusion et pas seulement qu\'elle est ouverte.',
+      como_4: '<b>Seuil.</b> Un bloc est crédité avec au moins 75 % de ses minutes vérifiées et, si des codes sont dictés, au moins un code correct. C\'est le même seuil que pour la présence via Zoom, équivalent au pointage QR sur place. La même règle s\'applique à la <b>Journée virtuelle internationale du 18</b>.',
+      como_5: '<b>Attestation.</b> L\'attestation sera émise à la clôture de la journée, au courriel enregistré.',
       hoy_t: 'Blocs de l\'édition', reto_eyebrow: 'Vérification de présence', reto_t: 'Êtes-vous toujours là ?', reto_p: 'Confirmez pour que vos minutes continuent de compter.', reto_btn: 'Je suis là',
       hola: 'Bienvenue, {n}. Folio {f}.', err_campos: 'Saisissez votre folio et le courriel utilisé à l\'inscription.', err_login: 'Impossible de valider votre folio. Vérifiez les deux champs ou écrivez à contacto@forodyt.com.',
       cod_ok: 'Code accepté pour ce bloc.', cod_bad: 'Code incorrect ou expiré.', cod_sin: 'Identifiez-vous d\'abord.', prueba: 'Mode test : rien n\'est envoyé au serveur ; voici ce qui serait envoyé.',
