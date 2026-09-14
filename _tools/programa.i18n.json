@@ -1062,5 +1062,49 @@
  "ui.banda_t_html": {
   "en": "The conversation starts <em>on the 18th</em> and continues on the 21st and 22nd.",
   "fr": "La conversation commence <em>le 18</em> et se poursuit les 21 et 22."
+ },
+ "ui.sem_eyebrow": {
+  "en": "Speaker · IV edition",
+  "fr": "Intervenant · IVe édition"
+ },
+ "ui.sem_modera_eyebrow": {
+  "en": "Chair · IV edition",
+  "fr": "Modération · IVe édition"
+ },
+ "ui.sem_presenta": {
+  "en": "Presents at the Forum",
+  "fr": "Présente au Forum"
+ },
+ "ui.sem_pend": {
+  "en": "Biography in preparation. The information shown comes from the official program.",
+  "fr": "Notice biographique en préparation. Les informations affichées proviennent du programme officiel."
+ },
+ "ui.sem_ficha": {
+  "en": "See the full profile on the site",
+  "fr": "Voir la fiche complète sur le site"
+ },
+ "ui.sem_cerrar": {
+  "en": "Close",
+  "fr": "Fermer"
+ },
+ "ui.guion_btn": {
+  "en": "Panel script",
+  "fr": "Script de la table"
+ },
+ "ui.guion_t": {
+  "en": "Chair's script",
+  "fr": "Script de modération"
+ },
+ "ui.guion_intro": {
+  "en": "Biographies in program order, to introduce each participant.",
+  "fr": "Notices biographiques dans l'ordre du programme, pour présenter chaque participant."
+ },
+ "ui.guion_print": {
+  "en": "Print script",
+  "fr": "Imprimer le script"
+ },
+ "ui.sem_sesion": {
+  "en": "Session",
+  "fr": "Session"
  }
 }

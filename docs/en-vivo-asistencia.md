@@ -1,0 +1,49 @@
+# Transmisión en vivo y asistencia virtual verificada — diseño (borrador 2026-09-14)
+
+Documento interno (carpeta `docs/`, excluida de Vercel). Acompaña a `en-vivo.html`, `apps-script/Asistencia.gs` y al panel «Código de presencia» de `registroscomite.html`.
+
+## 1. Objetivo
+
+Transmitir las cinco jornadas del IV Foro desde la página propia (`forodyt.com/en-vivo.html`) y expedir constancias a quien las siguió a distancia **con evidencia de presencia real**, no solo con el registro. El modelo se integra sin cambios en el flujo de constancias que ya existe en el backend (`procesarConstancias()`): cada bloque de sede es una fila de la pestaña *Platicas* y se acredita con un check-in, igual que el QR presencial o el CSV de Zoom.
+
+## 2. Dónde se transmite y cómo se incrusta
+
+`en-vivo.html` tiene un objeto `STREAMS` por sede. Opciones probadas de incrustación:
+
+| Plataforma | Cómo | Notas |
+|---|---|---|
+| **YouTube Live** (recomendada) | `tipo:'youtube', id:'<id del video>'` o `tipo:'youtube_canal', id:'<id del canal>'` (toma el directo activo) | Sin límite de espectadores, chat opcional, queda grabado. Usa `youtube-nocookie.com`. |
+| **Facebook Live** | `tipo:'facebook', url:'<url del video>'` | Se incrusta con el plugin de video; requiere que el video sea público. |
+| **Vimeo** | `tipo:'vimeo', id:'…'` | Alternativa de pago, sin anuncios. |
+| **Zoom** | `tipo:'zoom', url:'<enlace de unión>'` | Zoom **no se incrusta** en una página estática (haría falta el Web SDK con servidor). La página muestra el botón «Abrir en la plataforma». Recomendación: Zoom para los ponentes y retransmitir a YouTube Live (Zoom lo hace nativo: *Live on YouTube*), y en la página incrustar YouTube. |
+
+La página elige sola la pestaña de la sede cuyo bloque está en curso (lee `programa-data.json`, generado por `_tools/programa.py`) y muestra «Ahora en curso / A continuación» con ponentes.
+
+## 3. Cómo se verifica la presencia (tres capas)
+
+1. **Latidos por minuto.** Con sesión iniciada (folio + correo de inscripción), pestaña visible y transmisión configurada para la sede, la página envía `stream_latido` cada minuto con folio, token, `id_platica` y el minuto UTC. Cambiar de pestaña, minimizar o cerrar detiene los latidos (evento `visibilitychange`). El backend deduplica por minuto y descarta los que caen fuera de la ventana del bloque (±10 min).
+2. **Comprobaciones de pantalla («¿Sigues ahí?»).** Cada 12–25 minutos (aleatorio) aparece un aviso con 90 s. Si no se responde, los latidos posteriores no cuentan hasta que la persona vuelva a confirmar (`stream_reto_pantalla` con `ok:false` / `ok:true`). Evita la pestaña abierta sin nadie enfrente.
+3. **Códigos de presencia.** La moderación genera un código de 4 caracteres desde `registroscomite.html` (clave de staff), lo dice al aire o lo muestra en pantalla; vence a los 10 minutos. Quien lo escribe en la página demuestra que **sigue la transmisión**, no solo que la tiene abierta. Dos o tres códigos por bloque, sin avisar cuándo.
+
+**Regla de acreditación** (`consolidarStream()`, se corre al cierre de cada día): un bloque se acredita si minutos verificados ≥ 75 % de la duración del bloque (mismo umbral que Zoom, `umbral_stream_porcentaje` en `_config`) **y**, si se dictaron códigos en ese bloque, al menos uno correcto. El check-in se escribe con `fuente = web_stream`; después `procesarConstancias()` suma `horas_valor` por folio y asigna el nivel (asistencia / valor curricular) como siempre.
+
+## 4. Seguridad y privacidad
+
+- El token de sesión es `HMAC8(folio|correo|fecha)` con el `HMAC_SECRET` del backend: caduca cada día y no se puede fabricar desde el navegador.
+- La página no guarda más que folio, nombre y contadores locales en `localStorage` del propio navegador (`forodyt_vivo*`).
+- Los códigos solo los genera quien tiene la `STAFF_KEY` (misma del escáner).
+- El backend no ve IP (Apps Script no la expone); la trazabilidad viene de folio + token + minuto.
+
+## 5. Qué falta para publicar
+
+1. Backend: pegar `apps-script/Asistencia.gs` en el proyecto, añadir los `case` en `doPost`/`doGet` (instrucciones en la cabecera del archivo), **Manage deployments → Edit → Nueva versión** (nunca «New deployment»).
+2. Sheet: pestaña *Platicas* con los cinco bloques y sus `id` (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual), `hora_inicio`/`hora_fin` en hora de Guadalajara y `horas_valor`. `staff-scanner.html` ya usa esos mismos id.
+3. `en-vivo.html`: rellenar `STREAMS` con los ids/enlaces reales y poner `MODO_PRUEBA = false`.
+4. Publicar: quitar `<meta name="robots" content="noindex, nofollow">` y la franja «Borrador» de `en-vivo.html`, quitar `hidden` a la tarjeta `.cuenta-vivo` del hero de `index.html`, y añadir la página al `sitemap.xml`.
+5. Prueba de humo el día antes: sesión con un folio real, 3 latidos, un código generado desde el hub, y correr `consolidarStream()` para ver el check-in en *CheckIns*.
+
+## 6. Ideas para después (no implementadas)
+
+- Chat de YouTube incrustado junto al reproductor.
+- Encuesta de un clic al final de cada bloque (dato para la memoria).
+- Descarga de la constancia desde la misma página (el motor de constancias ya existe en Drive: `09-CERTIFICATE-ENGINE`).

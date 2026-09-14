@@ -25,6 +25,16 @@ I18N = json.load(open(I18N_PATH, encoding='utf-8')) if os.path.exists(I18N_PATH)
 OUT = os.path.join(ROOT, '_tools', 'out')
 os.makedirs(OUT, exist_ok=True)
 
+# semblanzas: las publicadas en index.html (fuente única, no se duplican a mano)
+# + las nuevas del programa en _tools/semblanzas_programa.json {slug: {es,en,fr}}
+_idx = open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
+SEM_INDEX = json.loads(re.search(r'var SEMBLANZAS = (\{.*?\});\n', _idx, re.S).group(1))
+INDEX_SLUGS = sorted(set(re.findall(r'data-semblanza="([a-z_]+)"', _idx)))
+_sp = os.path.join(ROOT, '_tools', 'semblanzas_programa.json')
+SEM_EXTRA = json.load(open(_sp, encoding='utf-8')) if os.path.exists(_sp) else {}
+SEM = dict(SEM_INDEX); SEM.update(SEM_EXTRA)
+SLUGS_USADOS = set()
+
 ROM = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX'}
 EJES_I18N = {
     'en': {1: 'Agentic AI and Generative Intellectual Property', 2: 'Emerging Technologies', 3: 'Cybersecurity and Digital Sovereignty', 4: 'Digital Justice and Legal Innovation', 5: 'Digital Human Rights', 6: 'FinTech and Digital Economy', 7: 'Digital Health and Biotechnologies', 8: 'Technology, Sustainability and Digital Ecological Law', 9: 'Technological Conflict Resolution and Online Disputes'},
@@ -35,10 +45,8 @@ EJES_I18N = {
 FOTOS = {
     'alvarez': 'jose-luis-alvarez-pulido.jpg', 'gaspar': 'miguel-angel-gaspar.jpg', 'gonzalez': 'mayra-gonzalez.jpg',
     'rivera': 'alejandro-rivera-martinez.jpg', 'sossa': 'humberto-sossa.jpg', 'contreras': 'juan-carlos-contreras.jpg',
-    'caicedo': 'juliana-caicedo.jpg', 'zepeda': 'zepeda-lecuona.jpg', 'olmos': 'michelle-olmos.jpg',
-    'raad': 'manuel-raad-berrio.jpg', 'gustavo_juarez': 'gustavo-juarez.jpg', 'villarreal': 'manuel-villarreal.jpg',
-    'gamez': 'velda-gamez.jpg', 'vega_gomez': 'carlos-vega-gomez.jpg', 'troncoso': 'jeofrey-troncoso.jpg',
-    'barrios': 'claudia-barrios.jpg', 'reyes': 'luis-fernando-reyes.jpg', 'tinajero': 'gilberto-tinajero.jpg',
+    'caicedo': 'juliana-caicedo.jpg', 'zepeda': 'zepeda-lecuona.jpg',     'raad': 'manuel-raad-berrio.jpg', 'gustavo_juarez': 'gustavo-juarez.jpg', 'villarreal': 'manuel-villarreal.jpg',
+    'gamez': 'velda-gamez.jpg', 'vega_gomez': 'carlos-vega-gomez.jpg', 'reyes': 'luis-fernando-reyes.jpg', 'tinajero': 'gilberto-tinajero.jpg',
     'garcia_barrera': 'myrna-garcia-barrera.jpg', 'marquez': 'christopher-marquez.jpg', 'jimenez': 'fernando-jimenez.jpg',
     'arrazola': 'ivan-arrazola.jpg', 'nava_lopez': 'gretta-nava.jpg', 'garcia_torres': 'maria-luisa-garcia.jpg',
     'vazquez_placencia': 'miguel-vazquez-placencia.jpg', 'juarez_tello': 'miguel-juarez-tello.jpg',
@@ -130,10 +138,10 @@ def foto_html(nombre, slug):
     return f'<span class="pon-foto pon-mono" aria-hidden="true">{esc(monograma(nombre))}</span>'
 
 def persona_html(per, key_base):
-    nombre = per['nombre']; slug = per.get('slug')
-    if slug and slug in FOTOS:
-        return f'<a class="pon-nombre" href="index.html#semblanza-{slug}" title="{esc(ui("ver_ficha"))}">{esc(nombre)}<i class="pon-ir" aria-hidden="true">↗</i></a>'
-    return f'<span class="pon-nombre">{esc(nombre)}</span>'
+    nombre = per['nombre']; slug = per.get('slug') or ''
+    if slug: SLUGS_USADOS.add(slug)
+    return (f'<button type="button" class="pon-nombre" data-sem="{slug}" data-idx="{1 if slug in INDEX_SLUGS else 0}" '
+            f'aria-haspopup="dialog">{esc(nombre)}<i class="pon-ir" aria-hidden="true">↗</i></button>')
 
 def ponente_html(p, skey, i):
     personas = p['personas']
@@ -177,7 +185,8 @@ def sesion_html(dia, bloque, s, pagina='programa'):
                   f'{persona_html(m, skey+".modera")}{afil}</span></div>')
     ponentes = ''
     if s['ponentes']:
-        ponentes = '<ul class="s-ponentes">' + ''.join(ponente_html(p, skey, i) for i, p in enumerate(s['ponentes'])) + '</ul>'
+        ponentes = ('<ul class="s-ponentes">' + ''.join(ponente_html(p, skey, i) for i, p in enumerate(s['ponentes'])) + '</ul>'
+                    f'<button type="button" class="s-guion" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg><span {ui_attr("guion_btn")}>{esc(ui("guion_btn"))}</span></button>')
     # título para el .ics y la ficha «ahora»: kicker · título (o la primera ponencia)
     resumen = s.get('titulo') or (s['ponentes'][0]['talk'] if s['ponentes'] and s['ponentes'][0].get('talk') else '') or s.get('desc') or ''
     acciones = (f'<div class="s-acciones">'
@@ -265,6 +274,70 @@ def jsonld():
     return json.dumps(ev, ensure_ascii=False, indent=1).replace('</', '<\\/')
 
 # ─────────────────────────── CSS ───────────────────────────────
+CSS_MODAL = r"""
+/* ── semblanzas: el expediente del ponente y el guion de la mesa ── */
+.pon-nombre { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-align:left; text-decoration:none; border-bottom:1px solid rgba(150,116,45,.35); transition:border-color .3s, color .3s; }
+.pon-nombre:hover { color:var(--teal-deep); border-bottom-color:var(--teal); }
+.s-guion { margin-top:14px; display:inline-flex; align-items:center; gap:8px; font:inherit; font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--dorado-deep); background:none; border:1px solid rgba(150,116,45,.35); padding:6px 11px 5px; cursor:pointer; transition:border-color .3s, background .3s, color .3s; }
+.s-guion svg { width:13px; height:13px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round; }
+.s-guion:hover { border-color:var(--dorado-deep); background:rgba(184,146,62,.1); color:var(--ink); }
+.sem-overlay { position:fixed; inset:0; z-index:2000; background:rgba(10,20,34,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .35s var(--ease); }
+.sem-overlay.abierta { opacity:1; pointer-events:auto; }
+.sem-panel { position:relative; width:min(860px, 100%); max-height:min(88vh, 900px); overflow:auto; background:var(--marfil); color:var(--ink); padding:clamp(26px,4vw,48px); box-shadow:0 30px 80px rgba(10,20,34,.45); transform:translateY(16px); transition:transform .4s var(--ease); }
+.sem-overlay.abierta .sem-panel { transform:none; }
+.sem-panel::before, .sem-panel::after { content:""; position:absolute; width:28px; height:28px; border:1.5px solid var(--dorado); pointer-events:none; }
+.sem-panel::before { top:12px; left:12px; border-right:0; border-bottom:0; }
+.sem-panel::after { bottom:12px; right:12px; border-left:0; border-top:0; }
+.sem-cerrar { position:absolute; top:18px; right:18px; font-family:var(--mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-soft); border:1px solid var(--ink-rule); padding:8px 12px; background:var(--papel, rgba(251,247,236,.7)); cursor:pointer; transition:border-color .3s, color .3s; z-index:2; }
+.sem-cerrar:hover { border-color:var(--dorado); color:var(--ink); }
+.sem-cab { display:grid; grid-template-columns:132px 1fr; gap:24px; align-items:start; padding-right:80px; }
+.sem-foto { width:132px; height:132px; background:var(--noche); border:1px solid rgba(184,146,62,.35); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.sem-foto img { width:100%; height:100%; object-fit:cover; display:block; }
+.sem-foto .pon-mono { font-size:34px; }
+.sem-eyebrow { font-family:var(--mono); font-size:9.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--dorado-deep); }
+.sem-nombre { margin-top:8px; font-family:var(--serif); font-weight:580; font-size:clamp(22px,2.6vw,32px); line-height:1.12; letter-spacing:-.01em; font-variation-settings:"opsz" 100,"SOFT" 30; }
+.sem-afil { margin-top:8px; font-size:13.5px; color:var(--ink-soft); line-height:1.55; }
+.sem-sesion { margin-top:10px; font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); }
+.sem-texto { margin-top:24px; padding-top:22px; border-top:1px solid var(--ink-rule); font-family:var(--serif); font-size:16px; line-height:1.72; font-variation-settings:"opsz" 40; }
+.sem-texto p + p { margin-top:12px; }
+.sem-pend { margin-top:24px; padding:14px 18px; border:1px dashed rgba(150,116,45,.5); font-family:var(--serif); font-style:italic; font-size:14px; color:var(--ink-soft); }
+.sem-talk { margin-top:22px; padding:18px 22px; background:rgba(251,247,236,.8); border-left:2px solid var(--dorado); }
+.sem-talk-l { font-family:var(--mono); font-size:9px; letter-spacing:.26em; text-transform:uppercase; color:var(--dorado-deep); }
+.sem-talk-t { margin-top:6px; font-family:var(--serif); font-style:italic; font-size:16px; line-height:1.45; }
+.sem-ficha { display:inline-block; margin-top:20px; font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); text-decoration:none; border-bottom:1px solid rgba(42,92,92,.4); }
+.sem-ficha:hover { border-bottom-color:var(--teal); }
+.sem-ficha[hidden] { display:none; }
+/* guion de la mesa */
+.guion-cab { padding-right:80px; }
+.guion-sesion { margin-top:8px; font-family:var(--serif); font-weight:580; font-size:clamp(20px,2.4vw,28px); line-height:1.15; }
+.guion-intro { margin-top:8px; font-size:13.5px; color:var(--ink-soft); }
+.guion-acciones { margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; }
+.guion-print { display:inline-flex; align-items:center; gap:8px; font:inherit; font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--marfil); background:var(--ink); border:0; padding:10px 16px; cursor:pointer; transition:background .3s; }
+.guion-print:hover { background:var(--teal-deep); }
+.guion-lista { list-style:none; margin-top:22px; counter-reset:g; }
+.guion-item { display:grid; grid-template-columns:72px 1fr; gap:18px; padding:22px 0; border-top:1px solid var(--ink-rule); counter-increment:g; }
+.guion-item .sem-foto { width:72px; height:72px; }
+.guion-item .sem-foto .pon-mono { font-size:20px; }
+.guion-rol { font-family:var(--mono); font-size:9px; letter-spacing:.26em; text-transform:uppercase; color:var(--dorado-deep); }
+.guion-rol::before { content:counter(g, upper-roman) " · "; color:var(--ink-faint); }
+.guion-nombre { margin-top:4px; font-family:var(--serif); font-weight:580; font-size:19px; line-height:1.2; }
+.guion-afil { margin-top:4px; font-size:12.5px; color:var(--ink-soft); }
+.guion-talk { margin-top:8px; font-family:var(--serif); font-style:italic; font-size:14.5px; line-height:1.45; }
+.guion-texto { margin-top:10px; font-family:var(--serif); font-size:14.5px; line-height:1.65; }
+.guion-texto.pend { font-style:italic; color:var(--ink-soft); }
+body.sem-lock { overflow:hidden; }
+@media (max-width:640px) { .sem-cab { grid-template-columns:1fr; padding-right:0; padding-top:36px; } .sem-foto { width:96px; height:96px; } .guion-item { grid-template-columns:56px 1fr; gap:12px; } .guion-item .sem-foto { width:56px; height:56px; } .guion-cab { padding-right:0; padding-top:36px; } }
+@media print {
+  body.print-guion > *:not(.sem-overlay) { display:none !important; }
+  body.print-guion .sem-overlay { position:static; display:block; background:none; padding:0; opacity:1; backdrop-filter:none; }
+  body.print-guion .sem-panel { max-height:none; overflow:visible; box-shadow:none; padding:0; width:auto; transform:none; }
+  body.print-guion .sem-panel::before, body.print-guion .sem-panel::after, body.print-guion .sem-cerrar, body.print-guion .guion-acciones, body.print-guion .sem-ficha { display:none !important; }
+  body.print-guion .guion-item { break-inside:avoid; }
+  body.print-guion .sem-foto { display:none; }
+  body.print-guion .guion-item { grid-template-columns:1fr; }
+}
+"""
+
 CSS_BASE = r"""
 :root {
   --ink:#0E1B2C; --ink-soft:rgba(14,27,44,.72); --ink-faint:rgba(14,27,44,.5); --ink-rule:rgba(14,27,44,.14);
@@ -535,6 +608,7 @@ footer { background:var(--noche); color:rgba(245,239,224,.6); padding:26px var(-
 /* ── revelado ── */
 html.js .reveal { opacity:0; transform:translateY(22px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
 html.js .reveal.in-view { opacity:1; transform:none; }
+"""+CSS_MODAL+r"""
 
 /* ── impresión: el programa limpio, sin cromo ── */
 @media print {
@@ -558,6 +632,116 @@ html.js .reveal.in-view { opacity:1; transform:none; }
   a { text-decoration:none; color:inherit; }
 }
 """
+
+def modal_html():
+    return (f'<div class="sem-overlay" id="semOverlay" role="dialog" aria-modal="true" aria-labelledby="semNombre">'
+            f'<div class="sem-panel">'
+            f'<button type="button" class="sem-cerrar" id="semCerrar" {ui_attr("sem_cerrar")}>{esc(ui("sem_cerrar"))}</button>'
+            f'<div id="semUno">'
+            f'<div class="sem-cab"><div class="sem-foto" id="semFoto"></div><div>'
+            f'<div class="sem-eyebrow"><span id="semEyeP" {ui_attr("sem_eyebrow")}>{esc(ui("sem_eyebrow"))}</span><span id="semEyeM" hidden {ui_attr("sem_modera_eyebrow")}>{esc(ui("sem_modera_eyebrow"))}</span></div>'
+            f'<h2 class="sem-nombre" id="semNombre"></h2><p class="sem-afil" id="semAfil"></p><p class="sem-sesion" id="semSesion"></p>'
+            f'</div></div>'
+            f'<div class="sem-texto" id="semTexto"></div>'
+            f'<p class="sem-pend" id="semPend" hidden {ui_attr("sem_pend")}>{esc(ui("sem_pend"))}</p>'
+            f'<div class="sem-talk" id="semTalkBox" hidden><div class="sem-talk-l" {ui_attr("sem_presenta")}>{esc(ui("sem_presenta"))}</div><div class="sem-talk-t" id="semTalk"></div></div>'
+            f'<a class="sem-ficha" id="semFicha" href="#" hidden><span {ui_attr("sem_ficha")}>{esc(ui("sem_ficha"))}</span> ↗</a>'
+            f'</div>'
+            f'<div id="semGuion" hidden>'
+            f'<div class="guion-cab"><div class="sem-eyebrow" {ui_attr("guion_t")}>{esc(ui("guion_t"))}</div><h2 class="guion-sesion" id="guionSesion"></h2>'
+            f'<p class="guion-intro" {ui_attr("guion_intro")}>{esc(ui("guion_intro"))}</p>'
+            f'<div class="guion-acciones"><button type="button" class="guion-print" id="guionPrint"><span {ui_attr("guion_print")}>{esc(ui("guion_print"))}</span></button></div></div>'
+            f'<ol class="guion-lista" id="guionLista"></ol>'
+            f'</div></div></div>')
+
+MODAL_JS = r"""
+(function () {
+  'use strict';
+  var SEM = __SEM__;
+  var ov = document.getElementById('semOverlay'); if (!ov) return;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var lastFocus = null, estado = null;
+  function lang() { return document.documentElement.lang || 'es'; }
+  function texto(slug) { var d = slug && SEM[slug]; if (!d) return null; return d[lang()] || d.es || null; }
+  function parrafos(t) { return t.split(/\n\s*\n/).map(function (p) { return '<p>' + p.replace(/</g, '&lt;') + '</p>'; }).join(''); }
+  function fotoDe(pon) { var f = pon.querySelector('.pon-foto'); return f ? f.innerHTML : ''; }
+  function sesionDe(el) { return el.closest('.sesion'); }
+  function rotulo(ses) { var k = $('.s-kicker', ses), t = $('.s-titulo', ses); return (k ? k.textContent.trim() : '') + (t ? ' · ' + t.textContent.trim() : ''); }
+  function abrirUno(btn) {
+    var slug = btn.getAttribute('data-sem') || '';
+    var pon = btn.closest('.pon') || btn.closest('.s-modera');
+    var ses = sesionDe(btn);
+    var esModera = !!btn.closest('.s-modera');
+    estado = { tipo: 'uno', btn: btn };
+    $('#semUno').hidden = false; $('#semGuion').hidden = true;
+    $('#semFoto').innerHTML = pon ? fotoDe(pon) : '';
+    $('#semNombre').textContent = btn.textContent.replace(/↗/g, '').trim();
+    var afil = pon ? pon.querySelector('.pon-afil, .mod-afil') : null;
+    $('#semAfil').textContent = afil ? afil.textContent.replace(/^·\s*/, '').trim() : '';
+    var sede = ses ? ses.getAttribute('data-sede') : '';
+    var sedeEl = ses ? document.querySelector('#' + ses.getAttribute('data-bloque') + ' .sede-nombre') : null;
+    $('#semSesion').textContent = ses ? rotulo(ses) + ' · ' + (sedeEl ? sedeEl.textContent.trim() : sede) : '';
+    $('#semEyeP').hidden = esModera; $('#semEyeM').hidden = !esModera;
+    var tx = texto(slug);
+    $('#semTexto').innerHTML = tx ? parrafos(tx) : ''; $('#semTexto').hidden = !tx; $('#semPend').hidden = !!tx;
+    var talk = pon ? pon.querySelector('.pon-talk') : null;
+    $('#semTalkBox').hidden = !talk; if (talk) $('#semTalk').textContent = talk.textContent.trim();
+    var ficha = $('#semFicha'); var enIndex = btn.getAttribute('data-idx') === '1';
+    ficha.hidden = !enIndex; if (enIndex) ficha.href = 'index.html#semblanza-' + slug;
+    mostrar(btn);
+  }
+  function abrirGuion(btn) {
+    var ses = sesionDe(btn); if (!ses) return;
+    estado = { tipo: 'guion', btn: btn, ses: ses };
+    $('#semUno').hidden = true; $('#semGuion').hidden = false;
+    $('#guionSesion').textContent = rotulo(ses);
+    var items = [];
+    var mod = $('.s-modera', ses);
+    if (mod) items.push({ el: mod, rol: ($('em', mod) || {}).textContent || 'Modera', btn: $('.pon-nombre', mod), afil: $('.mod-afil', mod), talk: null });
+    $$('.pon', ses).forEach(function (p) {
+      $$('.pon-nombre', p).forEach(function (b) { items.push({ el: p, rol: ($('#semEyeP') || {}).textContent || 'Ponente', btn: b, afil: $('.pon-afil', p), talk: $('.pon-talk', p) }); });
+    });
+    $('#guionLista').innerHTML = items.map(function (it) {
+      var slug = it.btn.getAttribute('data-sem') || ''; var tx = texto(slug);
+      var foto = it.el.classList.contains('s-modera') ? fotoDe(it.el) : (function () {  // foto n ↔ nombre n
+        // en filas con varias personas, la foto n corresponde al nombre n
+        var fotos = $$('.pon-foto', it.el), idx = $$('.pon-nombre', it.el).indexOf(it.btn); return fotos[idx] ? fotos[idx].innerHTML : '';
+      })();
+      return '<li class="guion-item"><div class="sem-foto">' + foto + '</div><div>' +
+        '<div class="guion-rol">' + it.rol.replace(/</g, '&lt;') + '</div>' +
+        '<div class="guion-nombre">' + it.btn.textContent.replace(/↗/g, '').trim().replace(/</g, '&lt;') + '</div>' +
+        (it.afil ? '<div class="guion-afil">' + it.afil.textContent.replace(/^·\s*/, '').trim().replace(/</g, '&lt;') + '</div>' : '') +
+        (it.talk ? '<div class="guion-talk">' + it.talk.textContent.trim().replace(/</g, '&lt;') + '</div>' : '') +
+        (tx ? '<div class="guion-texto">' + parrafos(tx) + '</div>' : '<div class="guion-texto pend">' + $('#semPend').textContent + '</div>') +
+        '</div></li>';
+    }).join('');
+    mostrar(btn);
+  }
+  function mostrar(btn) { lastFocus = btn; ov.classList.add('abierta'); document.body.classList.add('sem-lock'); $('.sem-panel', ov).scrollTop = 0; $('#semCerrar').focus(); }
+  function cerrar() { ov.classList.remove('abierta'); document.body.classList.remove('sem-lock'); estado = null; if (lastFocus) lastFocus.focus(); }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.pon-nombre'); if (b) { e.preventDefault(); abrirUno(b); return; }
+    var g = e.target.closest('.s-guion'); if (g) { abrirGuion(g); return; }
+    if (e.target === ov) cerrar();
+  });
+  $('#semCerrar').addEventListener('click', cerrar);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('abierta')) cerrar(); });
+  $('#guionPrint').addEventListener('click', function () {
+    document.body.classList.add('print-guion');
+    var limpiar = function () { document.body.classList.remove('print-guion'); window.removeEventListener('afterprint', limpiar); };
+    window.addEventListener('afterprint', limpiar); window.print(); setTimeout(limpiar, 1500);
+  });
+  if ('MutationObserver' in window) {
+    new MutationObserver(function () { if (!estado) return; if (estado.tipo === 'uno') abrirUno(estado.btn); else abrirGuion(estado.btn); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  }
+})();
+"""
+
+def modal_js(slugs):
+    sem = {k: SEM[k] for k in sorted(slugs) if k in SEM}
+    return MODAL_JS.replace('__SEM__', json.dumps(sem, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
 
 # ─────────────────────────── JS ────────────────────────────────
 def js_pagina():
@@ -979,8 +1163,8 @@ def pagina_html():
     body = (NAV + hero_html() + riel_html() + '<main id="programa">' + dias + '</main>' + banda +
             f'<footer><div class="footer-inner"><span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>'
             f'<span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>'
-            f'<a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></div></footer>' + pill)
-    tail = ('\n<script src="i18n.js" defer></script>\n<script src="mobile-menu.js" defer></script>\n<script>' + js_pagina() + '</script>\n'
+            f'<a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></div></footer>' + pill + modal_html())
+    tail = ('\n<script src="i18n.js" defer></script>\n<script src="mobile-menu.js" defer></script>\n<script>' + js_pagina() + '</script>\n<script>' + modal_js(SLUGS_USADOS) + '</script>\n'
             '<!-- ============ Analytics (Cloudflare Web Analytics + Vercel Speed Insights) ============ -->\n'
             '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "6aee8fc9e32047d99f110e31c7993afc"}\'></script>\n'
             '<script defer src="/_vercel/speed-insights/script.js"></script>\n</body>\n</html>\n')
@@ -1055,6 +1239,7 @@ CSS_JV = r"""
   .jvp .h-local { border-top:0; padding-top:0; margin-top:0; }
 }
 @media (max-width:640px) { .jvp .sede { grid-template-columns:1fr; padding:18px 18px 16px; } .jvp .sede-hora { text-align:left; } }
+"""+CSS_MODAL.replace("var(--papel, rgba(251,247,236,.7))","rgba(251,247,236,.7)")+r"""
 /* PROGRAMA-JV-CSS:FIN */
 """
 
@@ -1080,7 +1265,6 @@ JS_JV = r"""
   try { if (localStorage.getItem('forodyt_tz') === 'local') modo = 'local'; } catch (e) {}
   pintar();
 })();
-/* PROGRAMA-JV-JS:FIN */
 """
 
 def fragmento_jv():
@@ -1090,7 +1274,26 @@ def fragmento_jv():
             f'<div class="tz" role="group" aria-label="Zona horaria"><button type="button" data-tz="gdl" aria-pressed="true" {ui_attr("tz_gdl")}>{esc(ui("tz_gdl"))}</button><button type="button" data-tz="local" aria-pressed="false" {ui_attr("tz_local")}>{esc(ui("tz_local"))}</button></div>'
             + bloque_html(d, b, pagina='jornada') +
             f'<a class="jvp-link" href="programa.html#jornada-en-linea" {ui_attr("jv_est_link")}>{esc(ui("jv_est_link"))}</a>'
-            f'</div>\n<!-- PROGRAMA-JV:FIN -->')
+            f'</div>' + modal_html() + '\n<!-- PROGRAMA-JV:FIN -->')
+
+def datos_publicos():
+    """resumen del programa para en-vivo.html: bloques (con id de plática del backend) y sesiones en UTC."""
+    out = {'version': DATA['version'], 'bloques': [], 'sesiones': []}
+    for d in DATA['dias']:
+        for b in d['bloques']:
+            ini = instante(d['fecha'], b['sesiones'][0]['ini'], b['tz']); fin = instante(d['fecha'], b['sesiones'][-1]['fin'], b['tz'])
+            out['bloques'].append({'id': b['id'], 'platica': b.get('platica'), 'dia': d['id'], 'fecha': d['fecha'], 'modo': d['modo'],
+                                   'sede': {'es': b['sede'], 'en': tr('bloque.' + b['id'] + '.sede', b['sede'], 'en'), 'fr': tr('bloque.' + b['id'] + '.sede', b['sede'], 'fr')},
+                                   'sub': b['sede_sub'], 'ini': iso_utc(ini), 'fin': iso_utc(fin), 'minutos': int((fin - ini).total_seconds() // 60)})
+            for s in b['sesiones']:
+                si = instante(d['fecha'], s['ini'], b['tz']); sf = instante(d['fecha'], s['fin'], b['tz'])
+                k = 's.' + s['id']
+                out['sesiones'].append({'id': s['id'], 'bloque': b['id'], 'ini': iso_utc(si), 'fin': iso_utc(sf), 'tipo': s['tipo'],
+                    'kicker': {l: tr(k + '.kicker', s['kicker'], l) for l in ('es', 'en', 'fr')},
+                    'titulo': {l: tr(k + '.titulo', s.get('titulo') or '', l) for l in ('es', 'en', 'fr')} if s.get('titulo') else None,
+                    'ponentes': [{'nombres': [pp['nombre'] for pp in p['personas']], 'talk': {l: tr(f'{k}.p{i}.talk', p.get('talk') or '', l) for l in ('es', 'en', 'fr')} if p.get('talk') else None} for i, p in enumerate(s['ponentes'])],
+                    'modera': s['modera']['nombre'] if s.get('modera') else None})
+    return out
 
 # ─────────────────────────── main ──────────────────────────────
 def main():
@@ -1114,10 +1317,12 @@ def main():
     if check:
         print('OK · sesiones:', sesiones_total, '· cifras:', CIFRAS); return
     open(os.path.join(ROOT, 'programa.html'), 'w', encoding='utf-8').write(page)
+    open(os.path.join(ROOT, 'programa-data.json'), 'w', encoding='utf-8').write(json.dumps(datos_publicos(), ensure_ascii=False, separators=(',', ':')))
     open(os.path.join(OUT, 'jv-fragment.html'), 'w', encoding='utf-8').write(frag)
     open(os.path.join(OUT, 'jv-css.css'), 'w', encoding='utf-8').write(CSS_JV)
+    slugs_jv = set(re.findall(r'data-sem="([a-z_]+)"', frag))
     js_jv = ('/* PROGRAMA-JV-F18N:INICIO — generado por _tools/programa.py */\nwindow.F18N_PROGRAMA = ' +
-             json.dumps(jv_dict, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + ';\n/* PROGRAMA-JV-F18N:FIN */\n' + JS_JV)
+             json.dumps(jv_dict, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + ';\n/* PROGRAMA-JV-F18N:FIN */\n' + JS_JV + modal_js(slugs_jv) + '\n/* PROGRAMA-JV-JS:FIN */\n')
     open(os.path.join(OUT, 'jv-js.js'), 'w', encoding='utf-8').write(js_jv)
     print('programa.html escrito ·', len(page) // 1024, 'KB · sesiones:', sesiones_total, '· cifras:', CIFRAS)
     print('fragmento JV escrito en _tools/out/ (html, css, js)')

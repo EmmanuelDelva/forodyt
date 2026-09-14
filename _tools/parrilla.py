@@ -20,6 +20,7 @@ COLS = (4, 3, 2)
 DESTACADA_SPAN = 2
 
 # (slug, genero, sector, peso)
+#   2026-09-14: salen olmos, troncoso y barrios (no aparecen en el programa definitivo).
 #   sector: P=publico · A=academia · R=privado
 #   peso 1-10: rol en el programa + rango institucional. Ajustable a mano.
 PONENTES = [
@@ -31,11 +32,8 @@ PONENTES = [
     ('raad',                'H', 'P',  8),  # Magistrado Auxiliar CSJ · Presidente de ALGDETIC
     ('gonzalez',            'M', 'P',  8),  # Consejo Superior de la Judicatura · Colombia
     ('zepeda',              'H', 'A',  8),  # Director General del IJA
-    ('olmos',               'M', 'P',  8),  # Directora General C5i Aguascalientes
     ('villarreal',          'H', 'P',  8),  # Director General C5i Guanajuato
     ('caicedo',             'M', 'R',  8),  # Presidenta del Observatorio Mundial de la Abogacia
-    ('troncoso',            'H', 'P',  8),  # Magistrado Auxiliar CSJ Colombia
-    ('barrios',             'M', 'P',  7),  # Directora Seccional · Rama Judicial
     ('reyes',               'H', 'A',  7),  # Decano de Derecho · Unilibre Cartagena
     ('tinajero',            'H', 'P',  7),  # Secretario Tecnico SEAJAL
     ('marquez',             'H', 'P',  7),  # Juez de Control · PJ Jalisco

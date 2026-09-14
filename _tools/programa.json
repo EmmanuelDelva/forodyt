@@ -65,7 +65,7 @@
                   "personas": [
                     {
                       "nombre": "Dr. Federico González Barrera",
-                      "slug": null
+                      "slug": "gonzalez_barrera"
                     }
                   ],
                   "afil": "Universidad Carlos III de Madrid (España)",
@@ -95,7 +95,7 @@
                   "personas": [
                     {
                       "nombre": "Dr. David López Jiménez",
-                      "slug": null
+                      "slug": "lopez_jimenez"
                     }
                   ],
                   "afil": "Universidad de Sevilla (España)",
@@ -105,7 +105,7 @@
                   "personas": [
                     {
                       "nombre": "Iván Miguel García López",
-                      "slug": null
+                      "slug": "garcia_lopez"
                     }
                   ],
                   "afil": "Universidad Panamericana (México)",
@@ -133,7 +133,7 @@
                   "personas": [
                     {
                       "nombre": "Dra. Maryori Nahiry Molina Luna",
-                      "slug": null
+                      "slug": "molina_luna"
                     }
                   ],
                   "afil": "Pontificia Universidad Católica de Valparaíso (Chile)",
@@ -143,7 +143,7 @@
                   "personas": [
                     {
                       "nombre": "Niza Inés Sepúlveda Asprilla",
-                      "slug": null
+                      "slug": "sepulveda"
                     }
                   ],
                   "afil": "Universidad de la Costa, Barranquilla (Colombia)",
@@ -153,7 +153,7 @@
                   "personas": [
                     {
                       "nombre": "Lourdes Katherin Ccolque Ccahuana",
-                      "slug": null
+                      "slug": "ccolque"
                     }
                   ],
                   "afil": "Universidad Continental (Perú)",
@@ -163,7 +163,7 @@
                   "personas": [
                     {
                       "nombre": "Dra. María del Carmen Vida Carrión",
-                      "slug": null
+                      "slug": "vida_carrion"
                     }
                   ],
                   "afil": "Universidad de Sevilla (España)",
@@ -191,7 +191,7 @@
                   "personas": [
                     {
                       "nombre": "Dr. Héctor Ayllón Santiago",
-                      "slug": null
+                      "slug": "ayllon"
                     }
                   ],
                   "afil": "Ayllón & Asociados Abogados · ICAM (España)",
@@ -201,11 +201,11 @@
                   "personas": [
                     {
                       "nombre": "Claudia Isabel Calderón Maldonado",
-                      "slug": null
+                      "slug": "calderon"
                     },
                     {
                       "nombre": "María Cristina León Carvajal",
-                      "slug": null
+                      "slug": "leon_carvajal"
                     }
                   ],
                   "afil": "Universidad Católica de Cuenca (Ecuador)",
@@ -215,11 +215,11 @@
                   "personas": [
                     {
                       "nombre": "Bryan Daniel Vaca Garfias",
-                      "slug": null
+                      "slug": "vaca_garfias"
                     },
                     {
                       "nombre": "Angelica Vianey Martínez Hurtado",
-                      "slug": null
+                      "slug": "martinez_hurtado"
                     }
                   ],
                   "afil": "Universidad Vizcaya de las Américas, Morelia (México)",
@@ -229,15 +229,15 @@
                   "personas": [
                     {
                       "nombre": "Lucero Moreno Murguía",
-                      "slug": null
+                      "slug": "moreno_murguia"
                     },
                     {
                       "nombre": "Arturo González Mendoza",
-                      "slug": null
+                      "slug": "gonzalez_mendoza"
                     },
                     {
                       "nombre": "Dr. Hipólito Aguilar Sierra",
-                      "slug": null
+                      "slug": "aguilar_sierra"
                     }
                   ],
                   "afil": "UdeG · INR · La Salle México",
@@ -264,7 +264,7 @@
                   "personas": [
                     {
                       "nombre": "Alba Lancharro Castellanos",
-                      "slug": null
+                      "slug": "lancharro"
                     }
                   ],
                   "afil": "U. Pablo de Olavide, Sevilla · U. de Bolonia (España · Italia)",
@@ -274,11 +274,11 @@
                   "personas": [
                     {
                       "nombre": "Alma Cossette Guadarrama Muñoz",
-                      "slug": null
+                      "slug": "guadarrama"
                     },
                     {
                       "nombre": "Dr. Hipólito Aguilar Sierra",
-                      "slug": null
+                      "slug": "aguilar_sierra"
                     }
                   ],
                   "afil": "Universidad La Salle México",
@@ -288,15 +288,15 @@
                   "personas": [
                     {
                       "nombre": "Laura Fernández González",
-                      "slug": null
+                      "slug": "fernandez_gonzalez"
                     },
                     {
                       "nombre": "Gustavo Collazo Barroso",
-                      "slug": null
+                      "slug": "collazo"
                     },
                     {
                       "nombre": "Sandra Rodríguez Pe",
-                      "slug": null
+                      "slug": "rodriguez_pe"
                     }
                   ],
                   "afil": "CONABI · Futura Sit SRL (Cuba)",
@@ -306,7 +306,7 @@
                   "personas": [
                     {
                       "nombre": "Berta Teruel Muñoz",
-                      "slug": null
+                      "slug": "teruel"
                     }
                   ],
                   "afil": "Universidad de Sevilla (España)",
@@ -326,7 +326,8 @@
               "ponentes": [],
               "modera": null
             }
-          ]
+          ],
+          "platica": 5
         }
       ]
     },
@@ -528,7 +529,7 @@
                   "personas": [
                     {
                       "nombre": "Mabel Alejandra Torres Ureña",
-                      "slug": null
+                      "slug": "torres_urena"
                     }
                   ],
                   "afil": "Universidad de Guadalajara",
@@ -538,7 +539,7 @@
                   "personas": [
                     {
                       "nombre": "Dr. Saúl Adolfo Lamas Meza",
-                      "slug": null
+                      "slug": "lamas_meza"
                     }
                   ],
                   "afil": "Universidad de Guadalajara",
@@ -548,11 +549,11 @@
                   "personas": [
                     {
                       "nombre": "Johnatan Moisés Rodríguez Zambrano",
-                      "slug": null
+                      "slug": "rodriguez_zambrano"
                     },
                     {
                       "nombre": "Karina Sánchez de Jesús",
-                      "slug": null
+                      "slug": "sanchez_de_jesus"
                     }
                   ],
                   "afil": "CUCEA, UdeG",
@@ -583,7 +584,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "platica": 1
         },
         {
           "id": "cugdl",
@@ -766,7 +768,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "platica": 2
         }
       ]
     },
@@ -930,7 +933,7 @@
               "ejes": [],
               "modera": {
                 "nombre": "Dr. Antonio Gil Fons",
-                "slug": null,
+                "slug": "gil_fons",
                 "afil": "Profesor e investigador de la Universidad de Guadalajara · Docente de Relaciones Internacionales en la Universidad Autónoma de Guadalajara · Perfil PRODEP · Candidato a Investigador Nacional"
               },
               "ponentes": [
@@ -938,7 +941,7 @@
                   "personas": [
                     {
                       "nombre": "Mtra. Luz Celina Camarena Romero",
-                      "slug": null
+                      "slug": "camarena"
                     }
                   ],
                   "afil": "Doctorante en la Universidad de Salamanca, España · Especialista en seguridad nacional y crimen organizado transnacional",
@@ -948,7 +951,7 @@
                   "personas": [
                     {
                       "nombre": "Dr. José Jesús Bravo Vergara",
-                      "slug": null
+                      "slug": "bravo_vergara"
                     }
                   ],
                   "afil": "Universidad de Guadalajara · Centro de Estudios para América del Norte · Departamento de Estudios del Pacífico · SNI Nivel I",
@@ -956,7 +959,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "platica": 3
         },
         {
           "id": "ciudad-judicial",
@@ -1094,7 +1098,8 @@
               "ponentes": [],
               "modera": null
             }
-          ]
+          ],
+          "platica": 4
         }
       ]
     }
@@ -1182,6 +1187,17 @@
     "jv_est_link": "Ver el programa completo del Foro →",
     "og_title": "Programa definitivo · IV Foro Internacional de Derecho y Tecnología",
     "og_desc": "18 de septiembre en línea · 21 y 22 de septiembre en CUCEA, CUGDL, Cineteca FICG y Ciudad Judicial. Horarios, mesas y ponentes de la IV edición.",
-    "banda_t_html": "La conversación empieza <em>el 18</em> y sigue el 21 y 22."
+    "banda_t_html": "La conversación empieza <em>el 18</em> y sigue el 21 y 22.",
+    "sem_eyebrow": "Ponente · IV edición",
+    "sem_modera_eyebrow": "Modera · IV edición",
+    "sem_presenta": "Presenta en el Foro",
+    "sem_pend": "Semblanza en preparación. Los datos que se muestran provienen del programa oficial.",
+    "sem_ficha": "Ver ficha completa en el sitio",
+    "sem_cerrar": "Cerrar",
+    "guion_btn": "Guion de la mesa",
+    "guion_t": "Guion para moderar",
+    "guion_intro": "Semblanzas en el orden del programa, para presentar a cada participante.",
+    "guion_print": "Imprimir guion",
+    "sem_sesion": "Sesión"
   }
 }
