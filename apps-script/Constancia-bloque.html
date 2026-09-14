@@ -2,7 +2,7 @@
 <!--
   Constancia de asistencia por BLOQUE (una sede · una jornada) y constancia con VALOR CURRICULAR (10 h).
   Plantilla HtmlService: Asistencia.gs la rellena con HtmlService.createTemplateFromFile('Constancia-bloque').
-  Variables:  tipo ('bloque' | 'valor') · nombre · institucion · sede · recinto · fecha_larga · horas (entero)
+  Variables:  tipo ('bloque' | 'valor') · nombre · institucion · sede · recinto (con artículo: «el Auditorio…», «la Sala…») · fecha_larga · horas (entero)
               · horas_txt · sesiones · folio · fecha_emision · firma_src (data URI) · logos {udg, ca} (data URI o '')
               · firmantes (solo 'valor': [{nombre, cargo, firma_src}] ×3 centros universitarios)
   Sistema tipográfico: el de la constancia de la III edición (Milagros Olivos Celis, 25-05-2026) que el director
@@ -109,7 +109,7 @@
     <? if (tipo === 'valor') { ?>
     <p class="certifica">Acreditó su asistencia a las actividades académicas de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, con una duración total verificada de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } else { ?>
-    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en el <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
 
     <table class="detalles"><tr>

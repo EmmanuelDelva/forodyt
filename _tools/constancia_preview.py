@@ -62,12 +62,12 @@ def render_flat(tpl, ctx):
 base = dict(firma_src=data_uri(FIRMA), logos=LOGOS, fecha_emision='21 de septiembre de 2026', institucion='')
 muestras = {
     'bloque-cucea': dict(base, tipo='bloque', nombre='Nombre Apellido Apellido', institucion='Universidad de Guadalajara',
-                         sede='CUCEA', recinto='Auditorio Lic. Raúl Padilla López (CUCEA)', fecha_larga='lunes 21 de septiembre de 2026',
+                         sede='CUCEA', recinto='el Auditorio Lic. Raúl Padilla López (CUCEA)', fecha_larga='lunes 21 de septiembre de 2026',
                          horario='9:00 a 14:10 horas', horas=5, horas_txt=HORAS_TXT[5],
                          sesiones='Inauguración · Conferencia inaugural · Mesas 1 a 4 · Jóvenes investigadores del Call for Papers · Presentación editorial',
                          folio='IV-FIDDT-BLQ/UDG/2026-1-0001'),
     'bloque-jornada-virtual': dict(base, tipo='bloque', nombre='Nombre Apellido Apellido', institucion='Universidad de Sevilla · España',
-                         sede='Jornada Virtual Internacional', recinto='transmisión en línea del Foro (Jornada Virtual Internacional)', fecha_larga='viernes 18 de septiembre de 2026',
+                         sede='Jornada Virtual Internacional', recinto='la transmisión en línea del Foro (Jornada Virtual Internacional)', fecha_larga='viernes 18 de septiembre de 2026',
                          horario='15:00 a 19:00 horas de España (7:00 a 11:00 de Guadalajara)', horas=4, horas_txt=HORAS_TXT[4],
                          sesiones='Apertura · Mesas V1 a V4 · Cierre', folio='IV-FIDDT-BLQ/UDG/2026-5-0001', fecha_emision='18 de septiembre de 2026'),
     'valor-curricular-10h': dict(base, tipo='valor', nombre='Nombre Apellido Apellido', institucion='Universidad de Guadalajara',
