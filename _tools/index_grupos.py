@@ -245,11 +245,31 @@ for k in comite: nuevo[k] = obj[k]
 lineas[i] = pref + json.dumps(nuevo, ensure_ascii=False) + ';'
 src = '\n'.join(lineas)
 
-# ── cifra de ponentes ──
-total = len(orden_total)
-# SOLO la cifra cuyo rótulo es cifra_ponentes (la primera del bloque es «Ediciones»: no tocarla)
-src = re.sub(r'<span class="cifra-rom" aria-hidden="true">[IVXLC]+</span>\n(\s*)<b data-count="\d+">0</b>\n(\s*)<span class="cifra-label" data-f18n="cifra_ponentes">',
-             f'<span class="cifra-rom" aria-hidden="true">{roman(total)}</span>\n\\1<b data-count="{total}">0</b>\n\\2<span class="cifra-label" data-f18n="cifra_ponentes">', src, count=1)
+# ── cifras de ponentes y países: se calculan desde los DOS programas (programa.json), no desde las tarjetas ──
+# (decisión del director, 2026-09-14: el contador cuenta a todas las personas que participan, tengan o no foto;
+#  el director, que modera la Mesa 11, no se cuenta). Países = nacionalidad, en el mapa `paises` de programa.json.
+def _cifra(src, clave, n):
+    # SOLO la cifra cuyo rótulo es `clave` (la primera del bloque es «Ediciones»: no tocarla)
+    pat = r'<span class="cifra-rom" aria-hidden="true">[IVXLC]+</span>\n(\s*)<b data-count="\d+">0</b>\n(\s*)<span class="cifra-label" data-f18n="' + clave + '">'
+    assert re.search(pat, src), clave
+    return re.sub(pat, f'<span class="cifra-rom" aria-hidden="true">{roman(n)}</span>\n\\1<b data-count="{n}">0</b>\n\\2<span class="cifra-label" data-f18n="{clave}">', src, count=1)
+_personas = set()
+for _d in DATA['dias']:
+    for _b in _d['bloques']:
+        for _s in _b['sesiones']:
+            for _p in _s['ponentes']:
+                for _pp in _p['personas']: _personas.add(_pp['slug'])
+            if _s.get('modera'): _personas.add(_s['modera']['slug'])
+_personas.discard('delva')
+_sin_pais = sorted(_personas - set(DATA['paises']))
+assert not _sin_pais, f'sin país en programa.json → paises: {_sin_pais}'
+total = len(_personas); paises = len({DATA['paises'][k] for k in _personas})
+print(f'cifras: {total} ponentes · {paises} países ({", ".join(sorted({DATA["paises"][k] for k in _personas}))}) · {len(orden_total)} tarjetas con foto')
+src = _cifra(src, 'cifra_ponentes', total)
+src = _cifra(src, 'cifra_paises', paises)
+src = src.replace('<em class="cifra-ctx" data-f18n="ctx_paises">en la III edición · 2025</em>', '<em class="cifra-ctx" data-f18n="ctx_paises">en la IV edición · 2026</em>')
+src = src.replace("ctx_paises: 'at the 3rd edition · 2025'", "ctx_paises: 'at the 4th edition · 2026'")
+src = src.replace("ctx_paises: 'à la IIIe édition · 2025'", "ctx_paises: 'à la IVe édition · 2026'")
 src = src.replace('<em class="cifra-ctx" data-f18n="ctx_ponentes">y la lista sigue creciendo</em>', '<em class="cifra-ctx" data-f18n="ctx_ponentes">en cuatro sedes y una jornada virtual</em>')
 src = src.replace("ctx_ponentes: 'and the list keeps growing'", "ctx_ponentes: 'across four venues and one online session'")
 src = src.replace("ctx_ponentes: 'et la liste continue de grandir'", "ctx_ponentes: 'sur quatre sites et une journée virtuelle'")
