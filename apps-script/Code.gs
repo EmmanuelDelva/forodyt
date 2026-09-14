@@ -389,14 +389,28 @@ function registrarCheckinFila_(folio, id_platica, staff, valido, motivo, fuente)
   ]);
 }
 
+/**
+ * Ventana de check-in de un bloque (decisión del director, 2026-09-14):
+ *   - abre 60 min ANTES de la hora de inicio de la sede (la gente llega y se registra antes)
+ *   - cierra 60 min DESPUÉS de la hora de fin de la sede (ej. CUCEA termina 14:10 → se escanea hasta 15:10),
+ *     porque el público rota entre mesas y no todos entran al inicio.
+ *   Ambos márgenes se ajustan en _config (tolerancia_inicio_min / tolerancia_fin_min) sin tocar código.
+ *   - Los bloques VIRTUALES (sede = virtual o formato = virtual) NO tienen ventana: el escáner no se usa ahí
+ *     y la asistencia se acredita desde en-vivo.html (Asistencia.gs → consolidarStream()).
+ */
 function estaEnVentana_(platica) {
+  if (esPlaticaVirtual_(platica)) return true;
   const ahora = new Date();
   const config = leerConfig_();
   const inicio = new Date(platica.hora_inicio);
   const fin = new Date(platica.hora_fin);
-  inicio.setMinutes(inicio.getMinutes() - (Number(config.tolerancia_inicio_min) || 5));
-  fin.setMinutes(fin.getMinutes() + (Number(config.tolerancia_fin_min) || 10));
+  inicio.setMinutes(inicio.getMinutes() - (Number(config.tolerancia_inicio_min) || 60));
+  fin.setMinutes(fin.getMinutes() + (Number(config.tolerancia_fin_min) || 60));
   return ahora >= inicio && ahora <= fin;
+}
+
+function esPlaticaVirtual_(platica) {
+  return String(platica.sede || '').toLowerCase() === 'virtual' || String(platica.formato || '').toLowerCase() === 'virtual';
 }
 
 function yaCheckedIn_(folio, id_platica) {
@@ -559,7 +573,7 @@ function buscarUsuarioPorFolio_(folio) {
   const headers = data[0];
   const idxFolio = headers.indexOf('folio');
   for (let i = 1; i < data.length; i++) {
-    if (data[i][idxFolio] === folio) return rowToObject_(headers, data[i]);
+    if (String(data[i][idxFolio]).toUpperCase().trim() === String(folio).toUpperCase().trim()) return rowToObject_(headers, data[i]);
   }
   return null;
 }
@@ -619,7 +633,7 @@ function suscribirNewsletter(payload) {
  */
 function procesarConstancias() {
   const config = leerConfig_();
-  const META_VALOR = Number(config.meta_horas_valor_curricular) || 20;
+  const META_VALOR = Number(config.meta_horas_valor_curricular) || 10;   // 10 h por decisión del director (2026-09-14)
   const META_BASE = Number(config.meta_horas_asistencia_minima) || 4;
 
   const usuariosSheet = SS.getSheetByName(SHEETS.usuarios);

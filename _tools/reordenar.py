@@ -15,7 +15,8 @@ import json
 import re
 import sys
 
-P = r'C:\Users\emman\forodyt\index.html'
+import os
+P = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'index.html')
 
 
 def data_d(st):

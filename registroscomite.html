@@ -114,6 +114,14 @@ main { padding: 34px 0 10px; }
   padding: 34px 24px;
 }
 .card-cta .card-title { color: var(--white); font-size: 24px; }
+.codigo-form { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin-top: 6px; }
+.codigo-form label { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono, monospace); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint, #666); }
+.codigo-form select, .codigo-form input { font: inherit; font-size: 14px; padding: 10px 12px; border: 1px solid rgba(14,27,44,.2); background: #fff; min-width: 220px; }
+.btn-codigo { padding: 12px 20px; font-size: 13px; }
+.codigo-out { margin-top: 18px; padding: 18px 22px; background: #0A1422; color: #F5EFE0; text-align: center; }
+.codigo-big { font-family: var(--mono, monospace); font-size: clamp(40px, 8vw, 72px); font-weight: 500; letter-spacing: .3em; color: #C8A858; }
+.codigo-meta { margin-top: 6px; font-family: var(--mono, monospace); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(245,239,224,.6); }
+.codigo-nota { margin-top: 12px; font-size: 13px; color: var(--ink-faint, #666); }
 .card-cta .card-lead { color: rgba(245, 239, 224, 0.78); max-width: 44ch; margin: 6px auto 0; }
 .btn-scanner {
   display: inline-flex;
@@ -275,11 +283,11 @@ footer {
       <div class="meta-grid">
         <div class="meta-item">
           <p class="meta-label">Fechas</p>
-          <p class="meta-value">21 y 22 de septiembre de 2026</p>
+          <p class="meta-value">18 (en línea) · 21 y 22 de septiembre de 2026</p>
         </div>
         <div class="meta-item">
-          <p class="meta-label">Sede</p>
-          <p class="meta-value">CUCEA · Universidad de Guadalajara</p>
+          <p class="meta-label">Sedes</p>
+          <p class="meta-value">CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial</p>
         </div>
         <div class="meta-item">
           <p class="meta-label">Modalidad</p>
@@ -292,6 +300,30 @@ footer {
       </div>
     </section>
 
+    <!-- Códigos de presencia para la transmisión (asistencia virtual verificada) -->
+    <section class="card" aria-labelledby="codigo-title">
+      <h2 class="card-title" id="codigo-title">Código de presencia (transmisión en vivo)</h2>
+      <p class="card-lead">Quien sigue el Foro por la página <code>en-vivo.html</code> acredita asistencia con minutos verificados y con los códigos que la moderación dicta en momentos no anunciados. Genera uno, dilo al aire (o muéstralo en pantalla) y vence a los 10 minutos.</p>
+      <div class="codigo-form">
+        <label>Bloque
+          <select id="codigoBloque">
+            <option value="5">Vie 18 · Jornada Virtual</option>
+            <option value="1">Lun 21 · CUCEA</option>
+            <option value="2">Lun 21 · CUGDL</option>
+            <option value="3">Mar 22 · Cineteca FICG</option>
+            <option value="4">Mar 22 · Ciudad Judicial</option>
+          </select>
+        </label>
+        <label>Clave de staff <input type="password" id="codigoKey" autocomplete="off" placeholder="La misma del escáner"></label>
+        <button type="button" class="btn-scanner btn-codigo" id="codigoBtn">Generar código</button>
+      </div>
+      <div class="codigo-out" id="codigoOut" hidden>
+        <div class="codigo-big" id="codigoBig">····</div>
+        <p class="codigo-meta" id="codigoMeta"></p>
+      </div>
+      <p class="codigo-nota">Recomendación: dos o tres códigos por bloque, sin avisar cuándo. Requiere que el backend ya incorpore <code>apps-script/Asistencia.gs</code>.</p>
+    </section>
+
     <!-- Cómo registrar -->
     <section class="card" aria-labelledby="pasos-title">
       <h2 class="card-title" id="pasos-title">Cómo registrar entradas</h2>
@@ -299,7 +331,7 @@ footer {
       <ol class="pasos">
         <li><b>Abre el escáner</b> con el botón de arriba y permite el acceso a la cámara cuando el navegador lo pida.</li>
         <li><b>Escribe tu correo institucional</b> de staff — queda asociado a cada registro que hagas.</li>
-        <li><b>Elige la plática o sesión</b> que vas a registrar. Puedes cambiarla en cualquier momento con «Cambiar plática».</li>
+        <li><b>Elige la sede y jornada</b> que vas a registrar (CUCEA, CUGDL, Cineteca FICG o Ciudad Judicial). Puedes cambiarla en cualquier momento con «Cambiar plática».<span class="nota">El QR se acepta desde una hora antes del inicio de la sede hasta una hora después de su cierre (CUCEA termina 14:10 → se escanea hasta 15:10), porque el público rota entre mesas. La Jornada Virtual del 18 no se escanea: su asistencia se acredita desde la transmisión.</span></li>
         <li><b>Apunta la cámara al código QR</b> del gafete o del correo de confirmación del asistente.<span class="nota">El sistema valida el folio automáticamente contra la base de inscripciones.</span></li>
         <li><b>Confirma la entrada</b> cuando aparezcan los datos del asistente en pantalla.</li>
         <li><b>¿Se fue el internet?</b> Sigue escaneando: los registros se guardan en una cola local y se reenvían con «Reintentar envío» cuando vuelva la señal.</li>
@@ -341,6 +373,30 @@ footer {
 
   </div>
 </main>
+<script>
+(function () {
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55-JzzgzlXOZ0_lWOe1gpHPp0OJB0q2fn4l2B4NTHxBUq6CVA/exec';
+  var btn = document.getElementById('codigoBtn'); if (!btn) return;
+  var key = document.getElementById('codigoKey');
+  try { key.value = localStorage.getItem('foro_staff_key') || ''; } catch (e) {}
+  btn.addEventListener('click', function () {
+    var k = key.value.trim(); var id = document.getElementById('codigoBloque').value;
+    if (!k) { alert('Escribe la clave de staff.'); return; }
+    try { localStorage.setItem('foro_staff_key', k); } catch (e) {}
+    btn.disabled = true; btn.textContent = 'Generando…';
+    fetch(ENDPOINT + '?action=stream_codigo_nuevo&key=' + encodeURIComponent(k) + '&id_platica=' + encodeURIComponent(id) + '&minutos=10')
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        btn.disabled = false; btn.textContent = 'Generar código';
+        var out = document.getElementById('codigoOut'); out.hidden = false;
+        if (!r || !r.ok) { document.getElementById('codigoBig').textContent = '— — —'; document.getElementById('codigoMeta').textContent = 'No se pudo generar: ' + (r && r.error ? r.error : 'sin respuesta'); return; }
+        document.getElementById('codigoBig').textContent = r.codigo;
+        document.getElementById('codigoMeta').textContent = 'Válido hasta ' + new Date(r.valido_hasta).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Mexico_City' }) + ' · bloque ' + id;
+      })
+      .catch(function () { btn.disabled = false; btn.textContent = 'Generar código'; alert('Sin conexión con el backend.'); });
+  });
+})();
+</script>
 
 <footer>
   <div class="wrap">

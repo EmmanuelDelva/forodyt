@@ -40,8 +40,8 @@ Cada sesión académica del Foro. Pre-poblar con el programa preliminar antes de
 | A | `id_platica` | int | autoincremental |
 | B | `nombre_sesion` | string | "Mesa I — Justicia agéntica" |
 | C | `eje` | string | uno de los 9 ejes IV edición |
-| D | `sede` | enum | `cucea` / `cugdl` / `ciudad_judicial` |
-| E | `jornada` | enum | `j1_lun_21_sep` / `j2_mar_22_sep` |
+| D | `sede` | enum | `cucea` / `cugdl` / `cineteca` / `ciudad_judicial` / `virtual` |
+| E | `jornada` | enum | `jv_vie_18_sep` / `j1_lun_21_sep` / `j2_mar_22_sep` |
 | F | `hora_inicio` | datetime | con timezone -06:00 |
 | G | `hora_fin` | datetime | |
 | H | `horas_valor` | float | horas efectivas (no incluye coffee break) |
@@ -50,7 +50,7 @@ Cada sesión académica del Foro. Pre-poblar con el programa preliminar antes de
 | K | `zoom_id` | string/null | si tiene componente virtual |
 | L | `cerrada` | bool | flag para finalizar la ventana de check-in |
 
-**Datos pre-poblados (preliminar)**: copiar del programa público en `index.html` sección `#programa`.
+**Datos definitivos (2026-09-14)**: cinco bloques, uno por sede y jornada, con los mismos `id_platica` que `staff-scanner.html` y `programa-data.json`. Se dan de alta corriendo `instalarPlaticasIV()` (`apps-script/Asistencia.gs`) una vez desde el editor.
 
 ## Pestaña 3 — `CheckIns`
 
@@ -71,7 +71,7 @@ Una fila por escaneo válido. Lo escribe Apps Script desde el endpoint `?action=
 1. HMAC del QR válido contra secreto.
 2. Existe `folio_asistente` en `Usuarios`.
 3. Existe `id_platica` en `Platicas` y la plática no está `cerrada`.
-4. Timestamp dentro de la ventana de tolerancia: `[hora_inicio - 5 min, hora_fin + 10 min]`.
+4. Timestamp dentro de la ventana de tolerancia: `[hora_inicio - 60 min, hora_fin + 60 min]` (decisión del director, 2026-09-14: el público rota entre mesas; p. ej. CUCEA cierra 14:10 → se escanea hasta 15:10). Los bloques con `sede = virtual` no tienen ventana: no se escanean.
 5. No existe ya un check-in del mismo folio en la misma plática (idempotencia).
 6. No existe un check-in del mismo folio en otra sede en la misma franja temporal (anti-fraude geográfico).
 
@@ -83,11 +83,14 @@ Parámetros editables sin tocar código.
 
 | Key | Default | Descripción |
 |-----|---------|-------------|
-| `meta_horas_valor_curricular` | 20 | Horas para emitir constancia con valor |
+| `meta_horas_valor_curricular` | 10 | Horas para emitir constancia con valor curricular (director + tres centros universitarios; decisión 2026-09-14) |
 | `meta_horas_asistencia_minima` | 4 | Horas mínimas para constancia base |
-| `tolerancia_inicio_min` | 5 | Minutos de gracia al inicio |
-| `tolerancia_fin_min` | 10 | Minutos de gracia al cierre |
-| `umbral_zoom_porcentaje` | 75 | % de presencia para contar bloque virtual completo |
+| `tolerancia_inicio_min` | 60 | Minutos de gracia al inicio de la sede |
+| `tolerancia_fin_min` | 60 | Minutos de gracia al cierre de la sede |
+| `umbral_zoom_porcentaje` | 75 | % de presencia para contar bloque virtual completo (CSV de Zoom) |
+| `umbral_stream_porcentaje` | 75 | % de minutos verificados en `en-vivo.html` para acreditar un bloque presencial seguido a distancia |
+| `minutos_minimos_virtual` | 10 | Minutos verificados que bastan para acreditar la Jornada Virtual (bloque `sede = virtual`) |
+| `codigo_obligatorio_virtual` | FALSE | Si TRUE, la Jornada Virtual también exige un código de presencia |
 | `endpoint_publico_activo` | true | flag global de pausa de inscripciones |
 
 ## Pestaña 5 — `_logs` (auditoría)
