@@ -248,6 +248,7 @@ function instalarPlaticasIV() {
   *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID   (opcionales) ids en Drive de img/aliados/udg.png y de
   *                                         img/aliados/ca-derecho-tecnologia-lockup.png (lockup completo del CA; no CUCEA)
  *   CONSTANCIAS_FOLDER_ID   (opcional) carpeta de Drive donde guardar copia de cada PDF
+ *   AGUA_FILE_ID            (opcional) id en Drive de img/marca/foro-mapa-conexiones-dorado.png (marca de agua con el mapamundi del Foro)
  *
  * Pasos: instalarDisparadoresBloques() una vez → crea cinco disparadores «cerrarBloque» (fin del bloque + 60 min,
  * hora GDL). También se puede correr a mano emitirConstanciasBloque(1).
@@ -298,7 +299,8 @@ function datosBloque_(platica, usuario, folioConst) {
     horas: horas, horas_txt: horasTexto_(horas), sesiones: info.sesiones, folio: folioConst,
     fecha_emision: fechaLargaEs_(new Date(), false),
     firma_src: imagenDataUri_('FIRMA_DIGITAL_FILE_ID'),
-    logos: { udg: imagenDataUri_('LOGO_UDG_FILE_ID'), ca: imagenDataUri_('LOGO_CA_FILE_ID') }   // sin CUCEA (decisión del director)
+    logos: { udg: imagenDataUri_('LOGO_UDG_FILE_ID'), ca: imagenDataUri_('LOGO_CA_FILE_ID') },  // sin CUCEA (decisión del director)
+    agua_src: imagenDataUri_('AGUA_FILE_ID')   // mapa de conexiones del Foro (img/marca/foro-mapa-conexiones-dorado.png); si falta, la plantilla usa el numeral IV
   };
 }
 /** emitirConstanciasBloque(idPlatica) — una constancia por cada check-in válido del bloque que aún no la tenga. */

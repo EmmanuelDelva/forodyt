@@ -5,6 +5,8 @@
   Variables:  tipo ('bloque' | 'valor') · nombre · institucion · sede · recinto (con artículo: «el Auditorio…», «la Sala…») · fecha_larga · horas (entero)
               · horas_txt · sesiones · folio · fecha_emision · firma_src (data URI) · logos {udg, ca} (data URI o '')
               · firmantes (solo 'valor': [{nombre, cargo, firma_src}] ×3 centros universitarios)
+              · agua_src (data URI, opcional): mapa de conexiones del logo maestro del Foro como marca de agua
+                (img/marca/foro-mapa-conexiones-dorado.png; Script Property AGUA_FILE_ID). Sin él, cae al numeral IV.
   Sistema tipográfico: el de la constancia de la III edición (Milagros Olivos Celis, 25-05-2026) que el director
   pidió conservar: Fraunces (títulos y cuerpo) · Manrope (rótulos en versalitas espaciadas) · Italianno (línea
   caligráfica) · Inter y JetBrains Mono (pie). Colores: tinta #1F2937 · teal profundo #1F4747 · teal #3A8E89 ·
@@ -29,6 +31,9 @@
   body { width: 210mm; height: 297mm; background: #FFFFFF; color: #1F2937; font-family: 'Fraunces', Georgia, 'Times New Roman', serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .hoja { position: relative; width: 210mm; height: 297mm; overflow: hidden; }
   .agua { position: absolute; left: 0; right: 0; top: 58mm; text-align: center; font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 560pt; line-height: 1; color: #B8923E; opacity: 0.055; letter-spacing: -0.04em; }
+  /* marca de agua: mapa de conexiones del logo maestro del Foro, en dorado ocre, sangrado por la derecha (variante B, 2026-09-14) */
+  .agua-mapa { position: absolute; right: -30mm; top: 92mm; width: 195mm; opacity: 0.17; }
+  .agua-mapa img { width: 100%; }
   .cuerpo { position: absolute; left: 22mm; right: 22mm; top: 12mm; text-align: center; }
   .logos { width: 100%; border-collapse: collapse; }
   .logos td { text-align: center; vertical-align: middle; padding: 0 5mm 2.5mm; }
@@ -76,7 +81,7 @@
 </head>
 <body>
 <div class="hoja">
-  <div class="agua">IV</div>
+  <? if (agua_src) { ?><div class="agua-mapa"><img src="<?= agua_src ?>" alt=""></div><? } else { ?><div class="agua">IV</div><? } ?>
 
   <div class="cuerpo">
     <? if (logos && (logos.udg || logos.ca)) { ?>
