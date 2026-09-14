@@ -67,7 +67,7 @@ Tu decisión, Emmanuel. Si optas por Zoom Webinar, el SS implementa la función 
 
 8:30 — Primer asistente llega
        → Presenta QR + INE
-       → Staff valida y coloca brazalete
+       → Staff valida identidad (sin brazalete: decisión del director, 2026-09-14)
        → Marca "identidad_validada" en Sheets
 
 9:00 — Inicio Mesa I (CUCEA)
@@ -87,7 +87,7 @@ Tu decisión, Emmanuel. Si optas por Zoom Webinar, el SS implementa la función 
         → Sube a Drive compartido
 
 Día 2 — Mismo flujo, sin re-validación de identidad
-        → Solo verificación visual de brazalete
+        → Sin brazalete; el QR sigue siendo la credencial (decisión del director, 2026-09-14)
 
 22:00 día 2 — Cierre del evento
               → Coordinador ejecuta procesarConstancias()

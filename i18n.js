@@ -100,7 +100,7 @@
       // ===== INSCRIPCION · PANEL ASISTENTE =====
       ins_panel1_eyebrow: 'Formulario · 02 minutos',
       ins_panel1_title_html: 'Inscripción de <em>asistente</em>.',
-      ins_panel1_intro: 'Con tus datos generamos un código QR único que recibirás por correo. Ese QR es tu credencial digital durante los dos días del Foro. Al ingresar el día 1, validamos tu identidad con INE o credencial UDG y se te coloca un brazalete oficial que acredita tu acceso a las cuatro sedes.',
+      ins_panel1_intro: 'Con tus datos generamos un código QR único que recibirás por correo. Ese QR es tu credencial digital durante los dos días del Foro. Al ingresar el día 1, validamos tu identidad con INE o credencial UDG y listo: tu QR te acredita en las cuatro sedes.',
       ins_label_nombre: 'Nombre completo',
       ins_placeholder_nombre: 'Tal como aparecerá en tu constancia',
       ins_hint_nombre: 'Verifica acentos y mayúsculas. La constancia se emite con este texto exacto.',
@@ -147,7 +147,7 @@
 
       // ===== INSCRIPCION · SUCCESS =====
       ins_success_title_html: 'Inscripción <em>recibida</em>.',
-      ins_success_lead: 'Te enviamos a tu correo el código QR único que servirá como tu credencial digital. Llévalo en el celular o impreso el día del evento. Día 1 validamos tu identidad con INE/credencial UDG y se te coloca el brazalete oficial.',
+      ins_success_lead: 'Te enviamos a tu correo el código QR único que servirá como tu credencial digital. Llévalo en el celular o impreso el día del evento. Día 1 validamos tu identidad con INE/credencial UDG y listo.',
       ins_success_label_folio: 'Folio',
       ins_success_label_nombre: 'Nombre',
       ins_success_label_correo: 'Correo',
@@ -453,7 +453,7 @@
       // ===== INSCRIPCION · PANEL ASISTENTE =====
       ins_panel1_eyebrow: 'Form · 2 minutes',
       ins_panel1_title_html: 'Attendee <em>registration</em>.',
-      ins_panel1_intro: 'With your details we generate a unique QR code that you will receive by email. That QR is your digital credential during the two days of the Forum. On day 1, we validate your identity with a government-issued ID or UDG credential and place an official wristband that grants access to all four venues.',
+      ins_panel1_intro: 'With your details we generate a unique QR code that you will receive by email. That QR is your digital credential during the two days of the Forum. On day 1, we validate your identity with a government-issued ID or UDG credential and that is it: your QR is your pass to all four venues.',
       ins_label_nombre: 'Full name',
       ins_placeholder_nombre: 'As it will appear on your certificate',
       ins_hint_nombre: 'Verify accents and capitalization. The certificate is issued with this exact text.',
@@ -500,7 +500,7 @@
 
       // ===== INSCRIPCION · SUCCESS =====
       ins_success_title_html: 'Registration <em>received</em>.',
-      ins_success_lead: 'We sent your unique QR code to your email — it will serve as your digital credential. Bring it on your phone or printed on the day of the event. On day 1 we validate your identity with ID/UDG credential and place the official wristband.',
+      ins_success_lead: 'We sent your unique QR code to your email — it will serve as your digital credential. Bring it on your phone or printed on the day of the event. On day 1 we validate your identity with ID/UDG credential and that is it.',
       ins_success_label_folio: 'Folio',
       ins_success_label_nombre: 'Name',
       ins_success_label_correo: 'Email',
@@ -1570,7 +1570,7 @@
       // ===== INSCRIPCION · PANEL ASISTENTE =====
       ins_panel1_eyebrow: 'Formulaire · 2 minutes',
       ins_panel1_title_html: 'Inscription <em>participant</em>.',
-      ins_panel1_intro: 'Avec vos données, nous générons un code QR unique que vous recevrez par courriel. Ce QR est votre identifiant numérique pendant les deux jours du Forum. Le jour 1, nous validons votre identité avec une pièce officielle ou la carte UDG et nous vous remettons un bracelet officiel donnant accès aux quatre sites.',
+      ins_panel1_intro: 'Avec vos données, nous générons un code QR unique que vous recevrez par courriel. Ce QR est votre identifiant numérique pendant les deux jours du Forum. Le jour 1, nous validons votre identité avec une pièce officielle ou la carte UDG, et c\'est tout : votre QR vous donne accès aux quatre sites.',
       ins_label_nombre: 'Nom complet',
       ins_placeholder_nombre: 'Tel qu\'il apparaîtra sur votre attestation',
       ins_hint_nombre: 'Vérifiez accents et majuscules. L\'attestation est émise avec ce texte exact.',
@@ -1617,7 +1617,7 @@
 
       // ===== INSCRIPCION · SUCCESS =====
       ins_success_title_html: 'Inscription <em>reçue</em>.',
-      ins_success_lead: 'Nous avons envoyé à votre courriel le code QR unique qui servira d\'identifiant numérique. Apportez-le sur votre téléphone ou imprimé le jour de l\'événement. Le jour 1, nous validons votre identité avec votre pièce officielle/carte UDG et nous vous remettons le bracelet officiel.',
+      ins_success_lead: 'Nous avons envoyé à votre courriel le code QR unique qui servira d\'identifiant numérique. Apportez-le sur votre téléphone ou imprimé le jour de l\'événement. Le jour 1, nous validons votre identité avec votre pièce officielle/carte UDG, et c\'est tout.',
       ins_success_label_folio: 'Folio',
       ins_success_label_nombre: 'Nom',
       ins_success_label_correo: 'Courriel',
