@@ -1106,5 +1106,13 @@
  "ui.sem_sesion": {
   "en": "Session",
   "fr": "Session"
+ },
+ "ui.lugar_label": {
+  "en": "Venue",
+  "fr": "Lieu"
+ },
+ "ui.como_llegar": {
+  "en": "Directions",
+  "fr": "Itinéraire"
  }
 }

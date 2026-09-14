@@ -59,8 +59,10 @@ FOTOS = {
     'willman': 'ramon-willman.jpg', 'delva': 'juan-delva-benavides.jpg',
     # ponentes del programa sin tarjeta en el index (fotos del Drive, 2026-09-14)
     'ccolque': 'lourdes-ccolque.jpg', 'ayllon': 'hector-ayllon.jpg', 'lamas_meza': 'saul-lamas.jpg', 'rodriguez_zambrano': 'johnatan-rodriguez.jpg',
-    'vida_carrion': 'carmen-vida.jpg',
+    'vida_carrion': 'carmen-vida.jpg', 'gil_fons': 'antonio-gil-fons.jpg', 'bravo_vergara': 'jose-bravo-vergara.jpg', 'camarena': 'luz-camarena.jpg',
 }
+# 2026-09-14 (director): el «Guion de la mesa» sale del sitio; se conserva como documento en Drive (--guiones).
+GUION_EN_SITIO = False
 TITULOS = re.compile(r'^(Dr\.|Dra\.|Mtro\.|Mtra\.|Ing\.|Lic\.|Abog\.|Mag\.|Juez|M\.Sc\.)\s+')
 
 def esc(s):
@@ -188,8 +190,9 @@ def sesion_html(dia, bloque, s, pagina='programa'):
                   f'{persona_html(m, skey+".modera")}{afil}</span></div>')
     ponentes = ''
     if s['ponentes']:
-        ponentes = ('<ul class="s-ponentes">' + ''.join(ponente_html(p, skey, i) for i, p in enumerate(s['ponentes'])) + '</ul>'
-                    f'<button type="button" class="s-guion" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg><span {ui_attr("guion_btn")}>{esc(ui("guion_btn"))}</span></button>')
+        ponentes = '<ul class="s-ponentes">' + ''.join(ponente_html(p, skey, i) for i, p in enumerate(s['ponentes'])) + '</ul>'
+        if GUION_EN_SITIO:
+            ponentes += f'<button type="button" class="s-guion" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg><span {ui_attr("guion_btn")}>{esc(ui("guion_btn"))}</span></button>'
     # título para el .ics y la ficha «ahora»: kicker · título (o la primera ponencia)
     resumen = s.get('titulo') or (s['ponentes'][0]['talk'] if s['ponentes'] and s['ponentes'][0].get('talk') else '') or s.get('desc') or ''
     acciones = (f'<div class="s-acciones">'
@@ -203,6 +206,18 @@ def sesion_html(dia, bloque, s, pagina='programa'):
             f'data-sede="{esc(bloque["sede"])}" data-resumen="{esc(resumen)}" data-buscar="{esc(busqueda(s))}">'
             f'<div class="s-hora"><span class="h-ini">{hora}</span>{rango}<span class="h-local" hidden></span></div>'
             f'<div class="s-cuerpo"><div class="s-cab">{kicker}{chips}</div>{titulo}{desc}{modera}{ponentes}</div>{acciones}</article>')
+
+def lugar_html(bloque):
+    """Auditorio y domicilio de la sede (para el público presencial). Solo si los datos existen en programa.json."""
+    if not bloque.get('auditorio') and not bloque.get('domicilio'): return ''
+    bkey = 'bloque.' + bloque['id']
+    aud = f'<b {f(bkey+".auditorio", bloque["auditorio"])}>{esc(bloque["auditorio"])}</b>' if bloque.get('auditorio') else ''
+    dom = f'<span class="sede-dom">{esc(bloque["domicilio"])}</span>' if bloque.get('domicilio') else ''
+    mapa = (f' <a class="sede-mapa" href="{esc(bloque["mapa"])}" target="_blank" rel="noopener"><span {ui_attr("como_llegar")}>{esc(ui("como_llegar"))}</span> ↗</a>'
+            if bloque.get('mapa') else '')
+    sep = ' · ' if aud and dom else ''
+    return (f'<p class="sede-lugar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg>'
+            f'<span><span class="sede-label" {ui_attr("lugar_label")}>{esc(ui("lugar_label"))}</span> {aud}{sep}{dom}{mapa}</span></p>')
 
 def bloque_html(dia, bloque, pagina='programa'):
     bkey = 'bloque.' + bloque['id']
@@ -220,6 +235,7 @@ def bloque_html(dia, bloque, pagina='programa'):
             f'<p class="sede-sub" {f(bkey+".sede_sub", bloque["sede_sub"])}>{esc(bloque["sede_sub"])}</p></div>'
             f'<div class="sede-hora"><span class="sede-label" {ui_attr("horario_label")}>{esc(ui("horario_label"))}</span><b {f(bkey+".horario", bloque["horario"])}>{esc(bloque["horario"])}</b></div>'
             f'<p class="sede-temas"><span {ui_attr("temas_label")}>{esc(ui("temas_label"))}</span> · <span {f(bkey+".temas", bloque["temas"])}>{esc(bloque["temas"])}</span></p>'
+            f'{lugar_html(bloque)}'
             f'</header>{virtual_nota}<div class="sesiones">{sesiones}</div>'
             f'<p class="sin-resultados" hidden {ui_attr("filtro_sin_resultados")}>{esc(ui("filtro_sin_resultados"))}</p>'
             f'</section>')
@@ -261,7 +277,10 @@ def jsonld():
                         n = strip_titulos(per['nombre'])
                         if n not in vistos: vistos.add(n); performers.append({'@type': 'Person', 'name': n})
             loc = ({'@type': 'VirtualLocation', 'url': 'https://forodyt.com/jornada-virtual.html'} if d['modo'] == 'virtual'
-                   else {'@type': 'Place', 'name': f'{b["sede"]} · {b["sede_sub"]}', 'address': {'@type': 'PostalAddress', 'addressLocality': 'Zapopan' if 'Zapopan' in b['sede_sub'] else 'Guadalajara', 'addressRegion': 'Jalisco', 'addressCountry': 'MX'}})
+                   else {'@type': 'Place', 'name': (b['auditorio'] + ' · ' if b.get('auditorio') else '') + f'{b["sede"]} · {b["sede_sub"]}',
+                         'address': {'@type': 'PostalAddress', **({'streetAddress': b['domicilio']} if b.get('domicilio') else {}),
+                                     'addressLocality': b.get('municipio') or ('Zapopan' if 'Zapopan' in b['sede_sub'] else 'Guadalajara'), 'addressRegion': 'Jalisco', 'addressCountry': 'MX'},
+                         **({'hasMap': b['mapa']} if b.get('mapa') else {})})
             sub.append({'@type': 'Event', 'name': f'{b["sede"]} · {d["dow"]} {d["num"]} de {d["mes"]} de 2026 · IV Foro Internacional de Derecho y Tecnología',
                         'startDate': ini.isoformat(), 'endDate': fin.isoformat(),
                         'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode' if d['modo'] == 'virtual' else 'https://schema.org/MixedEventAttendanceMode',
@@ -494,6 +513,13 @@ main { position:relative; z-index:1; }
 .sede-hora b { display:inline-block; font-family:var(--mono); font-weight:500; font-size:13px; letter-spacing:.12em; padding:8px 14px; background:var(--dorado); color:var(--noche); }
 .sede-temas { grid-column:1 / -1; padding-top:12px; border-top:1px solid rgba(245,239,224,.14); font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dorado-soft); }
 .sede-temas > span:first-child { color:rgba(245,239,224,.5); }
+.sede-lugar { grid-column:1 / -1; display:flex; gap:10px; align-items:flex-start; padding-top:10px; font-size:13px; line-height:1.55; color:rgba(245,239,224,.8); }
+.sede-lugar svg { flex:0 0 auto; width:15px; height:15px; margin-top:3px; fill:none; stroke:var(--dorado-soft); stroke-width:1.6; stroke-linejoin:round; }
+.sede-lugar .sede-label { display:inline; margin:0 6px 0 0; }
+.sede-lugar b { font-weight:500; color:var(--marfil); }
+.sede-dom { color:rgba(245,239,224,.72); }
+.sede-mapa { color:var(--dorado-soft); text-decoration:none; border-bottom:1px solid rgba(200,168,88,.4); white-space:nowrap; margin-left:6px; }
+.sede-mapa:hover { color:var(--marfil); border-bottom-color:var(--marfil); }
 .sede-nota { margin:14px 2px 0; font-size:13px; color:var(--ink-soft); }
 .sede-nota a { color:var(--teal); font-weight:500; text-decoration:none; border-bottom:1px solid rgba(42,92,92,.4); }
 .sede-nota a:hover { border-bottom-color:var(--teal); }
@@ -650,12 +676,13 @@ def modal_html():
             f'<div class="sem-talk" id="semTalkBox" hidden><div class="sem-talk-l" {ui_attr("sem_presenta")}>{esc(ui("sem_presenta"))}</div><div class="sem-talk-t" id="semTalk"></div></div>'
             f'<a class="sem-ficha" id="semFicha" href="#" hidden><span {ui_attr("sem_ficha")}>{esc(ui("sem_ficha"))}</span> ↗</a>'
             f'</div>'
-            f'<div id="semGuion" hidden>'
-            f'<div class="guion-cab"><div class="sem-eyebrow" {ui_attr("guion_t")}>{esc(ui("guion_t"))}</div><h2 class="guion-sesion" id="guionSesion"></h2>'
-            f'<p class="guion-intro" {ui_attr("guion_intro")}>{esc(ui("guion_intro"))}</p>'
-            f'<div class="guion-acciones"><button type="button" class="guion-print" id="guionPrint"><span {ui_attr("guion_print")}>{esc(ui("guion_print"))}</span></button></div></div>'
-            f'<ol class="guion-lista" id="guionLista"></ol>'
-            f'</div></div></div>')
+            + ((f'<div id="semGuion" hidden>'
+                f'<div class="guion-cab"><div class="sem-eyebrow" {ui_attr("guion_t")}>{esc(ui("guion_t"))}</div><h2 class="guion-sesion" id="guionSesion"></h2>'
+                f'<p class="guion-intro" {ui_attr("guion_intro")}>{esc(ui("guion_intro"))}</p>'
+                f'<div class="guion-acciones"><button type="button" class="guion-print" id="guionPrint"><span {ui_attr("guion_print")}>{esc(ui("guion_print"))}</span></button></div></div>'
+                f'<ol class="guion-lista" id="guionLista"></ol>'
+                f'</div>') if GUION_EN_SITIO else '')
+            + '</div></div>')
 
 MODAL_JS = r"""
 (function () {
@@ -677,7 +704,7 @@ MODAL_JS = r"""
     var ses = sesionDe(btn);
     var esModera = !!btn.closest('.s-modera');
     estado = { tipo: 'uno', btn: btn };
-    $('#semUno').hidden = false; $('#semGuion').hidden = true;
+    $('#semUno').hidden = false; if ($('#semGuion')) $('#semGuion').hidden = true;
     $('#semFoto').innerHTML = pon ? fotoDe(pon) : '';
     $('#semNombre').textContent = btn.textContent.replace(/↗/g, '').trim();
     var afil = pon ? pon.querySelector('.pon-afil, .mod-afil') : null;
@@ -695,7 +722,7 @@ MODAL_JS = r"""
     mostrar(btn);
   }
   function abrirGuion(btn) {
-    var ses = sesionDe(btn); if (!ses) return;
+    var ses = sesionDe(btn); if (!ses || !$('#semGuion')) return;
     estado = { tipo: 'guion', btn: btn, ses: ses };
     $('#semUno').hidden = true; $('#semGuion').hidden = false;
     $('#guionSesion').textContent = rotulo(ses);
@@ -730,7 +757,7 @@ MODAL_JS = r"""
   });
   $('#semCerrar').addEventListener('click', cerrar);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && ov.classList.contains('abierta')) cerrar(); });
-  $('#guionPrint').addEventListener('click', function () {
+  if ($('#guionPrint')) $('#guionPrint').addEventListener('click', function () {
     document.body.classList.add('print-guion');
     var limpiar = function () { document.body.classList.remove('print-guion'); window.removeEventListener('afterprint', limpiar); };
     window.addEventListener('afterprint', limpiar); window.print(); setTimeout(limpiar, 1500);
@@ -1298,9 +1325,78 @@ def datos_publicos():
                     'modera': s['modera']['nombre'] if s.get('modera') else None})
     return out
 
+# ─────────────────────────── guiones de mesa (documento para Drive) ───────────
+def guiones_html(fotos=True):
+    """Documento imprimible con el guion de cada sesión (moderación + ponentes con semblanza), en español.
+    No se publica en el sitio: se guarda en el Drive del Foro (carpeta de moderación)."""
+    def foto(nombre, slug):
+        if fotos and slug and slug in FOTOS: return f'<img class="g-foto" src="../../img/ponentes/{FOTOS[slug]}" alt="">'
+        return f'<span class="g-foto g-mono">{esc(monograma(nombre))}</span>'
+    def parrafos(t): return ''.join(f'<p>{esc(x.strip())}</p>' for x in re.split(r'\n\s*\n', t) if x.strip())
+    secciones = []; n = 0
+    for d in DATA['dias']:
+        for b in d['bloques']:
+            for s in b['sesiones']:
+                if not s['ponentes'] and not s.get('modera'): continue
+                n += 1
+                if d['modo'] == 'virtual':
+                    hora = f'{s["ini"]}–{s["fin"]} España · {hhmm(instante(d["fecha"], s["ini"], b["tz"]), GDL)}–{hhmm(instante(d["fecha"], s["fin"], b["tz"]), GDL)} Guadalajara'
+                else:
+                    hora = f'{s["ini"]}–{s["fin"]}'
+                items = []
+                if s.get('modera'):
+                    m = s['modera']; tx = SEM.get(m.get('slug') or '', {}).get('es')
+                    items.append(('Modera', m['nombre'], m.get('slug'), m.get('afil'), None, tx))
+                for p in s['ponentes']:
+                    for per in p['personas']:
+                        tx = SEM.get(per.get('slug') or '', {}).get('es')
+                        items.append(('Ponente', per['nombre'], per.get('slug'), p.get('afil'), p.get('talk'), tx))
+                lis = ''
+                for i, (rol, nombre, slug, afil, talk, tx) in enumerate(items, 1):
+                    lis += (f'<li class="g-item">{foto(nombre, slug)}<div>'
+                            f'<div class="g-rol">{ROM.get(i, str(i))} · {rol}</div><div class="g-nombre">{esc(nombre)}</div>'
+                            + (f'<div class="g-afil">{esc(afil)}</div>' if afil else '')
+                            + (f'<div class="g-talk">{esc(talk)}</div>' if talk else '')
+                            + (f'<div class="g-texto">{parrafos(tx)}</div>' if tx else f'<div class="g-texto g-pend">{esc(UI["sem_pend"])}</div>')
+                            + '</div></li>')
+                titulo = f' · {esc(s["titulo"])}' if s.get('titulo') else ''
+                secciones.append(f'<section class="g-sesion"><header class="g-cab"><div class="g-eyebrow">{esc(b["sede"])} · {d["dow"]} {d["num"]} de {d["mes"]} · {hora}</div>'
+                                 f'<h2>{esc(s["kicker"])}{titulo}</h2><p class="g-intro">{esc(UI["guion_intro"])}</p></header><ol class="g-lista">{lis}</ol></section>')
+    css = """
+    @page { size:A4; margin:16mm 16mm 18mm; }
+    body { font-family:Georgia,'Times New Roman',serif; color:#0E1B2C; margin:0; font-size:11.5pt; line-height:1.5; }
+    .g-portada { height:240mm; display:flex; flex-direction:column; justify-content:center; border:1px solid #B8923E; padding:24mm; box-sizing:border-box; page-break-after:always; }
+    .g-portada .k { font-family:'Courier New',monospace; font-size:9pt; letter-spacing:.3em; text-transform:uppercase; color:#96742D; }
+    .g-portada h1 { font-size:34pt; line-height:1.05; margin:14pt 0 10pt; font-weight:600; }
+    .g-portada p { font-size:12pt; color:#3d4a5c; max-width:60ch; }
+    .g-portada .n { margin-top:auto; font-family:'Courier New',monospace; font-size:9pt; letter-spacing:.2em; text-transform:uppercase; color:#96742D; }
+    .g-sesion { page-break-before:always; }
+    .g-cab { border-bottom:2px solid #0E1B2C; padding-bottom:8pt; margin-bottom:6pt; }
+    .g-eyebrow { font-family:'Courier New',monospace; font-size:8.5pt; letter-spacing:.24em; text-transform:uppercase; color:#96742D; }
+    .g-cab h2 { font-size:19pt; line-height:1.15; margin:6pt 0 4pt; font-weight:600; }
+    .g-intro { font-family:Helvetica,Arial,sans-serif; font-size:9.5pt; color:#5a6474; margin:0; }
+    .g-lista { list-style:none; padding:0; margin:0; }
+    .g-item { display:grid; grid-template-columns:52pt 1fr; gap:12pt; padding:12pt 0; border-bottom:1px solid #d9d3c3; page-break-inside:avoid; }
+    .g-foto { width:52pt; height:52pt; object-fit:cover; display:block; background:#0A1422; }
+    .g-mono { display:flex; align-items:center; justify-content:center; color:#C8A858; font-style:italic; font-size:16pt; }
+    .g-rol { font-family:'Courier New',monospace; font-size:8pt; letter-spacing:.24em; text-transform:uppercase; color:#96742D; }
+    .g-nombre { font-size:14pt; font-weight:600; margin-top:2pt; }
+    .g-afil { font-family:Helvetica,Arial,sans-serif; font-size:9.5pt; color:#5a6474; margin-top:2pt; }
+    .g-talk { font-style:italic; margin-top:6pt; }
+    .g-texto { margin-top:6pt; } .g-texto p { margin:0 0 6pt; } .g-pend { font-style:italic; color:#5a6474; }
+    """
+    portada = (f'<section class="g-portada"><div class="k">IV Foro Internacional de Derecho y Tecnología · {esc(DATA["version_txt"])}</div>'
+               f'<h1>Guiones de mesa para la moderación</h1>'
+               f'<p>Un guion por sesión, en el orden del programa: quién modera, quiénes participan, el título de cada ponencia y la semblanza que cada persona envió, lista para leerse al presentarla. Documento interno del Comité Organizador; no se publica en el sitio.</p>'
+               f'<div class="n">{n} sesiones · CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial · Jornada Virtual</div></section>')
+    return f'<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Guiones de mesa · IV Foro Internacional de Derecho y Tecnología</title><style>{css}</style></head><body>{portada}{"".join(secciones)}</body></html>'
+
 # ─────────────────────────── main ──────────────────────────────
 def main():
     check = '--check' in sys.argv
+    if '--guiones' in sys.argv:
+        p = os.path.join(OUT, 'guiones-mesa.html'); open(p, 'w', encoding='utf-8').write(guiones_html()); print('guiones escritos en', p)
+        p2 = os.path.join(OUT, 'guiones-mesa-sin-fotos.html'); open(p2, 'w', encoding='utf-8').write(guiones_html(fotos=False)); print('versión sin fotos en', p2); return
     # 1) página completa (llena F18N con todas las claves)
     F18N['en'].clear(); F18N['fr'].clear()
     page = pagina_html()

@@ -1198,6 +1198,8 @@
     "guion_t": "Guion para moderar",
     "guion_intro": "Semblanzas en el orden del programa, para presentar a cada participante.",
     "guion_print": "Imprimir guion",
-    "sem_sesion": "Sesión"
+    "sem_sesion": "Sesión",
+    "lugar_label": "Lugar",
+    "como_llegar": "Cómo llegar"
   }
 }

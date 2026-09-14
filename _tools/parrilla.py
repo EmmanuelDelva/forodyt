@@ -33,7 +33,8 @@ PONENTES = [
     ('gonzalez',            'M', 'P',  8),  # Consejo Superior de la Judicatura · Colombia
     ('zepeda',              'H', 'A',  8),  # Director General del IJA
     ('villarreal',          'H', 'P',  8),  # Director General C5i Guanajuato
-    ('caicedo',             'M', 'R',  8),  # Presidenta del Observatorio Mundial de la Abogacia
+    # 2026-09-14: caicedo y garcia_torres pasan al grupo «Jornada Virtual» (presentan el 18, no el 21-22);
+    #             entran los tres de la Mesa 10 (Cineteca, 22-sep): camarena, bravo_vergara, gil_fons.
     ('reyes',               'H', 'A',  7),  # Decano de Derecho · Unilibre Cartagena
     ('tinajero',            'H', 'P',  7),  # Secretario Tecnico SEAJAL
     ('marquez',             'H', 'P',  7),  # Juez de Control · PJ Jalisco
@@ -42,14 +43,16 @@ PONENTES = [
     ('gamez',               'M', 'A',  7),  # Tec de Monterrey
     ('ibarra',              'H', 'R',  6),  # AMCID · FIADI
     ('vega',                'H', 'R',  6),  # Presidente APPIF · Panama
-    ('garcia_torres',       'M', 'A',  6),  # U. Alfonso X el Sabio · IusConnect
     ('gomez',               'H', 'P',  6),  # capacitador CSJN Argentina
     ('jimenez',             'H', 'A',  6),  # Investigador por Mexico · coordina mesa
     ('rojas_sanchez',       'H', 'P',  6),  # Hospital Civil de Guadalajara
     ('vazquez_placencia',   'H', 'P',  6),  # Director General · Contraloria de Jalisco
     ('juarez_tello',        'H', 'P',  6),  # Director de Tecnologias · SEAJAL
     ('garcia_barrera',      'M', 'A',  6),  # UANL · dirigio volumen en Thomson Reuters
+    ('bravo_vergara',       'H', 'A',  5),  # UdeG · Centro de Estudios para America del Norte · SNI I (Mesa 10)
     ('rosales',             'M', 'A',  5),
+    ('camarena',            'M', 'A',  4),  # doctorante U. Salamanca · seguridad nacional (Mesa 10)
+    ('gil_fons',            'H', 'A',  4),  # UdeG · modera Mesa 10
     ('gomez_avila',         'H', 'R',  5),
     ('viniegra',            'M', 'R',  5),
     ('nava_lopez',          'M', 'P',  5),
