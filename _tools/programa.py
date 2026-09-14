@@ -57,6 +57,8 @@ FOTOS = {
     'pinto_garcia': 'johanna-pinto.jpg', 'gomez_avila': 'gabriel-gomez-avila.jpg',
     'romero_gutierrez': 'maria-teresa-romero.jpg', 'hernandez_alcantara': 'sahara-hernandez.jpg',
     'willman': 'ramon-willman.jpg', 'delva': 'juan-delva-benavides.jpg',
+    # ponentes del programa sin tarjeta en el index (fotos del Drive, 2026-09-14)
+    'ccolque': 'lourdes-ccolque.jpg', 'ayllon': 'hector-ayllon.jpg', 'lamas_meza': 'saul-lamas.jpg', 'rodriguez_zambrano': 'johnatan-rodriguez.jpg',
 }
 TITULOS = re.compile(r'^(Dr\.|Dra\.|Mtro\.|Mtra\.|Ing\.|Lic\.|Abog\.|Mag\.|Juez|M\.Sc\.)\s+')
 
