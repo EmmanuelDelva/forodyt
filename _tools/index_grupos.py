@@ -247,7 +247,9 @@ src = '\n'.join(lineas)
 
 # ── cifra de ponentes ──
 total = len(orden_total)
-src = re.sub(r'<span class="cifra-rom" aria-hidden="true">[IVXLC]+</span>\n(\s*)<b data-count="\d+">', f'<span class="cifra-rom" aria-hidden="true">{roman(total)}</span>\n\\1<b data-count="{total}">', src, count=1)
+# SOLO la cifra cuyo rótulo es cifra_ponentes (la primera del bloque es «Ediciones»: no tocarla)
+src = re.sub(r'<span class="cifra-rom" aria-hidden="true">[IVXLC]+</span>\n(\s*)<b data-count="\d+">0</b>\n(\s*)<span class="cifra-label" data-f18n="cifra_ponentes">',
+             f'<span class="cifra-rom" aria-hidden="true">{roman(total)}</span>\n\\1<b data-count="{total}">0</b>\n\\2<span class="cifra-label" data-f18n="cifra_ponentes">', src, count=1)
 src = src.replace('<em class="cifra-ctx" data-f18n="ctx_ponentes">y la lista sigue creciendo</em>', '<em class="cifra-ctx" data-f18n="ctx_ponentes">en cuatro sedes y una jornada virtual</em>')
 src = src.replace("ctx_ponentes: 'and the list keeps growing'", "ctx_ponentes: 'across four venues and one online session'")
 src = src.replace("ctx_ponentes: 'et la liste continue de grandir'", "ctx_ponentes: 'sur quatre sites et une journée virtuelle'")
