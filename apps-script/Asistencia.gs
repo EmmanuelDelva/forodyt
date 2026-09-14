@@ -245,7 +245,8 @@ function instalarPlaticasIV() {
  *
  * Script Properties necesarias:
  *   FIRMA_DIGITAL_FILE_ID   id en Drive de firma-digital-apellido-delva-black-CANON.png (compartir con la cuenta que ejecuta el script)
-  *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID   (opcionales) ids de los PNG de img/aliados/ (solo UdeG y Cuerpo Académico; no CUCEA)
+  *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID   (opcionales) ids en Drive de img/aliados/udg.png y de
+  *                                         img/aliados/ca-derecho-tecnologia-lockup.png (lockup completo del CA; no CUCEA)
  *   CONSTANCIAS_FOLDER_ID   (opcional) carpeta de Drive donde guardar copia de cada PDF
  *
  * Pasos: instalarDisparadoresBloques() una vez → crea cinco disparadores «cerrarBloque» (fin del bloque + 60 min,
@@ -255,11 +256,11 @@ function instalarPlaticasIV() {
  */
 const CONST_BLOQUE_SHEET = 'ConstanciasBloque';
 const BLOQUE_INFO = {
-  '1': { sede: 'CUCEA', recinto: 'Auditorio Lic. Raúl Padilla López (CUCEA)', sesiones: 'Inauguración · Conferencia inaugural · Mesas 1 a 4 · Jóvenes investigadores del Call for Papers · Presentación editorial' },
-  '2': { sede: 'CUGDL', recinto: 'Auditorio Salvador Allende (Centro Universitario de Guadalajara)', sesiones: 'Bienvenida · Mesas 5 a 7' },
-  '3': { sede: 'Cineteca FICG', recinto: 'Sala Guillermo del Toro (Cineteca FICG · Centro Cultural Universitario)', sesiones: 'Bienvenida · Mesas 8 a 10' },
-  '4': { sede: 'Ciudad Judicial', recinto: 'Auditorio de Ciudad Judicial del Estado de Jalisco', sesiones: 'Ponencia inaugural · Presentación editorial · Mesa 11 · Clausura' },
-  '5': { sede: 'Jornada Virtual Internacional', recinto: 'transmisión en línea del Foro (Jornada Virtual Internacional)', sesiones: 'Apertura · Mesas V1 a V4 · Cierre' }
+  '1': { sede: 'CUCEA', recinto: 'el Auditorio Lic. Raúl Padilla López (CUCEA)', sesiones: 'Inauguración · Conferencia inaugural · Mesas 1 a 4 · Jóvenes investigadores del Call for Papers · Presentación editorial' },
+  '2': { sede: 'CUGDL', recinto: 'el Auditorio Salvador Allende (Centro Universitario de Guadalajara)', sesiones: 'Bienvenida · Mesas 5 a 7' },
+  '3': { sede: 'Cineteca FICG', recinto: 'la Sala Guillermo del Toro (Cineteca FICG · Centro Cultural Universitario)', sesiones: 'Bienvenida · Mesas 8 a 10' },
+  '4': { sede: 'Ciudad Judicial', recinto: 'el Auditorio de Ciudad Judicial del Estado de Jalisco', sesiones: 'Ponencia inaugural · Presentación editorial · Mesa 11 · Clausura' },
+  '5': { sede: 'Jornada Virtual Internacional', recinto: 'la transmisión en línea del Foro (Jornada Virtual Internacional)', sesiones: 'Apertura · Mesas V1 a V4 · Cierre' }
 };
 const DIAS_ES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -288,7 +289,7 @@ function pdfConstancia_(datos) {
 function datosBloque_(platica, usuario, folioConst) {
   const ini = new Date(platica.hora_inicio), fin = new Date(platica.hora_fin);
   const horas = Math.floor((fin - ini) / 3600000);
-  const info = BLOQUE_INFO[String(platica.id_platica)] || { sede: platica.sede, recinto: platica.nombre_sesion, sesiones: '' };
+  const info = BLOQUE_INFO[String(platica.id_platica)] || { sede: platica.sede, recinto: 'la sede ' + platica.sede, sesiones: '' };
   const virtual = esPlaticaVirtual_(platica);
   return {
     tipo: 'bloque', nombre: usuario.nombre, institucion: usuario.institucion || '',

@@ -2,14 +2,18 @@
 <!--
   Constancia de asistencia por BLOQUE (una sede · una jornada) y constancia con VALOR CURRICULAR (10 h).
   Plantilla HtmlService: Asistencia.gs la rellena con HtmlService.createTemplateFromFile('Constancia-bloque').
-  Variables:  tipo ('bloque' | 'valor') · nombre · institucion · sede · recinto · fecha_larga · horario · horas (entero)
+  Variables:  tipo ('bloque' | 'valor') · nombre · institucion · sede · recinto (con artículo: «el Auditorio…», «la Sala…») · fecha_larga · horas (entero)
               · horas_txt · sesiones · folio · fecha_emision · firma_src (data URI) · logos {udg, ca} (data URI o '')
               · firmantes (solo 'valor': [{nombre, cargo, firma_src}] ×3 centros universitarios)
   Sistema tipográfico: el de la constancia de la III edición (Milagros Olivos Celis, 25-05-2026) que el director
   pidió conservar: Fraunces (títulos y cuerpo) · Manrope (rótulos en versalitas espaciadas) · Italianno (línea
   caligráfica) · Inter y JetBrains Mono (pie). Colores: tinta #1F2937 · teal profundo #1F4747 · teal #3A8E89 ·
   dorado #B8923E · marfil #F5EFE0 · gris #4A5568. Sin marco: papel blanco, numeral IV como marca de agua.
-  Logos: Universidad de Guadalajara y Cuerpo Académico (NO CUCEA, decisión del director 2026-09-14).
+  Logos: Universidad de Guadalajara y el lockup completo del Cuerpo Académico «Derecho y Tecnología · UDEG-CA-1236»
+  (img/aliados/ca-derecho-tecnologia-lockup.png). NO el logo de CUCEA (decisión del director 2026-09-14).
+  Redacción fijada por el director (2026-09-14): «Se otorga la presente CONSTANCIA de asistencia» (sin la sede tras
+  el título), cuerpo con recinto y día pero sin horario, y firma como «Director del Foro Internacional de Derecho y
+  Tecnología» en todas las constancias.
   Solo tablas y posicionamiento absoluto: el conversor HTML→PDF de Apps Script no soporta flex/grid y cae a
   Georgia/Arial si no tiene las fuentes. Vista previa fiel: python3 _tools/constancia_preview.py (Chromium con
   las fuentes instaladas) + sh _tools/out/constancias/render.sh
@@ -29,7 +33,7 @@
   .logos { width: 100%; border-collapse: collapse; }
   .logos td { text-align: center; vertical-align: middle; padding: 0 5mm 2.5mm; }
   .logos img { height: 10mm; }
-  .logos img.ca { height: 12mm; }
+  .logos img.ca { height: 15mm; }
   .cabecera { border-bottom: 0.7pt solid #1F4747; padding-bottom: 2.6mm; font-family: 'Manrope', Arial, Helvetica, sans-serif; font-weight: 500; font-size: 7.6pt; letter-spacing: 0.27em; white-space: nowrap; text-transform: uppercase; color: #1F4747; }
   .edicion { margin-top: 3.5mm; font-family: 'Manrope', Arial, sans-serif; font-weight: 600; font-size: 8.5pt; letter-spacing: 0.34em; text-transform: uppercase; color: #B8923E; }
   .marca { margin-top: 2mm; font-size: 18pt; font-weight: 500; line-height: 1.2; color: #1F4747; }
@@ -88,13 +92,13 @@
     <div class="filete"></div>
 
     <? if (tipo === 'valor') { ?>
-    <div class="otorga">La Universidad de Guadalajara y el Director del Foro otorgan la presente</div>
+    <div class="otorga">Se otorga la presente</div>
     <div class="titulo">CONSTANCIA</div>
     <div class="caligrafia">con valor curricular · <?= horas ?> horas acreditadas</div>
     <? } else { ?>
-    <div class="otorga">El Director del Foro otorga la presente</div>
+    <div class="otorga">Se otorga la presente</div>
     <div class="titulo">CONSTANCIA</div>
-    <div class="caligrafia">de asistencia · <?= sede ?></div>
+    <div class="caligrafia">de asistencia</div>
     <? } ?>
 
     <div class="persona">
@@ -105,21 +109,20 @@
     <? if (tipo === 'valor') { ?>
     <p class="certifica">Acreditó su asistencia a las actividades académicas de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, con una duración total verificada de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } else { ?>
-    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en el <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, de <?= horario ?>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
 
     <table class="detalles"><tr>
-      <td style="width:28%"><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
-      <td style="width:26%"><div class="k">Fecha</div><div class="v"><?= fecha_larga ?></div></td>
-      <td style="width:28%"><div class="k">Horario</div><div class="v"><?= horario ?></div></td>
-      <td style="width:18%"><div class="k">Duración</div><div class="v num"><?= horas ?> h</div></td>
+      <td style="width:40%"><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
+      <td style="width:38%"><div class="k">Fecha</div><div class="v"><?= fecha_larga ?></div></td>
+      <td style="width:22%"><div class="k">Duración</div><div class="v num"><?= horas ?> h</div></td>
     </tr></table>
     <? if (sesiones) { ?><div class="sesiones"><b>Sesiones</b> · <?= sesiones ?></div><? } ?>
     <div class="cierre">Se extiende la presente para los fines académicos, institucionales y curriculares que a la persona interesada convengan.</div>
 
   <? if (tipo === 'valor') { ?>
   <table class="firmas cuatro"><tr>
-    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236</div></td>
+    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236</div></td>
     <? for (var i = 0; i < firmantes.length; i++) { ?>
     <td style="width:25%"><? if (firmantes[i].firma_src) { ?><div class="firma-box"><img class="firma-img" src="<?= firmantes[i].firma_src ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firmantes[i].nombre ?></div><div class="firma-cargo"><?= firmantes[i].cargo ?></div></td>
     <? } ?>
@@ -127,7 +130,7 @@
   <? } else { ?>
   <table class="firmas"><tr>
     <td style="width:22%"></td>
-    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director · Académico</div><div class="firma-sub">IV Foro Internacional de Derecho y Tecnología<br>Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:22%"></td>
   </tr></table>
   <? } ?>
