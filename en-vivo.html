@@ -52,8 +52,6 @@ body::after { content:""; position:fixed; inset:0; z-index:9997; pointer-events:
 @media (max-width:1320px) { .brand-sub { display:none; } }
 @media (max-width:1024px) { .nav-links { display:none; } }
 
-/* ── borrador ── */
-.borrador { position:fixed; top:var(--nav-h); left:0; right:0; z-index:900; background:var(--lacre); color:var(--marfil); font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; text-align:center; padding:7px 12px; }
 
 /* ── hero ── */
 .hero-v { max-width:var(--max); margin:0 auto; padding:clamp(130px,17vh,170px) var(--gutter) 22px; position:relative; }
@@ -169,6 +167,20 @@ body::after { content:""; position:fixed; inset:0; z-index:9997; pointer-events:
 footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(245,239,224,.6); padding:26px var(--gutter) 34px; }
 .footer-inner { max-width:var(--max); margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px 24px; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; }
 .footer-inner a { color:var(--dorado-soft); text-decoration:none; }
+/* ALIADOS-CSS:INICIO — «El Foro no camina solo» (copia del index; generado por programa.py) */
+.aliados { background:#C5B9A5; padding:clamp(56px,7vw,96px) var(--gutter); }
+.aliados-inner { max-width:1180px; margin:0 auto; }
+.aliados h2 { font-family:var(--serif); font-weight:500; font-size:clamp(30px,4vw,52px); line-height:1.05; letter-spacing:-.02em; text-align:center; color:var(--ink); margin:0 0 clamp(40px,5vw,70px); font-variation-settings:"opsz" 144,"SOFT" 30; }
+.aliados h2 em { font-style:italic; color:var(--teal-deep); }
+.aliados-list { display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(28px,4vw,56px) clamp(24px,3vw,48px); align-items:center; }
+.aliado-cell { display:flex; align-items:center; justify-content:center; height:92px; flex:0 0 calc((100% - 4 * clamp(24px,3vw,48px)) / 5); }
+.aliado-logo { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; transition:transform .5s var(--ease); }
+.aliado-cell:hover .aliado-logo { transform:scale(1.05); }
+.aliado-link { display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+.aliado-link:focus-visible { outline:2px solid var(--dorado-deep); outline-offset:4px; }
+@media (max-width:920px) { .aliado-cell { flex-basis:calc((100% - 2 * clamp(24px,3vw,48px)) / 3); height:76px; } }
+@media (max-width:560px) { .aliado-cell { flex-basis:calc((100% - clamp(24px,3vw,48px)) / 2); height:64px; } }
+/* ALIADOS-CSS:FIN */
 </style>
 </head>
 <body>
@@ -198,7 +210,6 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   </div>
 </nav>
 
-<div class="borrador" id="borrador" data-f18n="borrador">Borrador · página en pruebas · no difundir todavía</div>
 
 <!-- ============ HERO ============ -->
 <header class="hero-v">
@@ -304,6 +315,24 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   </div>
 </div>
 
+<!-- ALIADOS:INICIO — generado por _tools/programa.py desde index.html; no editar a mano -->
+<section class="aliados" id="aliados"><div class="aliados-inner"><h2 data-i18n-html="idx_aliados_title_html">El Foro <em>no camina</em> solo.</h2><div class="aliados-list">
+<div class="aliado-cell"><a class="aliado-link" href="https://www.udg.mx/" target="_blank" rel="noopener noreferrer" aria-label="Universidad de Guadalajara — sitio oficial"><img class="aliado-logo" src="img/aliados/udg.png" width="480" height="160" loading="lazy" decoding="async" alt="Universidad de Guadalajara"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://cucea.udg.mx/" target="_blank" rel="noopener noreferrer" aria-label="CUCEA · Universidad de Guadalajara — sitio oficial"><img class="aliado-logo" src="img/aliados/cucea.png" width="480" height="94" loading="lazy" decoding="async" alt="CUCEA · Universidad de Guadalajara"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://cugdl.udg.mx/" target="_blank" rel="noopener noreferrer" aria-label="Centro Universitario de Guadalajara — sitio oficial"><img class="aliado-logo" src="img/aliados/cugdl.png" width="480" height="140" loading="lazy" decoding="async" alt="CUGDL · Universidad de Guadalajara"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://cutlajomulco.udg.mx/" target="_blank" rel="noopener noreferrer" aria-label="CUTlajomulco · Universidad de Guadalajara — sitio oficial"><img class="aliado-logo" src="img/aliados/cutlajo.png" width="690" height="177" loading="lazy" decoding="async" alt="CUTLAJO · Centro Universitario de Tlajomulco · Universidad de Guadalajara"></a></div>
+<div class="aliado-cell"><img class="aliado-logo" src="img/aliados/ca-derecho-tecnologia-lockup.png" width="240" height="52" loading="lazy" decoding="async" alt="Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología"></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://stjjalisco.gob.mx/" target="_blank" rel="noopener noreferrer" aria-label="Supremo Tribunal de Justicia de Jalisco — sitio oficial"><img class="aliado-logo" src="img/aliados/stj-jalisco.png" width="480" height="167" loading="lazy" decoding="async" alt="Supremo Tribunal de Justicia · Poder Judicial del Estado de Jalisco"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://www.fiadi.org/" target="_blank" rel="noopener noreferrer" aria-label="FIADI — sitio oficial"><img class="aliado-logo" src="img/aliados/fiadi.png" width="263" height="340" loading="lazy" decoding="async" alt="FIADI · Federación Iberoamericana de Asociaciones de Derecho e Informática"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://algdetic-web.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="ALGDETIC — sitio oficial"><img class="aliado-logo" src="img/aliados/algdetic.png" width="700" height="305" loading="lazy" decoding="async" alt="ALGDETIC · Red Latinoamericana de Gobierno, Derecho y Nuevas Tecnologías"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://cienciasforenses.jalisco.gob.mx/" target="_blank" rel="noopener noreferrer" aria-label="Instituto Jalisciense de Ciencias Forenses — sitio oficial"><img class="aliado-logo" src="img/aliados/ijcf.png" width="480" height="115" loading="lazy" decoding="async" alt="Instituto Jalisciense de Ciencias Forenses · Scientia Lux Iustitiae"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://www.ramajudicial.gov.co/" target="_blank" rel="noopener noreferrer" aria-label="Rama Judicial de Colombia — sitio oficial"><img class="aliado-logo" src="img/aliados/csj-colombia.png" width="480" height="136" loading="lazy" decoding="async" alt="Consejo Superior de la Judicatura · Rama Judicial · República de Colombia"></a></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://www.amcid.org/" target="_blank" rel="noopener noreferrer" aria-label="AMCID — sitio oficial"><img class="aliado-logo" src="img/aliados/amcid.png" width="480" height="165" loading="lazy" decoding="async" alt="AMCID · Academia Mexicana de Ciberseguridad y Derecho Digital"></a></div>
+<div class="aliado-cell"><img class="aliado-logo" src="img/aliados/oma.png" width="852" height="725" loading="lazy" decoding="async" alt="Observatorio Mundial de la Abogacía"></div>
+<div class="aliado-cell"><a class="aliado-link" href="https://hesperides.edu.es/" target="_blank" rel="noopener noreferrer" aria-label="Universidad de las Hespérides — sitio oficial"><img class="aliado-logo" src="img/aliados/hesperides.png" width="309" height="161" loading="lazy" decoding="async" alt="Universidad de las Hespérides"></a></div>
+</div></div></section>
+<!-- ALIADOS:FIN -->
+
 <footer>
   <div class="footer-inner">
     <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
@@ -341,7 +370,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
 
   /* ── f18n ── */
   var F18N = { es: null,
-    en: { borrador: 'Draft · page under testing · do not share yet', eyebrow: 'IV edition · live stream', vivo: 'Live', h1: 'The Forum, <em>live</em>.',
+    en: { eyebrow: 'IV edition · live stream', vivo: 'Live', h1: 'The Forum, <em>live</em>.',
       lead: 'Follow the <b>online session on the 18th</b> and the <b>on-site days on September 21 and 22</b> from here. If you are registered, record your attendance on this same page: your verified minutes count towards the certificate.',
       vacio: 'This venue\'s stream goes live at the time of its first session. Meanwhile, check the program.', vacio_btn: 'See the program', pie_sede: 'Venue', abrir: 'Open on the platform ↗', pie_hora: 'Guadalajara time',
       ahora_pronto: 'Next session', ahora_vivo: 'Now live', ahora_fin: 'The edition has concluded', dias: 'days', ver_programa: 'See in the program', sig: 'Up next', hasta: 'until {h}', desde: 'from {h}', faltan: '{n} days to the online session',
@@ -362,7 +391,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       hola: 'Welcome, {n}. Code {f}.', err_campos: 'Enter your code and the email you registered with.', err_login: 'We could not validate your code. Check both fields or write to contacto@forodyt.com.',
       cod_ok: 'Code accepted for this block.', cod_bad: 'Incorrect or expired code.', cod_sin: 'Identify yourself first.', prueba: 'Test mode: nothing is sent to the server; this is what would be sent.',
       bloque_ok: 'credited', bloque_pend: 'in progress', bloque_no: 'not yet' },
-    fr: { borrador: 'Brouillon · page en test · ne pas diffuser', eyebrow: 'IVe édition · diffusion', vivo: 'En direct', h1: 'Le Forum, <em>en direct</em>.',
+    fr: { eyebrow: 'IVe édition · diffusion', vivo: 'En direct', h1: 'Le Forum, <em>en direct</em>.',
       lead: 'Suivez la <b>journée virtuelle du 18</b> et les <b>journées présentielles des 21 et 22 septembre</b> depuis cette page. Si vous êtes inscrit, enregistrez ici votre présence : vos minutes vérifiées comptent pour l\'attestation.',
       vacio: 'La diffusion de ce site s\'active à l\'heure de la première session. En attendant, consultez le programme.', vacio_btn: 'Voir le programme', pie_sede: 'Site', abrir: 'Ouvrir sur la plateforme ↗', pie_hora: 'Heure de Guadalajara',
       ahora_pronto: 'Prochaine session', ahora_vivo: 'En direct maintenant', ahora_fin: 'L\'édition est terminée', dias: 'jours', ver_programa: 'Voir dans le programme', sig: 'À suivre', hasta: 'jusqu\'à {h}', desde: 'à partir de {h}', faltan: 'Plus que {n} jours avant la journée virtuelle',

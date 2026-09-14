@@ -630,6 +630,20 @@ a.pon-nombre:hover { color:var(--teal-deep); border-bottom-color:var(--teal); }
 .banda-link { font-size:13.5px; color:rgba(245,239,224,.72); text-decoration:none; border-bottom:1px solid rgba(245,239,224,.3); transition:color .3s, border-color .3s; }
 .banda-link:hover { color:var(--marfil); border-color:var(--marfil); }
 .banda-pie { font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(245,239,224,.45); }
+/* ALIADOS-CSS:INICIO — «El Foro no camina solo» (copia del index; generado por programa.py) */
+.aliados { background:#C5B9A5; padding:clamp(56px,7vw,96px) var(--gutter); }
+.aliados-inner { max-width:1180px; margin:0 auto; }
+.aliados h2 { font-family:var(--serif); font-weight:500; font-size:clamp(30px,4vw,52px); line-height:1.05; letter-spacing:-.02em; text-align:center; color:var(--ink); margin:0 0 clamp(40px,5vw,70px); font-variation-settings:"opsz" 144,"SOFT" 30; }
+.aliados h2 em { font-style:italic; color:var(--teal-deep); }
+.aliados-list { display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(28px,4vw,56px) clamp(24px,3vw,48px); align-items:center; }
+.aliado-cell { display:flex; align-items:center; justify-content:center; height:92px; flex:0 0 calc((100% - 4 * clamp(24px,3vw,48px)) / 5); }
+.aliado-logo { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; transition:transform .5s var(--ease); }
+.aliado-cell:hover .aliado-logo { transform:scale(1.05); }
+.aliado-link { display:flex; align-items:center; justify-content:center; width:100%; height:100%; }
+.aliado-link:focus-visible { outline:2px solid var(--dorado-deep); outline-offset:4px; }
+@media (max-width:920px) { .aliado-cell { flex-basis:calc((100% - 2 * clamp(24px,3vw,48px)) / 3); height:76px; } }
+@media (max-width:560px) { .aliado-cell { flex-basis:calc((100% - clamp(24px,3vw,48px)) / 2); height:64px; } }
+/* ALIADOS-CSS:FIN */
 @media (max-width:860px) { .banda-inner { grid-template-columns:1fr; } }
 
 footer { background:var(--noche); color:rgba(245,239,224,.6); padding:26px var(--gutter) 34px; border-top:1px solid rgba(245,239,224,.1); }
@@ -1138,6 +1152,36 @@ def hero_html():
             f'{actos_html()}{ahora}{cif}{acc}'
             f'</header>')
 
+def aliados_html():
+    """sección «El Foro no camina solo» (decisión del director, 2026-09-14): los mismos logos del index, leídos de
+    index.html en tiempo de generación para que haya una sola fuente. Sin reveal/data-d (esas páginas no los animan)."""
+    m = re.search(r'<div class="aliados-list">(.*?)\n    </div>\n  </div>\n</section>', _idx, re.S)
+    if not m: raise SystemExit('index.html: no encuentro .aliados-list')
+    lista = re.sub(r' reveal(?=")', '', m.group(1)); lista = re.sub(r' data-d="\d"', '', lista)
+    lista = '\n'.join(l.strip() for l in lista.strip('\n').split('\n'))
+    return ('<!-- ALIADOS:INICIO — generado por _tools/programa.py desde index.html; no editar a mano -->\n'
+            '<section class="aliados" id="aliados"><div class="aliados-inner">'
+            '<h2 data-i18n-html="idx_aliados_title_html">El Foro <em>no camina</em> solo.</h2>'
+            '<div class="aliados-list">\n' + lista + '\n</div></div></section>\n<!-- ALIADOS:FIN -->')
+
+def css_aliados():
+    m = re.search(r'/\* ALIADOS-CSS:INICIO.*?/\* ALIADOS-CSS:FIN \*/', CSS_BASE, re.S)
+    return m.group(0)
+
+def splice_aliados(archivo):
+    """inserta/actualiza la sección de aliados y su CSS en otra página (en-vivo.html) entre marcadores."""
+    p = os.path.join(ROOT, archivo)
+    if not os.path.exists(p): return
+    s = open(p, encoding='utf-8').read()
+    def rep(s, a, b, nuevo):
+        i = s.find(a); j = s.find(b, i)
+        if i < 0 or j < 0: print(f'  [{archivo}] marcador ausente:', a[:24]); return s
+        return s[:i] + nuevo.strip('\n') + s[j + len(b):]
+    s = rep(s, '<!-- ALIADOS:INICIO', '<!-- ALIADOS:FIN -->', aliados_html())
+    s = rep(s, '/* ALIADOS-CSS:INICIO', '/* ALIADOS-CSS:FIN */', css_aliados())
+    open(p, 'w', encoding='utf-8').write(s)
+    print(f'{archivo}: sección de aliados actualizada')
+
 def pagina_html():
     dias = ''.join(dia_html(d) for d in DIAS_VISTA)
     banda = (f'<section class="banda"><div class="banda-inner"><div class="reveal">'
@@ -1193,7 +1237,7 @@ def pagina_html():
      corregir los datos y volver a correr el generador.
      ═══════════════════════════════════════════════════════════════ -->
 '''
-    body = (NAV + hero_html() + riel_html() + '<main id="programa">' + dias + '</main>' + banda +
+    body = (NAV + hero_html() + riel_html() + '<main id="programa">' + dias + '</main>' + banda + aliados_html() +
             f'<footer><div class="footer-inner"><span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>'
             f'<span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>'
             f'<a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></div></footer>' + pill + modal_html())
@@ -1429,6 +1473,7 @@ def main():
     print('programa.html escrito ·', len(page) // 1024, 'KB · sesiones:', sesiones_total, '· cifras:', CIFRAS)
     print('fragmento JV escrito en _tools/out/ (html, css, js)')
     splice_jv(frag, CSS_JV, js_jv)
+    splice_aliados('en-vivo.html')
 
 def splice_jv(frag, css, js):
     """reemplaza los tres bloques marcados de jornada-virtual.html (html, css, js) si existen."""
