@@ -41,6 +41,14 @@ La página elige sola la pestaña de la sede cuyo bloque está en curso (lee `pr
 3. `en-vivo.html`: rellenar `STREAMS` con los ids/enlaces reales y poner `MODO_PRUEBA = false`.
 4. Publicar: quitar `<meta name="robots" content="noindex, nofollow">` y la franja «Borrador» de `en-vivo.html`, quitar `hidden` a la tarjeta `.cuenta-vivo` del hero de `index.html`, y añadir la página al `sitemap.xml`.
 5. Prueba de humo el día antes: sesión con un folio real, 3 latidos, un código generado desde el hub, y correr `consolidarStream()` para ver el check-in en *CheckIns*.
+6. Constancias por bloque: ver §5b (plantilla HTML en el proyecto, `FIRMA_DIGITAL_FILE_ID`, `_testConstanciaBloque()`, `instalarDisparadoresBloques()`).
+
+## 5b. Constancias por bloque (decisión del director, 2026-09-14)
+
+- **Qué se emite.** Al cerrar cada bloque (hora de fin + 60 min), cada persona con check-in válido en ese bloque recibe por correo una **constancia de asistencia del bloque** por sus horas **enteras** (CUCEA 5 h · CUGDL 2 h · Cineteca 3 h · Ciudad Judicial 2 h · Jornada Virtual 4 h), con la **firma digital del director** («Delva», el puro apellido: `firma-digital-apellido-delva-black-CANON.png`, canon v1.3). Folio `IV-FIDDT-BLQ/UDG/2026-<bloque>-NNNN`; registro en la pestaña *ConstanciasBloque* (no se duplica).
+- **Constancia con valor curricular (10 h).** `meta_horas_valor_curricular = 10`. La misma plantilla con `tipo = 'valor'` lleva cuatro firmas: el director y los tres centros universitarios (nombres y firmas pendientes de que el director las entregue). Se emite al cierre del Foro con `procesarConstancias()`.
+- **Plantilla.** `apps-script/Constancia-bloque.html` (HtmlService; solo tablas y posicionamiento absoluto porque el conversor HTML→PDF de Apps Script no soporta flex/grid; las fuentes Fraunces/Inter solo se ven en la vista previa local, Apps Script cae a Georgia/Arial). Vista previa: `python3 _tools/constancia_preview.py` + `sh _tools/out/constancias/render.sh` → tres PDF de muestra.
+- **Instalación (cuenta CUCEA).** Archivo → Nuevo → HTML con el nombre exacto `Constancia-bloque` y pegar la plantilla. Script Properties: `FIRMA_DIGITAL_FILE_ID` (id en Drive del PNG de la firma, compartido con la cuenta del script), opcionales `LOGO_UDG_FILE_ID`, `LOGO_CA_FILE_ID`, `LOGO_CUCEA_FILE_ID` (PNG de `img/aliados/`) y `CONSTANCIAS_FOLDER_ID` (carpeta donde guardar copia). Probar con `_testConstanciaBloque()` (manda una muestra al director). Correr una vez `instalarDisparadoresBloques()`: crea cinco disparadores `cerrarBloque` (fin + 60 min, hora GDL). `cerrarJornadaVirtual()` queda como alias del cierre del bloque 5.
 
 ## 6. Ideas para después (no implementadas)
 

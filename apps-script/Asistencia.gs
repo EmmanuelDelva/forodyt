@@ -61,13 +61,7 @@ function tokenValido_(payload) {
   if (String(payload.token || '') !== tokenStream_(folio, usuario.correo)) return null;
   return usuario;
 }
-function buscarUsuarioPorFolio_(folio) {
-  const sheet = SS.getSheetByName(SHEETS.usuarios);
-  const data = sheet.getDataRange().getValues();
-  const h = data[0]; const iF = h.indexOf('folio'), iC = h.indexOf('correo'), iN = h.indexOf('nombre_completo');
-  for (let i = 1; i < data.length; i++) if (String(data[i][iF]).toUpperCase() === folio) return { folio: data[i][iF], correo: String(data[i][iC]).toLowerCase(), nombre: data[i][iN] };
-  return null;
-}
+// buscarUsuarioPorFolio_() vive en Code.gs (devuelve la fila completa: folio, correo, nombre_completo, institucion…).
 
 /** POST stream_login {folio, correo} → {ok, nombre, token} */
 function streamLogin(payload) {
@@ -242,6 +236,142 @@ function instalarPlaticasIV() {
   return { altas, actualizadas: cambios };
 }
 
+// ============ CONSTANCIAS POR BLOQUE (decisión del director, 2026-09-14) ============
+/**
+ * Al cerrar cada bloque (una hora después de su hora de fin) se emite a cada persona con check-in válido
+ * en ese bloque una CONSTANCIA DE ASISTENCIA del bloque por sus horas ENTERAS (5.17 h → 5 h), con la firma
+ * digital del director («Delva», el puro apellido). Plantilla: archivo HTML «Constancia-bloque» del proyecto
+ * (copiar apps-script/Constancia-bloque.html con Archivo → Nuevo → HTML, nombre exacto «Constancia-bloque»).
+ *
+ * Script Properties necesarias:
+ *   FIRMA_DIGITAL_FILE_ID   id en Drive de firma-digital-apellido-delva-black-CANON.png (compartir con la cuenta que ejecuta el script)
+ *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID · LOGO_CUCEA_FILE_ID   (opcionales) ids de los PNG de img/aliados/
+ *   CONSTANCIAS_FOLDER_ID   (opcional) carpeta de Drive donde guardar copia de cada PDF
+ *
+ * Pasos: instalarDisparadoresBloques() una vez → crea cinco disparadores «cerrarBloque» (fin del bloque + 60 min,
+ * hora GDL). También se puede correr a mano emitirConstanciasBloque(1).
+ * La constancia CON VALOR CURRICULAR (10 h, director + tres centros universitarios) usa la misma plantilla con
+ * tipo = 'valor' y se emite con procesarConstancias() al cierre del Foro cuando estén las firmas de los centros.
+ */
+const CONST_BLOQUE_SHEET = 'ConstanciasBloque';
+const BLOQUE_INFO = {
+  '1': { sede: 'CUCEA', recinto: 'Auditorio Lic. Raúl Padilla López (CUCEA)', sesiones: 'Inauguración · Conferencia inaugural · Mesas 1 a 4 · Jóvenes investigadores del Call for Papers · Presentación editorial' },
+  '2': { sede: 'CUGDL', recinto: 'Auditorio Salvador Allende (Centro Universitario de Guadalajara)', sesiones: 'Bienvenida · Mesas 5 a 7' },
+  '3': { sede: 'Cineteca FICG', recinto: 'Sala Guillermo del Toro (Cineteca FICG · Centro Cultural Universitario)', sesiones: 'Bienvenida · Mesas 8 a 10' },
+  '4': { sede: 'Ciudad Judicial', recinto: 'Auditorio de Ciudad Judicial del Estado de Jalisco', sesiones: 'Ponencia inaugural · Presentación editorial · Mesa 11 · Clausura' },
+  '5': { sede: 'Jornada Virtual Internacional', recinto: 'transmisión en línea del Foro (Jornada Virtual Internacional)', sesiones: 'Apertura · Mesas V1 a V4 · Cierre' }
+};
+const DIAS_ES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+function fechaLargaEs_(d, conDia) {
+  const dia = Number(Utilities.formatDate(d, TZ, 'u')) % 7, n = Number(Utilities.formatDate(d, TZ, 'd')), m = Number(Utilities.formatDate(d, TZ, 'M')) - 1, y = Utilities.formatDate(d, TZ, 'yyyy');
+  return (conDia ? DIAS_ES[dia] + ' ' : '') + `${n} de ${MESES_ES[m]} de ${y}`;
+}
+function horaCorta_(d) { return Utilities.formatDate(d, TZ, 'H:mm'); }
+function horasTexto_(n) {
+  const t = ['cero horas', 'una hora', 'dos horas', 'tres horas', 'cuatro horas', 'cinco horas', 'seis horas', 'siete horas', 'ocho horas', 'nueve horas', 'diez horas', 'once horas', 'doce horas'];
+  return t[n] || `${n} horas`;
+}
+function imagenDataUri_(prop) {
+  const id = PROPS.getProperty(prop); if (!id) return '';
+  try { const b = DriveApp.getFileById(id).getBlob(); return 'data:' + b.getContentType() + ';base64,' + Utilities.base64Encode(b.getBytes()); }
+  catch (e) { log_('imagenDataUri_', prop, e.message, null); return ''; }
+}
+function pdfConstancia_(datos) {
+  const t = HtmlService.createTemplateFromFile('Constancia-bloque');
+  Object.keys(datos).forEach(k => { t[k] = datos[k]; });
+  if (!('firmantes' in datos)) t.firmantes = [];
+  if (!('institucion' in datos)) t.institucion = '';
+  const html = t.evaluate().getContent();
+  return Utilities.newBlob(html, 'text/html', 'constancia.html').getAs('application/pdf').setName('Constancia-' + datos.folio.replace(/\//g, '-') + '.pdf');
+}
+function datosBloque_(platica, usuario, folioConst) {
+  const ini = new Date(platica.hora_inicio), fin = new Date(platica.hora_fin);
+  const horas = Math.floor((fin - ini) / 3600000);
+  const info = BLOQUE_INFO[String(platica.id_platica)] || { sede: platica.sede, recinto: platica.nombre_sesion, sesiones: '' };
+  const virtual = esPlaticaVirtual_(platica);
+  return {
+    tipo: 'bloque', nombre: usuario.nombre, institucion: usuario.institucion || '',
+    sede: info.sede, recinto: info.recinto, fecha_larga: fechaLargaEs_(ini, true),
+    horario: virtual ? `${horaCorta_(ini)} a ${horaCorta_(fin)} horas de Guadalajara` : `${horaCorta_(ini)} a ${horaCorta_(fin)} horas`,
+    horas: horas, horas_txt: horasTexto_(horas), sesiones: info.sesiones, folio: folioConst,
+    fecha_emision: fechaLargaEs_(new Date(), false),
+    firma_src: imagenDataUri_('FIRMA_DIGITAL_FILE_ID'),
+    logos: { udg: imagenDataUri_('LOGO_UDG_FILE_ID'), ca: imagenDataUri_('LOGO_CA_FILE_ID'), cucea: imagenDataUri_('LOGO_CUCEA_FILE_ID') }
+  };
+}
+/** emitirConstanciasBloque(idPlatica) — una constancia por cada check-in válido del bloque que aún no la tenga. */
+function emitirConstanciasBloque(idPlatica) {
+  const platica = buscarPlatica_(idPlatica); if (!platica) throw new Error('Plática no encontrada: ' + idPlatica);
+  const sh = hoja_(CONST_BLOQUE_SHEET, ['folio_constancia', 'folio_asistente', 'id_platica', 'correo', 'horas', 'emitida', 'pdf_id', 'error']);
+  const previas = sh.getDataRange().getValues().slice(1);
+  const ya = {}; previas.forEach(r => { if (r[5] === true) ya[String(r[1]) + '|' + String(r[2])] = true; });
+  let consecutivo = previas.filter(r => String(r[2]) === String(idPlatica)).length;
+  const ci = SS.getSheetByName(SHEETS.checkins).getDataRange().getValues().slice(1);
+  const folios = []; const vistos = {};
+  ci.forEach(r => { if (String(r[2]) === String(idPlatica) && r[6] === true && !vistos[r[1]]) { vistos[r[1]] = true; folios.push(String(r[1])); } });
+  const carpeta = PROPS.getProperty('CONSTANCIAS_FOLDER_ID') ? DriveApp.getFolderById(PROPS.getProperty('CONSTANCIAS_FOLDER_ID')) : null;
+  let emitidas = 0, fallidas = 0;
+  folios.forEach((folio, i) => {
+    if (ya[folio + '|' + String(idPlatica)]) return;
+    const u = buscarUsuarioPorFolio_(folio); if (!u) return;
+    u.correo = String(u.correo || '').toLowerCase().trim(); if (!u.correo) return;
+    const usuario = u;
+    consecutivo++;
+    const folioConst = `IV-FIDDT-BLQ/UDG/2026-${idPlatica}-${String(consecutivo).padStart(4, '0')}`;
+    try {
+      const datos = datosBloque_(platica, { nombre: usuario.nombre_completo || usuario.nombre || '', institucion: usuario.institucion || '' }, folioConst);
+      const pdf = pdfConstancia_(datos);
+      const archivo = carpeta ? carpeta.createFile(pdf) : null;
+      MailApp.sendEmail({
+        to: u.correo,
+        subject: `Constancia de asistencia · ${datos.sede} · IV Foro Internacional de Derecho y Tecnología`,
+        htmlBody: `<div style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#0E1B2C;line-height:1.6">
+          <p>Hola, ${escapeHtml_(datos.nombre)}.</p>
+          <p>Gracias por acompañarnos en el bloque <strong>${escapeHtml_(datos.sede)} · ${escapeHtml_(datos.fecha_larga)}</strong>. Adjuntamos tu constancia de asistencia por <strong>${datos.horas} horas</strong>, firmada por el Director del Foro.</p>
+          <p>Al cierre del Foro, quienes acumulen al menos 10 horas verificadas recibirán además la constancia con valor curricular.</p>
+          <p>Cualquier aclaración: <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>, indicando el folio ${escapeHtml_(folioConst)}.</p>
+          <hr style="border:0;border-top:1px solid rgba(14,27,44,.14);margin:24px 0">
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,27,44,.5);font-family:'Courier New',monospace">Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología · Universidad de Guadalajara</div></div>`,
+        attachments: [pdf], name: PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología'
+      });
+      sh.appendRow([folioConst, folio, String(idPlatica), u.correo, datos.horas, true, archivo ? archivo.getId() : '', '']); emitidas++;
+    } catch (e) { sh.appendRow([folioConst, folio, String(idPlatica), u.correo, '', false, '', e.message]); fallidas++; }
+    if ((i + 1) % 40 === 0) Utilities.sleep(1500);
+  });
+  log_('emitirConstanciasBloque', String(idPlatica), `emitidas=${emitidas} fallidas=${fallidas}`, null);
+  return { emitidas, fallidas };
+}
+/** cerrarBloque() — manejador de los disparadores: cierra todo bloque cuya hora de fin + 60 min ya pasó y aún no se emitió. */
+function cerrarBloque() {
+  const ahora = Date.now(); const cfg = leerConfig_(); const margen = (Number(cfg.tolerancia_fin_min) || 60) * 60000;
+  const cerrados = String(PROPS.getProperty('BLOQUES_CERRADOS') || '').split(',').filter(Boolean);
+  Object.keys(BLOQUE_INFO).forEach(id => {
+    if (cerrados.indexOf(id) !== -1) return;
+    const pl = buscarPlatica_(id); if (!pl) return;
+    if (new Date(pl.hora_fin).getTime() + margen > ahora) return;
+    consolidarStream();                       // asistencia por transmisión (incluye la regla laxa del bloque 5)
+    const r = emitirConstanciasBloque(id);
+    cerrados.push(id); PROPS.setProperty('BLOQUES_CERRADOS', cerrados.join(','));
+    log_('cerrarBloque', id, JSON.stringify(r), null);
+  });
+}
+function instalarDisparadoresBloques() {
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'cerrarBloque').forEach(t => ScriptApp.deleteTrigger(t));
+  PLATICAS_IV.forEach(p => {
+    const fin = new Date(new Date(p.hora_fin).getTime() + 60 * 60000);
+    ScriptApp.newTrigger('cerrarBloque').timeBased().at(fin).create();
+    Logger.log(`Disparador cerrarBloque para el bloque ${p.id_platica} a las ${fin.toISOString()}`);
+  });
+}
+/** _testConstanciaBloque() — manda al DIRECTOR_EMAIL una constancia de muestra del bloque 1 sin tocar las hojas. */
+function _testConstanciaBloque() {
+  const pl = buscarPlatica_(1) || { id_platica: 1, sede: 'cucea', nombre_sesion: 'CUCEA', hora_inicio: '2026-09-21T09:00:00-06:00', hora_fin: '2026-09-21T14:10:00-06:00' };
+  const datos = datosBloque_(pl, { nombre: 'Nombre Apellido Apellido', institucion: 'Universidad de Guadalajara' }, 'IV-FIDDT-BLQ/UDG/2026-1-0000');
+  const pdf = pdfConstancia_(datos);
+  MailApp.sendEmail({ to: PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL'), subject: 'PRUEBA · constancia por bloque', body: 'Muestra generada por _testConstanciaBloque().', attachments: [pdf] });
+}
+
 // ============ CIERRE AUTOMÁTICO DE LA JORNADA VIRTUAL ============
 /**
  * cerrarJornadaVirtual() — consolida la asistencia por transmisión y emite las constancias de quienes
@@ -254,8 +384,10 @@ function instalarPlaticasIV() {
  * media hora después del cierre del bloque 5. Correr UNA vez desde el editor; acepta los permisos de triggers.
  */
 function cerrarJornadaVirtual() {
+  // 2026-09-14: la Jornada Virtual se cierra como cualquier bloque (constancia del bloque 5 por 4 h);
+  // la constancia con valor curricular (10 h) se emite con procesarConstancias() al cierre del Foro.
   const r = consolidarStream();
-  const c = procesarConstancias();
+  const c = emitirConstanciasBloque(5);
   log_('cerrarJornadaVirtual', '5', `stream=${JSON.stringify(r)} constancias=${JSON.stringify(c)}`, null);
   return { stream: r, constancias: c };
 }

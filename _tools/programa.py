@@ -211,7 +211,7 @@ def lugar_html(bloque):
     """Auditorio y domicilio de la sede (para el público presencial). Solo si los datos existen en programa.json."""
     if not bloque.get('auditorio') and not bloque.get('domicilio'): return ''
     bkey = 'bloque.' + bloque['id']
-    aud = f'<b {f(bkey+".auditorio", bloque["auditorio"])}>{esc(bloque["auditorio"])}</b>' if bloque.get('auditorio') else ''
+    aud = f'<b>{esc(bloque["auditorio"])}</b>' if bloque.get('auditorio') else ''   # nombre propio: no se traduce
     dom = f'<span class="sede-dom">{esc(bloque["domicilio"])}</span>' if bloque.get('domicilio') else ''
     mapa = (f' <a class="sede-mapa" href="{esc(bloque["mapa"])}" target="_blank" rel="noopener"><span {ui_attr("como_llegar")}>{esc(ui("como_llegar"))}</span> ↗</a>'
             if bloque.get('mapa') else '')

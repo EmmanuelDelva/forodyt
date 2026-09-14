@@ -585,7 +585,11 @@
               ]
             }
           ],
-          "platica": 1
+          "platica": 1,
+          "auditorio": "Auditorio Lic. Raúl Padilla López",
+          "domicilio": "Periférico Norte 799, Núcleo Universitario Los Belenes, C.P. 45100, Zapopan, Jalisco",
+          "municipio": "Zapopan",
+          "mapa": "https://www.google.com/maps/search/?api=1&query=Perif%C3%A9rico%20Norte%20799%2C%20N%C3%BAcleo%20Universitario%20Los%20Belenes%2C%20C.P.%2045100%2C%20Zapopan%2C%20Jalisco"
         },
         {
           "id": "cugdl",
@@ -769,7 +773,11 @@
               ]
             }
           ],
-          "platica": 2
+          "platica": 2,
+          "auditorio": "Auditorio Salvador Allende",
+          "domicilio": "Calle Guanajuato 1045, Alcalde Barranquitas, C.P. 44270, Guadalajara, Jalisco",
+          "municipio": "Guadalajara",
+          "mapa": "https://www.google.com/maps/search/?api=1&query=Calle%20Guanajuato%201045%2C%20Alcalde%20Barranquitas%2C%20C.P.%2044270%2C%20Guadalajara%2C%20Jalisco"
         }
       ]
     },
@@ -960,7 +968,11 @@
               ]
             }
           ],
-          "platica": 3
+          "platica": 3,
+          "auditorio": "Sala Guillermo del Toro · Centro Cultural Universitario",
+          "domicilio": "Av. Periférico Norte Manuel Gómez Morín 1695, Belenes Norte, C.P. 45158, Zapopan, Jalisco",
+          "municipio": "Zapopan",
+          "mapa": "https://www.google.com/maps/search/?api=1&query=Av.%20Perif%C3%A9rico%20Norte%20Manuel%20G%C3%B3mez%20Mor%C3%ADn%201695%2C%20Belenes%20Norte%2C%20C.P.%2045158%2C%20Zapopan%2C%20Jalisco"
         },
         {
           "id": "ciudad-judicial",
@@ -1099,7 +1111,11 @@
               "modera": null
             }
           ],
-          "platica": 4
+          "platica": 4,
+          "auditorio": "Auditorio de Ciudad Judicial · Poder Judicial del Estado de Jalisco",
+          "domicilio": "Anillo Periférico Poniente Manuel Gómez Morín 7255, C.P. 45010, Zapopan, Jalisco (no confundir con la Ciudad Judicial Federal, n.º 7727)",
+          "municipio": "Zapopan",
+          "mapa": "https://www.google.com/maps/search/?api=1&query=Anillo%20Perif%C3%A9rico%20Poniente%20Manuel%20G%C3%B3mez%20Mor%C3%ADn%207255%2C%20C.P.%2045010%2C%20Zapopan%2C%20Jalisco"
         }
       ]
     }

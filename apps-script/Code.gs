@@ -573,7 +573,7 @@ function buscarUsuarioPorFolio_(folio) {
   const headers = data[0];
   const idxFolio = headers.indexOf('folio');
   for (let i = 1; i < data.length; i++) {
-    if (data[i][idxFolio] === folio) return rowToObject_(headers, data[i]);
+    if (String(data[i][idxFolio]).toUpperCase().trim() === String(folio).toUpperCase().trim()) return rowToObject_(headers, data[i]);
   }
   return null;
 }
