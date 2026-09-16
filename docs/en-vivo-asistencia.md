@@ -34,14 +34,31 @@ La página elige sola la pestaña de la sede cuyo bloque está en curso (lee `pr
 - Los códigos solo los genera quien tiene la `STAFF_KEY` (misma del escáner).
 - El backend no ve IP (Apps Script no la expone); la trazabilidad viene de folio + token + minuto.
 
-## 5. Qué falta para publicar
+## 5. Qué falta — runbook del backend (cuenta CUCEA)
 
-1. Backend: pegar `apps-script/Asistencia.gs` en el proyecto, añadir los `case` en `doPost`/`doGet` (instrucciones en la cabecera del archivo), **Manage deployments → Edit → Nueva versión** (nunca «New deployment»).
-2. Sheet: correr `instalarPlaticasIV()` desde el editor. Da de alta los cinco bloques con sus `id` (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual), `hora_inicio`/`hora_fin` en hora de Guadalajara y `horas_valor` (duración real; suma máxima 18.09 h; `meta_horas_valor_curricular` = 10 por decisión del director). `staff-scanner.html` ya usa esos mismos id. Después correr `instalarDisparadorJornadaVirtual()`.
-3. `en-vivo.html`: rellenar `STREAMS` con los ids/enlaces reales y poner `MODO_PRUEBA = false`.
-4. Publicar: quitar `<meta name="robots" content="noindex, nofollow">` y la franja «Borrador» de `en-vivo.html`, quitar `hidden` a la tarjeta `.cuenta-vivo` del hero de `index.html`, y añadir la página al `sitemap.xml`.
-5. Prueba de humo el día antes: sesión con un folio real, 3 latidos, un código generado desde el hub, y correr `consolidarStream()` para ver el check-in en *CheckIns*.
-6. Constancias por bloque: ver §5b (plantilla HTML en el proyecto, `FIRMA_DIGITAL_FILE_ID`, `_testConstanciaBloque()`, `instalarDisparadoresBloques()`).
+**Estado al 2026-09-16.** La parte del sitio está HECHA y en producción: `en-vivo.html` es pública e indexable, entró al `sitemap.xml`, la tarjeta `.cuenta-vivo` del hero del index ya enlaza a ella, y la Jornada Virtual del 18 tiene su transmisión declarada (`STREAMS.virtual`, YouTube `qa-1p43DoAs`). **Falta solo lo que vive en la cuenta CUCEA.** Mientras no se haga, `MODO_PRUEBA` sigue en `true` y la sección de asistencia se oculta sola, así que la página funciona como reproductor limpio y nadie cree haberse registrado.
+
+> ⚠️ **No pongas `MODO_PRUEBA = false` antes de terminar el paso 3.** Hasta que `doPost` conozca los `case 'stream_*'`, cada latido —uno por minuto **y por espectador**— sería una acción desconocida. La copia nueva de `Code.gs` ya la rechaza, pero la que está publicada hoy todavía cae en `crearInscripcion` y llenaría la hoja de inscripciones basura.
+
+Orden exacto, todo en `script.google.com` → proyecto **«IV Foro 2026 Backend»**:
+
+1. **Archivo nuevo `Asistencia`** (Archivo → Nuevo → Script, nombre `Asistencia`) y pegar íntegro `apps-script/Asistencia.gs`. Guardar.
+2. **Sustituir `Code.gs`** por la copia del repo. Trae el guardarraíl del `default` del `doPost` descrito arriba. Guardar.
+3. **Añadir los cuatro `case` al `switch` de `doPost` de `Code.gs`**, antes del `default` (van comentados en la cabecera de `Asistencia.gs`):
+   ```js
+   case 'stream_login':         result = streamLogin(payload); break;
+   case 'stream_latido':        result = streamLatido(payload); break;
+   case 'stream_reto':          result = streamReto(payload); break;
+   case 'stream_reto_pantalla': result = streamRetoPantalla(payload); break;
+   ```
+   Y en `doGet`, el `stream_codigo_nuevo` que usa el generador de códigos de `registroscomite.html`.
+4. **Script Properties** (Configuración del proyecto → Propiedades del script): `FIRMA_DIGITAL_FILE_ID` y, opcionales, `LOGO_UDG_FILE_ID`, `LOGO_CA_FILE_ID`, `AGUA_FILE_ID`, `CONSTANCIAS_FOLDER_ID`. Ver §5b.
+5. **Correr desde el editor, en este orden:** `instalarPlaticasIV()` → `_testConstanciaBloque()` → `instalarDisparadoresBloques()`. El primero da de alta los cinco bloques con sus `id` (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual), `hora_inicio`/`hora_fin` en hora de Guadalajara y `horas_valor`; son los mismos `id` que usa `staff-scanner.html`. En `_config`, `meta_horas_valor_curricular` = 10.
+6. **Publicar la versión nueva:** Implementar → **Administrar implementaciones → ✏️ (editar) → Nueva versión**. **Nunca «Nueva implementación»**: cambiaría la URL del endpoint y rompería inscripción y escáner.
+7. **Encender el registro:** en `en-vivo.html`, `MODO_PRUEBA = false`. La sección «Tu presencia, verificada» reaparece sola; no hay que tocar el HTML.
+8. **Prueba de humo, antes del 18:** iniciar sesión con un folio real, dejar correr 3 latidos, generar un código desde `/registroscomite` y validarlo, y correr `consolidarStream()` para ver el check-in en *CheckIns*.
+
+Pendiente aparte: rellenar `STREAMS` de las cuatro sedes presenciales (21 y 22). Hoy están en `tipo: ''` y muestran el marcador «esta sede abre su transmisión a la hora de su primera sesión», que es el comportamiento correcto mientras no haya enlace.
 
 ## 5b. Constancias por bloque (decisión del director, 2026-09-14)
 
