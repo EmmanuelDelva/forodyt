@@ -84,7 +84,14 @@ function doPost(e) {
         result = suscribirNewsletter(payload);
         break;
       default:
-        result = crearInscripcion(payload);
+        // Sin `action` explícito es una inscripción del formulario clásico.
+        // Con un `action` que este proyecto no conoce hay que FALLAR, no inscribir:
+        // si no, los latidos de en-vivo.html (uno por minuto y por espectador) caerían
+        // aquí y llenarían la hoja de inscripciones basura. Pasa mientras falte
+        // Asistencia.gs con los `case 'stream_*'`.
+        result = payload.action
+          ? { ok: false, error: 'accion_desconocida: ' + payload.action }
+          : crearInscripcion(payload);
     }
     log_('doPost', payload.action || 'inscripcion', result.ok ? 'ok' : (result.error || 'fail'), ctx);
     return jsonResponse_(result);
