@@ -508,36 +508,36 @@
   "fr": "Justice, données et régulation financière à l'ère de l'IA"
  },
  "s.v4.p0.afil": {
-  "en": "U. Pablo de Olavide, Seville · U. of Bologna (Spain · Italy)",
-  "fr": "U. Pablo de Olavide, Séville · U. de Bologne (Espagne · Italie)"
- },
- "s.v4.p0.talk": {
-  "en": "«The Chain of Custody in the Age of Artificial Intelligence»",
-  "fr": "« La chaîne de conservation de la preuve à l'ère de l'Intelligence Artificielle »"
- },
- "s.v4.p1.afil": {
-  "en": "Universidad La Salle México",
-  "fr": "Universidad La Salle México"
- },
- "s.v4.p1.talk": {
-  "en": "«The Violation of the Right to Due Process in the Age of Prompt Injection in Mexico»",
-  "fr": "« La violation du droit à une procédure régulière à l'ère du Prompt Injection au Mexique »"
- },
- "s.v4.p2.afil": {
-  "en": "CONABI · Futura Sit SRL (Cuba)",
-  "fr": "CONABI · Futura Sit SRL (Cuba)"
- },
- "s.v4.p2.talk": {
-  "en": "«Personal Data Protection, Artificial Intelligence and Corporate Liability in Legal Services. Case Study of the Legalsit Software»",
-  "fr": "« Protection des données personnelles, intelligence artificielle et responsabilité des entreprises dans les services juridiques. Étude de cas du logiciel Legalsit »"
- },
- "s.v4.p3.afil": {
   "en": "Universidad de Sevilla (Spain)",
   "fr": "Universidad de Sevilla (Espagne)"
  },
- "s.v4.p3.talk": {
+ "s.v4.p0.talk": {
   "en": "«Fintech and the New Regulatory Architecture of Payments in Europe: Legal Analysis of the PSD3/PSR Package in the Face of the Artificial Intelligence Paradigm»",
   "fr": "« Fintech et la nouvelle architecture réglementaire des paiements en Europe : analyse juridique du paquet PSD3/PSR face au paradigme de l'intelligence artificielle »"
+ },
+ "s.v4.p1.afil": {
+  "en": "U. Pablo de Olavide, Seville · U. of Bologna (Spain · Italy)",
+  "fr": "U. Pablo de Olavide, Séville · U. de Bologne (Espagne · Italie)"
+ },
+ "s.v4.p1.talk": {
+  "en": "«The Chain of Custody in the Age of Artificial Intelligence»",
+  "fr": "« La chaîne de conservation de la preuve à l'ère de l'Intelligence Artificielle »"
+ },
+ "s.v4.p2.afil": {
+  "en": "Universidad La Salle México",
+  "fr": "Universidad La Salle México"
+ },
+ "s.v4.p2.talk": {
+  "en": "«The Violation of the Right to Due Process in the Age of Prompt Injection in Mexico»",
+  "fr": "« La violation du droit à une procédure régulière à l'ère du Prompt Injection au Mexique »"
+ },
+ "s.v4.p3.afil": {
+  "en": "CONABI · Futura Sit SRL (Cuba)",
+  "fr": "CONABI · Futura Sit SRL (Cuba)"
+ },
+ "s.v4.p3.talk": {
+  "en": "«Personal Data Protection, Artificial Intelligence and Corporate Liability in Legal Services. Case Study of the Legalsit Software»",
+  "fr": "« Protection des données personnelles, intelligence artificielle et responsabilité des entreprises dans les services juridiques. Étude de cas du logiciel Legalsit »"
  },
  "s.jv-cierre.kicker": {
   "en": "Closing",

@@ -263,6 +263,16 @@
                 {
                   "personas": [
                     {
+                      "nombre": "Berta Teruel Muñoz",
+                      "slug": "teruel"
+                    }
+                  ],
+                  "afil": "Universidad de Sevilla (España)",
+                  "talk": "«Fintech y la nueva arquitectura regulatoria de los pagos en Europa: análisis jurídico del paquete PSD3/PSR ante el paradigma de la inteligencia artificial»"
+                },
+                {
+                  "personas": [
+                    {
                       "nombre": "Alba Lancharro Castellanos",
                       "slug": "lancharro"
                     }
@@ -301,16 +311,6 @@
                   ],
                   "afil": "CONABI · Futura Sit SRL (Cuba)",
                   "talk": "«Protección de datos personales, inteligencia artificial y responsabilidad empresarial en los servicios legales. Estudio de caso del software Legalsit»"
-                },
-                {
-                  "personas": [
-                    {
-                      "nombre": "Berta Teruel Muñoz",
-                      "slug": "teruel"
-                    }
-                  ],
-                  "afil": "Universidad de Sevilla (España)",
-                  "talk": "«Fintech y la nueva arquitectura regulatoria de los pagos en Europa: análisis jurídico del paquete PSD3/PSR ante el paradigma de la inteligencia artificial»"
                 }
               ]
             },
