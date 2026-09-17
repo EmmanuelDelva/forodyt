@@ -309,6 +309,12 @@ function horasTexto_(n) {
   const t = ['cero horas', 'una hora', 'dos horas', 'tres horas', 'cuatro horas', 'cinco horas', 'seis horas', 'siete horas', 'ocho horas', 'nueve horas', 'diez horas', 'once horas', 'doce horas'];
   return t[n] || `${n} horas`;
 }
+/**
+ * La plantilla Constancia-bloque imprime las imágenes con el scriptlet de impresión forzada y este filtro: el escape
+ * contextual del scriptlet normal anula los URI data: dentro de src y la imagen sale rota en el PDF (2026-09-17).
+ * Solo deja pasar un data URI de imagen en base64.
+ */
+function imgSrc_(s) { return /^data:image\/(png|jpe?g|gif|webp);base64,[A-Za-z0-9+\/=]+$/.test(String(s || '')) ? String(s) : ''; }
 function imagenDataUri_(prop) {
   const id = PROPS.getProperty(prop); if (!id) return '';
   try { const b = DriveApp.getFileById(id).getBlob(); return 'data:' + b.getContentType() + ';base64,' + Utilities.base64Encode(b.getBytes()); }
@@ -460,6 +466,27 @@ function _testConstanciaBloque() {
   const id = PROPS.getProperty('CONSTANCIAS_FOLDER_ID');
   if (id) { const f = DriveApp.getFolderById(id).createFile(pdf.copyBlob().setName('PRUEBA-constancia-bloque-1.pdf')); Logger.log('Muestra: ' + f.getUrl()); }
   Logger.log('Faltan: ' + (faltan.join(', ') || 'nada'));
+}
+
+/**
+ * _testStreamBackend() — prueba de humo con un inscrito real SIN exponer sus datos: toma la primera fila de Usuarios
+ * con folio y correo, inicia sesión como lo haría en-vivo.html y manda un latido del bloque 5 con el minuto actual.
+ * No escribe nada fuera de la ventana del bloque (la respuesta esperada antes del viernes 18 es fuera_de_ventana).
+ * En el registro solo quedan los códigos de resultado.
+ */
+function _testStreamBackend() {
+  const data = SS.getSheetByName(SHEETS.usuarios).getDataRange().getValues();
+  const h = data[0]; const iF = h.indexOf('folio'), iC = h.indexOf('correo');
+  const fila = data.slice(1).find(r => r[iF] && r[iC]);
+  if (!fila) { Logger.log('Sin inscritos para probar.'); return; }
+  const login = streamLogin({ folio: String(fila[iF]), correo: String(fila[iC]) });
+  Logger.log('stream_login → ' + (login.ok ? 'ok (token de ' + String(login.token).length + ' caracteres)' : login.error));
+  if (!login.ok) return;
+  const minuto = new Date().toISOString().slice(0, 16);
+  const lat = streamLatido({ folio: String(fila[iF]), token: login.token, id_platica: 5, minuto: minuto });
+  Logger.log('stream_latido (bloque 5, ' + minuto + ' UTC) → ' + (lat.ok ? 'ok' : lat.error) + '  [antes del 18: fuera_de_ventana = token y bloque correctos]');
+  const malo = streamLatido({ folio: String(fila[iF]), token: '00000000', id_platica: 5, minuto: minuto });
+  Logger.log('stream_latido con token falso → ' + (malo.ok ? 'ok (¡MAL!)' : malo.error));
 }
 
 // ============ CIERRE AUTOMÁTICO DE LA JORNADA VIRTUAL ============

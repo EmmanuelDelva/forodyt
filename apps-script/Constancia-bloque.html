@@ -16,6 +16,8 @@
   Redacción fijada por el director (2026-09-14): «Se otorga la presente CONSTANCIA de asistencia» (sin la sede tras
   el título), cuerpo con recinto y día pero sin horario, y firma como «Director del Foro Internacional de Derecho y
   Tecnología» en todas las constancias.
+  Imágenes: los data URI van con el scriptlet de impresión forzada y el filtro imgSrc_() de Asistencia.gs; el de
+  impresión con escape anula los data URI en src y la imagen sale rota en el PDF (visto el 2026-09-17).
   Solo tablas y posicionamiento absoluto: el conversor HTML→PDF de Apps Script no soporta flex/grid y cae a
   Georgia/Arial si no tiene las fuentes. Vista previa fiel: python3 _tools/constancia_preview.py (Chromium con
   las fuentes instaladas) + sh _tools/out/constancias/render.sh
@@ -81,13 +83,13 @@
 </head>
 <body>
 <div class="hoja">
-  <? if (agua_src) { ?><div class="agua-mapa"><img src="<?= agua_src ?>" alt=""></div><? } else { ?><div class="agua">IV</div><? } ?>
+  <? if (agua_src) { ?><div class="agua-mapa"><img src="<?!= imgSrc_(agua_src) ?>" alt=""></div><? } else { ?><div class="agua">IV</div><? } ?>
 
   <div class="cuerpo">
     <? if (logos && (logos.udg || logos.ca)) { ?>
     <table class="logos"><tr>
-      <? if (logos.udg) { ?><td><img src="<?= logos.udg ?>" alt="Universidad de Guadalajara"></td><? } ?>
-      <? if (logos.ca) { ?><td><img class="ca" src="<?= logos.ca ?>" alt="Cuerpo Académico UDG-CA-1236 Derecho y Tecnología"></td><? } ?>
+      <? if (logos.udg) { ?><td><img src="<?!= imgSrc_(logos.udg) ?>" alt="Universidad de Guadalajara"></td><? } ?>
+      <? if (logos.ca) { ?><td><img class="ca" src="<?!= imgSrc_(logos.ca) ?>" alt="Cuerpo Académico UDG-CA-1236 Derecho y Tecnología"></td><? } ?>
     </tr></table>
     <? } ?>
     <div class="cabecera">Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
@@ -127,15 +129,15 @@
 
   <? if (tipo === 'valor') { ?>
   <table class="firmas cuatro"><tr>
-    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236</div></td>
+    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236</div></td>
     <? for (var i = 0; i < firmantes.length; i++) { ?>
-    <td style="width:25%"><? if (firmantes[i].firma_src) { ?><div class="firma-box"><img class="firma-img" src="<?= firmantes[i].firma_src ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firmantes[i].nombre ?></div><div class="firma-cargo"><?= firmantes[i].cargo ?></div></td>
+    <td style="width:25%"><? if (firmantes[i].firma_src) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firmantes[i].firma_src) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firmantes[i].nombre ?></div><div class="firma-cargo"><?= firmantes[i].cargo ?></div></td>
     <? } ?>
   </tr></table>
   <? } else { ?>
   <table class="firmas"><tr>
     <td style="width:22%"></td>
-    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?= firma_src ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:22%"></td>
   </tr></table>
   <? } ?>
