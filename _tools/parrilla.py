@@ -64,8 +64,12 @@ PONENTES = [
     ('romero_gutierrez',    'M', 'A',  4),
     ('willman',             'H', 'A',  4),
     ('sanchez_aguirre',     'H', 'A',  4),
-    # Pinto García salió del programa presencial el 2026-09-17: presenta en la Mesa V4
-    # de la Jornada Virtual, así que la coloca el grupo «jv» de index_grupos.py, no esta tabla.
+    # Las tres presentan el 18 en la Jornada Virtual, pero el director pidió (2026-09-17) que su
+    # tarjeta siguiera en la parrilla principal para no descompensar la presencia de mujeres en la
+    # portada. Van con los pesos que ya tenían antes de salir. Ver FIJAS_EN_PARRILLA en index_grupos.py.
+    ('caicedo',             'M', 'R',  8),  # Presidenta del Observatorio Mundial de la Abogacía
+    ('garcia_torres',       'M', 'A',  6),  # U. Alfonso X el Sabio · IusConnect
+    ('pinto_garcia',        'M', 'A',  4),
 ]
 
 IDX = {p[0]: i for i, p in enumerate(PONENTES)}

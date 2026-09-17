@@ -30,7 +30,7 @@
           "tz": "Europe/Madrid",
           "sede": "En línea",
           "sede_sub": "Dos continentes, una sesión · enlace de conexión para personas registradas",
-          "horario": "15:00–19:10 España · 7:00–11:10 Guadalajara",
+          "horario": "15:00–19:12 España · 7:00–11:12 Guadalajara",
           "temas": "IA agéntica · Prueba y gobernanza · Persona y autonomía · Identidad digital · Justicia y datos",
           "sesiones": [
             {
@@ -248,7 +248,7 @@
             {
               "id": "v4",
               "ini": "18:01",
-              "fin": "18:59",
+              "fin": "19:01",
               "tipo": "mesa",
               "num": "V4",
               "kicker": "Mesa V4 — Ejes 4 · 6",
@@ -326,8 +326,8 @@
             },
             {
               "id": "jv-cierre",
-              "ini": "19:00",
-              "fin": "19:10",
+              "ini": "19:02",
+              "fin": "19:12",
               "tipo": "ceremonia",
               "kicker": "Cierre",
               "titulo": null,
@@ -407,7 +407,11 @@
               "ejes": [
                 1
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Mtro. Marco Romero Güemez",
+                "slug": "romero_guemez",
+                "afil": "Jefe de División · CU Tlajomulco, UdeG"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -454,7 +458,11 @@
                 4,
                 3
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dr. Juan Emmanuel Delva Benavides",
+                "slug": "delva",
+                "afil": null
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -611,7 +619,11 @@
               "ejes": [
                 5
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dr. Rodrigo Alejandro Gómez Torre",
+                "slug": "gomez",
+                "afil": "CSJN Argentina · U. Nacional de Cuyo"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -702,7 +714,11 @@
                 3,
                 6
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dr. Juan Emmanuel Delva Benavides",
+                "slug": "delva",
+                "afil": null
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -738,7 +754,11 @@
               "ejes": [
                 8
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Mtro. César Romero Güemez",
+                "slug": "romero",
+                "afil": "Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -835,7 +855,11 @@
               "ejes": [
                 9
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dr. Jorge Antonio Leos Navarro",
+                "slug": "leos",
+                "afil": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -885,7 +909,11 @@
               "ejes": [
                 7
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Mtro. Ernesto Ibarra Sánchez",
+                "slug": "ibarra",
+                "afil": "AMCID · FIADI"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -1163,6 +1191,9 @@
     "moreno_murguia": "México",
     "nava_lopez": "México",
     "pinto_garcia": "México",
+    "romero_guemez": "México",
+    "romero": "México",
+    "leos": "México",
     "raad": "Colombia",
     "reyes": "Colombia",
     "rivera": "México",

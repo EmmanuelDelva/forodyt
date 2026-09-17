@@ -22,9 +22,9 @@
  *   4. Pestaña Platicas: correr UNA vez instalarPlaticasIV() desde el editor. Da de alta los 5 bloques del programa
  *      definitivo con estos id (deben coincidir con staff-scanner.html y programa-data.json):
  *        1 CUCEA · lun 21 · 09:00–14:10  |  2 CUGDL · lun 21 · 16:05–18:50  |  3 Cineteca FICG · mar 22 · 10:05–13:30
- *        4 Ciudad Judicial · mar 22 · 16:00–18:45  |  5 Jornada Virtual · vie 18 · 07:00–11:10 (hora GDL)
+ *        4 Ciudad Judicial · mar 22 · 16:00–18:45  |  5 Jornada Virtual · vie 18 · 07:00–11:12 (hora GDL)
  *      y poner meta_horas_valor_curricular = 10 en _config (decisión del director; el máximo alcanzable es 18.09 h).
- *   5. Correr UNA vez instalarDisparadorJornadaVirtual(): el 18-sep a las 11:40 (GDL) consolida la asistencia
+ *   5. Correr UNA vez instalarDisparadorJornadaVirtual(): el 18-sep a las 11:45 (GDL) consolida la asistencia
  *      de la Jornada Virtual y emite las constancias de quienes estuvieron conectados.
  *   6. En en-vivo.html poner MODO_PRUEBA = false.
  *
@@ -193,7 +193,7 @@ const PLATICAS_IV = [
   { id_platica: 2, nombre_sesion: 'CUGDL · Lunes 21 · Mesas 5–7',                                        eje: 'varios', sede: 'cugdl',           jornada: 'j1_lun_21_sep', hora_inicio: '2026-09-21T16:05:00-06:00', hora_fin: '2026-09-21T18:50:00-06:00', horas_valor: 2.75, tipo: 'mesa', formato: 'hibrido' },
   { id_platica: 3, nombre_sesion: 'Cineteca FICG · Martes 22 · Mesas 8–10 y jóvenes investigadores',    eje: 'varios', sede: 'cineteca',        jornada: 'j2_mar_22_sep', hora_inicio: '2026-09-22T10:05:00-06:00', hora_fin: '2026-09-22T13:30:00-06:00', horas_valor: 3.42, tipo: 'mesa', formato: 'hibrido' },
   { id_platica: 4, nombre_sesion: 'Ciudad Judicial · Martes 22 · ponencia inaugural, presentación editorial, Mesa 11 y clausura', eje: 'varios', sede: 'ciudad_judicial', jornada: 'j2_mar_22_sep', hora_inicio: '2026-09-22T16:00:00-06:00', hora_fin: '2026-09-22T18:45:00-06:00', horas_valor: 2.75, tipo: 'mesa', formato: 'hibrido' },
-  { id_platica: 5, nombre_sesion: 'Jornada Virtual Internacional · Viernes 18 · Mesas V1–V4',            eje: 'varios', sede: 'virtual',         jornada: 'jv_vie_18_sep', hora_inicio: '2026-09-18T07:00:00-06:00', hora_fin: '2026-09-18T11:10:00-06:00', horas_valor: 4.17,  tipo: 'mesa', formato: 'virtual' }
+  { id_platica: 5, nombre_sesion: 'Jornada Virtual Internacional · Viernes 18 · Mesas V1–V4',            eje: 'varios', sede: 'virtual',         jornada: 'jv_vie_18_sep', hora_inicio: '2026-09-18T07:00:00-06:00', hora_fin: '2026-09-18T11:12:00-06:00', horas_valor: 4.2,  tipo: 'mesa', formato: 'virtual' }
 ];
 
 /**
@@ -383,7 +383,7 @@ function _testConstanciaBloque() {
  * nada el 22: quien además asista a las sedes presenciales NO recibe una segunda constancia salvo que se
  * limpie su flag a mano (decisión del director; alternativa: dejar constancia_enviada y solo actualizar nivel).
  *
- * instalarDisparadorJornadaVirtual() la programa para el viernes 18 de septiembre de 2026 a las 11:40 (hora GDL),
+ * instalarDisparadorJornadaVirtual() la programa para el viernes 18 de septiembre de 2026 a las 11:45 (hora GDL),
  * media hora después del cierre del bloque 5. Correr UNA vez desde el editor; acepta los permisos de triggers.
  */
 function cerrarJornadaVirtual() {
@@ -396,6 +396,6 @@ function cerrarJornadaVirtual() {
 }
 function instalarDisparadorJornadaVirtual() {
   ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'cerrarJornadaVirtual').forEach(t => ScriptApp.deleteTrigger(t));
-  ScriptApp.newTrigger('cerrarJornadaVirtual').timeBased().at(new Date('2026-09-18T11:40:00-06:00')).create();
-  Logger.log('Disparador creado: cerrarJornadaVirtual el 2026-09-18 11:40 (GDL).');
+  ScriptApp.newTrigger('cerrarJornadaVirtual').timeBased().at(new Date('2026-09-18T11:45:00-06:00')).create();
+  Logger.log('Disparador creado: cerrarJornadaVirtual el 2026-09-18 11:45 (GDL).');
 }

@@ -111,9 +111,18 @@ COMITE = {'delva', 'leos', 'romero', 'said', 'paul', 'acosta'}   # tienen ficha 
 # 2026-09-14 (director): en el index solo se publican las personas que YA tienen fotografía; las demás
 # quedan en programa.html (con monograma) hasta que llegue su foto. Se listan al correr el script.
 SOLO_CON_FOTO = True
-MAIN = [p for p in personas_de(lambda d, b, s: d['modo'] == 'presencial' and s['id'] != 'd21-cfp') if p['slug'] not in COMITE]
+# 2026-09-17 (director): estas tres presentan el 18 en la Jornada Virtual, pero su TARJETA se queda
+# en la parrilla principal para no descompensar la presencia de mujeres en la portada. Solo afecta
+# al index: en programa.html y jornada-virtual.html aparecen donde realmente presentan.
+# Tienen que estar también en la tabla de _tools/parrilla.py (género/sector/peso).
+FIJAS_EN_PARRILLA = {'garcia_torres', 'caicedo', 'pinto_garcia'}
+
+_PRESENCIALES = personas_de(lambda d, b, s: d['modo'] == 'presencial' and s['id'] != 'd21-cfp')
+_VIRTUALES = personas_de(lambda d, b, s: d['modo'] == 'virtual')
+MAIN = ([p for p in _PRESENCIALES if p['slug'] not in COMITE]
+        + [p for p in _VIRTUALES if p['slug'] in FIJAS_EN_PARRILLA])
 CFP_TODOS = personas_de(lambda d, b, s: s['id'] == 'd21-cfp')
-JV_TODOS = personas_de(lambda d, b, s: d['modo'] == 'virtual')
+JV_TODOS = [p for p in _VIRTUALES if p['slug'] not in FIJAS_EN_PARRILLA]
 SIN_FOTO = [p for p in MAIN + CFP_TODOS + JV_TODOS if p['slug'] not in FOTOS]
 if SOLO_CON_FOTO:
     CFP = [p for p in CFP_TODOS if p['slug'] in FOTOS]
