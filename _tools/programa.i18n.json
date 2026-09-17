@@ -356,8 +356,8 @@
   "fr": "Deux continents, une session · lien de connexion pour les personnes inscrites"
  },
  "bloque.virtual.horario": {
-  "en": "15:00–19:10 Spain · 7:00–11:10 Guadalajara",
-  "fr": "15:00–19:10 Espagne · 7:00–11:10 Guadalajara"
+  "en": "15:00–19:12 Spain · 7:00–11:12 Guadalajara",
+  "fr": "15:00–19:12 Espagne · 7:00–11:12 Guadalajara"
  },
  "bloque.virtual.temas": {
   "en": "Agentic AI · Evidence and governance · Person and autonomy · Digital identity · Justice and data",
@@ -758,6 +758,26 @@
  "s.m5.titulo": {
   "en": "Artificial intelligence, capabilities, risks and challenges for security",
   "fr": "Intelligence artificielle, capacités, risques et défis pour la sécurité"
+ },
+ "s.m1.modera.afil": {
+  "en": "Division Head · CU Tlajomulco, UdeG",
+  "fr": "Chef de division · CU Tlajomulco, UdeG"
+ },
+ "s.m4.modera.afil": {
+  "en": "CSJN Argentina · National University of Cuyo",
+  "fr": "CSJN Argentine · Université Nationale de Cuyo"
+ },
+ "s.m7.modera.afil": {
+  "en": "Department of Social and Legal Sciences · CUCEA-UDG",
+  "fr": "Département de Sciences Sociales et Juridiques · CUCEA-UDG"
+ },
+ "s.m8.modera.afil": {
+  "en": "Academic Body UDG-CA-1236 «Law and Technology»",
+  "fr": "Corps Académique UDG-CA-1236 « Droit et Technologie »"
+ },
+ "s.m9.modera.afil": {
+  "en": "AMCID · FIADI",
+  "fr": "AMCID · FIADI"
  },
  "s.m5.modera.afil": {
   "en": "El Colegio de Jalisco",

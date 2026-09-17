@@ -188,7 +188,9 @@ def sesion_html(dia, bloque, s, pagina='programa'):
     modera = ''
     if s.get('modera'):
         m = s['modera']
-        afil = f' <span class="mod-afil" {f(skey+".modera.afil", m["afil"])}>· {esc(m["afil"])}</span>' if m.get('afil') else ''
+        # El «·» va FUERA del span traducible: dentro, el cambio de idioma reescribe el
+        # textContent y se lo lleva por delante (se veía «Sánchez↗ Division Head» en inglés).
+        afil = f' · <span class="mod-afil" {f(skey+".modera.afil", m["afil"])}>{esc(m["afil"])}</span>' if m.get('afil') else ''
         modera = (f'<div class="s-modera">{foto_html(m["nombre"], m.get("slug"))}<span><em {ui_attr("modera")}>{esc(ui("modera"))}</em> '
                   f'{persona_html(m, skey+".modera")}{afil}</span></div>')
     ponentes = ''
