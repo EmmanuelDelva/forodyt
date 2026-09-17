@@ -53,7 +53,7 @@ const MODALIDADES_VALIDAS = ['presencial', 'virtual', 'mixta'];
 
 // ============ ENTRY POINTS ============
 /**
- * Endpoint POST — inscripción, check-in, newsletter.
+ * Endpoint POST — inscripción, check-in, newsletter y asistencia por transmisión (stream_*).
  * Body: JSON con { action, ...payload }.
  * Si no hay action, asume inscripción (compatibilidad con form básico).
  */
@@ -83,17 +83,25 @@ function doPost(e) {
       case 'newsletter':
         result = suscribirNewsletter(payload);
         break;
+      // Asistencia por transmisión (en-vivo.html). Las funciones viven en Asistencia.gs.
+      case 'stream_login':         result = streamLogin(payload); break;
+      case 'stream_latido':        result = streamLatido(payload); break;
+      case 'stream_reto':          result = streamReto(payload); break;
+      case 'stream_reto_pantalla': result = streamRetoPantalla(payload); break;
       default:
         // Sin `action` explícito es una inscripción del formulario clásico.
         // Con un `action` que este proyecto no conoce hay que FALLAR, no inscribir:
-        // si no, los latidos de en-vivo.html (uno por minuto y por espectador) caerían
-        // aquí y llenarían la hoja de inscripciones basura. Pasa mientras falte
-        // Asistencia.gs con los `case 'stream_*'`.
+        // si no, cualquier petición nueva de en-vivo.html (un latido por minuto y por
+        // espectador) caería aquí y llenaría la hoja de inscripciones basura.
         result = payload.action
           ? { ok: false, error: 'accion_desconocida: ' + payload.action }
           : crearInscripcion(payload);
     }
-    log_('doPost', payload.action || 'inscripcion', result.ok ? 'ok' : (result.error || 'fail'), ctx);
+    // Un latido aceptado no se anota en _logs: llega uno por minuto y por espectador y ya
+    // queda en StreamLatidos. Los rechazados sí se anotan (sirven para diagnosticar).
+    if (!(payload.action === 'stream_latido' && result.ok)) {
+      log_('doPost', payload.action || 'inscripcion', result.ok ? 'ok' : (result.error || 'fail'), ctx);
+    }
     return jsonResponse_(result);
   } catch (err) {
     log_('doPost', 'parse_error', err.message, ctx);
@@ -102,7 +110,8 @@ function doPost(e) {
 }
 
 /**
- * Endpoint GET — validar QR (lectura del staff scanner) + healthcheck.
+ * Endpoint GET — validar QR (lectura del staff scanner), código de presencia
+ * de la transmisión (stream_codigo_nuevo) + healthcheck.
  */
 function doGet(e) {
   const ctx = readRequestContext_(e);
@@ -114,6 +123,16 @@ function doGet(e) {
     }
     const result = validarQR(e.parameter.folio, e.parameter.hmac);
     log_('doGet', 'validar', result.ok ? 'ok' : (result.error || 'fail'), ctx);
+    return jsonResponse_(result);
+  }
+  if (e.parameter && e.parameter.action === 'stream_codigo_nuevo') {
+    // Código de presencia para la transmisión (registroscomite.html): operación de staff.
+    if (!staffKeyValida_(e.parameter.key)) {
+      log_('doGet', 'stream_codigo_nuevo', 'staff_key_invalida', ctx);
+      return jsonResponse_({ ok: false, error: 'staff_key_invalida' });
+    }
+    const result = streamCodigoNuevo(e.parameter.id_platica, e.parameter.minutos);
+    log_('doGet', 'stream_codigo_nuevo', result.ok ? 'ok' : (result.error || 'fail'), ctx);
     return jsonResponse_(result);
   }
   return jsonResponse_({ ok: true, msg: 'IV Foro endpoint activo' });

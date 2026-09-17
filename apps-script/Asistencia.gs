@@ -9,24 +9,22 @@
  *   y, si la moderación dictó códigos de presencia en ese bloque, al menos uno correcto.
  *   Después procesarConstancias() (Code.gs) hace el resto sin cambios.
  *
- * CÓMO SE INSTALA (mismo proyecto «IV Foro 2026 Backend»; Manage deployments → Edit → Nueva versión; NUNCA «New deployment»)
- *   1. Añadir este archivo al proyecto (Archivo → Nuevo → Script, pegar).
- *   2. En doPost de Code.gs, agregar los cases:
- *        case 'stream_login':          result = streamLogin(payload); break;
- *        case 'stream_latido':         result = streamLatido(payload); break;
- *        case 'stream_reto':           result = streamReto(payload); break;
- *        case 'stream_reto_pantalla':  result = streamRetoPantalla(payload); break;
- *      y en doGet, antes del healthcheck:
- *        if (e.parameter.action === 'stream_codigo_nuevo') return jsonResponse_(staffKeyValida_(e.parameter.key) ? streamCodigoNuevo(e.parameter.id_platica, e.parameter.minutos) : { ok:false, error:'staff_key_invalida' });
- *   3. Crear en el Sheet las pestañas StreamLatidos, StreamRetos y StreamCodigos (se crean solas en el primer uso si no existen).
- *   4. Pestaña Platicas: correr UNA vez instalarPlaticasIV() desde el editor. Da de alta los 5 bloques del programa
- *      definitivo con estos id (deben coincidir con staff-scanner.html y programa-data.json):
- *        1 CUCEA · lun 21 · 09:00–14:10  |  2 CUGDL · lun 21 · 16:05–18:50  |  3 Cineteca FICG · mar 22 · 10:05–13:30
- *        4 Ciudad Judicial · mar 22 · 16:00–18:45  |  5 Jornada Virtual · vie 18 · 07:00–11:12 (hora GDL)
- *      y poner meta_horas_valor_curricular = 10 en _config (decisión del director; el máximo alcanzable es 18.09 h).
- *   5. Correr UNA vez instalarDisparadorJornadaVirtual(): el 18-sep a las 11:45 (GDL) consolida la asistencia
- *      de la Jornada Virtual y emite las constancias de quienes estuvieron conectados.
- *   6. En en-vivo.html poner MODO_PRUEBA = false.
+ * CÓMO SE INSTALA (mismo proyecto «IV Foro 2026 Backend»; Implementar → Administrar implementaciones → ✏️ → Nueva versión;
+ * NUNCA «Nueva implementación», que cambia la URL del endpoint)
+ *   1. Añadir este archivo al proyecto (Archivo → Nuevo → Script, nombre «Asistencia») y el HTML «Constancia-bloque».
+ *   2. Code.gs ya trae las rutas: los cuatro `case 'stream_*'` de doPost y `stream_codigo_nuevo` en doGet.
+ *   3. Las pestañas StreamLatidos, StreamRetos, StreamCodigos y ConstanciasBloque se crean solas en el primer uso.
+ *   4. Correr UNA vez, en este orden:
+ *        instalarPlaticasIV()          → los 5 bloques en Platicas (mismos id que staff-scanner.html y programa-data.json)
+ *                                         y los valores de _config que decidió el director (CONFIG_IV)
+ *                                           1 CUCEA · lun 21 · 09:00–14:10  |  2 CUGDL · lun 21 · 16:05–18:50
+ *                                           3 Cineteca FICG · mar 22 · 10:05–13:30  |  4 Ciudad Judicial · mar 22 · 16:00–18:45
+ *                                           5 Jornada Virtual · vie 18 · 07:00–11:12 (hora GDL)
+ *        instalarRecursosConstancia()  → carpeta de constancias en Drive + logos y marca de agua (desde forodyt.com)
+ *                                         (FIRMA_DIGITAL_FILE_ID se pone a mano: el PNG canon vive en el Drive del director)
+ *        _testConstanciaBloque()       → muestra en PDF al DIRECTOR_EMAIL (y copia en la carpeta de constancias)
+ *        instalarDisparadoresBloques() → cinco disparadores cerrarBloque (fin del bloque + tolerancia_fin_min + 5 min)
+ *   5. En en-vivo.html, MODO_PRUEBA = false.
  *
  * REGLAS DE ACREDITACIÓN (ver consolidarStream)
  *   - Bloques presenciales seguidos a distancia: >= 75 % de minutos verificados + código de presencia si hubo.
@@ -50,15 +48,17 @@ function hoja_(nombre, encabezados) {
   return sh;
 }
 function fechaHoy_() { return Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd'); }
-function tokenStream_(folio, correo) { return calcularHMAC8_(String(folio).toUpperCase() + '|' + String(correo).toLowerCase() + '|' + fechaHoy_()); }
+/** Token de sesión de en-vivo.html: vale el día (GDL) en que se emitió. La página lo renueva sola con stream_login. */
+function tokenStream_(folio, correo) { return calcularHMAC8_(String(folio).toUpperCase().trim() + '|' + String(correo).toLowerCase().trim() + '|' + fechaHoy_()); }
 function tokenValido_(payload) {
-  const u = buscarUsuario_(String(payload.correo || '').toLowerCase());
   const folio = String(payload.folio || '').toUpperCase().trim();
-  if (!folio) return null;
-  // el latido no trae correo: se busca por folio
-  const usuario = u || buscarUsuarioPorFolio_(folio);
-  if (!usuario || String(usuario.folio).toUpperCase() !== folio) return null;
-  if (String(payload.token || '') !== tokenStream_(folio, usuario.correo)) return null;
+  if (!folio || !payload.token) return null;
+  // El latido no trae correo: se busca por folio. (Buscar por correo vacío devolvería
+  // cualquier fila con el correo en blanco y rechazaría todos los latidos.)
+  const correo = String(payload.correo || '').toLowerCase().trim();
+  const usuario = (correo && buscarUsuario_(correo)) || buscarUsuarioPorFolio_(folio);
+  if (!usuario || String(usuario.folio).toUpperCase().trim() !== folio) return null;
+  if (String(payload.token) !== tokenStream_(folio, usuario.correo)) return null;
   return usuario;
 }
 // buscarUsuarioPorFolio_() vive en Code.gs (devuelve la fila completa: folio, correo, nombre_completo, institucion…).
@@ -69,7 +69,7 @@ function streamLogin(payload) {
   const correo = String(payload.correo || '').toLowerCase().trim();
   if (!folio || !isEmailValid_(correo)) return { ok: false, error: 'datos_invalidos' };
   const u = buscarUsuario_(correo);
-  if (!u || String(u.folio).toUpperCase() !== folio) return { ok: false, error: 'folio_no_coincide' };
+  if (!u || String(u.folio).toUpperCase().trim() !== folio) return { ok: false, error: 'folio_no_coincide' };
   return { ok: true, nombre: u.nombre || u.nombre_completo || '', token: tokenStream_(folio, correo) };
 }
 
@@ -197,6 +197,40 @@ const PLATICAS_IV = [
 ];
 
 /**
+ * Valores de _config decididos por el director (2026-09-14). instalarPlaticasIV() los escribe:
+ *   meta 10 h para valor curricular · ventana de escaneo de 60 min antes y 60 min después de cada sede ·
+ *   Jornada Virtual con regla laxa (10 min conectados, sin código obligatorio).
+ */
+const CONFIG_IV = {
+  meta_horas_valor_curricular: 10,
+  meta_horas_asistencia_minima: 4,
+  tolerancia_inicio_min: 60,
+  tolerancia_fin_min: 60,
+  minutos_minimos_virtual: 10,
+  codigo_obligatorio_virtual: false,
+  umbral_stream_porcentaje: 75
+};
+/** ajustarConfigIV_() — escribe CONFIG_IV en la pestaña _config (actualiza la fila si la clave existe, si no la agrega). */
+function ajustarConfigIV_() {
+  let sh = SS.getSheetByName(SHEETS.config);
+  if (!sh) { sh = SS.insertSheet(SHEETS.config); sh.appendRow(['key', 'value']); }
+  const data = sh.getDataRange().getValues();
+  const filaDe = {};
+  for (let i = 1; i < data.length; i++) if (data[i][0]) filaDe[String(data[i][0]).trim()] = i + 1;
+  const cambios = [];
+  Object.keys(CONFIG_IV).forEach(k => {
+    const v = CONFIG_IV[k];
+    if (filaDe[k]) {
+      const actual = sh.getRange(filaDe[k], 2).getValue();
+      if (String(actual).toUpperCase() !== String(v).toUpperCase()) { sh.getRange(filaDe[k], 2).setValue(v); cambios.push(`${k}: ${actual} → ${v}`); }
+    } else { sh.appendRow([k, v]); cambios.push(`${k}: (nuevo) ${v}`); }
+  });
+  log_('ajustarConfigIV_', '_config', cambios.join(' · ') || 'sin cambios', null);
+  Logger.log('_config: ' + (cambios.join(' · ') || 'sin cambios'));
+  return cambios;
+}
+
+/**
  * instalarPlaticasIV() — correr UNA vez desde el editor. Da de alta (o actualiza por id_platica) los cinco
  * bloques en la pestaña Platicas respetando los encabezados existentes. Las columnas que la hoja no tenga se
  * ignoran; zoom_id queda vacío y cerrada = FALSE. Es idempotente: se puede volver a correr sin duplicar filas.
@@ -232,8 +266,9 @@ function instalarPlaticasIV() {
   const cols = ['hora_inicio', 'hora_fin'].map(h => headers.indexOf(h) + 1).filter(Boolean);
   cols.forEach(c => sheet.getRange(2, c, Math.max(sheet.getLastRow() - 1, 1), 1).setNumberFormat('yyyy-mm-dd hh:mm'));
   log_('instalarPlaticasIV', 'Platicas', `altas=${altas} actualizadas=${cambios}`, null);
-  Logger.log(`instalarPlaticasIV: ${altas} altas, ${cambios} actualizadas. Revisa meta_horas_valor_curricular = 10 en _config (máximo alcanzable: 18.09 h).`);
-  return { altas, actualizadas: cambios };
+  Logger.log(`instalarPlaticasIV: ${altas} altas, ${cambios} actualizadas (máximo alcanzable: 18.09 h).`);
+  const config = ajustarConfigIV_();
+  return { altas, actualizadas: cambios, config };
 }
 
 // ============ CONSTANCIAS POR BLOQUE (decisión del director, 2026-09-14) ============
@@ -359,20 +394,72 @@ function cerrarBloque() {
     log_('cerrarBloque', id, JSON.stringify(r), null);
   });
 }
+/**
+ * instalarDisparadoresBloques() — un disparador cerrarBloque por bloque. cerrarBloque() solo cierra un bloque cuando
+ * ya pasó su fin + tolerancia_fin_min (_config); el disparador va 5 min después de eso para que un disparo
+ * adelantado no lo deje sin cerrar. Si se cambia tolerancia_fin_min, volver a correr esta función.
+ */
 function instalarDisparadoresBloques() {
   ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'cerrarBloque').forEach(t => ScriptApp.deleteTrigger(t));
+  const margenMin = (Number(leerConfig_().tolerancia_fin_min) || 60) + 5;
   PLATICAS_IV.forEach(p => {
-    const fin = new Date(new Date(p.hora_fin).getTime() + 60 * 60000);
-    ScriptApp.newTrigger('cerrarBloque').timeBased().at(fin).create();
-    Logger.log(`Disparador cerrarBloque para el bloque ${p.id_platica} a las ${fin.toISOString()}`);
+    const cuando = new Date(new Date(p.hora_fin).getTime() + margenMin * 60000);
+    ScriptApp.newTrigger('cerrarBloque').timeBased().at(cuando).create();
+    Logger.log(`Disparador cerrarBloque del bloque ${p.id_platica}: ${Utilities.formatDate(cuando, TZ, 'yyyy-MM-dd HH:mm')} (GDL)`);
   });
+}
+
+/**
+ * instalarRecursosConstancia() — correr UNA vez. Crea (o reutiliza) la carpeta «IV Foro 2026 · Constancias por bloque»
+ * en el Drive de esta cuenta, guarda ahí los logos y la marca de agua que publica forodyt.com y deja sus id en
+ * Script Properties (LOGO_UDG_FILE_ID, LOGO_CA_FILE_ID, AGUA_FILE_ID, CONSTANCIAS_FOLDER_ID). No toca una propiedad
+ * que ya tenga valor. La firma (FIRMA_DIGITAL_FILE_ID) no se publica en la web: se captura a mano.
+ */
+const RECURSOS_CONSTANCIA = {
+  LOGO_UDG_FILE_ID: { url: 'https://forodyt.com/img/aliados/udg.png', nombre: 'logo-udg.png' },
+  LOGO_CA_FILE_ID: { url: 'https://forodyt.com/img/aliados/ca-derecho-tecnologia-lockup.png', nombre: 'logo-ca-derecho-tecnologia-lockup.png' },
+  AGUA_FILE_ID: { url: 'https://forodyt.com/img/marca/foro-mapa-conexiones-dorado.png', nombre: 'marca-agua-foro-mapa-conexiones-dorado.png' }
+};
+function instalarRecursosConstancia() {
+  let carpeta = null;
+  const idCarpeta = PROPS.getProperty('CONSTANCIAS_FOLDER_ID');
+  if (idCarpeta) { try { carpeta = DriveApp.getFolderById(idCarpeta); } catch (e) { carpeta = null; } }
+  if (!carpeta) {
+    const nombre = 'IV Foro 2026 · Constancias por bloque';
+    const it = DriveApp.getFoldersByName(nombre);
+    carpeta = it.hasNext() ? it.next() : DriveApp.createFolder(nombre);
+    PROPS.setProperty('CONSTANCIAS_FOLDER_ID', carpeta.getId());
+  }
+  const recursos = carpeta.getFoldersByName('_recursos').hasNext() ? carpeta.getFoldersByName('_recursos').next() : carpeta.createFolder('_recursos');
+  const hecho = {};
+  Object.keys(RECURSOS_CONSTANCIA).forEach(prop => {
+    const actual = PROPS.getProperty(prop);
+    if (actual) { try { DriveApp.getFileById(actual); hecho[prop] = 'ya estaba'; return; } catch (e) { /* id roto: se vuelve a crear */ } }
+    const r = RECURSOS_CONSTANCIA[prop];
+    const resp = UrlFetchApp.fetch(r.url, { muteHttpExceptions: true });
+    if (resp.getResponseCode() !== 200) { hecho[prop] = 'ERROR ' + resp.getResponseCode(); return; }
+    const archivo = recursos.createFile(resp.getBlob().setName(r.nombre));
+    PROPS.setProperty(prop, archivo.getId());
+    hecho[prop] = 'creado';
+  });
+  let firma = 'FALTA: poner FIRMA_DIGITAL_FILE_ID en Script Properties';
+  const idFirma = PROPS.getProperty('FIRMA_DIGITAL_FILE_ID');
+  if (idFirma) { try { firma = 'ok: ' + DriveApp.getFileById(idFirma).getName(); } catch (e) { firma = 'SIN ACCESO al archivo ' + idFirma + ' (compártelo con esta cuenta)'; } }
+  const resumen = { carpeta: carpeta.getUrl(), recursos: hecho, firma: firma };
+  log_('instalarRecursosConstancia', 'Drive', JSON.stringify(resumen), null);
+  Logger.log(JSON.stringify(resumen, null, 2));
+  return resumen;
 }
 /** _testConstanciaBloque() — manda al DIRECTOR_EMAIL una constancia de muestra del bloque 1 sin tocar las hojas. */
 function _testConstanciaBloque() {
   const pl = buscarPlatica_(1) || { id_platica: 1, sede: 'cucea', nombre_sesion: 'CUCEA', hora_inicio: '2026-09-21T09:00:00-06:00', hora_fin: '2026-09-21T14:10:00-06:00' };
   const datos = datosBloque_(pl, { nombre: 'Nombre Apellido Apellido', institucion: 'Universidad de Guadalajara' }, 'IV-FIDDT-BLQ/UDG/2026-1-0000');
   const pdf = pdfConstancia_(datos);
-  MailApp.sendEmail({ to: PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL'), subject: 'PRUEBA · constancia por bloque', body: 'Muestra generada por _testConstanciaBloque().', attachments: [pdf] });
+  const faltan = ['FIRMA_DIGITAL_FILE_ID', 'LOGO_UDG_FILE_ID', 'LOGO_CA_FILE_ID', 'AGUA_FILE_ID'].filter(k => !PROPS.getProperty(k));
+  MailApp.sendEmail({ to: PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL'), subject: 'PRUEBA · constancia por bloque', body: 'Muestra generada por _testConstanciaBloque().' + (faltan.length ? ' Faltan en Script Properties: ' + faltan.join(', ') : ''), attachments: [pdf] });
+  const id = PROPS.getProperty('CONSTANCIAS_FOLDER_ID');
+  if (id) { const f = DriveApp.getFolderById(id).createFile(pdf.copyBlob().setName('PRUEBA-constancia-bloque-1.pdf')); Logger.log('Muestra: ' + f.getUrl()); }
+  Logger.log('Faltan: ' + (faltan.join(', ') || 'nada'));
 }
 
 // ============ CIERRE AUTOMÁTICO DE LA JORNADA VIRTUAL ============
