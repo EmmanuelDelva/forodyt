@@ -1,4 +1,4 @@
-# Transmisión en vivo y asistencia virtual verificada — diseño (borrador 2026-09-14)
+# Transmisión en vivo y asistencia virtual verificada — diseño (2026-09-14, en producción desde 2026-09-17)
 
 Documento interno (carpeta `docs/`, excluida de Vercel). Acompaña a `en-vivo.html`, `apps-script/Asistencia.gs` y al panel «Código de presencia» de `registroscomite.html`.
 
@@ -30,35 +30,46 @@ La página elige sola la pestaña de la sede cuyo bloque está en curso (lee `pr
 ## 4. Seguridad y privacidad
 
 - El token de sesión es `HMAC8(folio|correo|fecha)` con el `HMAC_SECRET` del backend: caduca cada día y no se puede fabricar desde el navegador.
-- La página no guarda más que folio, nombre y contadores locales en `localStorage` del propio navegador (`forodyt_vivo*`).
+- La página guarda en el `localStorage` del propio navegador (`forodyt_vivo*`) el folio, el correo, el nombre, el token del día y contadores locales; el correo se usa solo para renovar el token cuando cambia el día.
 - Los códigos solo los genera quien tiene la `STAFF_KEY` (misma del escáner).
 - El backend no ve IP (Apps Script no la expone); la trazabilidad viene de folio + token + minuto.
 
-## 5. Qué falta — runbook del backend (cuenta CUCEA)
+## 5. Backend en la cuenta CUCEA — instalado el 2026-09-17
 
-**Estado al 2026-09-16.** La parte del sitio está HECHA y en producción: `en-vivo.html` es pública e indexable, entró al `sitemap.xml`, la tarjeta `.cuenta-vivo` del hero del index ya enlaza a ella, y la Jornada Virtual del 18 tiene su transmisión declarada (`STREAMS.virtual`, YouTube `qa-1p43DoAs`). **Falta solo lo que vive en la cuenta CUCEA.** Mientras no se haga, `MODO_PRUEBA` sigue en `true` y la sección de asistencia se oculta sola, así que la página funciona como reproductor limpio y nadie cree haberse registrado.
+**Estado al 2026-09-17.** Instalado y publicado en el proyecto **«IV Foro 2026 Backend»** (cuenta CUCEA) desde el navegador del director — **implementación versión 4 (17-sep, 10:13), misma URL** — y `MODO_PRUEBA = false` en `en-vivo.html`. Detalle y resultados en la bitácora de `CLAUDE.md` (sesión 2026-09-17).
 
-> ⚠️ **No pongas `MODO_PRUEBA = false` antes de terminar el paso 3.** Hasta que `doPost` conozca los `case 'stream_*'`, cada latido —uno por minuto **y por espectador**— sería una acción desconocida. La copia nueva de `Code.gs` ya la rechaza, pero la que está publicada hoy todavía cae en `crearInscripcion` y llenaría la hoja de inscripciones basura.
+Cómo quedó (y cómo repetirlo si hay que reinstalar), todo en `script.google.com` → proyecto **«IV Foro 2026 Backend»**:
 
-Orden exacto, todo en `script.google.com` → proyecto **«IV Foro 2026 Backend»**:
+1. **Archivos del proyecto** = copia exacta del repo: `Code.gs`, `Asistencia.gs`, `Constancia-bloque.html` y `Plantilla-correo.html`. `Code.gs` ya trae los cuatro `case 'stream_*'` de `doPost` y la ruta GET `stream_codigo_nuevo` (con `STAFF_KEY`); ya no hay que editarlo a mano. Para pegar sin que el editor reindente, se sustituye el contenido del modelo de Monaco y se compara el SHA-256 contra el archivo del repo **antes de guardar**; después se recarga la página y se vuelve a comparar.
+2. **Script Properties:** `FIRMA_DIGITAL_FILE_ID` = el PNG canon `firma-digital-apellido-delva-black-CANON.png` del Drive del director (compartido como lector con `emmanueldelva@cucea.udg.mx`). `LOGO_UDG_FILE_ID`, `LOGO_CA_FILE_ID`, `AGUA_FILE_ID` y `CONSTANCIAS_FOLDER_ID` los escribe `instalarRecursosConstancia()`.
+3. **Funciones, una vez y en este orden:**
+   - `instalarPlaticasIV()` → los cinco bloques en *Platicas* (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual; mismos `id` que `staff-scanner.html` y `programa-data.json`) **y** `_config` con `CONFIG_IV`: `meta_horas_valor_curricular = 10`, `tolerancia_inicio_min = 60`, `tolerancia_fin_min = 60`, `minutos_minimos_virtual = 10`, `codigo_obligatorio_virtual = FALSE`, `umbral_stream_porcentaje = 75`. Es idempotente.
+   - `instalarRecursosConstancia()` → carpeta «IV Foro 2026 · Constancias por bloque» en el Drive CUCEA con `_recursos/` (logos y marca de agua bajados de forodyt.com) y comprueba que la firma sea legible.
+   - `_testConstanciaBloque()` → muestra en PDF al `DIRECTOR_EMAIL` y copia `PRUEBA-constancia-bloque-1.pdf` en la carpeta. **Abrir el PDF y mirar que salgan firma, logos y marca de agua** (ver la trampa de imágenes abajo).
+   - `instalarDisparadoresBloques()` → cinco disparadores `cerrarBloque` a fin del bloque + `tolerancia_fin_min` + 5 min (bloque 5, que ahora cierra a las 11:12: viernes 18 a las 12:17 GDL). **Si se cambia `tolerancia_fin_min`, volver a correrla.**
+   La primera ejecución pide autorizar dos permisos nuevos (disparadores y correo del usuario activo): lo acepta el director en la ventana emergente de Google.
+4. **Publicar:** Implementar → **Administrar implementaciones → ✏️ → Nueva versión**. **Nunca «Nueva implementación»**: cambiaría la URL del endpoint y rompería inscripción, escáner y en-vivo.
+5. **Prueba con un inscrito real sin exponer datos:** correr `_testStreamBackend()` desde el editor. Antes del viernes debe decir `stream_login → ok`, `stream_latido … → fuera_de_ventana` (token y bloque correctos) y `token falso → token_invalido`.
+6. **Sondas sin datos personales** (desde cualquier terminal; `ENDPOINT` = el de `en-vivo.html`):
+   - `GET ?action=stream_codigo_nuevo&key=x&id_platica=5` → `staff_key_invalida` (antes de la versión nueva respondía el healthcheck).
+   - `POST {"action":"algo"}` → `accion_desconocida: algo` (no inscribe).
+   - `POST {"action":"stream_latido","folio":"IV-FORO-XXXXXX","token":"x","id_platica":5}` → `token_invalido`.
+   - `POST {"action":"stream_login","folio":"IV-FORO-XXXXXX","correo":"nadie@example.com"}` → `folio_no_coincide`.
+   Un latido real **no puede** aceptarse fuera de la ventana del bloque (±10 min): antes del día responde `fuera_de_ventana`. La prueba positiva completa es el viernes 18 a partir de las 7:00: la hoja *StreamLatidos* debe empezar a llenarse.
 
-1. **Archivo nuevo `Asistencia`** (Archivo → Nuevo → Script, nombre `Asistencia`) y pegar íntegro `apps-script/Asistencia.gs`. Guardar.
-2. **Sustituir `Code.gs`** por la copia del repo. Trae el guardarraíl del `default` del `doPost` descrito arriba. Guardar.
-3. **Añadir los cuatro `case` al `switch` de `doPost` de `Code.gs`**, antes del `default` (van comentados en la cabecera de `Asistencia.gs`):
-   ```js
-   case 'stream_login':         result = streamLogin(payload); break;
-   case 'stream_latido':        result = streamLatido(payload); break;
-   case 'stream_reto':          result = streamReto(payload); break;
-   case 'stream_reto_pantalla': result = streamRetoPantalla(payload); break;
-   ```
-   Y en `doGet`, el `stream_codigo_nuevo` que usa el generador de códigos de `registroscomite.html`.
-4. **Script Properties** (Configuración del proyecto → Propiedades del script): `FIRMA_DIGITAL_FILE_ID` y, opcionales, `LOGO_UDG_FILE_ID`, `LOGO_CA_FILE_ID`, `AGUA_FILE_ID`, `CONSTANCIAS_FOLDER_ID`. Ver §5b.
-5. **Correr desde el editor, en este orden:** `instalarPlaticasIV()` → `_testConstanciaBloque()` → `instalarDisparadoresBloques()`. El primero da de alta los cinco bloques con sus `id` (1 CUCEA, 2 CUGDL, 3 Cineteca, 4 Ciudad Judicial, 5 Jornada Virtual), `hora_inicio`/`hora_fin` en hora de Guadalajara y `horas_valor`; son los mismos `id` que usa `staff-scanner.html`. En `_config`, `meta_horas_valor_curricular` = 10.
-6. **Publicar la versión nueva:** Implementar → **Administrar implementaciones → ✏️ (editar) → Nueva versión**. **Nunca «Nueva implementación»**: cambiaría la URL del endpoint y rompería inscripción y escáner.
-7. **Encender el registro:** en `en-vivo.html`, `MODO_PRUEBA = false`. La sección «Tu presencia, verificada» reaparece sola; no hay que tocar el HTML.
-8. **Prueba de humo, antes del 18:** iniciar sesión con un folio real, dejar correr 3 latidos, generar un código desde `/registroscomite` y validarlo, y correr `consolidarStream()` para ver el check-in en *CheckIns*.
+**Lo que cambió respecto del borrador del 16 (y por qué):**
+- `tokenValido_()` buscaba al usuario por correo aunque el latido no trae correo: con cualquier fila de *Usuarios* con el correo en blanco, **todos** los latidos se habrían rechazado. Ahora busca por folio.
+- El token vale el día (GDL) en que se emite y la página no lo renovaba: quien se identificara antes del 18 habría acumulado 0 minutos sin enterarse. `en-vivo.html` ahora lo renueva sola con el folio y el correo guardados y reintenta.
+- Al abrir la página durante un bloque en curso se muestra esa sede aunque haya otra pestaña guardada, y los minutos solo cuentan en la pestaña del bloque en curso.
+- Los latidos aceptados ya no se anotan en `_logs` (uno por minuto y por espectador); los rechazados sí.
+- **Las constancias salían sin firma, sin logos y sin marca de agua**: la plantilla imprimía los data URI con `<?= … ?>`, cuyo escape contextual los anula dentro de `src` (en la vista previa local con WeasyPrint no se nota). Ahora van con impresión forzada filtrada por `imgSrc_()`. Comprobado en el PDF real que genera Apps Script.
+- Producción tenía *Platicas* con el programa viejo de tres bloques (el escáner ya mandaba los `id` 1–5), `_config` con meta de 20 h y ventana −5/+10 min, y `Plantilla-correo.html` pegada como **texto plano** (sin HTML, con brazalete y 20 h). Todo quedó al día.
 
-Pendiente aparte: rellenar `STREAMS` de las cuatro sedes presenciales (21 y 22). Hoy están en `tipo: ''` y muestran el marcador «esta sede abre su transmisión a la hora de su primera sesión», que es el comportamiento correcto mientras no haya enlace.
+**Operación durante el Foro:**
+- Códigos de presencia: `/registroscomite` → «Código de presencia», con la `STAFF_KEY`. En el bloque virtual no son obligatorios; en los presenciales, **si se dicta un código en un bloque, pasa a ser obligatorio para todos los de ese bloque**: no generar códigos «de prueba» en los bloques 1–4.
+- Cierre: `cerrarBloque` corre solo; a mano, `consolidarStream()` y `emitirConstanciasBloque(<id>)`.
+
+Pendiente aparte: rellenar `STREAMS` de las cuatro sedes presenciales (21 y 22). Hoy están en `tipo: ''` y muestran el marcador «esta sede abre su transmisión a la hora de su primera sesión», que es el comportamiento correcto mientras no haya enlace; sin transmisión configurada **no** se registran minutos en esa sede.
 
 ## 5b. Constancias por bloque (decisión del director, 2026-09-14)
 
