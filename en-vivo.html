@@ -70,6 +70,7 @@ body::after { content:""; position:fixed; inset:0; z-index:9997; pointer-events:
 
 /* ── hero ── */
 .hero-v { max-width:var(--max); margin:0 auto; padding:clamp(130px,17vh,170px) var(--gutter) 22px; position:relative; }
+.eyebrow .ensayo { color:#8A5A00; background:#F6E7C1; padding:4px 10px; letter-spacing:.14em; }
 .eyebrow { display:flex; align-items:center; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--dorado-deep); }
 .eyebrow::before { content:""; width:44px; height:1.5px; background:var(--dorado); }
 .eyebrow .vivo { color:var(--vivo); display:inline-flex; align-items:center; gap:7px; }
@@ -228,7 +229,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
 
 <!-- ============ HERO ============ -->
 <header class="hero-v">
-  <div class="eyebrow"><span data-f18n="eyebrow">IV edición · transmisión</span><span class="vivo" id="vivoBadge" hidden data-f18n="vivo">En vivo</span></div>
+  <div class="eyebrow"><span data-f18n="eyebrow">IV edición · transmisión</span><span class="vivo" id="vivoBadge" hidden data-f18n="vivo">En vivo</span><span class="ensayo" id="ensayoBadge" hidden data-f18n="ensayo">Ensayo · los minutos van a un bloque de prueba que no suma horas</span></div>
   <h1 data-f18n-html="h1">El Foro, <em>en vivo</em>.</h1>
   <p class="lead" data-f18n-html="lead">Sigue la <b>jornada virtual del 18</b> y las <b>jornadas presenciales del 21 y 22 de septiembre</b> desde aquí. Si estás inscrito, registra tu asistencia en esta misma página: tus minutos verificados cuentan para la constancia.</p>
 </header>
@@ -382,13 +383,18 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     'ciudad-judicial': { tipo: '', id: '', url: '' }
   };
   var UMBRAL = 0.75, LATIDO_MS = 60000, RETO_MIN = [12, 25], RETO_TIMEOUT_S = 90;
+  /* ENSAYO (?ensayo=1): la sede virtual se da por «en curso» desde que se abre la página y sus minutos van al
+     bloque 9 del backend (abrirEnsayo() en Asistencia.gs), que se acredita como la Jornada Virtual pero no suma
+     horas. Si el ensayo no está abierto en el backend, los latidos se rechazan y no pasa nada. */
+  var ENSAYO = /[?&]ensayo=1(&|$)/.test(location.search), ENSAYO_PLATICA = 9;
+  var KEY_LOCAL = ENSAYO ? 'forodyt_vivo_ensayo_local' : 'forodyt_vivo_local';
 
   /* ── f18n ── */
   var F18N = { es: null,
     en: { eyebrow: 'IV edition · live stream', vivo: 'Live', h1: 'The Forum, <em>live</em>.',
       lead: 'Follow the <b>online session on the 18th</b> and the <b>on-site days on September 21 and 22</b> from here. If you are registered, record your attendance on this same page: your verified minutes count towards the certificate.',
       vacio: 'This venue\'s stream goes live at the time of its first session. Meanwhile, check the program.', vacio_btn: 'See the program', pie_sede: 'Venue', abrir: 'Open on the platform ↗', pie_hora: 'Guadalajara time',
-      ahora_pronto: 'Next session', ahora_vivo: 'Now live', ahora_fin: 'The edition has concluded', dias: 'days', ver_programa: 'See in the program', sig: 'Up next', hasta: 'until {h}', desde: 'from {h}', faltan: '{n} days to the online session', falta1: '1 day to the online session',
+      ahora_pronto: 'Next session', ahora_vivo: 'Now live', ahora_fin: 'The edition has concluded', dias: 'days', ver_programa: 'See in the program', sig: 'Up next', hasta: 'until {h}', desde: 'from {h}', faltan: '{n} days to the online session', falta1: '1 day to the online session', ensayo: 'Rehearsal · minutes go to a test block that adds no hours',
       asis_eyebrow: 'Online attendance · certificates', asis_t: 'Your presence, <em>verified</em>.',
       asis_lead: 'The certificate for following the Forum remotely is issued on <b>verified minutes</b>, not registration alone: the page records that you are watching while this tab is visible and you answer brief checks. Use the <b>registration code</b> you received when you signed up.',
       acc_t: 'Identify yourself', folio: 'Registration code', correo: 'Email you registered with', entrar: 'Record my attendance',
@@ -409,7 +415,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     fr: { eyebrow: 'IVe édition · diffusion', vivo: 'En direct', h1: 'Le Forum, <em>en direct</em>.',
       lead: 'Suivez la <b>journée virtuelle du 18</b> et les <b>journées présentielles des 21 et 22 septembre</b> depuis cette page. Si vous êtes inscrit, enregistrez ici votre présence : vos minutes vérifiées comptent pour l\'attestation.',
       vacio: 'La diffusion de ce site s\'active à l\'heure de la première session. En attendant, consultez le programme.', vacio_btn: 'Voir le programme', pie_sede: 'Site', abrir: 'Ouvrir sur la plateforme ↗', pie_hora: 'Heure de Guadalajara',
-      ahora_pronto: 'Prochaine session', ahora_vivo: 'En direct maintenant', ahora_fin: 'L\'édition est terminée', dias: 'jours', ver_programa: 'Voir dans le programme', sig: 'À suivre', hasta: 'jusqu\'à {h}', desde: 'à partir de {h}', faltan: 'Plus que {n} jours avant la journée virtuelle', falta1: 'Plus qu\'un jour avant la journée virtuelle',
+      ahora_pronto: 'Prochaine session', ahora_vivo: 'En direct maintenant', ahora_fin: 'L\'édition est terminée', dias: 'jours', ver_programa: 'Voir dans le programme', sig: 'À suivre', hasta: 'jusqu\'à {h}', desde: 'à partir de {h}', faltan: 'Plus que {n} jours avant la journée virtuelle', falta1: 'Plus qu\'un jour avant la journée virtuelle', ensayo: 'Répétition · les minutes vont à un bloc d\'essai qui n\'ajoute pas d\'heures',
       asis_eyebrow: 'Présence virtuelle · attestations', asis_t: 'Votre présence, <em>vérifiée</em>.',
       asis_lead: 'L\'attestation pour avoir suivi le Forum à distance repose sur des <b>minutes vérifiées</b>, pas seulement sur l\'inscription : la page enregistre que vous regardez la diffusion tant que cet onglet est visible et que vous répondez à de brèves vérifications. Utilisez le <b>folio</b> reçu à l\'inscription.',
       acc_t: 'Identifiez-vous', folio: 'Folio d\'inscription', correo: 'Courriel utilisé à l\'inscription', entrar: 'Enregistrer ma présence',
@@ -511,8 +517,8 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   var SES = null;   // {folio, nombre, token, correo}
   var LOCAL = {};   // {bloqueId: {min: n, retosRx: n, retosOk: n, codigos: n}} — espejo local de lo enviado
   var retoAbierto = false, retoPendiente = false, retoTimer = null, proximoReto = null, ultimoMinuto = null;
-  function cargar() { try { SES = JSON.parse(localStorage.getItem('forodyt_vivo') || 'null'); LOCAL = JSON.parse(localStorage.getItem('forodyt_vivo_local') || '{}'); } catch (e) { SES = null; LOCAL = {}; } }
-  function guardar() { try { localStorage.setItem('forodyt_vivo', JSON.stringify(SES)); localStorage.setItem('forodyt_vivo_local', JSON.stringify(LOCAL)); } catch (e) {} }
+  function cargar() { try { SES = JSON.parse(localStorage.getItem('forodyt_vivo') || 'null'); LOCAL = JSON.parse(localStorage.getItem(KEY_LOCAL) || '{}'); } catch (e) { SES = null; LOCAL = {}; } }
+  function guardar() { try { localStorage.setItem('forodyt_vivo', JSON.stringify(SES)); localStorage.setItem(KEY_LOCAL, JSON.stringify(LOCAL)); } catch (e) {} }
   function log(txt) { var r = $('#registro'); r.hidden = false; var l = document.createElement('div'); l.innerHTML = '<b>' + fmt(new Date()) + '</b> ' + txt; r.prepend(l); while (r.children.length > 60) r.lastChild.remove(); }
   function api(payload) {
     if (MODO_PRUEBA) { log('<b>PRUEBA</b> ' + JSON.stringify(payload).replace(/</g, '&lt;')); return Promise.resolve(fakeRespuesta(payload)); }
@@ -636,6 +642,11 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     capturar(); aplicar(); cargar();
     fetch('programa-data.json').then(function (r) { return r.json(); }).then(function (d) {
       P = d; var guardada = null; try { guardada = localStorage.getItem('forodyt_vivo_sede'); } catch (e) {}
+      if (ENSAYO) {
+        var bv = bloquePorId('virtual');
+        if (bv) { var t0 = Date.now() - 60000; bv.ini = new Date(t0).toISOString(); bv.fin = new Date(t0 + bv.minutos * 60000).toISOString(); bv.platica = ENSAYO_PLATICA; }
+        $('#ensayoBadge').hidden = false;
+      }
       var now = new Date(); var b0 = P.bloques.filter(function (b) { return new Date(b.fin) > now; })[0] || P.bloques[0];
       var vivo = P.bloques.filter(function (b) { return new Date(b.ini) <= now && now < new Date(b.fin); })[0];
       // Si hay un bloque en curso, la página abre en él aunque la visita anterior haya dejado otra pestaña guardada:
