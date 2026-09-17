@@ -7,7 +7,11 @@
  *      - HMAC_SECRET: string aleatorio de 32+ chars (generar UNA vez, NO compartir)
  *      - FOLIO_PREFIX: "IV-FORO-"
  *      - SENDER_NAME: "IV Foro Internacional de Derecho y Tecnología"
- *      - SENDER_EMAIL: "emmanueldelva@cucea.udg.mx"
+ *      - SENDER_EMAIL: "emmanueldelva@cucea.udg.mx" (cuenta que ejecuta el script)
+ *      - REMITENTE: "contacto@forodyt.com" (opcional; es el default). Los correos a participantes salen de esta
+ *        dirección con GmailApp: tiene que estar dada de alta y verificada en «Enviar mensaje como» de la
+ *        cuenta que ejecuta el script (en la CUCEA lo está, vía smtp2go). Si no lo está, salen con MailApp
+ *        desde la cuenta del script y con respuesta a esta dirección.
  *      - LOGO_URL: URL pública del logo del Foro (opcional)
  *      - DIRECTOR_EMAIL: correo a notificar en alertas críticas (default: SENDER_EMAIL)
  *      - CONSTANCIA_TEMPLATE_ID: Doc ID del template de constancia
@@ -326,6 +330,53 @@ function validarQR(folio, hmacRecibido) {
 }
 
 // ============ CORREO ============
+/**
+ * enviarCorreo_({to, subject, htmlBody, attachments, inlineImages, name}) — único punto de salida de los correos a
+ * participantes. Sale de REMITENTE (contacto@forodyt.com) si es un «Enviar como» verificado de esta cuenta; si no,
+ * con MailApp desde la cuenta del script y Reply-To a REMITENTE. Devuelve 'alias' o 'mailapp'.
+ */
+let ALIASES_CACHE_ = null;
+function remitente_() { return String(PROPS.getProperty('REMITENTE') || 'contacto@forodyt.com').trim(); }
+function aliasDisponible_(correo) {
+  if (ALIASES_CACHE_ === null) {
+    try { ALIASES_CACHE_ = GmailApp.getAliases().map(a => String(a).toLowerCase()); }
+    catch (e) { ALIASES_CACHE_ = []; log_('aliasDisponible_', correo, e.message, null); }
+  }
+  return ALIASES_CACHE_.indexOf(String(correo).toLowerCase()) !== -1;
+}
+function textoPlano_(html) {
+  return String(html || '').replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<br\s*\/?>/gi, '\n').replace(/<\/(p|div|li|h\d|tr)>/gi, '\n')
+    .replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/[ \t]+/g, ' ').replace(/\n\s*\n\s*\n+/g, '\n\n').trim();
+}
+function enviarCorreo_(o) {
+  const de = remitente_();
+  const opciones = { htmlBody: o.htmlBody, name: o.name || PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología', replyTo: de };
+  if (o.attachments) opciones.attachments = o.attachments;
+  if (o.inlineImages) opciones.inlineImages = o.inlineImages;
+  if (aliasDisponible_(de)) {
+    opciones.from = de;
+    GmailApp.sendEmail(o.to, o.subject, o.body || textoPlano_(o.htmlBody), opciones);
+    return 'alias';
+  }
+  MailApp.sendEmail(Object.assign({ to: o.to, subject: o.subject, body: o.body || textoPlano_(o.htmlBody) }, opciones));
+  return 'mailapp';
+}
+
+/**
+ * _autorizarCorreo() — correr desde el editor. Con el consentimiento granular de Google, el permiso de Gmail
+ * («Leer, redactar, enviar…») puede quedar sin marcar aunque el resto sí: entonces enviarCorreo_() cae a MailApp.
+ * Esta función vuelve a pedir ese permiso y muestra las direcciones «Enviar como» que ve el script.
+ */
+function _autorizarCorreo() {
+  if (typeof ScriptApp.requireScopes === 'function') ScriptApp.requireScopes(ScriptApp.AuthMode.FULL, ['https://mail.google.com/']);
+  const alias = GmailApp.getAliases();
+  Logger.log('Direcciones «Enviar como» que ve el script: ' + (alias.join(', ') || '(ninguna)'));
+  Logger.log(alias.map(a => String(a).toLowerCase()).indexOf(remitente_().toLowerCase()) !== -1
+    ? 'OK: los correos a participantes saldrán de ' + remitente_()
+    : 'OJO: ' + remitente_() + ' no aparece; los correos saldrán de la cuenta del script con respuesta a ' + remitente_());
+}
+
 function enviarCorreoQR_(correo, nombre, folio, qrPayload) {
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&data=${encodeURIComponent(qrPayload)}`;
   const qrBlob = UrlFetchApp.fetch(qrUrl).getBlob().setName('qr.png');
@@ -338,12 +389,11 @@ function enviarCorreoQR_(correo, nombre, folio, qrPayload) {
     .replace(/{{FOLIO}}/g, folio)
     .replace(/{{QR_INLINE}}/g, '<img src="cid:qr" alt="QR" style="width:240px;height:240px;display:block;margin:24px auto;">');
 
-  MailApp.sendEmail({
+  enviarCorreo_({
     to: correo,
     subject: `Tu inscripción al IV Foro Internacional de Derecho y Tecnología — Folio ${folio}`,
     htmlBody: html,
-    inlineImages: { qr: qrBlob },
-    name: PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología'
+    inlineImages: { qr: qrBlob }
   });
 }
 
@@ -796,14 +846,14 @@ function enviarConstancia_(item, pdfBlob) {
     ponente: 'constancia de ponente'
   })[item.nivel] || 'constancia';
 
-  MailApp.sendEmail({
+  enviarCorreo_({
     to: item.correo,
     subject: `Constancia · IV Foro Internacional de Derecho y Tecnología — Folio ${item.folio}`,
     htmlBody: `
       <div style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #0E1B2C; line-height: 1.6;">
         <p>Hola, ${escapeHtml_(item.nombre)}.</p>
         <p>Adjuntamos tu <strong>${tituloNivel}</strong> del IV Foro Internacional de Derecho y Tecnología, con un total de <strong>${item.horas} horas efectivas</strong> acumuladas.</p>
-        <p>Si encuentras algún error en tu nombre o cómputo de horas, escribe a <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a> con asunto «Constancia · ${item.folio}».</p>
+        <p>Si encuentras algún error en tu nombre o cómputo de horas, escribe a <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a> con asunto «Constancia · ${item.folio}».</p>
         <p style="margin-top: 24px; font-style: italic; color: rgba(14, 27, 44, 0.6);">Gracias por tu participación.</p>
         <hr style="border: 0; border-top: 1px solid rgba(14, 27, 44, 0.14); margin: 24px 0;">
         <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14, 27, 44, 0.5); font-family: 'Courier New', monospace;">
@@ -812,8 +862,7 @@ function enviarConstancia_(item, pdfBlob) {
         </div>
       </div>
     `,
-    attachments: [pdfBlob],
-    name: PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología'
+    attachments: [pdfBlob]
   });
 }
 

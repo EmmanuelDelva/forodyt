@@ -25,6 +25,7 @@
  *        _testConstanciaBloque()       → muestra en PDF al DIRECTOR_EMAIL (y copia en la carpeta de constancias)
  *        instalarDisparadoresBloques() → cinco disparadores cerrarBloque (fin del bloque + tolerancia_fin_min + 5 min)
  *   5. En en-vivo.html, MODO_PRUEBA = false.
+ *   Ensayo de punta a punta sin tocar los bloques reales: abrirEnsayo() → en-vivo.html?ensayo=1 → cerrarEnsayo().
  *
  * REGLAS DE ACREDITACIÓN (ver consolidarStream)
  *   - Bloques presenciales seguidos a distancia: >= 75 % de minutos verificados + código de presencia si hubo.
@@ -73,15 +74,20 @@ function streamLogin(payload) {
   return { ok: true, nombre: u.nombre || u.nombre_completo || '', token: tokenStream_(folio, correo) };
 }
 
-/** POST stream_latido {folio, token, id_platica, minuto (YYYY-MM-DDTHH:MM en UTC), sesion} → {ok} */
+/** POST stream_latido {folio, token, id_platica, minuto (YYYY-MM-DDTHH:MM en UTC), sesion} → {ok}
+ *  El minuto que cuenta es el del SERVIDOR: el de la página solo se acepta si difiere ±90 s (para no perder un
+ *  minuto por la latencia). Así nadie puede mandar de golpe latidos de minutos pasados o futuros. */
 function streamLatido(payload) {
   const u = tokenValido_(payload); if (!u) return { ok: false, error: 'token_invalido' };
   const platica = buscarPlatica_(payload.id_platica); if (!platica) return { ok: false, error: 'platica_desconocida' };
-  const minuto = String(payload.minuto || '').slice(0, 16);
-  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(minuto)) return { ok: false, error: 'minuto_invalido' };
-  const ts = new Date(minuto + ':00Z').getTime();
+  if (platica.cerrada === true || String(platica.cerrada).toUpperCase() === 'TRUE') return { ok: false, error: 'platica_cerrada' };
+  const ahora = Date.now();
+  const cliente = String(payload.minuto || '').slice(0, 16);
+  const tsCliente = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(cliente) ? new Date(cliente + ':00Z').getTime() : NaN;
+  const ts = (!isNaN(tsCliente) && Math.abs(tsCliente + 30000 - ahora) <= 90000) ? tsCliente : ahora;
+  const minuto = new Date(ts).toISOString().slice(0, 16);
   const ini = new Date(platica.hora_inicio).getTime() - 10 * 60000, fin = new Date(platica.hora_fin).getTime() + 10 * 60000;
-  if (ts < ini || ts > fin) return { ok: false, error: 'fuera_de_ventana' };
+  if (ahora < ini || ahora > fin) return { ok: false, error: 'fuera_de_ventana' };
   const sh = hoja_(STREAM_SHEETS.latidos, ['folio', 'id_platica', 'minuto_utc', 'sesion', 'recibido']);
   // dedupe por (folio, platica, minuto)
   const clave = u.folio + '|' + payload.id_platica + '|' + minuto;
@@ -296,7 +302,8 @@ const BLOQUE_INFO = {
   '2': { sede: 'CUGDL', recinto: 'el Auditorio Salvador Allende (Centro Universitario de Guadalajara)', sesiones: 'Bienvenida · Mesas 5 a 7' },
   '3': { sede: 'Cineteca FICG', recinto: 'la Sala Guillermo del Toro (Cineteca FICG · Centro Cultural Universitario)', sesiones: 'Bienvenida · Mesas 8 a 10' },
   '4': { sede: 'Ciudad Judicial', recinto: 'el Auditorio de Ciudad Judicial del Estado de Jalisco', sesiones: 'Ponencia inaugural · Presentación editorial · Mesa 11 · Clausura' },
-  '5': { sede: 'Jornada Virtual Internacional', recinto: 'la transmisión en línea del Foro (Jornada Virtual Internacional)', sesiones: 'Apertura · Mesas V1 a V4 · Cierre' }
+  '5': { sede: 'Jornada Virtual Internacional', recinto: 'la transmisión en línea del Foro (Jornada Virtual Internacional)', sesiones: 'Apertura · Mesas V1 a V4 · Cierre' },
+  '9': { sede: 'Jornada Virtual Internacional', recinto: 'la transmisión en línea del Foro (Jornada Virtual Internacional)', sesiones: 'Apertura · Mesas V1 a V4 · Cierre' }   // ENSAYO
 };
 const DIAS_ES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -367,7 +374,7 @@ function emitirConstanciasBloque(idPlatica) {
       const datos = datosBloque_(platica, { nombre: usuario.nombre_completo || usuario.nombre || '', institucion: usuario.institucion || '' }, folioConst);
       const pdf = pdfConstancia_(datos);
       const archivo = carpeta ? carpeta.createFile(pdf) : null;
-      MailApp.sendEmail({
+      enviarCorreo_({
         to: u.correo,
         subject: `Constancia de asistencia · ${datos.sede} · IV Foro Internacional de Derecho y Tecnología`,
         htmlBody: `<div style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#0E1B2C;line-height:1.6">
@@ -377,7 +384,7 @@ function emitirConstanciasBloque(idPlatica) {
           <p>Cualquier aclaración: <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>, indicando el folio ${escapeHtml_(folioConst)}.</p>
           <hr style="border:0;border-top:1px solid rgba(14,27,44,.14);margin:24px 0">
           <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,27,44,.5);font-family:'Courier New',monospace">Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología · Universidad de Guadalajara</div></div>`,
-        attachments: [pdf], name: PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología'
+        attachments: [pdf]
       });
       sh.appendRow([folioConst, folio, String(idPlatica), u.correo, datos.horas, true, archivo ? archivo.getId() : '', '']); emitidas++;
     } catch (e) { sh.appendRow([folioConst, folio, String(idPlatica), u.correo, '', false, '', e.message]); fallidas++; }
@@ -390,7 +397,7 @@ function emitirConstanciasBloque(idPlatica) {
 function cerrarBloque() {
   const ahora = Date.now(); const cfg = leerConfig_(); const margen = (Number(cfg.tolerancia_fin_min) || 60) * 60000;
   const cerrados = String(PROPS.getProperty('BLOQUES_CERRADOS') || '').split(',').filter(Boolean);
-  Object.keys(BLOQUE_INFO).forEach(id => {
+  PLATICAS_IV.map(p => String(p.id_platica)).forEach(id => {   // el ensayo (bloque 9) se cierra con cerrarEnsayo()
     if (cerrados.indexOf(id) !== -1) return;
     const pl = buscarPlatica_(id); if (!pl) return;
     if (new Date(pl.hora_fin).getTime() + margen > ahora) return;
@@ -462,7 +469,8 @@ function _testConstanciaBloque() {
   const datos = datosBloque_(pl, { nombre: 'Nombre Apellido Apellido', institucion: 'Universidad de Guadalajara' }, 'IV-FIDDT-BLQ/UDG/2026-1-0000');
   const pdf = pdfConstancia_(datos);
   const faltan = ['FIRMA_DIGITAL_FILE_ID', 'LOGO_UDG_FILE_ID', 'LOGO_CA_FILE_ID', 'AGUA_FILE_ID'].filter(k => !PROPS.getProperty(k));
-  MailApp.sendEmail({ to: PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL'), subject: 'PRUEBA · constancia por bloque', body: 'Muestra generada por _testConstanciaBloque().' + (faltan.length ? ' Faltan en Script Properties: ' + faltan.join(', ') : ''), attachments: [pdf] });
+  const via = enviarCorreo_({ to: PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL'), subject: 'PRUEBA · constancia por bloque', htmlBody: '<p>Muestra generada por _testConstanciaBloque().</p>' + (faltan.length ? '<p>Faltan en Script Properties: ' + faltan.join(', ') + '</p>' : ''), attachments: [pdf] });
+  Logger.log('Enviada desde ' + (via === 'alias' ? remitente_() : 'la cuenta del script (' + remitente_() + ' no es un «Enviar como» verificado)'));
   const id = PROPS.getProperty('CONSTANCIAS_FOLDER_ID');
   if (id) { const f = DriveApp.getFolderById(id).createFile(pdf.copyBlob().setName('PRUEBA-constancia-bloque-1.pdf')); Logger.log('Muestra: ' + f.getUrl()); }
   Logger.log('Faltan: ' + (faltan.join(', ') || 'nada'));
@@ -487,6 +495,45 @@ function _testStreamBackend() {
   Logger.log('stream_latido (bloque 5, ' + minuto + ' UTC) → ' + (lat.ok ? 'ok' : lat.error) + '  [antes del 18: fuera_de_ventana = token y bloque correctos]');
   const malo = streamLatido({ folio: String(fila[iF]), token: '00000000', id_platica: 5, minuto: minuto });
   Logger.log('stream_latido con token falso → ' + (malo.ok ? 'ok (¡MAL!)' : malo.error));
+}
+
+// ============ ENSAYO COMPLETO COMO ASISTENTE (bloque 9) ============
+/**
+ * Para probar de punta a punta sin tocar los bloques reales: el bloque 9 se acredita con la regla de la Jornada
+ * Virtual (≥ minutos_minimos_virtual) y su constancia usa el mismo texto, pero horas_valor = 0 (no suma a la
+ * constancia con valor curricular), el escáner no lo lista y cerrarBloque() no lo toca.
+ *   1. abrirEnsayo()  → abre el bloque 9 desde ahora y por 4 h 12 min (como la Jornada Virtual).
+ *   2. Entrar a forodyt.com/en-vivo.html?ensayo=1 con un folio real y dejar correr ≥ 10 minutos.
+ *   3. cerrarEnsayo() → acredita, envía la constancia del ensayo y cierra el bloque 9.
+ */
+const ENSAYO_ID = 9;
+function filaPlatica_(id) {
+  const sh = SS.getSheetByName(SHEETS.platicas); const data = sh.getDataRange().getValues();
+  const headers = data[0].map(h => String(h).trim());
+  for (let i = 1; i < data.length; i++) if (String(data[i][headers.indexOf('id_platica')]) === String(id)) return { sh, headers, row: i + 1 };
+  return { sh, headers, row: 0 };
+}
+function abrirEnsayo() {
+  const ini = new Date(Date.now() - 2 * 60000), fin = new Date(ini.getTime() + 252 * 60000);
+  const valores = { id_platica: ENSAYO_ID, nombre_sesion: 'ENSAYO · Jornada Virtual (no suma horas)', eje: 'varios', sede: 'virtual', jornada: 'ensayo',
+    hora_inicio: ini, hora_fin: fin, horas_valor: 0, tipo: 'ensayo', formato: 'virtual', zoom_id: '', cerrada: false };
+  const f = filaPlatica_(ENSAYO_ID);
+  const fila = f.headers.map(h => (h in valores ? valores[h] : ''));
+  if (f.row) f.sh.getRange(f.row, 1, 1, f.headers.length).setValues([fila]); else f.sh.appendRow(fila);
+  Logger.log(`Ensayo abierto: ${Utilities.formatDate(ini, TZ, 'yyyy-MM-dd HH:mm')} a ${Utilities.formatDate(fin, TZ, 'HH:mm')} (GDL). Entra a forodyt.com/en-vivo.html?ensayo=1`);
+}
+function cerrarEnsayo() {
+  const stream = consolidarStream();
+  const constancias = emitirConstanciasBloque(ENSAYO_ID);
+  const f = filaPlatica_(ENSAYO_ID);
+  if (f.row) {
+    const cFin = f.headers.indexOf('hora_fin') + 1, cCerr = f.headers.indexOf('cerrada') + 1;
+    if (cFin) f.sh.getRange(f.row, cFin).setValue(new Date());
+    if (cCerr) f.sh.getRange(f.row, cCerr).setValue(true);
+  }
+  log_('cerrarEnsayo', String(ENSAYO_ID), JSON.stringify({ stream, constancias }), null);
+  Logger.log('Ensayo cerrado: ' + JSON.stringify({ stream, constancias }));
+  return { stream, constancias };
 }
 
 // ============ CIERRE AUTOMÁTICO DE LA JORNADA VIRTUAL ============
