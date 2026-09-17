@@ -356,8 +356,8 @@
   "fr": "Deux continents, une session · lien de connexion pour les personnes inscrites"
  },
  "bloque.virtual.horario": {
-  "en": "15:00–19:00 Spain · 7:00–11:00 Guadalajara",
-  "fr": "15:00–19:00 Espagne · 7:00–11:00 Guadalajara"
+  "en": "15:00–19:10 Spain · 7:00–11:10 Guadalajara",
+  "fr": "15:00–19:10 Espagne · 7:00–11:10 Guadalajara"
  },
  "bloque.virtual.temas": {
   "en": "Agentic AI · Evidence and governance · Person and autonomy · Digital identity · Justice and data",
@@ -532,10 +532,18 @@
   "fr": "« La violation du droit à une procédure régulière à l'ère du Prompt Injection au Mexique »"
  },
  "s.v4.p3.afil": {
+  "en": "UNAM",
+  "fr": "UNAM"
+ },
+ "s.v4.p3.talk": {
+  "en": "«Epistemic Rights as a Fourth Generation of Human Rights»",
+  "fr": "« Les droits épistémiques comme quatrième génération des droits humains »"
+ },
+ "s.v4.p4.afil": {
   "en": "CONABI · Futura Sit SRL (Cuba)",
   "fr": "CONABI · Futura Sit SRL (Cuba)"
  },
- "s.v4.p3.talk": {
+ "s.v4.p4.talk": {
   "en": "«Personal Data Protection, Artificial Intelligence and Corporate Liability in Legal Services. Case Study of the Legalsit Software»",
   "fr": "« Protection des données personnelles, intelligence artificielle et responsabilité des entreprises dans les services juridiques. Étude de cas du logiciel Legalsit »"
  },
@@ -666,14 +674,6 @@
  "s.m3.p0.talk": {
   "en": "«Freedom in the Face of AI: the Andromeda Algorithm Case»",
   "fr": "« La liberté face à l'IA : le cas de l'algorithme Andromède »"
- },
- "s.m3.p1.afil": {
-  "en": "UNAM",
-  "fr": "UNAM"
- },
- "s.m3.p1.talk": {
-  "en": "«Epistemic Rights as a Fourth Generation of Human Rights»",
-  "fr": "« Les droits épistémiques comme quatrième génération des droits humains »"
  },
  "s.d21-cfp.kicker": {
   "en": "Special Session — Multi-track · CFP",

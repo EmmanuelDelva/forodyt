@@ -30,7 +30,7 @@
           "tz": "Europe/Madrid",
           "sede": "En línea",
           "sede_sub": "Dos continentes, una sesión · enlace de conexión para personas registradas",
-          "horario": "15:00–19:00 España · 7:00–11:00 Guadalajara",
+          "horario": "15:00–19:10 España · 7:00–11:10 Guadalajara",
           "temas": "IA agéntica · Prueba y gobernanza · Persona y autonomía · Identidad digital · Justicia y datos",
           "sesiones": [
             {
@@ -248,7 +248,7 @@
             {
               "id": "v4",
               "ini": "18:01",
-              "fin": "18:49",
+              "fin": "18:59",
               "tipo": "mesa",
               "num": "V4",
               "kicker": "Mesa V4 — Ejes 4 · 6",
@@ -297,6 +297,16 @@
                 {
                   "personas": [
                     {
+                      "nombre": "Johanna Mildred Pinto García",
+                      "slug": "pinto_garcia"
+                    }
+                  ],
+                  "afil": "UNAM",
+                  "talk": "«Los derechos epistémicos como cuarta generación de derechos humanos»"
+                },
+                {
+                  "personas": [
+                    {
                       "nombre": "Laura Fernández González",
                       "slug": "fernandez_gonzalez"
                     },
@@ -316,8 +326,8 @@
             },
             {
               "id": "jv-cierre",
-              "ini": "18:50",
-              "fin": "19:00",
+              "ini": "19:00",
+              "fin": "19:10",
               "tipo": "ceremonia",
               "kicker": "Cierre",
               "titulo": null,
@@ -501,16 +511,6 @@
                   ],
                   "afil": "Tecnológico de Monterrey",
                   "talk": "«La libertad frente a la IA: el caso del algoritmo Andrómeda»"
-                },
-                {
-                  "personas": [
-                    {
-                      "nombre": "Johanna Mildred Pinto García",
-                      "slug": "pinto_garcia"
-                    }
-                  ],
-                  "afil": "UNAM",
-                  "talk": "«Los derechos epistémicos como cuarta generación de derechos humanos»"
                 }
               ]
             },

@@ -64,7 +64,8 @@ PONENTES = [
     ('romero_gutierrez',    'M', 'A',  4),
     ('willman',             'H', 'A',  4),
     ('sanchez_aguirre',     'H', 'A',  4),
-    ('pinto_garcia',        'M', 'A',  4),
+    # Pinto García salió del programa presencial el 2026-09-17: presenta en la Mesa V4
+    # de la Jornada Virtual, así que la coloca el grupo «jv» de index_grupos.py, no esta tabla.
 ]
 
 IDX = {p[0]: i for i, p in enumerate(PONENTES)}

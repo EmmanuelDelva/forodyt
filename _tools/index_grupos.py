@@ -169,9 +169,14 @@ def tarjeta(p, grupo, st):
             f'        <div class="ponente-photo">\n          {foto}\n        </div>\n'
             f'        <h3 class="ponente-name">{esc(l1)}<br>{esc(l2)}</h3>{afil}{topic}{talk}\n      </article>')
 
-def reusar(a, st):
+def reusar(a, st, grupo='main'):
     d = data_d(st)
-    return re.sub(r'style="--st:\d+"( data-d="\d")?', 'style="--st:%d"%s' % (st, (' data-d="%s"' % d) if d else ''), a, count=1)
+    a = re.sub(r'style="--st:\d+"( data-d="\d")?', 'style="--st:%d"%s' % (st, (' data-d="%s"' % d) if d else ''), a, count=1)
+    # El modal elige su epígrafe por data-grupo (SEM_EYE): una tarjeta escrita a mano que
+    # se reutiliza en otro grupo lo necesita igual que una generada, o sale como «Ponente
+    # confirmado» en vez de «Jornada Virtual Internacional».
+    a = re.sub(r' data-grupo="\w+"', '', a, count=1)
+    return re.sub(r'(data-semblanza="\w+")', r'\1 data-grupo="%s"' % grupo, a, count=1)
 
 # orden de la parrilla principal (parrilla.py) — toda persona del 21-22 debe estar en ella
 orden_main = [parrilla.PONENTES[i][0] for i in parrilla.optimiza()[0]]
@@ -194,7 +199,7 @@ def grupo_html(gid, personas, eyebrow, titulo_html, sub):
     global st
     cards = []
     for p in personas:
-        if p['slug'] in tarjetas: cards.append(reusar(tarjetas[p['slug']], st))
+        if p['slug'] in tarjetas: cards.append(reusar(tarjetas[p['slug']], st, gid))
         else: cards.append(tarjeta(p, gid, st)); generadas.append(p)
         st += 1
     return (f'\n    <div class="ponentes-grupo reveal" id="ponentes-{gid}">\n'
