@@ -366,13 +366,13 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   /* ═══════════════ CONFIGURACIÓN (editar aquí) ═══════════════
-     MODO_PRUEBA: true → no llama al backend; anota en pantalla lo que enviaría.
-     ENDPOINT: el Web App de Apps Script (mismo de inscripcion.html) una vez que
-               Code.gs incorpore las acciones de apps-script/Asistencia.gs.
+     MODO_PRUEBA: true → no llama al backend; anota en pantalla lo que enviaría (y oculta la sección de asistencia).
+     ENDPOINT: el Web App de Apps Script (mismo de inscripcion.html). Desde el 2026-09-17 la versión
+               publicada ya incluye las acciones stream_* de apps-script/Asistencia.gs.
      STREAMS: por sede. tipo: 'youtube' (id de video) · 'youtube_canal' (id de canal, toma el directo)
               · 'facebook' (url del video/directo) · 'vimeo' (id) · 'zoom' (url de unión: no se incrusta, se abre)
               · '' (sin transmisión todavía). */
-  var MODO_PRUEBA = true;
+  var MODO_PRUEBA = false;
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55-JzzgzlXOZ0_lWOe1gpHPp0OJB0q2fn4l2B4NTHxBUq6CVA/exec';
   var STREAMS = {
     'virtual':         { tipo: 'youtube', id: 'qa-1p43DoAs', url: '' },
@@ -388,7 +388,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     en: { eyebrow: 'IV edition · live stream', vivo: 'Live', h1: 'The Forum, <em>live</em>.',
       lead: 'Follow the <b>online session on the 18th</b> and the <b>on-site days on September 21 and 22</b> from here. If you are registered, record your attendance on this same page: your verified minutes count towards the certificate.',
       vacio: 'This venue\'s stream goes live at the time of its first session. Meanwhile, check the program.', vacio_btn: 'See the program', pie_sede: 'Venue', abrir: 'Open on the platform ↗', pie_hora: 'Guadalajara time',
-      ahora_pronto: 'Next session', ahora_vivo: 'Now live', ahora_fin: 'The edition has concluded', dias: 'days', ver_programa: 'See in the program', sig: 'Up next', hasta: 'until {h}', desde: 'from {h}', faltan: '{n} days to the online session',
+      ahora_pronto: 'Next session', ahora_vivo: 'Now live', ahora_fin: 'The edition has concluded', dias: 'days', ver_programa: 'See in the program', sig: 'Up next', hasta: 'until {h}', desde: 'from {h}', faltan: '{n} days to the online session', falta1: '1 day to the online session',
       asis_eyebrow: 'Online attendance · certificates', asis_t: 'Your presence, <em>verified</em>.',
       asis_lead: 'The certificate for following the Forum remotely is issued on <b>verified minutes</b>, not registration alone: the page records that you are watching while this tab is visible and you answer brief checks. Use the <b>registration code</b> you received when you signed up.',
       acc_t: 'Identify yourself', folio: 'Registration code', correo: 'Email you registered with', entrar: 'Record my attendance',
@@ -409,7 +409,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     fr: { eyebrow: 'IVe édition · diffusion', vivo: 'En direct', h1: 'Le Forum, <em>en direct</em>.',
       lead: 'Suivez la <b>journée virtuelle du 18</b> et les <b>journées présentielles des 21 et 22 septembre</b> depuis cette page. Si vous êtes inscrit, enregistrez ici votre présence : vos minutes vérifiées comptent pour l\'attestation.',
       vacio: 'La diffusion de ce site s\'active à l\'heure de la première session. En attendant, consultez le programme.', vacio_btn: 'Voir le programme', pie_sede: 'Site', abrir: 'Ouvrir sur la plateforme ↗', pie_hora: 'Heure de Guadalajara',
-      ahora_pronto: 'Prochaine session', ahora_vivo: 'En direct maintenant', ahora_fin: 'L\'édition est terminée', dias: 'jours', ver_programa: 'Voir dans le programme', sig: 'À suivre', hasta: 'jusqu\'à {h}', desde: 'à partir de {h}', faltan: 'Plus que {n} jours avant la journée virtuelle',
+      ahora_pronto: 'Prochaine session', ahora_vivo: 'En direct maintenant', ahora_fin: 'L\'édition est terminée', dias: 'jours', ver_programa: 'Voir dans le programme', sig: 'À suivre', hasta: 'jusqu\'à {h}', desde: 'à partir de {h}', faltan: 'Plus que {n} jours avant la journée virtuelle', falta1: 'Plus qu\'un jour avant la journée virtuelle',
       asis_eyebrow: 'Présence virtuelle · attestations', asis_t: 'Votre présence, <em>vérifiée</em>.',
       asis_lead: 'L\'attestation pour avoir suivi le Forum à distance repose sur des <b>minutes vérifiées</b>, pas seulement sur l\'inscription : la page enregistre que vous regardez la diffusion tant que cet onglet est visible et que vous répondez à de brèves vérifications. Utilisez le <b>folio</b> reçu à l\'inscription.',
       acc_t: 'Identifiez-vous', folio: 'Folio d\'inscription', correo: 'Courriel utilisé à l\'inscription', entrar: 'Enregistrer ma présence',
@@ -428,7 +428,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       cod_ok: 'Code accepté pour ce bloc.', cod_bad: 'Code incorrect ou expiré.', cod_sin: 'Identifiez-vous d\'abord.', prueba: 'Mode test : rien n\'est envoyé au serveur ; voici ce qui serait envoyé.',
       bloque_ok: 'crédité', bloque_pend: 'en cours', bloque_no: 'pas encore' }
   };
-  var F18N_ES = { ahora_vivo: 'Ahora en curso', ahora_fin: 'La edición ha concluido', hasta: 'hasta las {h}', desde: 'desde las {h}', faltan: 'Faltan {n} días para la jornada virtual',
+  var F18N_ES = { ahora_vivo: 'Ahora en curso', ahora_fin: 'La edición ha concluido', hasta: 'hasta las {h}', desde: 'desde las {h}', faltan: 'Faltan {n} días para la jornada virtual', falta1: 'Falta un día para la jornada virtual',
     estado_activa: 'Registrando · {sede}', estado_oculta: 'En pausa · pestaña no visible', estado_reto: 'En pausa · responde la comprobación',
     hola: 'Bienvenido/a, {n}. Folio {f}.', err_campos: 'Escribe tu folio y el correo con el que te inscribiste.', err_login: 'No pudimos validar tu folio. Revisa ambos campos o escribe a contacto@forodyt.com.',
     cod_ok: 'Código aceptado para este bloque.', cod_bad: 'Código incorrecto o vencido.', cod_sin: 'Identifícate primero.', prueba: 'Modo prueba: no se envía nada al servidor; esto es lo que se enviaría.',
@@ -449,7 +449,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'sede-tab'; btn.setAttribute('role', 'tab'); btn.setAttribute('data-sede', b.id); btn.setAttribute('aria-pressed', b.id === sedeActiva ? 'true' : 'false');
       var num = b.fecha.slice(-2);
       btn.innerHTML = '<b>' + num + '</b><span>' + (b.sede[LANG] || b.sede.es) + '</span><span class="en-vivo" hidden aria-hidden="true"></span>';
-      btn.addEventListener('click', function () { elegirSede(b.id, true); });
+      btn.addEventListener('click', function () { manualSede = true; elegirSede(b.id, true); });
       cont.appendChild(btn);
     });
   }
@@ -497,7 +497,8 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     if (sesionEnCurso) { L.textContent = t('ahora_vivo'); T.textContent = tit(sesionEnCurso); M.innerHTML = '<b>' + sede(sesionEnCurso) + '</b> · ' + t('hasta').replace('{h}', fmt(new Date(sesionEnCurso.fin))); Pn.innerHTML = pon(sesionEnCurso); $('#ahoraLink').href = 'programa.html#s-' + sesionEnCurso.id; }
     else if (siguiente) {
       var antes = now < new Date('2026-09-18T00:00:00-06:00');
-      L.textContent = antes ? t('faltan').replace('{n}', Math.ceil((new Date('2026-09-18T00:00:00-06:00') - now) / 86400000)) : t('ahora_pronto');
+      var nDias = Math.ceil((new Date('2026-09-18T00:00:00-06:00') - now) / 86400000);
+      L.textContent = antes ? (nDias === 1 ? t('falta1') : t('faltan').replace('{n}', nDias)) : t('ahora_pronto');
       T.textContent = tit(siguiente); M.innerHTML = '<b>' + sede(siguiente) + '</b> · ' + t('desde').replace('{h}', fmt(new Date(siguiente.ini))); Pn.innerHTML = pon(siguiente); $('#ahoraLink').href = 'programa.html#s-' + siguiente.id;
     } else { L.textContent = t('ahora_fin'); T.textContent = ''; M.innerHTML = ''; Pn.innerHTML = ''; $('#ahoraLink').href = 'memorias.html'; }
     var sig2 = sesionEnCurso ? siguiente : (siguiente ? P.sesiones.filter(function (s) { return new Date(s.ini) > new Date(siguiente.ini); }).sort(function (a, b) { return new Date(a.ini) - new Date(b.ini); })[0] : null);
@@ -516,6 +517,35 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   function api(payload) {
     if (MODO_PRUEBA) { log('<b>PRUEBA</b> ' + JSON.stringify(payload).replace(/</g, '&lt;')); return Promise.resolve(fakeRespuesta(payload)); }
     return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(function (r) { return r.json(); });
+  }
+  /* El token de sesión vale solo el día (hora de Guadalajara) en que se emitió. Quien se identificó otro día
+     trae uno vencido: se renueva solo, con el folio y el correo guardados, y se reintenta la petición.
+     Si el backend ya no reconoce ese folio con ese correo, se cierra la sesión y se pide de nuevo. */
+  var renovando = null;
+  function renovarToken() {
+    if (!SES || !SES.correo) return Promise.resolve(false);
+    if (!renovando) {
+      renovando = api({ action: 'stream_login', folio: SES.folio, correo: SES.correo }).then(function (r) {
+        renovando = null;
+        if (r && r.ok && r.token) { SES.token = r.token; if (r.nombre) SES.nombre = r.nombre; guardar(); return true; }
+        if (r && r.error) {
+          SES = null; try { localStorage.removeItem('forodyt_vivo'); } catch (e) {}
+          var av = $('#avisoLogin'); av.hidden = false; av.className = 'aviso'; av.textContent = t('err_login');
+          pintarEstado(); pintarBloques();
+        }
+        return false;
+      }, function () { renovando = null; return false; });
+    }
+    return renovando;
+  }
+  function apiSesion(payload) {
+    return api(payload).then(function (r) {
+      if (!r || r.error !== 'token_invalido' || !SES) return r;
+      return renovarToken().then(function (ok) {
+        if (!ok || !SES) return r;
+        payload.token = SES.token; return api(payload);
+      });
+    });
   }
   function fakeRespuesta(p) {
     if (p.action === 'stream_login') return { ok: /^IV-FORO-[A-Z2-9]{6}$/.test(p.folio), nombre: 'Persona de prueba', token: 'PRUEBA' };
@@ -546,15 +576,16 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       ul.appendChild(li);
     });
   }
-  function grabando() { return !!(SES && bloqueKey() && document.visibilityState === 'visible' && !retoPendiente && (MODO_PRUEBA || (STREAMS[sedeActiva] && STREAMS[sedeActiva].tipo))); }
+  function grabando() { return !!(SES && bloqueKey() && document.visibilityState === 'visible' && !retoPendiente && (MODO_PRUEBA || (bloqueEnCurso && sedeActiva === bloqueEnCurso.id && STREAMS[sedeActiva] && STREAMS[sedeActiva].tipo))); }
   function latido() {
     pintarAhora();
     if (!grabando()) return;
     var k = bloqueKey(); var minuto = new Date().toISOString().slice(0, 16);
     if (minuto === ultimoMinuto) return; ultimoMinuto = minuto;
     var b = bloquePorId(k);
-    api({ action: 'stream_latido', folio: SES.folio, token: SES.token, id_platica: b ? b.platica : null, bloque: k, minuto: minuto, sesion: sesionEnCurso ? sesionEnCurso.id : null, lang: LANG })
-      .then(function (r) { if (r && r.ok) { LOCAL[k] = LOCAL[k] || { min: 0, retosRx: 0, retosOk: 0, codigos: 0 }; LOCAL[k].min++; guardar(); pintarEstado(); pintarBloques(); } });
+    apiSesion({ action: 'stream_latido', folio: SES.folio, token: SES.token, id_platica: b ? b.platica : null, bloque: k, minuto: minuto, sesion: sesionEnCurso ? sesionEnCurso.id : null, lang: LANG })
+      .then(function (r) { if (r && r.ok && !r.dup) { LOCAL[k] = LOCAL[k] || { min: 0, retosRx: 0, retosOk: 0, codigos: 0 }; LOCAL[k].min++; guardar(); pintarEstado(); pintarBloques(); } })
+      .catch(function () { ultimoMinuto = null; });   // sin red: permite reintentar este mismo minuto (p. ej. al volver a la pestaña)
     programarReto();
   }
   function programarReto() { if (proximoReto) return; var min = RETO_MIN[0] + Math.random() * (RETO_MIN[1] - RETO_MIN[0]); proximoReto = setTimeout(abrirReto, min * 60000); }
@@ -563,14 +594,14 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     var k = bloqueKey(); LOCAL[k] = LOCAL[k] || { min: 0, retosRx: 0, retosOk: 0, codigos: 0 }; LOCAL[k].retosRx++; guardar();
     retoAbierto = true; retoPendiente = true; var s = RETO_TIMEOUT_S; $('#retoCuenta').textContent = s; $('#reto').classList.add('abierta'); $('#retoOk').focus();
     // si se agota el tiempo, el aviso se queda abierto: al responder tarde se reanuda el conteo, pero la comprobación cuenta como no respondida
-    retoTimer = setInterval(function () { s--; $('#retoCuenta').textContent = Math.max(0, s); if (s <= 0) { clearInterval(retoTimer); retoAbierto = false; api({ action: 'stream_reto_pantalla', folio: SES.folio, token: SES.token, bloque: k, ok: false }); pintarEstado(); } }, 1000);
+    retoTimer = setInterval(function () { s--; $('#retoCuenta').textContent = Math.max(0, s); if (s <= 0) { clearInterval(retoTimer); retoAbierto = false; if (SES) apiSesion({ action: 'stream_reto_pantalla', folio: SES.folio, token: SES.token, bloque: k, ok: false }).catch(function () {}); pintarEstado(); } }, 1000);
     pintarEstado();
   }
   $('#retoOk').addEventListener('click', function () {
     clearInterval(retoTimer); $('#reto').classList.remove('abierta');
     var k = bloqueKey(); var fueATiempo = retoAbierto; if (k && LOCAL[k] && fueATiempo) LOCAL[k].retosOk++;
     retoAbierto = false; retoPendiente = false; guardar();
-    if (fueATiempo) api({ action: 'stream_reto_pantalla', folio: SES.folio, token: SES.token, bloque: k, ok: true });
+    if (fueATiempo && SES) apiSesion({ action: 'stream_reto_pantalla', folio: SES.folio, token: SES.token, bloque: k, ok: true }).catch(function () {});
     pintarEstado(); programarReto();
   });
   $('#formLogin').addEventListener('submit', function (e) {
@@ -588,10 +619,10 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   $('#formCodigo').addEventListener('submit', function (e) {
     e.preventDefault(); var av = $('#avisoCodigo'); var cod = $('#codigo').value.trim().toUpperCase(); if (!SES) { av.hidden = false; av.className = 'aviso'; av.textContent = t('cod_sin'); return; }
     var k = bloqueKey(); var b = k ? bloquePorId(k) : null;
-    api({ action: 'stream_reto', folio: SES.folio, token: SES.token, id_platica: b ? b.platica : null, bloque: k, codigo: cod }).then(function (r) {
+    apiSesion({ action: 'stream_reto', folio: SES.folio, token: SES.token, id_platica: b ? b.platica : null, bloque: k, codigo: cod }).then(function (r) {
       av.hidden = false; av.className = 'aviso' + (r && r.ok ? ' ok' : ''); av.textContent = t(r && r.ok ? 'cod_ok' : 'cod_bad');
       if (r && r.ok && k) { LOCAL[k] = LOCAL[k] || { min: 0, retosRx: 0, retosOk: 0, codigos: 0 }; LOCAL[k].codigos++; guardar(); $('#codigo').value = ''; }
-    });
+    }).catch(function () {});
   });
   $('#btnSalir').addEventListener('click', function () { SES = null; try { localStorage.removeItem('forodyt_vivo'); } catch (e) {} pintarEstado(); pintarBloques(); });
   document.addEventListener('visibilitychange', function () { pintarEstado(); if (document.visibilityState === 'visible') latido(); });
@@ -606,8 +637,12 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     fetch('programa-data.json').then(function (r) { return r.json(); }).then(function (d) {
       P = d; var guardada = null; try { guardada = localStorage.getItem('forodyt_vivo_sede'); } catch (e) {}
       var now = new Date(); var b0 = P.bloques.filter(function (b) { return new Date(b.fin) > now; })[0] || P.bloques[0];
-      sedeActiva = guardada && bloquePorId(guardada) ? guardada : b0.id; manualSede = !!guardada;
+      var vivo = P.bloques.filter(function (b) { return new Date(b.ini) <= now && now < new Date(b.fin); })[0];
+      // Si hay un bloque en curso, la página abre en él aunque la visita anterior haya dejado otra pestaña guardada:
+      // solo esa pestaña transmite y solo en ella cuentan los minutos.
+      sedeActiva = vivo ? vivo.id : (guardada && bloquePorId(guardada) ? guardada : b0.id); manualSede = false;
       pintarSedes(); elegirSede(sedeActiva, false); pintarAhora(); pintarBloques();
+      latido();   // con sesión guardada y bloque en curso, el primer minuto cuenta al abrir (y un token vencido se renueva ya)
       setInterval(latido, LATIDO_MS); setInterval(pintarAhora, 30000);
     });
     var lastLang = document.documentElement.lang || 'es';
