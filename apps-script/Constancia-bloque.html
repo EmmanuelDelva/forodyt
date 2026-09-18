@@ -82,6 +82,7 @@
   .compacta .cierre { margin-top: 3mm; }
   .compacta .firmas { margin-top: 3mm; }
   .compacta .firma-box { height: 11mm; line-height: 11mm; }
+  .compacta .firma-vacia { height: 11mm; }   /* misma altura que .firma-box o las tres rayas se desalinean */
   /* bloque de la ponencia (constancias de participación) */
   .ponencia { margin: 4mm auto 0; width: 152mm; border-top: 0.6pt solid #D9D3C3; border-bottom: 0.6pt solid #D9D3C3; padding: 2.6mm 4mm; }
   .ponencia .pk { font-family: 'Manrope', Arial, sans-serif; font-weight: 600; font-size: 7.5pt; letter-spacing: 0.32em; text-transform: uppercase; color: #B8923E; }
@@ -99,6 +100,10 @@
   .firmas.cuatro .firma-nombre { font-size: 9pt; white-space: normal; }
   .firmas.cuatro .firma-cargo { font-size: 6.4pt; letter-spacing: 0.18em; }
   .firmas.cuatro .firma-sub { font-size: 7.6pt; }
+  /* tres firmas (participación): los nombres largos NO pueden ir en nowrap o se salen de su columna */
+  .firmas.tres .firma-nombre { font-size: 9.5pt; white-space: normal; }
+  .firmas.tres .firma-cargo { font-size: 6.6pt; letter-spacing: 0.2em; }
+  .firmas.tres .firma-sub { font-size: 7.8pt; }
   .pie { position: absolute; left: 18mm; right: 18mm; bottom: 14mm; border-top: 0.5pt solid #D9D3C3; padding-top: 2.8mm; font-family: 'Inter', Arial, sans-serif; font-size: 7.5pt; color: #4A5568; line-height: 1.6; }
   .pie table { width: 100%; border-collapse: collapse; }
   .pie td { vertical-align: top; }
@@ -171,11 +176,19 @@
     <td style="width:25%"><? if (firmantes[i].firma_src) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firmantes[i].firma_src) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firmantes[i].nombre ?></div><div class="firma-cargo"><?= firmantes[i].cargo ?></div></td>
     <? } ?>
   </tr></table>
-  <? } else { ?>
+  <? } ?>
+  <? if (tipo === 'bloque') { ?>
   <table class="firmas"><tr>
     <td style="width:22%"></td>
     <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:22%"></td>
+  </tr></table>
+  <? } ?>
+  <? if (participacion) { ?>
+  <table class="firmas tres"><tr>
+    <td style="width:34%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:33%"><? if (co1_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(co1_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= co1_nombre ?></div><div class="firma-cargo"><?= co1_cargo ?></div><div class="firma-sub"><?= co1_sub ?></div></td>
+    <td style="width:33%"><? if (co2_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(co2_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= co2_nombre ?></div><div class="firma-cargo"><?= co2_cargo ?></div><div class="firma-sub"><?= co2_sub ?></div></td>
   </tr></table>
   <? } ?>
   </div>

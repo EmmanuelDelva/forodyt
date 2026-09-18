@@ -102,15 +102,42 @@ def render(tpl, ctx):
         return salida
     tpl = re.sub(r'<\? for \(var i = 0; i < firmantes\.length; i\+\+\) \{ \?>(.*?)<\? \} \?>(?=\s*</tr>)',
                  _for, tpl, flags=re.S)
-    pat = re.compile(r'<\? if \((.*?)\) \{ \?>(.*?)(?:<\? \} else \{ \?>(.*?))?<\? \} \?>', re.S)
-    while True:
-        m = pat.search(tpl)
-        if not m:
-            break
-        rama = m.group(2) if _cond(m.group(1), ctx) else (m.group(3) or '')
-        tpl = tpl[:m.start()] + rama + tpl[m.end():]
+    tpl = _ifs(tpl, ctx)
     tpl = re.sub(r'<\?!= (.*?) \?>', lambda m: str(_eval(m.group(1), ctx)), tpl)
     return re.sub(r'<\?= (.*?) \?>', lambda m: str(_eval(m.group(1), ctx)), tpl)
+
+
+_ABRE = re.compile(r'<\? if \((.*?)\) \{ \?>', re.S)
+_TOKEN = re.compile(r'<\? if \(.*?\) \{ \?>|<\? \} else \{ \?>|<\? \} \?>', re.S)
+
+
+def _ifs(tpl, ctx):
+    """Resuelve los `if` contando profundidad.
+
+    Un `(.*?)` no codicioso NO sirve: con un `if` dentro de otro corta en el `<? } ?>` del interno y
+    se traga el resto del bloque. Así se perdió la firma del rector de Hespérides (2026-09-18): de las
+    tres firmas solo salían dos, y el PDF parecía correcto."""
+    m = _ABRE.search(tpl)
+    if not m:
+        return tpl
+    prof, pos, corte_else, fin = 1, m.end(), None, None
+    while prof:
+        t = _TOKEN.search(tpl, pos)
+        if not t:
+            raise ValueError('scriptlet `if` sin cerrar: %s' % m.group(1))
+        if t.group(0).startswith('<? if'):
+            prof += 1
+        elif t.group(0) == '<? } else { ?>':
+            if prof == 1:
+                corte_else = (t.start(), t.end())
+        else:
+            prof -= 1
+            if prof == 0:
+                fin = (t.start(), t.end())
+        pos = t.end()
+    si = tpl[m.end():corte_else[0]] if corte_else else tpl[m.end():fin[0]]
+    no = tpl[corte_else[1]:fin[0]] if corte_else else ''
+    return _ifs(tpl[:m.start()] + (si if _cond(m.group(1), ctx) else no) + tpl[fin[1]:], ctx)
 
 
 # ------------------------------------------------------------ datos del Foro
@@ -161,20 +188,26 @@ LOGOS = {
 }
 AGUA = data_uri(os.path.join(ROOT, 'img', 'marca', 'foro-mapa-conexiones-dorado.png'))
 
-# El Observatorio Mundial de la Abogacía coorganiza la Jornada Virtual, pero su logo va SOLO en las
-# constancias de estas dos personas (indicación del director, 2026-09-18), no en todo el bloque.
-CON_OMA = {'caicedo', 'garcia_torres'}
-LOGOS_OMA = dict(LOGOS, oma=data_uri(os.path.join(ROOT, 'img', 'aliados', 'oma.png'), alto_max=400))
+# El Observatorio Mundial de la Abogacía coorganiza la Jornada Virtual: su logo va en TODAS las
+# constancias de participación (director, 2026-09-18; antes estaba solo en dos personas).
+LOGOS['oma'] = data_uri(os.path.join(ROOT, 'img', 'aliados', 'oma.png'), alto_max=400)
 
-
-def logos_de(slug):
-    return LOGOS_OMA if slug in CON_OMA else LOGOS
+# Las tres firmas de las constancias de participación (director, 2026-09-18). El rector de Hespérides
+# se verificó en Wikipedia ES y en la cuenta oficial de la universidad, que lo llama «nuestro rector»;
+# su web propia devuelve 403 a las herramientas, así que no se pudo cotejar ahí.
+# Solo hay imagen de firma del director: las otras dos van con la línea en blanco, para firma autógrafa.
+CO1 = dict(nombre='Dr. Gabriel Calzada Álvarez', cargo='Rector',
+           sub='Universidad de las Hespérides', firma='')
+CO2 = dict(nombre='Dra. Verónica Juliana Caicedo Buitrago', cargo='Presidenta',
+           sub='Observatorio Mundial de la Abogacía', firma='')
 
 
 def base_ctx(dia, bloque):
     return dict(
         participacion=True, tipo='', horas='', horas_txt='', sesiones='',
         logos=LOGOS, agua_src=AGUA, firma_src=data_uri(FIRMA_PNG),
+        co1_nombre=CO1['nombre'], co1_cargo=CO1['cargo'], co1_sub=CO1['sub'], co1_firma=CO1['firma'],
+        co2_nombre=CO2['nombre'], co2_cargo=CO2['cargo'], co2_sub=CO2['sub'], co2_firma=CO2['firma'],
         recinto=RECINTO[bloque['id']], sede=SEDE[bloque['id']],
         fecha_larga=fecha_larga(dia), fecha_emision='%s de %s de 2026' % (dia['num'], dia['mes']),
         lista_label='', lista='', ponencia='',
@@ -193,7 +226,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
                 n += 1
                 fichas.append(dict(
                     base_ctx(dia, bloque), tipo='ponente', rol='ponente',
-                    logos=logos_de(persona.get('slug')),
+
                     nombre=persona['nombre'], institucion=p.get('afil') or '',
                     sesion_label=larga, sesion_corta=corta, ponencia=p.get('talk') or '',
                     folio='IV-FIDDT-PON/UDG/2026-%s-%04d' % (corta.replace('Mesa ', ''), n),
@@ -205,7 +238,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
         nombres = [x['nombre'] for p in s.get('ponentes', []) for x in p['personas']]
         fichas.append(dict(
             base_ctx(dia, bloque), tipo='moderador', rol=m.get('rol') or 'moderador',
-            logos=logos_de(m.get('slug')),
+
             nombre=m['nombre'], institucion=m.get('afil') or '',
             sesion_label=larga, sesion_corta=corta,
             lista_label='Ponentes' if nombres else '', lista=' · '.join(nombres),
