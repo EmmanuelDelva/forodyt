@@ -12,6 +12,7 @@ para entregarlas al terminar cada mesa.
     python3 _tools/constancias_mesa.py v1 v2 v3 v4     # varias mesas
     python3 _tools/constancias_mesa.py --moderadores   # todas las mesas que tienen moderación
     python3 _tools/constancias_mesa.py --todas         # ponentes + moderación de todo el programa
+    python3 _tools/constancias_mesa.py --organizacion  # comité organizador y coorganización de la JV
 
 La firma va en FIRMA_PNG (fuera del repo: la firma NO se versiona). Salida en _tools/out/constancias/
 + un render.sh con los Chromium --print-to-pdf.
@@ -196,21 +197,38 @@ LOGOS['oma'] = data_uri(os.path.join(ROOT, 'img', 'aliados', 'oma.png'), alto_ma
 # se verificó en Wikipedia ES y en la cuenta oficial de la universidad, que lo llama «nuestro rector»;
 # su web propia devuelve 403 a las herramientas, así que no se pudo cotejar ahí.
 # Solo hay imagen de firma del director: las otras dos van con la línea en blanco, para firma autógrafa.
-CO1 = dict(nombre='Dr. Gabriel Calzada Álvarez', cargo='Rector',
-           sub='Universidad de las Hespérides', firma='')
-CO2 = dict(nombre='Dra. Verónica Juliana Caicedo Buitrago', cargo='Presidenta',
-           sub='Observatorio Mundial de la Abogacía', firma='')
+FIRMANTES = [
+    dict(slug='delva',   nombre='Dr. Juan Emmanuel Delva Benavides', cargo='Director del Foro',
+         sub='Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', firma_propia=True),
+    dict(slug='calzada', nombre='Dr. Gabriel Calzada Álvarez', cargo='Rector',
+         sub='Universidad de las Hespérides'),
+    dict(slug='caicedo', nombre='Dra. Juliana Caicedo Buitrago', cargo='Presidenta',
+         sub='Observatorio Mundial de la Abogacía'),
+]
+
+
+def firmas_ctx(slug_receptor):
+    """Nadie firma su propia constancia (director, 2026-09-18): «la mía va por ellos, sin mi firma»."""
+    vivos = [f for f in FIRMANTES if f['slug'] != slug_receptor]
+    ctx = {'f_ancho': '%d%%' % (100 // len(vivos))}
+    for i in range(3):
+        n = 'f%d_' % (i + 1)
+        f = vivos[i] if i < len(vivos) else None
+        ctx[n + 'nombre'] = f['nombre'] if f else ''
+        ctx[n + 'cargo'] = f['cargo'] if f else ''
+        ctx[n + 'sub'] = f['sub'] if f else ''
+        ctx[n + 'firma'] = data_uri(FIRMA_PNG) if (f and f.get('firma_propia')) else ''
+    return ctx
 
 
 def base_ctx(dia, bloque):
     return dict(
         participacion=True, tipo='', horas='', horas_txt='', sesiones='',
         logos=LOGOS, agua_src=AGUA, firma_src=data_uri(FIRMA_PNG),
-        co1_nombre=CO1['nombre'], co1_cargo=CO1['cargo'], co1_sub=CO1['sub'], co1_firma=CO1['firma'],
-        co2_nombre=CO2['nombre'], co2_cargo=CO2['cargo'], co2_sub=CO2['sub'], co2_firma=CO2['firma'],
         recinto=RECINTO[bloque['id']], sede=SEDE[bloque['id']],
         fecha_larga=fecha_larga(dia), fecha_emision='%s de %s de 2026' % (dia['num'], dia['mes']),
-        lista_label='', lista='', ponencia='',
+        lista_label='', lista='', ponencia='', nexo='en la', sesion_k='Sesión',
+        **firmas_ctx(None),
     )
 
 
@@ -226,7 +244,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
                 n += 1
                 fichas.append(dict(
                     base_ctx(dia, bloque), tipo='ponente', rol='ponente',
-
+                    **firmas_ctx(persona.get('slug')),
                     nombre=persona['nombre'], institucion=p.get('afil') or '',
                     sesion_label=larga, sesion_corta=corta, ponencia=p.get('talk') or '',
                     folio='IV-FIDDT-PON/UDG/2026-%s-%04d' % (corta.replace('Mesa ', ''), n),
@@ -238,7 +256,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
         nombres = [x['nombre'] for p in s.get('ponentes', []) for x in p['personas']]
         fichas.append(dict(
             base_ctx(dia, bloque), tipo='moderador', rol=m.get('rol') or 'moderador',
-
+            **firmas_ctx(m.get('slug')),
             nombre=m['nombre'], institucion=m.get('afil') or '',
             sesion_label=larga, sesion_corta=corta,
             lista_label='Ponentes' if nombres else '', lista=' · '.join(nombres),
@@ -248,15 +266,57 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
     return fichas
 
 
+# ------------------------------------------- constancias de ORGANIZACIÓN (JV)
+# Director, 2026-09-18: comité organizador completo MENOS Fharide Acosta Malacón, más María Luisa
+# García Torres y Juliana Caicedo Buitrago como coorganizadoras, más el rector de Hespérides como
+# institución organizadora. Cargos tomados de la sección Comité de index.html.
+ORGANIZACION = [
+    ('delva',   'Dr. Juan Emmanuel Delva Benavides', 'Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Director del Foro', 'comite'),
+    ('leos',    'Dr. Jorge Antonio Leos Navarro',    'Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Secretaría Académica', 'comite'),
+    ('romero',  'Mtro. César Romero Güemez',         'Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG', 'Secretaría Técnica', 'comite'),
+    ('said',    'Mtro. Iván Said González López',    'Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Tecnología y Logística', 'comite'),
+    ('paul',    'Dr. Alejandro Paul García Hernández', 'Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Coordinación Editorial y Comité Científico', 'comite'),
+    ('garcia_torres', 'Dra. María Luisa García Torres', 'Universidad Alfonso X el Sabio · IusConnect (España)', 'Coorganización', 'coorg'),
+    ('caicedo', 'Dra. Juliana Caicedo Buitrago',     'Presidenta del Observatorio Mundial de la Abogacía (OMA)', 'Coorganización', 'coorg'),
+    ('calzada', 'Dr. Gabriel Calzada Álvarez',       'Rector · Universidad de las Hespérides', 'Institución organizadora', 'inst'),
+]
+
+ROL = {
+    'comite': ('miembro del Comité Organizador', 'de la'),
+    'coorg':  ('coorganizadora', 'de la'),
+    'inst':   ('institución organizadora', 'en representación de la Universidad de las Hespérides, en la'),
+}
+
+
+def constancias_organizacion(ix):
+    dia, bloque, _ = ix['v1']          # la Jornada Virtual entera: mismo día y mismo bloque
+    fichas = []
+    for n, (slug, nombre, afil, encargo, clase) in enumerate(ORGANIZACION, 1):
+        rol, nexo = ROL[clase]
+        fichas.append(dict(
+            base_ctx(dia, bloque), tipo='moderador', rol=rol, nexo=nexo,
+            **firmas_ctx(slug),
+            nombre=nombre, institucion=afil,
+            recinto='la transmisión en línea del Foro',
+            sesion_label='Jornada Virtual Internacional',
+            sesion_k='Encargo', sesion_corta=encargo,
+            folio='IV-FIDDT-ORG/UDG/2026-JV-%04d' % n,
+            _archivo=sin_tratamiento(nombre),
+            _que='coorganización' if clase == 'coorg' else 'organización',
+        ))
+    return fichas
+
+
 # ---------------------------------------------------------------------- main
 def main(argv):
     ix = indice()
     mesas = [k for k, v in ix.items() if v[2]['tipo'] == 'mesa']
     solo_mod = '--moderadores' in argv
+    solo_org = '--organizacion' in argv
     ids = [a for a in argv if not a.startswith('--')]
     if '--todas' in argv or solo_mod:
         ids = mesas
-    if not ids:
+    if not ids and not solo_org:
         sys.exit('uso: constancias_mesa.py <id-de-mesa>… | --moderadores | --todas\nmesas: %s' % ' '.join(mesas))
 
     desconocidas = [i for i in ids if i not in ix]
@@ -268,6 +328,10 @@ def main(argv):
         print('AVISO: sin FIRMA_PNG, las constancias salen SIN firma.')
 
     todas = []
+    if solo_org or '--todas' in argv:
+        org = constancias_organizacion(ix)
+        print('  org  %d constancia(s) de organización y coorganización' % len(org))
+        todas += org
     for sid in ids:
         fichas = constancias_de(sid, ix, con_ponentes=not solo_mod)
         print('  %-4s %s' % (sid, '%d constancia(s)' % len(fichas) if fichas else 'sin constancias que generar'))

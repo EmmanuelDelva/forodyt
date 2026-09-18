@@ -148,13 +148,13 @@
     <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
     <? if (participacion) { ?>
-    <p class="certifica">Participó como <b><?= rol ?></b> en la <b><?= sesion_label ?></b>, celebrada en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>.</p>
+    <p class="certifica">Participó como <b><?= rol ?></b> <?= nexo ?> <b><?= sesion_label ?></b>, celebrada en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>.</p>
     <? } ?>
     <? if (ponencia) { ?><div class="ponencia"><div class="pk">Ponencia</div><div class="pt"><?= ponencia ?></div></div><? } ?>
 
     <? if (participacion) { ?>
     <table class="detalles"><tr>
-      <td style="width:32%"><div class="k">Sesión</div><div class="v"><?= sesion_corta ?></div></td>
+      <td style="width:32%"><div class="k"><?= sesion_k ?></div><div class="v"><?= sesion_corta ?></div></td>
       <td style="width:38%"><div class="k">Fecha</div><div class="v"><?= fecha_larga ?></div></td>
       <td style="width:30%"><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
     </tr></table>
@@ -186,9 +186,9 @@
   <? } ?>
   <? if (participacion) { ?>
   <table class="firmas tres"><tr>
-    <td style="width:34%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
-    <td style="width:33%"><? if (co1_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(co1_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= co1_nombre ?></div><div class="firma-cargo"><?= co1_cargo ?></div><div class="firma-sub"><?= co1_sub ?></div></td>
-    <td style="width:33%"><? if (co2_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(co2_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= co2_nombre ?></div><div class="firma-cargo"><?= co2_cargo ?></div><div class="firma-sub"><?= co2_sub ?></div></td>
+    <? if (f1_nombre) { ?><td style="width:<?= f_ancho ?>"><? if (f1_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(f1_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= f1_nombre ?></div><div class="firma-cargo"><?= f1_cargo ?></div><div class="firma-sub"><?= f1_sub ?></div></td><? } ?>
+    <? if (f2_nombre) { ?><td style="width:<?= f_ancho ?>"><? if (f2_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(f2_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= f2_nombre ?></div><div class="firma-cargo"><?= f2_cargo ?></div><div class="firma-sub"><?= f2_sub ?></div></td><? } ?>
+    <? if (f3_nombre) { ?><td style="width:<?= f_ancho ?>"><? if (f3_firma) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(f3_firma) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= f3_nombre ?></div><div class="firma-cargo"><?= f3_cargo ?></div><div class="firma-sub"><?= f3_sub ?></div></td><? } ?>
   </tr></table>
   <? } ?>
   </div>
