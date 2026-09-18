@@ -161,6 +161,15 @@ LOGOS = {
 }
 AGUA = data_uri(os.path.join(ROOT, 'img', 'marca', 'foro-mapa-conexiones-dorado.png'))
 
+# El Observatorio Mundial de la Abogacía coorganiza la Jornada Virtual, pero su logo va SOLO en las
+# constancias de estas dos personas (indicación del director, 2026-09-18), no en todo el bloque.
+CON_OMA = {'caicedo', 'garcia_torres'}
+LOGOS_OMA = dict(LOGOS, oma=data_uri(os.path.join(ROOT, 'img', 'aliados', 'oma.png'), alto_max=400))
+
+
+def logos_de(slug):
+    return LOGOS_OMA if slug in CON_OMA else LOGOS
+
 
 def base_ctx(dia, bloque):
     return dict(
@@ -184,6 +193,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
                 n += 1
                 fichas.append(dict(
                     base_ctx(dia, bloque), tipo='ponente', rol='ponente',
+                    logos=logos_de(persona.get('slug')),
                     nombre=persona['nombre'], institucion=p.get('afil') or '',
                     sesion_label=larga, sesion_corta=corta, ponencia=p.get('talk') or '',
                     folio='IV-FIDDT-PON/UDG/2026-%s-%04d' % (corta.replace('Mesa ', ''), n),
@@ -195,6 +205,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
         nombres = [x['nombre'] for p in s.get('ponentes', []) for x in p['personas']]
         fichas.append(dict(
             base_ctx(dia, bloque), tipo='moderador', rol=m.get('rol') or 'moderador',
+            logos=logos_de(m.get('slug')),
             nombre=m['nombre'], institucion=m.get('afil') or '',
             sesion_label=larga, sesion_corta=corta,
             lista_label='Ponentes' if nombres else '', lista=' · '.join(nombres),

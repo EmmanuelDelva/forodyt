@@ -45,10 +45,11 @@
   .agua-mapa img { width: 100%; }
   .cuerpo { position: absolute; left: 22mm; right: 22mm; top: 12mm; text-align: center; }
   .logos { width: 100%; border-collapse: collapse; }
-  .logos td { text-align: center; vertical-align: middle; padding: 0 3mm 2.5mm; }
+  .logos td { text-align: center; vertical-align: middle; padding: 0 2.2mm 2.5mm; }
   .logos img { height: 9mm; }
   .logos img.ca { height: 10mm; }
   .logos img.foro { height: 15mm; }   /* lockup de 3 líneas: por debajo de 15mm el texto deja de leerse */
+  .logos img.oma { height: 12mm; }    /* emblema casi cuadrado: necesita más alto para pesar igual que los horizontales */
   .logos img.hesp { height: 8mm; }
   .cabecera { border-bottom: 0.7pt solid #1F4747; padding-bottom: 2.6mm; font-family: 'Manrope', Arial, Helvetica, sans-serif; font-weight: 500; font-size: 7.6pt; letter-spacing: 0.27em; white-space: nowrap; text-transform: uppercase; color: #1F4747; }
   .edicion { margin-top: 3.5mm; font-family: 'Manrope', Arial, sans-serif; font-weight: 600; font-size: 8.5pt; letter-spacing: 0.34em; text-transform: uppercase; color: #B8923E; }
@@ -114,6 +115,7 @@
       <? if (logos.udg) { ?><td><img src="<?!= imgSrc_(logos.udg) ?>" alt="Universidad de Guadalajara"></td><? } ?>
       <? if (logos.ca) { ?><td><img class="ca" src="<?!= imgSrc_(logos.ca) ?>" alt="Cuerpo Académico UDG-CA-1236 Derecho y Tecnología"></td><? } ?>
       <? if (logos.foro) { ?><td><img class="foro" src="<?!= imgSrc_(logos.foro) ?>" alt="Foro Internacional de Derecho y Tecnología"></td><? } ?>
+      <? if (logos.oma) { ?><td><img class="oma" src="<?!= imgSrc_(logos.oma) ?>" alt="Observatorio Mundial de la Abogacía"></td><? } ?>
       <? if (logos.hesperides) { ?><td><img class="hesp" src="<?!= imgSrc_(logos.hesperides) ?>" alt="Universidad de las Hespérides"></td><? } ?>
     </tr></table>
     <? } ?>
