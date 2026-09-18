@@ -122,7 +122,9 @@ _VIRTUALES = personas_de(lambda d, b, s: d['modo'] == 'virtual')
 MAIN = ([p for p in _PRESENCIALES if p['slug'] not in COMITE]
         + [p for p in _VIRTUALES if p['slug'] in FIJAS_EN_PARRILLA])
 CFP_TODOS = personas_de(lambda d, b, s: s['id'] == 'd21-cfp')
-JV_TODOS = [p for p in _VIRTUALES if p['slug'] not in FIJAS_EN_PARRILLA]
+# El filtro de COMITE vale igual en la Jornada Virtual: quien tiene ficha en la sección Comité no
+# lleva además tarjeta de ponente (se notó el 2026-09-18, al entrar Said a moderar la Mesa V2).
+JV_TODOS = [p for p in _VIRTUALES if p['slug'] not in FIJAS_EN_PARRILLA and p['slug'] not in COMITE]
 SIN_FOTO = [p for p in MAIN + CFP_TODOS + JV_TODOS if p['slug'] not in FOTOS]
 if SOLO_CON_FOTO:
     CFP = [p for p in CFP_TODOS if p['slug'] in FOTOS]

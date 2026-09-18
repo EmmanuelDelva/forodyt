@@ -43,6 +43,7 @@ EJES_I18N = {
 
 # fotos: mismo mapa slug → archivo que usa index.html (extraído de las tarjetas)
 FOTOS = {
+    'said': 'ivan-gonzalez-lopez.jpg',
     'alvarez': 'jose-luis-alvarez-pulido.jpg', 'gaspar': 'miguel-angel-gaspar.jpg', 'gonzalez': 'mayra-gonzalez.jpg',
     'rivera': 'alejandro-rivera-martinez.jpg', 'sossa': 'humberto-sossa.jpg', 'contreras': 'juan-carlos-contreras.jpg',
     'caicedo': 'juliana-caicedo.jpg', 'zepeda': 'zepeda-lecuona.jpg',     'raad': 'manuel-raad-berrio.jpg', 'gustavo_juarez': 'gustavo-juarez.jpg', 'villarreal': 'manuel-villarreal.jpg',
