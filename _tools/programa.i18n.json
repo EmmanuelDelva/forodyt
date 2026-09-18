@@ -375,6 +375,10 @@
   "en": "Panel V1 — Tracks 1 · 4 · 5",
   "fr": "Table V1 — Axes 1 · 4 · 5"
  },
+ "s.v1.modera.afil": {
+  "en": "CSJN Argentina · National University of Cuyo",
+  "fr": "CSJN Argentine · Université Nationale de Cuyo"
+ },
  "s.v1.titulo": {
   "en": "AI, evidence, governance and rights in automated systems",
   "fr": "IA, preuve, gouvernance et droits dans les systèmes automatisés"
@@ -423,6 +427,10 @@
   "en": "Panel V2 — Tracks 5 · 7 · 9",
   "fr": "Table V2 — Axes 5 · 7 · 9"
  },
+ "s.v2.modera.afil": {
+  "en": "Collaborator of the Academic Body UDG-CA-1236 «Law and Technology»",
+  "fr": "Collaborateur du Corps Académique UDG-CA-1236 « Droit et Technologie »"
+ },
  "s.v2.titulo": {
   "en": "Person, autonomy, health and predictive justice",
   "fr": "Personne, autonomie, santé et justice prédictive"
@@ -463,6 +471,10 @@
   "en": "Panel V3 — Tracks 3 · 5 · 7",
   "fr": "Table V3 — Axes 3 · 5 · 7"
  },
+ "s.v3.modera.afil": {
+  "en": "President of the World Observatory of the Legal Profession (OMA)",
+  "fr": "Présidente de l'Observatoire Mondial de la Profession d'Avocat (OMA)"
+ },
  "s.v3.titulo": {
   "en": "Identity and digital life: childhood, old age and memory online",
   "fr": "Identité et vie numérique : enfances, vieillesse et mémoire en ligne"
@@ -502,6 +514,10 @@
  "s.v4.kicker": {
   "en": "Panel V4 — Tracks 4 · 6",
   "fr": "Table V4 — Axes 4 · 6"
+ },
+ "s.v4.modera.afil": {
+  "en": "Universidad Alfonso X el Sabio · IusConnect (Spain)",
+  "fr": "Universidad Alfonso X el Sabio · IusConnect (Espagne)"
  },
  "s.v4.titulo": {
   "en": "Justice, data and financial regulation in the age of AI",
