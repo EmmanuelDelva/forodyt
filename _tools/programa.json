@@ -307,20 +307,12 @@
                 {
                   "personas": [
                     {
-                      "nombre": "Laura Fernández González",
-                      "slug": "fernandez_gonzalez"
-                    },
-                    {
-                      "nombre": "Gustavo Collazo Barroso",
-                      "slug": "collazo"
-                    },
-                    {
-                      "nombre": "Sandra Rodríguez Pe",
-                      "slug": "rodriguez_pe"
+                      "nombre": "Dra. María del Pilar Castelán Luna",
+                      "slug": "castelan_luna"
                     }
                   ],
-                  "afil": "CONABI · Futura Sit SRL (Cuba)",
-                  "talk": "«Protección de datos personales, inteligencia artificial y responsabilidad empresarial en los servicios legales. Estudio de caso del software Legalsit»"
+                  "afil": "Benemérita Universidad Autónoma de Puebla (BUAP)",
+                  "talk": "«Estándar de verificabilidad de la supervisión humana en la fiscalización electrónica mexicana»"
                 }
               ]
             },
@@ -1158,10 +1150,8 @@
     "calderon": "Ecuador",
     "camarena": "México",
     "ccolque": "Perú",
-    "collazo": "Cuba",
     "contreras": "México",
     "doria": "Colombia",
-    "fernandez_gonzalez": "Cuba",
     "gamez": "México",
     "garcia_barrera": "México",
     "garcia_lopez": "México",
@@ -1191,13 +1181,13 @@
     "moreno_murguia": "México",
     "nava_lopez": "México",
     "pinto_garcia": "México",
+    "castelan_luna": "México",
     "romero_guemez": "México",
     "romero": "México",
     "leos": "México",
     "raad": "Colombia",
     "reyes": "Colombia",
     "rivera": "México",
-    "rodriguez_pe": "Cuba",
     "rodriguez_zambrano": "México",
     "rojas_sanchez": "México",
     "romero_gutierrez": "México",
