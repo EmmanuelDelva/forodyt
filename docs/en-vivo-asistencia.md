@@ -36,7 +36,7 @@ La página elige sola la pestaña de la sede cuyo bloque está en curso (lee `pr
 
 ## 5. Backend en la cuenta CUCEA — instalado el 2026-09-17
 
-**Estado al 2026-09-17.** Instalado y publicado en el proyecto **«IV Foro 2026 Backend»** (cuenta CUCEA) desde el navegador del director — **implementación versión 4 (17-sep, 10:13), misma URL** — y `MODO_PRUEBA = false` en `en-vivo.html`. Detalle y resultados en la bitácora de `CLAUDE.md` (sesión 2026-09-17).
+**Estado al 2026-09-17.** Instalado y publicado en el proyecto **«IV Foro 2026 Backend»** (cuenta CUCEA) desde el navegador del director — **implementación versión 5 (17-sep), misma URL** — y `MODO_PRUEBA = false` en `en-vivo.html`. **Ensayado de punta a punta con un inscrito real** (inscripción → correo del QR → minutos verificados → constancia por correo). Detalle y resultados en la bitácora de `CLAUDE.md` (sesión 2026-09-17).
 
 Cómo quedó (y cómo repetirlo si hay que reinstalar), todo en `script.google.com` → proyecto **«IV Foro 2026 Backend»**:
 
@@ -63,7 +63,16 @@ Cómo quedó (y cómo repetirlo si hay que reinstalar), todo en `script.google.c
 - Al abrir la página durante un bloque en curso se muestra esa sede aunque haya otra pestaña guardada, y los minutos solo cuentan en la pestaña del bloque en curso.
 - Los latidos aceptados ya no se anotan en `_logs` (uno por minuto y por espectador); los rechazados sí.
 - **Las constancias salían sin firma, sin logos y sin marca de agua**: la plantilla imprimía los data URI con `<?= … ?>`, cuyo escape contextual los anula dentro de `src` (en la vista previa local con WeasyPrint no se nota). Ahora van con impresión forzada filtrada por `imgSrc_()`. Comprobado en el PDF real que genera Apps Script.
+- **Los correos salen de `contacto@forodyt.com`**, no de la cuenta que ejecuta el script. `Code.gs` trae `enviarCorreo_()` (lo usan el correo del QR y el de la constancia): lee la propiedad `REMITENTE`, comprueba el alias con `GmailApp.getAliases()` y manda con `GmailApp.sendEmail(..., {from, replyTo})`; si el alias no está, cae a `MailApp` sin romperse. Requiere que la dirección esté en *Gmail → Ajustes → Cuentas → Enviar mensaje como* **y** el permiso `https://mail.google.com/`; si Google no lo concedió (autorización granular), correr `_autorizarCorreo()` y volver a aceptar.
+- **Los latidos se validan con el reloj del servidor**: el minuto que manda el navegador solo vale si cae a ±90 s de la hora del servidor, y la ventana del bloque se comprueba con la hora del servidor. Un reloj desajustado en la máquina del asistente ya no regala ni tira minutos. Nuevo rechazo `platica_cerrada`.
 - Producción tenía *Platicas* con el programa viejo de tres bloques (el escáner ya mandaba los `id` 1–5), `_config` con meta de 20 h y ventana −5/+10 min, y `Plantilla-correo.html` pegada como **texto plano** (sin HTML, con brazalete y 20 h). Todo quedó al día.
+
+**Ensayo sin tocar los bloques reales:**
+- `abrirEnsayo()` crea (o reabre) el bloque **9** «ENSAYO · Jornada Virtual (no suma horas)», copia del bloque 5 con `horas_valor` 0 y ventana abierta desde ese momento.
+- Entrar en `https://forodyt.com/en-vivo.html?ensayo=1` con un folio real: la página muestra el distintivo de ensayo, usa su propio almacenamiento local y manda los latidos al bloque 9.
+- `cerrarEnsayo()` consolida los minutos y emite la constancia del ensayo (devuelve `{"stream":{...},"constancias":{...}}`).
+- Lo del ensayo **no suma horas** a nadie (bloque 9 = 0 h) y los folios de constancia se numeran por bloque, así que los bloques reales siguen empezando en `0001`. Se puede borrar la fila del ensayo de *Usuarios*, su check-in y el PDF de Drive.
+- Resultado del 17-sep: folio `IV-FORO-UVDVQW`, 13 latidos → 11 minutos válidos, constancia `IV-FIDDT-BLQ/UDG/2026-9-0001` emitida y recibida desde `contacto@forodyt.com` con logos, marca de agua y firma visibles.
 
 **Operación durante el Foro:**
 - Códigos de presencia: `/registroscomite` → «Código de presencia», con la `STAFF_KEY`. En el bloque virtual no son obligatorios; en los presenciales, **si se dicta un código en un bloque, pasa a ser obligatorio para todos los de ese bloque**: no generar códigos «de prueba» en los bloques 1–4.
