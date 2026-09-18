@@ -405,6 +405,16 @@ Resultado verificado en el DOM: peso medio por fila **9.0 · 8.8 · 7.8 · 7.5 �
 - **Implementación: versión 5** (17-sep, misma URL de siempre — nunca «Nueva implementación»). `MODO_PRUEBA = false` sigue en producción.
 - **Restos del ensayo que se pueden borrar sin consecuencias:** tres `PRUEBA-constancia-bloque-1.pdf` y la constancia del ensayo en la carpeta de Drive; la fila `IV-FORO-UVDVQW` de *Usuarios* con su check-in del bloque 9. **No suman horas** (el bloque 9 vale 0) y los folios de constancia se numeran por bloque, así que los bloques reales empiezan igual en `0001`.
 
+### Sesión 2026-09-18 — Constancias de participación + moderación de la Mesa V1
+
+- **Constancias de PARTICIPACIÓN** (nuevas, aparte de las de asistencia que emite el backend): `apps-script/Constancia-bloque.html` gana los tipos `ponente` y `moderador`, y el membrete pasa a **cuatro logos** — UdeG · Cuerpo Académico · **Foro** · **Universidad de las Hespérides** (petición del director). El lockup del Foro va a **15 mm**: por debajo de eso sus tres líneas de texto dejan de leerse. ⚠️ El bloque de la ponencia añade ~14 mm y sin apretar **la firma se encima con el pie**; por eso existe la clase `.compacta`, que solo se aplica a participación. Las de asistencia quedan intactas.
+- ⚠️ **Los bloques del cuerpo de la plantilla pasaron de una cadena `if/else` a `if` independientes.** El intérprete mínimo de `_tools/constancia_preview.py` no entiende `else if`, y el backend solo manda `'bloque'` y `'valor'`, así que no se entera de las ramas nuevas.
+- **`_tools/constancias_mesa.py`** (nuevo): una constancia por persona leyendo `programa.json`, así que nombres, adscripciones y títulos salen de la misma fuente que el sitio. `python3 _tools/constancias_mesa.py v1` · `--moderadores` · `--todas`. La firma se pasa por `FIRMA_PNG` y **no se versiona**; la salida va a `_tools/out/`, que está en `.gitignore`.
+- ⚠️ **Trampa que costó un rato**: el intérprete tiene que consumir **primero** el bucle `for` de los firmantes. Si no, su `<? } ?>` cierra por error el `if` de las firmas y el pie sale con scriptlets crudos.
+- El lockup del Foro se remuestrea a **400 px de alto** antes de incrustarse (`alto_max`): los 941 px originales metían 402 KB en **cada** PDF y a 15 mm impresos no se notan. Peso por constancia: ~1 MB.
+- **Rodrigo Alejandro Gómez Torre moderó la Mesa V1** (dato del director, 2026-09-18): se registró en `programa.json` con su clave EN/FR `s.v1.modera.afil`, y se regeneró el programa. **Ningún contador cambia**: `voces` es un `set` y él ya estaba como ponente de la M1 y moderador de la M4 (68 en `programa.py`, que incluye al director; 67 en la portada, que lo excluye).
+- ⚠️ **La rama de trabajo arrastraba el commit previo al *squash* del PR #20**, así que el PR #21 mostraba `en-vivo.html` como modificado sin serlo. Se rebasó sobre `main` (`git checkout -B <rama> origin/main` + `cherry-pick` + `--force-with-lease`). Es el caso que ya avisa el encabezado de este archivo: **tras fusionar un PR, reiniciar la rama desde `main`**. Ojo: este git **no acepta `-q` en `cherry-pick`**.
+
 
 ### Sesión 2026-09-20 — Sistema QR al 100 para el evento: correos no recibidos, mesa sin QR (Code, escritorio)
 
