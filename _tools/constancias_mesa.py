@@ -271,19 +271,22 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
 # García Torres y Juliana Caicedo Buitrago como coorganizadoras, más el rector de Hespérides como
 # institución organizadora. Cargos tomados de la sección Comité de index.html.
 ORGANIZACION = [
-    ('delva',   'Dr. Juan Emmanuel Delva Benavides', 'Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Director del Foro', 'comite'),
+    ('delva',   'Dr. Juan Emmanuel Delva Benavides', 'Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Dirección del Foro', 'org'),
+    ('garcia_torres', 'Dra. María Luisa García Torres', 'Universidad Alfonso X el Sabio · IusConnect (España)', 'Organización', 'orga'),
+    ('caicedo', 'Dra. Juliana Caicedo Buitrago',     'Presidenta del Observatorio Mundial de la Abogacía (OMA)', 'Organización', 'orga'),
+    ('calzada', 'Dr. Gabriel Calzada Álvarez',       'Rector · Universidad de las Hespérides', 'Institución organizadora', 'inst'),
     ('leos',    'Dr. Jorge Antonio Leos Navarro',    'Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Secretaría Académica', 'comite'),
     ('romero',  'Mtro. César Romero Güemez',         'Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG', 'Secretaría Técnica', 'comite'),
     ('said',    'Mtro. Iván Said González López',    'Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Tecnología y Logística', 'comite'),
     ('paul',    'Dr. Alejandro Paul García Hernández', 'Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Coordinación Editorial y Comité Científico', 'comite'),
-    ('garcia_torres', 'Dra. María Luisa García Torres', 'Universidad Alfonso X el Sabio · IusConnect (España)', 'Coorganización', 'coorg'),
-    ('caicedo', 'Dra. Juliana Caicedo Buitrago',     'Presidenta del Observatorio Mundial de la Abogacía (OMA)', 'Coorganización', 'coorg'),
-    ('calzada', 'Dr. Gabriel Calzada Álvarez',       'Rector · Universidad de las Hespérides', 'Institución organizadora', 'inst'),
 ]
 
+# Corrección del director (2026-09-18): él, Juliana y María Luisa son ORGANIZADORES; el comité
+# —salvo Fharide— son MIEMBROS DEL COMITÉ ORGANIZADOR DEL FORO; y el rector, institución organizadora.
 ROL = {
-    'comite': ('miembro del Comité Organizador', 'de la'),
-    'coorg':  ('coorganizadora', 'de la'),
+    'org':    ('organizador', 'de la'),
+    'orga':   ('organizadora', 'de la'),
+    'comite': ('miembro del Comité Organizador del Foro', 'en la'),
     'inst':   ('institución organizadora', 'en representación de la Universidad de las Hespérides, en la'),
 }
 
@@ -302,7 +305,7 @@ def constancias_organizacion(ix):
             sesion_k='Encargo', sesion_corta=encargo,
             folio='IV-FIDDT-ORG/UDG/2026-JV-%04d' % n,
             _archivo=sin_tratamiento(nombre),
-            _que='coorganización' if clase == 'coorg' else 'organización',
+            _que='organización',
         ))
     return fichas
 
