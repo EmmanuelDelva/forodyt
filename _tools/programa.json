@@ -59,7 +59,11 @@
                 4,
                 5
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dr. Rodrigo Alejandro Gómez Torre",
+                "slug": "gomez",
+                "afil": "CSJN Argentina · U. Nacional de Cuyo"
+              },
               "ponentes": [
                 {
                   "personas": [
