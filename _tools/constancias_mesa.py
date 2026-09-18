@@ -17,6 +17,7 @@ La firma va en FIRMA_PNG (fuera del repo: la firma NO se versiona). Salida en _t
 + un render.sh con los Chromium --print-to-pdf.
 """
 import base64, io, json, os, re, sys, unicodedata
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, '_tools', 'out', 'constancias', 'mesas')
@@ -53,9 +54,16 @@ def slugify(s):
     return re.sub(r'-+', '-', re.sub(r'[^a-z0-9]+', '-', s.lower())).strip('-')
 
 
+TRATAMIENTO = r'^(Dr[a]?\.|Mtr[oa]\.|Lic\.|Ing\.|Mag\.|Juez)\s+'
+
+
 def sin_tratamiento(nombre):
-    """«Dra. María Luisa García Torres» → «maria-luisa-garcia-torres» (para el nombre de archivo)."""
-    return slugify(re.sub(r'^(Dr[a]?\.|Mtr[oa]\.|Lic\.|Ing\.|Mag\.|Juez|Mtro\.)\s+', '', nombre))
+    """«Dra. María Luisa García Torres» → «María Luisa García Torres».
+
+    El archivo se llama como la persona (decisión del director, 2026-09-18). NO se recapitaliza:
+    los nombres ya vienen bien escritos en programa.json y un .title() rompería «María del Pilar»
+    o «Niza Inés Sepúlveda». Solo se quita el tratamiento."""
+    return re.sub(TRATAMIENTO, '', nombre).strip()
 
 
 # -------------------------------------------- intérprete mínimo de scriptlets
@@ -179,7 +187,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
                     nombre=persona['nombre'], institucion=p.get('afil') or '',
                     sesion_label=larga, sesion_corta=corta, ponencia=p.get('talk') or '',
                     folio='IV-FIDDT-PON/UDG/2026-%s-%04d' % (corta.replace('Mesa ', ''), n),
-                    _archivo='ponente-%s-%02d-%s' % (sid, n, sin_tratamiento(persona['nombre'])),
+                    _archivo=sin_tratamiento(persona['nombre']), _que='ponente %s' % corta,
                 ))
 
     m = s.get('modera')
@@ -191,7 +199,7 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
             sesion_label=larga, sesion_corta=corta,
             lista_label='Ponentes' if nombres else '', lista=' · '.join(nombres),
             folio='IV-FIDDT-MOD/UDG/2026-%s-0001' % corta.replace('Mesa ', ''),
-            _archivo='moderacion-%s-%s' % (sid, sin_tratamiento(m['nombre'])),
+            _archivo=sin_tratamiento(m['nombre']), _que='moderación %s' % corta,
         ))
     return fichas
 
@@ -215,20 +223,30 @@ def main(argv):
     if not FIRMA_PNG or not os.path.exists(FIRMA_PNG):
         print('AVISO: sin FIRMA_PNG, las constancias salen SIN firma.')
 
-    sh = ['#!/bin/sh', 'cd "$(dirname "$0")"']
-    total = 0
+    todas = []
     for sid in ids:
         fichas = constancias_de(sid, ix, con_ponentes=not solo_mod)
-        if not fichas:
-            print('  %-4s sin constancias que generar' % sid)
-            continue
-        for f in fichas:
-            nom = f.pop('_archivo')
-            io.open(os.path.join(OUT, nom + '.html'), 'w', encoding='utf-8').write(render(TPL, f))
-            sh.append('%s --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer '
-                      '--print-to-pdf=%s.pdf %s.html 2>/dev/null' % (CHROMIUM, nom, nom))
-            total += 1
-        print('  %-4s %d constancia(s)' % (sid, len(fichas)))
+        print('  %-4s %s' % (sid, '%d constancia(s)' % len(fichas) if fichas else 'sin constancias que generar'))
+        todas += fichas
+
+    # Quien tiene DOS constancias (p. ej. ponente en una mesa y moderación en otra) llevaría el mismo
+    # archivo y una pisaría a la otra: solo en ese caso se añade el papel entre paréntesis.
+    repetidos = {n for n in [f['_archivo'] for f in todas]
+                 if [f['_archivo'] for f in todas].count(n) > 1}
+
+    sh = ['#!/bin/sh', 'cd "$(dirname "$0")"']
+    for f in todas:
+        nom, que = f.pop('_archivo'), f.pop('_que')
+        if nom in repetidos:
+            nom = '%s (%s)' % (nom, que)
+        io.open(os.path.join(OUT, nom + '.html'), 'w', encoding='utf-8').write(render(TPL, f))
+        # La entrada TIENE que ser un file:// con porcentaje-codificación: con el nombre a secas,
+        # Chromium toma «María Luisa García Torres.html» por un dominio, no lo resuelve e imprime
+        # su página de error — un PDF de una página que parece bueno (visto el 2026-09-18).
+        url = 'file://$PWD/' + quote(nom + '.html')
+        sh.append('%s --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer '
+                  '--print-to-pdf="%s.pdf" "%s" 2>/dev/null' % (CHROMIUM, nom, url))
+    total = len(todas)
 
     io.open(os.path.join(OUT, 'render.sh'), 'w').write('\n'.join(sh) + '\n')
     print('\n%d HTML en %s\nPDF: sh %s/render.sh' % (total, OUT, OUT))
