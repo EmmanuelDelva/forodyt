@@ -444,6 +444,7 @@ Resultado verificado en el DOM: peso medio por fila **9.0 · 8.8 · 7.8 · 7.5 �
 ### Sesión 2026-09-21 — Transmisión de CUCEA en vivo
 
 - **`STREAMS.cucea` declarado** (enlace del director, día 1 del Foro): `{ tipo: 'youtube', id: 'EjYjv11WXHo' }`, de `https://youtube.com/live/EjYjv11WXHo`. Verificado en navegador con un stub para YouTube —el proxy del sandbox lo bloquea—: el iframe se monta en `https://www.youtube-nocookie.com/embed/EjYjv11WXHo?autoplay=1&rel=0` con `allowfullscreen`, el marcador «esta sede abre su transmisión a la hora de su primera sesión» desaparece solo en CUCEA y el pie enlaza al `watch?v=`. Siguen en blanco CUGDL, Cineteca y Ciudad Judicial.
+- **Enlace de CUCEA sustituido el mismo día** (director, 21-sep): la emisión cambió y `STREAMS.cucea` pasa de `EjYjv11WXHo` a **`XKtlzbfT5hI`** (de `https://www.youtube.com/live/XKtlzbfT5hI`; el `?si=` del enlace compartido es rastreo, no forma parte del ID). Verificado igual que el anterior: iframe `…/embed/XKtlzbfT5hI?autoplay=1&rel=0`, `allowfullscreen`, marcador oculto solo en CUCEA, pie al `watch?v=`, 0 errores JS.
 - ⚠️ Lo que NO se puede comprobar desde aquí: que la emisión exista, sea pública y **permita inserción**. La del 16-sep llegó con «Permitir inserción» desactivado y hubo que encenderlo en YouTube Studio. Se prueba abriendo `forodyt.com/en-vivo.html` en un navegador de verdad.
 
 ## 10. Pendientes abiertos
