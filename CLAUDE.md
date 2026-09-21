@@ -441,6 +441,11 @@ Resultado verificado en el DOM: peso medio por fila **9.0 · 8.8 · 7.8 · 7.5 �
 - **`apps-script/RUNBOOK-evento.md` NUEVO**: pegar Code.gs + Plantilla (versión 6, «Administrar implementaciones → Editar → Nueva versión»), `_reporteCorreos` → `_reenviarPendientes` → `_reenviarATodos`, prueba de 2 min, mensaje para el staff (la clave vive en Claude-Work, no aquí).
 - Verificación: renders headless (setup del escáner, panel de búsqueda, mi-qr con QR real, aside de reenvío a 390 px, hub) y sondas HTTP al endpoint vivo.
 
+### Sesión 2026-09-21 — Transmisión de CUCEA en vivo
+
+- **`STREAMS.cucea` declarado** (enlace del director, día 1 del Foro): `{ tipo: 'youtube', id: 'EjYjv11WXHo' }`, de `https://youtube.com/live/EjYjv11WXHo`. Verificado en navegador con un stub para YouTube —el proxy del sandbox lo bloquea—: el iframe se monta en `https://www.youtube-nocookie.com/embed/EjYjv11WXHo?autoplay=1&rel=0` con `allowfullscreen`, el marcador «esta sede abre su transmisión a la hora de su primera sesión» desaparece solo en CUCEA y el pie enlaza al `watch?v=`. Siguen en blanco CUGDL, Cineteca y Ciudad Judicial.
+- ⚠️ Lo que NO se puede comprobar desde aquí: que la emisión exista, sea pública y **permita inserción**. La del 16-sep llegó con «Permitir inserción» desactivado y hubo que encenderlo en YouTube Studio. Se prueba abriendo `forodyt.com/en-vivo.html` en un navegador de verdad.
+
 ## 10. Pendientes abiertos
 
 - ~~**Backend (director, cuenta CUCEA)**~~ — HECHO el 2026-09-17 (**versión 5**, con el remitente `contacto@forodyt.com`; ver §9). Antes: pegar `Asistencia.gs` + sustituir `Code.gs` + archivo HTML `Constancia-bloque`; Script Properties `FIRMA_DIGITAL_FILE_ID` (+ `LOGO_UDG_FILE_ID`, `LOGO_CA_FILE_ID`, `CONSTANCIAS_FOLDER_ID` opcionales); correr `instalarPlaticasIV()`, `_testConstanciaBloque()`, `instalarDisparadoresBloques()`; `meta_horas_valor_curricular = 10`; nueva versión del deployment. Ver `docs/en-vivo-asistencia.md` §5 y §5b.
