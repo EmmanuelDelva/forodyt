@@ -59,7 +59,11 @@
                 4,
                 5
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dr. Rodrigo Alejandro Gómez Torre",
+                "slug": "gomez",
+                "afil": "CSJN Argentina · U. Nacional de Cuyo"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -127,7 +131,11 @@
                 7,
                 9
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Mtro. Iván Said González López",
+                "slug": "said",
+                "afil": "Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -185,7 +193,12 @@
                 5,
                 7
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dra. Juliana Caicedo Buitrago",
+                "slug": "caicedo",
+                "rol": "moderadora",
+                "afil": "Presidenta del Observatorio Mundial de la Abogacía (OMA)"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -258,7 +271,12 @@
                 4,
                 6
               ],
-              "modera": null,
+              "modera": {
+                "nombre": "Dra. María Luisa García Torres",
+                "slug": "garcia_torres",
+                "rol": "moderadora",
+                "afil": "Universidad Alfonso X el Sabio · IusConnect (España)"
+              },
               "ponentes": [
                 {
                   "personas": [
@@ -1181,6 +1199,7 @@
     "moreno_murguia": "México",
     "nava_lopez": "México",
     "pinto_garcia": "México",
+  "said": "México",
     "castelan_luna": "México",
     "romero_guemez": "México",
     "romero": "México",
