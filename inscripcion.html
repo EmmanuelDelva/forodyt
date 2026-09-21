@@ -1105,6 +1105,34 @@ footer {
 .nav-links a:hover { color: #094651; }
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 1024px) { .nav-links { display: none; } }
+
+/* ============ REENVÍO DE QR (autoservicio) ============ */
+.reenvio {
+  scroll-margin-top: 96px;
+  margin: 0 0 40px;
+  padding: 22px 24px;
+  background: var(--marfil-light, #FAF6EA);
+  border: 1px solid rgba(14, 27, 44, 0.14);
+  border-left: 3px solid var(--dorado, #B8923E);
+}
+.reenvio-eyebrow { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dorado, #B8923E); margin: 0 0 6px; }
+.reenvio h3 { font-family: var(--serif); font-weight: 300; font-size: 22px; line-height: 1.15; margin: 0 0 6px; color: var(--ink); }
+.reenvio h3 em { font-style: italic; color: var(--dorado, #B8923E); }
+.reenvio p { font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--ink-soft, rgba(14,27,44,0.72)); margin: 0 0 14px; max-width: 560px; }
+.reenvio-form { display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch; }
+.reenvio-form input {
+  flex: 1 1 240px; min-width: 0; padding: 12px 14px; font-family: var(--sans); font-size: 15px;
+  background: var(--white, #FFFEFA); border: 1px solid rgba(14, 27, 44, 0.2); color: var(--ink); outline: none;
+}
+.reenvio-form input:focus { border-color: var(--ink); }
+.reenvio-form button {
+  flex: 0 0 auto; padding: 12px 18px; background: var(--ink); color: var(--marfil, #F5EFE0); border: 0; cursor: pointer;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.reenvio-form button:disabled { opacity: 0.55; cursor: wait; }
+.reenvio-msg { font-family: var(--sans); font-size: 13.5px; line-height: 1.5; margin: 12px 0 0; min-height: 1em; color: var(--ink); }
+.reenvio-msg.ok { color: #2F5D3A; }
+.reenvio-msg.err { color: #8B2A2A; }
 </style>
 <link rel="stylesheet" href="mobile-menu.css">
 </head>
@@ -1192,6 +1220,17 @@ footer {
 
     <!-- Pre-form -->
     <div id="asistente-form-wrap">
+
+    <aside class="reenvio" id="reenviar-qr" aria-labelledby="reenvio-title">
+      <p class="reenvio-eyebrow">¿Ya te inscribiste?</p>
+      <h3 id="reenvio-title">¿No recibiste tu <em>código QR</em>?</h3>
+      <p>Escribe el correo con el que te inscribiste y te lo reenviamos al instante. Revisa también las carpetas de spam o promociones. Si llegas a la sede sin él, en la mesa de registro te localizamos por nombre.</p>
+      <form class="reenvio-form" id="form-reenvio" novalidate>
+        <input type="email" id="reenvio-correo" name="correo" placeholder="correo con el que te inscribiste" autocomplete="email" required>
+        <button type="submit"><span>Reenviar mi QR</span></button>
+      </form>
+      <p class="reenvio-msg" id="reenvio-msg" aria-live="polite"></p>
+    </aside>
 
       <!-- Banner de error inline (oculto hasta que un fetch falle) -->
       <div class="notice-banner error hidden" id="form-error-banner" role="alert" aria-live="assertive">
@@ -1844,7 +1883,9 @@ form.addEventListener('submit', async (e) => {
       const heading = successEl.querySelector('h2');
       if (heading) heading.innerHTML = 'Ya estabas <em>inscrito</em>.';
       const para = successEl.querySelector('p');
-      if (para) para.textContent = 'Tu folio es el mismo que generamos antes. Si no encuentras el correo original con tu QR, escríbenos a emmanueldelva@cucea.udg.mx y lo reenviamos.';
+      if (para) para.textContent = data.reenviado
+        ? 'Tu folio es el mismo que generamos antes y te acabamos de reenviar el correo con tu QR. Revisa también spam o promociones.'
+        : 'Tu folio es el mismo que generamos antes. Si no encuentras el correo con tu QR, usa «Reenviar mi QR» en esta página o escríbenos a emmanueldelva@cucea.udg.mx.';
     }
 
     document.getElementById('asistente-form-wrap').style.display = 'none';
@@ -1871,6 +1912,50 @@ function resetForm() {
   document.getElementById('asistente-form-wrap').style.display = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/* ============ REENVÍO DE QR ============ */
+document.getElementById('form-reenvio').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const input = document.getElementById('reenvio-correo');
+  const msg = document.getElementById('reenvio-msg');
+  const btn = e.target.querySelector('button[type="submit"]');
+  const correo = input.value.trim().toLowerCase();
+  msg.className = 'reenvio-msg';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    msg.className = 'reenvio-msg err';
+    msg.textContent = 'Escribe un correo válido.';
+    input.focus();
+    return;
+  }
+  btn.disabled = true;
+  msg.textContent = 'Enviando…';
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'reenviar', correo: correo }),
+      redirect: 'follow'
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.ok && data.enviado) {
+      msg.className = 'reenvio-msg ok';
+      msg.textContent = data.mensaje || 'Listo: te reenviamos tu código QR.';
+      input.value = '';
+    } else if (data.ok && data.encontrado === false) {
+      msg.className = 'reenvio-msg err';
+      msg.textContent = data.mensaje || 'Ese correo no aparece en las inscripciones. Verifica cómo lo escribiste o inscríbete abajo.';
+    } else {
+      throw new Error(data.error || 'Respuesta inesperada');
+    }
+  } catch (err) {
+    msg.className = 'reenvio-msg err';
+    msg.textContent = (err && err.message && err.message.indexOf('HTTP') !== 0 && err.message !== 'Respuesta inesperada')
+      ? err.message
+      : 'No pudimos reenviarlo ahora. Intenta de nuevo en un minuto o escribe a emmanueldelva@cucea.udg.mx.';
+  }
+  btn.disabled = false;
+});
 
 /* ============ NEWSLETTER ============ */
 document.getElementById('form-newsletter').addEventListener('submit', async (e) => {

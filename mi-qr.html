@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0E1B2C">
+<title>Mi código QR · IV Foro DDT 2026</title>
+<meta name="description" content="Credencial digital del asistente al IV Foro Internacional de Derecho y Tecnología.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Generador de QR en el navegador (misma CDN que el escáner del staff) -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<style>
+:root {
+  --ink: #0E1B2C;
+  --ink-soft: rgba(14, 27, 44, 0.72);
+  --ink-faint: rgba(14, 27, 44, 0.45);
+  --ink-rule: rgba(14, 27, 44, 0.14);
+  --dorado: #B8923E;
+  --granate: #632A3D;
+  --marfil: #F5EFE0;
+  --marfil-light: #FAF6EA;
+  --white: #FFFEFA;
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--marfil);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 40px;
+}
+.bar {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
+}
+.bar .mark { color: var(--ink); font-weight: 500; }
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--white);
+  border: 1px solid var(--ink-rule);
+  box-shadow: 0 24px 60px -30px rgba(14, 27, 44, 0.35);
+  overflow: hidden;
+}
+.card-head {
+  background: var(--ink);
+  color: var(--marfil);
+  padding: 22px 26px 18px;
+  border-bottom: 4px solid var(--dorado);
+}
+.card-head .eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 239, 224, 0.65);
+  margin-bottom: 8px;
+}
+.card-head h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.card-head h1 em { font-style: italic; color: #C8A858; }
+.card-body { padding: 26px 26px 22px; text-align: center; }
+.qr-wrap {
+  display: inline-block;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid var(--ink-rule);
+}
+.qr-wrap canvas, .qr-wrap img { display: block; width: 260px; height: 260px; }
+.folio {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 9px 16px;
+  background: var(--ink);
+  color: var(--marfil);
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+.label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 12px;
+}
+.hint {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.hint b { color: var(--ink); font-weight: 600; }
+.sedes {
+  margin: 18px -26px -22px;
+  padding: 14px 26px;
+  background: var(--marfil-light);
+  border-top: 1px solid var(--ink-rule);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.error {
+  border-left: 3px solid var(--granate);
+  background: #FAF3F4;
+  padding: 16px 18px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.error b { color: var(--granate); display: block; margin-bottom: 4px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+.error a { color: var(--ink); }
+.foot {
+  margin-top: 22px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+}
+.foot a { color: var(--ink-faint); }
+.hidden { display: none !important; }
+@media print {
+  body { background: #fff; padding: 0; }
+  .card { box-shadow: none; }
+  .foot, .hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><span class="mark">IV Foro DDT · 2026</span><span>Credencial digital</span></div>
+
+<div class="card">
+  <div class="card-head">
+    <div class="eyebrow">IV Foro Internacional de Derecho y Tecnología</div>
+    <h1>Tu código <em>QR</em> de acceso.</h1>
+  </div>
+  <div class="card-body">
+    <div id="ok">
+      <p class="label">Muéstralo al staff en cada sede</p>
+      <div class="qr-wrap"><canvas id="qr"></canvas></div>
+      <div><span class="folio" id="folio">—</span></div>
+      <p class="hint"><b>Sube el brillo</b> de la pantalla al mostrarlo. Guarda esta página en favoritos o haz una <b>captura de pantalla</b>: funciona sin internet.</p>
+      <div class="sedes">CUCEA · CUGDL · Cineteca · Ciudad Judicial</div>
+    </div>
+    <div id="bad" class="error hidden">
+      <b>Enlace incompleto</b>
+      Este enlace no trae un código válido. Ábrelo desde el correo de confirmación de tu inscripción o pide un reenvío en <a href="inscripcion.html#reenviar-qr">forodyt.com/inscripcion</a>. Si ya estás en la sede, en la mesa de registro te localizan por nombre.
+    </div>
+  </div>
+</div>
+
+<p class="foot"><a href="index.html">forodyt.com</a> · 21 y 22 de septiembre · 2026</p>
+
+<script>
+(function () {
+  // Acepta ?d=FORO|folio|hmac8  (o ?f=folio&h=hmac8). Mismo formato que el correo y que lee el escáner.
+  const params = new URLSearchParams(location.search);
+  let payload = params.get('d') || '';
+  if (!payload && params.get('f') && params.get('h')) payload = 'FORO|' + params.get('f') + '|' + params.get('h');
+  payload = payload.trim();
+
+  const re = /^FORO\|([A-Z0-9-]{6,24})\|([0-9a-f]{8})$/;
+  const m = re.exec(payload);
+  const ok = document.getElementById('ok');
+  const bad = document.getElementById('bad');
+
+  if (!m) { ok.classList.add('hidden'); bad.classList.remove('hidden'); return; }
+
+  document.getElementById('folio').textContent = 'FOLIO ' + m[1];
+  document.title = 'QR ' + m[1] + ' · IV Foro DDT 2026';
+
+  function dibujar() {
+    const canvas = document.getElementById('qr');
+    if (window.QRCode && QRCode.toCanvas) {
+      QRCode.toCanvas(canvas, payload, { width: 520, margin: 1, errorCorrectionLevel: 'M', color: { dark: '#0E1B2C', light: '#FFFFFF' } }, function (err) {
+        if (err) respaldo();
+      });
+    } else {
+      respaldo();
+    }
+  }
+  // Si la librería no cargó, se pide la imagen a un generador externo (mismo que usa el correo).
+  function respaldo() {
+    const wrap = document.querySelector('.qr-wrap');
+    wrap.innerHTML = '<img alt="Código QR" src="https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=4&data=' + encodeURIComponent(payload) + '">';
+  }
+  if (document.readyState === 'complete') dibujar(); else window.addEventListener('load', dibujar);
+})();
+</script>
+</body>
+</html>

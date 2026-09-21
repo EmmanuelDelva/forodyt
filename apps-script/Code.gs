@@ -30,6 +30,10 @@
  *   - _testInscripcion()       → prueba end-to-end con tu correo
  *   - _checkQuota()            → muestra cuota MailApp restante hoy
  *   - reintentarCorreosQR()    → reenvía QRs a usuarios con correo_qr_enviado=false
+ *   - _reporteCorreos()        → cuenta inscritos / correos enviados / pendientes + cuota (NO envía nada)
+ *   - _reenviarPendientes()    → reenvía SOLO a quienes tienen correo_qr_enviado=false
+ *   - _reenviarATodos()        → recordatorio con QR a TODOS los inscritos (víspera del Foro)
+ *   - reenviarQR('correo|folio') → reenvía el QR a una persona concreta
  *   - procesarCSVZoom(id, csv) → procesa attendee report de Zoom Webinar
  *   - auditoriaPostEvento()    → reporte de fraude detectado
  *   - procesarConstancias()    → cómputo final + emisión de PDFs en lotes
@@ -88,6 +92,10 @@ function doPost(e) {
         result = suscribirNewsletter(payload);
         break;
       // Asistencia por transmisión (en-vivo.html). Las funciones viven en Asistencia.gs.
+      case 'reenviar':
+        // Autoservicio: reenvía el QR al correo con el que se inscribió (limitado por CacheService).
+        result = reenviarQRPublico(payload);
+        break;
       case 'stream_login':         result = streamLogin(payload); break;
       case 'stream_latido':        result = streamLatido(payload); break;
       case 'stream_reto':          result = streamReto(payload); break;
@@ -138,6 +146,23 @@ function doGet(e) {
     const result = streamCodigoNuevo(e.parameter.id_platica, e.parameter.minutos);
     log_('doGet', 'stream_codigo_nuevo', result.ok ? 'ok' : (result.error || 'fail'), ctx);
     return jsonResponse_(result);
+  }
+  if (e.parameter && e.parameter.action === 'buscar') {
+    // Mesa de registro: localizar a un inscrito sin QR (por nombre, correo o folio). Exige clave de staff.
+    if (!staffKeyValida_(e.parameter.key)) {
+      log_('doGet', 'buscar', 'staff_key_invalida', ctx);
+      return jsonResponse_({ ok: false, error: 'staff_key_invalida' });
+    }
+    const result = buscarAsistentes_(e.parameter.q);
+    log_('doGet', 'buscar', result.ok ? ('ok:' + result.resultados.length) : (result.error || 'fail'), ctx);
+    return jsonResponse_(result);
+  }
+  if (e.parameter && e.parameter.action === 'platicas') {
+    // El escáner lee los bloques desde la pestaña Platicas (una sola fuente de verdad).
+    if (!staffKeyValida_(e.parameter.key)) {
+      return jsonResponse_({ ok: false, error: 'staff_key_invalida' });
+    }
+    return jsonResponse_(listarPlaticas_());
   }
   return jsonResponse_({ ok: true, msg: 'IV Foro endpoint activo' });
 }
@@ -195,11 +220,25 @@ function crearInscripcion(payload) {
   // Idempotencia: ya inscrito = no duplica, retorna folio existente
   const existente = buscarUsuario_(correo);
   if (existente) {
+    // Quien se vuelve a inscribir casi siempre es porque NO le llegó el QR: se lo reenviamos (con límite).
+    let reenviado = false;
+    if (puedeReenviar_(correo)) {
+      try {
+        enviarCorreoQR_(correo, existente.nombre_completo, existente.folio, existente.qr_payload, { reenvio: true });
+        marcarCorreoEnviado_(existente.folio);
+        reenviado = true;
+      } catch (err) {
+        log_('reenvioYaInscrito', existente.folio, err.message, null);
+      }
+    }
     return {
       ok: true,
       ya_inscrito: true,
+      reenviado: reenviado,
       folio: existente.folio,
-      mensaje: 'Ya estabas inscrito. Revisa tu correo o contáctanos para reenvío.'
+      mensaje: reenviado
+        ? 'Ya estabas inscrito. Te acabamos de reenviar tu código QR; revisa también la carpeta de spam.'
+        : 'Ya estabas inscrito. Revisa tu correo (y spam) o usa la opción «Reenviar mi QR».'
     };
   }
 
@@ -265,7 +304,7 @@ function reintentarCorreosQR() {
   let enviados = 0;
   let fallos = 0;
   for (let i = 1; i < data.length; i++) {
-    if (data[i][idxFlag] === true) continue;
+    if (esTrue_(data[i][idxFlag])) continue;
     try {
       enviarCorreoQR_(data[i][idxCorreo], data[i][idxNombre], data[i][idxFolio], data[i][idxQrPayload]);
       sheet.getRange(i + 1, idxFlag + 1).setValue(true);
@@ -377,9 +416,18 @@ function _autorizarCorreo() {
     : 'OJO: ' + remitente_() + ' no aparece; los correos saldrán de la cuenta del script con respuesta a ' + remitente_());
 }
 
-function enviarCorreoQR_(correo, nombre, folio, qrPayload) {
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&data=${encodeURIComponent(qrPayload)}`;
-  const qrBlob = UrlFetchApp.fetch(qrUrl).getBlob().setName('qr.png');
+function enviarCorreoQR_(correo, nombre, folio, qrPayload, opts) {
+  opts = opts || {};
+  const qrLink = urlMiQR_(qrPayload);
+  const qrBlob = obtenerQRBlob_(qrPayload); // null si ningún generador respondió
+
+  const intro = opts.reenvio
+    ? 'Te reenviamos tu credencial digital para el IV Foro Internacional de Derecho y Tecnología. Es el mismo folio de tu inscripción original.'
+    : 'Tu inscripción al IV Foro Internacional de Derecho y Tecnología fue registrada con éxito. Aquí va tu credencial digital.';
+
+  const qrInline = qrBlob
+    ? '<img src="cid:qr" alt="QR" style="width:240px;height:240px;display:block;margin:24px auto;">'
+    : '<p style="margin:24px auto;font-size:14px;"><a href="' + qrLink + '" style="display:inline-block;padding:12px 18px;background:#0E1B2C;color:#F5EFE0;text-decoration:none;font-family:\'Courier New\',monospace;letter-spacing:0.08em;">ABRIR MI CÓDIGO QR</a></p>';
 
   const html = HtmlService
     .createTemplateFromFile('Plantilla-correo')
@@ -387,14 +435,234 @@ function enviarCorreoQR_(correo, nombre, folio, qrPayload) {
     .getContent()
     .replace(/{{NOMBRE}}/g, escapeHtml_(nombre))
     .replace(/{{FOLIO}}/g, folio)
-    .replace(/{{QR_INLINE}}/g, '<img src="cid:qr" alt="QR" style="width:240px;height:240px;display:block;margin:24px auto;">');
+    .replace(/{{INTRO}}/g, intro)
+    .replace(/{{QR_LINK}}/g, qrLink)
+    .replace(/{{QR_INLINE}}/g, qrInline);
 
-  enviarCorreo_({
-    to: correo,
-    subject: `Tu inscripción al IV Foro Internacional de Derecho y Tecnología — Folio ${folio}`,
-    htmlBody: html,
-    inlineImages: { qr: qrBlob }
-  });
+  const subject = opts.reenvio
+    ? `Tu código QR para el IV Foro Internacional de Derecho y Tecnología — Folio ${folio}`
+    : `Tu inscripción al IV Foro Internacional de Derecho y Tecnología — Folio ${folio}`;
+
+  const mail = { to: correo, subject: subject, htmlBody: html };
+  if (qrBlob) mail.inlineImages = { qr: qrBlob };
+  enviarCorreo_(mail);
+}
+
+/**
+ * Genera el PNG del QR probando varios generadores. Si todos fallan devuelve null:
+ * el correo sale de todas formas con el enlace a mi-qr.html (que dibuja el QR en el navegador).
+ */
+function obtenerQRBlob_(qrPayload) {
+  const data = encodeURIComponent(qrPayload);
+  const fuentes = [
+    'https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&data=' + data,
+    'https://quickchart.io/qr?size=400&margin=2&text=' + data
+  ];
+  for (let i = 0; i < fuentes.length; i++) {
+    try {
+      const res = UrlFetchApp.fetch(fuentes[i], { muteHttpExceptions: true, followRedirects: true });
+      const tipo = String(res.getHeaders()['Content-Type'] || res.getHeaders()['content-type'] || '');
+      if (res.getResponseCode() === 200 && tipo.indexOf('image') !== -1 && res.getContent().length > 200) {
+        return res.getBlob().setName('qr.png');
+      }
+      log_('obtenerQRBlob', 'fuente_' + i, 'HTTP ' + res.getResponseCode() + ' ' + tipo, null);
+    } catch (err) {
+      log_('obtenerQRBlob', 'fuente_' + i, err.message, null);
+    }
+  }
+  return null;
+}
+
+function urlMiQR_(qrPayload) {
+  return 'https://forodyt.com/mi-qr.html?d=' + encodeURIComponent(qrPayload);
+}
+
+function marcarCorreoEnviado_(folio) {
+  const sheet = SS.getSheetByName(SHEETS.usuarios);
+  const data = sheet.getDataRange().getValues();
+  const idxFolio = data[0].indexOf('folio');
+  const idxFlag = data[0].indexOf('correo_qr_enviado');
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][idxFolio]).toUpperCase().trim() === String(folio).toUpperCase().trim()) {
+      sheet.getRange(i + 1, idxFlag + 1).setValue(true);
+      return true;
+    }
+  }
+  return false;
+}
+
+function esTrue_(v) { return v === true || String(v).trim().toUpperCase() === 'TRUE'; }
+function esFalse_(v) { return v === false || String(v).trim().toUpperCase() === 'FALSE'; }
+
+/** Límite de autoservicio: máx. 3 reenvíos por correo cada 6 horas (CacheService, sin tocar el Sheet). */
+function puedeReenviar_(correo) {
+  const cache = CacheService.getScriptCache();
+  const key = 'reenvio:' + String(correo).toLowerCase().trim();
+  const n = Number(cache.get(key) || 0);
+  if (n >= 3) return false;
+  cache.put(key, String(n + 1), 21600);
+  return true;
+}
+
+/** action 'reenviar' (POST público): { correo } → reenvía el QR al correo registrado. */
+function reenviarQRPublico(payload) {
+  const correo = String(payload.correo || '').toLowerCase().trim();
+  if (!isEmailValid_(correo)) return { ok: false, error: 'Correo inválido' };
+  const usuario = buscarUsuario_(correo);
+  if (!usuario) return { ok: true, encontrado: false, mensaje: 'Ese correo no aparece en las inscripciones. Verifica cómo lo escribiste o inscríbete.' };
+  if (!puedeReenviar_(correo)) return { ok: false, error: 'Ya reenviamos tu QR varias veces hoy. Revisa spam/promociones o acude a la mesa de registro con tu nombre.' };
+  try {
+    enviarCorreoQR_(correo, usuario.nombre_completo, usuario.folio, usuario.qr_payload, { reenvio: true });
+    marcarCorreoEnviado_(usuario.folio);
+    return { ok: true, encontrado: true, enviado: true, mensaje: 'Listo: te reenviamos tu código QR. Si no aparece en unos minutos, revisa spam o promociones.' };
+  } catch (err) {
+    log_('reenviarQRPublico', usuario.folio, err.message, null);
+    return { ok: false, error: 'No pudimos enviar el correo en este momento. Intenta más tarde o acude a la mesa de registro.' };
+  }
+}
+
+/** Admin: reenvía el QR a una persona (por correo o por folio). Correr desde el editor. */
+function reenviarQR(correoOFolio) {
+  const q = String(correoOFolio || '').trim();
+  if (!q) throw new Error('Pasa un correo o un folio: reenviarQR("nombre@dominio.com")');
+  const usuario = q.indexOf('@') !== -1 ? buscarUsuario_(q.toLowerCase()) : buscarUsuarioPorFolio_(q.toUpperCase());
+  if (!usuario) throw new Error('No encontrado: ' + q);
+  enviarCorreoQR_(usuario.correo, usuario.nombre_completo, usuario.folio, usuario.qr_payload, { reenvio: true });
+  marcarCorreoEnviado_(usuario.folio);
+  Logger.log('Reenviado a ' + usuario.correo + ' (' + usuario.folio + ')');
+  return usuario.folio;
+}
+
+/** Admin (NO envía nada): inscritos, correos marcados enviados/pendientes y cuota restante. */
+function _reporteCorreos() {
+  const sheet = SS.getSheetByName(SHEETS.usuarios);
+  const data = sheet.getDataRange().getValues();
+  const idxFlag = data[0].indexOf('correo_qr_enviado');
+  const idxCorreo = data[0].indexOf('correo');
+  let total = 0, enviados = 0, pendientes = [];
+  for (let i = 1; i < data.length; i++) {
+    if (!data[i][idxCorreo]) continue;
+    total++;
+    if (esTrue_(data[i][idxFlag])) enviados++; else pendientes.push(data[i][idxCorreo]);
+  }
+  const cuota = MailApp.getRemainingDailyQuota();
+  Logger.log('Inscritos: ' + total + ' · correo enviado: ' + enviados + ' · pendientes: ' + pendientes.length + ' · cuota de correo restante hoy: ' + cuota);
+  if (pendientes.length) Logger.log('Pendientes: ' + pendientes.join(', '));
+  return { total: total, enviados: enviados, pendientes: pendientes.length, cuota: cuota };
+}
+
+/** Admin: reenvía SOLO a quienes tienen correo_qr_enviado=false (alias explícito de reintentarCorreosQR). */
+function _reenviarPendientes() {
+  return reintentarCorreosQR();
+}
+
+/**
+ * Admin: recordatorio con QR a TODOS los inscritos (usar la víspera del Foro).
+ * Respeta la cuota diaria: se detiene si quedan < 20 correos y deja en _logs dónde se quedó.
+ * Si son muchos inscritos y la ejecución llega al límite de 6 min, volver a correrla: los correos
+ * ya reenviados no se distinguen en el Sheet, así que conviene anotar la fila en que se detuvo (_logs).
+ */
+function _reenviarATodos() {
+  const sheet = SS.getSheetByName(SHEETS.usuarios);
+  const data = sheet.getDataRange().getValues();
+  const h = data[0];
+  const iF = h.indexOf('folio'), iC = h.indexOf('correo'), iN = h.indexOf('nombre_completo'), iQ = h.indexOf('qr_payload'), iFlag = h.indexOf('correo_qr_enviado');
+  const inicio = Date.now();
+  let enviados = 0, fallos = 0;
+  for (let i = 1; i < data.length; i++) {
+    const correo = String(data[i][iC] || '').trim();
+    if (!correo || !isEmailValid_(correo)) continue;
+    if (MailApp.getRemainingDailyQuota() < 20) {
+      log_('_reenviarATodos', 'cuota_agotada', 'detenido en fila ' + (i + 1), null);
+      Logger.log('CUOTA CASI AGOTADA: detenido en la fila ' + (i + 1) + '. Reanudar mañana desde ahí.');
+      break;
+    }
+    if (Date.now() - inicio > 5.5 * 60 * 1000) {
+      log_('_reenviarATodos', 'tiempo_agotado', 'detenido en fila ' + (i + 1), null);
+      Logger.log('LÍMITE DE TIEMPO: detenido en la fila ' + (i + 1) + '. Volver a ejecutar para continuar.');
+      break;
+    }
+    try {
+      enviarCorreoQR_(correo, data[i][iN], data[i][iF], data[i][iQ], { reenvio: true });
+      sheet.getRange(i + 1, iFlag + 1).setValue(true);
+      enviados++;
+      Utilities.sleep(300);
+    } catch (err) {
+      fallos++;
+      log_('_reenviarATodos', data[i][iF], err.message, null);
+    }
+  }
+  Logger.log('_reenviarATodos: ' + enviados + ' enviados, ' + fallos + ' fallos. Cuota restante: ' + MailApp.getRemainingDailyQuota());
+  return { enviados: enviados, fallos: fallos };
+}
+
+// ============ MESA DE REGISTRO (staff) ============
+function normalizar_(s) {
+  return String(s == null ? '' : s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+}
+
+/** action 'buscar' (GET staff): q = nombre, correo o folio (mín. 3 caracteres). Máx. 8 resultados. */
+function buscarAsistentes_(q) {
+  const term = normalizar_(q);
+  if (term.length < 3) return { ok: false, error: 'Escribe al menos 3 caracteres' };
+  const sheet = SS.getSheetByName(SHEETS.usuarios);
+  const data = sheet.getDataRange().getValues();
+  const h = data[0];
+  const iF = h.indexOf('folio'), iC = h.indexOf('correo'), iN = h.indexOf('nombre_completo'), iT = h.indexOf('tipo'),
+        iI = h.indexOf('institucion'), iM = h.indexOf('modalidad'), iFlag = h.indexOf('correo_qr_enviado');
+  const resultados = [];
+  for (let i = 1; i < data.length && resultados.length < 8; i++) {
+    const folio = String(data[i][iF] || '');
+    if (!folio) continue;
+    const pajar = normalizar_(data[i][iN]) + ' ' + normalizar_(data[i][iC]) + ' ' + normalizar_(folio);
+    if (pajar.indexOf(term) === -1) continue;
+    let hmac = '';
+    try { hmac = calcularHMAC8_(folio); } catch (e) { /* sin secreto no hay check-in posible */ }
+    resultados.push({
+      folio: folio,
+      hmac: hmac,
+      nombre: data[i][iN],
+      correo: data[i][iC],
+      tipo: data[i][iT],
+      institucion: data[i][iI],
+      modalidad: data[i][iM],
+      correo_qr_enviado: esTrue_(data[i][iFlag])
+    });
+  }
+  return { ok: true, resultados: resultados };
+}
+
+/** action 'platicas' (GET staff): bloques de asistencia tal como están en la pestaña Platicas. */
+function listarPlaticas_() {
+  const sheet = SS.getSheetByName(SHEETS.platicas);
+  if (!sheet) return { ok: false, error: 'Sin pestaña Platicas' };
+  const data = sheet.getDataRange().getValues();
+  const h = data[0];
+  const iId = h.indexOf('id_platica'), iN = h.indexOf('nombre_sesion'), iS = h.indexOf('sede'), iJ = h.indexOf('jornada'),
+        iIni = h.indexOf('hora_inicio'), iFin = h.indexOf('hora_fin'), iH = h.indexOf('horas_valor'), iCer = h.indexOf('cerrada'),
+        iFor = h.indexOf('formato');
+  const fmt = (d, p) => (d instanceof Date && !isNaN(d)) ? Utilities.formatDate(d, TZ, p) : String(d || '');
+  const platicas = [];
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][iId] === '' || data[i][iId] == null) continue;
+    const ini = data[i][iIni], fin = data[i][iFin];
+    const fila = rowToObject_(h, data[i]);
+    platicas.push({
+      id: data[i][iId],
+      nombre: data[i][iN],
+      sede: data[i][iS],
+      jornada: data[i][iJ],
+      fecha: fmt(ini, 'EEE d MMM'),
+      inicio: fmt(ini, 'HH:mm'),
+      fin: fmt(fin, 'HH:mm'),
+      hora_inicio_iso: (ini instanceof Date) ? ini.toISOString() : String(ini || ''),
+      hora_fin_iso: (fin instanceof Date) ? fin.toISOString() : String(fin || ''),
+      horas_valor: data[i][iH],
+      virtual: esPlaticaVirtual_(fila),
+      cerrada: esTrue_(data[i][iCer])
+    });
+  }
+  return { ok: true, platicas: platicas };
 }
 
 function escapeHtml_(s) {
@@ -421,6 +689,10 @@ function registrarCheckin(payload) {
 
   const platica = buscarPlatica_(id_platica);
   if (!platica) return { ok: false, error: 'Plática no encontrada' };
+  // Interruptores de emergencia en _config (sin tocar código): antifraude_geo_activo / validar_ventana = FALSE
+  const cfgCheckin = leerConfig_();
+  const geoActivo = !esFalse_(cfgCheckin.antifraude_geo_activo);
+  const ventanaActiva = !esFalse_(cfgCheckin.validar_ventana);
   if (platica.cerrada === true || platica.cerrada === 'TRUE') {
     registrarCheckinFila_(folio, id_platica, staff_email, false, 'platica_cerrada', 'qr_presencial');
     return { ok: false, error: 'Plática cerrada' };
@@ -430,12 +702,12 @@ function registrarCheckin(payload) {
     return { ok: false, error: 'duplicado', ya_registrado: true };
   }
 
-  if (haySimultaneoEnOtraSede_(folio, platica)) {
+  if (geoActivo && haySimultaneoEnOtraSede_(folio, platica)) {
     registrarCheckinFila_(folio, id_platica, staff_email, false, 'simultaneo_otra_sede', 'qr_presencial');
     return { ok: false, error: 'Check-in simultáneo en otra sede detectado' };
   }
 
-  if (!estaEnVentana_(platica)) {
+  if (ventanaActiva && !estaEnVentana_(platica)) {
     registrarCheckinFila_(folio, id_platica, staff_email, false, 'fuera_de_ventana', 'qr_presencial');
     return { ok: false, error: 'Fuera de ventana de check-in' };
   }

@@ -453,6 +453,31 @@ main {
 
 .hidden { display: none !important; }
 
+/* Modo cámara / búsqueda manual */
+.modos { display: flex; gap: 8px; margin: 0 0 14px; }
+.modo {
+  flex: 1; padding: 10px 12px; background: transparent; color: var(--ink-soft);
+  border: 1px solid var(--ink-rule); font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+}
+.modo.activo { background: var(--ink); color: var(--marfil); border-color: var(--ink); }
+.buscar-row { display: flex; gap: 8px; }
+.buscar-row .form-input { flex: 1; }
+.buscar-row .btn { width: auto; padding: 12px 16px; white-space: nowrap; }
+.buscar-list { margin-top: 14px; }
+.buscar-item { padding: 12px 0; border-top: 1px solid var(--ink-rule); }
+.buscar-item:last-child { border-bottom: 1px solid var(--ink-rule); }
+.buscar-item .nombre { font-family: var(--serif); font-size: 18px; line-height: 1.2; color: var(--ink); }
+.buscar-item .meta { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-top: 3px; word-break: break-all; }
+.buscar-item .meta b { color: var(--ink); font-weight: 500; }
+.buscar-item .acciones { display: flex; gap: 8px; margin-top: 10px; }
+.buscar-item .acciones .btn { font-size: 11px; padding: 9px 12px; width: auto; }
+.tag { display: inline-block; padding: 2px 6px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--ink-rule); color: var(--ink-faint); margin-left: 6px; vertical-align: middle; }
+.tag.ok { color: var(--success); border-color: var(--success); }
+.tag.no { color: var(--error); border-color: var(--error); }
+.platicas-status { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--ink-faint); margin-top: 6px; }
+.platicas-status.ok { color: var(--success); }
+
 /* ============ TOAST ============ */
 .toast {
   position: fixed;
@@ -534,6 +559,7 @@ main {
         <!-- Las opciones se inyectan via JS desde la constante PLATICAS -->
       </select>
       <p class="section-text platica-hint" id="platica-hint" aria-live="polite"></p>
+      <div class="platicas-status" id="platicas-status">Bloques del programa definitivo (lista local). Al capturar la clave se sincronizan con la hoja del comité.</div>
     </div>
 
     <button class="btn" id="btn-iniciar" disabled>Iniciar escaneo</button>
@@ -548,8 +574,24 @@ main {
       <div class="value" id="platica-current-name">—</div>
     </div>
 
-    <div id="reader"></div>
-    <p class="scanner-hint">Apunta la cámara al QR del asistente. Se valida automáticamente.</p>
+    <div class="modos" role="tablist">
+      <button class="modo activo" id="modo-camara" type="button">Cámara · QR</button>
+      <button class="modo" id="modo-buscar" type="button">Buscar sin QR</button>
+    </div>
+
+    <div id="panel-camara">
+      <div id="reader"></div>
+      <p class="scanner-hint">Apunta la cámara al QR del asistente. Se valida automáticamente.</p>
+    </div>
+
+    <div id="panel-buscar" class="hidden">
+      <div class="buscar-row">
+        <input type="search" class="form-input" id="buscar-q" placeholder="Nombre, correo o folio" autocomplete="off" autocapitalize="none" spellcheck="false">
+        <button class="btn" id="btn-buscar" type="button">Buscar</button>
+      </div>
+      <p class="scanner-hint">Para quien llega sin su QR: localízalo, verifica identidad (INE/credencial) y registra la entrada. «Reenviar QR» le manda de nuevo el correo.</p>
+      <div class="buscar-list" id="buscar-list"></div>
+    </div>
 
     <div class="result" id="result"></div>
 
@@ -609,7 +651,7 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55
 // escanea hasta 15:10), porque el público rota entre mesas. El bloque de la Jornada Virtual
 // no se escanea: su asistencia se acredita desde la transmisión (en-vivo.html).
 const VENTANA_MIN = 60;
-const PLATICAS = [
+const PLATICAS_FALLBACK = [
   { id: 1, jornada: 'j1', sede: 'cucea',            fecha: 'Lun 21 sep', inicio: '09:00', fin: '14:10', nombre: 'CUCEA · Lunes 21 · matutina', sesiones: 'Inauguración · conferencia inaugural · Mesas 1–4' },
   { id: 2, jornada: 'j1', sede: 'cugdl',            fecha: 'Lun 21 sep', inicio: '16:05', fin: '18:50', nombre: 'CUGDL · Lunes 21 · vespertina', sesiones: 'Bienvenida · Mesas 5–7' },
   { id: 3, jornada: 'j2', sede: 'cineteca',         fecha: 'Mar 22 sep', inicio: '10:05', fin: '13:30', nombre: 'Cineteca FICG · Martes 22 · matutina', sesiones: 'Bienvenida · Mesas 8–10 · jóvenes investigadores' },
@@ -623,6 +665,16 @@ function sumaMinutos(hhmm, min) {
   return String(Math.floor(t / 60) % 24).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
 }
 
+// Lista viva: la caché de la última sincronización con la pestaña Platicas, o el fallback local.
+let PLATICAS = leerPlaticasCache_() || PLATICAS_FALLBACK;
+
+function leerPlaticasCache_() {
+  try {
+    const c = JSON.parse(localStorage.getItem('foro_platicas_cache') || 'null');
+    return (c && Array.isArray(c.platicas) && c.platicas.length) ? c.platicas : null;
+  } catch { return null; }
+}
+
 // ---------- STATE ----------
 const state = {
   staffEmail: localStorage.getItem('foro_staff_email') || '',
@@ -631,7 +683,8 @@ const state = {
   scanner: null,
   scanning: false,
   online: navigator.onLine,
-  lastScan: 0
+  lastScan: 0,
+  modo: 'camara'
 };
 
 const SCAN_DEBOUNCE_MS = 2500; // evita múltiples lecturas del mismo QR
@@ -657,34 +710,18 @@ function init() {
   if (state.staffEmail) $('#staff-email').value = state.staffEmail;
   if (state.staffKey) $('#staff-key').value = state.staffKey;
 
-  // Llenar dropdown de pláticas
-  const sel = $('#platica-select');
-  PLATICAS.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.id;
-    opt.textContent = p.virtual
-      ? `${p.fecha} · ${p.inicio}–${p.fin} · ${p.nombre} · sin escaneo`
-      : `${p.fecha} · ${p.inicio}–${p.fin} · ${p.nombre} · escaneo hasta ${sumaMinutos(p.fin, VENTANA_MIN)}`;
-    sel.appendChild(opt);
-  });
-  const selHint = $('#platica-hint');
-  const pintarHint = () => {
-    const p = PLATICAS.find(x => String(x.id) === String(sel.value));
-    if (!p) { selHint.textContent = ''; return; }
-    selHint.innerHTML = p.virtual
-      ? `<b>${p.nombre}</b>: ${p.sesiones}. Este bloque no se escanea: la asistencia se acredita desde la transmisión en vivo.`
-      : `<b>${p.nombre}</b>: ${p.sesiones}. El QR se acepta desde las <b>${sumaMinutos(p.inicio, -VENTANA_MIN)}</b> hasta las <b>${sumaMinutos(p.fin, VENTANA_MIN)}</b> (una hora antes del inicio y una hora después del cierre de la sede).`;
-  };
-  sel.addEventListener('change', pintarHint);
-
-  // Pre-seleccionar última plática usada
-  const lastPlatica = localStorage.getItem('foro_last_platica');
-  if (lastPlatica) sel.value = lastPlatica;
-  pintarHint();
+  // Llenar dropdown de bloques (caché/fallback) y, si hay clave guardada, sincronizar con la hoja
+  poblarSelectPlaticas();
+  if (leerPlaticasCache_()) $('#platicas-status').textContent = 'Bloques sincronizados con la hoja (caché local). Se actualizan al capturar la clave.';
+  if (state.staffKey && state.staffKey.length >= 6) cargarPlaticasRemotas(state.staffKey);
 
   // Validar form en cada cambio
   $('#staff-email').addEventListener('input', validarSetup);
-  $('#staff-key').addEventListener('input', validarSetup);
+  $('#staff-key').addEventListener('input', () => { validarSetup(); programarSyncPlaticas(); });
+  $('#modo-camara').addEventListener('click', () => cambiarModo('camara'));
+  $('#modo-buscar').addEventListener('click', () => cambiarModo('buscar'));
+  $('#btn-buscar').addEventListener('click', buscarAsistente);
+  $('#buscar-q').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); buscarAsistente(); } });
   $('#platica-select').addEventListener('change', validarSetup);
   $('#btn-iniciar').addEventListener('click', iniciarEscaneo);
   $('#btn-cambiar-platica').addEventListener('click', volverASetup);
@@ -708,6 +745,85 @@ function init() {
   renderQueue();
 }
 
+function etiquetaPlatica(p) {
+  const horas = (p.inicio && p.fin) ? `${p.inicio}–${p.fin}` : 'horario en la hoja';
+  if (p.virtual) return `${p.fecha || ''} · ${horas} · ${p.nombre} · sin escaneo`;
+  const hasta = (p.fin && /^\d{2}:\d{2}$/.test(p.fin)) ? ` · escaneo hasta ${sumaMinutos(p.fin, VENTANA_MIN)}` : '';
+  return `${p.fecha || ''} · ${horas} · ${p.nombre}${hasta}${p.cerrada ? ' · CERRADA' : ''}`;
+}
+
+function pintarHintPlatica() {
+  const sel = $('#platica-select');
+  const selHint = $('#platica-hint');
+  const p = PLATICAS.find(x => String(x.id) === String(sel.value));
+  if (!p) { selHint.textContent = ''; return; }
+  const ses = p.sesiones ? `${p.sesiones}. ` : '';
+  if (p.virtual) {
+    selHint.innerHTML = `<b>${escapeHtml(p.nombre)}</b>: ${escapeHtml(ses)}Este bloque no se escanea: la asistencia se acredita desde la transmisión en vivo.`;
+  } else if (p.inicio && p.fin && /^\d{2}:\d{2}$/.test(p.inicio) && /^\d{2}:\d{2}$/.test(p.fin)) {
+    selHint.innerHTML = `<b>${escapeHtml(p.nombre)}</b>: ${escapeHtml(ses)}El QR se acepta desde las <b>${sumaMinutos(p.inicio, -VENTANA_MIN)}</b> hasta las <b>${sumaMinutos(p.fin, VENTANA_MIN)}</b> (una hora antes del inicio y una hora después del cierre de la sede).`;
+  } else {
+    selHint.innerHTML = `<b>${escapeHtml(p.nombre)}</b>: ${escapeHtml(ses)}la ventana de escaneo la valida el backend con el horario de la hoja.`;
+  }
+}
+
+function poblarSelectPlaticas() {
+  const sel = $('#platica-select');
+  const actual = sel.value || localStorage.getItem('foro_last_platica') || '';
+  sel.querySelectorAll('option:not([value=""])').forEach(o => o.remove());
+  PLATICAS.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = etiquetaPlatica(p);
+    if (p.cerrada) opt.disabled = true;
+    sel.appendChild(opt);
+  });
+  if (actual && PLATICAS.some(p => String(p.id) === String(actual))) sel.value = actual;
+  if (!sel.dataset.hintListo) { sel.addEventListener('change', pintarHintPlatica); sel.dataset.hintListo = '1'; }
+  pintarHintPlatica();
+  validarSetup();
+}
+
+let syncTimer = null;
+function programarSyncPlaticas() {
+  clearTimeout(syncTimer);
+  const key = $('#staff-key').value.trim();
+  if (key.length < 6) return;
+  syncTimer = setTimeout(() => cargarPlaticasRemotas(key), 700);
+}
+
+// Trae los bloques reales desde la pestaña Platicas (exige la clave de staff). Conserva las
+// descripciones de sesiones del fallback cuando el id coincide.
+async function cargarPlaticasRemotas(key) {
+  if (!navigator.onLine || !ENDPOINT || ENDPOINT.indexOf('__') === 0) return;
+  const st = $('#platicas-status');
+  st.className = 'platicas-status';
+  st.textContent = 'Sincronizando bloques con la hoja…';
+  try {
+    const res = await fetchJSON(`${ENDPOINT}?action=platicas&key=${encodeURIComponent(String(key).trim().toUpperCase())}`, { method: 'GET' });
+    if (!res.ok) {
+      st.textContent = res.error === 'staff_key_invalida' ? 'Clave incorrecta: se usa la lista local.' : `Sin sincronizar (${res.error || 'error'}): lista local.`;
+      return;
+    }
+    const lista = (res.platicas || []).map(p => {
+      const base = PLATICAS_FALLBACK.find(f => String(f.id) === String(p.id)) || {};
+      return {
+        id: p.id, sede: p.sede, jornada: p.jornada, fecha: p.fecha || base.fecha || '', inicio: p.inicio || '', fin: p.fin || '',
+        nombre: p.nombre || base.nombre || `Bloque ${p.id}`, sesiones: base.sesiones || '',
+        virtual: !!p.virtual || String(p.sede || '').toLowerCase() === 'virtual', cerrada: !!p.cerrada
+      };
+    });
+    if (!lista.length) { st.textContent = 'La hoja no tiene bloques: se usa la lista local.'; return; }
+    PLATICAS = lista;
+    localStorage.setItem('foro_platicas_cache', JSON.stringify({ ts: Date.now(), platicas: lista }));
+    poblarSelectPlaticas();
+    st.className = 'platicas-status ok';
+    st.textContent = `Bloques sincronizados con la hoja (${lista.length}).`;
+  } catch (err) {
+    st.textContent = 'Sin red para sincronizar: lista local.';
+  }
+}
+
 function validarSetup() {
   const email = $('#staff-email').value.trim();
   const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -726,12 +842,99 @@ function iniciarEscaneo() {
   localStorage.setItem('foro_last_platica', state.platicaId);
 
   const platica = PLATICAS.find(p => String(p.id) === String(state.platicaId));
-  $('#platica-current-name').textContent = platica ? platica.nombre : '—';
+  $('#platica-current-name').textContent = platica ? `${platica.nombre}${platica.inicio && platica.fin ? ` · ${platica.fecha || ''} ${platica.inicio}–${platica.fin}` : ''}` : '—';
 
   hide($('#setup-section'));
   show($('#scanner-section'));
 
-  arrancarCamara();
+  cambiarModo(state.modo || 'camara');
+}
+
+// ---------- MODO: cámara / búsqueda manual ----------
+function cambiarModo(modo) {
+  state.modo = modo;
+  $('#modo-camara').classList.toggle('activo', modo === 'camara');
+  $('#modo-buscar').classList.toggle('activo', modo === 'buscar');
+  $('#result').classList.remove('show');
+  if (modo === 'buscar') {
+    pararCamara();
+    hide($('#panel-camara'));
+    show($('#panel-buscar'));
+    $('#btn-pausar').disabled = true;
+    setTimeout(() => $('#buscar-q').focus(), 50);
+  } else {
+    show($('#panel-camara'));
+    hide($('#panel-buscar'));
+    $('#btn-pausar').disabled = false;
+    $('#btn-pausar').textContent = 'Pausar cámara';
+    arrancarCamara();
+  }
+}
+
+async function buscarAsistente() {
+  const q = $('#buscar-q').value.trim();
+  const list = $('#buscar-list');
+  if (q.length < 3) { toast('Escribe al menos 3 caracteres', true); return; }
+  if (!state.online) { toast('Sin conexión: la búsqueda necesita red', true); return; }
+  list.innerHTML = '<div class="buscar-item"><div class="meta">Buscando…</div></div>';
+  let res;
+  try {
+    res = await fetchJSON(`${ENDPOINT}?action=buscar&q=${encodeURIComponent(q)}&key=${encodeURIComponent(state.staffKey)}`, { method: 'GET' });
+  } catch (err) {
+    list.innerHTML = '<div class="buscar-item"><div class="meta">Sin red al buscar. Reintenta.</div></div>';
+    return;
+  }
+  if (!res.ok) {
+    if (res.error === 'staff_key_invalida') {
+      list.innerHTML = '';
+      mostrarResultadoError('Clave de staff incorrecta', 'Vuelve a Configuración («Cambiar plática») y captura la clave que te compartió el comité.');
+      return;
+    }
+    list.innerHTML = `<div class="buscar-item"><div class="meta">${escapeHtml(res.error || 'Error al buscar')}</div></div>`;
+    return;
+  }
+  const r = res.resultados || [];
+  if (!r.length) {
+    list.innerHTML = '<div class="buscar-item"><div class="nombre">Sin resultados</div><div class="meta">No está inscrito con ese dato. Si insiste, inscríbelo en forodyt.com/inscripcion.html (recibe su QR al instante) y vuelve a buscarlo.</div></div>';
+    return;
+  }
+  list.innerHTML = r.map((u, i) => `
+    <div class="buscar-item" data-i="${i}">
+      <div class="nombre">${escapeHtml(u.nombre || '—')}<span class="tag ${u.correo_qr_enviado ? 'ok' : 'no'}">${u.correo_qr_enviado ? 'QR enviado' : 'sin correo'}</span></div>
+      <div class="meta"><b>${escapeHtml(u.folio)}</b> · ${escapeHtml(u.correo || '')}<br>${escapeHtml(u.institucion || '')} · ${escapeHtml(u.tipo || '')} · ${escapeHtml(u.modalidad || '')}</div>
+      <div class="acciones">
+        <button class="btn btn-success" data-act="checkin" data-i="${i}" ${u.hmac ? '' : 'disabled'}>Registrar entrada</button>
+        <button class="btn btn-ghost" data-act="reenviar" data-i="${i}">Reenviar QR</button>
+      </div>
+    </div>`).join('');
+  list.querySelectorAll('button[data-act]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const u = r[Number(btn.dataset.i)];
+      if (btn.dataset.act === 'checkin') {
+        mostrarResultadoConfirm({ nombre: u.nombre, tipo: u.tipo, institucion: u.institucion, modalidad: u.modalidad }, u.folio, u.hmac);
+        $('#result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        reenviarQR(u.correo, btn);
+      }
+    });
+  });
+}
+
+async function reenviarQR(correo, btn) {
+  if (!correo) { toast('Sin correo registrado', true); return; }
+  btn.disabled = true; const txt = btn.textContent; btn.textContent = 'Enviando…';
+  try {
+    const res = await fetchJSON(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'reenviar', correo: correo })
+    });
+    if (res.ok && res.enviado) { toast('QR reenviado a ' + correo); btn.textContent = 'Enviado ✓'; return; }
+    toast(res.error || res.mensaje || 'No se pudo reenviar', true);
+  } catch (err) {
+    toast('Sin red al reenviar', true);
+  }
+  btn.disabled = false; btn.textContent = txt;
 }
 
 function volverASetup() {
@@ -739,6 +942,7 @@ function volverASetup() {
   hide($('#scanner-section'));
   show($('#setup-section'));
   $('#result').classList.remove('show');
+  if (state.staffKey) cargarPlaticasRemotas(state.staffKey); // por si el coordinador ajustó horarios en la hoja
 }
 
 function togglePausa() {
