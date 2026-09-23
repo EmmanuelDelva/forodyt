@@ -7,8 +7,8 @@
  *
  * Va a TODAS las personas inscritas, no solo a las escaneadas: hubo problemas para escanear en las sedes (decisión
  * del director, 2026-09-23). Las horas dependen de la MODALIDAD con que se inscribió (columna «modalidad» de
- * Usuarios): presencial 14 h, sin las horas en línea; virtual y mixta 18 h, el evento completo. Ver
- * CIERRE_MODALIDADES.
+ * Usuarios): presencial 14 h, sin las horas en línea; virtual 15 h, lo que se transmitió (Ciudad Judicial no);
+ * mixta 18 h, el evento completo. Ver CIERRE_MODALIDADES.
  *
  * Requiere en el mismo proyecto: Code.gs y Asistencia.gs (versión del 2026-09-23 o posterior: DEFAULTS_CONSTANCIA_),
  * y los archivos HTML Constancia-bloque y Correo-cierre.
@@ -56,13 +56,18 @@ const CIERRE = {
 const FIRMA_LEOS_ORIGEN_ID = '1toMWjYmcQFQfXyfMCKtTacXZyTiNJgf-';
 /**
  * Minutos del programa definitivo (programa-data.json): CUCEA 310 · CUGDL 165 · Cineteca 205 · Ciudad Judicial 165
- * = 845 presenciales; Jornada Virtual del 18: 252. Las horas se cierran a horas completas (director, 2026-09-23):
- * presencial 845 min = 14.08 h → 14 h; evento completo 1 097 min = 18.28 h → 18 h. La persona inscrita como
- * presencial NO suma las horas en línea; virtual y mixta suman el evento completo, porque las cuatro sedes se
- * transmitieron. Una modalidad vacía o desconocida cuenta como presencial, que es lo que registra Code.gs por defecto.
+ * = 845 presenciales; Jornada Virtual del 18: 252. Las horas se cierran a horas completas (director, 2026-09-23).
+ * Cada modalidad cuenta solo lo que podía atender (director: «si es presencial no se computan las horas en línea»):
+ *   presencial  845 min (las cuatro sedes)                                   = 14.08 h → 14 h
+ *   virtual     932 min (Jornada Virtual + CUCEA + CUGDL + Cineteca)         = 15.53 h → 15 h
+ *               Ciudad Judicial NO cuenta: no se transmitió (lo dice el mismo correo de cierre).
+ *   mixta      1097 min (evento completo: pudo estar en Ciudad Judicial en persona) = 18.28 h → 18 h
+ * Si el director decide dar a «virtual» el evento completo, basta con poner minutos: CIERRE_MINUTOS_EVENTO y
+ * cambiar su texto de sedes. Una modalidad vacía o desconocida cuenta como presencial (el valor por defecto de Code.gs).
  */
 const CIERRE_MINUTOS_PRESENCIAL = 845;
 const CIERRE_MINUTOS_EVENTO = CIERRE_MINUTOS_PRESENCIAL + 252;   // + Jornada Virtual del 18
+const CIERRE_MINUTOS_EN_LINEA = 252 + 310 + 165 + 205;           // lo que sí se transmitió: JV + CUCEA + CUGDL + Cineteca
 const CIERRE_MODALIDADES = {
   presencial: {
     minutos: CIERRE_MINUTOS_PRESENCIAL,
@@ -74,12 +79,12 @@ const CIERRE_MODALIDADES = {
     correo: 'presencial'
   },
   virtual: {
-    minutos: CIERRE_MINUTOS_EVENTO,
+    minutos: CIERRE_MINUTOS_EN_LINEA,
     etiqueta: 'En línea',
     asistente: 'asistente en línea',
     celebrada: 'celebrada los días 18, 21 y 22 de septiembre de 2026, a través de la transmisión oficial del Foro',
     fechas: '18, 21 y 22 de septiembre de 2026',
-    sedes: 'Jornada Virtual Internacional y transmisión de las cuatro sedes',
+    sedes: 'Jornada Virtual Internacional y transmisión de CUCEA, CUGDL y Cineteca FICG',
     correo: 'en línea'
   },
   mixta: {
@@ -124,7 +129,7 @@ function destinatariosCierre_() {
     lista.push({ correo: correo, folio: folio, nombre: nombreBonito_(data[i][iN]), institucion: String(data[i][iI] || '').trim(),
                  modalidad: modalidadCierre_(iM === -1 ? '' : data[i][iM]) });
   }
-  return lista;   // el orden de la hoja es estable: el folio de constancia sale de la posición en esta lista
+  return lista;
 }
 function registroCierre_() {
   return hoja_(CIERRE_SHEET, ['correo', 'folio_inscripcion', 'folio_constancia', 'nombre', 'estado', 'via', 'pdf_id', 'fecha', 'error', 'modalidad', 'horas']);
@@ -133,6 +138,20 @@ function enviadosCierre_(sh) {
   const m = {};
   sh.getDataRange().getValues().slice(1).forEach(r => { if (String(r[4]) === 'enviado') m[String(r[0]).toLowerCase()] = true; });
   return m;
+}
+/**
+ * Folios de constancia ya asignados (CierreEnvios) y el siguiente número libre. El folio NO sale de la posición en la
+ * lista: la lista se rehace en cada tanda y cambia si se excluye o corrige a alguien, y dos personas acabarían con el
+ * mismo folio. Quien reintenta tras un error conserva el suyo; los nuevos siguen al más alto registrado.
+ */
+function foliosCierre_(sh) {
+  const de = {}; let max = 0;
+  sh.getDataRange().getValues().slice(1).forEach(r => {
+    const f = String(r[2] || ''); if (f.indexOf(CIERRE.prefijoFolio) !== 0) return;
+    const n = Number(f.slice(CIERRE.prefijoFolio.length)); if (n > max) max = n;
+    const c = String(r[0]).toLowerCase(); if (!de[c]) de[c] = f;
+  });
+  return { de: de, siguiente: () => CIERRE.prefijoFolio + String(++max).padStart(4, '0') };
 }
 
 // ─────────────────────────────────────────────────────────── constancia y correo
@@ -167,7 +186,7 @@ function htmlCorreoCierre_(p, folio) {
   t.nombre = p.nombre; t.folio = folio;
   t.horas_evento_txt = horasTexto_(horasCompletas_(CIERRE_MINUTOS_EVENTO));
   t.modalidad_correo = m.correo;
-  t.horas_correo = horasTexto_(horas) + ' (' + horas + ' h)';
+  t.horas_correo = horasTexto_(horas) + ' (' + horas + '\u00a0h)';   // espacio de no separación: «15 h» nunca se parte
   return t.evaluate().getContent();
 }
 /** Sale con MailApp (cuenta del script, respuesta a contacto@forodyt.com) salvo MODO_ENVIO = alias. */
@@ -295,7 +314,7 @@ function enviarCierre() {
     // los disparadores de un solo uso siguen listados tras dispararse: se limpian para no pasar del límite de 20
     ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'enviarCierre').forEach(t => ScriptApp.deleteTrigger(t));
     const inicio = Date.now();
-    const sh = registroCierre_(); const ya = enviadosCierre_(sh);
+    const sh = registroCierre_(); const ya = enviadosCierre_(sh); const folios = foliosCierre_(sh);
     const lista = destinatariosCierre_(); const rec = recursosCierre_(); const carpeta = carpetaCierre_();
     let enviados = 0, errores = 0, pausa = '';
     for (let i = 0; i < lista.length; i++) {
@@ -303,7 +322,7 @@ function enviarCierre() {
       if (ya[p.correo]) continue;
       if (Date.now() - inicio > CIERRE.minutosPorTanda * 60000) { pausa = 'tiempo'; break; }
       if (MailApp.getRemainingDailyQuota() < CIERRE.cuotaMinima) { pausa = 'cuota'; break; }
-      const folioConst = CIERRE.prefijoFolio + String(i + 1).padStart(4, '0');
+      const folioConst = folios.de[p.correo] || (folios.de[p.correo] = folios.siguiente());
       const horas = horasCompletas_(CIERRE_MODALIDADES[p.modalidad].minutos);
       try {
         const pdf = pdfConstancia_(datosCierre_(p, folioConst, rec));

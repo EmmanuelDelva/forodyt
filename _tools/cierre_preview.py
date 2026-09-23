@@ -79,7 +79,7 @@ def main(argv):
                    modalidad_txt=m['etiqueta'], sedes_txt=m['sedes'], horas=m['horas'], horas_txt=m['horas_txt'])
         io.open(os.path.join(OUT, 'constancia-%s.html' % k), 'w', encoding='utf-8').write(render(TPL, ctx))
         correo = dict(nombre=nombre, folio=base['folio'], horas_evento_txt=g['horas_evento_txt'],
-                      modalidad_correo=m['correo'], horas_correo='%s (%s h)' % (m['horas_txt'], m['horas']))
+                      modalidad_correo=m['correo'], horas_correo='%s (%s\u00a0h)' % (m['horas_txt'], m['horas']))
         io.open(os.path.join(OUT, 'correo-%s.html' % k), 'w', encoding='utf-8').write(render(CORREO, correo))
         sh.append('%s --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer '
                   '--print-to-pdf="constancia-%s.pdf" "file://$PWD/%s" 2>/dev/null'

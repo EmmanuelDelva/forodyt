@@ -149,13 +149,13 @@
     </div>
 
     <? if (tipo === 'valor') { ?>
-    <p class="certifica">Acreditó su asistencia a las actividades académicas de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, con una duración total verificada de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Acreditó su asistencia a las actividades académicas de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, con una duración total verificada de <b><?= horas_txt ?> (<?= horas ?>&nbsp;h)</b>.</p>
     <? } ?>
     <? if (tipo === 'bloque') { ?>
-    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?>&nbsp;h)</b>.</p>
     <? } ?>
     <? if (tipo === 'general') { ?>
-    <p class="certifica">Participó como <b><?= asistente_txt ?></b> en la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, <?= celebrada_txt ?>, con una duración total de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
+    <p class="certifica">Participó como <b><?= asistente_txt ?></b> en la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, <?= celebrada_txt ?>, con una duración total de <b><?= horas_txt ?> (<?= horas ?>&nbsp;h)</b>.</p>
     <? } ?>
     <? if (participacion) { ?>
     <p class="certifica">Participó como <b><?= rol ?></b> <?= nexo ?> <b><?= sesion_label ?></b>, celebrada en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>.</p>
@@ -205,7 +205,7 @@
   <? } ?>
   <? if (tipo === 'general') { ?>
   <table class="firmas dos"><tr>
-    <td style="width:50%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:50%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:50%"><? if (firma2_src) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma2_src) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firma2_nombre ?></div><div class="firma-cargo"><?= firma2_cargo ?></div><div class="firma-sub"><?= firma2_sub ?></div></td>
   </tr></table>
   <? } ?>

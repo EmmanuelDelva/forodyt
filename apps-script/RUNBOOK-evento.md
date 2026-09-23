@@ -93,8 +93,8 @@ Está en el documento de la clave (Claude-Work) y en el chat: URL `forodyt.com/r
 | Modalidad de inscripción | Horas | Qué cubre |
 |---|---|---|
 | Presencial (o vacía) | **14 h** | Las cuatro sedes del 21 y 22 (845 min = 14.08 h) |
-| Virtual | **18 h** | Evento completo: Jornada Virtual + transmisión de las cuatro sedes (1 097 min = 18.28 h) |
-| Mixta | **18 h** | Evento completo |
+| Virtual | **15 h** | Lo que sí se transmitió: Jornada Virtual + CUCEA + CUGDL + Cineteca (932 min = 15.53 h). Ciudad Judicial no, porque su transmisión falló |
+| Mixta | **18 h** | Evento completo (pudo estar en Ciudad Judicial en persona) |
 
 Se envía a **todas las personas inscritas**, no solo a las escaneadas: hubo problemas para escanear en las sedes.
 
