@@ -270,7 +270,20 @@ def dia_html(dia):
             f'</div></header>' + ''.join(bloques) + '</section>')
 
 # ─────────────────────────── JSON-LD ───────────────────────────
+ORGANIZADOR_LD = {'@type': 'Organization', 'name': 'Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'url': 'https://forodyt.com/'}
+OFERTA_LD = {'@type': 'Offer', 'name': 'Inscripción al IV Foro', 'url': 'https://forodyt.com/inscripcion.html', 'price': '0', 'priceCurrency': 'MXN',
+             'availability': 'https://schema.org/InStock', 'validFrom': '2026-05-01', 'validThrough': '2026-09-22'}
+
+def desc_bloque(d, b):
+    """Descripción de un subEvent: sede, día y los títulos de sus mesas, conferencias y actos, en orden."""
+    titulos = [s['titulo'] for s in b['sesiones'] if s.get('titulo') and s.get('tipo') not in ('receso', 'pausa')]
+    cab = f'{b["sede"]} ({b["sede_sub"]}), {d["dow"]} {d["num"]} de {d["mes"]} de 2026. IV Foro Internacional de Derecho y Tecnología.'
+    txt = cab + (' ' + ' · '.join(titulos) + '.' if titulos else '')
+    return txt if len(txt) <= 480 else txt[:477].rsplit(' · ', 1)[0] + '…'
+
 def jsonld():
+    # Cada subEvent lleva también image, description, organizer y offers: Google los evalúa como Event
+    # por separado y, sin ellos, Search Console avisa «Falta el campo…» (aviso del 2026-09-23).
     sub = []
     for d in DATA['dias']:
         for b in d['bloques']:
@@ -291,13 +304,17 @@ def jsonld():
                         'startDate': ini.isoformat(), 'endDate': fin.isoformat(),
                         'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode' if d['modo'] == 'virtual' else 'https://schema.org/MixedEventAttendanceMode',
                         'eventStatus': 'https://schema.org/EventScheduled', 'location': loc, 'performer': performers,
+                        'description': desc_bloque(d, b),
+                        'image': 'https://forodyt.com/og/og-jornada.png' if d['modo'] == 'virtual' else 'https://forodyt.com/og/og-programa.png',
+                        'organizer': ORGANIZADOR_LD, 'offers': OFERTA_LD,
                         'url': f'https://forodyt.com/programa.html#{b["id"]}'})
     ev = {'@context': 'https://schema.org', '@type': 'Event', 'name': 'IV Foro Internacional de Derecho y Tecnología',
           'description': UI['meta_desc'], 'startDate': '2026-09-18', 'endDate': '2026-09-22',
           'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode', 'eventStatus': 'https://schema.org/EventScheduled',
           'image': 'https://forodyt.com/og/og-programa.png', 'url': 'https://forodyt.com/programa.html', 'inLanguage': ['es', 'en', 'fr'],
-          'organizer': {'@type': 'Organization', 'name': 'Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'url': 'https://forodyt.com/'},
-          'offers': {'@type': 'Offer', 'name': 'Inscripción al IV Foro', 'url': 'https://forodyt.com/inscripcion.html', 'price': '0', 'priceCurrency': 'MXN', 'availability': 'https://schema.org/InStock', 'validFrom': '2026-05-01', 'validThrough': '2026-09-22'},
+          'organizer': ORGANIZADOR_LD, 'offers': OFERTA_LD,
+          # location es obligatorio en Event: las cuatro sedes presenciales + la transmisión, tomadas de los subEvent
+          'location': [x['location'] for x in sub if x['location']['@type'] == 'Place'] + [{'@type': 'VirtualLocation', 'url': 'https://forodyt.com/en-vivo.html'}],
           'subEvent': sub}
     return json.dumps(ev, ensure_ascii=False, indent=1).replace('</', '<\\/')
 
