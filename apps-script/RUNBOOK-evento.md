@@ -76,7 +76,7 @@ Está en el documento de la clave (Claude-Work) y en el chat: URL `forodyt.com/r
 
 **2 · Propiedades del script:**
 - `MODO_ENVIO` = `mailapp` (o no definirla).
-- `FIRMA_LEOS_FILE_ID` = id en Drive del PNG de la firma del Dr. Jorge Antonio Leos Navarro (fondo transparente). Si el archivo está en otra cuenta, compartirlo como lector con la cuenta CUCEA.
+- `FIRMA_LEOS_FILE_ID` = id en Drive del PNG de la firma del Dr. Jorge Antonio Leos Navarro (fondo transparente). Vive en el Drive de Gmail del director: `2026 — IV ForoDyT / 09- Motor de Constancias / 03- Firmas de Cofirmantes — uso exclusivo en constancias / firma-digital-leos-navarro-black.png` (id `1toMWjYmcQFQfXyfMCKtTacXZyTiNJgf-`, 640 × 160, subido el 23-sep). El backend corre en la cuenta CUCEA: compartir ese archivo como **lector** con la cuenta CUCEA, o copiarlo a la carpeta `_recursos` de las constancias y usar el id de la copia.
 - Opcional: `CIERRE_EXCLUIR` = folios o correos de prueba separados por coma (p. ej. `IV-FORO-UVDVQW`).
 - Opcional: `CIERRE_FECHA` = `2026-09-24 09:00` (hora de Guadalajara).
 
