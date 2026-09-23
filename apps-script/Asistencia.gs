@@ -327,11 +327,24 @@ function imagenDataUri_(prop) {
   try { const b = DriveApp.getFileById(id).getBlob(); return 'data:' + b.getContentType() + ';base64,' + Utilities.base64Encode(b.getBytes()); }
   catch (e) { log_('imagenDataUri_', prop, e.message, null); return ''; }
 }
+/**
+ * Toda variable que la plantilla lee fuera de un `if` falso tiene que existir: en HtmlService una variable sin
+ * definir lanza ReferenceError y la constancia no se genera. La plantilla creció con las constancias de
+ * participación (2026-09-18: participacion, ponencia, lista_label…) y la general de cierre (2026-09-23:
+ * firma2_*), que el cálculo por bloque no define; estos valores por defecto las cubren.
+ */
+const DEFAULTS_CONSTANCIA_ = {
+  firmantes: [], institucion: '', participacion: false, ponencia: '', lista_label: '', lista: '', sesiones: '',
+  rol: '', nexo: '', sesion_label: '', sesion_k: '', sesion_corta: '', recinto: '', sede: '', fecha_larga: '',
+  horas: '', horas_txt: '', horario: '', agua_src: '', firma_src: '', logos: {},
+  firma2_src: '', firma2_nombre: '', firma2_cargo: '', firma2_sub: '', fechas_txt: '', modalidad_txt: '', sedes_txt: '',
+  f_ancho: '33%', f1_nombre: '', f1_cargo: '', f1_sub: '', f1_firma: '', f2_nombre: '', f2_cargo: '', f2_sub: '', f2_firma: '',
+  f3_nombre: '', f3_cargo: '', f3_sub: '', f3_firma: ''
+};
 function pdfConstancia_(datos) {
   const t = HtmlService.createTemplateFromFile('Constancia-bloque');
+  Object.keys(DEFAULTS_CONSTANCIA_).forEach(k => { t[k] = DEFAULTS_CONSTANCIA_[k]; });
   Object.keys(datos).forEach(k => { t[k] = datos[k]; });
-  if (!('firmantes' in datos)) t.firmantes = [];
-  if (!('institucion' in datos)) t.institucion = '';
   const html = t.evaluate().getContent();
   return Utilities.newBlob(html, 'text/html', 'constancia.html').getAs('application/pdf').setName('Constancia-' + datos.folio.replace(/\//g, '-') + '.pdf');
 }
@@ -431,7 +444,10 @@ function instalarDisparadoresBloques() {
 const RECURSOS_CONSTANCIA = {
   LOGO_UDG_FILE_ID: { url: 'https://forodyt.com/img/aliados/udg.png', nombre: 'logo-udg.png' },
   LOGO_CA_FILE_ID: { url: 'https://forodyt.com/img/aliados/ca-derecho-tecnologia-lockup.png', nombre: 'logo-ca-derecho-tecnologia-lockup.png' },
-  AGUA_FILE_ID: { url: 'https://forodyt.com/img/marca/foro-mapa-conexiones-dorado.png', nombre: 'marca-agua-foro-mapa-conexiones-dorado.png' }
+  AGUA_FILE_ID: { url: 'https://forodyt.com/img/marca/foro-mapa-conexiones-dorado.png', nombre: 'marca-agua-foro-mapa-conexiones-dorado.png' },
+  // logo del Foro para la constancia general de cierre (Cierre.gs); remuestreado a 400 px de alto: el maestro
+  // mide 941 px y metería ~640 KB en CADA PDF
+  LOGO_FORO_FILE_ID: { url: 'https://forodyt.com/img/marca/foro-logo-constancia.png', nombre: 'logo-foro-constancia.png' }
 };
 function instalarRecursosConstancia() {
   let carpeta = null;

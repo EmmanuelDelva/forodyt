@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- Correo de cierre del IV Foro (Cierre.gs). Se usa tal cual en _tools/cierre_preview.py para el borrador.
+     Solo sustituciones de impresión (nombre, folio): nada de lógica aquí. OJO: no escribir scriptlets en
+     comentarios, HtmlService los evalúa igual. -->
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#F5EFE0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F5EFE0;">
+<tr><td align="center" style="padding:28px 12px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#FFFFFF;border-top:4px solid #B8923E;">
+  <tr><td style="padding:30px 36px 8px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#3A8E89;">
+    IV edición · 18 · 21 · 22 de septiembre de 2026
+  </td></tr>
+  <tr><td style="padding:0 36px 18px;font-family:Georgia,'Times New Roman',serif;font-size:25px;line-height:1.25;color:#1F4747;">
+    Foro Internacional de Derecho y <i>Tecnología</i>
+  </td></tr>
+  <tr><td style="padding:0 36px 28px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#1F2937;">
+    <p style="margin:0 0 16px;">Apreciable <?= nombre ?>:</p>
+
+    <p style="margin:0 0 16px;">Gracias por formar parte del IV Foro Internacional de Derecho y Tecnología, que celebramos los días 18, 21 y 22 de septiembre bajo el tema «Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide». Tu inscripción y tu presencia, en las sedes o a distancia, hicieron posible esta cuarta edición.</p>
+
+    <p style="margin:0 0 16px;">Queremos contarte que durante la sesión de Ciudad Judicial se presentaron dificultades técnicas que impidieron su transmisión en directo. Estamos trabajando para recuperar las grabaciones y, tan pronto como sea posible, las publicaremos en <a href="https://forodyt.com" style="color:#1F4747;">forodyt.com</a> y en nuestras redes oficiales. Lamentamos el inconveniente a quienes nos seguían en línea.</p>
+
+    <p style="margin:0 0 16px;">Adjunto a este correo encontrarás tu <b>constancia de asistencia</b> al IV Foro, firmada por la Dirección y la Secretaría Académica.</p>
+
+    <p style="margin:0 0 16px;">Si asististe a alguna de las sedes y todavía no recibes tu constancia por bloque, escríbenos a <a href="mailto:contacto@forodyt.com" style="color:#1F4747;">contacto@forodyt.com</a> con tu folio de inscripción y te la hacemos llegar.</p>
+
+    <p style="margin:0 0 22px;">Te esperamos el próximo año para seguir sumando voces y hacer aún más grande esta conversación sobre el derecho y la tecnología.</p>
+
+    <p style="margin:0;">Con aprecio,</p>
+    <p style="margin:6px 0 0;font-family:Georgia,'Times New Roman',serif;font-size:16px;color:#1F4747;"><b>Dr. Juan Emmanuel Delva Benavides</b></p>
+    <p style="margin:2px 0 0;font-size:13px;color:#4A5568;">Director del Foro Internacional de Derecho y Tecnología<br>Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara</p>
+  </td></tr>
+  <tr><td style="padding:16px 36px 26px;border-top:1px solid #E8E1D0;font-family:'Courier New',monospace;font-size:11px;line-height:1.6;letter-spacing:0.04em;color:#6B7280;">
+    Constancia <?= folio ?><br>
+    <a href="https://forodyt.com" style="color:#6B7280;">forodyt.com</a> · <a href="mailto:contacto@forodyt.com" style="color:#6B7280;">contacto@forodyt.com</a> · Instagram @forodyt_oficial
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

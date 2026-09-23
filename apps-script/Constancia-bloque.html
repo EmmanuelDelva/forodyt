@@ -104,6 +104,9 @@
   .firmas.tres .firma-nombre { font-size: 9.5pt; white-space: normal; }
   .firmas.tres .firma-cargo { font-size: 6.6pt; letter-spacing: 0.2em; }
   .firmas.tres .firma-sub { font-size: 7.8pt; }
+  /* dos firmas (constancia general de cierre: Director + Secretario Académico) */
+  .firmas.dos .firma-nombre { font-size: 10.5pt; white-space: normal; }
+  .firmas.dos .firma-cargo { font-size: 7pt; letter-spacing: 0.22em; }
   .pie { position: absolute; left: 18mm; right: 18mm; bottom: 14mm; border-top: 0.5pt solid #D9D3C3; padding-top: 2.8mm; font-family: 'Inter', Arial, sans-serif; font-size: 7.5pt; color: #4A5568; line-height: 1.6; }
   .pie table { width: 100%; border-collapse: collapse; }
   .pie td { vertical-align: top; }
@@ -134,6 +137,7 @@
     <div class="titulo">CONSTANCIA</div>
     <? if (tipo === 'valor') { ?><div class="caligrafia">con valor curricular · <?= horas ?> horas acreditadas</div><? } ?>
     <? if (tipo === 'bloque') { ?><div class="caligrafia">de asistencia</div><? } ?>
+    <? if (tipo === 'general') { ?><div class="caligrafia">de asistencia</div><? } ?>
     <? if (participacion) { ?><div class="caligrafia">de participación como <?= rol ?></div><? } ?>
 
     <div class="persona">
@@ -147,6 +151,9 @@
     <? if (tipo === 'bloque') { ?>
     <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
+    <? if (tipo === 'general') { ?>
+    <p class="certifica">Participó como <b>asistente</b> en la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, en Guadalajara y Zapopan, Jalisco, y en línea.</p>
+    <? } ?>
     <? if (participacion) { ?>
     <p class="certifica">Participó como <b><?= rol ?></b> <?= nexo ?> <b><?= sesion_label ?></b>, celebrada en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>.</p>
     <? } ?>
@@ -159,11 +166,19 @@
       <td style="width:30%"><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
     </tr></table>
     <? } else { ?>
+    <? if (tipo === 'general') { ?>
+    <table class="detalles"><tr>
+      <td style="width:36%"><div class="k">Fechas</div><div class="v"><?= fechas_txt ?></div></td>
+      <td style="width:20%"><div class="k">Modalidad</div><div class="v"><?= modalidad_txt ?></div></td>
+      <td style="width:44%"><div class="k">Sedes</div><div class="v"><?= sedes_txt ?></div></td>
+    </tr></table>
+    <? } else { ?>
     <table class="detalles"><tr>
       <td style="width:40%"><div class="k">Sede</div><div class="v"><?= sede ?></div></td>
       <td style="width:38%"><div class="k">Fecha</div><div class="v"><?= fecha_larga ?></div></td>
       <td style="width:22%"><div class="k">Duración</div><div class="v num"><?= horas ?> h</div></td>
     </tr></table>
+    <? } ?>
     <? } ?>
     <? if (sesiones) { ?><div class="sesiones"><b>Sesiones</b> · <?= sesiones ?></div><? } ?>
     <? if (lista_label) { ?><div class="sesiones"><b><?= lista_label ?></b> · <?= lista ?></div><? } ?>
@@ -182,6 +197,12 @@
     <td style="width:22%"></td>
     <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:22%"></td>
+  </tr></table>
+  <? } ?>
+  <? if (tipo === 'general') { ?>
+  <table class="firmas dos"><tr>
+    <td style="width:50%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:50%"><? if (firma2_src) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma2_src) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firma2_nombre ?></div><div class="firma-cargo"><?= firma2_cargo ?></div><div class="firma-sub"><?= firma2_sub ?></div></td>
   </tr></table>
   <? } ?>
   <? if (participacion) { ?>
