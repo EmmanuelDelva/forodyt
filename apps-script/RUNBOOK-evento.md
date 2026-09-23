@@ -67,3 +67,27 @@ Por qué fallaron: el correo se marcaba `false` cuando `UrlFetchApp` no consegu�
 ## 6 · Mensaje para el staff
 
 Está en el documento de la clave (Claude-Work) y en el chat: URL `forodyt.com/registroscomite`, correo institucional, clave de staff, bloque. La clave no se publica en ninguna página del sitio.
+
+## 7 · Después del Foro: rebote 552 y correo de cierre (2026-09-23)
+
+**Qué pasó.** Los correos «desde» `contacto@forodyt.com` salían por el «Enviar como» de Gmail, que entrega a través de **smtp2go**. Al agotarse su cuota mensual, smtp2go rechaza con `552 Your monthly email allowance is exhausted`; Gmail acepta el envío y el rechazo llega después como rebote, así que el script lo apuntaba como enviado. Desde esta versión el envío va por **MailApp** (la cuenta del script, ~1500 destinatarios/día) con **Responder a: contacto@forodyt.com**. Para volver al alias cuando smtp2go tenga cuota: Script Property `MODO_ENVIO = alias`.
+
+**1 · Pegar en el proyecto «IV Foro 2026 Backend»** (cuenta CUCEA): `Code.gs`, `Asistencia.gs`, `Constancia-bloque.html` (sustituir) y los nuevos `Cierre.gs` (Secuencia de comandos) y `Correo-cierre` (HTML). Guardar. **Implementar → Administrar implementaciones → ✏️ → Nueva versión** (nunca «Nueva implementación»).
+
+**2 · Propiedades del script:**
+- `MODO_ENVIO` = `mailapp` (o no definirla).
+- `FIRMA_LEOS_FILE_ID` = id en Drive del PNG de la firma del Dr. Jorge Antonio Leos Navarro (fondo transparente). Si el archivo está en otra cuenta, compartirlo como lector con la cuenta CUCEA.
+- Opcional: `CIERRE_EXCLUIR` = folios o correos de prueba separados por coma (p. ej. `IV-FORO-UVDVQW`).
+- Opcional: `CIERRE_FECHA` = `2026-09-24 09:00` (hora de Guadalajara).
+
+**3 · Ejecutar, en este orden:**
+1. `instalarRecursosConstancia` → crea `LOGO_FORO_FILE_ID` (descarga `forodyt.com/img/marca/foro-logo-constancia.png`). No toca lo ya instalado.
+2. `_reporteRebotes` → no envía nada. Llena la pestaña **Rebotes** con cada correo que no llegó (constancias por bloque, QR u otros) y el motivo.
+3. `reenviarConstanciasRebotadas` → reenvía por MailApp las constancias por bloque que rebotaron (las toma de Drive, columna `pdf_id` de *ConstanciasBloque*). Si se detiene por tiempo o cuota, volver a ejecutarla: no repite a quien ya quedó marcado.
+4. `_previewCierre` → te manda **a ti** el correo de cierre con la constancia de muestra y un recuadro «PRUEBA» que dice a cuántas personas les llegará y si falta alguna firma o logo. Revisarlo.
+5. `_reporteCierre` → destinatarios únicos, pendientes, cuota del día.
+6. **`programarCierre`** (usa `CIERRE_FECHA`) o **`enviarCierre`** (envía ya). Va por tandas de 4 min y se reprograma sola; si se acaba la cuota del día, sigue a las 6 h. Al terminar llega un resumen al correo del director. `cancelarCierre` quita lo programado.
+
+Cada persona inscrita recibe **un** correo (se deduplica por correo) con su constancia general `IV-FIDDT-GEN/UDG/2026-NNNN`, que se guarda también en Drive, en «Constancias de cierre (asistencia general)». La pestaña **CierreEnvios** registra cada envío; volver a correr `enviarCierre` solo alcanza a quien no lo recibió.
+
+Vista previa local (sin tocar el backend): `FIRMA_PNG=… FIRMA_LEOS_PNG=… python3 _tools/cierre_preview.py && sh _tools/out/cierre/render.sh`.

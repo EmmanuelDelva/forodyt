@@ -8,10 +8,14 @@
  *      - FOLIO_PREFIX: "IV-FORO-"
  *      - SENDER_NAME: "IV Foro Internacional de Derecho y Tecnología"
  *      - SENDER_EMAIL: "emmanueldelva@cucea.udg.mx" (cuenta que ejecuta el script)
- *      - REMITENTE: "contacto@forodyt.com" (opcional; es el default). Los correos a participantes salen de esta
- *        dirección con GmailApp: tiene que estar dada de alta y verificada en «Enviar mensaje como» de la
- *        cuenta que ejecuta el script (en la CUCEA lo está, vía smtp2go). Si no lo está, salen con MailApp
- *        desde la cuenta del script y con respuesta a esta dirección.
+ *      - REMITENTE: "contacto@forodyt.com" (opcional; es el default). Es la dirección de respuesta (Reply-To) de
+ *        todos los correos a participantes.
+ *      - MODO_ENVIO: "mailapp" (default) o "alias". Con "mailapp" los correos salen de la cuenta del script
+ *        (MailApp, cuota de Google Workspace) y responden a REMITENTE. Con "alias" salen DESDE REMITENTE por el
+ *        «Enviar mensaje como» de Gmail, que en la CUCEA pasa por smtp2go. OJO (2026-09-23): cuando se agota la
+ *        cuota mensual de smtp2go, Gmail acepta el correo y el rechazo («552 Your monthly email allowance is
+ *        exhausted») llega DESPUÉS como rebote al buzón: el script lo da por enviado y la persona no lo recibe.
+ *        Por eso el default es "mailapp"; volver a "alias" solo con cuota de smtp2go comprobada.
  *      - LOGO_URL: URL pública del logo del Foro (opcional)
  *      - DIRECTOR_EMAIL: correo a notificar en alertas críticas (default: SENDER_EMAIL)
  *      - CONSTANCIA_TEMPLATE_ID: Doc ID del template de constancia
@@ -371,11 +375,13 @@ function validarQR(folio, hmacRecibido) {
 // ============ CORREO ============
 /**
  * enviarCorreo_({to, subject, htmlBody, attachments, inlineImages, name}) — único punto de salida de los correos a
- * participantes. Sale de REMITENTE (contacto@forodyt.com) si es un «Enviar como» verificado de esta cuenta; si no,
- * con MailApp desde la cuenta del script y Reply-To a REMITENTE. Devuelve 'alias' o 'mailapp'.
+ * participantes. Por defecto (MODO_ENVIO = mailapp) sale con MailApp desde la cuenta del script y Reply-To a
+ * REMITENTE. Solo con MODO_ENVIO = alias sale DESDE REMITENTE, y únicamente si es un «Enviar como» verificado.
+ * Devuelve 'alias' o 'mailapp'.
  */
 let ALIASES_CACHE_ = null;
 function remitente_() { return String(PROPS.getProperty('REMITENTE') || 'contacto@forodyt.com').trim(); }
+function modoEnvio_() { return String(PROPS.getProperty('MODO_ENVIO') || 'mailapp').trim().toLowerCase(); }
 function aliasDisponible_(correo) {
   if (ALIASES_CACHE_ === null) {
     try { ALIASES_CACHE_ = GmailApp.getAliases().map(a => String(a).toLowerCase()); }
@@ -393,7 +399,7 @@ function enviarCorreo_(o) {
   const opciones = { htmlBody: o.htmlBody, name: o.name || PROPS.getProperty('SENDER_NAME') || 'IV Foro Internacional de Derecho y Tecnología', replyTo: de };
   if (o.attachments) opciones.attachments = o.attachments;
   if (o.inlineImages) opciones.inlineImages = o.inlineImages;
-  if (aliasDisponible_(de)) {
+  if (modoEnvio_() === 'alias' && aliasDisponible_(de)) {
     opciones.from = de;
     GmailApp.sendEmail(o.to, o.subject, o.body || textoPlano_(o.htmlBody), opciones);
     return 'alias';
@@ -411,9 +417,11 @@ function _autorizarCorreo() {
   if (typeof ScriptApp.requireScopes === 'function') ScriptApp.requireScopes(ScriptApp.AuthMode.FULL, ['https://mail.google.com/']);
   const alias = GmailApp.getAliases();
   Logger.log('Direcciones «Enviar como» que ve el script: ' + (alias.join(', ') || '(ninguna)'));
-  Logger.log(alias.map(a => String(a).toLowerCase()).indexOf(remitente_().toLowerCase()) !== -1
-    ? 'OK: los correos a participantes saldrán de ' + remitente_()
-    : 'OJO: ' + remitente_() + ' no aparece; los correos saldrán de la cuenta del script con respuesta a ' + remitente_());
+  const hayAlias = alias.map(a => String(a).toLowerCase()).indexOf(remitente_().toLowerCase()) !== -1;
+  Logger.log('MODO_ENVIO = ' + modoEnvio_());
+  Logger.log(modoEnvio_() === 'alias' && hayAlias
+    ? 'Los correos a participantes saldrán DESDE ' + remitente_() + ' (smtp2go: comprobar que le quede cuota)'
+    : 'Los correos saldrán de la cuenta del script con respuesta a ' + remitente_() + (hayAlias ? '' : ' (el alias no aparece)'));
 }
 
 function enviarCorreoQR_(correo, nombre, folio, qrPayload, opts) {
