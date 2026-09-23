@@ -313,7 +313,9 @@ function fechaLargaEs_(d, conDia) {
 }
 function horaCorta_(d) { return Utilities.formatDate(d, TZ, 'H:mm'); }
 function horasTexto_(n) {
-  const t = ['cero horas', 'una hora', 'dos horas', 'tres horas', 'cuatro horas', 'cinco horas', 'seis horas', 'siete horas', 'ocho horas', 'nueve horas', 'diez horas', 'once horas', 'doce horas'];
+  // hasta veinte: la constancia general de cierre usa 14 h (presencial) y 18 h (en línea y mixta)
+  const t = ['cero horas', 'una hora', 'dos horas', 'tres horas', 'cuatro horas', 'cinco horas', 'seis horas', 'siete horas', 'ocho horas', 'nueve horas', 'diez horas', 'once horas', 'doce horas',
+    'trece horas', 'catorce horas', 'quince horas', 'dieciséis horas', 'diecisiete horas', 'dieciocho horas', 'diecinueve horas', 'veinte horas'];
   return t[n] || `${n} horas`;
 }
 /**
@@ -338,6 +340,7 @@ const DEFAULTS_CONSTANCIA_ = {
   rol: '', nexo: '', sesion_label: '', sesion_k: '', sesion_corta: '', recinto: '', sede: '', fecha_larga: '',
   horas: '', horas_txt: '', horario: '', agua_src: '', firma_src: '', logos: {},
   firma2_src: '', firma2_nombre: '', firma2_cargo: '', firma2_sub: '', fechas_txt: '', modalidad_txt: '', sedes_txt: '',
+  asistente_txt: '', celebrada_txt: '',
   f_ancho: '33%', f1_nombre: '', f1_cargo: '', f1_sub: '', f1_firma: '', f2_nombre: '', f2_cargo: '', f2_sub: '', f2_firma: '',
   f3_nombre: '', f3_cargo: '', f3_sub: '', f3_firma: ''
 };

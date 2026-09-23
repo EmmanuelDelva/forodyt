@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!-- Correo de cierre del IV Foro (Cierre.gs). Se usa tal cual en _tools/cierre_preview.py para el borrador.
-     Solo sustituciones de impresión (nombre, folio): nada de lógica aquí. OJO: no escribir scriptlets en
-     comentarios, HtmlService los evalúa igual. -->
+     Solo sustituciones de impresión (nombre, folio, horas_evento_txt, modalidad_correo, horas_correo): nada de
+     lógica aquí. Los textos de modalidad y horas salen de CIERRE_MODALIDADES en Cierre.gs. OJO: no escribir
+     scriptlets en comentarios, HtmlService los evalúa igual. -->
 <html lang="es">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F5EFE0;">
@@ -17,13 +18,11 @@
   <tr><td style="padding:0 36px 28px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#1F2937;">
     <p style="margin:0 0 16px;">Apreciable <?= nombre ?>:</p>
 
-    <p style="margin:0 0 16px;">Gracias por formar parte del IV Foro Internacional de Derecho y Tecnología, que celebramos los días 18, 21 y 22 de septiembre bajo el tema «Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide». Tu inscripción y tu presencia, en las sedes o a distancia, hicieron posible esta cuarta edición.</p>
+    <p style="margin:0 0 16px;">Gracias por formar parte del IV Foro Internacional de Derecho y Tecnología, que celebramos los días 18, 21 y 22 de septiembre, con <?= horas_evento_txt ?> de actividades académicas, bajo el tema «Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide». Tu inscripción y tu presencia, en las sedes o a distancia, hicieron posible esta cuarta edición.</p>
 
     <p style="margin:0 0 16px;">Queremos contarte que durante la sesión de Ciudad Judicial se presentaron dificultades técnicas que impidieron su transmisión en directo. Estamos trabajando para recuperar las grabaciones y, tan pronto como sea posible, las publicaremos en <a href="https://forodyt.com" style="color:#1F4747;">forodyt.com</a> y en nuestras redes oficiales. Lamentamos el inconveniente a quienes nos seguían en línea.</p>
 
-    <p style="margin:0 0 16px;">Adjunto a este correo encontrarás tu <b>constancia de asistencia</b> al IV Foro, firmada por la Dirección y la Secretaría Académica.</p>
-
-    <p style="margin:0 0 16px;">Si asististe a alguna de las sedes y todavía no recibes tu constancia por bloque, escríbenos a <a href="mailto:contacto@forodyt.com" style="color:#1F4747;">contacto@forodyt.com</a> con tu folio de inscripción y te la hacemos llegar.</p>
+    <p style="margin:0 0 16px;">Adjunto a este correo encontrarás tu <b>constancia de asistencia</b> al IV Foro en modalidad <?= modalidad_correo ?>, con una duración de <b><?= horas_correo ?></b>, firmada por la Dirección y la Secretaría Académica.</p>
 
     <p style="margin:0 0 22px;">Te esperamos el próximo año para seguir sumando voces y hacer aún más grande esta conversación sobre el derecho y la tecnología.</p>
 

@@ -12,6 +12,9 @@
               Los bloques del cuerpo son `if` independientes (no `else if`): así el intérprete mínimo de
               _tools/constancia_preview.py sigue funcionando y el backend, que solo manda 'bloque'/'valor', no se entera.
               · firmantes (solo 'valor': [{nombre, cargo, firma_src}] ×3 centros universitarios)
+              General de cierre (tipo 'general', la genera Cierre.gs según la modalidad de inscripción):
+              · asistente_txt («asistente presencial») · celebrada_txt · fechas_txt · modalidad_txt · sedes_txt
+              · horas + horas_txt (horas enteras de la modalidad) · firma2_src/_nombre/_cargo/_sub (Secretario Académico)
               · agua_src (data URI, opcional): mapa de conexiones del logo maestro del Foro como marca de agua
                 (img/marca/foro-mapa-conexiones-dorado.png; Script Property AGUA_FILE_ID). Sin él, cae al numeral IV.
   Sistema tipográfico: el de la constancia de la III edición (Milagros Olivos Celis, 25-05-2026) que el director
@@ -152,7 +155,7 @@
     <p class="certifica">Acreditó su asistencia al bloque académico celebrado en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, con una duración de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
     <? if (tipo === 'general') { ?>
-    <p class="certifica">Participó como <b>asistente</b> en la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, celebrada los días 18, 21 y 22 de septiembre de 2026 en modalidad híbrida, en Guadalajara y Zapopan, Jalisco, y en línea.</p>
+    <p class="certifica">Participó como <b><?= asistente_txt ?></b> en la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>, <?= celebrada_txt ?>, con una duración total de <b><?= horas_txt ?> (<?= horas ?> h)</b>.</p>
     <? } ?>
     <? if (participacion) { ?>
     <p class="certifica">Participó como <b><?= rol ?></b> <?= nexo ?> <b><?= sesion_label ?></b>, celebrada en <b><?= recinto ?></b> el <b><?= fecha_larga ?></b>, dentro de la <b>IV edición del Foro Internacional de Derecho y Tecnología</b>.</p>
@@ -168,9 +171,10 @@
     <? } else { ?>
     <? if (tipo === 'general') { ?>
     <table class="detalles"><tr>
-      <td style="width:36%"><div class="k">Fechas</div><div class="v"><?= fechas_txt ?></div></td>
-      <td style="width:20%"><div class="k">Modalidad</div><div class="v"><?= modalidad_txt ?></div></td>
-      <td style="width:44%"><div class="k">Sedes</div><div class="v"><?= sedes_txt ?></div></td>
+      <td style="width:28%"><div class="k">Fechas</div><div class="v"><?= fechas_txt ?></div></td>
+      <td style="width:17%"><div class="k">Modalidad</div><div class="v"><?= modalidad_txt ?></div></td>
+      <td style="width:39%"><div class="k">Sedes</div><div class="v"><?= sedes_txt ?></div></td>
+      <td style="width:16%"><div class="k">Duración</div><div class="v num"><?= horas ?> h</div></td>
     </tr></table>
     <? } else { ?>
     <table class="detalles"><tr>

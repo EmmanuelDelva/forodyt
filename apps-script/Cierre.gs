@@ -5,21 +5,28 @@
  * de agradecimiento con su constancia general de asistencia en PDF, firmada por el Director del Foro y el Secretario
  * Académico. Además trae las herramientas para los correos que rebotaron por la cuota de smtp2go.
  *
+ * Va a TODAS las personas inscritas, no solo a las escaneadas: hubo problemas para escanear en las sedes (decisión
+ * del director, 2026-09-23). Las horas dependen de la MODALIDAD con que se inscribió (columna «modalidad» de
+ * Usuarios): presencial 14 h, sin las horas en línea; virtual y mixta 18 h, el evento completo. Ver
+ * CIERRE_MODALIDADES.
+ *
  * Requiere en el mismo proyecto: Code.gs y Asistencia.gs (versión del 2026-09-23 o posterior: DEFAULTS_CONSTANCIA_),
  * y los archivos HTML Constancia-bloque y Correo-cierre.
  *
  * Script Properties que usa:
  *   FIRMA_DIGITAL_FILE_ID   firma del Director (ya instalada el 17-sep)
- *   FIRMA_LEOS_FILE_ID      firma del Dr. Jorge Antonio Leos Navarro (PNG con fondo transparente). Si falta, su
- *                           columna sale con la línea en blanco: NO programar el envío hasta tenerla.
+ *   FIRMA_LEOS_FILE_ID      firma del Dr. Jorge Antonio Leos Navarro (PNG con fondo transparente). La crea
+ *                           prepararCierre(): copia la original (FIRMA_LEOS_ORIGEN_ID, compartida con esta cuenta)
+ *                           a _recursos. Si falta, su columna sale con la línea en blanco: NO enviar sin ella.
  *   LOGO_UDG_FILE_ID · LOGO_CA_FILE_ID · LOGO_FORO_FILE_ID · AGUA_FILE_ID   (instalarRecursosConstancia() los crea)
  *   CIERRE_FECHA            (opcional) «AAAA-MM-DD HH:MM» en hora de Guadalajara, para programarCierre()
  *   CIERRE_EXCLUIR          (opcional) folios o correos separados por coma que NO deben recibirlo (pruebas)
  *   MODO_ENVIO              "mailapp" (default) o "alias" — ver Code.gs. Con smtp2go agotado, dejar "mailapp".
  *
  * Orden de uso (desde el editor, botón Ejecutar):
- *   1. instalarRecursosConstancia()   → crea LOGO_FORO_FILE_ID (no toca lo que ya existe)
- *   2. _reporteRebotes()              → cuenta y lista lo que no llegó por smtp2go (pestaña Rebotes). NO envía.
+ *   1. prepararCierre()               → logos (LOGO_FORO_FILE_ID), copia de la firma del Secretario Académico y
+ *                                        lectura de prueba de las seis imágenes. Debe terminar con "listo": true.
+ *   2. _reporteRebotes()             → cuenta y lista lo que no llegó por smtp2go (pestaña Rebotes). NO envía.
  *   3. _previewCierre()               → te manda a ti el correo y la constancia de muestra. Revisarlos.
  *   4. _reporteCierre()               → cuántas personas lo recibirán, cuota del día, envíos programados.
  *   5a. programarCierre()             → programa el envío a la hora de CIERRE_FECHA, o
@@ -37,13 +44,60 @@ const CIERRE = {
   asunto: 'Gracias por acompañarnos · IV Foro Internacional de Derecho y Tecnología',
   nombreRemitente: 'IV Foro Internacional de Derecho y Tecnología',
   firma2: { nombre: 'Dr. Jorge Antonio Leos Navarro', cargo: 'Secretario Académico', sub: 'IV Foro Internacional de Derecho y Tecnología' },
-  fechas: '18, 21 y 22 de septiembre de 2026',
-  modalidad: 'Híbrida',
-  sedes: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial · En línea',
   prefijoFolio: 'IV-FIDDT-GEN/UDG/2026-',
   minutosPorTanda: 4,
   cuotaMinima: 15
 };
+/**
+ * Firma original del Secretario Académico: Drive de Gmail del director, «05- Firma Digital (Canon) / Terceros»,
+ * compartida como lectora con la cuenta CUCEA (2026-09-23). prepararCierre() hace una copia en _recursos para que el
+ * envío no dependa de que siga compartida. El id no da acceso por sí solo.
+ */
+const FIRMA_LEOS_ORIGEN_ID = '1toMWjYmcQFQfXyfMCKtTacXZyTiNJgf-';
+/**
+ * Minutos del programa definitivo (programa-data.json): CUCEA 310 · CUGDL 165 · Cineteca 205 · Ciudad Judicial 165
+ * = 845 presenciales; Jornada Virtual del 18: 252. Las horas se cierran a horas completas (director, 2026-09-23):
+ * presencial 845 min = 14.08 h → 14 h; evento completo 1 097 min = 18.28 h → 18 h. La persona inscrita como
+ * presencial NO suma las horas en línea; virtual y mixta suman el evento completo, porque las cuatro sedes se
+ * transmitieron. Una modalidad vacía o desconocida cuenta como presencial, que es lo que registra Code.gs por defecto.
+ */
+const CIERRE_MINUTOS_PRESENCIAL = 845;
+const CIERRE_MINUTOS_EVENTO = CIERRE_MINUTOS_PRESENCIAL + 252;   // + Jornada Virtual del 18
+const CIERRE_MODALIDADES = {
+  presencial: {
+    minutos: CIERRE_MINUTOS_PRESENCIAL,
+    etiqueta: 'Presencial',
+    asistente: 'asistente presencial',
+    celebrada: 'en las sesiones celebradas los días 21 y 22 de septiembre de 2026 en Guadalajara y Zapopan, Jalisco',
+    fechas: '21 y 22 de septiembre de 2026',
+    sedes: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial',
+    correo: 'presencial'
+  },
+  virtual: {
+    minutos: CIERRE_MINUTOS_EVENTO,
+    etiqueta: 'En línea',
+    asistente: 'asistente en línea',
+    celebrada: 'celebrada los días 18, 21 y 22 de septiembre de 2026, a través de la transmisión oficial del Foro',
+    fechas: '18, 21 y 22 de septiembre de 2026',
+    sedes: 'Jornada Virtual Internacional y transmisión de las cuatro sedes',
+    correo: 'en línea'
+  },
+  mixta: {
+    minutos: CIERRE_MINUTOS_EVENTO,
+    etiqueta: 'Mixta',
+    asistente: 'asistente en modalidad mixta',
+    celebrada: 'celebrada los días 18, 21 y 22 de septiembre de 2026 en Guadalajara y Zapopan, Jalisco, y en línea',
+    fechas: '18, 21 y 22 de septiembre de 2026',
+    sedes: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial · En línea',
+    correo: 'mixta (presencial y en línea)'
+  }
+};
+/** Horas completas: se trunca, nunca se redondea hacia arriba (no se acredita una hora que no se cumplió). */
+function horasCompletas_(minutos) { return Math.floor(minutos / 60); }
+function modalidadCierre_(valor) {
+  const m = String(valor || '').toLowerCase().trim();
+  return CIERRE_MODALIDADES[m] ? m : 'presencial';
+}
 
 // ─────────────────────────────────────────────────────────── destinatarios
 function nombreBonito_(s) {
@@ -57,7 +111,8 @@ function nombreBonito_(s) {
 function destinatariosCierre_() {
   const data = SS.getSheetByName(SHEETS.usuarios).getDataRange().getValues();
   const h = data[0];
-  const iF = h.indexOf('folio'), iC = h.indexOf('correo'), iN = h.indexOf('nombre_completo'), iI = h.indexOf('institucion');
+  const iF = h.indexOf('folio'), iC = h.indexOf('correo'), iN = h.indexOf('nombre_completo'), iI = h.indexOf('institucion'),
+        iM = h.indexOf('modalidad');
   const excluir = String(PROPS.getProperty('CIERRE_EXCLUIR') || '').toLowerCase().split(',').map(s => s.trim()).filter(Boolean);
   const vistos = {}, lista = [];
   for (let i = 1; i < data.length; i++) {
@@ -66,12 +121,13 @@ function destinatariosCierre_() {
     const folio = String(data[i][iF] || '').trim();
     if (excluir.indexOf(correo) !== -1 || excluir.indexOf(folio.toLowerCase()) !== -1) continue;
     vistos[correo] = true;
-    lista.push({ correo: correo, folio: folio, nombre: nombreBonito_(data[i][iN]), institucion: String(data[i][iI] || '').trim() });
+    lista.push({ correo: correo, folio: folio, nombre: nombreBonito_(data[i][iN]), institucion: String(data[i][iI] || '').trim(),
+                 modalidad: modalidadCierre_(iM === -1 ? '' : data[i][iM]) });
   }
   return lista;   // el orden de la hoja es estable: el folio de constancia sale de la posición en esta lista
 }
 function registroCierre_() {
-  return hoja_(CIERRE_SHEET, ['correo', 'folio_inscripcion', 'folio_constancia', 'nombre', 'estado', 'via', 'pdf_id', 'fecha', 'error']);
+  return hoja_(CIERRE_SHEET, ['correo', 'folio_inscripcion', 'folio_constancia', 'nombre', 'estado', 'via', 'pdf_id', 'fecha', 'error', 'modalidad', 'horas']);
 }
 function enviadosCierre_(sh) {
   const m = {};
@@ -93,16 +149,25 @@ function faltantesCierre_() {
     .filter(k => !PROPS.getProperty(k));
 }
 function datosCierre_(p, folioConst, rec) {
+  const m = CIERRE_MODALIDADES[modalidadCierre_(p.modalidad)];
+  const horas = horasCompletas_(m.minutos);
   return Object.assign({
     tipo: 'general', nombre: p.nombre, institucion: p.institucion || '', folio: folioConst,
     fecha_emision: fechaLargaEs_(new Date(), false),
-    fechas_txt: CIERRE.fechas, modalidad_txt: CIERRE.modalidad, sedes_txt: CIERRE.sedes,
+    asistente_txt: m.asistente, celebrada_txt: m.celebrada,
+    fechas_txt: m.fechas, modalidad_txt: m.etiqueta, sedes_txt: m.sedes,
+    horas: horas, horas_txt: horasTexto_(horas),
     firma2_nombre: CIERRE.firma2.nombre, firma2_cargo: CIERRE.firma2.cargo, firma2_sub: CIERRE.firma2.sub
   }, rec);
 }
-function htmlCorreoCierre_(nombre, folio) {
+function htmlCorreoCierre_(p, folio) {
+  const m = CIERRE_MODALIDADES[modalidadCierre_(p.modalidad)];
+  const horas = horasCompletas_(m.minutos);
   const t = HtmlService.createTemplateFromFile('Correo-cierre');
-  t.nombre = nombre; t.folio = folio;
+  t.nombre = p.nombre; t.folio = folio;
+  t.horas_evento_txt = horasTexto_(horasCompletas_(CIERRE_MINUTOS_EVENTO));
+  t.modalidad_correo = m.correo;
+  t.horas_correo = horasTexto_(horas) + ' (' + horas + ' h)';
   return t.evaluate().getContent();
 }
 /** Sale con MailApp (cuenta del script, respuesta a contacto@forodyt.com) salvo MODO_ENVIO = alias. */
@@ -126,12 +191,52 @@ function carpetaCierre_() {
 }
 
 // ─────────────────────────────────────────────────────────── administración
+/**
+ * prepararCierre() — correr UNA vez antes de la vista previa. Deja todo listo en esta cuenta (la CUCEA):
+ *   · logos, marca de agua y carpeta de constancias (instalarRecursosConstancia, no toca lo que ya existe);
+ *   · FIRMA_LEOS_FILE_ID: copia la firma original del Secretario Académico, compartida con esta cuenta, a la
+ *     carpeta _recursos, para que el envío no dependa de que el archivo siga compartido;
+ *   · lee de verdad las seis imágenes: un id sin acceso daría constancias sin firma sin avisar.
+ * Termina con "listo": true cuando no falta nada.
+ */
+function prepararCierre() {
+  const inst = instalarRecursosConstancia();
+  const r = { carpeta: inst.carpeta, recursos: inst.recursos, firma_director: inst.firma };
+  let idLeos = PROPS.getProperty('FIRMA_LEOS_FILE_ID');
+  if (idLeos) { try { DriveApp.getFileById(idLeos).getName(); } catch (e) { idLeos = ''; } }
+  if (idLeos) r.firma_secretario = 'ya estaba';
+  else {
+    try {
+      const carpeta = DriveApp.getFolderById(PROPS.getProperty('CONSTANCIAS_FOLDER_ID'));
+      const it = carpeta.getFoldersByName('_recursos');
+      const destino = it.hasNext() ? it.next() : carpeta.createFolder('_recursos');
+      const copia = DriveApp.getFileById(FIRMA_LEOS_ORIGEN_ID).makeCopy('firma-digital-leos-navarro-black.png', destino);
+      PROPS.setProperty('FIRMA_LEOS_FILE_ID', copia.getId());
+      r.firma_secretario = 'copiada a _recursos';
+    } catch (e) {
+      r.firma_secretario = 'SIN ACCESO a la firma original (' + FIRMA_LEOS_ORIGEN_ID + '): compártela con esta cuenta. ' + e.message;
+    }
+  }
+  r.lectura = {};
+  ['FIRMA_DIGITAL_FILE_ID', 'FIRMA_LEOS_FILE_ID', 'LOGO_UDG_FILE_ID', 'LOGO_CA_FILE_ID', 'LOGO_FORO_FILE_ID', 'AGUA_FILE_ID']
+    .forEach(k => { r.lectura[k] = imagenDataUri_(k) ? 'ok' : 'FALTA o SIN ACCESO'; });
+  r.modo_envio = modoEnvio_();
+  r.listo = Object.keys(r.lectura).every(k => r.lectura[k] === 'ok');
+  log_('prepararCierre', 'Drive', JSON.stringify(r), null);
+  Logger.log(JSON.stringify(r, null, 2));
+  return r;
+}
 function _reporteCierre() {
   const lista = destinatariosCierre_(); const ya = enviadosCierre_(registroCierre_());
   const pendientes = lista.filter(p => !ya[p.correo]).length;
   const programados = ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'enviarCierre').length;
+  const porModalidad = {};
+  lista.forEach(p => {
+    const k = p.modalidad + ' (' + horasCompletas_(CIERRE_MODALIDADES[p.modalidad].minutos) + ' h)';
+    porModalidad[k] = (porModalidad[k] || 0) + 1;
+  });
   const r = {
-    destinatarios_unicos: lista.length, ya_enviados: lista.length - pendientes, pendientes: pendientes,
+    destinatarios_unicos: lista.length, por_modalidad: porModalidad, ya_enviados: lista.length - pendientes, pendientes: pendientes,
     cuota_mailapp_hoy: MailApp.getRemainingDailyQuota(), envios_programados: programados,
     modo_envio: modoEnvio_(), faltan_propiedades: faltantesCierre_()
   };
@@ -142,17 +247,23 @@ function _reporteCierre() {
 function _previewCierre() {
   const destino = String(PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL')).toLowerCase().trim();
   const lista = destinatariosCierre_();
-  const yo = lista.filter(p => p.correo === destino)[0] || { correo: destino, folio: '', nombre: 'Juan Emmanuel Delva Benavides', institucion: 'Universidad de Guadalajara' };
+  const yo = lista.filter(p => p.correo === destino)[0] || { correo: destino, folio: '', nombre: 'Juan Emmanuel Delva Benavides', institucion: 'Universidad de Guadalajara', modalidad: 'presencial' };
   const folio = CIERRE.prefijoFolio + '0000';
-  const pdf = pdfConstancia_(datosCierre_(yo, folio, recursosCierre_())).setName('PRUEBA-constancia-cierre.pdf');
+  // una constancia de muestra por modalidad, las tres a nombre del director
+  const rec = recursosCierre_();
+  const pdfs = Object.keys(CIERRE_MODALIDADES).map(m =>
+    pdfConstancia_(datosCierre_(Object.assign({}, yo, { modalidad: m }), folio, rec)).setName('PRUEBA-constancia-cierre-' + m + '.pdf'));
   const faltan = faltantesCierre_();
+  const cuenta = {}; lista.forEach(p => { cuenta[p.modalidad] = (cuenta[p.modalidad] || 0) + 1; });
   const aviso = '<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;background:#FFF4D6;border:1px solid #B8923E;padding:12px 16px;margin:0 0 12px">'
-    + '<b>PRUEBA · no se ha enviado a nadie más.</b> Así lo recibirán <b>' + lista.length + '</b> personas (correos únicos de Usuarios).'
+    + '<b>PRUEBA · no se ha enviado a nadie más.</b> Así lo recibirán <b>' + lista.length + '</b> personas (correos únicos de Usuarios): '
+    + Object.keys(CIERRE_MODALIDADES).map(m => (cuenta[m] || 0) + ' ' + m + ' (' + horasCompletas_(CIERRE_MODALIDADES[m].minutos) + ' h)').join(' · ') + '.'
+    + '<br>Van adjuntas las tres constancias de muestra; este texto es el de tu modalidad (' + escapeHtml_(yo.modalidad) + ').'
     + (faltan.length ? '<br>Faltan en Script Properties: <b>' + faltan.join(', ') + '</b>' : '<br>Todas las firmas y logos están instalados.')
     + '</div>';
-  enviarCorreoCierre_(destino, '[PRUEBA] ' + CIERRE.asunto, aviso + htmlCorreoCierre_(yo.nombre, folio), [pdf]);
+  enviarCorreoCierre_(destino, '[PRUEBA] ' + CIERRE.asunto, aviso + htmlCorreoCierre_(yo, folio), pdfs);
   const carpeta = carpetaCierre_();
-  if (carpeta) Logger.log('Muestra guardada: ' + carpeta.createFile(pdf.copyBlob()).getUrl());
+  if (carpeta) pdfs.forEach(pdf => Logger.log('Muestra guardada: ' + carpeta.createFile(pdf.copyBlob()).getUrl()));
   Logger.log('Muestra enviada a ' + destino + '. Faltan: ' + (faltan.join(', ') || 'nada'));
   _reporteCierre();
 }
@@ -193,14 +304,15 @@ function enviarCierre() {
       if (Date.now() - inicio > CIERRE.minutosPorTanda * 60000) { pausa = 'tiempo'; break; }
       if (MailApp.getRemainingDailyQuota() < CIERRE.cuotaMinima) { pausa = 'cuota'; break; }
       const folioConst = CIERRE.prefijoFolio + String(i + 1).padStart(4, '0');
+      const horas = horasCompletas_(CIERRE_MODALIDADES[p.modalidad].minutos);
       try {
         const pdf = pdfConstancia_(datosCierre_(p, folioConst, rec));
         const archivo = carpeta ? carpeta.createFile(pdf.copyBlob()) : null;
-        const via = enviarCorreoCierre_(p.correo, CIERRE.asunto, htmlCorreoCierre_(p.nombre, folioConst), [pdf]);
-        sh.appendRow([p.correo, p.folio, folioConst, p.nombre, 'enviado', via, archivo ? archivo.getId() : '', new Date(), '']);
+        const via = enviarCorreoCierre_(p.correo, CIERRE.asunto, htmlCorreoCierre_(p, folioConst), [pdf]);
+        sh.appendRow([p.correo, p.folio, folioConst, p.nombre, 'enviado', via, archivo ? archivo.getId() : '', new Date(), '', p.modalidad, horas]);
         ya[p.correo] = true; enviados++;
       } catch (e) {
-        sh.appendRow([p.correo, p.folio, folioConst, p.nombre, 'error', '', '', new Date(), e.message]); errores++;
+        sh.appendRow([p.correo, p.folio, folioConst, p.nombre, 'error', '', '', new Date(), e.message, p.modalidad, horas]); errores++;
       }
     }
     const pendientes = lista.filter(p => !ya[p.correo]).length;
