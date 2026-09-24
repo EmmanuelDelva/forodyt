@@ -46,7 +46,7 @@
 
     var html = ''
       + '<div class="mm-header">'
-      +   '<div class="mm-brand">IV Foro <em>· 2026</em></div>'
+      +   '<div class="mm-brand">V Foro <em>· 2027</em></div>'
       +   '<button class="mm-close" type="button" aria-label="Cerrar menu">CERRAR</button>'
       + '</div>'
       + '<ul class="mm-links" role="list">';

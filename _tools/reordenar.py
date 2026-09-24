@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Reescribe la parrilla de ponentes de index.html en un orden dado.
+"""Reescribe la parrilla de ponentes de memoria-iv.html en un orden dado.
+
+(2026-09-24: la portada de la IV pasó a memoria-iv.html; index.html es ahora la portada de la V.)
 
 Extrae cada <article> por su data-semblanza, los reemite en el ORDEN indicado y
 recalcula --st y data-d. El patron real de data-d de la casa es:
@@ -16,7 +18,7 @@ import re
 import sys
 
 import os
-P = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'index.html')
+P = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'memoria-iv.html')
 
 
 def data_d(st):

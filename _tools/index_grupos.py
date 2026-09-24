@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Sección «Ponentes» de index.html en TRES grupos (decisión del director, 2026-09-14):
+"""Sección «Ponentes» de memoria-iv.html en TRES grupos (decisión del director, 2026-09-14):
+
+(2026-09-24: la portada de la IV se archivó como memoria-iv.html; index.html es ahora la portada de
+la V edición y este script ya no la toca.)
 
   1. Voces de la discusión — quienes participan los días presenciales 21 y 22 (parrilla principal,
      en el orden que calcula _tools/parrilla.py).
@@ -7,10 +10,10 @@
   3. Jornada Virtual Internacional del 18 de septiembre (autoras y autores, en el orden del programa).
 
 Fuente única de las personas: _tools/programa.json (+ programa.i18n.json para EN/FR y
-semblanzas_programa.json para las semblanzas nuevas). Las tarjetas escritas a mano en index.html
+semblanzas_programa.json para las semblanzas nuevas). Las tarjetas escritas a mano en memoria-iv.html
 se conservan tal cual; las generadas llevan data-gen="1" y se regeneran en cada corrida.
 
-Reescribe en index.html: la parrilla principal (orden + --st/data-d), los dos grupos entre los
+Reescribe en memoria-iv.html: la parrilla principal (orden + --st/data-d), los dos grupos entre los
 marcadores PONENTES-GRUPOS:INICIO/FIN, el array performer del JSON-LD, SEMBLANZAS, la cifra de
 ponentes y las claves F18N nuevas; y en i18n.js las claves idx_ponente_<slug>_* EN/FR de las
 tarjetas generadas.
@@ -25,7 +28,7 @@ TOOLS = os.path.join(ROOT, '_tools')
 sys.path.insert(0, TOOLS)
 import parrilla  # noqa: E402  (orden de la parrilla principal)
 
-IDX = os.path.join(ROOT, 'index.html')
+IDX = os.path.join(ROOT, 'memoria-iv.html')
 I18NJS = os.path.join(ROOT, 'i18n.js')
 DATA = json.load(io.open(os.path.join(TOOLS, 'programa.json'), encoding='utf-8'))
 I18N = json.load(io.open(os.path.join(TOOLS, 'programa.i18n.json'), encoding='utf-8'))
@@ -124,7 +127,10 @@ MAIN = ([p for p in _PRESENCIALES if p['slug'] not in COMITE]
 CFP_TODOS = personas_de(lambda d, b, s: s['id'] == 'd21-cfp')
 # El filtro de COMITE vale igual en la Jornada Virtual: quien tiene ficha en la sección Comité no
 # lleva además tarjeta de ponente (se notó el 2026-09-18, al entrar Said a moderar la Mesa V2).
-JV_TODOS = [p for p in _VIRTUALES if p['slug'] not in FIJAS_EN_PARRILLA and p['slug'] not in COMITE]
+# 2026-09-24: quien ya tiene tarjeta en la parrilla presencial (Gómez Torre: ponente de la M1 y moderador de
+# la V1) no lleva una segunda en la Jornada Virtual; si no, salía dos veces en la página y en el performer.
+_EN_MAIN = {p['slug'] for p in MAIN}
+JV_TODOS = [p for p in _VIRTUALES if p['slug'] not in FIJAS_EN_PARRILLA and p['slug'] not in COMITE and p['slug'] not in _EN_MAIN]
 SIN_FOTO = [p for p in MAIN + CFP_TODOS + JV_TODOS if p['slug'] not in FOTOS]
 if SOLO_CON_FOTO:
     CFP = [p for p in CFP_TODOS if p['slug'] in FOTOS]
@@ -176,7 +182,7 @@ def tarjeta(p, grupo, st):
         topic = f'\n        <span class="ponente-topic" data-i18n-html="idx_ponente_{slug}_topic_html">{esc(topic_es)}</span>'
     talk = f'\n        <span class="ponente-talk-title" data-i18n="idx_ponente_{slug}_talk">{esc(p["talk"]["es"])}</span>' if p['talk'] else ''
     return (f'      <article class="ponente reveal" data-semblanza="{slug}" data-grupo="{grupo}" data-gen="1" role="button" tabindex="0" aria-haspopup="dialog" style="--st:{st}"{dd}>\n'
-            f'        <span class="sello" data-f18n="sello">Confirmado</span>\n'
+            f'        <span class="sello" data-f18n="sello">IV · 2026</span>\n'
             f'        <div class="ponente-photo">\n          {foto}\n        </div>\n'
             f'        <h3 class="ponente-name">{esc(l1)}<br>{esc(l2)}</h3>{afil}{topic}{talk}\n      </article>')
 
@@ -241,10 +247,11 @@ orden_total = orden_main + [p['slug'] for p in CFP] + [p['slug'] for p in JV]
 nombres = []
 for slug in orden_total:
     p = POR_SLUG.get(slug)
-    if p: nombres.append(strip_titulos(p['nombre']))
+    if p: n = strip_titulos(p['nombre'])
     else:  # tarjeta a mano sin entrada en el programa: nombre desde el <h3>
         h = re.search(r'<h3 class="ponente-name">(.*?)</h3>', tarjetas[slug], re.S).group(1)
-        nombres.append(strip_titulos(re.sub(r'<[^>]+>', ' ', h).replace('\n', ' ').strip()))
+        n = strip_titulos(re.sub(r'<[^>]+>', ' ', h).replace('\n', ' ').strip())
+    if n not in nombres: nombres.append(n)   # una persona, un performer
 m = re.search(r'("performer": \[\n)(.*?)(\n  \])', src, re.S)
 src = src[:m.start(2)] + ',\n'.join('    { "@type": "Person", "name": "%s" }' % n for n in nombres) + src[m.end(2):]
 
@@ -339,7 +346,7 @@ for lang in ('en', 'fr'):
     js_src = js_src[:a] + blk + js_src[b:]
 io.open(I18NJS, 'w', encoding='utf-8', newline='').write(js_src)
 
-print(f'index.html: parrilla principal {len(orden_main)} · jóvenes CFP {len(CFP)} · jornada virtual {len(JV)} · total {total} ({roman(total)})')
+print(f'memoria-iv.html: parrilla principal {len(orden_main)} · jóvenes CFP {len(CFP)} · jornada virtual {len(JV)} · total {total} ({roman(total)})')
 print('tarjetas generadas:', ', '.join(p['slug'] for p in generadas))
 sin_sem = [p['slug'] for p in generadas if p['slug'] not in nuevo]
 print('sin semblanza (modal «en preparación»):', ', '.join(sin_sem) or 'ninguna')

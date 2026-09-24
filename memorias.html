@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Foro Internacional de Derecho y Tecnología">
 <meta property="og:title" content="Memorias · Foro Internacional de Derecho y Tecnología">
-<meta property="og:description" content="Tres ediciones del Foro Internacional de Derecho y Tecnología (2023, 2024, 2025). Memoria de cada edición del Cuerpo Académico UDG-CA-1236.">
+<meta property="og:description" content="Cuatro ediciones del Foro Internacional de Derecho y Tecnología (2023, 2024, 2025 y 2026). Memoria de cada edición del Cuerpo Académico UDG-CA-1236.">
 <meta property="og:url" content="https://forodyt.com/memorias.html">
 <meta property="og:image" content="https://forodyt.com/img/og-forodyt.jpg">
 <meta property="og:image:width" content="1200">
@@ -21,10 +21,10 @@
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Memorias · Foro Internacional de Derecho y Tecnología">
-<meta name="twitter:description" content="Tres ediciones del Foro (2023, 2024, 2025).">
+<meta name="twitter:description" content="Cuatro ediciones del Foro (2023, 2024, 2025 y 2026).">
 <meta name="twitter:image" content="https://forodyt.com/img/og-forodyt.jpg">
-<meta name="description" content="Memorias del Foro Internacional de Derecho y Tecnología. Tres ediciones (2023, 2024, 2025) que sentaron las bases del Foro como evento académico permanente del Cuerpo Académico UDG-CA-1236.">
-<meta name="keywords" content="memorias del foro de derecho y tecnología, ediciones anteriores, congreso jurídico internacional, inteligencia artificial y derecho, derecho digital, LegalTech, CUCEA, UDG">
+<meta name="description" content="Memorias del Foro Internacional de Derecho y Tecnología. Cuatro ediciones (2023–2026) que sentaron las bases del Foro como evento académico permanente del Cuerpo Académico UDG-CA-1236.">
+<meta name="keywords" content="memorias del foro de derecho y tecnología, ediciones anteriores, memoria IV Foro 2026, congreso jurídico internacional, inteligencia artificial y derecho, derecho digital, LegalTech, CUCEA, UDG">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -49,6 +49,9 @@
   --vino-ii-acento: #8B3A4B;
   --teal-iii: #1F4747;
   --teal-iii-acento: #3A8E89;
+  --ink-iv: #0E1B2C;
+  --ink-iv-acento: #B8923E;
+  --terracota-v: #B85C3D;
 
   --serif: 'Fraunces', 'Times New Roman', serif;
   --sans: 'Inter', system-ui, sans-serif;
@@ -179,6 +182,7 @@ img { max-width: 100%; height: auto; display: block; }
 .edition-card.ed-i:hover .edition-roman { color: var(--azul-i-acento); }
 .edition-card.ed-ii:hover .edition-roman { color: var(--vino-ii-acento); }
 .edition-card.ed-iii:hover .edition-roman { color: var(--teal-iii-acento); }
+.edition-card.ed-iv:hover .edition-roman { color: var(--ink-iv-acento); }
 
 /* Línea cromática vertical que aparece en hover */
 .edition-card::before {
@@ -195,6 +199,7 @@ img { max-width: 100%; height: auto; display: block; }
 .edition-card.ed-i:hover::before { background: var(--azul-i-acento); }
 .edition-card.ed-ii:hover::before { background: var(--vino-ii-acento); }
 .edition-card.ed-iii:hover::before { background: var(--teal-iii-acento); }
+.edition-card.ed-iv:hover::before { background: var(--ink-iv-acento); }
 
 /* Contenido */
 .edition-content {
@@ -218,6 +223,8 @@ img { max-width: 100%; height: auto; display: block; }
 .edition-card.ed-ii:hover .edition-year::before { background: var(--vino-ii-acento); width: 56px; }
 .edition-card.ed-iii:hover .edition-year { color: var(--teal-iii-acento); }
 .edition-card.ed-iii:hover .edition-year::before { background: var(--teal-iii-acento); width: 56px; }
+.edition-card.ed-iv:hover .edition-year { color: var(--ink-iv-acento); }
+.edition-card.ed-iv:hover .edition-year::before { background: var(--ink-iv-acento); width: 56px; }
 
 .edition-title {
   font-family: var(--serif);
@@ -238,6 +245,7 @@ img { max-width: 100%; height: auto; display: block; }
 .edition-card.ed-i:hover .edition-title em { color: var(--azul-i); }
 .edition-card.ed-ii:hover .edition-title em { color: var(--vino-ii); }
 .edition-card.ed-iii:hover .edition-title em { color: var(--teal-iii); }
+.edition-card.ed-iv:hover .edition-title em { color: var(--ink-iv); }
 
 .edition-tema {
   font-family: var(--serif);
@@ -260,6 +268,7 @@ img { max-width: 100%; height: auto; display: block; }
 .edition-card.ed-i:hover .edition-stat .s-v { color: var(--azul-i); }
 .edition-card.ed-ii:hover .edition-stat .s-v { color: var(--vino-ii); }
 .edition-card.ed-iii:hover .edition-stat .s-v { color: var(--teal-iii); }
+.edition-card.ed-iv:hover .edition-stat .s-v { color: var(--ink-iv); }
 
 /* CTA */
 .edition-cta {
@@ -275,28 +284,30 @@ img { max-width: 100%; height: auto; display: block; }
 .edition-card.ed-i:hover .edition-cta { color: var(--azul-i-acento); }
 .edition-card.ed-ii:hover .edition-cta { color: var(--vino-ii-acento); }
 .edition-card.ed-iii:hover .edition-cta { color: var(--teal-iii-acento); }
+.edition-card.ed-iv:hover .edition-cta { color: var(--ink-iv-acento); }
 
-/* Coming soon card (IV edition) */
+/* Coming soon card (V edition · 2027 · terracota) */
 .edition-card.coming { opacity: 0.6; pointer-events: auto; }
 .edition-card.coming .edition-roman { font-style: normal; opacity: 0.12; }
 .edition-card.coming:hover { opacity: 1; }
-.edition-card.coming:hover .edition-roman { color: var(--dorado); opacity: 0.9; }
-.edition-card.coming:hover::before { background: var(--dorado); }
-.edition-card.coming:hover .edition-year { color: var(--dorado); }
-.edition-card.coming:hover .edition-year::before { background: var(--dorado); width: 56px; }
-.edition-card.coming:hover .edition-title em { color: var(--dorado-soft); }
+.edition-card.coming:hover .edition-roman { color: var(--terracota-v); opacity: 0.9; }
+.edition-card.coming:hover::before { background: var(--terracota-v); }
+.edition-card.coming:hover .edition-year { color: var(--terracota-v); }
+.edition-card.coming:hover .edition-year::before { background: var(--terracota-v); width: 56px; }
+.edition-card.coming:hover .edition-title em { color: var(--terracota-v); }
 .edition-card.coming:hover .edition-stat .s-v { color: var(--ink); }
-.edition-card.coming:hover .edition-cta { color: var(--dorado); }
+.edition-card.coming:hover .edition-cta { color: var(--terracota-v); }
 .edition-card.coming .pulse {
   display: inline-block;
   width: 8px; height: 8px; border-radius: 50%;
-  background: var(--dorado); margin-right: 10px;
+  background: var(--terracota-v); margin-right: 10px;
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 146, 62, 0.6); }
-  50% { opacity: 0.5; transform: scale(1.4); box-shadow: 0 0 0 8px rgba(184, 146, 62, 0); }
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 92, 61, 0.6); }
+  50% { opacity: 0.5; transform: scale(1.4); box-shadow: 0 0 0 8px rgba(184, 92, 61, 0); }
 }
+@media (prefers-reduced-motion: reduce) { .edition-card.coming .pulse { animation: none; } }
 
 @media (max-width: 800px) {
   .edition-card { grid-template-columns: 1fr; gap: 12px; padding: 40px 0; }
@@ -323,18 +334,16 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <span class="brand-mark">IV Foro</span>
+      <span class="brand-mark">V Foro</span>
       <span class="brand-rule"></span>
-      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
+      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span>
     </a>
     <ul class="nav-links">
-      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
-      <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
-      <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
       <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="memorias.html" aria-current="page" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="memoria-iv.html" data-i18n="nav_link_iv">IV edición</a></li>
+      <li><a href="en-vivo.html" data-i18n="nav_link_videos">Videos</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
-      <li><a href="index.html#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
-      <li><a href="index.html#comite" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
     <div class="nav-cta">
       <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
@@ -347,8 +356,8 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <header class="hero">
   <div class="hero-eyebrow" data-i18n="memorias_eyebrow">Memorias</div>
-  <h1 data-i18n-html="memorias_title_html">Tres ediciones,<br>una <em>conversación</em>.</h1>
-  <p class="hero-lead" data-i18n-html="memorias_lead_html">Desde 2023, el Foro Internacional de Derecho y Tecnología ha reunido en la Universidad de Guadalajara a juristas, jueces, reguladores, académicos y especialistas de tres continentes. Cada edición es un <strong>capítulo</strong> de la serie editorial <em>«Innovación Jurídica en la era digital»</em>. Explora abajo cada memoria.</p>
+  <h1 data-i18n-html="memorias_title_html">Cuatro ediciones,<br>una <em>conversación</em>.</h1>
+  <p class="hero-lead" data-i18n-html="memorias_lead_html">Desde 2023, en cuatro ediciones, el Foro Internacional de Derecho y Tecnología ha reunido en la Universidad de Guadalajara a juristas, jueces, reguladores, académicos y especialistas de tres continentes. Cada edición es un <strong>capítulo</strong> de la serie editorial <em>«Innovación Jurídica en la era digital»</em>. Explora abajo cada memoria.</p>
   <div class="hero-divider"></div>
 </header>
 
@@ -411,11 +420,11 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
       <div class="edition-stats">
         <div class="edition-stat">
           <span class="s-k" data-i18n="memorias_stat_ponentes">Ponentes</span>
-          <span class="s-v" data-i18n="memorias_card3_st1">30+ intervenciones</span>
+          <span class="s-v" data-i18n="memorias_card3_st1">33 ponentes</span>
         </div>
         <div class="edition-stat">
           <span class="s-k" data-i18n="memorias_stat_paises">Países</span>
-          <span class="s-v" data-i18n="memorias_card3_st2">6 representados</span>
+          <span class="s-v" data-i18n="memorias_card3_st2">8 representados</span>
         </div>
         <div class="edition-stat">
           <span class="s-k" data-i18n="memorias_stat_distintivo">Distintivo</span>
@@ -426,27 +435,43 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
     </div>
   </a>
 
-  <a class="edition-card coming" href="index.html#hero">
+  <a class="edition-card ed-iv" href="memoria-iv.html">
     <div class="edition-roman">IV</div>
     <div class="edition-content">
-      <div class="edition-year"><span class="pulse"></span><span data-i18n="memorias_card4_year">21–22 Septiembre 2026 · Próxima edición</span></div>
+      <div class="edition-year" data-i18n="memorias_card4_year">18, 21 y 22 de septiembre de 2026 · Edición itinerante</div>
       <h2 class="edition-title" data-i18n-html="memorias_card4_title_html">IV Foro Internacional de Derecho y <em>Tecnología</em></h2>
       <div class="edition-tema" data-i18n="memorias_card4_tema">«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</div>
       <div class="edition-stats">
         <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_ponentes">Ponentes</span>
+          <span class="s-v" data-i18n="memorias_card4_st1">68 ponentes</span>
+        </div>
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_paises">Países</span>
+          <span class="s-v" data-i18n="memorias_card4_st2">10 países</span>
+        </div>
+        <div class="edition-stat">
           <span class="s-k" data-i18n="memorias_stat_sedes">Sedes</span>
-          <span class="s-v" data-i18n="memorias_card4_st1">CUCEA · CUGDL · Cineteca · Ciudad Judicial</span>
-        </div>
-        <div class="edition-stat">
-          <span class="s-k" data-i18n="memorias_stat_ejes">Ejes</span>
-          <span class="s-v" data-i18n="memorias_card4_st2">9 ejes (7 + 2 emergentes)</span>
-        </div>
-        <div class="edition-stat">
-          <span class="s-k" data-i18n="memorias_stat_estado">Estado</span>
-          <span class="s-v" data-i18n="memorias_card4_st3">Convocatoria cerrada</span>
+          <span class="s-v" data-i18n="memorias_card4_st3">4 sedes + Jornada Virtual</span>
         </div>
       </div>
-      <span class="edition-cta" data-i18n="memorias_cta_iv">Ver IV edición →</span>
+      <span class="edition-cta" data-i18n="memorias_cta_explore">Explorar memoria</span>
+    </div>
+  </a>
+
+  <a class="edition-card coming" href="index.html">
+    <div class="edition-roman">V</div>
+    <div class="edition-content">
+      <div class="edition-year"><span class="pulse"></span><span data-i18n="memorias_card5_year">2027 · Fecha por anunciar</span></div>
+      <h2 class="edition-title" data-i18n-html="memorias_card5_title_html">V Foro Internacional de Derecho y <em>Tecnología</em></h2>
+      <div class="edition-tema" data-i18n="memorias_card5_tema">Quinta edición · en preparación</div>
+      <div class="edition-stats">
+        <div class="edition-stat">
+          <span class="s-k" data-i18n="memorias_stat_estado">Estado</span>
+          <span class="s-v" data-i18n="memorias_card5_st1">Fecha por anunciar</span>
+        </div>
+      </div>
+      <span class="edition-cta" data-i18n="memorias_cta_v">Ver la V edición →</span>
     </div>
   </a>
 
@@ -454,9 +479,9 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <footer>
   <div class="footer-inner">
-    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
+    <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
     <span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>
-    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
+    <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>
   </div>
 </footer>
 

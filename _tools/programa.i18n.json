@@ -20,8 +20,8 @@
   "fr": "Le programme <em>définitif</em>, heure par heure."
  },
  "ui.lead_html": {
-  "en": "Two in-person days, <b>Monday 21 and Tuesday 22 September</b>, spread across CUCEA, CUGDL, the Cineteca FICG and Judicial City, and an international online session on <b>Friday 18</b>. Every session can be saved to your schedule, added to your calendar and viewed in your local time.",
-  "fr": "Deux journées en présentiel, le <b>lundi 21 et le mardi 22 septembre</b>, réparties entre le CUCEA, le CUGDL, la Cineteca FICG et la Cité Judiciaire, et une journée virtuelle internationale le <b>vendredi 18</b>. Chaque session peut être enregistrée dans votre agenda, ajoutée à votre calendrier et affichée à votre heure locale."
+  "en": "The IV edition program, as it took place: two in-person days, <b>Monday 21 and Tuesday 22 September</b>, spread across CUCEA, CUGDL, the Cineteca FICG and Judicial City, and an international online session on <b>Friday 18</b>. Each name opens the speaker's biography.",
+  "fr": "Le programme de la IVe édition, tel qu'il s'est déroulé : deux journées en présentiel, le <b>lundi 21 et le mardi 22 septembre</b>, réparties entre le CUCEA, le CUGDL, la Cineteca FICG et la Cité Judiciaire, et une journée virtuelle internationale le <b>vendredi 18</b>. Chaque nom ouvre la notice biographique de l'intervenant."
  },
  "ui.version_label": {
   "en": "Version of 10 September 2026",
@@ -100,8 +100,8 @@
   "fr": "La IVe édition est terminée"
  },
  "ui.now_concluyo_sub": {
-  "en": "See the edition's proceedings",
-  "fr": "Consulter les actes de l'édition"
+  "en": "See the memoir of the edition",
+  "fr": "Consulter la mémoire de l'édition"
  },
  "ui.now_hasta": {
   "en": "until {h}",
@@ -304,8 +304,8 @@
   "fr": "Organisé par le Corps Académique UDG-CA-1236 « Droit et Technologie » · Université de Guadalajara"
  },
  "ui.pie_hibrido": {
-  "en": "Hybrid broadcast as per the final program · #ForoDyT",
-  "fr": "Diffusion hybride conformément au programme définitif · #ForoDyT"
+  "en": "Video archive of the streamed sessions · #ForoDyT",
+  "fr": "Mémoire en vidéo des sessions diffusées · #ForoDyT"
  },
  "ui.jv_est_eyebrow": {
   "en": "The session program",
@@ -1096,8 +1096,8 @@
   "fr": "Cérémonie de clôture, présidée par le Magistrat Président du Tribunal Suprême de Justice de l'État de Jalisco."
  },
  "ui.banda_t_html": {
-  "en": "The conversation starts <em>on the 18th</em> and continues on the 21st and 22nd.",
-  "fr": "La conversation commence <em>le 18</em> et se poursuit les 21 et 22."
+  "en": "The conversation began <em>on the 18th</em> and continued on the 21st and 22nd.",
+  "fr": "La conversation a commencé <em>le 18</em> et s'est poursuivie les 21 et 22."
  },
  "ui.sem_eyebrow": {
   "en": "Speaker · IV edition",
@@ -1150,5 +1150,13 @@
  "ui.como_llegar": {
   "en": "Directions",
   "fr": "Itinéraire"
+ },
+ "ui.video_cta": {
+  "en": "Watch this venue's video",
+  "fr": "Voir la vidéo de ce site"
+ },
+ "ui.cta_videos": {
+  "en": "Watch the videos",
+  "fr": "Voir les vidéos"
  }
 }

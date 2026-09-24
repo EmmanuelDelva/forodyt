@@ -12,7 +12,7 @@ Reglas de la casa que este script respeta:
     jornada-virtual.html). El nav y el footer siguen usando data-i18n de i18n.js.
   · Los apóstrofos FR se escapan UNA sola vez: el diccionario se serializa con
     json.dumps, así que nunca hay que escapar a mano.
-  · Nada de base64. Las fotos salen de img/ponentes/ (misma ruta que index.html).
+  · Nada de base64. Las fotos salen de img/ponentes/ (misma ruta que memoria-iv.html).
 """
 import json, os, re, sys, html, unicodedata
 from datetime import datetime, timedelta
@@ -25,9 +25,11 @@ I18N = json.load(open(I18N_PATH, encoding='utf-8')) if os.path.exists(I18N_PATH)
 OUT = os.path.join(ROOT, '_tools', 'out')
 os.makedirs(OUT, exist_ok=True)
 
-# semblanzas: las publicadas en index.html (fuente única, no se duplican a mano)
+# semblanzas: las publicadas en memoria-iv.html (fuente única, no se duplican a mano)
 # + las nuevas del programa en _tools/semblanzas_programa.json {slug: {es,en,fr}}
-_idx = open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
+# 2026-09-24: la portada de la IV se archivó como memoria-iv.html; index.html es la portada de la V.
+MEMORIA_IV = 'memoria-iv.html'
+_idx = open(os.path.join(ROOT, MEMORIA_IV), encoding='utf-8').read()
 SEM_INDEX = json.loads(re.search(r'var SEMBLANZAS = (\{.*?\});\n', _idx, re.S).group(1))
 INDEX_SLUGS = sorted(set(re.findall(r'data-semblanza="([a-z_]+)"', _idx)))
 _sp = os.path.join(ROOT, '_tools', 'semblanzas_programa.json')
@@ -41,7 +43,7 @@ EJES_I18N = {
     'fr': {1: 'IA Agentique et Propriété Intellectuelle Générative', 2: 'Technologies Émergentes', 3: 'Cybersécurité et Souveraineté Numérique', 4: 'Justice Numérique et Innovation Juridique', 5: 'Droits Humains Numériques', 6: 'FinTech et Économie Numérique', 7: 'Santé Numérique et Biotechnologies', 8: 'Technologie, Durabilité et Droit Écologique Numérique', 9: 'Résolution des Conflits Technologiques et Litiges en Ligne'},
 }
 
-# fotos: mismo mapa slug → archivo que usa index.html (extraído de las tarjetas)
+# fotos: mismo mapa slug → archivo que usa memoria-iv.html (extraído de las tarjetas)
 FOTOS = {
     'said': 'ivan-gonzalez-lopez.jpg',
     'alvarez': 'jose-luis-alvarez-pulido.jpg', 'gaspar': 'miguel-angel-gaspar.jpg', 'gonzalez': 'mayra-gonzalez.jpg',
@@ -64,6 +66,9 @@ FOTOS = {
 }
 # 2026-09-14 (director): el «Guion de la mesa» sale del sitio; se conserva como documento en Drive (--guiones).
 GUION_EN_SITIO = False
+# 2026-09-24 (IV concluida): cada sede enlaza a su video en en-vivo.html#<id del bloque>. Ciudad Judicial NO se
+# transmitió (CLAUDE.md §9, 21 y 23-sep): queda sin enlace hasta que haya grabación; basta con ponerla en True.
+VIDEO_POR_BLOQUE = {'virtual': True, 'cucea': True, 'cugdl': True, 'cineteca': True, 'ciudad-judicial': False}
 TITULOS = re.compile(r'^(Dr\.|Dra\.|Mtro\.|Mtra\.|Ing\.|Lic\.|Abog\.|Mag\.|Juez|M\.Sc\.)\s+')
 
 def esc(s):
@@ -229,10 +234,13 @@ def bloque_html(dia, bloque, pagina='programa'):
     bkey = 'bloque.' + bloque['id']
     sesiones = ''.join(sesion_html(dia, bloque, s, pagina) for s in bloque['sesiones'])
     virtual_nota = ''
+    partes = []
     if dia['modo'] == 'virtual' and pagina == 'programa':
-        virtual_nota = (f'<p class="sede-nota"><span {ui_attr("virtual_min")}>{esc(ui("virtual_min"))}</span> · '
-                        f'<span {ui_attr("virtual_registro")}>{esc(ui("virtual_registro"))}</span> '
-                        f'<a href="inscripcion.html" {ui_attr("virtual_cta")}>{esc(ui("virtual_cta"))}</a></p>')
+        partes.append(f'<span {ui_attr("virtual_min")}>{esc(ui("virtual_min"))}</span>')
+    if VIDEO_POR_BLOQUE.get(bloque['id']):
+        partes.append(f'<a class="sede-video" href="en-vivo.html#{bloque["id"]}"><span {ui_attr("video_cta")}>{esc(ui("video_cta"))}</span> ↗</a>')
+    if partes:
+        virtual_nota = '<p class="sede-nota">' + ' · '.join(partes) + '</p>'
     cls_b = 'bloque' if pagina == 'programa' else 'pbloque'   # jornada-virtual.html ya usa .bloque para otra cosa
     return (f'<section class="{cls_b} {cls_b}--{bloque["id"]}" id="{bloque["id"]}" data-bloque="{bloque["id"]}" aria-labelledby="h-{bloque["id"]}">'
             f'<header class="sede">'
@@ -271,8 +279,7 @@ def dia_html(dia):
 
 # ─────────────────────────── JSON-LD ───────────────────────────
 ORGANIZADOR_LD = {'@type': 'Organization', 'name': 'Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'url': 'https://forodyt.com/'}
-OFERTA_LD = {'@type': 'Offer', 'name': 'Inscripción al IV Foro', 'url': 'https://forodyt.com/inscripcion.html', 'price': '0', 'priceCurrency': 'MXN',
-             'availability': 'https://schema.org/InStock', 'validFrom': '2026-05-01', 'validThrough': '2026-09-22'}
+# 2026-09-24: sin «offers» (la IV ya se celebró; la oferta InStock dejó de ser cierta).
 
 def desc_bloque(d, b):
     """Descripción de un subEvent: sede, día y los títulos de sus mesas, conferencias y actos, en orden."""
@@ -282,7 +289,7 @@ def desc_bloque(d, b):
     return txt if len(txt) <= 480 else txt[:477].rsplit(' · ', 1)[0] + '…'
 
 def jsonld():
-    # Cada subEvent lleva también image, description, organizer y offers: Google los evalúa como Event
+    # Cada subEvent lleva también image, description y organizer: Google los evalúa como Event
     # por separado y, sin ellos, Search Console avisa «Falta el campo…» (aviso del 2026-09-23).
     sub = []
     for d in DATA['dias']:
@@ -306,13 +313,13 @@ def jsonld():
                         'eventStatus': 'https://schema.org/EventScheduled', 'location': loc, 'performer': performers,
                         'description': desc_bloque(d, b),
                         'image': 'https://forodyt.com/og/og-jornada.png' if d['modo'] == 'virtual' else 'https://forodyt.com/og/og-programa.png',
-                        'organizer': ORGANIZADOR_LD, 'offers': OFERTA_LD,
+                        'organizer': ORGANIZADOR_LD,
                         'url': f'https://forodyt.com/programa.html#{b["id"]}'})
     ev = {'@context': 'https://schema.org', '@type': 'Event', 'name': 'IV Foro Internacional de Derecho y Tecnología',
           'description': UI['meta_desc'], 'startDate': '2026-09-18', 'endDate': '2026-09-22',
           'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode', 'eventStatus': 'https://schema.org/EventScheduled',
           'image': 'https://forodyt.com/og/og-programa.png', 'url': 'https://forodyt.com/programa.html', 'inLanguage': ['es', 'en', 'fr'],
-          'organizer': ORGANIZADOR_LD, 'offers': OFERTA_LD,
+          'organizer': ORGANIZADOR_LD,
           # location es obligatorio en Event: las cuatro sedes presenciales + la transmisión, tomadas de los subEvent
           'location': [x['location'] for x in sub if x['location']['@type'] == 'Place'] + [{'@type': 'VirtualLocation', 'url': 'https://forodyt.com/en-vivo.html'}],
           'subEvent': sub}
@@ -755,7 +762,7 @@ MODAL_JS = r"""
     var talk = pon ? pon.querySelector('.pon-talk') : null;
     $('#semTalkBox').hidden = !talk; if (talk) $('#semTalk').textContent = talk.textContent.trim();
     var ficha = $('#semFicha'); var enIndex = btn.getAttribute('data-idx') === '1';
-    ficha.hidden = !enIndex; if (enIndex) ficha.href = 'index.html#semblanza-' + slug;
+    ficha.hidden = !enIndex; if (enIndex) ficha.href = 'memoria-iv.html#semblanza-' + slug;
     mostrar(btn);
   }
   function abrirGuion(btn) {
@@ -1036,7 +1043,7 @@ def js_pagina():
         L.textContent = t('ui.now_siguiente'); T.innerHTML = tarjeta(siguiente); M.innerHTML = meta(siguiente, 'desde');
       }
     } else {
-      L.textContent = t('ui.now_concluyo'); T.innerHTML = '<a href="memorias.html">' + t('ui.now_concluyo_sub') + '</a>'; M.innerHTML = '';
+      L.textContent = t('ui.now_concluyo'); T.innerHTML = '<a href="memoria-iv.html">' + t('ui.now_concluyo_sub') + '</a>'; M.innerHTML = '';
     }
     // segunda tarjeta: lo que sigue
     var sig2 = enCurso ? siguiente : (siguiente ? SESIONES.filter(function (s) { return s.ini > siguiente.ini; }).sort(function (a, b) { return a.ini - b.ini; })[0] : null);
@@ -1083,24 +1090,22 @@ def js_pagina():
 NAV = '''<nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="brand">
-      <span class="brand-mark">IV Foro</span>
+      <span class="brand-mark">V Foro</span>
       <span class="brand-rule"></span>
-      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
+      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span>
     </a>
     <ul class="nav-links">
-      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
-      <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
-      <li><a href="programa.html" aria-current="page" data-i18n="nav_link_programa">Programa</a></li>
       <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="memoria-iv.html" data-i18n="nav_link_iv">IV edición</a></li>
+      <li><a href="en-vivo.html" data-i18n="nav_link_videos">Videos</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
-      <li><a href="index.html#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
-      <li><a href="index.html#comite" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
     <div class="nav-cta">
       <div class="lang">
         <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
       </div>
-      <a href="inscripcion.html" class="btn-primary"><span data-i18n="nav_cta_inscripcion">Inscripción</span></a>
+      <a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a>
     </div>
   </div>
 </nav>'''
@@ -1173,13 +1178,13 @@ def hero_html():
             f'</header>')
 
 def aliados_html():
-    """sección «El Foro no camina solo» (decisión del director, 2026-09-14): los mismos logos del index, leídos de
-    index.html en tiempo de generación para que haya una sola fuente. Sin reveal/data-d (esas páginas no los animan)."""
+    """sección «El Foro no camina solo» (decisión del director, 2026-09-14): los mismos logos de la portada de la IV,
+    leídos de memoria-iv.html en tiempo de generación para que haya una sola fuente. Sin reveal/data-d (esas páginas no los animan)."""
     m = re.search(r'<div class="aliados-list">(.*?)\n    </div>\n  </div>\n</section>', _idx, re.S)
-    if not m: raise SystemExit('index.html: no encuentro .aliados-list')
+    if not m: raise SystemExit(MEMORIA_IV + ': no encuentro .aliados-list')
     lista = re.sub(r' reveal(?=")', '', m.group(1)); lista = re.sub(r' data-d="\d"', '', lista)
     lista = '\n'.join(l.strip() for l in lista.strip('\n').split('\n'))
-    return ('<!-- ALIADOS:INICIO — generado por _tools/programa.py desde index.html; no editar a mano -->\n'
+    return ('<!-- ALIADOS:INICIO — generado por _tools/programa.py desde memoria-iv.html; no editar a mano -->\n'
             '<section class="aliados" id="aliados"><div class="aliados-inner">'
             '<h2 data-i18n-html="idx_aliados_title_html">El Foro <em>no camina</em> solo.</h2>'
             '<div class="aliados-list">\n' + lista + '\n</div></div></section>\n<!-- ALIADOS:FIN -->')
@@ -1207,7 +1212,7 @@ def pagina_html():
     banda = (f'<section class="banda"><div class="banda-inner"><div class="reveal">'
              f'<h2 {ui_attr("banda_t_html", True)}>{ui("banda_t_html")}</h2>'
              f'<p {ui_attr("pie_hibrido")}>{esc(ui("pie_hibrido"))}</p></div>'
-             f'<div class="banda-cta reveal"><a href="inscripcion.html" class="btn-primary"><span {ui_attr("cta_inscripcion")}>{esc(ui("cta_inscripcion"))}</span></a>'
+             f'<div class="banda-cta reveal"><a href="en-vivo.html" class="btn-primary"><span {ui_attr("cta_videos")}>{esc(ui("cta_videos"))}</span></a>'
              f'<a class="banda-link" href="jornada-virtual.html" {ui_attr("cta_jornada")}>{esc(ui("cta_jornada"))}</a>'
              f'<a class="banda-link" href="ejes-foro.html" {ui_attr("cta_ejes")}>{esc(ui("cta_ejes"))}</a>'
              f'<span class="banda-pie" {ui_attr("pie_organiza")}>{esc(ui("pie_organiza"))}</span></div></div></section>')
@@ -1258,7 +1263,7 @@ def pagina_html():
      ═══════════════════════════════════════════════════════════════ -->
 '''
     body = (NAV + hero_html() + riel_html() + '<main id="programa">' + dias + '</main>' + banda + aliados_html() +
-            f'<footer><div class="footer-inner"><span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>'
+            f'<footer><div class="footer-inner"><span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>'
             f'<span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>'
             f'<a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></div></footer>' + pill + modal_html())
     tail = ('\n<script src="i18n.js" defer></script>\n<script src="mobile-menu.js" defer></script>\n<script>' + js_pagina() + '</script>\n<script>' + modal_js(SLUGS_USADOS) + '</script>\n'
@@ -1326,6 +1331,9 @@ CSS_JV = r"""
 .jvp .pon-afil { font-size:12.5px; color:var(--ink-soft); line-height:1.5; }
 .jvp .pon-talk { margin-top:4px; font-family:var(--serif); font-style:italic; font-size:14.5px; line-height:1.45; color:var(--ink); max-width:760px; }
 .jvp .sin-resultados { display:none; }
+.jvp .sede-nota { margin:14px 2px 0; font-size:13px; color:var(--ink-soft); }
+.jvp .sede-nota a { color:var(--teal); font-weight:500; text-decoration:none; border-bottom:1px solid rgba(42,92,92,.4); }
+.jvp .sede-nota a:hover { border-bottom-color:var(--teal); }
 .jvp-link { display:inline-block; margin-top:22px; font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dorado-deep); text-decoration:none; border-bottom:1px solid rgba(150,116,45,.4); }
 .jvp-link:hover { border-bottom-color:var(--dorado-deep); }
 @media (max-width:820px) {
