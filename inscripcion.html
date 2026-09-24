@@ -1106,7 +1106,7 @@ footer {
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 1024px) { .nav-links { display: none; } }
 /* NAV V (2026-09-24): marca y enlaces sin saltos de línea; el subtítulo cede el espacio en pantallas medianas */
-.nav .brand-mark, .nav .brand-sub, .nav .nav-links a, .nav .nav-back { white-space: nowrap; }
+.nav .brand-mark, .nav .nav-links a, .nav .nav-back { white-space: nowrap; }
 @media (max-width: 1360px) { .nav .brand-sub { display: none; } }
 
 /* ============ REENVÍO DE QR (autoservicio) ============ */
@@ -1974,6 +1974,15 @@ document.getElementById('form-reenvio').addEventListener('submit', async (e) => 
 });
 
 /* ============ NEWSLETTER ============ */
+var NL_TXT = {
+  es: { enviando: 'Enviando…', ok: '✓ Suscrito', ya: 'Ya estabas suscrito', error: 'Error · reintenta' },
+  en: { enviando: 'Sending…', ok: '✓ Subscribed', ya: 'Already subscribed', error: 'Error · try again' },
+  fr: { enviando: 'Envoi…', ok: '✓ Inscrit', ya: 'Déjà inscrit', error: 'Erreur · réessayez' }
+};
+function nlTxt(k) {
+  var l = (window.foroI18n && window.foroI18n.getLang && window.foroI18n.getLang()) || document.documentElement.lang || 'es';
+  return (NL_TXT[l] || NL_TXT.es)[k];
+}
 document.getElementById('form-newsletter').addEventListener('submit', async (e) => {
   e.preventDefault();
   const correoEl = document.getElementById('nl-correo');
@@ -1990,7 +1999,7 @@ document.getElementById('form-newsletter').addEventListener('submit', async (e) 
   const btnSpan = btn.querySelector('span');
   const labelOrig = btnSpan.textContent;
   btn.disabled = true;
-  btnSpan.textContent = 'Enviando…';
+  btnSpan.textContent = nlTxt('enviando');
 
   try {
     const res = await fetch(ENDPOINT, {
@@ -2003,12 +2012,12 @@ document.getElementById('form-newsletter').addEventListener('submit', async (e) 
     const data = await res.json();
     if (!data.ok) throw new Error(data.error || 'Respuesta inesperada');
 
-    btnSpan.textContent = data.ya_suscrito ? 'Ya estabas suscrito' : '✓ Suscrito';
+    btnSpan.textContent = nlTxt(data.ya_suscrito ? 'ya' : 'ok');
     correoEl.value = '';
     setTimeout(() => { btnSpan.textContent = labelOrig; btn.disabled = false; }, 3500);
   } catch (err) {
     console.error('Newsletter fallido:', err);
-    btnSpan.textContent = 'Error · reintenta';
+    btnSpan.textContent = nlTxt('error');
     setTimeout(() => { btnSpan.textContent = labelOrig; btn.disabled = false; }, 2500);
   }
 });
