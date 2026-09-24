@@ -8,7 +8,7 @@
    programa.html) → memoria-iv.html. Va antes de pintar para no parpadear. */
 (function () {
   var h = location.hash;
-  if (/^#(ponentes|ponentes-cfp|ponentes-jv|comite|prorroga|cfp|jornada|hero|semblanza-[\w-]+)$/.test(h)) {
+  if (/^#(ponentes|ponentes-cfp|ponentes-jv|comite|prorroga|cfp|deadlines|jornada|hero|semblanza-[\w-]+)$/.test(h)) {
     location.replace('memoria-iv.html' + location.search + h);
   }
 })();
@@ -82,12 +82,159 @@
   "@type": "EventSeries",
   "name": "Foro Internacional de Derecho y Tecnología",
   "url": "https://forodyt.com/",
-  "organizer": { "@type": "Organization", "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara", "url": "https://forodyt.com/" },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+    "url": "https://forodyt.com/"
+  },
   "subEvent": [
-    { "@type": "Event", "name": "I Foro Internacional de Derecho y Tecnología", "startDate": "2023-11-14", "endDate": "2023-11-15", "url": "https://forodyt.com/memoria-i.html", "location": { "@type": "Place", "name": "CUCEA · Universidad de Guadalajara", "address": "Periférico Norte 799, Los Belenes, Zapopan, Jalisco, México" } },
-    { "@type": "Event", "name": "II Foro Internacional de Derecho y Tecnología", "startDate": "2024-10-02", "endDate": "2024-10-03", "url": "https://forodyt.com/memoria-ii.html", "location": { "@type": "Place", "name": "CUCEA · Universidad de Guadalajara", "address": "Periférico Norte 799, Los Belenes, Zapopan, Jalisco, México" } },
-    { "@type": "Event", "name": "III Foro Internacional de Derecho y Tecnología", "startDate": "2025-10-01", "endDate": "2025-10-02", "url": "https://forodyt.com/memoria-iii.html", "location": { "@type": "Place", "name": "CUCEA · Universidad de Guadalajara", "address": "Periférico Norte 799, Los Belenes, Zapopan, Jalisco, México" } },
-    { "@type": "Event", "name": "IV Foro Internacional de Derecho y Tecnología", "startDate": "2026-09-18", "endDate": "2026-09-22", "url": "https://forodyt.com/memoria-iv.html", "location": { "@type": "Place", "name": "Universidad de Guadalajara · CUCEA, CUGDL, Cineteca FICG y Ciudad Judicial", "address": "Zapopan y Guadalajara, Jalisco, México" } }
+    {
+      "@type": "Event",
+      "name": "I Foro Internacional de Derecho y Tecnología",
+      "description": "Edición fundacional: «Innovación jurídica en la era digital».",
+      "startDate": "2023-11-14",
+      "endDate": "2023-11-15",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "url": "https://forodyt.com/memoria-i.html",
+      "image": "https://forodyt.com/img/memorias/i/04-auditorio-cucea-lleno.jpg",
+      "organizer": {
+        "@type": "Organization",
+        "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+        "url": "https://forodyt.com/"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "CUCEA · Universidad de Guadalajara",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Periférico Norte 799, Los Belenes",
+          "addressLocality": "Zapopan",
+          "addressRegion": "Jalisco",
+          "addressCountry": "MX"
+        }
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "II Foro Internacional de Derecho y Tecnología",
+      "description": "Edición de consolidación: «Modelando el Futuro Legal».",
+      "startDate": "2024-10-02",
+      "endDate": "2024-10-03",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "url": "https://forodyt.com/memoria-ii.html",
+      "image": "https://forodyt.com/img/memorias/ii/17-galeria-17.jpg",
+      "organizer": {
+        "@type": "Organization",
+        "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+        "url": "https://forodyt.com/"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "CUCEA · Universidad de Guadalajara",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Periférico Norte 799, Los Belenes",
+          "addressLocality": "Zapopan",
+          "addressRegion": "Jalisco",
+          "addressCountry": "MX"
+        }
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "III Foro Internacional de Derecho y Tecnología",
+      "description": "Edición de expansión: «Vidas Digitales, Leyes Reales: Nuevos Retos para el Derecho».",
+      "startDate": "2025-10-01",
+      "endDate": "2025-10-02",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "url": "https://forodyt.com/memoria-iii.html",
+      "image": "https://forodyt.com/img/memorias/iii/02-galeria-09.jpg",
+      "organizer": {
+        "@type": "Organization",
+        "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+        "url": "https://forodyt.com/"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "CUCEA · Universidad de Guadalajara",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Periférico Norte 799, Los Belenes",
+          "addressLocality": "Zapopan",
+          "addressRegion": "Jalisco",
+          "addressCountry": "MX"
+        }
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "IV Foro Internacional de Derecho y Tecnología",
+      "description": "Edición itinerante: «Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide».",
+      "startDate": "2026-09-18",
+      "endDate": "2026-09-22",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "url": "https://forodyt.com/memoria-iv.html",
+      "image": "https://forodyt.com/og/og-foro.png",
+      "organizer": {
+        "@type": "Organization",
+        "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+        "url": "https://forodyt.com/"
+      },
+      "location": [
+        {
+          "@type": "Place",
+          "name": "CUCEA · Auditorio Lic. Raúl Padilla López",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Periférico Norte 799, Los Belenes",
+            "addressLocality": "Zapopan",
+            "addressRegion": "Jalisco",
+            "addressCountry": "MX"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "CUGDL · Auditorio Salvador Allende",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Calle Guanajuato 1045, Alcalde Barranquitas",
+            "addressLocality": "Guadalajara",
+            "addressRegion": "Jalisco",
+            "addressCountry": "MX"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Cineteca FICG · Sala Guillermo del Toro",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Periférico Norte Manuel Gómez Morín 1695, Belenes Norte",
+            "addressLocality": "Zapopan",
+            "addressRegion": "Jalisco",
+            "addressCountry": "MX"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Ciudad Judicial del Estado de Jalisco",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Anillo Periférico Poniente Manuel Gómez Morín 7255",
+            "addressLocality": "Zapopan",
+            "addressRegion": "Jalisco",
+            "addressCountry": "MX"
+          }
+        },
+        {
+          "@type": "VirtualLocation",
+          "url": "https://forodyt.com/en-vivo.html"
+        }
+      ]
+    }
   ]
 }
 </script>
@@ -116,7 +263,7 @@
   --tinta: #1A1810;
   --tinta-2: #2A2620;
   --tinta-3: #5A5446;
-  --tinta-4: #8A8272;
+  --tinta-4: #6B6455;
   --cobre: #B85C3D;
   --cobre-2: #8C3F26;
   --cobre-claro: #D9A48C;
@@ -220,6 +367,11 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 
 /* golpe seco → tinta, ligado al scroll (mejora progresiva) */
 .seco { color: var(--arena); text-shadow: var(--seco); }
+@media (prefers-contrast: more), (forced-colors: active) {
+  .seco, .c-val.seco, .dato-val.seco { color: var(--tinta-3) !important; text-shadow: none !important; }
+  .gl-on .numeral { color: var(--tinta) !important; }
+  .numeral-gl { display: none; }
+}
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .entinta { animation: entintar linear both; animation-timeline: view(); animation-range: entry 0% cover 32%; }
@@ -295,6 +447,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 @keyframes tinta-llega { from { color: var(--arena); filter: blur(2px); } to { color: var(--tinta); filter: none; } }
 .c-val a { color: var(--cobre-2); }
 .c-nota { font-size: 13px; color: var(--tinta-3); }
+.c-nota a { color: var(--cobre-2); }
 
 .aviso-caja { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: center; margin-top: clamp(48px, 6vw, 80px); }
 .aviso-caja h3 { font-size: clamp(26px, 2.6vw, 38px); font-variation-settings: "opsz" 96, "SOFT" 60; letter-spacing: -0.01em; }
@@ -332,6 +485,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .lomo-tit { writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--serif); font-size: 16px; letter-spacing: .01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-height: 62%; opacity: .92; }
 .lomo-anio { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; opacity: .8; }
 .lomo:hover { background: color-mix(in oklch, var(--ed-d) 85%, var(--ed)); }
+.lomo:focus-visible { outline: 2px solid var(--arena); outline-offset: -6px; }
+.tomo-v .lomo:focus-visible { outline-color: var(--tinta); }
 .tomo.abierto .lomo { background: var(--ed-d); }
 .tomo-panel { flex: 1 1 auto; min-width: 0; overflow: hidden; }
 .tomo-hoja { width: max(640px, 100%); height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); opacity: 0; transition: opacity .5s var(--ease) .1s; }
@@ -447,7 +602,7 @@ footer { background: var(--tinta); color: rgba(245, 239, 227, 0.78); padding: cl
 .pie-marca { font-family: var(--serif); font-size: clamp(26px, 2.4vw, 34px); color: var(--arena); line-height: 1.1; font-variation-settings: "opsz" 96, "SOFT" 60; }
 .pie-marca em { color: var(--cobre-claro); }
 .pie-lema { font-family: var(--mono); font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; margin-top: 16px; color: rgba(245,239,227,.55); }
-footer h4 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--cobre-claro); font-weight: 400; margin-bottom: 16px; }
+footer .pie-h { font-family: var(--mono); line-height: 1.4; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--cobre-claro); font-weight: 400; margin-bottom: 16px; }
 footer ul { list-style: none; display: grid; gap: 8px; font-size: 14.5px; }
 footer a { text-decoration: none; color: rgba(245, 239, 227, 0.82); transition: color .3s; }
 footer a:hover { color: var(--arena); }
@@ -462,6 +617,22 @@ footer a:hover { color: var(--arena); }
   .casilla:nth-child(n+4) { border-top: 1px solid var(--linea-2); }
   .cintas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .pie-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 1200px) {
+  .estante { flex-direction: column; height: auto; gap: 4px; }
+  .tomo { --lomo: 64px; flex: 0 0 auto; flex-direction: column; }
+  .tomo.abierto { flex: 0 0 auto; }
+  .lomo { flex: 0 0 64px; height: 64px; width: 100%; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 0 18px; }
+  .lomo::before, .lomo::after { display: none; }
+  .lomo-num { font-size: 26px; min-width: 44px; text-align: left; }
+  .lomo-tit { writing-mode: horizontal-tb; transform: none; max-height: none; flex: 1; text-align: left; font-size: 15px; }
+  .tomo-v .lomo-num { font-size: 30px; }
+  .tomo-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .7s var(--ease); }
+  .tomo.abierto .tomo-panel { grid-template-rows: 1fr; }
+  .tomo-panel > .tomo-hoja { min-height: 0; overflow: hidden; }
+  .tomo-hoja { width: 100%; height: auto; }
+  .tomo-foto { min-height: 320px; }
+  .tomo-texto { overflow: visible; }
 }
 @media (max-width: 1024px) {
   .nav-links { display: none; }
@@ -478,21 +649,9 @@ footer a:hover { color: var(--arena); }
   .hero-datos > div { padding: 12px 0; }
   .sec-head { grid-template-columns: minmax(0, 1fr); }
   .aviso-caja { grid-template-columns: minmax(0, 1fr); }
-  .estante { flex-direction: column; height: auto; gap: 4px; }
-  .tomo { --lomo: 64px; flex: 0 0 auto; flex-direction: column; }
-  .tomo.abierto { flex: 0 0 auto; }
-  .lomo { flex: 0 0 64px; height: 64px; width: 100%; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 0 18px; }
-  .lomo::before, .lomo::after { display: none; }
-  .lomo-num { font-size: 26px; min-width: 44px; text-align: left; }
-  .lomo-tit { writing-mode: horizontal-tb; transform: none; max-height: none; flex: 1; text-align: left; font-size: 15px; }
-  .tomo-v .lomo-num { font-size: 30px; }
-  .tomo-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .7s var(--ease); }
-  .tomo.abierto .tomo-panel { grid-template-rows: 1fr; }
-  .tomo-panel > .tomo-hoja { min-height: 0; overflow: hidden; }
-  .tomo-hoja { width: 100%; height: auto; grid-template-columns: minmax(0, 1fr); }
-  .tomo-foto { aspect-ratio: 16 / 9; }
+  .tomo-hoja { grid-template-columns: minmax(0, 1fr); }
+  .tomo-foto { aspect-ratio: 16 / 9; min-height: 0; }
   .tomo-foto.tipografica { aspect-ratio: auto; }
-  .tomo-texto { overflow: visible; }
   .mapa-ed { grid-template-columns: minmax(0, 1fr); }
   .indice { grid-template-columns: minmax(0, 1fr); }
   .aliado-cell { flex-basis: calc((100% - 2 * clamp(22px, 3vw, 46px)) / 3); height: 64px; }
@@ -613,7 +772,7 @@ footer a:hover { color: var(--arena); }
           <button type="submit" class="btn-primary"><span data-f18n="aviso_btn">Avísame</span></button>
         </form>
         <p class="aviso-estado" id="avisoEstado" role="status" aria-live="polite"></p>
-        <p class="c-nota" data-f18n="aviso_privacidad">Usaremos tu correo solo para avisos del Foro. Para darte de baja basta con responder a cualquiera de nuestros correos.</p>
+        <p class="c-nota" data-f18n-html="aviso_privacidad"><strong>Aviso de privacidad simplificado.</strong> El Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» de la Universidad de Guadalajara usará tu correo solo para enviarte avisos del Foro. Puedes darte de baja o ejercer tus derechos de acceso, rectificación, cancelación y oposición escribiendo a <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.</p>
         <div id="calBox" hidden><a class="btn-ghost cal-btn" id="calBtn" href="#" download="v-foro-derecho-tecnologia.ics"><span data-f18n="cal_btn">Añadir a mi calendario</span></a></div>
       </div>
     </div>
@@ -631,17 +790,17 @@ footer a:hover { color: var(--arena); }
       <p class="sec-lead" data-f18n-html="tray_lead">Cada edición del Foro es un volumen con su año, su tema, sus voces y su color. Abre cada lomo para recorrerla; el mapa enciende los países que tuvieron voz en ella.</p>
     </div>
 
-    <div class="estante" id="estante" role="tablist" aria-label="Ediciones del Foro" data-f18n-attr="aria-label:estante_aria">
+    <div class="estante" id="estante">
 
       <article class="tomo" data-ed="1" style="--ed: var(--ed1); --ed-d: var(--ed1-d)">
-        <button class="lomo" role="tab" id="lomo-1" aria-controls="hoja-1" aria-selected="false">
+        <button class="lomo" type="button" id="lomo-1" aria-controls="hoja-1" aria-expanded="false">
           <span class="lomo-num">I</span>
           <span class="lomo-tit" data-f18n="ed1_lema">Innovación jurídica en la era digital</span>
           <span class="lomo-anio">2023</span>
         </button>
-        <div class="tomo-panel" id="hoja-1" role="tabpanel" aria-labelledby="lomo-1">
+        <div class="tomo-panel" id="hoja-1" role="region" aria-labelledby="lomo-1">
           <div class="tomo-hoja">
-            <figure class="tomo-foto"><img src="img/memorias/i/04-auditorio-cucea-lleno.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Auditorio Central del CUCEA lleno durante la I edición del Foro" data-f18n-attr="alt:ed1_alt"><figcaption data-f18n="ed1_cap">Auditorio Central del CUCEA · 2023</figcaption></figure>
+            <figure class="tomo-foto"><img src="img/memorias/i/04-auditorio-cucea-lleno.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="Auditorio Central del CUCEA lleno durante la I edición del Foro" data-f18n-attr="alt:ed1_alt"><figcaption data-f18n="ed1_cap">Auditorio Central del CUCEA · 2023</figcaption></figure>
             <div class="tomo-texto">
               <p class="tomo-meta" data-f18n="ed1_meta">14 y 15 de noviembre de 2023 · Edición fundacional</p>
               <h3><span class="edn">I.</span> <span data-f18n="ed1_h">«Innovación jurídica en la era digital»</span></h3>
@@ -652,7 +811,7 @@ footer a:hover { color: var(--arena); }
               </ul>
               <dl class="tomo-datos">
                 <div><dt data-f18n="d_sede">Sede</dt><dd data-f18n="ed1_sede">Auditorio Central del CUCEA, Zapopan</dd></div>
-                <div><dt data-f18n="d_modalidad">Modalidad</dt><dd data-f18n="ed1_mod">Presencial, con transmisión en vivo</dd></div>
+                <div><dt data-f18n="d_modalidad">Modalidad</dt><dd data-f18n="ed1_mod">Presencial, con transmisión en vivo y un panel virtual</dd></div>
                 <div><dt data-f18n="d_nota">Voces</dt><dd data-f18n="ed1_nota">Presidencias de ALGDETIC, AMCID, AMDI, COFECE, INAI, el STJ Jalisco y FIADI en una misma edición.</dd></div>
               </dl>
               <div class="tomo-links"><a class="tomo-link" href="memoria-i.html"><span data-f18n="leer_memoria">Leer la memoria</span> <span class="flecha" aria-hidden="true">→</span></a></div>
@@ -662,14 +821,14 @@ footer a:hover { color: var(--arena); }
       </article>
 
       <article class="tomo" data-ed="2" style="--ed: var(--ed2); --ed-d: var(--ed2-d)">
-        <button class="lomo" role="tab" id="lomo-2" aria-controls="hoja-2" aria-selected="false">
+        <button class="lomo" type="button" id="lomo-2" aria-controls="hoja-2" aria-expanded="false">
           <span class="lomo-num">II</span>
           <span class="lomo-tit" data-f18n="ed2_lema">Modelando el Futuro Legal</span>
           <span class="lomo-anio">2024</span>
         </button>
-        <div class="tomo-panel" id="hoja-2" role="tabpanel" aria-labelledby="lomo-2">
+        <div class="tomo-panel" id="hoja-2" role="region" aria-labelledby="lomo-2">
           <div class="tomo-hoja">
-            <figure class="tomo-foto"><img src="img/memorias/ii/17-galeria-17.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Auditorio del CUCEA durante la II edición del Foro" data-f18n-attr="alt:ed2_alt"><figcaption data-f18n="ed2_cap">Auditorio Central del CUCEA · 2024</figcaption></figure>
+            <figure class="tomo-foto"><img src="img/memorias/ii/17-galeria-17.jpg" width="1600" height="1064" loading="lazy" decoding="async" alt="Auditorio del CUCEA durante la II edición del Foro" data-f18n-attr="alt:ed2_alt"><figcaption data-f18n="ed2_cap">Auditorio Central del CUCEA · 2024</figcaption></figure>
             <div class="tomo-texto">
               <p class="tomo-meta" data-f18n="ed2_meta">2 y 3 de octubre de 2024 · Edición de consolidación</p>
               <h3><span class="edn">II.</span> <span data-f18n="ed2_h">«Modelando el Futuro Legal»</span></h3>
@@ -690,14 +849,14 @@ footer a:hover { color: var(--arena); }
       </article>
 
       <article class="tomo" data-ed="3" style="--ed: var(--ed3); --ed-d: var(--ed3-d)">
-        <button class="lomo" role="tab" id="lomo-3" aria-controls="hoja-3" aria-selected="false">
+        <button class="lomo" type="button" id="lomo-3" aria-controls="hoja-3" aria-expanded="false">
           <span class="lomo-num">III</span>
           <span class="lomo-tit" data-f18n="ed3_lema">Vidas Digitales, Leyes Reales</span>
           <span class="lomo-anio">2025</span>
         </button>
-        <div class="tomo-panel" id="hoja-3" role="tabpanel" aria-labelledby="lomo-3">
+        <div class="tomo-panel" id="hoja-3" role="region" aria-labelledby="lomo-3">
           <div class="tomo-hoja">
-            <figure class="tomo-foto"><img src="img/memorias/iii/02-galeria-09.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Público en la Torre Smart del CUCEA durante la III edición del Foro" data-f18n-attr="alt:ed3_alt"><figcaption data-f18n="ed3_cap">Torre Smart del CUCEA · 2025</figcaption></figure>
+            <figure class="tomo-foto"><img src="img/memorias/iii/02-galeria-09.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="Público en la Torre Smart del CUCEA durante la III edición del Foro" data-f18n-attr="alt:ed3_alt"><figcaption data-f18n="ed3_cap">Torre Smart del CUCEA · 2025</figcaption></figure>
             <div class="tomo-texto">
               <p class="tomo-meta" data-f18n="ed3_meta">1 y 2 de octubre de 2025 · Edición de expansión</p>
               <h3><span class="edn">III.</span> <span data-f18n="ed3_h">«Vidas Digitales, Leyes Reales: Nuevos Retos para el Derecho»</span></h3>
@@ -707,7 +866,7 @@ footer a:hover { color: var(--arena); }
                 <li><b>6</b><span data-f18n="c_ejes_n">ejes</span></li>
               </ul>
               <dl class="tomo-datos">
-                <div><dt data-f18n="d_sede">Sede</dt><dd data-f18n="ed3_sede">Torre Smart y Sala de Gobierno del CUCEA, en simultáneo</dd></div>
+                <div><dt data-f18n="d_sedes">Sedes</dt><dd data-f18n="ed3_sede">Torre Smart y Sala de Gobierno del CUCEA, en simultáneo</dd></div>
                 <div><dt data-f18n="d_modalidad">Modalidad</dt><dd data-f18n="ed3_mod">Híbrida</dd></div>
                 <div><dt data-f18n="d_libro">Libro</dt><dd data-f18n-html="ed3_libro"><i>Vidas Digitales, Leyes Reales</i> · en evaluación editorial</dd></div>
               </dl>
@@ -718,12 +877,12 @@ footer a:hover { color: var(--arena); }
       </article>
 
       <article class="tomo abierto" data-ed="4" style="--ed: var(--ed4); --ed-d: var(--ed4-d)">
-        <button class="lomo" role="tab" id="lomo-4" aria-controls="hoja-4" aria-selected="true">
+        <button class="lomo" type="button" id="lomo-4" aria-controls="hoja-4" aria-expanded="true">
           <span class="lomo-num">IV</span>
           <span class="lomo-tit" data-f18n="ed4_lema">Agentes, Algoritmos y Autonomía</span>
           <span class="lomo-anio">2026</span>
         </button>
-        <div class="tomo-panel" id="hoja-4" role="tabpanel" aria-labelledby="lomo-4">
+        <div class="tomo-panel" id="hoja-4" role="region" aria-labelledby="lomo-4">
           <div class="tomo-hoja">
             <div class="tomo-foto tipografica">
               <p class="tomo-meta" style="color: rgba(245,239,227,.7)" data-f18n="ed4_ruta_rot">El recorrido de la IV</p>
@@ -745,7 +904,7 @@ footer a:hover { color: var(--arena); }
                 <li><b>9</b><span data-f18n="c_ejes_n">ejes</span></li>
               </ul>
               <dl class="tomo-datos">
-                <div><dt data-f18n="d_sede">Sedes</dt><dd data-f18n="ed4_sede">CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial, y en línea</dd></div>
+                <div><dt data-f18n="d_sedes">Sedes</dt><dd data-f18n="ed4_sede">CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial, y en línea</dd></div>
                 <div><dt data-f18n="d_hito">Hito</dt><dd data-f18n="ed4_hito">Primera coorganización México–España: la Jornada Virtual, con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides.</dd></div>
               </dl>
               <div class="tomo-links">
@@ -759,12 +918,12 @@ footer a:hover { color: var(--arena); }
       </article>
 
       <article class="tomo tomo-v" data-ed="5" style="--ed: var(--ed5); --ed-d: var(--ed5-d)">
-        <button class="lomo" role="tab" id="lomo-5" aria-controls="hoja-5" aria-selected="false">
+        <button class="lomo" type="button" id="lomo-5" aria-controls="hoja-5" aria-expanded="false">
           <span class="lomo-num">V</span>
           <span class="lomo-tit" data-f18n="ed5_lema">En preparación</span>
           <span class="lomo-anio">2027</span>
         </button>
-        <div class="tomo-panel" id="hoja-5" role="tabpanel" aria-labelledby="lomo-5">
+        <div class="tomo-panel" id="hoja-5" role="region" aria-labelledby="lomo-5">
           <div class="tomo-hoja">
             <div class="tomo-texto">
               <span class="v-seco" aria-hidden="true">V</span>
@@ -784,13 +943,14 @@ footer a:hover { color: var(--arena); }
         <div class="chips" role="group" aria-label="Filtrar el mapa por edición" data-f18n-attr="aria-label:chips_aria">
           <button class="chip" data-mapa="1" style="--chip: var(--ed1)" aria-pressed="false">I</button>
           <button class="chip" data-mapa="2" style="--chip: var(--ed2)" aria-pressed="false">II</button>
-          <button class="chip" data-mapa="3" style="--chip: var(--ed3)" aria-pressed="false">III</button>
+          <button class="chip" data-mapa="3" style="--chip: #2E7470" aria-pressed="false">III</button>
           <button class="chip" data-mapa="4" style="--chip: #8A6A24" aria-pressed="true">IV</button>
           <button class="chip" data-mapa="0" style="--chip: var(--cobre)" aria-pressed="false" data-f18n="chip_todas">Todas</button>
         </div>
       </div>
       <div class="mapa-ed-lienzo">
-        <canvas id="mapaEd" role="img" aria-label="Mapa de los países con ponentes en el Foro" data-f18n-attr="aria-label:mapa_aria"></canvas>
+        <canvas id="mapaEd" role="img" aria-label="Mapa de los países con ponentes en el Foro" data-f18n-attr="aria-label:mapa_aria" aria-describedby="mapaLista"></canvas>
+        <p class="sr" id="mapaLista" aria-live="polite"></p>
         <div class="mapa-tip" id="mapaTip"></div>
         <p class="mapa-nota" data-f18n="mapa_nota">Países de origen de las personas ponentes, según las memorias de cada edición. El punto marcado es Guadalajara.</p>
       </div>
@@ -806,7 +966,7 @@ footer a:hover { color: var(--arena); }
         <p class="eyebrow"><span data-f18n="vid_eyebrow">iii. Memoria en video</span></p>
         <h2 id="t-videos" data-f18n-html="vid_title">La IV edición, <em>en video</em>.</h2>
       </div>
-      <p class="sec-lead" data-f18n-html="vid_lead">Las transmisiones de la cuarta edición quedan como memoria abierta: <strong>cuatro sedes y una jornada en línea</strong>, con sus mesas, conferencias y clausura.</p>
+      <p class="sec-lead" data-f18n-html="vid_lead">Las transmisiones de la cuarta edición quedan como memoria abierta: <strong>tres sedes y la jornada en línea</strong>, con sus mesas y conferencias. La grabación de Ciudad Judicial está en preparación.</p>
     </div>
     <div class="cintas">
       <a class="cinta-v aparece" href="en-vivo.html#cucea">
@@ -894,7 +1054,7 @@ footer a:hover { color: var(--arena); }
         <p class="pie-lema" data-f18n="pie_lema">Innovación jurídica en la era digital</p>
       </div>
       <div>
-        <h4 data-f18n="pie_contacto">Contacto</h4>
+        <h2 class="pie-h" data-f18n="pie_contacto">Contacto</h2>
         <ul>
           <li><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></li>
           <li><a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
@@ -902,7 +1062,7 @@ footer a:hover { color: var(--arena); }
         </ul>
       </div>
       <div>
-        <h4 data-f18n="pie_memorias">Memorias</h4>
+        <h2 class="pie-h" data-f18n="pie_memorias">Memorias</h2>
         <ul>
           <li><a href="memoria-i.html" data-f18n="pie_m1">I edición · 2023</a></li>
           <li><a href="memoria-ii.html" data-f18n="pie_m2">II edición · 2024</a></li>
@@ -912,7 +1072,7 @@ footer a:hover { color: var(--arena); }
         </ul>
       </div>
       <div>
-        <h4 data-f18n="pie_organiza">Organiza</h4>
+        <h2 class="pie-h" data-f18n="pie_organiza">Organiza</h2>
         <ul>
           <li data-f18n="pie_ca">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</li>
           <li>Universidad de Guadalajara</li>
@@ -942,6 +1102,9 @@ footer a:hover { color: var(--arena); }
      cfp:   { url: 'cfp.html', texto: { es: 'Abierta', en: 'Open', fr: 'Ouvert' } },
      ejes:  { es: '9 ejes', en: '9 tracks', fr: '9 axes' }
    Vista previa del estado anunciado (solo para revisar): ?demo=anuncio
+   Al anunciar, además, a mano: <title>/description/OG/twitter del <head>,
+   og/og-v.png, un JSON-LD Event de la V (subEvent del EventSeries) y,
+   cuando existan, los ejes de la V en la sección #ejes.
    ════════════════════════════════════════════════════════════════ */
 var V_EDICION = {
   fecha: null,
@@ -976,25 +1139,25 @@ var V_EDICION = {
       hero_nombre_1: 'International Forum on Law', hero_nombre_2: 'and Technology',
       hero_lead: 'The fifth edition is starting to be written. Since 2023, <strong>four editions</strong> have brought together at the University of Guadalajara jurists, judges, scholars and specialists from <strong>thirteen countries</strong> to think about Law in the face of technology.',
       hero_cta_1: 'Get the announcement', hero_cta_2: 'Explore four editions',
-      dato_fecha: 'Date', dato_sede: 'Venue', dato_organiza: 'Organized by', dato_organiza_v: 'Research Group «Law and Technology» · UdeG',
+      dato_fecha: 'Date', dato_sede: 'Venue', dato_organiza: 'Organized by', dato_organiza_v: 'Academic Body «Law and Technology» · UdeG',
       por_anunciar: 'To be announced',
       pista_cursor: 'Move your cursor over the V: it is blind-embossed, still without ink.',
       pista_tacto: 'The V is blind-embossed, still without ink.',
       aviso_eyebrow: 'i. The announcement', aviso_title: 'Blind <em>embossed</em>.',
       aviso_lead: 'In letterpress, a <strong>blind emboss</strong> leaves the impression of the type without ink. That is where the fifth edition stands today: the form exists, and the ink arrives with each announcement. The date, venue, theme, call for papers and tracks will be published here, one by one.',
       c_fecha: 'Date', c_sede: 'Venue', c_lema: 'Edition theme', c_cfp: 'Call for papers', c_ejes: 'Thematic tracks',
-      sello_pend: 'Blind', sello_ok: 'Inked',
+      sello_pend: 'Uninked', sello_ok: 'Inked',
       aviso_h3: 'Get the announcement <em>by email</em>.',
       aviso_p: 'We will write to you when the date of the 5th edition is announced and when its call for papers opens. Nothing else.',
       aviso_label: 'Email address', aviso_btn: 'Notify me',
-      aviso_privacidad: 'We will only use your email for Forum announcements. To unsubscribe, simply reply to any of our emails.',
+      aviso_privacidad: '<strong>Simplified privacy notice.</strong> The Academic Body UDG-CA-1236 «Law and Technology» of the University of Guadalajara will use your email only to send you Forum announcements. You may unsubscribe or exercise your rights of access, rectification, cancellation and objection by writing to <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cal_btn: 'Add to my calendar',
       tray_eyebrow: 'ii. Trajectory · 2023–2026', tray_title: 'Four editions, <em>one book</em>.',
       tray_lead: 'Each edition of the Forum is a volume with its own year, theme, voices and colour. Open each spine to explore it; the map lights up the countries that had a voice in it.',
       estante_aria: 'Editions of the Forum',
       ed1_lema: 'Legal innovation in the digital era', ed1_alt: 'CUCEA Central Auditorium full during the 1st edition of the Forum', ed1_cap: 'CUCEA Central Auditorium · 2023',
       ed1_meta: 'November 14–15, 2023 · Founding edition', ed1_h: '“Legal innovation in the digital era”',
-      ed1_sede: 'CUCEA Central Auditorium, Zapopan', ed1_mod: 'On-site, with live streaming',
+      ed1_sede: 'CUCEA Central Auditorium, Zapopan', ed1_mod: 'On-site, with live streaming and an online panel',
       ed1_nota: 'The presidents of ALGDETIC, AMCID, AMDI, COFECE, INAI, the Jalisco Supreme Court of Justice and FIADI in a single edition.',
       ed2_lema: 'Shaping the Legal Future', ed2_alt: 'CUCEA auditorium during the 2nd edition of the Forum', ed2_cap: 'CUCEA Central Auditorium · 2024',
       ed2_meta: 'October 2–3, 2024 · Consolidation edition', ed2_h: '“Shaping the Legal Future”',
@@ -1014,14 +1177,14 @@ var V_EDICION = {
       ed5_lema: 'In preparation', ed5_h: 'The fifth edition is being written.',
       ed5_p: 'Its pages are still blank: date, venue, theme and tracks will be printed here as they are announced.', ed5_link: 'Get the announcement',
       c_ponencias: 'talks', c_ponentes: 'speakers', c_paises: 'countries', c_ejes_n: 'tracks', c_voces: 'voices', c_mesas: 'panels',
-      d_sede: 'Venue', d_modalidad: 'Format', d_nota: 'Voices', d_libro: 'Book', d_hito: 'Milestone',
+      d_sede: 'Venue', d_sedes: 'Venues', d_modalidad: 'Format', d_nota: 'Voices', d_libro: 'Book', d_hito: 'Milestone',
       leer_memoria: 'Read the edition record', ver_videos: 'Watch the videos', ver_programa: 'Program',
       mapa_rot_0: 'countries with a voice in the Forum since 2023', mapa_rot_1: 'countries with a voice in the 1st edition', mapa_rot_2: 'countries with a voice in the 2nd edition',
       mapa_rot_3: 'countries with a voice in the 3rd edition', mapa_rot_4: 'countries with a voice in the 4th edition',
       chip_todas: 'All', chips_aria: 'Filter the map by edition', mapa_aria: 'Map of the countries with speakers at the Forum',
       mapa_nota: 'Countries of origin of the speakers, according to the record of each edition. The marked point is Guadalajara.',
       vid_eyebrow: 'iii. Video record', vid_title: 'The 4th edition, <em>on video</em>.',
-      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>four venues and an online session</strong>, with their panels, lectures and closing.',
+      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>three venues and the online session</strong>, with their panels and lectures. The recording from Ciudad Judicial is in preparation.',
       v_lun21: 'Monday 21 · Opening', v_lun21b: 'Monday 21', v_mar22: 'Tuesday 22', v_mar22c: 'Tuesday 22 · Closing',
       v_prep: 'Recording in preparation', v_cj: 'Judiciary of the State of Jalisco', v_vie18: 'Friday 18 · Online',
       v_jv: 'International Online Session', v_jv_l: 'With the World Observatory of the Legal Profession and the Universidad de las Hespérides',
@@ -1035,7 +1198,7 @@ var V_EDICION = {
       ali_eyebrow: 'v. Allies', ali_title: 'The Forum does <em>not walk</em> alone.',
       pie_lema: 'Legal innovation in the digital era', pie_contacto: 'Contact', pie_memorias: 'Edition records',
       pie_m1: '1st edition · 2023', pie_m2: '2nd edition · 2024', pie_m3: '3rd edition · 2025', pie_m4: '4th edition · 2026', pie_videos: 'Video record of the 4th edition',
-      pie_organiza: 'Organized by', pie_ca: 'Research Group UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico',
+      pie_organiza: 'Organized by', pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico',
       form_enviando: 'Sending…', form_ok: 'Done. We will write to you with the announcement.', form_ya: 'You were already on the list. We will write to you with the announcement.',
       form_error: 'We could not register your email right now. Please try again or write to contacto@forodyt.com.', form_invalido: 'Please check your email address.'
     },
@@ -1044,7 +1207,7 @@ var V_EDICION = {
       hero_nombre_1: 'Forum International du Droit', hero_nombre_2: 'et de la Technologie',
       hero_lead: 'La cinquième édition commence à s’écrire. Depuis 2023, <strong>quatre éditions</strong> ont réuni à l’Université de Guadalajara des juristes, des juges, des universitaires et des spécialistes de <strong>treize pays</strong> pour penser le Droit face à la technologie.',
       hero_cta_1: 'Recevoir l’annonce', hero_cta_2: 'Parcourir quatre éditions',
-      dato_fecha: 'Date', dato_sede: 'Lieu', dato_organiza: 'Organisé par', dato_organiza_v: 'Groupe de recherche «Droit et Technologie» · UdeG',
+      dato_fecha: 'Date', dato_sede: 'Lieu', dato_organiza: 'Organisé par', dato_organiza_v: 'Corps Académique « Droit et Technologie » · UdeG',
       por_anunciar: 'À annoncer',
       pista_cursor: 'Passez le curseur sur le V : il est imprimé à sec, encore sans encre.',
       pista_tacto: 'Le V est imprimé à sec, encore sans encre.',
@@ -1055,17 +1218,17 @@ var V_EDICION = {
       aviso_h3: 'Recevez l’annonce <em>par courriel</em>.',
       aviso_p: 'Nous vous écrirons lorsque la date de la Ve édition sera annoncée et lorsque son appel à communications ouvrira. Rien de plus.',
       aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir',
-      aviso_privacidad: 'Nous n’utiliserons votre adresse que pour les annonces du Forum. Pour vous désinscrire, il suffit de répondre à l’un de nos courriels.',
+      aviso_privacidad: '<strong>Avis de confidentialité simplifié.</strong> Le Corps Académique UDG-CA-1236 « Droit et Technologie » de l’Université de Guadalajara utilisera votre adresse uniquement pour vous envoyer les annonces du Forum. Vous pouvez vous désinscrire ou exercer vos droits d’accès, de rectification, d’annulation et d’opposition en écrivant à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cal_btn: 'Ajouter à mon agenda',
       tray_eyebrow: 'ii. Parcours · 2023–2026', tray_title: 'Quatre éditions, <em>un même livre</em>.',
       tray_lead: 'Chaque édition du Forum est un volume avec son année, son thème, ses voix et sa couleur. Ouvrez chaque dos pour la parcourir ; la carte allume les pays qui y ont pris la parole.',
       estante_aria: 'Éditions du Forum',
       ed1_lema: 'Innovation juridique à l’ère numérique', ed1_alt: 'Auditorium central du CUCEA comble lors de la Ire édition du Forum', ed1_cap: 'Auditorium central du CUCEA · 2023',
       ed1_meta: '14 et 15 novembre 2023 · Édition fondatrice', ed1_h: '« Innovation juridique à l’ère numérique »',
-      ed1_sede: 'Auditorium central du CUCEA, Zapopan', ed1_mod: 'En présentiel, avec diffusion en direct',
+      ed1_sede: 'Auditorium central du CUCEA, Zapopan', ed1_mod: 'En présentiel, avec diffusion en direct et une table ronde en ligne',
       ed1_nota: 'Les présidences d’ALGDETIC, de l’AMCID, de l’AMDI, de la COFECE, de l’INAI, de la Cour suprême de justice de Jalisco et de la FIADI réunies en une même édition.',
-      ed2_lema: 'Modeler l’avenir juridique', ed2_alt: 'Auditorium du CUCEA lors de la IIe édition du Forum', ed2_cap: 'Auditorium central du CUCEA · 2024',
-      ed2_meta: '2 et 3 octobre 2024 · Édition de consolidation', ed2_h: '« Modeler l’avenir juridique »',
+      ed2_lema: 'Modeler le Futur Juridique', ed2_alt: 'Auditorium du CUCEA lors de la IIe édition du Forum', ed2_cap: 'Auditorium central du CUCEA · 2024',
+      ed2_meta: '2 et 3 octobre 2024 · Édition de consolidation', ed2_h: '« Modeler le Futur Juridique »',
       ed2_sede: 'Auditorium central du CUCEA et site miroir à la Cour suprême de justice de Jalisco', ed2_mod: 'Hybride',
       ed2_libro: '<i>Fronteras dinámicas : derecho y tecnología en la era digital</i> · Éditions de l’Université de Guadalajara',
       ed3_lema: 'Vies numériques, lois réelles', ed3_alt: 'Public à la Tour Smart du CUCEA lors de la IIIe édition du Forum', ed3_cap: 'Tour Smart du CUCEA · 2025',
@@ -1082,14 +1245,14 @@ var V_EDICION = {
       ed5_lema: 'En préparation', ed5_h: 'La cinquième édition est en cours d’écriture.',
       ed5_p: 'Ses pages sont encore blanches : date, lieu, thème et axes y seront imprimés au fil des annonces.', ed5_link: 'Recevoir l’annonce',
       c_ponencias: 'interventions', c_ponentes: 'intervenants', c_paises: 'pays', c_ejes_n: 'axes', c_voces: 'voix', c_mesas: 'tables rondes',
-      d_sede: 'Lieu', d_modalidad: 'Format', d_nota: 'Voix', d_libro: 'Livre', d_hito: 'Jalon',
+      d_sede: 'Lieu', d_sedes: 'Lieux', d_modalidad: 'Format', d_nota: 'Voix', d_libro: 'Livre', d_hito: 'Jalon',
       leer_memoria: 'Lire la mémoire', ver_videos: 'Voir les vidéos', ver_programa: 'Programme',
       mapa_rot_0: 'pays ayant pris la parole au Forum depuis 2023', mapa_rot_1: 'pays ayant pris la parole lors de la Ire édition', mapa_rot_2: 'pays ayant pris la parole lors de la IIe édition',
       mapa_rot_3: 'pays ayant pris la parole lors de la IIIe édition', mapa_rot_4: 'pays ayant pris la parole lors de la IVe édition',
       chip_todas: 'Toutes', chips_aria: 'Filtrer la carte par édition', mapa_aria: 'Carte des pays des intervenants du Forum',
       mapa_nota: 'Pays d’origine des intervenants, selon la mémoire de chaque édition. Le point marqué est Guadalajara.',
       vid_eyebrow: 'iii. Mémoire en vidéo', vid_title: 'La IVe édition, <em>en vidéo</em>.',
-      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>quatre sites et une journée en ligne</strong>, avec leurs tables rondes, conférences et clôture.',
+      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>trois sites et la journée en ligne</strong>, avec leurs tables rondes et conférences. L’enregistrement de Ciudad Judicial est en préparation.',
       v_lun21: 'Lundi 21 · Ouverture', v_lun21b: 'Lundi 21', v_mar22: 'Mardi 22', v_mar22c: 'Mardi 22 · Clôture',
       v_prep: 'Enregistrement en préparation', v_cj: 'Pouvoir judiciaire de l’État de Jalisco', v_vie18: 'Vendredi 18 · En ligne',
       v_jv: 'Journée virtuelle internationale', v_jv_l: 'Avec l’Observatoire mondial de la profession d’avocat et l’Universidad de las Hespérides',
@@ -1103,7 +1266,7 @@ var V_EDICION = {
       ali_eyebrow: 'v. Alliés', ali_title: 'Le Forum ne <em>marche pas</em> seul.',
       pie_lema: 'Innovation juridique à l’ère numérique', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
       pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026', pie_videos: 'Mémoire en vidéo de la IVe édition',
-      pie_organiza: 'Organisé par', pie_ca: 'Groupe de recherche UDG-CA-1236 «Droit et Technologie»', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique',
+      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique',
       form_enviando: 'Envoi…', form_ok: 'C’est fait. Nous vous écrirons avec l’annonce.', form_ya: 'Vous étiez déjà inscrit·e. Nous vous écrirons avec l’annonce.',
       form_error: 'Impossible d’enregistrer votre adresse pour le moment. Réessayez ou écrivez à contacto@forodyt.com.', form_invalido: 'Vérifiez votre adresse électronique.'
     }
@@ -1210,6 +1373,12 @@ var V_EDICION = {
     this.modo = opts.modo; this.t0 = 0; this.anim = 0; this.hover = null;
     this.prev = {}; this.ajustar();
   }
+  Mapa.prototype.recortar = function (rc) {
+    this.o.recorte = rc;
+    this.pts = rc ? PUNTOS.filter(function (p) { return p.lon >= rc[0] && p.lon <= rc[1]; }) : PUNTOS;
+    this.c0 = rc ? (rc[0] - MAPA.lon0) / MAPA.step : 0;
+    this.cols = rc ? (rc[1] - rc[0]) / MAPA.step + 1 : COLS;
+  };
   Mapa.prototype.ajustar = function () {
     var r = this.cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
     if (!r.width) return;
@@ -1283,7 +1452,7 @@ var V_EDICION = {
     if (ch) { mapaHero = new Mapa(ch, { modo: 0, onda: true, tenue: 0.3, etiqueta: true, recorte: [-126, 44] }); mapaHero.animar(); }
     var ce = document.getElementById('mapaEd');
     if (ce) {
-      mapaEd = new Mapa(ce, { modo: 4, onda: true, tenue: 0.2, etiqueta: false, recorte: window.innerWidth < 700 ? [-126, 44] : null });
+      mapaEd = new Mapa(ce, { modo: MODO, onda: true, tenue: 0.2, etiqueta: false, recorte: window.innerWidth < 700 ? [-126, 44] : null });
       var tip = document.getElementById('mapaTip');
       ce.addEventListener('pointermove', function (ev) {
         var r = ce.getBoundingClientRect(), p = mapaEd.cerca(ev.clientX - r.left, ev.clientY - r.top);
@@ -1299,19 +1468,26 @@ var V_EDICION = {
       }
     }
     var rt;
-    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { mapaHero && mapaHero.ajustar(); mapaEd && mapaEd.ajustar(); }, 150); });
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { mapaHero && mapaHero.ajustar(); if (mapaEd) { mapaEd.recortar(window.innerWidth < 700 ? [-126, 44] : null); mapaEd.ajustar(); } }, 150); });
   }
   function contarPaises(m) {
     var n = 0; for (var k in PAISES) if (m === 0 || PAISES[k].ed.indexOf(m) >= 0) n++; return n;
   }
+  var MODO = 4;
+  function listaPaises(m) {
+    var el = document.getElementById('mapaLista'); if (!el) return;
+    var n = []; for (var k in PAISES) if (m === 0 || PAISES[k].ed.indexOf(m) >= 0) n.push(PAISES[k][LANG] || PAISES[k].es);
+    el.textContent = n.join(', ') + '.';
+  }
   function modoMapa(m, desdeEstante) {
+    MODO = m; listaPaises(m);
+    if (!desdeEstante && m > 0) abrirTomo(m, true);
     if (!mapaEd) return;
     mapaEd.modo = m; mapaEd.animar();
     document.getElementById('mapaCifra').textContent = contarPaises(m);
     var rot = document.getElementById('mapaRot');
     rot.setAttribute('data-f18n', 'mapa_rot_' + m); rot.textContent = t('mapa_rot_' + m);
     document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(+c.dataset.mapa === m)); });
-    if (!desdeEstante && m > 0) abrirTomo(m, true);
   }
   document.querySelectorAll('.chip').forEach(function (c) { c.addEventListener('click', function () { modoMapa(+c.dataset.mapa, false); }); });
 
@@ -1321,7 +1497,7 @@ var V_EDICION = {
     tomos.forEach(function (tm) {
       var on = +tm.dataset.ed === ed;
       tm.classList.toggle('abierto', on);
-      var b = tm.querySelector('.lomo'); b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1;
+      var b = tm.querySelector('.lomo'); b.setAttribute('aria-expanded', String(on));
       var pnl = tm.querySelector('.tomo-panel'); if (on) pnl.removeAttribute('inert'); else pnl.setAttribute('inert', '');
     });
     if (!desdeMapa && ed <= 4) modoMapa(ed, true);
@@ -1361,13 +1537,14 @@ var V_EDICION = {
       if (!v) return; el.classList.remove('seco'); el.removeAttribute('data-f18n'); el.textContent = v;
     });
     if (V_EDICION.fecha) {
+      var lv = document.querySelector('#lomo-5 .lomo-tit'); if (lv) { lv.removeAttribute('data-f18n'); lv.textContent = valor('fecha', lang); }
       document.getElementById('numeral').classList.add('entintado');
       if (window.__vRelieve) window.__vRelieve.entintar();
       prepararICS();
     }
   }
   function prepararICS() {
-    var f = V_EDICION.fecha; if (!f || !f.ini) return;
+    var f = V_EDICION.fecha; if (!f || !f.ini || DEMO) return;
     var ini = f.ini.replace(/-/g, ''), finD = new Date(f.fin || f.ini); finD.setDate(finD.getDate() + 1);
     var fin = finD.toISOString().slice(0, 10).replace(/-/g, '');
     var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ForoDyT//V//ES', 'BEGIN:VEVENT',
@@ -1375,6 +1552,7 @@ var V_EDICION = {
       'DTSTART;VALUE=DATE:' + ini, 'DTEND;VALUE=DATE:' + fin,
       'SUMMARY:V Foro Internacional de Derecho y Tecnología', 'URL:https://forodyt.com/', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     var a = document.getElementById('calBtn');
+    if (a.href && a.href.indexOf('blob:') === 0) URL.revokeObjectURL(a.href);
     a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
     document.getElementById('calBox').hidden = false;
   }
@@ -1451,6 +1629,7 @@ var V_EDICION = {
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.uniform3f(U.u_ic, 184 / 255, 92 / 255, 61 / 255);
     caja.appendChild(cv);
+    cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); cancelAnimationFrame(raf); raf = 0; document.documentElement.classList.remove('gl-on'); if (cv.parentNode) cv.parentNode.removeChild(cv); });
 
     var luz = { x: -0.55, y: 0.6 }, meta = { x: -0.55, y: 0.6 }, tinta = 0, tintaMeta = 0, raf = 0, W = 0, Hh = 0;
     function mapaAlturas() {
@@ -1538,7 +1717,7 @@ var V_EDICION = {
   /* ───── puente de idioma: i18n.js sincroniza <html lang> ───── */
   function aplicarIdioma(lang) {
     LANG = lang; f18nApply(lang); pintarAnuncio(lang);
-    if (mapaEd) { document.getElementById('mapaRot').textContent = t('mapa_rot_' + mapaEd.modo, lang); }
+    document.getElementById('mapaRot').textContent = t('mapa_rot_' + MODO, lang); listaPaises(MODO);
   }
   function iniciar() {
     f18nCapture();

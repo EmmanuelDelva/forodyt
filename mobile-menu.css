@@ -301,3 +301,13 @@ body.mm-locked { overflow: hidden; }
   .nav-cta { gap: 8px; }
   .nav-inner { padding-left: 16px; padding-right: 16px; }
 }
+
+/* V edición: el botón del nav no se parte en dos líneas («Me prévenir»)
+   y en pantallas muy angostas cede su lugar al botón MENÚ. */
+.nav-cta > .btn-primary { white-space: nowrap; }
+@media (max-width: 420px) {
+  .nav-cta > .btn-primary { padding-left: 16px; padding-right: 16px; }
+}
+@media (max-width: 359px) {
+  .nav-cta > .btn-primary { display: none; }
+}
