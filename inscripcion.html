@@ -1105,6 +1105,9 @@ footer {
 .nav-links a:hover { color: #094651; }
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 1024px) { .nav-links { display: none; } }
+/* NAV V (2026-09-24): marca y enlaces sin saltos de línea; el subtítulo cede el espacio en pantallas medianas */
+.nav .brand-mark, .nav .brand-sub, .nav .nav-links a, .nav .nav-back { white-space: nowrap; }
+@media (max-width: 1360px) { .nav .brand-sub { display: none; } }
 
 /* ============ REENVÍO DE QR (autoservicio) ============ */
 .reenvio {
