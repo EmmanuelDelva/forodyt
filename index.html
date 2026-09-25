@@ -458,7 +458,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .aviso-form input { font: inherit; font-family: var(--serif); font-size: clamp(19px, 1.7vw, 24px); background: transparent; border: 0; color: var(--tinta); padding: 12px 0; min-width: 0; }
 .aviso-form input::placeholder { color: var(--tinta-4); opacity: .8; }
 .aviso-form input:focus { outline: none; }
-.aviso-form:focus-within { border-bottom-color: var(--cobre); }
+.aviso-form:focus-within { border-bottom-color: var(--cobre); box-shadow: 0 1px 0 var(--cobre); }
 .aviso-form button { align-self: center; }
 .aviso-estado { font-size: 13.5px; color: var(--tinta-3); margin-top: 12px; min-height: 1.4em; }
 .aviso-estado.ok { color: var(--musgo); }
@@ -680,6 +680,12 @@ footer a:hover { color: var(--arena); }
   .tomo, .tomo-hoja, .tomo-panel { transition: none !important; }
 }
 </style>
+<style>/* nav de la V: sin cortes ni desbordes entre 1025 y 1360 px (y en FR) */
+.nav-links a { white-space: nowrap; }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav-links { gap: 16px; } .nav-links a { font-size: 13px; } .nav-cta { gap: 12px; } .nav-cta > .btn-primary { padding: 12px 18px; } }
+footer :focus-visible { outline-color: #D9A48C; }
+</style>
 </head>
 <body>
 
@@ -768,7 +774,7 @@ footer a:hover { color: var(--arena); }
       <div class="aparece">
         <form class="aviso-form" id="avisoForm" novalidate>
           <label for="avisoCorreo" data-f18n="aviso_label">Correo electrónico</label>
-          <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" required>
+          <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" data-f18n-attr="placeholder:aviso_ph" required>
           <button type="submit" class="btn-primary"><span data-f18n="aviso_btn">Avísame</span></button>
         </form>
         <p class="aviso-estado" id="avisoEstado" role="status" aria-live="polite"></p>
@@ -890,7 +896,7 @@ footer a:hover { color: var(--arena); }
                 <li><div><b>CUCEA</b><span data-f18n="ed4_r2s">Lun 21 · inaugural</span></div></li>
                 <li><div><b>CUGDL</b><span data-f18n="ed4_r3s">Lun 21 · jornada</span></div></li>
                 <li><div><b>Cineteca FICG</b><span data-f18n="ed4_r4s">Mar 22 · jornada</span></div></li>
-                <li><div><b>Ciudad Judicial</b><span data-f18n="ed4_r5s">Mar 22 · clausura</span></div></li>
+                <li><div><b data-f18n="v_cj_sede">Ciudad Judicial</b><span data-f18n="ed4_r5s">Mar 22 · clausura</span></div></li>
               </ol>
             </div>
             <div class="tomo-texto">
@@ -909,7 +915,7 @@ footer a:hover { color: var(--arena); }
               <div class="tomo-links">
                 <a class="tomo-link" href="memoria-iv.html"><span data-f18n="leer_memoria">Leer la memoria</span> <span class="flecha" aria-hidden="true">→</span></a>
                 <a class="tomo-link" href="en-vivo.html"><span data-f18n="ver_videos">Ver los videos</span></a>
-                <a class="tomo-link" href="programa.html"><span data-f18n="ver_programa">Programa</span></a>
+                <a class="tomo-link" href="programa-iv.html"><span data-f18n="ver_programa">Programa</span></a>
               </div>
             </div>
           </div>
@@ -981,7 +987,7 @@ footer a:hover { color: var(--arena); }
       </a>
       <a class="cinta-v pendiente aparece" href="en-vivo.html#ciudad-judicial">
         <div class="poster"><span data-f18n="v_prep">Grabación en preparación</span></div>
-        <div class="info"><span class="dia" data-f18n="v_mar22c">Martes 22 · Clausura</span><span class="sede">Ciudad Judicial</span><span class="lugar" data-f18n="v_cj">Poder Judicial del Estado de Jalisco</span></div>
+        <div class="info"><span class="dia" data-f18n="v_mar22c">Martes 22 · Clausura</span><span class="sede" data-f18n="v_cj_sede">Ciudad Judicial</span><span class="lugar" data-f18n="v_cj">Poder Judicial del Estado de Jalisco</span></div>
       </a>
       <a class="cinta-v aparece" href="en-vivo.html#virtual">
         <div class="poster"><img src="https://i.ytimg.com/vi/zjo2Ul1AtUE/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360" onerror="this.remove()"><span class="play" aria-hidden="true"></span></div>
@@ -1047,7 +1053,7 @@ footer a:hover { color: var(--arena); }
   <div class="wrap">
     <div class="pie-grid">
       <div>
-        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-marca" data-f18n-html="pie_marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
         <p class="pie-lema" data-f18n="pie_lema">Innovación jurídica en la era digital</p>
       </div>
       <div>
@@ -1072,7 +1078,7 @@ footer a:hover { color: var(--arena); }
         <h2 class="pie-h" data-f18n="pie_organiza">Organiza</h2>
         <ul>
           <li data-f18n="pie_ca">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</li>
-          <li>Universidad de Guadalajara</li>
+          <li data-f18n="pie_udg">Universidad de Guadalajara</li>
         </ul>
         <div class="pie-sello" aria-hidden="true" style="margin-top:26px">V<small>MMXXVII</small></div>
       </div>
@@ -1108,7 +1114,7 @@ var V_EDICION = {
   sede: null,
   lema: null,
   cfp: null,
-  ejes: null
+  ejes: { es: 'Se mantienen los nueve', en: 'The nine remain', fr: 'Les neuf sont maintenus' }
 };
 
 (function () {
@@ -1144,7 +1150,7 @@ var V_EDICION = {
       sello_pend: 'Uninked', sello_ok: 'Inked',
       aviso_h3: 'Get the announcement <em>by email</em>.',
       aviso_p: 'We will write to you when the date of the 5th edition is announced and when its call for papers opens. Nothing else.',
-      aviso_label: 'Email address', aviso_btn: 'Notify me',
+      aviso_label: 'Email address', aviso_btn: 'Notify me', aviso_ph: 'name@domain.com',
       aviso_privacidad: '<strong>Simplified privacy notice.</strong> The Academic Body UDG-CA-1236 «Law and Technology» of the University of Guadalajara will use your email only to send you Forum announcements. You may unsubscribe or exercise your rights of access, rectification, cancellation and objection by writing to <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cal_btn: 'Add to my calendar',
       tray_title: 'The Forum’s trajectory <em>2023–2026</em>.',
@@ -1167,7 +1173,7 @@ var V_EDICION = {
       ed4_r2s: 'Mon 21 · opening', ed4_r3s: 'Mon 21 · sessions', ed4_r4s: 'Tue 22 · sessions', ed4_r5s: 'Tue 22 · closing',
       ed4_meta: 'September 18, 21 and 22, 2026 · Itinerant edition',
       ed4_h: '“Agents, Algorithms and Autonomy: Law in the Face of the Intelligence that Decides”',
-      ed4_sede: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial, and online',
+      ed4_sede: 'CUCEA · CUGDL · Cineteca FICG · Judicial City, and online',
       ed4_hito: 'First Mexico–Spain co-organization: the International Online Session, with the World Observatory of the Legal Profession and the Universidad de las Hespérides.',
       ed5_lema: 'In preparation', ed5_h: 'The fifth edition is being written.',
       ed5_p: 'Its pages are still blank: date, venue, theme and tracks will be printed here as they are announced.', ed5_link: 'Get the announcement',
@@ -1179,9 +1185,9 @@ var V_EDICION = {
       chip_todas: 'All', chips_aria: 'Filter the map by edition', mapa_aria: 'Map of the countries with speakers at the Forum',
       mapa_nota: 'Countries of origin of the speakers, according to the record of each edition. The marked point is Guadalajara.',
       vid_title: 'Sessions of the <em>fourth edition</em>.',
-      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>three venues and the online session</strong>, with their panels and lectures. The recording from Ciudad Judicial is in preparation.',
+      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>three venues and the online session</strong>, with their panels and lectures. The Judicial City recording is in preparation.',
       v_lun21: 'Monday 21 · Opening', v_lun21b: 'Monday 21', v_mar22: 'Tuesday 22', v_mar22c: 'Tuesday 22 · Closing',
-      v_prep: 'Recording in preparation', v_cj: 'Judiciary of the State of Jalisco', v_vie18: 'Friday 18 · Online',
+      v_prep: 'Recording in preparation', v_cj_sede: 'Judicial City', v_cj: 'Judiciary of the State of Jalisco', v_vie18: 'Friday 18 · Online',
       v_jv: 'International Online Session', v_jv_l: 'With the World Observatory of the Legal Profession and the Universidad de las Hespérides',
       vid_cta: 'Go to the video record', vid_cta2: 'Record of the 4th edition',
       ejes_title: 'These were the tracks of the <em>last edition</em>.',
@@ -1191,7 +1197,7 @@ var V_EDICION = {
       eje7: 'Digital Health and Biotechnologies', eje8: 'Technology, Sustainability and Digital Ecological Law', eje9: 'Technological Conflict Resolution and Online Disputes',
       ejes_nota: 'Each track opens its outreach page: what it is about, why it matters and where the conversation stands today.',
       ali_eyebrow: 'Allies', ali_title: 'The Forum does <em>not walk</em> alone.',
-      pie_lema: 'Legal innovation in the digital era', pie_contacto: 'Contact', pie_memorias: 'Edition records',
+      pie_lema: 'Legal innovation in the digital era', pie_marca: 'International Forum on Law <em>and Technology</em>', pie_udg: 'University of Guadalajara', pie_contacto: 'Contact', pie_memorias: 'Edition records',
       pie_m1: '1st edition · 2023', pie_m2: '2nd edition · 2024', pie_m3: '3rd edition · 2025', pie_m4: '4th edition · 2026', pie_videos: 'Video record of the 4th edition',
       pie_organiza: 'Organized by', pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico',
       form_enviando: 'Sending…', form_ok: 'Done. We will write to you with the announcement.', form_ya: 'You were already on the list. We will write to you with the announcement.',
@@ -1210,7 +1216,7 @@ var V_EDICION = {
       sello_pend: 'À sec', sello_ok: 'Encré',
       aviso_h3: 'Recevez l’annonce <em>par courriel</em>.',
       aviso_p: 'Nous vous écrirons lorsque la date de la Ve édition sera annoncée et lorsque son appel à communications ouvrira. Rien de plus.',
-      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir',
+      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir', aviso_ph: 'nom@domaine.com',
       aviso_privacidad: '<strong>Avis de confidentialité simplifié.</strong> Le Corps Académique UDG-CA-1236 « Droit et Technologie » de l’Université de Guadalajara utilisera votre adresse uniquement pour vous envoyer les annonces du Forum. Vous pouvez vous désinscrire ou exercer vos droits d’accès, de rectification, d’annulation et d’opposition en écrivant à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cal_btn: 'Ajouter à mon agenda',
       tray_title: 'Parcours du Forum <em>2023–2026</em>.',
@@ -1233,7 +1239,7 @@ var V_EDICION = {
       ed4_r2s: 'Lun. 21 · ouverture', ed4_r3s: 'Lun. 21 · séances', ed4_r4s: 'Mar. 22 · séances', ed4_r5s: 'Mar. 22 · clôture',
       ed4_meta: '18, 21 et 22 septembre 2026 · Édition itinérante',
       ed4_h: '« Agents, Algorithmes et Autonomie : le Droit face à l’Intelligence qui Décide »',
-      ed4_sede: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial, et en ligne',
+      ed4_sede: 'CUCEA · CUGDL · Cineteca FICG · Cité Judiciaire, et en ligne',
       ed4_hito: 'Première co-organisation Mexique–Espagne : la Journée virtuelle, avec l’Observatoire mondial de la profession d’avocat et l’Universidad de las Hespérides.',
       ed5_lema: 'En préparation', ed5_h: 'La cinquième édition est en cours d’écriture.',
       ed5_p: 'Ses pages sont encore blanches : date, lieu, thème et axes y seront imprimés au fil des annonces.', ed5_link: 'Recevoir l’annonce',
@@ -1245,9 +1251,9 @@ var V_EDICION = {
       chip_todas: 'Toutes', chips_aria: 'Filtrer la carte par édition', mapa_aria: 'Carte des pays des intervenants du Forum',
       mapa_nota: 'Pays d’origine des intervenants, selon la mémoire de chaque édition. Le point marqué est Guadalajara.',
       vid_title: 'Séances de la <em>quatrième édition</em>.',
-      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>trois sites et la journée en ligne</strong>, avec leurs tables rondes et conférences. L’enregistrement de Ciudad Judicial est en préparation.',
+      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>trois sites et la journée en ligne</strong>, avec leurs tables rondes et conférences. L’enregistrement de la Cité Judiciaire est en préparation.',
       v_lun21: 'Lundi 21 · Ouverture', v_lun21b: 'Lundi 21', v_mar22: 'Mardi 22', v_mar22c: 'Mardi 22 · Clôture',
-      v_prep: 'Enregistrement en préparation', v_cj: 'Pouvoir judiciaire de l’État de Jalisco', v_vie18: 'Vendredi 18 · En ligne',
+      v_prep: 'Enregistrement en préparation', v_cj_sede: 'Cité Judiciaire', v_cj: 'Pouvoir judiciaire de l’État de Jalisco', v_vie18: 'Vendredi 18 · En ligne',
       v_jv: 'Journée virtuelle internationale', v_jv_l: 'Avec l’Observatoire mondial de la profession d’avocat et l’Universidad de las Hespérides',
       vid_cta: 'Aller à la mémoire en vidéo', vid_cta2: 'Mémoire de la IVe édition',
       ejes_title: 'Voici les axes de la <em>dernière édition</em>.',
@@ -1257,7 +1263,7 @@ var V_EDICION = {
       eje7: 'Santé Numérique et Biotechnologies', eje8: 'Technologie, Durabilité et Droit Écologique Numérique', eje9: 'Résolution des Conflits Technologiques et Litiges en Ligne',
       ejes_nota: 'Chaque axe ouvre sa page de vulgarisation : de quoi il s’agit, pourquoi c’est important et où en est la conversation aujourd’hui.',
       ali_eyebrow: 'Alliés', ali_title: 'Le Forum ne <em>marche pas</em> seul.',
-      pie_lema: 'Innovation juridique à l’ère numérique', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
+      pie_lema: 'Innovation juridique à l’ère numérique', pie_marca: 'Forum International du Droit <em>et de la Technologie</em>', pie_udg: 'Université de Guadalajara', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
       pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026', pie_videos: 'Mémoire en vidéo de la IVe édition',
       pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique',
       form_enviando: 'Envoi…', form_ok: 'C’est fait. Nous vous écrirons avec l’annonce.', form_ya: 'Vous étiez déjà inscrit·e. Nous vous écrirons avec l’annonce.',
@@ -1745,5 +1751,6 @@ var V_EDICION = {
 })();
 </script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6aee8fc9e32047d99f110e31c7993afc"}'></script>
 </body>
 </html>

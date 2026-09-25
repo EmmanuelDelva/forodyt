@@ -657,6 +657,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 ::view-transition-group(ficha-barra), ::view-transition-group(ficha-cerrar), ::view-transition-group(ficha-sello) { z-index: 4; }
 ::view-transition-old(ficha-marco), ::view-transition-new(ficha-marco) { height: 100%; width: 100%; object-fit: fill; }
 ::view-transition-old(ficha-foto), ::view-transition-new(ficha-foto) { height: 100%; width: 100%; object-fit: cover; }
+/* el retrato cuadrado de la tarjeta y el vertical de la ficha se recortan a la caja que se transforma */
+::view-transition-image-pair(ficha-foto) { overflow: clip; }
 ::view-transition-new(ficha-contenido):only-child { animation: vt-sube .5s .2s cubic-bezier(0.22, 1, 0.36, 1) both; }
 ::view-transition-old(ficha-contenido):only-child { animation: vt-baja .22s ease both; }
 ::view-transition-new(ficha-barra):only-child, ::view-transition-new(ficha-cerrar):only-child, ::view-transition-new(ficha-sello):only-child { animation: vt-sube .4s .34s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -742,7 +744,10 @@ footer a:hover { color: var(--arena); }
   .grupo-cab { grid-template-columns: minmax(0, 1fr); }
   .grupo-n { display: none; }
   .f-grupos { gap: 12px; flex-direction: column; }
+  /* en móvil el año va en su propio renglón, alineado con el texto (no se parte a media línea) */
   .cab .eyebrow { letter-spacing: .2em; }
+  .cab .eyebrow .anio { flex-basis: 100%; padding-left: 48px; }
+  .cab .eyebrow .anio > [aria-hidden] { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pon.entintando, .pon.entintando .pon-rodillo, .pon.entintada .pon-sello, .pon.golpeando, .pon.golpeando .sello-seco { animation: none !important; }
@@ -768,6 +773,12 @@ footer a:hover { color: var(--arena); }
   .grupo--banda .grupo-cab h2, .grupo--banda .grupo-cab p { color: var(--tinta); }
   .grupo--banda .pon { --papel: #F9F4EA; --c-texto: var(--tinta); --c-texto-2: var(--tinta-3); --c-acento: var(--cobre-2); --c-regla: var(--linea); }
 }
+</style>
+<style>/* nav de la V: sin cortes ni desbordes entre 1025 y 1360 px (y en FR) */
+.nav-links a { white-space: nowrap; }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav-links { gap: 16px; } .nav-links a { font-size: 13px; } .nav-cta { gap: 12px; } .nav-cta > .btn-primary { padding: 12px 18px; } }
+footer :focus-visible { outline-color: #D9A48C; }
 </style>
 </head>
 <body>
@@ -1307,11 +1318,15 @@ var DEMO_IV = [
     clearTimeout(this.tv);
     this.tv = setTimeout(function () { self.viva = false; self.raiz.classList.remove('lampara-viva'); }, 700);
   };
-  // barrido a lo ancho de una fila, en coordenadas de la página
+  // barrido a lo ancho de una fila, en coordenadas de la página, por la parte de la
+  // fila que se ve en ese momento (si la fila asoma a medias, la luz pasa por lo visible)
   Lampara.prototype.barrerFila = function (it) {
     if (!it || !it.r) return;
-    var W = innerWidth, Hh = innerHeight, top = it.r.y, h = it.r.h;
-    this.barrido = { t0: performance.now() + 420, dur: 2300, x0: -0.14 * W, y0: top + h * 0.62, x1: 1.1 * W, y1: top + h * 0.16, arco: -Math.min(Hh * 0.16, h * 0.3) };
+    var W = innerWidth, Hh = innerHeight, sY = window.scrollY, top = it.r.y, h = it.r.h;
+    var vA = Math.max(top, sY + 60), vB = Math.min(top + h, sY + Hh);
+    if (vB - vA < 80) { vA = top; vB = top + h; }
+    var alto = vB - vA, medio = (vA + vB) / 2;
+    this.barrido = { t0: performance.now() + 420, dur: 2300, x0: -0.14 * W, y0: medio + alto * 0.26, x1: 1.1 * W, y1: medio - alto * 0.3, arco: -Math.min(Hh * 0.14, alto * 0.35) };
     this.lado = 0.84;
     if (this.doc) this.ancla = { x: W * 0.84, y: top - Hh * 0.22 };
     if (!this.L) {
@@ -1479,8 +1494,8 @@ var DEMO_IV = [
     try {
       var base = new Date(s.fecha + 'T' + s.hora + ':00Z'), d = new Date(base.getTime() - desfase(zona, base) * 60000);
       d = new Date(base.getTime() - desfase(zona, d) * 60000);
-      var gdl = new Intl.DateTimeFormat('es-MX', { timeZone: ZONA_GDL, hour: 'numeric', minute: '2-digit', hourCycle: 'h23' }).format(d);
-      txt += ' · ' + gdl + ' h (' + t('u_zona_gdl') + ')';
+      var q = {}; new Intl.DateTimeFormat('en-US', { timeZone: ZONA_GDL, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(d).forEach(function (x) { q[x.type] = x.value; });
+      txt += ' · ' + (+q.hour % 24) + ':' + q.minute + ' h (' + t('u_zona_gdl') + ')';
     } catch (e) {}
     return txt;
   }
@@ -2137,5 +2152,6 @@ var DEMO_IV = [
 })();
 </script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6aee8fc9e32047d99f110e31c7993afc"}'></script>
 </body>
 </html>
