@@ -101,3 +101,76 @@ Se envía a **todas las personas inscritas**, no solo a las escaneadas: hubo pro
 Cada persona inscrita recibe **un** correo (se deduplica por correo) con su constancia general `IV-FIDDT-GEN/UDG/2026-NNNN`, que se guarda también en Drive, en «Constancias de cierre (asistencia general)». La pestaña **CierreEnvios** registra cada envío; volver a correr `enviarCierre` solo alcanza a quien no lo recibió.
 
 Vista previa local (sin tocar el backend): `FIRMA_PNG=… FIRMA_LEOS_PNG=… python3 _tools/cierre_preview.py && sh _tools/out/cierre/render.sh`.
+
+## 8 · Base de asistentes de la V (Drive personal)
+
+**Qué es.** Un Google Sheet en el Drive **personal** del director, aparte del Sheet institucional. Ahí quedan los asistentes de la IV que aceptaron recibir comunicaciones y todo el que se registre para recibir avisos de la V edición.
+
+- Nombre: **ForoDyT 2027 — Base de asistentes y avisos**, carpeta «2027 — V ForoDyT» de `emmanueldelva@gmail.com`.
+- id: `19Kb-cE2sL47v9dlKAG7FIGsWdEhO-AtNh5ZUmsRBpx4`
+- Enlace: <https://docs.google.com/spreadsheets/d/19Kb-cE2sL47v9dlKAG7FIGsWdEhO-AtNh5ZUmsRBpx4/edit>
+- Compartido como **editor** con `emmanueldelva@cucea.udg.mx` (25-sep-2026), que es la cuenta que ejecuta el script. Nadie más tiene acceso: **no compartirlo ni publicarlo**, porque tiene datos personales.
+- Columnas: `correo · nombre · institucion · pais · tipo · grado · modalidad_iv · folio_iv · acepta_comunicaciones · origen · fecha_alta · fecha_actualizacion · notas`. Hay **una fila por correo**. Se pueden reordenar columnas o añadir otras propias: el script las busca por nombre y solo escribe las celdas que cambia. Lo que no se puede hacer es **renombrar** los encabezados.
+
+**Cómo se llena.**
+1. **Una vez**, con `sembrarBaseV()`. Copia a los inscritos de la IV (pestaña *Usuarios*) **que marcaron la casilla de comunicaciones** (`acepto_news`), con origen «IV-2026 inscripción», su nombre, institución, país, tipo, grado, modalidad y folio. También copia a todos los correos de la pestaña *Newsletter*, cada uno con su origen; si esa persona además se inscribió, su fila lleva los datos de la IV. Deja fuera los folios o correos de prueba de `CIERRE_EXCLUIR` (y de `BASE_V_EXCLUIR`, si se define).
+   - Los inscritos que **no** marcaron la casilla **no se copian**; sus datos se quedan solo en el Sheet institucional. El motivo está en *Privacidad*, abajo. `sembrarBaseV()` dice cuántos fueron en `sin_consentimiento_omitidos`.
+2. **Sola, desde entonces.** Cada «Avísame» del sitio entra a la base al momento con `acepta_comunicaciones = TRUE`. Todos esos formularios mandan `action: 'newsletter'`: `index.html#aviso` con origen `web_v2027`, `cfp.html` con `web_v2027_cfp`, `programa.html` con `web_v2027_programa`, `ponentes.html` con `web_v2027_ponentes` e `inscripcion.html#newsletter`. Si alguien ya estaba en la base, no se duplica: se le suma el origen nuevo y se actualiza `fecha_actualizacion`.
+
+**Privacidad. Leer antes de sembrar y antes del primer aviso.** Esto dice el *Aviso de privacidad simplificado* que aceptaron los inscritos de la IV (`inscripcion.html`):
+- **Responsable:** la **Universidad de Guadalajara, a través del CUCEA**. No es el Cuerpo Académico ni el director. La UdeG es sujeto obligado, así que aplica también la LGPDPPSO.
+- **Finalidades secundarias** (con consentimiento expreso por casilla): información sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236. La casilla es `acepto_news`: «Quiero recibir comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236 “Derecho y Tecnología”».
+- **Conservación:** hasta dos años tras el cierre, **exclusivamente** para auditoría académica y emisión de duplicados de constancia.
+- **Transferencias:** ninguna a terceros distintos del comité organizador.
+- **ARCO:** las solicitudes llegan a `emmanueldelva@cucea.udg.mx` con el asunto «ARCO · IV Foro».
+
+Por eso la base funciona así:
+- Solo entran quienes tienen consentimiento para recibir avisos: los que marcaron la casilla, los de la lista *Newsletter* y los de «Avísame». Todos quedan con `acepta_comunicaciones = TRUE`.
+- A quien no marcó la casilla **no se le copia**. Una base de avisos en un Drive personal no es auditoría ni duplicado de constancia.
+- La propiedad `BASE_V_INCLUIR_HISTORICO = TRUE` los copiaría también, con `FALSE` y sin avisos, como registro histórico. **No activarla sin consultar antes a la Unidad de Transparencia de la UdeG.**
+- Los avisos se mandan **solo** a `acepta_comunicaciones = TRUE`.
+- Un `TRUE` solo pasa a `FALSE` con una baja explícita: `bajaBaseV('correo')`, o `[BAJA]` escrito en `notas`. **Desmarcar la casilla a mano no basta:** sin la marca, la siguiente siembra la vuelve a poner en `TRUE`.
+- Una baja no se deshace sola. Si después alguien llena el formulario con ese correo, la fila sigue en `FALSE` y en `notas` aparece `[PIDE RE-ALTA fecha]`, porque cualquiera puede escribir un correo ajeno. Solo se reactiva si la persona lo confirma: entonces se pone `TRUE` a mano y se escribe `[RE-ALTA fecha]` en `notas`.
+- La fila de una baja se queda en la base con el correo y la marca, para que nada vuelva a darla de alta. A una fila de baja el script no le añade datos. Si la persona pide **cancelar** sus datos (ARCO), borrar a mano el resto de las celdas de su fila y dejar solo el correo y la marca.
+
+### Pasos (una sola vez, cuenta CUCEA, unos 10 min) — después todo es automático
+
+1. Abrir [script.google.com](https://script.google.com) con `emmanueldelva@cucea.udg.mx` → proyecto **IV Foro 2026 Backend**. En `Code.gs`, sustituir **todo** el contenido por `apps-script/Code.gs` de este repo, sin que el editor lo reindente (truco de Monaco + SHA-256 en `docs/en-vivo-asistencia.md` §5). Comprobar que aparecen `activarBaseV`, `sincronizarBaseV` y `anunciarV` y que los acentos están bien. **Guardar.**
+2. **Bajas pendientes de la IV** (solo si las hay): quien respondió «Baja newsletter»/«Baja» o pidió cancelación ARCO. En el editor: `function bajasIV() { ['persona1@dominio.com'].forEach(bajaBaseV); }` — se puede correr después del paso 3; la baja manda sobre la siembra.
+3. En el desplegable de funciones elegir **`activarBaseV`** (esperar a que el desplegable se cierre) → **Ejecutar** → **Autorizar**. Google pide dos permisos nuevos: **ver tus archivos de Drive** (para encontrar la hoja por su nombre) y **hojas de cálculo**; en la pantalla por casillas, **las dos tienen que quedar marcadas**. La función:
+   - busca la hoja «ForoDyT 2027 — Base de asistentes y avisos» y guarda su id en `BASE_V_SHEET_ID` (no hay que capturarlo a mano);
+   - siembra a los inscritos de la IV con consentimiento y la lista *Newsletter*;
+   - instala el disparador **`sincronizarBaseV` cada hora**, que recoge cualquier alta que no entró en tiempo real;
+   - deja en el registro el conteo (`total`, `con_consentimiento`, `bajas`, `duplicados` debe salir vacío).
+   Si hubiera tandas de `enviarCierre` pendientes en *Activadores*, la sincronización horaria espera sola a que terminen.
+4. **Publicar: Implementar → Administrar implementaciones → ✏️ Editar → Versión: «Nueva versión» → Implementar.** ⚠️ **Nunca «Nueva implementación»** (cambia la URL y rompe los formularios del sitio).
+5. **Prueba:** desde una terminal (o el «Avísame» de la portada en incógnito):
+   ```
+   curl -sL -H 'Content-Type: text/plain;charset=utf-8' \
+     -d '{"action":"newsletter","correo":"emmanueldelva+prueba-v@gmail.com","origen":"prueba_runbook"}' \
+     'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55-JzzgzlXOZ0_lWOe1gpHPp0OJB0q2fn4l2B4NTHxBUq6CVA/exec'
+   ```
+   Debe responder `{"ok":true}` y en segundos aparece la fila en la base. Si no, `_logs` (acción `baseV`) dice por qué. Borrar después la fila de prueba de la base y de *Newsletter*.
+
+**Qué queda automático desde ese momento:** cada «Avísame» del sitio (portada, convocatoria, programa, ponentes) entra al instante; cada inscripción nueva entra al instante (cuando abra la inscripción de la V, poner la propiedad `EDICION_INSCRIPCION = V-2027` para que se registre como asistente de la V con `folio_v` y `modalidad_v`); y cada hora `sincronizarBaseV` repasa todo. Para apagarlo: `desactivarBaseV()`.
+
+> **Aviso de privacidad de la V:** cuando abra la inscripción de la V, su aviso debe decir que los datos se integran a la base de asistentes y avisos del Foro. Las inscripciones de la V entran todas; las de la IV, solo con la casilla de comunicaciones.
+
+### Día a día
+
+- **Aviso en un clic (fecha y sede de la V):** en *Propiedades del script* poner `V_FECHA_INICIO` (`2027-09-20`), `V_FECHA_FIN` (opcional), `V_SEDE` y, si ya existe, `V_LEMA`. Ejecutar **`_previewAnuncioV`** (te llega solo a ti, con el archivo `.ics` para el calendario) y, si está bien, **`anunciarV`**: sale a toda la base con consentimiento. Si se detiene por tiempo o cuota, volver a ejecutar `anunciarV`; solo alcanza a quien falta. En el sitio, el mismo día, llenar `V_EDICION` en `index.html` (fecha y sede quedan entintadas).
+
+- **Mandar un aviso de la V:**
+  - Primero **`_testAvisoBaseV`**: te llega solo a ti, con el formato de la V (tinta y cobre) y el número de personas que lo recibirían.
+  - Luego, en el editor, escribir una función propia y ejecutarla:
+    ```js
+    function avisoV() { enviarAvisoBaseV('Asunto del aviso', '<p>Texto del aviso…</p>'); }
+    ```
+  - Solo alcanza a `acepta_comunicaciones = TRUE`. Sale con «Responder a: contacto@forodyt.com» y cada envío queda en la pestaña **Avisos** de la base.
+  - Si se detiene por tiempo o por la cuota del día (~1500), volver a ejecutarla con **el mismo asunto**: solo se manda a quien falta.
+  - Mientras manda, los «Avísame» del sitio siguen entrando a la base: el envío no retiene el candado. Si se ejecuta dos veces a la vez, la segunda se niega («Ya hay un aviso de la V enviándose»). La marca dura como mucho 7 min: si una ejecución se cae a medias, a los 7 min se puede volver a lanzar.
+  - `enviarNewsletterMasivo()` sigue existiendo, pero lee la lista vieja de la IV y no conoce las bajas. **Para la V, usar siempre `enviarAvisoBaseV`.**
+- **Baja** (alguien responde «Baja», escribe a contacto@forodyt.com o manda una solicitud ARCO): usar `function bajaX() { bajaBaseV('persona@dominio.com'); }`. Otra opción es hacerlo a mano en la base: `acepta_comunicaciones = FALSE` **y** `[BAJA fecha]` (o `[BAJA]`) en `notas`. Sin esa marca, la siguiente siembra le vuelve a poner `TRUE`.
+- **Altas que no llegaron:** revisar de vez en cuando la pestaña `_logs` del Sheet institucional y buscar filas `baseV` con `base_v_ocupada` o con un error. Aparecen si alguien se suscribió mientras corría una siembra o una tanda de `enviarCierre` (retienen el candado del script). El correo sí quedó en la pestaña *Newsletter*: volver a ejecutar `sembrarBaseV()` y entran.
+- **Revisar de vez en cuando `_reporteBaseV`:** si `piden_re_alta` es mayor que cero, hay personas dadas de baja que llenaron el formulario. Confirmar con ellas antes de reactivarlas.
+- No ordenar, filtrar ni añadir filas en la hoja **mientras** corre `sembrarBaseV` (toma unos segundos). Si pasa, la siembra se detiene sola antes de escribir en una fila equivocada, y basta con volver a ejecutarla.

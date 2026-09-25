@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<title>Inscripción · IV Foro Internacional de Derecho y Tecnología · 2026</title>
+<title>Inscripción · Foro Internacional de Derecho y Tecnología</title>
 <link rel="canonical" href="https://forodyt.com/inscripcion.html">
 <link rel="alternate" hreflang="es" href="https://forodyt.com/inscripcion.html">
 <link rel="alternate" hreflang="en" href="https://forodyt.com/inscripcion.html?lang=en">
@@ -12,19 +12,19 @@
 <link rel="alternate" hreflang="x-default" href="https://forodyt.com/inscripcion.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Foro Internacional de Derecho y Tecnología">
-<meta property="og:title" content="Inscripción · IV Foro Internacional de Derecho y Tecnología">
-<meta property="og:description" content="Inscríbete al IV Foro Internacional de Derecho y Tecnología. 21 y 22 de septiembre de 2026 · CUCEA, Guadalajara · Modalidad híbrida.">
+<meta property="og:title" content="Inscripción · Foro Internacional de Derecho y Tecnología">
+<meta property="og:description" content="La inscripción a la IV edición concluyó el 22 de septiembre de 2026. Deja tu correo para recibir el anuncio de la V edición (2027) del Foro Internacional de Derecho y Tecnología.">
 <meta property="og:url" content="https://forodyt.com/inscripcion.html">
 <meta property="og:image" content="https://forodyt.com/img/og-forodyt.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Inscripción · IV Foro Internacional de Derecho y Tecnología">
-<meta name="twitter:description" content="21 y 22 de septiembre de 2026 · CUCEA, Guadalajara · Modalidad híbrida.">
+<meta name="twitter:title" content="Inscripción · Foro Internacional de Derecho y Tecnología">
+<meta name="twitter:description" content="La inscripción a la IV edición concluyó. Recibe el anuncio de la V edición (2027).">
 <meta name="twitter:image" content="https://forodyt.com/img/og-forodyt.jpg">
-<meta name="description" content="Inscripción al IV Foro Internacional de Derecho y Tecnología. Cuarta edición · 21 y 22 de septiembre de 2026 · CUCEA, Universidad de Guadalajara.">
-<meta name="keywords" content="inscripción IV Foro de Derecho y Tecnología 2026, registro, congreso jurídico internacional, inteligencia artificial y derecho, derecho digital, CUCEA, UDG">
+<meta name="description" content="La inscripción al IV Foro Internacional de Derecho y Tecnología concluyó el 22 de septiembre de 2026. Deja tu correo para recibir el anuncio de la V edición (2027).">
+<meta name="keywords" content="inscripción Foro de Derecho y Tecnología, V edición 2027, aviso, registro, congreso jurídico internacional, inteligencia artificial y derecho, derecho digital, CUCEA, UDG">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -1105,6 +1105,9 @@ footer {
 .nav-links a:hover { color: #094651; }
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 1024px) { .nav-links { display: none; } }
+/* NAV V (2026-09-24): marca y enlaces sin saltos de línea; el subtítulo cede el espacio en pantallas medianas */
+.nav .brand-mark, .nav .nav-links a, .nav .nav-back { white-space: nowrap; }
+@media (max-width: 1360px) { .nav .brand-sub { display: none; } }
 
 /* ============ REENVÍO DE QR (autoservicio) ============ */
 .reenvio {
@@ -1133,6 +1136,68 @@ footer {
 .reenvio-msg { font-family: var(--sans); font-size: 13.5px; line-height: 1.5; margin: 12px 0 0; min-height: 1em; color: var(--ink); }
 .reenvio-msg.ok { color: #2F5D3A; }
 .reenvio-msg.err { color: #8B2A2A; }
+
+/* ============ CIERRE DE LA IV (2026-09-24) ============ */
+[hidden] { display: none !important; }
+.notice-banner.cierre { margin-bottom: 40px; }
+.notice-banner.cierre a { color: var(--dorado-soft); text-decoration: underline; text-underline-offset: 3px; }
+.panel.panel--solo { border-top: 1px solid var(--ink-rule); }
+
+/* ═══════════ NAV V + PIE V · comunes del sitio (de index.html, 2026-09-25) ═══════════
+   Van al final para imponerse a los estilos propios de esta página. */
+.nav {
+  --v-tinta: #1A1810; --v-tinta-3: #5A5446; --v-tinta-4: #6B6455; --v-cobre: #B85C3D; --v-cobre-2: #8C3F26; --v-arena: #F5EFE3;
+  --v-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245, 239, 227, 0.86);
+  backdrop-filter: blur(10px) saturate(1.1); -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid rgba(26, 24, 16, 0.08);
+  transition: box-shadow .5s var(--v-ease), background .5s var(--v-ease);
+}
+.nav.scrolled { box-shadow: 0 10px 30px rgba(26, 24, 16, 0.07); background: rgba(245, 239, 227, 0.94); }
+.nav .nav-inner { max-width: 1380px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: height .5s var(--v-ease); }
+.nav.scrolled .nav-inner { height: 60px; }
+.nav .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--v-tinta); }
+.nav .brand-mark { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-size: 21px; font-weight: 600; font-style: italic; font-variation-settings: "opsz" 40, "SOFT" 100; letter-spacing: -0.01em; white-space: nowrap; color: var(--v-tinta); }
+.nav .brand-rule { display: block; width: 30px; height: 1px; background: var(--v-cobre); }
+.nav .brand-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: var(--v-tinta-3); white-space: nowrap; }
+.nav .nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); margin: 0; padding: 0; }
+.nav .nav-links a { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 400; font-size: 13.5px; letter-spacing: .02em; text-decoration: none; color: var(--v-tinta-3); position: relative; padding: 4px 0; white-space: nowrap; transition: color .3s var(--v-ease); }
+.nav .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--v-cobre); transition: width .45s var(--v-ease); }
+.nav .nav-links a:hover, .nav .nav-links a[aria-current] { color: var(--v-tinta); }
+.nav .nav-links a:hover::after, .nav .nav-links a[aria-current]::after { width: 100%; }
+.nav .nav-cta { display: flex; align-items: center; gap: 18px; }
+.nav .lang { display: flex; align-items: center; gap: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; color: var(--v-tinta-4); user-select: none; }
+.nav .lang [data-lang] { cursor: pointer; padding: 4px 3px; font-weight: 400; color: var(--v-tinta-4); transition: color .3s var(--v-ease); }
+.nav .lang [data-lang]:hover { color: var(--v-tinta); }
+.nav .lang [data-lang].active { color: var(--v-cobre-2); font-weight: 500; }
+.nav .nav-cta > .btn-primary { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; background: var(--v-tinta); color: var(--v-arena); padding: 13px 28px; border: 0; border-radius: 0; box-shadow: none; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 500; line-height: 1.4; letter-spacing: .06em; text-transform: none; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.nav .nav-cta > .btn-primary::before { content: ""; position: absolute; inset: 0; background: var(--v-cobre); transform: translateX(-101%); transition: transform .5s var(--v-ease); }
+.nav .nav-cta > .btn-primary:hover::before, .nav .nav-cta > .btn-primary:focus-visible::before { transform: translateX(0); }
+.nav .nav-cta > .btn-primary:hover, .nav .nav-cta > .btn-primary:focus-visible { color: var(--v-arena); }
+.nav .nav-cta > .btn-primary > * { position: relative; z-index: 1; }
+.nav a:focus-visible, .nav .lang [data-lang]:focus-visible { outline: 2px solid var(--v-cobre-2); outline-offset: 3px; }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav .nav-links { gap: 16px; } .nav .nav-links a { font-size: 13px; } .nav .nav-cta { gap: 12px; } .nav .nav-cta > .btn-primary { padding: 12px 18px; } }
+@media (max-width: 1024px) { .nav .nav-links { display: none; } }
+
+footer.pie-v { position: relative; z-index: 1; margin: 0; border: 0; background: #1A1810; color: rgba(245, 239, 227, 0.78); padding: clamp(64px, 8vw, 110px) 0 36px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 16px; line-height: 1.65; letter-spacing: normal; text-transform: none; text-align: left; }
+footer.pie-v .pie-wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+footer.pie-v .pie-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(28px, 4vw, 60px); }
+footer.pie-v .pie-marca { margin: 0; font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: #F5EFE3; font-variation-settings: "opsz" 96, "SOFT" 60; }
+footer.pie-v .pie-marca em { font-style: italic; color: #D9A48C; }
+footer.pie-v .pie-lema { margin: 16px 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: rgba(245, 239, 227, 0.55); }
+footer.pie-v .pie-h { margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-style: normal; font-weight: 400; font-size: 10.5px; line-height: 1.4; letter-spacing: .24em; text-transform: uppercase; color: #D9A48C; }
+footer.pie-v ul { list-style: none; display: grid; gap: 8px; margin: 0; padding: 0; font-size: 14.5px; }
+footer.pie-v li { margin: 0; }
+footer.pie-v a { color: rgba(245, 239, 227, 0.82); text-decoration: none; border: 0; transition: color .3s; }
+footer.pie-v a:hover, footer.pie-v a[aria-current] { color: #F5EFE3; }
+footer.pie-v a:focus-visible { outline: 2px solid #D9A48C; outline-offset: 3px; }
+footer.pie-v .pie-base { margin-top: clamp(48px, 6vw, 80px); padding-top: 22px; border-top: 1px solid rgba(245, 239, 227, 0.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 12.5px; color: rgba(245, 239, 227, 0.55); }
+footer.pie-v .pie-sello { margin-top: 26px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 800; font-size: 64px; line-height: .8; letter-spacing: -0.03em; color: #1A1810; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.10), -1px -1px 0 rgba(0, 0, 0, 0.6); font-variation-settings: "opsz" 144, "SOFT" 100; }
+footer.pie-v .pie-sello small { display: block; margin-top: 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-style: normal; font-weight: 400; font-size: 10px; letter-spacing: .3em; color: rgba(245, 239, 227, 0.35); text-shadow: none; }
+@media (max-width: 1100px) { footer.pie-v .pie-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { footer.pie-v .pie-grid { grid-template-columns: minmax(0, 1fr); } }
 </style>
 <link rel="stylesheet" href="mobile-menu.css">
 </head>
@@ -1141,40 +1206,38 @@ footer {
 <!-- ============ NAV ============ -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-mark">IV Foro</span>
-      <span class="brand-rule"></span>
-      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
-    </a>
+    <a href="index.html" class="brand"><span class="brand-mark">V Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span></a>
     <ul class="nav-links">
       <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
       <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
       <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
-      <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="trayectoria.html" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
-      <li><a href="index.html#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
-      <li><a href="index.html#comite" data-i18n="nav_link_comite">Comité</a></li>
+      <li><a href="ponentes.html" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="comite.html" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
-    <div class="nav-cta">
-      <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
-      <div class="lang">
-        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
-      </div>
-    </div>
+    <div class="nav-cta"><div class="lang"><span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span></div><a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a></div>
   </div>
 </nav>
 
 <!-- ============ RIBBON ============ -->
 <header class="ribbon">
-  <div class="ribbon-eyebrow" data-i18n="ins_ribbon_eyebrow">Inscripción · Cuarta edición</div>
-  <h1 data-i18n-html="ins_ribbon_title_html">Reserva tu <em>asiento</em><br>en la conversación.</h1>
+  <div class="notice-banner cierre" role="status">
+    <span class="notice-banner-mark" data-i18n="ins_cierre_mark">IV edición</span>
+    <div class="notice-banner-body">
+      <span class="notice-banner-title" data-i18n="ins_cierre_title">La inscripción a la IV edición concluyó el 22 de septiembre de 2026.</span>
+      <span class="notice-banner-detail" data-i18n-html="ins_cierre_detail_html">Gracias a quienes se registraron. Si no recibiste tu constancia, escribe a <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.</span>
+    </div>
+  </div>
+  <div class="ribbon-eyebrow" data-i18n="ins_ribbon_eyebrow">Inscripción · IV edición concluida</div>
+  <h1 data-i18n-html="ins_ribbon_title_html">La conversación <em>continúa</em><br>en 2027.</h1>
   <p class="ribbon-lead" data-i18n-html="ins_ribbon_lead_html">
-    El acceso al Foro es <strong>gratuito</strong>. Tu inscripción genera un código QR único que sirve como credencial digital. Quienes acumulen <strong>20 horas efectivas</strong> de participación reciben constancia con valor curricular emitida por la Universidad de Guadalajara.
+    El acceso al IV Foro fue <strong>gratuito</strong>. Cada inscripción generó un código QR único como credencial digital. El programa sumó <strong>18 horas</strong> de actividad académica y las constancias se emitieron según la modalidad de registro.
   </p>
   <div class="ribbon-meta">
     <div class="meta-item">
       <span class="meta-label" data-i18n="ins_meta_dates_label">Fechas</span>
-      <span class="meta-value" data-i18n="ins_meta_dates_value">21 y 22 sep · 2026</span>
+      <span class="meta-value" data-i18n="ins_meta_dates_value">18, 21 y 22 sep · 2026</span>
     </div>
     <div class="meta-item">
       <span class="meta-label" data-i18n="ins_meta_venue_label">Sedes</span>
@@ -1192,19 +1255,19 @@ footer {
 </header>
 
 <!-- ============ TABS ============ -->
-<div class="tabs-wrap">
+<div class="tabs-wrap" hidden>
   <div class="tabs" role="tablist">
-    <button class="tab active" data-target="asistente" role="tab" aria-selected="true">
+    <button class="tab" data-target="asistente" role="tab" aria-selected="false" hidden>
       <span class="tab-num">01</span>
       <span class="tab-title" data-i18n="ins_tab1_title">Asistir al Foro</span>
       <span class="tab-sub" data-i18n="ins_tab1_sub">Público general · QR + constancia</span>
     </button>
-    <button class="tab" data-target="cfp" role="tab" aria-selected="false">
+    <button class="tab" data-target="cfp" role="tab" aria-selected="false" hidden>
       <span class="tab-num">02</span>
       <span class="tab-title" data-i18n="ins_tab2_title">Call for Papers</span>
       <span class="tab-sub" data-i18n="ins_tab2_sub">Convocatoria cerrada · libro colectivo</span>
     </button>
-    <button class="tab" data-target="newsletter" role="tab" aria-selected="false">
+    <button class="tab active" data-target="newsletter" role="tab" aria-selected="true">
       <span class="tab-num">03</span>
       <span class="tab-title" data-i18n="ins_tab3_title">Solo actualizaciones</span>
       <span class="tab-sub" data-i18n="ins_tab3_sub">Sin compromiso · low-friction</span>
@@ -1216,12 +1279,12 @@ footer {
 <main class="panels">
 
   <!-- ===== PANEL 1 · ASISTENTE ===== -->
-  <section class="panel active" id="panel-asistente" role="tabpanel">
+  <section class="panel" id="panel-asistente" role="tabpanel" hidden>
 
     <!-- Pre-form -->
     <div id="asistente-form-wrap">
 
-    <aside class="reenvio" id="reenviar-qr" aria-labelledby="reenvio-title">
+    <aside class="reenvio" id="reenviar-qr" aria-labelledby="reenvio-title" hidden>
       <p class="reenvio-eyebrow">¿Ya te inscribiste?</p>
       <h3 id="reenvio-title">¿No recibiste tu <em>código QR</em>?</h3>
       <p>Escribe el correo con el que te inscribiste y te lo reenviamos al instante. Revisa también las carpetas de spam o promociones. Si llegas a la sede sin él, en la mesa de registro te localizamos por nombre.</p>
@@ -1455,7 +1518,7 @@ footer {
             <div class="checkbox-row">
               <input type="checkbox" id="legal-news" name="acepto_news">
               <label for="legal-news" data-i18n-html="ins_legal_news_html">
-                <span class="opt">(Opcional)</span> Quiero recibir comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología».
+                <span class="opt">(Opcional)</span> Quiero recibir comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología».
               </label>
             </div>
           </div>
@@ -1499,7 +1562,7 @@ footer {
       </div>
 
       <div class="success-actions">
-        <a href="programa.html" class="btn-primary"><span data-i18n="ins_success_btn_programa">Ver el programa</span></a>
+        <a href="programa-iv.html" class="btn-primary"><span data-i18n="ins_success_btn_programa">Ver el programa</span></a>
         <button type="button" class="btn-ghost" onclick="resetForm()" data-i18n="ins_success_btn_otra">Inscribir otra persona</button>
       </div>
     </div>
@@ -1507,7 +1570,7 @@ footer {
   </section>
 
   <!-- ===== PANEL 2 · CFP ===== -->
-  <section class="panel" id="panel-cfp" role="tabpanel">
+  <section class="panel" id="panel-cfp" role="tabpanel" hidden>
     <div class="panel-intro">
       <div class="panel-eyebrow" data-i18n="ins_panel2_eyebrow">Convocatoria · Call for Papers cerrado</div>
       <h2 data-i18n-html="ins_panel2_title_html">La convocatoria <em>cerró</em>.</h2>
@@ -1523,7 +1586,7 @@ footer {
         <p data-i18n-html="ins_cfp_idiomas_html"><strong>Idiomas aceptados.</strong> Español, inglés y francés.</p>
         <p data-i18n-html="ins_cfp_award_html"><strong>Best Paper Award.</strong> El paper mejor evaluado recibe distinción especial y publicación destacada.</p>
         <div class="cfp-actions">
-          <a href="cfp.html" class="btn-primary"><span data-i18n="ins_cfp_btn_bases">Ver las bases</span></a>
+          <a href="cfp-iv.html" class="btn-primary"><span data-i18n="ins_cfp_btn_bases">Ver las bases</span></a>
           <a href="jornada-virtual.html" class="btn-ghost" data-i18n="ins_cfp_btn_jornada">Conocer la jornada virtual</a>
         </div>
       </div>
@@ -1555,12 +1618,12 @@ footer {
   </section>
 
   <!-- ===== PANEL 3 · NEWSLETTER ===== -->
-  <section class="panel" id="panel-newsletter" role="tabpanel">
+  <section class="panel active panel--solo" id="panel-newsletter" role="tabpanel">
     <div class="panel-intro">
-      <div class="panel-eyebrow" data-i18n="ins_panel3_eyebrow">Solo actualizaciones</div>
-      <h2 data-i18n-html="ins_panel3_title_html">Quédate al <em>tanto</em>.</h2>
+      <div class="panel-eyebrow" data-i18n="ins_panel3_eyebrow">V edición · 2027</div>
+      <h2 data-i18n-html="ins_panel3_title_html">Recibe el anuncio de la <em>V edición</em>.</h2>
       <p data-i18n="ins_panel3_intro">
-        Si aún no decides si asistirás pero quieres recibir el programa final, anuncios de ponentes y materiales pos-evento, deja tu correo. Sin compromiso, sin spam, una comunicación por mes máximo.
+        Deja tu correo y te avisaremos cuando se anuncien la fecha y el programa de la V edición del Foro (2027). Sin compromiso y sin spam: una comunicación por mes, como máximo.
       </p>
     </div>
 
@@ -1584,15 +1647,52 @@ footer {
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer>
-  <div class="footer-inner">
-    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
-    <span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>
-    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
+<footer class="pie-v" id="contacto">
+  <div class="pie-wrap">
+    <div class="pie-grid">
+      <div>
+        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-lema" data-i18n="pie_lema">Innovación jurídica en la era digital</p>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_contacto">Contacto</h2>
+        <ul>
+          <li><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></li>
+          <li><a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61580204966427" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_memorias">Memorias</h2>
+        <ul>
+          <li><a href="memoria-i.html" data-i18n="pie_m1">I edición · 2023</a></li>
+          <li><a href="memoria-ii.html" data-i18n="pie_m2">II edición · 2024</a></li>
+          <li><a href="memoria-iii.html" data-i18n="pie_m3">III edición · 2025</a></li>
+          <li><a href="memoria-iv.html" data-i18n="pie_m4">IV edición · 2026</a></li>
+          <li><a href="en-vivo.html" data-i18n="pie_videos">Memoria en video de la IV</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_organiza">Organiza</h2>
+        <ul>
+          <li data-i18n="pie_ca">Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»</li>
+          <li>Universidad de Guadalajara</li>
+        </ul>
+        <div class="pie-sello" aria-hidden="true">V<small>MMXXVII</small></div>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
+      <span data-i18n="pie_desde">Desde 2023 · Guadalajara, Jalisco, México</span>
+    </div>
   </div>
 </footer>
 
 <!-- ============ i18n (cargado al final, ejecuta en DOMContentLoaded) ============ -->
+<script>
+/* nav V: sombra al desplazarse (como en index.html) */
+(function () { var n = document.querySelector('.nav'); if (!n) return; function f() { n.classList.toggle('scrolled', window.scrollY > 24); } window.addEventListener('scroll', f, { passive: true }); f(); })();
+</script>
 <script src="i18n.js" defer></script>
 <script src="mobile-menu.js" defer></script>
 
@@ -1617,7 +1717,7 @@ footer {
       <p><strong>Finalidades secundarias</strong> (requieren consentimiento expreso vía checkbox).</p>
       <ul>
         <li>Envío de información sobre futuras ediciones del Foro.</li>
-        <li>Comunicación sobre actividades del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología».</li>
+        <li>Comunicación sobre actividades del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología».</li>
       </ul>
 
       <p><strong>Datos sensibles.</strong> No se recaban datos personales sensibles en los términos de la LFPDPPP.</p>
@@ -1681,7 +1781,9 @@ function activateTabFromHash() {
   const hash = (window.location.hash || '').replace('#', '').trim();
   if (!hash) return;
   const targetTab = document.querySelector('.tab[data-target="' + hash + '"]');
-  if (targetTab) {
+  // 2026-09-24: las pestañas de asistente y ponente están ocultas (la IV concluyó); un enlace viejo
+  // a #asistente o #cfp no debe dejar la página sin panel visible.
+  if (targetTab && !targetTab.hidden) {
     targetTab.click();
     // Pequeño scroll para asegurar que el panel quede visible bajo el nav fijo
     setTimeout(() => {
@@ -1958,6 +2060,15 @@ document.getElementById('form-reenvio').addEventListener('submit', async (e) => 
 });
 
 /* ============ NEWSLETTER ============ */
+var NL_TXT = {
+  es: { enviando: 'Enviando…', ok: '✓ Suscrito', ya: 'Ya estabas suscrito', error: 'Error · reintenta' },
+  en: { enviando: 'Sending…', ok: '✓ Subscribed', ya: 'Already subscribed', error: 'Error · try again' },
+  fr: { enviando: 'Envoi…', ok: '✓ Inscrit', ya: 'Déjà inscrit', error: 'Erreur · réessayez' }
+};
+function nlTxt(k) {
+  var l = (window.foroI18n && window.foroI18n.getLang && window.foroI18n.getLang()) || document.documentElement.lang || 'es';
+  return (NL_TXT[l] || NL_TXT.es)[k];
+}
 document.getElementById('form-newsletter').addEventListener('submit', async (e) => {
   e.preventDefault();
   const correoEl = document.getElementById('nl-correo');
@@ -1974,25 +2085,25 @@ document.getElementById('form-newsletter').addEventListener('submit', async (e) 
   const btnSpan = btn.querySelector('span');
   const labelOrig = btnSpan.textContent;
   btn.disabled = true;
-  btnSpan.textContent = 'Enviando…';
+  btnSpan.textContent = nlTxt('enviando');
 
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'newsletter', correo: correo, origen: 'web_inscripcion' }),
+      body: JSON.stringify({ action: 'newsletter', correo: correo, origen: 'web_v2027' }),
       redirect: 'follow'
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (!data.ok) throw new Error(data.error || 'Respuesta inesperada');
 
-    btnSpan.textContent = data.ya_suscrito ? 'Ya estabas suscrito' : '✓ Suscrito';
+    btnSpan.textContent = nlTxt(data.ya_suscrito ? 'ya' : 'ok');
     correoEl.value = '';
     setTimeout(() => { btnSpan.textContent = labelOrig; btn.disabled = false; }, 3500);
   } catch (err) {
     console.error('Newsletter fallido:', err);
-    btnSpan.textContent = 'Error · reintenta';
+    btnSpan.textContent = nlTxt('error');
     setTimeout(() => { btnSpan.textContent = labelOrig; btn.disabled = false; }, 2500);
   }
 });

@@ -134,7 +134,7 @@
               "modera": {
                 "nombre": "Mtro. Iván Said González López",
                 "slug": "said",
-                "afil": "Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»"
+                "afil": "Colaborador del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»"
               },
               "ponentes": [
                 {
@@ -418,7 +418,7 @@
                 1
               ],
               "modera": {
-                "nombre": "Mtro. Marco Romero Güemez",
+                "nombre": "Mtro. Marco Antonio Romero Güémez",
                 "slug": "romero_guemez",
                 "afil": "Jefe de División · CU Tlajomulco, UdeG"
               },
@@ -868,7 +868,7 @@
               "modera": {
                 "nombre": "Dr. Jorge Antonio Leos Navarro",
                 "slug": "leos",
-                "afil": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»"
+                "afil": "Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»"
               },
               "ponentes": [
                 {
@@ -1188,7 +1188,7 @@
     "jimenez": "México",
     "juarez_tello": "México",
     "lamas_meza": "México",
-    "lancharro": "España",
+    "lancharro": "Italia",
     "leon_carvajal": "Ecuador",
     "lopez_jimenez": "España",
     "lozano_martinez": "México",
@@ -1233,7 +1233,7 @@
     "meta_desc": "Programa definitivo del IV Foro Internacional de Derecho y Tecnología: jornada virtual internacional el 18 de septiembre y dos días presenciales, 21 y 22 de septiembre de 2026, en CUCEA, CUGDL, Cineteca FICG y Ciudad Judicial. Horarios, mesas y ponentes.",
     "eyebrow": "Programa definitivo · IV edición",
     "h1_html": "El programa <em>definitivo</em>, hora por hora.",
-    "lead_html": "Dos días presenciales, el <b>lunes 21 y el martes 22 de septiembre</b>, repartidos entre CUCEA, CUGDL, la Cineteca FICG y Ciudad Judicial, y una jornada virtual internacional el <b>viernes 18</b>. Cada sesión se puede guardar en tu agenda, añadir a tu calendario y ver en tu hora local.",
+    "lead_html": "El programa de la IV edición, tal como se celebró: dos días presenciales, el <b>lunes 21 y el martes 22 de septiembre</b>, repartidos entre CUCEA, CUGDL, la Cineteca FICG y Ciudad Judicial, y una jornada virtual internacional el <b>viernes 18</b>. Cada nombre abre la semblanza de su ponente.",
     "version_label": "Versión del 10 de septiembre de 2026",
     "cif_dias": "días",
     "cif_sedes": "sedes presenciales",
@@ -1253,7 +1253,7 @@
     "now_manana": "La jornada virtual es mañana",
     "now_manana_p": "Las jornadas presenciales empiezan mañana",
     "now_concluyo": "La IV edición ha concluido",
-    "now_concluyo_sub": "Consulta las memorias de la edición",
+    "now_concluyo_sub": "Consulta la memoria de la edición",
     "now_hasta": "hasta las {h}",
     "now_desde": "desde las {h}",
     "now_en": "en {sede}",
@@ -1303,15 +1303,15 @@
     "cta_jornada": "Conocer la jornada virtual",
     "cta_ejes": "Ver los nueve ejes",
     "cta_volver": "Volver al sitio",
-    "pie_organiza": "Organiza el Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
-    "pie_hibrido": "Transmisión híbrida conforme al programa definitivo · #ForoDyT",
+    "pie_organiza": "Organiza el Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+    "pie_hibrido": "Memoria en video de las sesiones transmitidas · #ForoDyT",
     "jv_est_eyebrow": "El programa de la jornada",
     "jv_est_t_html": "Así se ordena <em>el 18 de septiembre</em>.",
     "jv_est_lead": "Cuatro mesas virtuales con los trabajos aceptados en la convocatoria, doce minutos por exposición. Los horarios se muestran en hora de España y de Guadalajara; activa tu hora local para verlos en tu zona.",
     "jv_est_link": "Ver el programa completo del Foro →",
     "og_title": "Programa definitivo · IV Foro Internacional de Derecho y Tecnología",
     "og_desc": "18 de septiembre en línea · 21 y 22 de septiembre en CUCEA, CUGDL, Cineteca FICG y Ciudad Judicial. Horarios, mesas y ponentes de la IV edición.",
-    "banda_t_html": "La conversación empieza <em>el 18</em> y sigue el 21 y 22.",
+    "banda_t_html": "La conversación empezó <em>el 18</em> y siguió el 21 y 22.",
     "sem_eyebrow": "Ponente · IV edición",
     "sem_modera_eyebrow": "Modera · IV edición",
     "sem_presenta": "Presenta en el Foro",
@@ -1324,6 +1324,10 @@
     "guion_print": "Imprimir guion",
     "sem_sesion": "Sesión",
     "lugar_label": "Lugar",
-    "como_llegar": "Cómo llegar"
+    "como_llegar": "Cómo llegar",
+    "video_cta": "Ver el video de esta sede",
+    "cta_videos": "Ver los videos",
+    "cinta_iv": "Estás en la memoria de la IV edición (2026)",
+    "cinta_iv_ir": "Ir a la V edición"
   }
 }

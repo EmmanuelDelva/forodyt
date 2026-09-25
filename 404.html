@@ -6,78 +6,164 @@
 <title>Página no encontrada · Foro Internacional de Derecho y Tecnología</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/mobile-menu.css">
 <style>
-  :root {
-    --ink: #0E1B2C;
-    --ink-soft: rgba(14, 27, 44, 0.72);
-    --teal: #2A5C5C;
-    --dorado: #B8923E;
-    --marfil: #F5EFE0;
-    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-    --sans: 'Inter', system-ui, sans-serif;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--marfil);
-    color: var(--ink);
-    font-family: var(--sans);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-  main { max-width: 560px; text-align: center; }
-  .code {
-    font-family: var(--serif);
-    font-size: clamp(96px, 22vw, 160px);
-    line-height: 1;
-    color: var(--teal);
-    letter-spacing: 0.02em;
-  }
-  .rule {
-    width: 64px; height: 2px;
-    background: var(--dorado);
-    margin: 28px auto;
-  }
-  h1 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(22px, 4.5vw, 30px);
-    margin-bottom: 14px;
-  }
-  p { color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
-  .alt { margin-top: 10px; font-size: 13px; color: rgba(14,27,44,.5); }
-  nav { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-  nav a {
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--ink);
-    border: 1px solid rgba(14, 27, 44, 0.25);
-    border-radius: 999px;
-    padding: 10px 22px;
-    transition: all .25s ease;
-  }
-  nav a:hover, nav a:focus-visible { background: var(--ink); color: var(--marfil); }
-  nav a.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
-  nav a.primary:hover, nav a.primary:focus-visible { background: var(--ink); border-color: var(--ink); }
+/* 404 · «golpe seco»: la dirección no existe, así que el número queda
+   impreso sin tinta. La luz del relieve sigue al cursor. Rutas absolutas:
+   esta página se sirve en cualquier URL. */
+:root {
+  --tinta: #1A1810; --tinta-3: #5A5446; --tinta-4: #6B6455;
+  --cobre: #B85C3D; --cobre-2: #8C3F26; --cobre-claro: #D9A48C;
+  --arena: #F5EFE3; --arena-2: #EAE0D0;
+  --linea: rgba(26, 24, 16, 0.16); --linea-2: rgba(26, 24, 16, 0.08);
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --lx: -1; --ly: -1;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
+  background-color: var(--arena);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0 0.14  0 0 0 0.055 0'/></filter><rect width='240' height='240' filter='url(%23f)'/></svg>");
+  color: var(--tinta); font-family: var(--sans); font-size: 16px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--cobre-2); outline-offset: 3px; }
+
+main { flex: 1; display: grid; place-items: center; padding: 120px clamp(20px, 4vw, 56px) 72px; }
+.e404 { max-width: 640px; text-align: center; display: grid; justify-items: center; gap: 18px; }
+.cifra {
+  font-family: var(--serif); font-style: italic; font-weight: 800;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-size: clamp(120px, 30vw, 260px); line-height: .82; letter-spacing: -0.04em;
+  color: var(--arena); user-select: none;
+  text-shadow:
+    calc(var(--lx) * -2px) calc(var(--ly) * -2px) 1px rgba(255, 255, 255, 0.95),
+    calc(var(--lx) * 1.4px) calc(var(--ly) * 1.4px) 1px rgba(92, 64, 36, 0.34),
+    calc(var(--lx) * 2.6px) calc(var(--ly) * 2.6px) 4px rgba(92, 64, 36, 0.12);
+}
+.regla { width: 64px; height: 1px; background: var(--cobre); margin: 6px 0; }
+h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 3.4vw, 34px); line-height: 1.12; font-variation-settings: "opsz" 96, "SOFT" 50; letter-spacing: -0.01em; text-wrap: balance; }
+.lead { color: var(--tinta-3); font-size: 15.5px; max-width: 520px; text-wrap: pretty; }
+.alt { font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-4); }
+.caminos { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 18px; }
+.caminos a { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border: 1px solid var(--linea); font-size: 13px; font-weight: 500; letter-spacing: .05em; text-decoration: none; color: var(--tinta); transition: border-color .4s var(--ease), background .4s var(--ease); }
+.caminos a:hover { border-color: var(--cobre); background: rgba(184, 92, 61, 0.06); }
+.caminos .principal a { position: relative; overflow: hidden; background: var(--tinta); color: var(--arena); border-color: var(--tinta); }
+.caminos .principal a::before { content: ""; position: absolute; inset: 0; background: var(--cobre); transform: translateX(-101%); transition: transform .5s var(--ease); }
+.caminos .principal a:hover::before, .caminos .principal a:focus-visible::before { transform: none; }
+.caminos .principal a > * { position: relative; }
+.contacto { margin-top: 10px; font-size: 13.5px; color: var(--tinta-3); }
+.contacto a { color: var(--cobre-2); }
+@media (prefers-contrast: more), (forced-colors: active) { .cifra { color: var(--tinta-3); text-shadow: none; } }
+@media (prefers-reduced-motion: no-preference) { .cifra { transition: text-shadow .25s linear; } }
+
+/* ═══════════ NAV V + PIE V · comunes del sitio (de index.html, 2026-09-25) ═══════════ */
+.nav {
+  --v-tinta: #1A1810; --v-tinta-3: #5A5446; --v-tinta-4: #6B6455; --v-cobre: #B85C3D; --v-cobre-2: #8C3F26; --v-arena: #F5EFE3;
+  --v-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245, 239, 227, 0.86);
+  backdrop-filter: blur(10px) saturate(1.1); -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid rgba(26, 24, 16, 0.08);
+}
+.nav .nav-inner { max-width: 1380px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--v-tinta); }
+.nav .brand-mark { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-size: 21px; font-weight: 600; font-style: italic; font-variation-settings: "opsz" 40, "SOFT" 100; letter-spacing: -0.01em; white-space: nowrap; }
+.nav .brand-rule { display: block; width: 30px; height: 1px; background: var(--v-cobre); }
+.nav .brand-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--v-tinta-3); white-space: nowrap; }
+.nav .nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); }
+.nav .nav-links a { font-size: 13.5px; letter-spacing: .02em; text-decoration: none; color: var(--v-tinta-3); position: relative; padding: 4px 0; white-space: nowrap; transition: color .3s var(--v-ease); }
+.nav .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--v-cobre); transition: width .45s var(--v-ease); }
+.nav .nav-links a:hover { color: var(--v-tinta); }
+.nav .nav-links a:hover::after { width: 100%; }
+.nav .nav-cta { display: flex; align-items: center; gap: 18px; }
+.nav .lang { display: flex; align-items: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; color: var(--v-tinta-4); user-select: none; }
+.nav .lang [data-lang] { cursor: pointer; padding: 4px 3px; transition: color .3s var(--v-ease); }
+.nav .lang [data-lang]:hover { color: var(--v-tinta); }
+.nav .lang [data-lang].active { color: var(--v-cobre-2); font-weight: 500; }
+.nav .nav-cta > .btn-primary { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; background: var(--v-tinta); color: var(--v-arena); padding: 13px 28px; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-decoration: none; white-space: nowrap; }
+.nav .nav-cta > .btn-primary::before { content: ""; position: absolute; inset: 0; background: var(--v-cobre); transform: translateX(-101%); transition: transform .5s var(--v-ease); }
+.nav .nav-cta > .btn-primary:hover::before, .nav .nav-cta > .btn-primary:focus-visible::before { transform: translateX(0); }
+.nav .nav-cta > .btn-primary > * { position: relative; z-index: 1; }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav .nav-links { gap: 16px; } .nav .nav-links a { font-size: 13px; } .nav .nav-cta { gap: 12px; } .nav .nav-cta > .btn-primary { padding: 12px 18px; } }
+@media (max-width: 1024px) { .nav .nav-links { display: none; } }
+
+footer.pie-v { background: #1A1810; color: rgba(245, 239, 227, 0.78); padding: 48px 0 32px; }
+footer.pie-v .pie-wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 14px 28px; font-size: 13px; }
+footer.pie-v .pie-marca { font-family: var(--serif); font-size: 22px; color: var(--arena); line-height: 1.15; font-variation-settings: "opsz" 96, "SOFT" 60; }
+footer.pie-v .pie-marca em { color: var(--cobre-claro); }
+footer.pie-v a { color: rgba(245, 239, 227, 0.85); text-decoration: none; border-bottom: 1px solid rgba(245, 239, 227, 0.25); }
+footer.pie-v a:hover { color: var(--arena); border-color: var(--cobre-claro); }
+footer.pie-v a:focus-visible { outline-color: var(--cobre-claro); }
+footer.pie-v .pie-base { color: rgba(245, 239, 227, 0.55); }
 </style>
 </head>
 <body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/index.html" class="brand"><span class="brand-mark">V Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span></a>
+    <ul class="nav-links">
+      <li><a href="/memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="/cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
+      <li><a href="/programa.html" data-i18n="nav_link_programa">Programa</a></li>
+      <li><a href="/trayectoria.html" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="/ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
+      <li><a href="/ponentes.html" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="/comite.html" data-i18n="nav_link_comite">Comité</a></li>
+    </ul>
+    <div class="nav-cta"><div class="lang"><span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span></div><a href="/index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a></div>
+  </div>
+</nav>
+
 <main>
-  <div class="code">404</div>
-  <div class="rule" aria-hidden="true"></div>
-  <h1>Esta página no existe o cambió de lugar.</h1>
-  <p>El contenido que buscas no está en esta dirección. Te dejamos los caminos de regreso al IV&nbsp;Foro Internacional de Derecho y Tecnología.</p>
-  <p class="alt">Page not found · Page introuvable</p>
-  <nav aria-label="Enlaces principales">
-    <a class="primary" href="/">Inicio</a>
-    <a href="/cfp.html">Convocatoria</a>
-    <a href="/programa.html">Programa</a>
-    <a href="/inscripcion.html">Inscripción</a>
-  </nav>
+  <div class="e404">
+    <p class="cifra" id="cifra" aria-hidden="true">404</p>
+    <div class="regla" aria-hidden="true"></div>
+    <h1 data-i18n="e404_title">Esta página no existe o cambió de lugar.</h1>
+    <p class="lead" data-i18n="e404_lead">El contenido que buscas no está en esta dirección. Estos son los caminos de regreso al Foro Internacional de Derecho y Tecnología.</p>
+    <p class="alt"><span lang="en">Page not found</span> · <span lang="fr">Page introuvable</span></p>
+    <ul class="caminos">
+      <li class="principal"><a href="/index.html"><span data-i18n="e404_inicio">V edición · 2027</span> <span aria-hidden="true">→</span></a></li>
+      <li><a href="/memorias.html"><span data-i18n="e404_memorias">Memorias</span></a></li>
+      <li><a href="/memoria-iv.html"><span data-i18n="e404_iv">Memoria de la IV edición</span></a></li>
+      <li><a href="/en-vivo.html"><span data-i18n="e404_videos">Videos de la IV</span></a></li>
+    </ul>
+    <p class="contacto"><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></p>
+  </div>
 </main>
+
+<footer class="pie-v">
+  <div class="pie-wrap">
+    <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+    <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>
+    <span class="pie-base" data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
+  </div>
+</footer>
+
+<script>
+/* La luz del golpe seco sigue al cursor (solo puntero fino y sin movimiento reducido). */
+(function () {
+  var c = document.getElementById('cifra');
+  if (!c || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.matchMedia('(pointer: fine)').matches) return;
+  var raf = 0, lx = -1, ly = -1;
+  window.addEventListener('pointermove', function (ev) {
+    var r = c.getBoundingClientRect();
+    lx = Math.max(-1.2, Math.min(1.2, (ev.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.4)));
+    ly = Math.max(-1.2, Math.min(1.2, (ev.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.4)));
+    if (!raf) raf = requestAnimationFrame(function () { raf = 0; c.style.setProperty('--lx', lx.toFixed(3)); c.style.setProperty('--ly', ly.toFixed(3)); });
+  }, { passive: true });
+})();
+</script>
+<script src="/i18n.js" defer></script>
+<script src="/mobile-menu.js" defer></script>
 </body>
 </html>

@@ -176,6 +176,9 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 .nav-links a:hover { color: #094651; }
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 1024px) { .nav-links { display: none; } }
+/* NAV V (2026-09-24): marca y enlaces sin saltos de línea; el subtítulo cede el espacio en pantallas medianas */
+.nav .brand-mark, .nav .nav-links a, .nav .nav-back { white-space: nowrap; }
+@media (max-width: 1360px) { .nav .brand-sub { display: none; } }
 
 /* === Memoria III v2.0 complementario === */
 /*
@@ -197,7 +200,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   text-align: center;
 }
 
-/* Tarjeta destacada (Doria Arrieta, Espinoza Licón clausura) */
+/* Tarjeta destacada (Doria Arrieta, Espinosa Licón clausura) */
 .avatar-card.highlight {
   position: relative;
 }
@@ -452,6 +455,68 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   .cta-buttons { flex-direction: column; align-items: stretch; }
 }
 
+
+/* ═══════════ NAV V + PIE V · comunes del sitio (de index.html, 2026-09-25) ═══════════
+   Van al final para imponerse a los estilos propios de esta página. */
+.nav {
+  --v-tinta: #1A1810; --v-tinta-3: #5A5446; --v-tinta-4: #6B6455; --v-cobre: #B85C3D; --v-cobre-2: #8C3F26; --v-arena: #F5EFE3;
+  --v-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245, 239, 227, 0.86);
+  backdrop-filter: blur(10px) saturate(1.1); -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid rgba(26, 24, 16, 0.08);
+  transition: box-shadow .5s var(--v-ease), background .5s var(--v-ease);
+}
+.nav.scrolled { box-shadow: 0 10px 30px rgba(26, 24, 16, 0.07); background: rgba(245, 239, 227, 0.94); }
+.nav .nav-inner { max-width: 1380px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: height .5s var(--v-ease); }
+.nav.scrolled .nav-inner { height: 60px; }
+.nav .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--v-tinta); }
+.nav .brand-mark { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-size: 21px; font-weight: 600; font-style: italic; font-variation-settings: "opsz" 40, "SOFT" 100; letter-spacing: -0.01em; white-space: nowrap; color: var(--v-tinta); }
+.nav .brand-rule { display: block; width: 30px; height: 1px; background: var(--v-cobre); }
+.nav .brand-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: var(--v-tinta-3); white-space: nowrap; }
+.nav .nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); margin: 0; padding: 0; }
+.nav .nav-links a { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 400; font-size: 13.5px; letter-spacing: .02em; text-decoration: none; color: var(--v-tinta-3); position: relative; padding: 4px 0; white-space: nowrap; transition: color .3s var(--v-ease); }
+.nav .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--v-cobre); transition: width .45s var(--v-ease); }
+.nav .nav-links a:hover, .nav .nav-links a[aria-current] { color: var(--v-tinta); }
+.nav .nav-links a:hover::after, .nav .nav-links a[aria-current]::after { width: 100%; }
+.nav .nav-cta { display: flex; align-items: center; gap: 18px; }
+.nav .lang { display: flex; align-items: center; gap: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; color: var(--v-tinta-4); user-select: none; }
+.nav .lang [data-lang] { cursor: pointer; padding: 4px 3px; font-weight: 400; color: var(--v-tinta-4); transition: color .3s var(--v-ease); }
+.nav .lang [data-lang]:hover { color: var(--v-tinta); }
+.nav .lang [data-lang].active { color: var(--v-cobre-2); font-weight: 500; }
+.nav .nav-cta > .btn-primary { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; background: var(--v-tinta); color: var(--v-arena); padding: 13px 28px; border: 0; border-radius: 0; box-shadow: none; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 500; line-height: 1.4; letter-spacing: .06em; text-transform: none; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.nav .nav-cta > .btn-primary::before { content: ""; position: absolute; inset: 0; background: var(--v-cobre); transform: translateX(-101%); transition: transform .5s var(--v-ease); }
+.nav .nav-cta > .btn-primary:hover::before, .nav .nav-cta > .btn-primary:focus-visible::before { transform: translateX(0); }
+.nav .nav-cta > .btn-primary:hover, .nav .nav-cta > .btn-primary:focus-visible { color: var(--v-arena); }
+.nav .nav-cta > .btn-primary > * { position: relative; z-index: 1; }
+.nav a:focus-visible, .nav .lang [data-lang]:focus-visible { outline: 2px solid var(--v-cobre-2); outline-offset: 3px; }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav .nav-links { gap: 16px; } .nav .nav-links a { font-size: 13px; } .nav .nav-cta { gap: 12px; } .nav .nav-cta > .btn-primary { padding: 12px 18px; } }
+@media (max-width: 1024px) { .nav .nav-links { display: none; } }
+
+footer.pie-v { position: relative; z-index: 1; margin: 0; border: 0; background: #1A1810; color: rgba(245, 239, 227, 0.78); padding: clamp(64px, 8vw, 110px) 0 36px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 16px; line-height: 1.65; letter-spacing: normal; text-transform: none; text-align: left; }
+footer.pie-v .pie-wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+footer.pie-v .pie-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(28px, 4vw, 60px); }
+footer.pie-v .pie-marca { margin: 0; font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: #F5EFE3; font-variation-settings: "opsz" 96, "SOFT" 60; }
+footer.pie-v .pie-marca em { font-style: italic; color: #D9A48C; }
+footer.pie-v .pie-lema { margin: 16px 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: rgba(245, 239, 227, 0.55); }
+footer.pie-v .pie-h { margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-style: normal; font-weight: 400; font-size: 10.5px; line-height: 1.4; letter-spacing: .24em; text-transform: uppercase; color: #D9A48C; }
+footer.pie-v ul { list-style: none; display: grid; gap: 8px; margin: 0; padding: 0; font-size: 14.5px; }
+footer.pie-v li { margin: 0; }
+footer.pie-v a { color: rgba(245, 239, 227, 0.82); text-decoration: none; border: 0; transition: color .3s; }
+footer.pie-v a:hover, footer.pie-v a[aria-current] { color: #F5EFE3; }
+footer.pie-v a:focus-visible { outline: 2px solid #D9A48C; outline-offset: 3px; }
+footer.pie-v .pie-base { margin-top: clamp(48px, 6vw, 80px); padding-top: 22px; border-top: 1px solid rgba(245, 239, 227, 0.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 12.5px; color: rgba(245, 239, 227, 0.55); }
+footer.pie-v .pie-sello { margin-top: 26px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 800; font-size: 64px; line-height: .8; letter-spacing: -0.03em; color: #1A1810; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.10), -1px -1px 0 rgba(0, 0, 0, 0.6); font-variation-settings: "opsz" 144, "SOFT" 100; }
+footer.pie-v .pie-sello small { display: block; margin-top: 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-style: normal; font-weight: 400; font-size: 10px; letter-spacing: .3em; color: rgba(245, 239, 227, 0.35); text-shadow: none; }
+@media (max-width: 1100px) { footer.pie-v .pie-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { footer.pie-v .pie-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* «Otras ediciones»: la V, impresa en seco */
+.other-editions-links a.oe-v { color: #8C3F26; border-bottom-color: rgba(184, 92, 61, 0.45); }
+.other-editions-links a.oe-v:hover { color: #B85C3D; border-bottom-color: #B85C3D; }
+.oe-seco { color: var(--marfil, #F5EFE0); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.95), -1px -1px 0 rgba(92, 64, 36, 0.3), 0 0 1px rgba(92, 64, 36, 0.14); }
+@media (prefers-contrast: more), (forced-colors: active) { .oe-seco { color: inherit; text-shadow: none; } }
 </style>
 <link rel="stylesheet" href="mobile-menu.css">
 </head>
@@ -459,26 +524,17 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-mark">IV Foro</span>
-      <span class="brand-rule"></span>
-      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2026</span>
-    </a>
+    <a href="index.html" class="brand"><span class="brand-mark">V Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span></a>
     <ul class="nav-links">
-      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="memorias.html" aria-current="true" data-i18n="nav_link_memorias">Memorias</a></li>
       <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
       <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
-      <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="trayectoria.html" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
-      <li><a href="index.html#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
-      <li><a href="index.html#comite" data-i18n="nav_link_comite">Comité</a></li>
+      <li><a href="ponentes.html" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="comite.html" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
-    <div class="nav-cta">
-      <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
-      <div class="lang">
-        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
-      </div>
-    </div>
+    <div class="nav-cta"><div class="lang"><span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span></div><a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a></div>
   </div>
 </nav>
 
@@ -486,7 +542,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   <div class="ribbon-eyebrow" data-i18n="m3_badge">III Edición · 1–2 Octubre 2025</div>
   <h1 data-i18n-html="m3_title_html">III Foro Internacional<br>de Derecho y <em>Tecnología</em>.</h1>
   <div class="ribbon-subtitle" data-i18n="m3_subtitle">«Vidas Digitales, Leyes Reales: Nuevos Retos para el Derecho»</div>
-  <p class="ribbon-lead" data-i18n-html="m3_lede_html">La <strong>expansión</strong>. Por primera vez el Foro se desbordó del Auditorio Central y ocupó dos sedes simultáneas en CUCEA —<strong>Torre Smart</strong> y <strong>Sala de Gobierno</strong>— para albergar a <strong>33 ponentes de ocho países</strong>. España, Argentina, Perú, Colombia, Cuba, Paraguay y México alineados en la misma agenda: IA en tribunales, hipervigilancia, justicia accesible, salud digital, IA + blockchain + cultura, y la administración de justicia en el metaverso, así como <strong>derechos humanos</strong> y <strong>salud digital y derecho</strong>.</p>
+  <p class="ribbon-lead" data-i18n-html="m3_lede_html">La <strong>expansión</strong>. El Foro ocupó dos sedes simultáneas en el CUCEA —<strong>Torre Smart</strong> y <strong>Sala de Gobierno</strong>— para albergar a <strong>33 ponentes de ocho países</strong>. España, Argentina, Perú, Colombia, Cuba, Paraguay y México alineados en la misma agenda: IA en tribunales, hipervigilancia, justicia accesible, salud digital, IA + blockchain + cultura, y la administración de justicia en el metaverso, así como <strong>derechos humanos</strong> y <strong>salud digital y derecho</strong>.</p>
   <div class="ribbon-meta">
     <div class="meta-item"><span class="meta-label" data-i18n="m3_stat1_k">Fecha</span><span class="meta-value" data-i18n-html="m3_stat1_v_html">1–2 Oct · 2025</span></div>
     <div class="meta-item"><span class="meta-label" data-i18n="m3_stat2_k">Sedes</span><span class="meta-value" data-i18n-html="m3_stat2_v_html">Torre Smart + Sala de Gobierno</span></div>
@@ -499,17 +555,17 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s1_label">I · Reseña · La expansión</div>
+      <div class="section-eyebrow" data-i18n="m3_s1_label">Reseña · La expansión</div>
       <h2 data-i18n-html="m3_s1_title_html">La edición en que el Foro <em>creció</em> hasta necesitar dos espacios de manera simultánea.</h2>
     </div>
     <div class="section-body">
-      <p data-i18n-html="m3_s1_p1_html">El <strong>1 y 2 de octubre de 2025</strong> marcaron el momento en que el Foro dejó de ser un evento contenido en un solo auditorio. Por primera vez ocupó <strong>dos sedes simultáneas en CUCEA</strong> —Torre Smart y Sala de Gobierno— para sostener un programa paralelo de <strong>33 ponentes</strong> repartidos en <strong>8 países</strong>.</p>
+      <p data-i18n-html="m3_s1_p1_html">El <strong>1 y 2 de octubre de 2025</strong> el Foro ocupó <strong>dos sedes simultáneas en el CUCEA</strong> —Torre Smart y Sala de Gobierno— para sostener un programa paralelo de <strong>33 ponentes</strong> repartidos en <strong>8 países</strong>.</p>
 
       <p data-i18n-html="m3_s1_p2_html">La curaduría puso el dedo en tres conversaciones que el derecho mexicano todavía no había sentado a la misma mesa: la <strong>hipervigilancia como falacia de seguridad</strong> (Dra. Velda Gámez · Tec Monterrey), la <strong>administración de justicia en el metaverso vía DAOs</strong> (Angie Daniela Bernal Caballero · Universidad Libre, Colombia) y el <strong>derecho al descanso como derecho humano del personal de salud</strong> (Dra. Indi Nazir Lleneris · Tec Comfenalco) — esta última, el ancla del nuevo eje <em>Salud Digital y Derecho</em> que la IV edición 2026 despliega por completo.</p>
 
-      <p data-i18n-html="m3_s1_p3_html"><strong>Tres hitos institucionales sostienen esta edición.</strong> Primero, el <strong>primer cargo ejecutivo de gobierno extranjero en programa</strong>: el Dr. Javier Doria Arrieta llegó al Foro no solo como académico sino como <strong>Secretario del Interior y Asuntos Gubernamentales del Gobierno de Cartagena</strong>, abriendo el Día 2 con «IA en tribunales: arquitectura, evidencia y debido proceso».</p>
+      <p data-i18n-html="m3_s1_p3_html"><strong>Tres hitos institucionales sostienen esta edición.</strong> Primero, <strong>un cargo ejecutivo de gobierno extranjero abrió el Día 2</strong>: el Dr. Javier Doria Arrieta participó no solo como académico sino como <strong>Secretario del Interior y Asuntos Gubernamentales del Gobierno de Cartagena</strong>, con «IA en tribunales: arquitectura, evidencia y debido proceso».</p>
 
-      <p data-i18n-html="m3_s1_p4_html">Segundo, la <strong>primera mesa interinstitucional de seguridad pública estatal</strong>: la mesa redonda «IA: potenciando seguridad e inseguridad» reunió en una sola conversación al Consejo Estatal de Seguridad Pública de Jalisco, Intrado, El Colegio de Jalisco, KMS Technology y SECIHTI — la primera vez que el Foro articula academia, gobierno estatal y sector privado en un solo formato.</p>
+      <p data-i18n-html="m3_s1_p4_html">Segundo, <strong>una mesa interinstitucional de seguridad pública estatal</strong>: la mesa redonda «IA: potenciando seguridad e inseguridad» reunió en una sola conversación al Consejo Estatal de Seguridad Pública de Jalisco, Intrado, El Colegio de Jalisco, KMS Technology y SECIHTI, y articuló academia, gobierno estatal y sector privado en un solo formato.</p>
 
       <p data-i18n-html="m3_s1_p5_html">Tercero, el <strong>primer cinturón de micro-presentaciones de investigadores tempranos</strong>: el Día 2 estrenó un bloque de <strong>seis papers de 10 minutos</strong> para voces emergentes de Cuba, Colombia y México (Universidad Central «Marta Abreu» de Las Villas, Universidad Libre, Universidad Autónoma del Estado de México, Tec Comfenalco) — formato inédito que se convierte en antecedente directo del <em>track multidisciplinar</em> de la IV edición.</p>
 
@@ -521,7 +577,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section alt">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s2_label">II · Numeralia · III edición</div>
+      <div class="section-eyebrow" data-i18n="m3_s2_label">Numeralia · III edición</div>
       <h2 data-i18n-html="m3_s2_title_html">Los <em>números</em> de la expansión.</h2>
     </div>
     <div class="numeralia-grid">
@@ -538,7 +594,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <section class="section">
   <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s3_label">III · Ejes temáticos</div>
+    <div class="section-eyebrow" data-i18n="m3_s3_label">Ejes temáticos</div>
     <h2 data-i18n-html="m3_s3_title_html">Seis <em>conversaciones</em>, una incorporación clave: salud digital.</h2>
   </div>
   <div class="section-body" style="margin-top: 0;">
@@ -557,7 +613,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section alt">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s4_label">IV · Comité organizador</div>
+      <div class="section-eyebrow" data-i18n="m3_s4_label">Comité organizador</div>
       <h2 data-i18n-html="m3_s4_title_html">El <em>equipo</em> que sostuvo dos espacios simultáneos.</h2>
     </div>
     <div class="avatar-grid">
@@ -572,9 +628,9 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
         <div class="av-name">Dr. Jorge Antonio Leos Navarro</div>
       </figure>
       <figure class="avatar-card">
-        <img loading="lazy" decoding="async" src="img/memorias/iii/avatares-organizadores/Mtro. Cesar Romero Guemez.png" alt="Mtro. César Romero Güémez">
+        <img loading="lazy" decoding="async" src="img/memorias/iii/avatares-organizadores/Mtro. Cesar Romero Guemez.png" alt="Mtro. César Romero Güemez">
         <div class="av-role" data-i18n="m3_org3_role">Secretaría Técnica</div>
-        <div class="av-name">Mtro. César Romero Güémez</div>
+        <div class="av-name">Mtro. César Romero Güemez</div>
       </figure>
       <figure class="avatar-card">
         <img loading="lazy" decoding="async" src="img/memorias/iii/avatares-organizadores/Dr. Alejandro Paul Garcia.png" alt="Dr. Alejandro Paul García Hernández">
@@ -599,7 +655,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s5_label">V · Ponentes internacionales</div>
+      <div class="section-eyebrow" data-i18n="m3_s5_label">Ponentes internacionales</div>
       <h2 data-i18n-html="m3_s5_title_html">Ocho países, una <em>agenda compartida</em>.</h2>
     </div>
     <div class="section-body">
@@ -657,7 +713,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
       <figure class="avatar-card">
         <img loading="lazy" decoding="async" src="img/memorias/iii/avatares-ponentes/Rodrigo Alejandro Gómez Torre.png" alt="Dr. Rodrigo Alejandro Gómez Torre">
         <div class="av-name">Dr. Rodrigo A. Gómez Torre</div>
-        <div class="av-country" data-i18n="m3_int9_c">U. de Mendoza · Argentina</div>
+        <div class="av-country" data-i18n="m3_int9_c">U. Nacional de Cuyo · Argentina</div>
         <div class="av-topic" data-i18n="m3_int9_t">«Propiedad intelectual en la era de la IA»</div>
       </figure>
       <figure class="avatar-card">
@@ -703,7 +759,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section alt">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s6_label">VI · Ponentes nacionales</div>
+      <div class="section-eyebrow" data-i18n="m3_s6_label">Ponentes nacionales</div>
       <h2 data-i18n-html="m3_s6_title_html">México en <em>todas</em> sus geografías.</h2>
     </div>
     <div class="section-body">
@@ -711,8 +767,8 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
     </div>
     <div class="avatar-grid">
       <figure class="avatar-card highlight">
-        <img loading="lazy" decoding="async" src="img/memorias/iii/avatares-ponentes/Daniel Espinosa Licon.png" alt="Dr. Daniel Espinoza Licón">
-        <div class="av-name">Dr. Daniel Espinoza Licón</div>
+        <img loading="lazy" decoding="async" src="img/memorias/iii/avatares-ponentes/Daniel Espinosa Licon.png" alt="Dr. Daniel Espinosa Licón">
+        <div class="av-name">Dr. Daniel Espinosa Licón</div>
         <div class="av-country" data-i18n="m3_nac1_c">STJ Jalisco · CUTonalá</div>
         <div class="av-topic" data-i18n="m3_nac1_t">«Tecnología en la impartición de justicia» · CLAUSURA</div>
       </figure>
@@ -795,7 +851,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s7_label">VII · Mesa redonda interinstitucional</div>
+      <div class="section-eyebrow" data-i18n="m3_s7_label">Mesa redonda interinstitucional</div>
       <h2 data-i18n-html="m3_s7_title_html">«IA: <em>potenciando</em> seguridad e inseguridad».</h2>
     </div>
     <div class="section-body">
@@ -841,8 +897,8 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <section class="section">
   <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s8_label">VIII · Sedes simultáneas</div>
-    <h2 data-i18n-html="m3_s7_title_html">Dos <em>pisos</em>, una conversación.</h2>
+    <div class="section-eyebrow" data-i18n="m3_sedes_label">Sedes simultáneas</div>
+    <h2 data-i18n-html="m3_sedes_title_html">Dos <em>pisos</em>, una conversación.</h2>
   </div>
   <div class="sedes-grid">
     <article class="sede">
@@ -861,7 +917,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section alt">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s9_label">IX · Programa · Highlights</div>
+      <div class="section-eyebrow" data-i18n="m3_prog_label">Programa · Highlights</div>
       <h2 data-i18n-html="m3_s8_title_html">Dos <em>días</em> simultáneos de conversación.</h2>
     </div>
     <div class="programa-mem">
@@ -883,7 +939,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
         <div class="row-mem"><span class="hr">11:10 – 11:40</span><span class="topic" data-i18n-html="m3_d2r3_t"><strong>Protección de datos personales en ecosistemas de IA</strong></span><span class="who" data-i18n="m3_d2r3_w">Milagros K. Olivos Celis · U. del Pacífico · Perú</span></div>
         <div class="row-mem"><span class="hr">11:40 – 12:10</span><span class="topic" data-i18n-html="m3_d2r4_t"><strong>Derecho al descanso como derecho humano en sector salud</strong></span><span class="who" data-i18n="m3_d2r4_w">Dra. Indi Nazir Lleneris · Comfenalco · Colombia</span></div>
         <div class="row-mem"><span class="hr">12:10 – 12:40</span><span class="topic" data-i18n-html="m3_d2r5_t"><strong>La Administración de Justicia en el Metaverso · DAOs y ODR</strong></span><span class="who" data-i18n="m3_d2r5_w">Angie D. Bernal Caballero · Consejo Sup. Judicatura · Colombia</span></div>
-        <div class="row-mem"><span class="hr">13:10 – 13:40</span><span class="topic" data-i18n-html="m3_d2r6_t"><strong>Tecnología en la impartición de justicia · CLAUSURA</strong></span><span class="who" data-i18n="m3_d2r6_w">Dr. Daniel Espinoza Licón · STJ Jalisco</span></div>
+        <div class="row-mem"><span class="hr">13:10 – 13:40</span><span class="topic" data-i18n-html="m3_d2r6_t"><strong>Tecnología en la impartición de justicia · CLAUSURA</strong></span><span class="who" data-i18n="m3_d2r6_w">Dr. Daniel Espinosa Licón · STJ Jalisco</span></div>
         <div class="row-mem"><span class="hr"><span style="color:var(--teal)" data-i18n="m3_d2r7_hr">Paralelo · Sala Gobierno</span></span><span class="topic" data-i18n-html="m3_d2r7_t"><strong>IA en proceso judicial</strong> · <strong>PI en era de IA</strong> · <strong>Marco europeo IA y AL</strong> · <strong>Sucesiones digitales</strong></span><span class="who" data-i18n="m3_d2r7_w">Niebla Zatarain · Gómez Torre · Ayllón Santiago · Figueroa Torres · Múltiples investigadores</span></div>
       </div>
     </div>
@@ -893,7 +949,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="section alt">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s10_label">X · Editorial · El segundo libro de la serie</div>
+      <div class="section-eyebrow" data-i18n="m3_libro_label">Editorial · El segundo libro de la serie</div>
       <h2 data-i18n-html="m3_s9_title_html">Vidas Digitales, Leyes Reales: <em>Nuevos Retos</em> para el Derecho.</h2>
     </div>
     <div class="section-body">
@@ -916,8 +972,8 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <section class="section">
   <div class="section-head">
-    <div class="section-eyebrow" data-i18n="m3_s11_label">XI · Galería</div>
-    <h2 data-i18n-html="m3_s9_title_html">Cómo se <em>vivió</em>.</h2>
+    <div class="section-eyebrow" data-i18n="m3_galeria_label">Galería</div>
+    <h2 data-i18n-html="m3_galeria_title_html">Cómo se <em>vivió</em>.</h2>
   </div>
   <div class="galeria-grid">
     <figure class="tall">
@@ -952,7 +1008,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 <section class="legado-section">
   <div class="section-inner">
     <div class="section-head">
-      <div class="section-eyebrow" data-i18n="m3_s12_label">XII · Legado · III edición</div>
+      <div class="section-eyebrow" data-i18n="m3_legado_label">Legado · III edición</div>
       <h2 data-i18n-html="m3_s11_title_html">Seis piezas que <em>cambiaron</em> con esta edición.</h2>
     </div>
     <div class="section-body">
@@ -962,17 +1018,17 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
       <article class="pillar">
         <h3 data-i18n="m3_p1_h">Operación a dos sedes</h3>
-        <p data-i18n-html="m3_p1_p_html">Por primera vez el Foro corre en <strong>paralelo en Torre Smart y Sala de Gobierno</strong>. Lección operativa: el modelo escala y soporta programa simultáneo.</p>
+        <p data-i18n-html="m3_p1_p_html">El Foro corre en <strong>paralelo en dos sedes simultáneas en el CUCEA: Torre Smart y Sala de Gobierno</strong>. Lección operativa: el modelo escala y soporta programa simultáneo.</p>
       </article>
 
       <article class="pillar">
-        <h3 data-i18n="m3_p2_h">Primera mesa interinstitucional de seguridad pública estatal</h3>
-        <p data-i18n-html="m3_p2_p_html">La mesa redonda <em>«IA: potenciando seguridad e inseguridad»</em> articuló por primera vez <strong>Academia + Gobierno + Empresa + Investigación</strong> en un mismo formato.</p>
+        <h3 data-i18n="m3_p2_h">Mesa interinstitucional de seguridad pública estatal</h3>
+        <p data-i18n-html="m3_p2_p_html">La mesa redonda <em>«IA: potenciando seguridad e inseguridad»</em> articuló <strong>Academia + Gobierno + Empresa + Investigación</strong> en un mismo formato.</p>
       </article>
 
       <article class="pillar">
-        <h3 data-i18n="m3_p3_h">Primer cargo ejecutivo de gobierno extranjero en programa</h3>
-        <p data-i18n-html="m3_p3_p_html">El <strong>Dr. Javier Doria Arrieta</strong> llegó como Secretario del Interior y Asuntos Gubernamentales del Gobierno de Cartagena. Marca un nuevo nivel de perfil institucional internacional para el Foro.</p>
+        <h3 data-i18n="m3_p3_h">Gobierno de Cartagena en la apertura del Día 2</h3>
+        <p data-i18n-html="m3_p3_p_html">El <strong>Dr. Javier Doria Arrieta</strong> participó como Secretario del Interior y Asuntos Gubernamentales del Gobierno de Cartagena. Consolida el perfil institucional internacional del Foro, que ya lo había recibido en la II edición.</p>
       </article>
 
       <article class="pillar">
@@ -998,17 +1054,17 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   <div class="section-inner">
     <div class="section-head">
       <div class="section-eyebrow" data-i18n="m3_cta_label">¿Y ahora?</div>
-      <h2 data-i18n-html="m3_cta_title_html">¿Quieres ser parte de la <em>IV edición</em>?</h2>
+      <h2 data-i18n-html="m3_cta_title_html">De la IV a la <em>V</em> edición</h2>
     </div>
     <div class="section-body">
-      <p data-i18n-html="m3_cta_p1_html">El <strong>IV Foro Internacional de Derecho y Tecnología</strong> se realizará el <strong>21 y 22 de septiembre de 2026</strong> en CUCEA, Zapopan, modalidad híbrida.</p>
+      <p data-i18n-html="m3_cta_p1_html">El <strong>IV Foro Internacional de Derecho y Tecnología</strong> se celebró el <strong>18, 21 y 22 de septiembre de 2026</strong>: una jornada virtual internacional y dos días presenciales en CUCEA, CUGDL, la Cineteca FICG y Ciudad Judicial.</p>
       <p data-i18n-html="m3_cta_p2_html">Tema central: <em>«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</em> — 9 ejes temáticos, dos ejes emergentes (IA agéntica + PI generativa, salud digital + biotecnologías), publicación en libro colectivo Editorial UDG.</p>
-      <p data-i18n-html="m3_cta_p3_html"><strong>La convocatoria se cerró el 15 de agosto de 2026.</strong> El proceso de dictaminación finalizó.</p>
+      <p data-i18n-html="m3_cta_p3_html"><strong>La V edición se celebrará en 2027.</strong> La fecha se anunciará próximamente.</p>
     </div>
     <div class="cta-buttons">
-      <a href="cfp.html" class="cta-btn primary" data-i18n="m3_cta_btn1">Ver las bases →</a>
-      <a href="programa.html" class="cta-btn secondary" data-i18n="m3_cta_btn2">Ver programa IV</a>
-      <a href="index.html#ponentes" class="cta-btn secondary" data-i18n="m3_cta_btn3">Roster IV</a>
+      <a href="memoria-iv.html" class="cta-btn primary" data-i18n="m3_cta_btn1">Ver la memoria de la IV →</a>
+      <a href="programa-iv.html" class="cta-btn secondary" data-i18n="m3_cta_btn2">Ver programa IV</a>
+      <a href="index.html" class="cta-btn secondary" data-i18n="m3_cta_btn3">V edición · 2027</a>
     </div>
   </div>
 </section>
@@ -1019,18 +1075,56 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   <div class="other-editions-links">
     <a href="memoria-i.html">I Foro · 2023</a>
     <a href="memoria-ii.html">II Foro · 2024</a>
-    <a href="index.html#hero" data-i18n="mem_link_iv">IV Foro · 2026</a>
+    <a href="memoria-iv.html" data-i18n="mem_link_iv">IV Foro · 2026</a>
+    <a href="index.html" class="oe-v"><span data-i18n="mem_link_v">V Foro · 2027</span> · <span class="oe-seco" data-i18n="mem_por_anunciar">Por anunciar</span></a>
   </div>
 </div>
 
-<footer>
-  <div class="footer-inner">
-    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
-    <span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>
-    <a href="mailto:emmanueldelva@cucea.udg.mx">emmanueldelva@cucea.udg.mx</a>
+<footer class="pie-v" id="contacto">
+  <div class="pie-wrap">
+    <div class="pie-grid">
+      <div>
+        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-lema" data-i18n="pie_lema">Innovación jurídica en la era digital</p>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_contacto">Contacto</h2>
+        <ul>
+          <li><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></li>
+          <li><a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61580204966427" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_memorias">Memorias</h2>
+        <ul>
+          <li><a href="memoria-i.html" data-i18n="pie_m1">I edición · 2023</a></li>
+          <li><a href="memoria-ii.html" data-i18n="pie_m2">II edición · 2024</a></li>
+          <li><a href="memoria-iii.html" aria-current="page" data-i18n="pie_m3">III edición · 2025</a></li>
+          <li><a href="memoria-iv.html" data-i18n="pie_m4">IV edición · 2026</a></li>
+          <li><a href="en-vivo.html" data-i18n="pie_videos">Memoria en video de la IV</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_organiza">Organiza</h2>
+        <ul>
+          <li data-i18n="pie_ca">Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»</li>
+          <li>Universidad de Guadalajara</li>
+        </ul>
+        <div class="pie-sello" aria-hidden="true">V<small>MMXXVII</small></div>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
+      <span data-i18n="pie_desde">Desde 2023 · Guadalajara, Jalisco, México</span>
+    </div>
   </div>
 </footer>
 
+<script>
+/* nav V: sombra al desplazarse (como en index.html) */
+(function () { var n = document.querySelector('.nav'); if (!n) return; function f() { n.classList.toggle('scrolled', window.scrollY > 24); } window.addEventListener('scroll', f, { passive: true }); f(); })();
+</script>
 <script src="i18n.js" defer></script>
 <script src="mobile-menu.js" defer></script>
 <!-- ============ Analytics (Cloudflare Web Analytics + Vercel Speed Insights) ============ -->

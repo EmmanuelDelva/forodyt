@@ -20,6 +20,16 @@
  *      - DIRECTOR_EMAIL: correo a notificar en alertas críticas (default: SENDER_EMAIL)
  *      - CONSTANCIA_TEMPLATE_ID: Doc ID del template de constancia
  *           (si no está, se autogenera uno default en el Drive del despliegue)
+ *      - BASE_V_SHEET_ID: id del Google Sheet «ForoDyT 2027 — Base de asistentes y avisos», que vive en el Drive
+ *           PERSONAL del director (emmanueldelva@gmail.com, carpeta «2027 — V ForoDyT») y está compartido como
+ *           editor con la cuenta que ejecuta este script. activarBaseV() la encuentra por su nombre y guarda el id
+ *           sola; no hace falta capturarlo a mano.
+ *           Sin esta propiedad la base de la V queda apagada y nada más cambia.
+ *      - BASE_V_HOJA: (opcional) nombre de la pestaña de la base. Sin ella se usa la primera pestaña.
+ *      - BASE_V_EXCLUIR: (opcional) folios o correos de prueba separados por coma que sembrarBaseV() no copia.
+ *           También respeta CIERRE_EXCLUIR (Cierre.gs).
+ *      - BASE_V_INCLUIR_HISTORICO: (opcional, APAGADA por defecto) "TRUE" hace que sembrarBaseV() copie también a
+ *           los inscritos de la IV que NO dieron consentimiento. Ver PRIVACIDAD abajo antes de activarla.
  *   3. Deploy > New deployment > Type: Web app
  *      - Execute as: Me (emmanueldelva@cucea.udg.mx)
  *      - Who has access: Anyone
@@ -42,8 +52,48 @@
  *   - auditoriaPostEvento()    → reporte de fraude detectado
  *   - procesarConstancias()    → cómputo final + emisión de PDFs en lotes
  *   - cerrarPlatica(id)        → cierra ventana de check-in de una plática
- *   - enviarNewsletterMasivo(asunto, htmlBody) → envía correo a toda la lista del newsletter
+ *   - enviarNewsletterMasivo(asunto, htmlBody) → envía correo a toda la lista del newsletter (lista histórica de la IV)
  *   - _testNewsletter()        → envía correo de prueba SOLO al Director
+ *
+ * Base de asistentes de la V (2027) en el Drive personal del director:
+ *   - sembrarBaseV()           → copia a la base los inscritos de la IV CON consentimiento (acepto_news) y la lista
+ *                                Newsletter. Idempotente: volver a correrla no duplica y no pisa los datos corregidos
+ *                                a mano. OJO: una baja hecha a mano SIN la marca [BAJA] en notas (solo desmarcando
+ *                                acepta_comunicaciones) sí la revierte la siguiente siembra: usar bajaBaseV.
+ *   - _reporteBaseV()          → conteos (total, con consentimiento, bajas, por origen). NO envía nada.
+ *   - bajaBaseV('correo')      → baja explícita: acepta_comunicaciones = FALSE y deja la marca [BAJA fecha].
+ *   - _testAvisoBaseV()        → aviso de prueba SOLO al Director, con el formato de la V.
+ *   - enviarAvisoBaseV(asunto, htmlBody) → aviso a la base de la V, SOLO a acepta_comunicaciones = TRUE.
+ *   Cada suscripción de «Avísame» (action 'newsletter', p. ej. index.html#aviso) entra sola a la base, igual que
+ *   cada inscripción nueva (crearInscripcion). EDICION_INSCRIPCION = 'V-2027' cuando abra la inscripción de la V.
+ *   - activarBaseV()           → LO ÚNICO QUE HAY QUE CORRER, UNA VEZ: conecta la hoja (la busca por nombre), siembra
+ *                                y deja el disparador horario sincronizarBaseV(). Después todo es automático.
+ *   - desactivarBaseV()        → quita el disparador horario.
+ *   - _previewAnuncioV() / anunciarV() → «aviso en un clic»: anuncio de fecha y sede de la V con archivo .ics,
+ *                                a partir de las Script Properties V_FECHA_INICIO, V_FECHA_FIN, V_SEDE, V_LEMA.
+ *
+ * PRIVACIDAD — base de la V (LFPDPPP y LGPDPPSO: la UdeG es sujeto obligado):
+ *   Lo que dice el Aviso de privacidad de la inscripción de la IV (inscripcion.html, «Aviso de privacidad
+ *   simplificado»):
+ *     · Responsable: la Universidad de Guadalajara, a través del CUCEA. No es el Cuerpo Académico ni el director.
+ *     · Finalidades secundarias, con consentimiento expreso por casilla: información sobre futuras ediciones del
+ *       Foro y actividades del CA UDEG-CA-1236. Esa casilla es acepto_news («Quiero recibir comunicaciones sobre
+ *       futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236»).
+ *     · Conservación: hasta dos años tras el cierre, EXCLUSIVAMENTE para auditoría académica y emisión de
+ *       duplicados de constancia.
+ *     · Transferencias: ninguna a terceros distintos del comité organizador.
+ *   Por eso:
+ *     · sembrarBaseV() copia SOLO a quien tiene consentimiento: marcó acepto_news, o se suscribió (lista
+ *       Newsletter o «Avísame»). Todos ellos quedan con acepta_comunicaciones = TRUE.
+ *     · A quien NO marcó la casilla no se le copia. Una base de avisos en un Drive personal no es auditoría ni
+ *       duplicado de constancia, así que sus datos se quedan solo en el Sheet institucional.
+ *     · BASE_V_INCLUIR_HISTORICO = TRUE copia también a esas personas, con FALSE y sin avisos, como registro
+ *       histórico. Activarla SOLO después de consultarlo con la Unidad de Transparencia de la UdeG.
+ *     · Los anuncios se envían SOLO a quien tenga acepta_comunicaciones = TRUE.
+ *   Nunca se degrada de TRUE a FALSE salvo baja explícita (bajaBaseV, o [BAJA] escrito a mano en notas). Una baja
+ *   no se revierte sola: ni la siembra ni un formulario público (que cualquiera puede llenar con un correo ajeno)
+ *   la reactivan. El formulario solo deja la nota [PIDE RE-ALTA …] para que el director decida y ponga TRUE a mano.
+ *   La fila de una baja se conserva con el correo y la marca para que nada vuelva a darla de alta.
  */
 
 // ============ CONFIG ============
@@ -282,6 +332,18 @@ function crearInscripcion(payload) {
     sheet.getRange(sheet.getLastRow(), 18).setValue(true);
   } catch (err) {
     log_('enviarCorreoQR', 'error', err.message, null);
+  }
+
+  // Base de asistentes de la V (Drive personal del director): cada inscripción nueva entra sola. Un fallo aquí
+  // nunca rompe la inscripción: queda en _logs y la siguiente sincronizarBaseV() lo recupera.
+  if (idBaseV_()) {
+    try {
+      const reg = registroInscripcionBaseV_(payload, correo, folio);
+      const r = reg ? upsertBaseV_(reg) : null;
+      if (r && r.error) log_('baseV', correo, r.error, null);
+    } catch (err) {
+      log_('baseV', correo, 'error: ' + err.message, null);
+    }
   }
 
   return { ok: true, folio: folio, mensaje: 'Inscripción registrada. Revisa tu correo.' };
@@ -973,13 +1035,33 @@ function suscribirNewsletter(payload) {
   // Idempotencia: no duplicar correos
   const data = sheet.getDataRange().getValues();
   const correo = String(payload.correo).toLowerCase().trim();
+  const origen = origenLimpio_(payload.origen) || 'web_inscripcion';
+  let resultado = null;
   for (let i = 1; i < data.length; i++) {
     if (String(data[i][0]).toLowerCase().trim() === correo) {
-      return { ok: true, ya_suscrito: true };
+      resultado = { ok: true, ya_suscrito: true };
+      break;
     }
   }
-  sheet.appendRow([correo, new Date(), payload.origen || 'web_inscripcion']);
-  return { ok: true };
+  if (!resultado) {
+    sheet.appendRow([celdaSegura_(correo), new Date(), celdaSegura_(origen)]);
+    resultado = { ok: true };
+  }
+
+  // Base de asistentes de la V (Drive personal del director). También para quien ya estaba suscrito:
+  // vuelve a pedirlo expresamente, así que se registra el origen nuevo y la fecha de la confirmación.
+  // Un fallo aquí (sin permiso, Sheet movido, lock ocupado) NUNCA rompe la suscripción: queda en _logs y
+  // sembrarBaseV() lo recupera después, porque el correo ya está en la pestaña Newsletter.
+  // Sin BASE_V_SHEET_ID no se hace nada más (ni siquiera se lee Usuarios).
+  if (idBaseV_()) {
+    try {
+      const r = upsertBaseV_(registroSuscripcionBaseV_(correo, origen));
+      if (r && r.error) log_('baseV', correo, r.error, null);
+    } catch (err) {
+      log_('baseV', correo, 'error: ' + err.message, null);
+    }
+  }
+  return resultado;
 }
 
 // ============ CONSTANCIAS ============
@@ -1138,7 +1220,7 @@ function enviarConstancia_(item, pdfBlob) {
         <hr style="border: 0; border-top: 1px solid rgba(14, 27, 44, 0.14); margin: 24px 0;">
         <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14, 27, 44, 0.5); font-family: 'Courier New', monospace;">
           CUCEA · Universidad de Guadalajara<br>
-          Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología
+          Cuerpo Académico UDEG-CA-1236 · Derecho y Tecnología
         </div>
       </div>
     `,
@@ -1166,7 +1248,7 @@ function crearPlantillaConstancia_() {
 
   body.appendParagraph('').setSpacingBefore(24);
 
-  body.appendParagraph('La Universidad de Guadalajara, a través del Centro Universitario de Ciencias Económico Administrativas (CUCEA) y el Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología», otorga la presente:')
+  body.appendParagraph('La Universidad de Guadalajara, a través del Centro Universitario de Ciencias Económico Administrativas (CUCEA) y el Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología», otorga la presente:')
     .setAlignment(DocumentApp.HorizontalAlignment.JUSTIFY);
 
   body.appendParagraph('').setSpacingBefore(18);
@@ -1446,7 +1528,7 @@ function construirHtmlNewsletter_(cuerpoHtml) {
   </div>
   <div class="footer">
     <p>Recibes este correo porque te suscribiste para recibir actualizaciones del IV Foro Internacional de Derecho y Tecnología.</p>
-    <p>CUCEA · Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236</p>
+    <p>CUCEA · Universidad de Guadalajara · Cuerpo Académico UDEG-CA-1236</p>
     <p>Para darte de baja, responde a este correo con asunto «Baja newsletter» y removeremos tu correo manualmente en menos de 48 horas.</p>
   </div>
 </div>
@@ -1491,6 +1573,763 @@ function _testNewsletter() {
   Logger.log('Correo de prueba enviado a: ' + destinatario);
   Logger.log('Si se ve bien, ejecuta enviarNewsletterMasivo() con los mismos parámetros.');
   return { ok: true, destinatario: destinatario };
+}
+
+// ============ BASE DE ASISTENTES DE LA V (Drive personal) ============
+/**
+ * Base de asistentes y avisos de la V edición (2027). Vive en el Drive PERSONAL del director, no en el Sheet
+ * institucional: se abre por id (Script Property BASE_V_SHEET_ID). Una fila por correo, con estas columnas:
+ *
+ *   correo · nombre · institucion · pais · tipo · grado · modalidad_iv · folio_iv · acepta_comunicaciones ·
+ *   origen · fecha_alta · fecha_actualizacion · notas
+ *
+ * Reglas de fusión (fusionarBaseV_), iguales para un alta suelta y para la siembra:
+ *   - correo (minúsculas, sin espacios) es la llave: nunca se duplica.
+ *   - Los datos (nombre, institución, país…) solo rellenan celdas vacías: no pisan lo que el director corrija a mano.
+ *     A una fila dada de baja no se le añade ningún dato: se queda con el correo y la marca.
+ *   - origen acumula los orígenes distintos separados por « + » (p. ej. «IV-2026 inscripción + web_v2027»).
+ *   - fecha_alta no cambia nunca. fecha_actualizacion se pone cuando algo cambia o cuando la persona vuelve a pedir
+ *     los avisos, así queda la fecha de su último consentimiento expreso.
+ *   - acepta_comunicaciones: ver PRIVACIDAD en la cabecera del archivo. Las marcas [BAJA fecha] y [RE-ALTA fecha]
+ *     de la columna notas dicen si la fila está dada de baja (manda la última que aparezca; [BAJA] sin fecha
+ *     también vale). Poner FALSE a mano SIN esa marca no es una baja: la siguiente siembra la vuelve a TRUE si la
+ *     persona sigue con acepto_news o en la lista Newsletter. Para dar de baja, bajaBaseV('correo').
+ *   - Las columnas que el director añada a mano se respetan: el script solo escribe las celdas que cambia.
+ */
+const BASE_V_COLS = ['correo', 'nombre', 'institucion', 'pais', 'tipo', 'grado', 'modalidad_iv', 'folio_iv',
+  'acepta_comunicaciones', 'origen', 'fecha_alta', 'fecha_actualizacion', 'notas', 'modalidad_v', 'folio_v'];
+const BASE_V_DATOS = ['nombre', 'institucion', 'pais', 'tipo', 'grado', 'modalidad_iv', 'folio_iv', 'modalidad_v', 'folio_v'];
+const BASE_V_NOMBRE_SHEET = 'ForoDyT 2027 — Base de asistentes y avisos';   // activarBaseV() la busca por este nombre
+const BASE_V_SYNC_FN = 'sincronizarBaseV';     // disparador que mantiene la base al día sin intervención
+const BASE_V_ORIGEN_IV = 'IV-2026 inscripción';
+const BASE_V_SEP = ' + ';
+const BASE_V_AVISOS = 'Avisos';               // pestaña del Sheet personal donde enviarAvisoBaseV() anota cada envío
+const BASE_V_LOTE = 250;                      // filas nuevas por volcado en sembrarBaseV()
+const BASE_V_MAX_MS = 4.5 * 60 * 1000;        // margen frente al límite de 6 min por ejecución de Apps Script
+const BASE_V_NOMBRE_REMITENTE = 'Foro Internacional de Derecho y Tecnología';
+const BASE_V_ESPERA_WEB_MS = 5000;            // cuánto espera un «Avísame» (app web) a que se libere el candado
+const BASE_V_ENVIO_PROP = 'BASE_V_AVISO_EN_CURSO';   // bandera de enviarAvisoBaseV() (Script Property temporal)
+const BASE_V_ENVIO_TTL_MS = 7 * 60 * 1000;    // una bandera más vieja que esto es de una ejecución que murió
+
+function idBaseV_() { return String(PROPS.getProperty('BASE_V_SHEET_ID') || '').trim(); }
+
+/**
+ * Candado de la base: SIEMPRE el de script, el mismo en la app web, en el editor y en los disparadores.
+ * (getDocumentLock() no sirve: devuelve null en la app web y otro candado distinto en el editor, así que la
+ * siembra y los «Avísame» no se excluirían entre sí.)
+ * Se retiene solo segundos: una fusión suelta o una siembra, que trabaja en memoria. enviarAvisoBaseV() NO lo
+ * retiene durante el envío (usa una bandera). enviarCierre() (Cierre.gs) sí lo retiene en cada tanda (hasta
+ * 4 min): un «Avísame» que llegue entonces queda en la pestaña Newsletter y en _logs (baseV · base_v_ocupada),
+ * y la siguiente sembrarBaseV() lo recupera.
+ */
+function lockBaseV_() { return LockService.getScriptLock(); }
+
+/**
+ * Un texto que empieza por = + - @ se guardaría como FÓRMULA. El origen y el correo llegan de un formulario
+ * público: con el apóstrofo inicial Sheets lo guarda como texto (y no lo muestra).
+ */
+function celdaSegura_(v) { return (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v; }
+
+function origenLimpio_(o) {
+  return String(o == null ? '' : o).replace(/[\u0000-\u001f]/g, ' ').replace(/\s*\+\s*/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60);
+}
+
+/** ¿La fila está dada de baja? Manda la última marca [BAJA …] / [RE-ALTA …] de notas. ([PIDE RE-ALTA …] no cuenta.) */
+function enBajaBaseV_(notas) {
+  const marcas = String(notas || '').toUpperCase().match(/\[(BAJA|RE-ALTA)\b/g);
+  return !!marcas && marcas[marcas.length - 1] === '[BAJA';
+}
+
+/**
+ * Abre la base: {ss, sh, i: índice de cada columna (0-based), n: nº de columnas}, o null si no hay BASE_V_SHEET_ID.
+ * Si falta algún encabezado de BASE_V_COLS lo añade al final (no reordena ni borra nada).
+ */
+function baseV_() {
+  const id = idBaseV_();
+  if (!id) return null;
+  const ss = SpreadsheetApp.openById(id);
+  const pestana = String(PROPS.getProperty('BASE_V_HOJA') || '').trim();
+  const sh = (pestana && ss.getSheetByName(pestana)) || ss.getSheets().filter(s => s.getName() !== BASE_V_AVISOS)[0];
+  const ancho = Math.max(sh.getLastColumn(), 1);
+  let h = sh.getLastRow() >= 1 ? sh.getRange(1, 1, 1, ancho).getValues()[0].map(x => String(x).trim()) : [];
+  while (h.length && !h[h.length - 1]) h.pop();
+  const faltan = BASE_V_COLS.filter(c => h.indexOf(c) === -1);
+  if (faltan.length) {
+    const hasta = h.length + faltan.length;
+    if (sh.getMaxColumns() < hasta) sh.insertColumnsAfter(sh.getMaxColumns(), hasta - sh.getMaxColumns());
+    sh.getRange(1, h.length + 1, 1, faltan.length).setValues([faltan]);
+    h = h.concat(faltan);
+    if (sh.getFrozenRows() < 1) sh.setFrozenRows(1);
+  }
+  const i = {};
+  BASE_V_COLS.forEach(c => { i[c] = h.indexOf(c); });
+  return { ss: ss, sh: sh, i: i, n: h.length };
+}
+
+function asegurarFilasBaseV_(sh, ultimaFila) {
+  if (sh.getMaxRows() < ultimaFila) sh.insertRowsAfter(sh.getMaxRows(), ultimaFila - sh.getMaxRows());
+}
+
+/**
+ * Normaliza un registro de entrada. Campos: correo (obligatorio), nombre, institucion, pais, tipo, grado,
+ * modalidad_iv, folio_iv, acepta (bool), expreso (bool: la persona lo acaba de pedir en un formulario),
+ * baja (bool: baja explícita), origen, fecha (fecha original del dato; solo para fecha_alta de filas nuevas).
+ */
+function registroBaseV_(o) {
+  const correo = String((o && o.correo) || '').toLowerCase().trim();
+  if (!correo || correo.length > 254 || !isEmailValid_(correo)) return null;
+  const r = { correo: correo, acepta: !!o.acepta, expreso: !!o.expreso, baja: !!o.baja, origen: origenLimpio_(o.origen), fecha: o.fecha };
+  BASE_V_DATOS.forEach(c => { r[c] = o[c] == null ? '' : String(o[c]).trim().slice(0, 200); });
+  return r;
+}
+
+/** Datos de una fila de Usuarios (Sheet institucional de la IV) con los nombres de columna de la base. */
+function datosUsuarioBaseV_(u) {
+  return {
+    nombre: u.nombre_completo, institucion: u.institucion, pais: u.pais, tipo: u.tipo,
+    grado: u.grado, modalidad_iv: u.modalidad, folio_iv: u.folio
+  };
+}
+
+/** Registro de una suscripción pública («Avísame»). Si el correo también se inscribió a la IV, trae sus datos. */
+function registroSuscripcionBaseV_(correo, origen) {
+  const r = { correo: correo, acepta: true, expreso: true, origen: origen };
+  try {
+    const u = buscarUsuario_(String(correo).toLowerCase().trim());
+    if (u) Object.assign(r, datosUsuarioBaseV_(u));
+  } catch (err) { /* sin Usuarios no hay datos que añadir: se da de alta solo el correo */ }
+  return r;
+}
+
+/**
+ * Fusiona un registro con la fila actual (array, o null si el correo es nuevo). No escribe nada.
+ * Devuelve {fila, cambio, cols: índices de las columnas que cambiaron, nueva, acepta}.
+ */
+function fusionarBaseV_(actual, r, ahora, I, n) {
+  const nueva = !actual;
+  const f = nueva ? new Array(n).fill('') : actual.slice();
+  const cols = [];
+  const poner = (nombre, v) => {
+    const c = I[nombre];
+    if (c < 0) return;
+    f[c] = v;
+    if (cols.indexOf(c) === -1) cols.push(c);
+  };
+  const vacia = v => v == null || String(v).trim() === '';
+
+  if (nueva) {
+    poner('correo', r.correo);
+    const esFecha = Object.prototype.toString.call(r.fecha) === '[object Date]' && !isNaN(r.fecha.getTime());
+    poner('fecha_alta', esFecha ? r.fecha : ahora);
+  }
+  // A una fila dada de baja no se le añaden datos personales: se queda solo con el correo y la marca.
+  const deBaja = r.baja || enBajaBaseV_(f[I.notas]);
+  BASE_V_DATOS.forEach(c => {
+    const v = r[c] == null ? '' : String(r[c]).trim();
+    if (v && !deBaja && vacia(f[I[c]])) poner(c, v);
+  });
+  if (r.origen) {
+    const lista = String(f[I.origen] || '').split('+').map(s => s.trim()).filter(Boolean);
+    if (lista.indexOf(r.origen) === -1) { lista.push(r.origen); poner('origen', lista.join(BASE_V_SEP)); }
+  }
+
+  // Consentimiento
+  const hoy = Utilities.formatDate(ahora, TZ, 'yyyy-MM-dd');
+  const notas = String(f[I.notas] || '').trim();
+  const anotar = t => poner('notas', (String(f[I.notas] || '').trim() ? String(f[I.notas]).trim() + ' ' : '') + t);
+  const antes = esTrue_(f[I.acepta_comunicaciones]);
+  const enBaja = enBajaBaseV_(notas);
+  let acepta = antes;
+  if (r.baja) {
+    acepta = false;
+    if (!enBaja) anotar('[BAJA ' + hoy + ']');
+  } else if (r.acepta && !antes) {
+    if (!enBaja) {
+      acepta = true;
+    } else if (r.expreso && notas.toUpperCase().indexOf('[PIDE RE-ALTA ' + hoy) === -1) {
+      // Una baja no la revierte un formulario público (cualquiera puede escribir un correo ajeno): solo se anota.
+      anotar('[PIDE RE-ALTA ' + hoy + (r.origen ? ' · ' + r.origen : '') + ']');
+    }
+  }
+  if (nueva || acepta !== antes || typeof f[I.acepta_comunicaciones] !== 'boolean') poner('acepta_comunicaciones', acepta);
+
+  if (cols.length || r.expreso) poner('fecha_actualizacion', ahora);
+  return { fila: f, cambio: cols.length > 0, cols: cols, nueva: nueva, acepta: acepta };
+}
+
+/**
+ * Inserta o actualiza UNA persona en la base (por correo). Devuelve {ok, accion: alta|actualizado|sin_cambios}
+ * o {ok:false, omitido|error}. Sin BASE_V_SHEET_ID no hace nada.
+ */
+function upsertBaseV_(registro) {
+  const r = registroBaseV_(registro || {});
+  if (!r) return { ok: false, error: 'correo_invalido' };
+  if (!idBaseV_()) return { ok: false, omitido: 'sin_BASE_V_SHEET_ID' };
+  const lock = lockBaseV_();
+  if (!lock.tryLock(BASE_V_ESPERA_WEB_MS)) return { ok: false, error: 'base_v_ocupada' };
+  try {
+    const base = baseV_();
+    const sh = base.sh, I = base.i, n = base.n;
+    const ult = sh.getLastRow();
+    let fila = -1;
+    if (ult > 1) {
+      const col = sh.getRange(2, I.correo + 1, ult - 1, 1).getValues();
+      for (let k = 0; k < col.length; k++) {
+        if (String(col[k][0]).toLowerCase().trim() === r.correo) { fila = k + 2; break; }
+      }
+    }
+    const actual = fila > 0 ? sh.getRange(fila, 1, 1, n).getValues()[0] : null;
+    const res = fusionarBaseV_(actual, r, new Date(), I, n);
+    if (!res.cambio) return { ok: true, accion: 'sin_cambios', acepta: res.acepta };
+    if (fila > 0) {
+      res.cols.forEach(c => sh.getRange(fila, c + 1).setValue(celdaSegura_(res.fila[c])));
+    } else {
+      sh.appendRow(res.fila.map(celdaSegura_));
+    }
+    SpreadsheetApp.flush();
+    return { ok: true, accion: fila > 0 ? 'actualizado' : 'alta', acepta: res.acepta };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * Todo lo que se siembra desde el Sheet institucional: inscritos de la IV (Usuarios) con consentimiento y la lista
+ * Newsletter. Un inscrito SIN acepto_news solo entra si también está en la lista Newsletter (ahí sí pidió los
+ * avisos) o si BASE_V_INCLUIR_HISTORICO = TRUE (ver PRIVACIDAD en la cabecera).
+ */
+function fuentesSiembraBaseV_() {
+  const excluir = {};
+  [PROPS.getProperty('BASE_V_EXCLUIR'), PROPS.getProperty('CIERRE_EXCLUIR')].forEach(p =>
+    String(p || '').split(',').map(s => s.toLowerCase().trim()).filter(Boolean).forEach(s => { excluir[s] = true; }));
+  const historico = esTrue_(PROPS.getProperty('BASE_V_INCLUIR_HISTORICO'));
+  const registros = [];
+  const cuenta = { usuarios: 0, newsletter: 0, excluidos: 0, invalidos: 0, sin_consentimiento_omitidos: 0, incluye_historico: historico };
+
+  // Primero la lista Newsletter: quien está en ella pidió los avisos aunque no marcara la casilla al inscribirse.
+  const shN = SS.getSheetByName(SHEETS.newsletter);
+  const deNewsletter = [], enNewsletter = {};
+  if (shN && shN.getLastRow() > 1) {
+    const d = shN.getDataRange().getValues();
+    const h = d[0].map(x => String(x).trim().toLowerCase());
+    const iC = h.indexOf('correo') !== -1 ? h.indexOf('correo') : 0;
+    const iF = h.indexOf('fecha'), iO = h.indexOf('origen');
+    for (let k = 1; k < d.length; k++) {
+      const correo = String(d[k][iC] || '').toLowerCase().trim();
+      if (!correo) continue;
+      if (!isEmailValid_(correo)) { cuenta.invalidos++; continue; }
+      if (excluir[correo]) { cuenta.excluidos++; continue; }
+      enNewsletter[correo] = true;
+      deNewsletter.push({
+        correo: correo,
+        acepta: true,                          // se suscribió ella misma
+        origen: (iO !== -1 && String(d[k][iO] || '').trim()) || 'newsletter',
+        fecha: iF !== -1 ? d[k][iF] : ''
+      });
+      cuenta.newsletter++;
+    }
+  }
+
+  const shU = SS.getSheetByName(SHEETS.usuarios);
+  if (shU && shU.getLastRow() > 1) {
+    const d = shU.getDataRange().getValues();
+    const h = d[0].map(x => String(x).trim());
+    if (h.indexOf('correo') === -1 || h.indexOf('acepto_news') === -1) {
+      throw new Error('La pestaña Usuarios no tiene las columnas «correo» y «acepto_news»: no se siembra nada.');
+    }
+    for (let k = 1; k < d.length; k++) {
+      const u = rowToObject_(h, d[k]);
+      const correo = String(u.correo || '').toLowerCase().trim();
+      if (!correo) continue;
+      if (!isEmailValid_(correo)) { cuenta.invalidos++; continue; }
+      if (excluir[correo] || excluir[String(u.folio || '').toLowerCase().trim()]) { cuenta.excluidos++; continue; }
+      const acepta = esTrue_(u.acepto_news);  // la casilla opcional de la IV = consentimiento para futuras ediciones
+      if (!acepta && !enNewsletter[correo] && !historico) { cuenta.sin_consentimiento_omitidos++; continue; }
+      registros.push(Object.assign(datosUsuarioBaseV_(u), {
+        correo: correo,
+        acepta: acepta,
+        origen: BASE_V_ORIGEN_IV,
+        fecha: u.fecha_registro || u.fecha
+      }));
+      cuenta.usuarios++;
+    }
+  }
+  // Los de Newsletter van después: si la misma persona también se inscribió, su fila ya trae los datos de la IV
+  // y la suscripción le suma el origen y el TRUE.
+  return { registros: registros.concat(deNewsletter), cuenta: cuenta };
+}
+
+/**
+ * sembrarBaseV() — correr desde el editor. Copia a la base de la V:
+ *   · los inscritos de la IV (Usuarios) que marcaron acepto_news: acepta_comunicaciones = TRUE, origen
+ *     «IV-2026 inscripción», nombre, institución, país, tipo, grado, modalidad_iv y folio_iv;
+ *   · todos los correos de la lista Newsletter: acepta_comunicaciones = TRUE, origen el suyo;
+ *   · a los inscritos SIN consentimiento solo si BASE_V_INCLUIR_HISTORICO = TRUE (con FALSE; ver PRIVACIDAD).
+ * Idempotente: una segunda corrida no duplica ni reescribe nada que no haya cambiado. Si se acerca al límite de
+ * 6 min, se detiene limpia y basta con volver a ejecutarla. Devuelve los conteos.
+ * Retiene el candado de script mientras escribe (unos segundos): no correrla mientras enviarCierre() (Cierre.gs)
+ * tenga tandas pendientes, porque una tanda que no consigue el candado en 10 s se descarta sin reprogramarse.
+ */
+function sembrarBaseV() {
+  if (!idBaseV_()) throw new Error('Falta la Script Property BASE_V_SHEET_ID (ver RUNBOOK-evento.md §8).');
+  const inicio = Date.now();
+  const fuentes = fuentesSiembraBaseV_();        // se lee el Sheet institucional antes de tomar el candado
+  const lock = lockBaseV_();
+  if (!lock.tryLock(30000)) throw new Error('La base de la V está ocupada (otra siembra, un alta o una tanda de enviarCierre en curso). Vuelve a intentarlo en unos minutos.');
+  try {
+    const base = baseV_();
+    const sh = base.sh, I = base.i, n = base.n;
+    const ult = sh.getLastRow();
+    const valores = ult > 1 ? sh.getRange(2, 1, ult - 1, n).getValues() : [];
+    const inicial = valores.length;
+    const pos = {};
+    valores.forEach((f, k) => { const c = String(f[I.correo] || '').toLowerCase().trim(); if (c && !(c in pos)) pos[c] = k; });
+
+    const ahora = new Date();
+    const tocadas = {};
+    let enHoja = inicial;                         // valores[0 .. enHoja-1] ya están escritos en la hoja
+    let sinCambios = 0, procesados = 0, completo = true;
+    // Con el candado ningún proceso del script escribe en la base, pero el director sí puede editarla a mano
+    // mientras corre. Si la hoja ya no termina donde se leyó, se detiene ANTES de escribir en una fila equivocada.
+    const comprobarBase = () => {
+      if (sh.getLastRow() !== enHoja + 1) {
+        throw new Error('La base cambió mientras se sembraba (se añadió o se borró una fila). Lo ya escrito es correcto: vuelve a ejecutar sembrarBaseV().');
+      }
+    };
+    const volcar = () => {                        // escribe de un golpe las filas nuevas pendientes
+      if (valores.length === enHoja) return;
+      comprobarBase();
+      const bloque = valores.slice(enHoja).map(f => f.map(celdaSegura_));
+      asegurarFilasBaseV_(sh, enHoja + 1 + bloque.length);
+      sh.getRange(enHoja + 2, 1, bloque.length, n).setValues(bloque);
+      enHoja = valores.length;
+    };
+
+    for (let j = 0; j < fuentes.registros.length; j++) {
+      if (valores.length - enHoja >= BASE_V_LOTE) volcar();
+      if (Date.now() - inicio > BASE_V_MAX_MS) { completo = false; break; }
+      procesados++;
+      const r = registroBaseV_(fuentes.registros[j]);
+      if (!r) continue;
+      const k = pos[r.correo];
+      const res = fusionarBaseV_(k === undefined ? null : valores[k], r, ahora, I, n);
+      if (!res.cambio) { sinCambios++; continue; }
+      if (k === undefined) {
+        valores.push(res.fila);
+        pos[r.correo] = valores.length - 1;
+        continue;
+      }
+      valores[k] = res.fila;
+      if (k < enHoja) {
+        comprobarBase();
+        res.cols.forEach(c => sh.getRange(k + 2, c + 1).setValue(celdaSegura_(res.fila[c])));
+      }
+      if (k < inicial) tocadas[k] = true;
+    }
+    volcar();
+    SpreadsheetApp.flush();
+
+    const resultado = {
+      completo: completo,
+      registros_leidos: fuentes.registros.length,
+      procesados: procesados,
+      de_usuarios_iv: fuentes.cuenta.usuarios,
+      de_newsletter: fuentes.cuenta.newsletter,
+      sin_consentimiento_omitidos: fuentes.cuenta.sin_consentimiento_omitidos,
+      incluye_historico: fuentes.cuenta.incluye_historico,
+      excluidos: fuentes.cuenta.excluidos,
+      correos_invalidos: fuentes.cuenta.invalidos,
+      altas: valores.length - inicial,
+      actualizados: Object.keys(tocadas).length,
+      registros_sin_cambios: sinCambios,
+      filas_en_base: valores.length,
+      segundos: Math.round((Date.now() - inicio) / 1000)
+    };
+    Logger.log('sembrarBaseV: ' + JSON.stringify(resultado, null, 2));
+    if (!completo) Logger.log('Se detuvo por tiempo: vuelve a ejecutar sembrarBaseV(). Lo ya copiado no se repite.');
+    if (resultado.sin_consentimiento_omitidos) {
+      Logger.log(resultado.sin_consentimiento_omitidos + ' inscritos de la IV no marcaron la casilla de comunicaciones: ' +
+        'NO se copiaron (se quedan solo en el Sheet institucional). Ver PRIVACIDAD en la cabecera de Code.gs.');
+    }
+    log_('sembrarBaseV', completo ? 'completo' : 'parcial', 'altas=' + resultado.altas + ' actualizados=' + resultado.actualizados, null);
+    return resultado;
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/** _reporteBaseV() — NO envía nada. Total, con consentimiento, sin él (histórico), bajas y conteos por origen. */
+function _reporteBaseV() {
+  const base = baseV_();
+  if (!base) throw new Error('Falta la Script Property BASE_V_SHEET_ID (ver RUNBOOK-evento.md §8).');
+  const I = base.i, ult = base.sh.getLastRow();
+  const v = ult > 1 ? base.sh.getRange(2, 1, ult - 1, base.n).getValues() : [];
+  const rep = {
+    total: 0, con_consentimiento: 0, sin_consentimiento_historico: 0, bajas: 0, piden_re_alta: 0,
+    por_origen: {}, con_consentimiento_por_origen: {}, por_modalidad_iv: {}, duplicados: [],
+    pestana: base.sh.getName(), url: base.ss.getUrl()
+  };
+  const vistos = {};
+  v.forEach(f => {
+    const correo = String(f[I.correo] || '').toLowerCase().trim();
+    if (!correo) return;
+    rep.total++;
+    if (vistos[correo]) rep.duplicados.push(correo);
+    vistos[correo] = true;
+    const ok = esTrue_(f[I.acepta_comunicaciones]);
+    const notas = String(f[I.notas] || '').toUpperCase();
+    if (ok) rep.con_consentimiento++;
+    else if (enBajaBaseV_(notas)) {
+      rep.bajas++;
+      if (notas.lastIndexOf('[PIDE RE-ALTA') > notas.lastIndexOf('[BAJA')) rep.piden_re_alta++;
+    } else rep.sin_consentimiento_historico++;
+    String(f[I.origen] || '').split('+').map(s => s.trim()).filter(Boolean).forEach(o => {
+      rep.por_origen[o] = (rep.por_origen[o] || 0) + 1;
+      if (ok) rep.con_consentimiento_por_origen[o] = (rep.con_consentimiento_por_origen[o] || 0) + 1;
+    });
+    const m = String(f[I.modalidad_iv] || '').trim();
+    if (m) rep.por_modalidad_iv[m] = (rep.por_modalidad_iv[m] || 0) + 1;
+  });
+  Logger.log('Base de la V (' + rep.pestana + '): ' + rep.total + ' personas · con consentimiento (reciben avisos): ' +
+    rep.con_consentimiento + ' · sin consentimiento (registro histórico): ' + rep.sin_consentimiento_historico +
+    ' · bajas: ' + rep.bajas + (rep.piden_re_alta ? ' (' + rep.piden_re_alta + ' piden volver: revisar notas)' : ''));
+  Logger.log('Por origen (una persona puede tener varios): ' + JSON.stringify(rep.por_origen));
+  Logger.log('Con consentimiento, por origen: ' + JSON.stringify(rep.con_consentimiento_por_origen));
+  Logger.log('Modalidad en la IV: ' + JSON.stringify(rep.por_modalidad_iv));
+  if (rep.duplicados.length) Logger.log('OJO, correos repetidos en la base (se editó a mano): ' + rep.duplicados.join(', '));
+  Logger.log(rep.url);
+  return rep;
+}
+
+/** bajaBaseV('correo') — baja explícita: deja de recibir avisos de la V. Si el correo no estaba, queda anotado igual. */
+function bajaBaseV(correo) {
+  if (!correo || typeof correo !== 'string') throw new Error('Pasa el correo: bajaBaseV("persona@dominio.com")');
+  if (!idBaseV_()) throw new Error('Falta la Script Property BASE_V_SHEET_ID (ver RUNBOOK-evento.md §8).');
+  const r = upsertBaseV_({ correo: correo, baja: true });
+  if (!r.ok) throw new Error('No se pudo registrar la baja: ' + (r.error || r.omitido));
+  Logger.log('Baja registrada para ' + correo.toLowerCase().trim() + ' (' + r.accion + '). No recibirá avisos de la V.');
+  return r;
+}
+
+/** Correos únicos con acepta_comunicaciones = TRUE. Si un correo repetido tiene una fila de baja, no se incluye. */
+function destinatariosAvisoBaseV_(base) {
+  const I = base.i, ult = base.sh.getLastRow();
+  const v = ult > 1 ? base.sh.getRange(2, 1, ult - 1, base.n).getValues() : [];
+  const baja = {}, vistos = {}, lista = [];
+  v.forEach(f => {
+    const c = String(f[I.correo] || '').toLowerCase().trim();
+    if (c && !esTrue_(f[I.acepta_comunicaciones]) && enBajaBaseV_(f[I.notas])) baja[c] = true;
+  });
+  v.forEach(f => {
+    const c = String(f[I.correo] || '').toLowerCase().trim();
+    if (!c || vistos[c] || baja[c] || !isEmailValid_(c) || !esTrue_(f[I.acepta_comunicaciones])) return;
+    vistos[c] = true;
+    lista.push(c);
+  });
+  return lista;
+}
+
+function hojaAvisosBaseV_(ss) {
+  let sh = ss.getSheetByName(BASE_V_AVISOS);
+  if (!sh) {
+    sh = ss.insertSheet(BASE_V_AVISOS, ss.getNumSheets());
+    sh.appendRow(['fecha', 'asunto', 'correo', 'estado', 'via', 'error']);
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+
+/** Plantilla de los avisos de la V: tinta, papel y cobre del sitio (estilos en línea para los clientes de correo). */
+function construirHtmlAvisoV_(cuerpoHtml) {
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+    '<body style="margin:0;padding:0;background:#F5EFE3;">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5EFE3;"><tr><td align="center" style="padding:24px 12px;">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:580px;background:#FBF8F1;border:1px solid #EAE0D0;">' +
+    '<tr><td style="background:#1A1810;padding:28px 32px;border-bottom:3px solid #B85C3D;">' +
+    '<div style="font-family:\'Courier New\',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#D9A48C;">Quinta edición · 2027</div>' +
+    '<div style="font-family:Georgia,\'Times New Roman\',serif;font-size:22px;line-height:1.25;color:#F5EFE3;margin-top:8px;">V Foro Internacional de Derecho y Tecnología</div>' +
+    '</td></tr>' +
+    '<tr><td style="padding:32px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#2A2620;">' + cuerpoHtml + '</td></tr>' +
+    '<tr><td style="padding:20px 32px 28px;border-top:1px solid #EAE0D0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.55;color:#5A5446;">' +
+    '<p style="margin:0 0 8px;">Recibes este correo porque pediste avisos del Foro Internacional de Derecho y Tecnología: al inscribirte en la IV edición marcaste la casilla de comunicaciones sobre futuras ediciones, o te suscribiste en forodyt.com.</p>' +
+    '<p style="margin:0 0 10px;">Para darte de baja, responde a este correo con el asunto «Baja» o escribe a <a href="mailto:contacto@forodyt.com?subject=Baja" style="color:#8C3F26;">contacto@forodyt.com</a>.</p>' +
+    '<p style="margin:0;font-family:\'Courier New\',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6B6455;">Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara · <a href="https://forodyt.com" style="color:#6B6455;">forodyt.com</a></p>' +
+    '</td></tr></table></td></tr></table></body></html>';
+}
+
+/**
+ * enviarAvisoBaseV(asunto, htmlBody) — aviso de la V a la base del Drive personal, SOLO a quien tenga
+ * acepta_comunicaciones = TRUE. Variante de enviarNewsletterMasivo() (que lee la lista Newsletter de la IV y no
+ * conoce las bajas). Sale por enviarCorreo_() con respuesta a contacto@forodyt.com.
+ * Cada envío queda en la pestaña «Avisos» del Sheet personal: si se detiene por tiempo (6 min) o por cuota,
+ * volver a ejecutarla con el MISMO asunto y solo alcanza a quien falta. Probar antes con _testAvisoBaseV().
+ * Uso (escribir una función propia en el editor y ejecutarla):
+ *   function avisoFechaV() { enviarAvisoBaseV('Asunto', '<p>Cuerpo HTML</p>'); }
+ */
+function enviarAvisoBaseV(asunto, htmlBody, opciones) {
+  opciones = opciones || {};
+  if (!asunto || typeof asunto !== 'string' || !htmlBody) {
+    throw new Error('Faltan parámetros: enviarAvisoBaseV("Asunto", "<p>Cuerpo HTML</p>"). Antes, _testAvisoBaseV().');
+  }
+  const base = baseV_();
+  if (!base) throw new Error('Falta la Script Property BASE_V_SHEET_ID (ver RUNBOOK-evento.md §8).');
+  marcarEnvioAvisoBaseV_();
+  try {
+    const hoja = hojaAvisosBaseV_(base.ss);
+    const ya = {};
+    hoja.getDataRange().getValues().slice(1).forEach(f => {
+      if (String(f[1]) === asunto && String(f[3]) === 'enviado') ya[String(f[2]).toLowerCase().trim()] = true;
+    });
+    const lista = destinatariosAvisoBaseV_(base);
+    const pendientes = lista.filter(c => !ya[c]);
+    const html = construirHtmlAvisoV_(htmlBody);
+    const inicio = Date.now();
+    let enviados = 0, fallos = 0, pausa = '';
+    for (let k = 0; k < pendientes.length; k++) {
+      if (Date.now() - inicio > BASE_V_MAX_MS) { pausa = 'tiempo'; break; }
+      if (MailApp.getRemainingDailyQuota() < 20) { pausa = 'cuota'; break; }
+      const correo = pendientes[k];
+      try {
+        const via = enviarCorreo_({ to: correo, subject: asunto, htmlBody: html, name: BASE_V_NOMBRE_REMITENTE, attachments: opciones.attachments });
+        hoja.appendRow([new Date(), asunto, correo, 'enviado', via, ''].map(celdaSegura_));
+        enviados++;
+        Utilities.sleep(200);
+      } catch (err) {
+        fallos++;
+        hoja.appendRow([new Date(), asunto, correo, 'error', '', String(err.message).slice(0, 300)].map(celdaSegura_));
+        log_('enviarAvisoBaseV', correo, err.message, null);
+      }
+    }
+    const res = {
+      con_consentimiento: lista.length, ya_enviados_antes: lista.length - pendientes.length,
+      enviados: enviados, fallos: fallos, faltan: pendientes.length - enviados - fallos, pausa: pausa
+    };
+    Logger.log('enviarAvisoBaseV: ' + JSON.stringify(res) + (pausa ? ' → se detuvo por ' + pausa + ': volver a ejecutar con el mismo asunto.' : ''));
+    return res;
+  } finally {
+    PROPS.deleteProperty(BASE_V_ENVIO_PROP);
+  }
+}
+
+/**
+ * Bandera de «hay un aviso enviándose», para que dos ejecuciones no manden el mismo aviso a la vez. NO se retiene
+ * el candado de script durante el envío (hasta 4.5 min): bloquearía los «Avísame» de la app web. El candado solo
+ * se toma unos milisegundos para comprobar y poner la bandera de forma atómica. La bandera es una Script Property
+ * con la hora: si la ejecución muere sin borrarla, deja de contar a los BASE_V_ENVIO_TTL_MS.
+ */
+function marcarEnvioAvisoBaseV_() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(15000)) {
+    throw new Error('El candado del script está ocupado (quizá una tanda de enviarCierre o una siembra). Vuelve a intentarlo en unos minutos.');
+  }
+  try {
+    const desde = Number(PROPS.getProperty(BASE_V_ENVIO_PROP)) || 0;
+    if (desde && Date.now() - desde < BASE_V_ENVIO_TTL_MS) {
+      throw new Error('Ya hay un aviso de la V enviándose (empezó ' + Utilities.formatDate(new Date(desde), TZ, 'HH:mm') +
+        '). Espera a que termine y, si faltó gente, vuelve a ejecutarla con el mismo asunto.');
+    }
+    PROPS.setProperty(BASE_V_ENVIO_PROP, String(Date.now()));
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+
+// ============ BASE DE LA V: ACTIVACIÓN Y SINCRONIZACIÓN AUTOMÁTICA ============
+/**
+ * Edición a la que pertenece una inscripción nueva. Script Property EDICION_INSCRIPCION: 'IV-2026' (default,
+ * inscripción cerrada) o 'V-2027' cuando abra la inscripción de la V.
+ */
+function edicionInscripcion_() {
+  const ed = String(PROPS.getProperty('EDICION_INSCRIPCION') || 'IV-2026').trim().toUpperCase();
+  return { v: ed.indexOf('V-') === 0, origen: ed.indexOf('V-') === 0 ? 'V-2027 inscripción' : BASE_V_ORIGEN_IV };
+}
+
+/**
+ * Registro de la base a partir de una inscripción recién creada.
+ *   · Inscripción de la V: la persona entra siempre como asistente de la V; acepta_comunicaciones = su casilla
+ *     de comunicaciones (el aviso de privacidad de la V debe mencionar esta base).
+ *   · Inscripción de la IV: solo con la casilla marcada, igual que sembrarBaseV() (ver PRIVACIDAD).
+ */
+function registroInscripcionBaseV_(payload, correo, folio) {
+  const ed = edicionInscripcion_();
+  const acepta = !!payload.acepto_news;
+  if (!ed.v && !acepta && !esTrue_(PROPS.getProperty('BASE_V_INCLUIR_HISTORICO'))) return null;
+  const r = {
+    correo: correo, nombre: String(payload.nombre || '').trim(), institucion: String(payload.institucion || '').trim(),
+    pais: payload.pais || 'MX', tipo: payload.tipo || '', grado: payload.grado || '',
+    acepta: acepta, expreso: acepta, origen: ed.origen
+  };
+  if (ed.v) { r.modalidad_v = payload.modalidad || 'presencial'; r.folio_v = folio; }
+  else { r.modalidad_iv = payload.modalidad || 'presencial'; r.folio_iv = folio; }
+  return r;
+}
+
+/**
+ * activarBaseV() — LO ÚNICO QUE HAY QUE CORRER UNA VEZ, desde el editor, tras pegar este Code.gs y publicar
+ * «Nueva versión». Hace todo lo demás solo:
+ *   1. Busca en Drive la hoja «ForoDyT 2027 — Base de asistentes y avisos» (compartida con esta cuenta) y guarda
+ *      su id en BASE_V_SHEET_ID. Si la propiedad ya existe, la respeta.
+ *   2. Siembra la base con los inscritos de la IV que dieron consentimiento y la lista Newsletter.
+ *   3. Instala el disparador sincronizarBaseV() cada hora, que recoge lo que haya fallado en tiempo real.
+ *   4. Deja en el registro el conteo de la base.
+ * Desde entonces cada «Avísame» del sitio y cada inscripción nueva entran solos a la base. Idempotente: se puede
+ * volver a correr sin duplicar nada.
+ */
+function activarBaseV() {
+  let id = idBaseV_();
+  if (!id) {
+    const it = DriveApp.getFilesByName(BASE_V_NOMBRE_SHEET);
+    const hallados = [];
+    while (it.hasNext()) {
+      const f = it.next();
+      if (f.getMimeType() === MimeType.GOOGLE_SHEETS && !f.isTrashed()) hallados.push(f);
+    }
+    if (hallados.length !== 1) {
+      throw new Error((hallados.length ? 'Hay ' + hallados.length + ' hojas' : 'No encontré la hoja') + ' «' + BASE_V_NOMBRE_SHEET +
+        '» en el Drive de esta cuenta. Comprueba que esté compartida como editor con ' + Session.getEffectiveUser().getEmail() +
+        ' o pon su id a mano en la Script Property BASE_V_SHEET_ID y vuelve a ejecutar.');
+    }
+    id = hallados[0].getId();
+    PROPS.setProperty('BASE_V_SHEET_ID', id);
+    Logger.log('BASE_V_SHEET_ID = ' + id);
+  }
+  const base = baseV_();        // comprueba el acceso de escritura y añade los encabezados que falten
+  Logger.log('Base conectada: ' + base.ss.getName() + ' · pestaña «' + base.sh.getName() + '»');
+  const siembra = sembrarBaseV();
+  instalarSincronizacionBaseV_();
+  const rep = _reporteBaseV();
+  log_('activarBaseV', 'ok', 'total=' + rep.total + ' con_consentimiento=' + rep.con_consentimiento, null);
+  return { ok: true, id: id, siembra: siembra, base: { total: rep.total, con_consentimiento: rep.con_consentimiento, url: rep.url } };
+}
+
+/** Instala (una sola vez) el disparador horario de sincronizarBaseV(). */
+function instalarSincronizacionBaseV_() {
+  const ya = ScriptApp.getProjectTriggers().some(t => t.getHandlerFunction() === BASE_V_SYNC_FN);
+  if (!ya) ScriptApp.newTrigger(BASE_V_SYNC_FN).timeBased().everyHours(1).create();
+  Logger.log(ya ? 'El disparador ' + BASE_V_SYNC_FN + ' ya existía.' : 'Disparador ' + BASE_V_SYNC_FN + ' instalado (cada hora).');
+}
+
+/**
+ * sincronizarBaseV() — la corre el disparador cada hora. Vuelve a sembrar (idempotente): recoge los «Avísame» y las
+ * inscripciones que no entraron en tiempo real (candado ocupado, error de red). Se salta la hora si hay una tanda
+ * de enviarCierre() pendiente o un aviso enviándose, para no competir por el candado.
+ */
+function sincronizarBaseV() {
+  if (!idBaseV_()) return;
+  const cierre = ScriptApp.getProjectTriggers().some(t => t.getHandlerFunction() === 'enviarCierre');
+  const aviso = Number(PROPS.getProperty(BASE_V_ENVIO_PROP)) || 0;
+  if (cierre || (aviso && Date.now() - aviso < BASE_V_ENVIO_TTL_MS)) return;
+  try {
+    sembrarBaseV();
+  } catch (err) {
+    log_('sincronizarBaseV', 'error', err.message, null);
+  }
+}
+
+/** desactivarBaseV() — quita el disparador horario (la base y sus datos no se tocan). */
+function desactivarBaseV() {
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === BASE_V_SYNC_FN).forEach(t => ScriptApp.deleteTrigger(t));
+  Logger.log('Disparador ' + BASE_V_SYNC_FN + ' eliminado.');
+}
+
+// ============ AVISO EN UN CLIC: ANUNCIO DE LA V ============
+/**
+ * Datos del anuncio, en Script Properties (se llenan una vez, cuando haya fecha):
+ *   V_FECHA_INICIO   '2027-09-20'   (obligatoria)
+ *   V_FECHA_FIN      '2027-09-21'   (opcional; sin ella es de un día)
+ *   V_SEDE           'Guadalajara, Jalisco' o el recinto
+ *   V_LEMA           subtítulo/tema de la V (opcional)
+ *   V_ASUNTO         (opcional) asunto del correo; por defecto «V Foro Internacional de Derecho y Tecnología: fecha y sede»
+ *   V_TEXTO          (opcional) párrafo extra en HTML
+ * Flujo: _previewAnuncioV() (te llega solo a ti) → anunciarV() (a toda la base con consentimiento). Si se detiene
+ * por tiempo o cuota, volver a ejecutar anunciarV(): solo alcanza a quien falta (mismo asunto).
+ */
+function datosAnuncioV_() {
+  const g = k => String(PROPS.getProperty(k) || '').trim();
+  const ini = g('V_FECHA_INICIO'), fin = g('V_FECHA_FIN') || ini;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(ini) || !/^\d{4}-\d{2}-\d{2}$/.test(fin)) {
+    throw new Error('Pon V_FECHA_INICIO (y, si aplica, V_FECHA_FIN) en Script Properties con el formato AAAA-MM-DD.');
+  }
+  const f = s => { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2], 12); };
+  const d1 = f(ini), d2 = f(fin);
+  const mes = d => Utilities.formatDate(d, TZ, 'MMMM').toLowerCase();
+  const MESES = { january: 'enero', february: 'febrero', march: 'marzo', april: 'abril', may: 'mayo', june: 'junio', july: 'julio',
+    august: 'agosto', september: 'septiembre', october: 'octubre', november: 'noviembre', december: 'diciembre' };
+  const m1 = MESES[mes(d1)] || mes(d1), m2 = MESES[mes(d2)] || mes(d2);
+  const texto = ini === fin ? d1.getDate() + ' de ' + m1 + ' de ' + d1.getFullYear()
+    : (m1 === m2 ? d1.getDate() + (d2.getDate() - d1.getDate() === 1 ? ' y ' : ' al ') + d2.getDate() + ' de ' + m1 : d1.getDate() + ' de ' + m1 + ' al ' + d2.getDate() + ' de ' + m2) + ' de ' + d2.getFullYear();
+  return {
+    ini: ini, fin: fin, fechaTxt: texto, sede: g('V_SEDE'), lema: g('V_LEMA'), extra: g('V_TEXTO'),
+    asunto: g('V_ASUNTO') || 'V Foro Internacional de Derecho y Tecnología: ' + texto
+  };
+}
+
+/** Archivo .ics de día completo para «Agregar a mi calendario». */
+function icsAnuncioV_(d) {
+  const sig = s => { const p = s.split('-').map(Number); const x = new Date(Date.UTC(p[0], p[1] - 1, p[2] + 1)); return Utilities.formatDate(x, 'UTC', 'yyyyMMdd'); };
+  const esc = s => String(s || '').replace(/\\/g, '\\\\').replace(/[,;]/g, m => '\\' + m).replace(/\n/g, '\\n');
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ForoDyT//V 2027//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+    'UID:v2027-' + d.ini + '@forodyt.com', 'DTSTAMP:' + Utilities.formatDate(new Date(), 'UTC', "yyyyMMdd'T'HHmmss'Z'"),
+    'DTSTART;VALUE=DATE:' + d.ini.replace(/-/g, ''), 'DTEND;VALUE=DATE:' + sig(d.fin),
+    'SUMMARY:' + esc('V Foro Internacional de Derecho y Tecnología'),
+    'LOCATION:' + esc(d.sede || 'Guadalajara, Jalisco, México'),
+    'DESCRIPTION:' + esc((d.lema ? d.lema + '\n' : '') + 'https://forodyt.com'), 'URL:https://forodyt.com',
+    'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  return Utilities.newBlob(ics, 'text/calendar', 'V-Foro-Derecho-y-Tecnologia-2027.ics');
+}
+
+function cuerpoAnuncioV_(d) {
+  const e = escapeHtml_;
+  return '<p style="margin:0 0 16px;font-size:16px;">La quinta edición del Foro Internacional de Derecho y Tecnología ya tiene fecha.</p>' +
+    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;margin:0 0 20px;border-top:1px solid #1A1810;">' +
+    '<tr><td style="padding:12px 0;border-bottom:1px solid #EAE0D0;font-family:\'Courier New\',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#6B6455;width:90px;">Fecha</td><td style="padding:12px 0;border-bottom:1px solid #EAE0D0;font-family:Georgia,serif;font-size:19px;color:#1A1810;">' + e(d.fechaTxt) + '</td></tr>' +
+    (d.sede ? '<tr><td style="padding:12px 0;border-bottom:1px solid #EAE0D0;font-family:\'Courier New\',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#6B6455;">Sede</td><td style="padding:12px 0;border-bottom:1px solid #EAE0D0;font-family:Georgia,serif;font-size:19px;color:#1A1810;">' + e(d.sede) + '</td></tr>' : '') +
+    (d.lema ? '<tr><td style="padding:12px 0;border-bottom:1px solid #EAE0D0;font-family:\'Courier New\',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#6B6455;">Tema</td><td style="padding:12px 0;border-bottom:1px solid #EAE0D0;font-family:Georgia,serif;font-size:17px;font-style:italic;color:#8C3F26;">' + e(d.lema) + '</td></tr>' : '') +
+    '</table>' +
+    (d.extra ? '<p style="margin:0 0 16px;">' + d.extra + '</p>' : '') +
+    '<p style="margin:0 0 20px;">Te adjuntamos el archivo para agregarlo a tu calendario. La convocatoria, el programa y la inscripción se publicarán en el sitio del Foro.</p>' +
+    '<p style="margin:0;"><a href="https://forodyt.com" style="display:inline-block;padding:13px 22px;background:#1A1810;color:#F5EFE3;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:.06em;">Ir a forodyt.com</a></p>';
+}
+
+/** _previewAnuncioV() — manda el anuncio SOLO al director, con el .ics. No toca la lista. */
+function _previewAnuncioV() {
+  const d = datosAnuncioV_();
+  const destinatario = PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL') || Session.getEffectiveUser().getEmail();
+  let conteo = '';
+  try { conteo = ' · Lo recibirían ' + destinatariosAvisoBaseV_(baseV_()).length + ' personas.'; } catch (err) { conteo = ''; }
+  const via = enviarCorreo_({ to: destinatario, subject: '[VISTA PREVIA] ' + d.asunto, htmlBody: construirHtmlAvisoV_(cuerpoAnuncioV_(d)),
+    name: BASE_V_NOMBRE_REMITENTE, attachments: [icsAnuncioV_(d)] });
+  Logger.log('Vista previa enviada a ' + destinatario + ' (' + via + ')' + conteo);
+  return { ok: true, destinatario: destinatario };
+}
+
+/** anunciarV() — EL CLIC: manda el anuncio de fecha y sede a toda la base con consentimiento. */
+function anunciarV() {
+  const d = datosAnuncioV_();
+  return enviarAvisoBaseV(d.asunto, cuerpoAnuncioV_(d), { attachments: [icsAnuncioV_(d)] });
+}
+
+/** _testAvisoBaseV() — manda el formato de los avisos de la V SOLO al director. No toca la lista. */
+function _testAvisoBaseV() {
+  const destinatario = PROPS.getProperty('DIRECTOR_EMAIL') || PROPS.getProperty('SENDER_EMAIL') || Session.getEffectiveUser().getEmail();
+  let conteo = 'La base de la V no está conectada (falta BASE_V_SHEET_ID).';
+  try {
+    const base = baseV_();
+    if (base) conteo = 'Hoy recibirían el aviso ' + destinatariosAvisoBaseV_(base).length + ' personas (acepta_comunicaciones = TRUE).';
+  } catch (err) { conteo = 'No se pudo leer la base de la V: ' + err.message; }
+  const cuerpo =
+    '<p style="margin:0 0 14px;">Este es un correo de prueba con el formato de los avisos de la V edición. Solo te llega a ti.</p>' +
+    '<p style="margin:0 0 14px;">La fecha, la sede y el tema de la V edición están por anunciar.</p>' +
+    '<p style="margin:0;padding:10px 12px;background:#EAE0D0;font-size:13px;color:#2A2620;">' + escapeHtml_(conteo) + '</p>';
+  const via = enviarCorreo_({
+    to: destinatario,
+    subject: '[PRUEBA] Aviso · V Foro Internacional de Derecho y Tecnología',
+    htmlBody: construirHtmlAvisoV_(cuerpo),
+    name: BASE_V_NOMBRE_REMITENTE
+  });
+  Logger.log('Prueba enviada a ' + destinatario + ' (' + via + '). ' + conteo);
+  return { ok: true, destinatario: destinatario, via: via };
 }
 
 function _testInscripcion() {

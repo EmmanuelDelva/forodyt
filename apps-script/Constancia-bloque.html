@@ -124,13 +124,13 @@
     <? if (logos && (logos.udg || logos.ca || logos.foro || logos.hesperides)) { ?>
     <table class="logos"><tr>
       <? if (logos.udg) { ?><td><img src="<?!= imgSrc_(logos.udg) ?>" alt="Universidad de Guadalajara"></td><? } ?>
-      <? if (logos.ca) { ?><td><img class="ca" src="<?!= imgSrc_(logos.ca) ?>" alt="Cuerpo Académico UDG-CA-1236 Derecho y Tecnología"></td><? } ?>
+      <? if (logos.ca) { ?><td><img class="ca" src="<?!= imgSrc_(logos.ca) ?>" alt="Cuerpo Académico UDEG-CA-1236 Derecho y Tecnología"></td><? } ?>
       <? if (logos.foro) { ?><td><img class="foro" src="<?!= imgSrc_(logos.foro) ?>" alt="Foro Internacional de Derecho y Tecnología"></td><? } ?>
       <? if (logos.oma) { ?><td><img class="oma" src="<?!= imgSrc_(logos.oma) ?>" alt="Observatorio Mundial de la Abogacía"></td><? } ?>
       <? if (logos.hesperides) { ?><td><img class="hesp" src="<?!= imgSrc_(logos.hesperides) ?>" alt="Universidad de las Hespérides"></td><? } ?>
     </tr></table>
     <? } ?>
-    <div class="cabecera">Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
+    <div class="cabecera">Universidad de Guadalajara · Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»</div>
     <div class="edicion">IV edición · 18 · 21 · 22 de septiembre de 2026</div>
     <div class="marca">Foro Internacional de Derecho y <i>Tecnología</i></div>
     <div class="lema">«Agentes, Algoritmos y Autonomía: el Derecho ante la Inteligencia que Decide»</div>
@@ -190,7 +190,7 @@
 
   <? if (tipo === 'valor') { ?>
   <table class="firmas cuatro"><tr>
-    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236</div></td>
+    <td style="width:25%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDEG-CA-1236</div></td>
     <? for (var i = 0; i < firmantes.length; i++) { ?>
     <td style="width:25%"><? if (firmantes[i].firma_src) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firmantes[i].firma_src) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firmantes[i].nombre ?></div><div class="firma-cargo"><?= firmantes[i].cargo ?></div></td>
     <? } ?>
@@ -199,13 +199,13 @@
   <? if (tipo === 'bloque') { ?>
   <table class="firmas"><tr>
     <td style="width:22%"></td>
-    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:56%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:22%"></td>
   </tr></table>
   <? } ?>
   <? if (tipo === 'general') { ?>
   <table class="firmas dos"><tr>
-    <td style="width:50%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div></td>
+    <td style="width:50%"><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma_src) ?>" alt=""></div><div class="firma-linea"></div><div class="firma-nombre">Dr. Juan Emmanuel Delva Benavides</div><div class="firma-cargo">Director del Foro Internacional<br>de Derecho y Tecnología</div><div class="firma-sub">Líder del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»</div></td>
     <td style="width:50%"><? if (firma2_src) { ?><div class="firma-box"><img class="firma-img" src="<?!= imgSrc_(firma2_src) ?>" alt=""></div><? } else { ?><div class="firma-vacia"></div><? } ?><div class="firma-linea"></div><div class="firma-nombre"><?= firma2_nombre ?></div><div class="firma-cargo"><?= firma2_cargo ?></div><div class="firma-sub"><?= firma2_sub ?></div></td>
   </tr></table>
   <? } ?>
@@ -220,7 +220,7 @@
 
   <div class="pie">
     <table><tr>
-      <td>Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»<br>Zapopan, Jalisco, México · <?= fecha_emision ?></td>
+      <td>Universidad de Guadalajara · Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»<br>Zapopan, Jalisco, México · <?= fecha_emision ?></td>
       <td class="der"><?= folio ?><br>contacto@forodyt.com · forodyt.com</td>
     </tr></table>
   </div>
