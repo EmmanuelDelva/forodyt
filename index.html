@@ -541,6 +541,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .mapa-tip b { font-family: var(--serif); font-weight: 500; font-size: 14px; }
 .mapa-tip i { font-style: normal; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; opacity: .8; margin-left: 6px; }
 .mapa-tip.on { opacity: 1; }
+.tray-mas { margin-top: clamp(28px, 4vw, 48px); display: flex; justify-content: flex-end; }
+@media (max-width: 700px) { .tray-mas { justify-content: stretch; } .tray-mas .btn-ghost { width: 100%; justify-content: center; } }
 .mapa-nota { font-size: 12.5px; color: var(--tinta-4); margin-top: 10px; }
 
 /* ═══════════ III · LA IV EN VIDEO ═══════════ */
@@ -700,7 +702,7 @@ footer :focus-visible { outline-color: #D9A48C; }
       <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
       <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
       <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
-      <li><a href="#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="trayectoria.html" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
       <li><a href="ponentes.html" data-i18n="nav_link_ponentes">Ponentes</a></li>
       <li><a href="comite.html" data-i18n="nav_link_comite">Comité</a></li>
@@ -959,6 +961,7 @@ footer :focus-visible { outline-color: #D9A48C; }
         <div class="mapa-tip" id="mapaTip"></div>
       </div>
     </div>
+    <p class="tray-mas"><a class="btn-ghost" href="trayectoria.html"><span data-f18n="tray_mas">Ver la trayectoria completa</span> <span aria-hidden="true">→</span></a></p>
   </div>
 </section>
 
@@ -1152,6 +1155,7 @@ var V_EDICION = {
       aviso_label: 'Email address', aviso_btn: 'Notify me', aviso_ph: 'name@domain.com',
       aviso_privacidad: '<strong>Simplified privacy notice.</strong> The Academic Body UDEG-CA-1236 «Law and Technology» of the University of Guadalajara will use your email only to send you Forum announcements. You may unsubscribe or exercise your rights of access, rectification, cancellation and objection by writing to <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cal_btn: 'Add to my calendar',
+      tray_mas: 'See the full timeline',
       tray_title: 'The Forum’s trajectory <em>2023–2026</em>.',
       tray_lead: '<strong>Get to know each edition.</strong> Each edition of the Forum is a volume with its own year, theme, voices and colour. Open each spine to explore it; the map lights up the countries that had a voice in it.',
       estante_aria: 'Editions of the Forum',
@@ -1217,6 +1221,7 @@ var V_EDICION = {
       aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir', aviso_ph: 'nom@domaine.com',
       aviso_privacidad: '<strong>Avis de confidentialité simplifié.</strong> Le Corps Académique UDEG-CA-1236 « Droit et Technologie » de l’Université de Guadalajara utilisera votre adresse uniquement pour vous envoyer les annonces du Forum. Vous pouvez vous désinscrire ou exercer vos droits d’accès, de rectification, d’annulation et d’opposition en écrivant à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cal_btn: 'Ajouter à mon agenda',
+      tray_mas: 'Voir tout le parcours',
       tray_title: 'Parcours du Forum <em>2023–2026</em>.',
       tray_lead: '<strong>Découvrez chacune des éditions.</strong> Chaque édition du Forum est un volume avec son année, son thème, ses voix et sa couleur. Ouvrez chaque dos pour la parcourir ; la carte allume les pays qui y ont pris la parole.',
       estante_aria: 'Éditions du Forum',
