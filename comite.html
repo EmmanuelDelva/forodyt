@@ -546,6 +546,59 @@ footer a:hover { color: var(--arena); }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
 </style>
+<style>/* ═══ celular y tableta ═══ */
+@media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero { padding-top: 124px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); row-gap: 40px; }
+  .hero-titulo { font-size: clamp(66px, 9.4vw, 100px); }
+  .hero-lead { font-size: 18px; max-width: 640px; }
+  .constelacion { margin: 0 auto; max-width: 600px; }
+  .const-pie { margin-right: auto; text-align: center; }
+  .hero-datos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero-datos > div { padding: 16px 18px 0 0; }
+  .hero-datos > div + div { padding-left: 18px; border-left: 1px solid var(--linea-2); border-top: 0; }
+  /* cada integrante: retrato y nombre lado a lado, alternando como en escritorio */
+  .ficha, .ficha.abierta { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); column-gap: 44px; row-gap: 0; }
+  .ficha:nth-child(even), .ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 260px); }
+  .ficha:nth-child(even) .ficha-foto { order: 2; }
+  .ficha-foto { max-width: none; }
+  .ficha.abierta .ficha-foto { position: sticky; top: 96px; }
+  .nombre { font-size: clamp(40px, 5.6vw, 58px); }
+}
+@media (max-width: 600px) {
+  .hero-titulo { font-size: clamp(44px, 12vw, 54px); }
+  .hero-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .hero-cta .btn-primary, .hero-cta .btn-ghost { justify-content: center; min-height: 52px; font-size: 14px; }
+  .nombre { font-size: clamp(38px, 10.6vw, 46px); }
+  .constelacion { max-width: 420px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { padding-top: 92px; }
+  .hero-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+  .hero-titulo { font-size: clamp(38px, 11vh, 52px); }
+  .constelacion { max-width: 320px; }
+  .const-pie { max-width: 320px; }
+  .hero-datos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero-datos > div + div { padding-left: 16px; border-left: 1px solid var(--linea-2); border-top: 0; }
+  .ficha, .ficha.abierta { grid-template-columns: minmax(0, 220px) minmax(0, 1fr); column-gap: 32px; }
+  .ficha:nth-child(even), .ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 220px); }
+  .ficha:nth-child(even) .ficha-foto { order: 2; }
+  .ficha.abierta .ficha-foto { position: sticky; top: 76px; }
+}
+@media (pointer: coarse) {
+  .sem-btn { min-height: 48px; }
+  .dato-val a { display: inline-block; padding: 6px 0; }
+  footer ul a { display: inline-flex; align-items: center; min-height: 40px; }
+}
+@media (hover: none) {
+  .js .nodo.on:hover:not(.foco) .nodo-foto { transform: scale(1); }
+  .nodo:hover:not(.foco) .nodo-foto { box-shadow: 0 0 0 1px rgba(26, 24, 16, .5), 0 0 0 5px var(--arena), 0 0 0 6px var(--linea), 0 14px 28px -14px rgba(26, 24, 16, .55); }
+  .nodo:hover:not(.foco) .nodo-rot { color: var(--tinta-2); border-color: var(--linea-2); }
+  .sem-btn:hover { color: var(--arena); border-color: rgba(217, 164, 140, .5); }
+  .btn-primary:hover::before { transform: translateX(-101%); }
+  .btn-primary:active::before { transform: translateX(0); }
+}
+</style>
 </head>
 <body>
 
