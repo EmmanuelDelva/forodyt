@@ -455,6 +455,68 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
   .cta-buttons { flex-direction: column; align-items: stretch; }
 }
 
+
+/* ═══════════ NAV V + PIE V · comunes del sitio (de index.html, 2026-09-25) ═══════════
+   Van al final para imponerse a los estilos propios de esta página. */
+.nav {
+  --v-tinta: #1A1810; --v-tinta-3: #5A5446; --v-tinta-4: #6B6455; --v-cobre: #B85C3D; --v-cobre-2: #8C3F26; --v-arena: #F5EFE3;
+  --v-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(245, 239, 227, 0.86);
+  backdrop-filter: blur(10px) saturate(1.1); -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid rgba(26, 24, 16, 0.08);
+  transition: box-shadow .5s var(--v-ease), background .5s var(--v-ease);
+}
+.nav.scrolled { box-shadow: 0 10px 30px rgba(26, 24, 16, 0.07); background: rgba(245, 239, 227, 0.94); }
+.nav .nav-inner { max-width: 1380px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: height .5s var(--v-ease); }
+.nav.scrolled .nav-inner { height: 60px; }
+.nav .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--v-tinta); }
+.nav .brand-mark { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-size: 21px; font-weight: 600; font-style: italic; font-variation-settings: "opsz" 40, "SOFT" 100; letter-spacing: -0.01em; white-space: nowrap; color: var(--v-tinta); }
+.nav .brand-rule { display: block; width: 30px; height: 1px; background: var(--v-cobre); }
+.nav .brand-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: var(--v-tinta-3); white-space: nowrap; }
+.nav .nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); margin: 0; padding: 0; }
+.nav .nav-links a { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 400; font-size: 13.5px; letter-spacing: .02em; text-decoration: none; color: var(--v-tinta-3); position: relative; padding: 4px 0; white-space: nowrap; transition: color .3s var(--v-ease); }
+.nav .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--v-cobre); transition: width .45s var(--v-ease); }
+.nav .nav-links a:hover, .nav .nav-links a[aria-current] { color: var(--v-tinta); }
+.nav .nav-links a:hover::after, .nav .nav-links a[aria-current]::after { width: 100%; }
+.nav .nav-cta { display: flex; align-items: center; gap: 18px; }
+.nav .lang { display: flex; align-items: center; gap: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; color: var(--v-tinta-4); user-select: none; }
+.nav .lang [data-lang] { cursor: pointer; padding: 4px 3px; font-weight: 400; color: var(--v-tinta-4); transition: color .3s var(--v-ease); }
+.nav .lang [data-lang]:hover { color: var(--v-tinta); }
+.nav .lang [data-lang].active { color: var(--v-cobre-2); font-weight: 500; }
+.nav .nav-cta > .btn-primary { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; background: var(--v-tinta); color: var(--v-arena); padding: 13px 28px; border: 0; border-radius: 0; box-shadow: none; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 13px; font-weight: 500; line-height: 1.4; letter-spacing: .06em; text-transform: none; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.nav .nav-cta > .btn-primary::before { content: ""; position: absolute; inset: 0; background: var(--v-cobre); transform: translateX(-101%); transition: transform .5s var(--v-ease); }
+.nav .nav-cta > .btn-primary:hover::before, .nav .nav-cta > .btn-primary:focus-visible::before { transform: translateX(0); }
+.nav .nav-cta > .btn-primary:hover, .nav .nav-cta > .btn-primary:focus-visible { color: var(--v-arena); }
+.nav .nav-cta > .btn-primary > * { position: relative; z-index: 1; }
+.nav a:focus-visible, .nav .lang [data-lang]:focus-visible { outline: 2px solid var(--v-cobre-2); outline-offset: 3px; }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav .nav-links { gap: 16px; } .nav .nav-links a { font-size: 13px; } .nav .nav-cta { gap: 12px; } .nav .nav-cta > .btn-primary { padding: 12px 18px; } }
+@media (max-width: 1024px) { .nav .nav-links { display: none; } }
+
+footer.pie-v { position: relative; z-index: 1; margin: 0; border: 0; background: #1A1810; color: rgba(245, 239, 227, 0.78); padding: clamp(64px, 8vw, 110px) 0 36px; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 16px; line-height: 1.65; letter-spacing: normal; text-transform: none; text-align: left; }
+footer.pie-v .pie-wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+footer.pie-v .pie-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(28px, 4vw, 60px); }
+footer.pie-v .pie-marca { margin: 0; font-family: 'Fraunces', Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: #F5EFE3; font-variation-settings: "opsz" 96, "SOFT" 60; }
+footer.pie-v .pie-marca em { font-style: italic; color: #D9A48C; }
+footer.pie-v .pie-lema { margin: 16px 0 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: rgba(245, 239, 227, 0.55); }
+footer.pie-v .pie-h { margin: 0 0 16px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-style: normal; font-weight: 400; font-size: 10.5px; line-height: 1.4; letter-spacing: .24em; text-transform: uppercase; color: #D9A48C; }
+footer.pie-v ul { list-style: none; display: grid; gap: 8px; margin: 0; padding: 0; font-size: 14.5px; }
+footer.pie-v li { margin: 0; }
+footer.pie-v a { color: rgba(245, 239, 227, 0.82); text-decoration: none; border: 0; transition: color .3s; }
+footer.pie-v a:hover, footer.pie-v a[aria-current] { color: #F5EFE3; }
+footer.pie-v a:focus-visible { outline: 2px solid #D9A48C; outline-offset: 3px; }
+footer.pie-v .pie-base { margin-top: clamp(48px, 6vw, 80px); padding-top: 22px; border-top: 1px solid rgba(245, 239, 227, 0.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 12.5px; color: rgba(245, 239, 227, 0.55); }
+footer.pie-v .pie-sello { margin-top: 26px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 800; font-size: 64px; line-height: .8; letter-spacing: -0.03em; color: #1A1810; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.10), -1px -1px 0 rgba(0, 0, 0, 0.6); font-variation-settings: "opsz" 144, "SOFT" 100; }
+footer.pie-v .pie-sello small { display: block; margin-top: 10px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-style: normal; font-weight: 400; font-size: 10px; letter-spacing: .3em; color: rgba(245, 239, 227, 0.35); text-shadow: none; }
+@media (max-width: 1100px) { footer.pie-v .pie-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { footer.pie-v .pie-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* «Otras ediciones»: la V, impresa en seco */
+.other-editions-links a.oe-v { color: #8C3F26; border-bottom-color: rgba(184, 92, 61, 0.45); }
+.other-editions-links a.oe-v:hover { color: #B85C3D; border-bottom-color: #B85C3D; }
+.oe-seco { color: var(--marfil, #F5EFE0); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.95), -1px -1px 0 rgba(92, 64, 36, 0.3), 0 0 1px rgba(92, 64, 36, 0.14); }
+@media (prefers-contrast: more), (forced-colors: active) { .oe-seco { color: inherit; text-shadow: none; } }
 </style>
 <link rel="stylesheet" href="mobile-menu.css">
 </head>
@@ -462,24 +524,17 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-mark">V Foro</span>
-      <span class="brand-rule"></span>
-      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span>
-    </a>
+    <a href="index.html" class="brand"><span class="brand-mark">V Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span></a>
     <ul class="nav-links">
+      <li><a href="memorias.html" aria-current="true" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="cfp.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
+      <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
       <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
-      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
-      <li><a href="memoria-iv.html" data-i18n="nav_link_iv">IV edición</a></li>
-      <li><a href="en-vivo.html" data-i18n="nav_link_videos">Videos</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
+      <li><a href="ponentes.html" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="comite.html" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
-    <div class="nav-cta">
-      <a href="index.html" class="nav-back" data-i18n="nav_back">Volver al sitio</a>
-      <div class="lang">
-        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
-      </div>
-    </div>
+    <div class="nav-cta"><div class="lang"><span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span></div><a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a></div>
   </div>
 </nav>
 
@@ -1008,7 +1063,7 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
     </div>
     <div class="cta-buttons">
       <a href="memoria-iv.html" class="cta-btn primary" data-i18n="m3_cta_btn1">Ver la memoria de la IV →</a>
-      <a href="programa.html" class="cta-btn secondary" data-i18n="m3_cta_btn2">Ver programa IV</a>
+      <a href="programa-iv.html" class="cta-btn secondary" data-i18n="m3_cta_btn2">Ver programa IV</a>
       <a href="index.html" class="cta-btn secondary" data-i18n="m3_cta_btn3">V edición · 2027</a>
     </div>
   </div>
@@ -1021,17 +1076,55 @@ footer { padding: 36px var(--gutter); border-top: 1px solid var(--ink-rule); bac
     <a href="memoria-i.html">I Foro · 2023</a>
     <a href="memoria-ii.html">II Foro · 2024</a>
     <a href="memoria-iv.html" data-i18n="mem_link_iv">IV Foro · 2026</a>
+    <a href="index.html" class="oe-v"><span data-i18n="mem_link_v">V Foro · 2027</span> · <span class="oe-seco" data-i18n="mem_por_anunciar">Por anunciar</span></a>
   </div>
 </div>
 
-<footer>
-  <div class="footer-inner">
-    <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
-    <span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>
-    <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>
+<footer class="pie-v" id="contacto">
+  <div class="pie-wrap">
+    <div class="pie-grid">
+      <div>
+        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-lema" data-i18n="pie_lema">Innovación jurídica en la era digital</p>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_contacto">Contacto</h2>
+        <ul>
+          <li><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></li>
+          <li><a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61580204966427" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_memorias">Memorias</h2>
+        <ul>
+          <li><a href="memoria-i.html" data-i18n="pie_m1">I edición · 2023</a></li>
+          <li><a href="memoria-ii.html" data-i18n="pie_m2">II edición · 2024</a></li>
+          <li><a href="memoria-iii.html" aria-current="page" data-i18n="pie_m3">III edición · 2025</a></li>
+          <li><a href="memoria-iv.html" data-i18n="pie_m4">IV edición · 2026</a></li>
+          <li><a href="en-vivo.html" data-i18n="pie_videos">Memoria en video de la IV</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-i18n="pie_organiza">Organiza</h2>
+        <ul>
+          <li data-i18n="pie_ca">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</li>
+          <li>Universidad de Guadalajara</li>
+        </ul>
+        <div class="pie-sello" aria-hidden="true">V<small>MMXXVII</small></div>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
+      <span data-i18n="pie_desde">Desde 2023 · Guadalajara, Jalisco, México</span>
+    </div>
   </div>
 </footer>
 
+<script>
+/* nav V: sombra al desplazarse (como en index.html) */
+(function () { var n = document.querySelector('.nav'); if (!n) return; function f() { n.classList.toggle('scrolled', window.scrollY > 24); } window.addEventListener('scroll', f, { passive: true }); f(); })();
+</script>
 <script src="i18n.js" defer></script>
 <script src="mobile-menu.js" defer></script>
 <!-- ============ Analytics (Cloudflare Web Analytics + Vercel Speed Insights) ============ -->

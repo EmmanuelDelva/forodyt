@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+/* Antes de pintar: decide si la cabecera se compone con la prensa (primera
+   visita de la sesión, con movimiento permitido) o aparece ya impresa. */
+(function () {
+  var h = document.documentElement;
+  h.className = h.className.replace('no-js', 'js');
+  try {
+    var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var vista = false;
+    try { vista = sessionStorage.getItem('forodyt_prensa_cfp') === '1'; } catch (e) {}
+    if (!quieto && !vista) h.classList.add('prensa-intro');
+  } catch (e) {}
+})();
+</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<title>Call for Papers — IV Foro Internacional de Derecho y Tecnología</title>
-<meta name="description" content="Convocatoria cerrada del IV Foro Internacional de Derecho y Tecnología. Recepción del 1 mayo al 15 agosto 2026 y dictaminación finalizada. Bases de consulta.">
-<meta name="keywords" content="call for papers derecho y tecnología, convocatoria de ponencias 2026, congreso jurídico internacional, inteligencia artificial y derecho, IA generativa, ciberseguridad, propiedad intelectual, protección de datos, libro colectivo con ISBN, derecho digital, LegalTech">
+<title>Call for papers 2027 · V Foro Internacional de Derecho y Tecnología</title>
+<meta name="description" content="Próximamente se anunciará el call for papers del V Foro Internacional de Derecho y Tecnología (2027). Los nueve ejes temáticos se mantienen.">
+<meta name="keywords" content="call for papers 2027, convocatoria de ponencias 2027, V Foro Internacional de Derecho y Tecnología, derecho y tecnología, inteligencia artificial y derecho, congreso jurídico internacional, derecho digital, Universidad de Guadalajara">
 <meta name="author" content="Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»">
 <link rel="canonical" href="https://forodyt.com/cfp.html">
 <link rel="alternate" hreflang="es" href="https://forodyt.com/cfp.html">
@@ -15,1235 +29,1107 @@
 <link rel="alternate" hreflang="x-default" href="https://forodyt.com/cfp.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Foro Internacional de Derecho y Tecnología">
-<meta property="og:title" content="Convocatoria de Ponencias · IV Foro Internacional de Derecho y Tecnología · Cerrada">
-<meta property="og:description" content="La recepción de trabajos cerró el 15 de agosto de 2026 y la dictaminación concluyó. Las bases quedan publicadas como documento de consulta de la IV edición.">
+<meta property="og:title" content="Call for papers 2027 · V Foro Internacional de Derecho y Tecnología">
+<meta property="og:description" content="Próximamente se anunciará el call for papers de la quinta edición. Los nueve ejes temáticos se mantienen. Recibe el aviso en tu correo.">
 <meta property="og:url" content="https://forodyt.com/cfp.html">
-<meta property="og:image" content="https://forodyt.com/og/og-cfp.png">
+<meta property="og:image" content="https://forodyt.com/og/og-v.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Convocatoria de Ponencias · IV Foro Internacional de Derecho y Tecnología · Cerrada">
-<meta name="twitter:description" content="La recepción cerró el 15 de agosto de 2026 y la dictaminación concluyó. Bases de consulta de la IV edición.">
-<meta name="twitter:image" content="https://forodyt.com/og/og-cfp.png">
+<meta name="twitter:title" content="Call for papers 2027 · V Foro Internacional de Derecho y Tecnología">
+<meta name="twitter:description" content="Próximamente se anunciará el call for papers de la quinta edición. Los nueve ejes temáticos se mantienen.">
+<meta name="twitter:image" content="https://forodyt.com/og/og-v.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Call for papers 2027 · V Foro Internacional de Derecho y Tecnología",
+  "url": "https://forodyt.com/cfp.html",
+  "inLanguage": ["es", "en", "fr"],
+  "isPartOf": { "@type": "WebSite", "name": "Foro Internacional de Derecho y Tecnología", "url": "https://forodyt.com/" },
+  "publisher": { "@type": "Organization", "name": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»", "email": "contacto@forodyt.com" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mobile-menu.css">
+
 <style>
-  :root {
-    --ink:        #0B2430;
-    --ink-2:      #1a3a4a;
-    --teal:       #0F6B7C;
-    --teal-deep:  #094651;
-    --teal-soft:  #E6F1F2;
-    --accent:     #C08B3C;
-    --accent-2:   #8F6425;
-    --paper:      #FBF8F3;
-    --paper-2:    #F3EEE4;
-    --rule:       #0B2430;
-    --muted:      #5c6c74;
-  }
+/* ════════════════════════════════════════════════════════════════
+   V EDICIÓN · CONVOCATORIA · «LA PRENSA»
+   La cabecera se compone como en un taller de tipos: las piezas de
+   metal entran al componedor (invertidas, como se ven en la forma),
+   el cilindro de la prensa de pruebas pasa sobre ellas y deja la
+   impresión en el papel, ya al derecho. Lo anunciado queda con tinta;
+   lo que falta por anunciar queda en seco (golpe seco).
+   Tokens, nav, pie y puente de idioma: los de index.html.
+   ════════════════════════════════════════════════════════════════ */
+@view-transition { navigation: auto; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+@property --x { syntax: '<percentage>'; inherits: true; initial-value: 104%; }
+@property --lx { syntax: '<number>'; inherits: true; initial-value: 1; }
+@property --ly { syntax: '<number>'; inherits: true; initial-value: 1; }
 
-  html { background: #2a2a28; }
+:root {
+  --tinta: #1A1810;
+  --tinta-2: #2A2620;
+  --tinta-3: #5A5446;
+  --tinta-4: #6B6455;
+  --cobre: #B85C3D;
+  --cobre-2: #8C3F26;
+  --cobre-claro: #D9A48C;
+  --arena: #F5EFE3;
+  --arena-2: #EAE0D0;
+  --arena-3: #DDD0BA;
+  --musgo: #4A5840;
+  --musgo-claro: #8C9A7E;
+  --linea: rgba(26, 24, 16, 0.16);
+  --linea-2: rgba(26, 24, 16, 0.08);
 
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: var(--ink);
-    background: var(--paper);
-    line-height: 1.55;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
-  }
+  --ed1: #2974C9; --ed1-d: #11355E;
+  --ed2: #8B3A4B; --ed2-d: #5C2A38;
+  --ed3: #3A8E89; --ed3-d: #1F4747;
+  --ed4: #B8923E; --ed4-d: #0E1B2C;
+  --ed5: #B85C3D; --ed5-d: #1A1810;
 
-  .page {
-    max-width: 880px;
-    margin: 32px auto;
-    background: var(--paper);
-    background-image:
-      radial-gradient(circle at 100% 0%, rgba(15,107,124,0.05) 0%, transparent 40%),
-      radial-gradient(circle at 0% 100%, rgba(192,139,60,0.05) 0%, transparent 40%);
-    padding: 72px 88px 64px;
-    box-shadow: 0 2px 40px rgba(0,0,0,0.2);
-    position: relative;
-    border: 1px solid rgba(11,36,48,0.08);
-  }
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1320px;
 
-  /* ornamental corner lines */
-  .page::before,
-  .page::after {
-    content: "";
-    position: absolute;
-    width: 44px;
-    height: 44px;
-    border: 1.5px solid var(--ink);
-    opacity: 0.7;
-  }
-  .page::before { top: 24px; left: 24px; border-right: none; border-bottom: none; }
-  .page::after  { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+  /* golpe seco: la huella sin tinta. --lx/--ly siguen a la luz del cursor */
+  --seco: calc(var(--lx) * 1px) calc(var(--ly) * 1px) 0 rgba(255, 255, 255, 0.95), calc(var(--lx) * -1px) calc(var(--ly) * -1px) 0 rgba(92, 64, 36, 0.22), 0 0 1px rgba(92, 64, 36, 0.10);
+}
 
-  /* ===== HEADER ===== */
-  .masthead {
-    text-align: center;
-    padding-bottom: 28px;
-    border-bottom: 1px solid var(--ink);
-    margin-bottom: 36px;
-    position: relative;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background-color: var(--arena);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0 0.14  0 0 0 0.055 0'/></filter><rect width='240' height='240' filter='url(%23f)'/></svg>");
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; text-wrap: balance; }
+p { text-wrap: pretty; }
+em { font-style: italic; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--cobre-2); outline-offset: 3px; }
 
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-  }
-  .eyebrow::before,
-  .eyebrow::after {
-    content: "";
-    height: 1px;
-    background: var(--teal);
-    flex: 1;
-    max-width: 80px;
-  }
+/* ─────────── NAV (idéntico a index.html; mobile-menu.js lee .nav-links) ─────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(245, 239, 227, 0.86);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid var(--linea-2);
+  transition: box-shadow .5s var(--ease), background .5s var(--ease);
+}
+.nav.scrolled { box-shadow: 0 10px 30px rgba(26, 24, 16, 0.07); background: rgba(245, 239, 227, 0.94); }
+.nav-inner { max-width: 1380px; margin: 0 auto; padding: 0 var(--gutter); height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: height .5s var(--ease); }
+.nav.scrolled .nav-inner { height: 60px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--tinta); }
+.brand-mark { font-family: var(--serif); font-size: 21px; font-weight: 600; font-style: italic; font-variation-settings: "opsz" 40, "SOFT" 100; letter-spacing: -0.01em; white-space: nowrap; }
+.brand-rule { width: 30px; height: 1px; background: var(--cobre); }
+.brand-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--tinta-3); white-space: nowrap; }
+.nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); }
+.nav-links a { text-decoration: none; color: var(--tinta-3); font-size: 13.5px; letter-spacing: .02em; position: relative; padding: 4px 0; transition: color .3s var(--ease); }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--cobre); transition: width .45s var(--ease); }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--tinta); }
+.nav-links a:hover::after, .nav-links a[aria-current="page"]::after { width: 100%; }
+.nav-cta { display: flex; align-items: center; gap: 18px; }
+.lang { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--tinta-4); user-select: none; }
+.lang [data-lang] { cursor: pointer; padding: 4px 3px; transition: color .3s var(--ease); }
+.lang [data-lang]:hover { color: var(--tinta); }
+.lang [data-lang].active { color: var(--cobre-2); font-weight: 500; }
 
-  .edition-mark {
-    font-family: 'Fraunces', serif;
-    font-weight: 800;
-    font-size: 112px;
-    line-height: 0.85;
-    color: var(--teal-deep);
-    letter-spacing: -0.02em;
-    font-style: italic;
-    font-variation-settings: "opsz" 144;
-    margin: 4px 0 2px;
-  }
-  .edition-mark .sup {
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 500;
-    vertical-align: super;
-    color: var(--accent);
-    margin-left: 6px;
-    letter-spacing: 0.1em;
-  }
+.btn-primary, .btn-ghost { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: .06em; text-decoration: none; cursor: pointer; border: 0; }
+.btn-primary { position: relative; overflow: hidden; background: var(--tinta); color: var(--arena); padding: 13px 28px; }
+.btn-primary::before { content: ""; position: absolute; inset: 0; background: var(--cobre); transform: translateX(-101%); transition: transform .5s var(--ease); }
+.btn-primary:hover::before, .btn-primary:focus-visible::before { transform: translateX(0); }
+.btn-primary > * { position: relative; z-index: 1; }
+.btn-ghost { color: var(--tinta); padding: 12px 24px; border: 1px solid var(--linea); background: transparent; transition: border-color .4s var(--ease), background .4s var(--ease); }
+.btn-ghost:hover { border-color: var(--cobre); background: rgba(184, 92, 61, 0.06); }
+.flecha { transition: transform .4s var(--ease); }
+a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 
-  h1.title {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 26px;
-    letter-spacing: 0.02em;
-    color: var(--ink);
-    margin-top: 6px;
-    line-height: 1.2;
-  }
+/* rótulos de la serie */
+.eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--cobre-2); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; opacity: .6; }
+.sec { padding: clamp(84px, 11vw, 150px) 0; position: relative; }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: end; margin-bottom: clamp(44px, 6vw, 80px); }
+.sec-head h2 { font-size: clamp(38px, 5.4vw, 78px); font-variation-settings: "opsz" 144, "SOFT" 60; font-weight: 350; letter-spacing: -0.02em; }
+.sec-head h2 em { color: var(--cobre); font-weight: 300; }
+.sec-lead { font-size: clamp(16px, 1.3vw, 18.5px); color: var(--tinta-3); max-width: 540px; }
+.sec-lead strong { color: var(--tinta); font-weight: 500; }
 
-  .subtitle {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 19px;
-    color: var(--accent-2);
-    margin-top: 12px;
-    line-height: 1.4;
+/* golpe seco → tinta, ligado al scroll (mejora progresiva) */
+.seco { color: var(--arena); text-shadow: var(--seco); }
+@media (prefers-contrast: more), (forced-colors: active) {
+  .seco, .c-val.seco { color: var(--tinta-3) !important; text-shadow: none !important; }
+  .titulo-gl { display: none !important; }
+  .gl-on .cfp-titulo span { color: var(--tinta) !important; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .entinta { animation: entintar linear both; animation-timeline: view(); animation-range: entry 0% cover 32%; }
+    @keyframes entintar {
+      from { color: rgba(26, 24, 16, 0); text-shadow: var(--seco); }
+      60%  { color: rgba(26, 24, 16, 0.35); text-shadow: var(--seco); }
+      to   { color: var(--tinta); text-shadow: none; }
+    }
+    .sec-head h2.entinta em { animation: entintar-cobre linear both; animation-timeline: view(); animation-range: entry 0% cover 34%; }
+    @keyframes entintar-cobre {
+      from { color: rgba(184, 92, 61, 0); text-shadow: var(--seco); }
+      to   { color: var(--cobre); text-shadow: none; }
+    }
+    /* los sellos «En seco» se estampan al entrar en pantalla */
+    .casilla .c-sello { animation: estampar linear both; animation-timeline: view(); animation-range: entry 35% cover 42%; }
+    @keyframes estampar {
+      from { opacity: 0; transform: rotate(-18deg) scale(1.9); }
+      70%  { opacity: 1; transform: rotate(-3deg) scale(.94); }
+      to   { opacity: 1; transform: rotate(-4deg) scale(1); }
+    }
+    /* los numerales de los ejes pasan de la huella a la tinta, fila por fila */
+    .indice .en { animation: entintar-num linear both; animation-timeline: view(); animation-range: entry 20% cover 38%; }
+    @keyframes entintar-num {
+      from { color: rgba(140, 63, 38, 0); text-shadow: var(--seco); }
+      to   { color: var(--cobre-2); text-shadow: none; }
+    }
   }
+}
 
-  .venue {
-    margin-top: 22px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .venue strong { color: var(--ink); font-weight: 600; }
+/* aparición suave (IntersectionObserver) */
+.js .aparece { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.js .aparece.visto { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .aparece { opacity: 1; transform: none; transition: none; } }
 
-  /* ===== CONVENING INSTITUTIONS ===== */
-  .convened-by {
-    margin-top: 26px;
-    padding-top: 22px;
-    border-top: 1px dotted rgba(11,36,48,0.3);
-    font-family: 'Fraunces', serif;
-    font-size: 14px;
-    color: var(--muted);
-    font-style: italic;
-  }
-  .convened-by strong {
-    font-style: normal;
-    color: var(--ink);
-    font-weight: 600;
-    display: block;
-    margin-bottom: 4px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
+/* ═══════════ CABECERA · LA PRENSA ═══════════ */
+.hero { position: relative; min-height: 100svh; padding: 116px 0 56px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; isolation: isolate; }
+.hero-eyebrow { margin-bottom: clamp(22px, 3vw, 40px); }
+.platina { position: relative; --x: 104%; }
+.impresion { position: relative; }
+.cfp-titulo { font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+.t-l1 {
+  display: block;
+  font-size: clamp(44px, 9.2vw, 146px); font-weight: 460;
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  letter-spacing: -0.03em; line-height: 1.04;
+}
+.t-l2 { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: clamp(16px, 2.4vw, 42px); row-gap: 16px; margin-top: clamp(10px, 1.6vw, 26px); padding-left: clamp(0px, 8vw, 150px); }
+.t-anio {
+  font-style: italic; font-weight: 800;
+  font-size: clamp(98px, 17.5vw, 258px); line-height: .9;
+  letter-spacing: -0.04em; color: var(--cobre);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+html[lang="fr"] .t-l1 { font-size: clamp(40px, 7.4vw, 118px); }
+.t-pronto {
+  font-style: italic; font-weight: 600;
+  font-size: clamp(30px, 4.1vw, 62px); line-height: 1;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 96, "SOFT" 100;
+}
+/* con WebGL la impresión la dibuja el relieve; el texto del DOM sigue ahí (accesible) */
+.gl-on .cfp-titulo .t-l1, .gl-on .cfp-titulo .t-anio, .gl-on .cfp-titulo .t-pronto { color: transparent; text-shadow: none; }
+.titulo-gl { position: absolute; pointer-events: none; }
 
-  /* ===== SECTION ===== */
-  section { margin-top: 44px; scroll-margin-top: 20px; }
+/* la forma: piezas de metal en el componedor */
+.forma { position: absolute; inset: 0; pointer-events: none; z-index: 2; display: none; }
+.prensa-intro .platina:not(.impreso) .forma { display: block; clip-path: inset(-60% -12% -60% var(--x)); }
+.tipo {
+  position: absolute; opacity: 0;
+  background: linear-gradient(180deg, #8c8577 0%, #736c5f 40%, #57524a 100%);
+  border-radius: 1.5px;
+  box-shadow: inset 1px 1px 0 rgba(255, 250, 235, 0.34), inset -1px -1px 0 rgba(20, 18, 12, 0.5), 0 1px 0 rgba(26, 24, 16, 0.18);
+}
+.tipo::after { content: ""; position: absolute; left: 7%; right: 7%; bottom: 10%; height: 1px; background: rgba(20, 18, 12, 0.38); box-shadow: 0 1px 0 rgba(255, 250, 235, 0.16); }
+.tipo b {
+  position: absolute; left: 0; right: 0; text-align: center; white-space: pre;
+  transform: scaleX(-1); font-weight: inherit;
+  color: #ddd5c4; text-shadow: 0 1px 0 rgba(20, 18, 12, 0.6), 0 -1px 0 rgba(255, 250, 235, 0.3);
+}
+.tipo.t-tinta b { color: #15130d; text-shadow: 0 1px 0 rgba(255, 250, 235, 0.16), 0 0 1px rgba(0, 0, 0, 0.6); }
+.tipo.t-cobre b { color: #7a321d; text-shadow: 0 1px 0 rgba(255, 220, 190, 0.2), 0 0 1px rgba(40, 10, 0, 0.6); }
+.tipo.cuadratin { background: linear-gradient(180deg, #5b564c, #47433b); box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(255, 250, 235, 0.08); }
+.tipo.cuadratin::after { display: none; }
+.regleta { position: absolute; height: 3px; border-radius: 1px; background: linear-gradient(180deg, #c3bcad, #6f695d); box-shadow: 0 1px 2px rgba(26, 24, 16, 0.25); transform: scaleX(0); transform-origin: 0 50%; }
+.regleta::before { content: ""; position: absolute; left: -5px; bottom: 0; width: 5px; height: 22px; border-radius: 1px; background: linear-gradient(90deg, #c3bcad, #6f695d); }
 
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    margin-bottom: 18px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--ink);
-  }
-  .section-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    font-weight: 500;
-  }
-  .section-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 22px;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-  }
+/* el cilindro de la prensa de pruebas */
+.rodillo {
+  position: absolute; top: -10%; bottom: -10%; left: var(--x); z-index: 3;
+  width: clamp(22px, 2.4vw, 40px); transform: translateX(-50%);
+  pointer-events: none; opacity: 0; display: none;
+  background: linear-gradient(90deg, #0f0e0a 0%, #2a2620 20%, #6b6252 40%, #e3d8c2 50%, #6b6252 60%, #2a2620 80%, #0f0e0a 100%);
+  border-radius: 3px;
+  box-shadow: -30px 0 40px -20px rgba(26, 24, 16, 0.5), 20px 0 30px -18px rgba(26, 24, 16, 0.4);
+}
+.rodillo::before, .rodillo::after { content: ""; position: absolute; left: -4px; right: -4px; height: 12px; border-radius: 2px; background: linear-gradient(90deg, #6a4a1e, #d8b976 50%, #6a4a1e); }
+.rodillo::before { top: -8px; } .rodillo::after { bottom: -8px; }
+.prensa-intro .platina:not(.impreso) .rodillo { display: block; }
 
-  p { margin-bottom: 14px; color: var(--ink-2); }
-  p.lead {
-    font-family: 'Fraunces', serif;
-    font-size: 17px;
-    line-height: 1.55;
-    color: var(--ink);
-    font-weight: 400;
-  }
-  p.lead::first-letter {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 58px;
-    float: left;
-    line-height: 0.9;
-    margin: 4px 10px 0 0;
-    color: var(--teal-deep);
-  }
+/* estados de la función */
+.prensa-intro .platina { --x: -4%; }
+.prensa-intro .platina:not(.impreso) .impresion { clip-path: inset(-40% calc(100% - var(--x)) -40% -30%); }
+.prensa-intro .platina.componiendo { animation: rodar 1.3s cubic-bezier(.55, .05, .3, 1) var(--t-rodillo, 1.6s) both; }
+.prensa-intro .platina.componiendo .rodillo { animation: rodillo-ver 1.3s linear var(--t-rodillo, 1.6s) both; }
+.prensa-intro .platina.componiendo .tipo { animation: componer .52s cubic-bezier(.2, .9, .3, 1.2) both; animation-delay: calc(260ms + var(--i, 0) * 26ms); }
+.prensa-intro .platina.componiendo .regleta { animation: regleta .55s var(--ease) .05s both; }
+.platina.impreso { --x: 104%; }
+@keyframes rodar { from { --x: -4%; } to { --x: 104%; } }
+@keyframes rodillo-ver { 0% { opacity: 0; } 7% { opacity: 1; } 93% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes componer {
+  from { opacity: 0; transform: translate3d(0, -44%, 0) rotate(var(--r, 0deg)); }
+  55%  { opacity: 1; }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes regleta { to { transform: scaleX(1); } }
+/* red de seguridad: si el guion no llega a correr, la impresión aparece igual */
+.prensa-intro .platina:not(.componiendo):not(.impreso) .impresion { animation: sin-prensa 0s 6s forwards; }
+@keyframes sin-prensa { to { clip-path: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .prensa-intro .platina .impresion { clip-path: none !important; }
+  .forma, .rodillo { display: none !important; }
+}
 
-  /* ===== ROLES / PEOPLE ===== */
-  .people {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .person {
-    display: grid;
-    grid-template-columns: 210px 1fr;
-    gap: 20px;
-    padding: 14px 0;
-    border-bottom: 1px dotted rgba(11,36,48,0.2);
-  }
-  .person:last-child { border-bottom: none; }
-  .person .role {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    padding-top: 3px;
-  }
-  .person .name {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .person .affil {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+.hero-pie { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(24px, 4vw, 72px); align-items: end; margin-top: clamp(30px, 3.6vw, 52px); padding-top: 24px; border-top: 1px solid var(--linea); }
+.hero-lead { font-size: clamp(16.5px, 1.35vw, 19.5px); color: var(--tinta-3); max-width: 620px; }
+.hero-lead strong { color: var(--tinta); font-weight: 500; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.hero-lado { display: grid; gap: 18px; justify-items: start; }
+.pista { font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; line-height: 1.6; text-transform: uppercase; color: var(--tinta-4); }
+@media (pointer: coarse) { .pista .pista-cursor { display: none; } }
+@media (pointer: fine) { .pista .pista-tacto { display: none; } }
+.archivo-iv { display: inline-flex; align-items: baseline; gap: 12px; font-size: 14px; color: var(--tinta-3); text-decoration: none; border-bottom: 1px solid var(--linea); padding-bottom: 4px; transition: color .3s var(--ease), border-color .3s var(--ease); }
+.archivo-iv .ed-iv { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 18px; color: #8A6A24; font-variation-settings: "opsz" 48, "SOFT" 100; }
+.archivo-iv:hover { color: var(--tinta); border-color: var(--ed4); }
 
-  /* ===== KEY DATES (timeline) ===== */
-  /* ===== FE DE ERRATAS · la enmienda al pliego ===== */
-  .errata {
-    --lacre: #7E2A22;
-    margin-top: 18px;
-    padding: 18px 22px 16px;
-    border-top: 1px solid rgba(11,36,48,0.16);
-    border-bottom: 1px solid rgba(11,36,48,0.16);
-    background: rgba(126,42,34,0.045);
-    display: grid;
-    grid-template-columns: minmax(0,1fr) auto;
-    grid-template-areas: "rotulo rotulo" "linea sello" "glosa sello";
-    column-gap: 22px;
-    row-gap: 9px;
-    align-items: end;
-  }
-  .errata-rotulo {
-    grid-area: rotulo;
-    display: flex; align-items: center; gap: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9.5px; font-weight: 500; letter-spacing: 0.26em;
-    text-transform: uppercase; color: var(--lacre);
-  }
-  .errata-rotulo::before { content: ""; width: 26px; height: 1px; background: var(--lacre); flex: none; }
-  .errata-linea { grid-area: linea; margin: 2px 0 0; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
-  .errata-vieja {
-    position: relative; text-decoration: none;
-    font-family: 'Fraunces', serif; font-style: italic;
-    font-size: 19px; color: var(--muted); white-space: nowrap;
-  }
-  .errata-vieja::after { content: ""; position: absolute; left: -3px; right: -3px; top: 54%; height: 2px; background: var(--lacre); transform: rotate(-1.4deg); }
-  .errata-flecha { position: relative; flex: none; width: 38px; height: 1px; margin: 0 8px; background: var(--lacre); }
-  .errata-flecha::after { content: ""; position: absolute; right: -1px; top: 50%; width: 7px; height: 7px; border-top: 1px solid var(--lacre); border-right: 1px solid var(--lacre); transform: translateY(-50%) rotate(45deg); }
-  .errata-nueva {
-    text-decoration: none; font-family: 'Fraunces', serif; font-weight: 700;
-    font-size: 27px; line-height: 1.05; letter-spacing: -0.015em; color: var(--lacre);
-  }
-  .errata-sello { grid-area: sello; position: relative; align-self: center; justify-self: end; padding: 10px 15px 8px; border: 2px solid var(--lacre); transform: rotate(-2.4deg); }
-  .errata-sello::before { content: ""; position: absolute; inset: 3px; border: 1px solid rgba(126,42,34,0.45); pointer-events: none; }
-  .errata-sello span { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lacre); white-space: nowrap; }
-  .errata-glosa { grid-area: glosa; margin: 0; max-width: 52ch; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
-  .errata-glosa i { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink); }
-  .errata--clausura { margin-top: 22px; }
-  .ti-cerrado { display: block; margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--lacre); }
-  @media (max-width: 620px) {
-    .errata { grid-template-columns: minmax(0,1fr); grid-template-areas: "rotulo" "linea" "sello" "glosa"; row-gap: 13px; }
-    .errata-sello { justify-self: start; }
-    .errata-nueva { font-size: 23px; }
-  }
+/* ═══════════ FECHAS ═══════════ */
+.fechas { border-top: 1px solid var(--linea-2); }
+.casillas { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--linea); }
+.casilla { position: relative; padding: 26px 24px 30px; min-height: 220px; display: flex; flex-direction: column; gap: 14px; }
+.casilla + .casilla { border-left: 1px solid var(--linea-2); }
+.c-rot { font-family: var(--mono); font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--tinta-3); padding-right: 76px; }
+.c-val { font-family: var(--serif); font-size: clamp(24px, 2.4vw, 34px); line-height: 1.1; font-variation-settings: "opsz" 72, "SOFT" 60; margin-top: auto; }
+.c-val.seco { color: var(--arena); text-shadow: calc(var(--lx) * 1px) calc(var(--ly) * 1px) 0 rgba(255,255,255,.95), calc(var(--lx) * -1px) calc(var(--ly) * -1px) 0 rgba(92,64,36,.30), 0 0 1px rgba(92,64,36,.14); }
+.c-sello { position: absolute; top: 22px; right: 18px; font-family: var(--mono); font-size: 8.5px; letter-spacing: .2em; text-transform: uppercase; padding: 5px 7px; border: 1px solid currentColor; color: var(--tinta-4); transform: rotate(-4deg); }
+.casilla.entintada .c-val { color: var(--tinta); text-shadow: none; animation: tinta-llega 1.4s var(--ease) both; }
+.casilla.entintada .c-sello { color: var(--cobre-2); }
+@keyframes tinta-llega { from { color: var(--arena); filter: blur(2px); } to { color: var(--tinta); filter: none; } }
+.fechas-nota { margin-top: 22px; font-size: 14px; color: var(--tinta-3); max-width: 720px; }
 
-  .timeline {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 1px solid var(--ink);
-    background: var(--paper-2);
-    margin-top: 10px;
-    overflow: hidden;
-  }
-  .ti {
-    padding: 22px 20px;
-    border-right: 1px solid rgba(11,36,48,0.2);
-    position: relative;
-  }
-  .ti:last-child { border-right: none; }
-  .ti .step {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    display: block;
-    margin-bottom: 8px;
-  }
-  .ti .label {
-    font-family: 'Fraunces', serif;
-    font-size: 14px;
-    color: var(--muted);
-    text-transform: lowercase;
-    font-style: italic;
-    margin-bottom: 6px;
-  }
-  .ti .date {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--ink);
-    line-height: 1.25;
-  }
-  .ti.highlight {
-    background: var(--teal-deep);
-    color: var(--paper);
-  }
-  .ti.highlight .step { color: var(--accent); }
-  .ti.highlight .label { color: rgba(251,248,243,0.75); }
-  .ti.highlight .date { color: var(--paper); }
+/* ═══════════ EJES ═══════════ */
+.indice { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(28px, 5vw, 80px); border-top: 1px solid var(--tinta); }
+.indice li { border-bottom: 1px solid var(--linea-2); }
+.indice a { display: grid; grid-template-columns: 56px minmax(0, auto) minmax(20px, 1fr) auto; align-items: baseline; gap: 14px; padding: 20px 0; text-decoration: none; color: var(--tinta); }
+.indice .en { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--cobre-2); font-variation-settings: "opsz" 72; }
+.indice .et { font-family: var(--serif); font-size: clamp(18px, 1.55vw, 22px); line-height: 1.25; font-variation-settings: "opsz" 48; }
+.indice .puntos { border-bottom: 1px dotted var(--tinta-4); transform: translateY(-5px); opacity: .6; transition: border-color .4s var(--ease); }
+.indice .ir { font-family: var(--mono); font-size: 11px; color: var(--tinta-4); transition: color .3s var(--ease), transform .3s var(--ease); }
+.indice a:hover .et { color: var(--cobre-2); }
+.indice a:hover .puntos { border-color: var(--cobre); opacity: 1; }
+.indice a:hover .ir { color: var(--cobre-2); transform: translateX(4px); }
+.ejes-pie { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+.ejes-pie p { font-size: 14px; color: var(--tinta-3); max-width: 560px; }
 
-  /* ===== TOPICS ===== */
-  .topics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px 32px;
-    margin-top: 6px;
-  }
-  .topic {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 14px;
-    padding: 8px 0;
-    align-items: start;
-  }
-  .topic .num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 26px;
-    text-transform: uppercase;
-    color: var(--accent);
-    line-height: 1;
-    padding-top: 4px;
-    border-right: 1px solid rgba(192,139,60,0.4);
-    text-align: center;
-    padding-right: 8px;
-  }
-  .topic .body {
-    font-family: 'Inter', sans-serif;
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .topic .body strong {
-    display: block;
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-  .topic .body span { color: var(--muted); font-size: 12.5px; }
+/* ═══════════ AVÍSAME ═══════════ */
+.aviso { background: linear-gradient(180deg, transparent, rgba(234, 224, 208, 0.55) 16%, rgba(234, 224, 208, 0.55) 84%, transparent); }
+.aviso-caja { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.aviso-caja h2 { font-size: clamp(30px, 3.4vw, 50px); font-variation-settings: "opsz" 96, "SOFT" 60; letter-spacing: -0.015em; }
+.aviso-caja h2 em { color: var(--cobre); }
+.aviso-texto p { color: var(--tinta-3); margin-top: 14px; max-width: 460px; }
+.aviso-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0; border-bottom: 1px solid var(--tinta); }
+.aviso-form label { grid-column: 1 / -1; font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--tinta-3); margin-bottom: 4px; }
+.aviso-form input { font: inherit; font-family: var(--serif); font-size: clamp(19px, 1.7vw, 24px); background: transparent; border: 0; color: var(--tinta); padding: 12px 0; min-width: 0; }
+.aviso-form input::placeholder { color: var(--tinta-4); opacity: .8; }
+.aviso-form input:focus { outline: none; }
+.aviso-form:focus-within { border-bottom-color: var(--cobre); }
+.aviso-form button { align-self: center; }
+.aviso-estado { font-size: 13.5px; color: var(--tinta-3); margin-top: 12px; min-height: 1.4em; }
+.aviso-estado.ok { color: var(--musgo); }
+.aviso-estado.error { color: var(--cobre-2); }
+.c-nota { font-size: 13px; color: var(--tinta-3); }
+.c-nota a { color: var(--cobre-2); }
+.aviso-redes { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; font-size: 13.5px; }
+.aviso-redes a { color: var(--tinta-3); text-decoration: none; border-bottom: 1px solid var(--linea); padding-bottom: 2px; }
+.aviso-redes a:hover { color: var(--cobre-2); border-color: var(--cobre); }
 
-  /* ===== SUBMISSION BOX ===== */
-  .envelope {
-    margin-top: 16px;
-    background: var(--teal-soft);
-    border-left: 3px solid var(--teal);
-    padding: 22px 26px;
-    font-size: 14px;
-  }
-  .envelope .mono {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: var(--teal-deep);
-  }
-  .envelope h4 {
-    font-family: 'Fraunces', serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 4px;
-    margin-top: 12px;
-  }
-  .envelope h4:first-child { margin-top: 0; }
-  .envelope p { color: var(--ink-2); margin-bottom: 0; }
-  .envelope .mail {
-    display: inline-block;
-    background: var(--paper);
-    padding: 3px 10px;
-    border: 1px solid var(--teal);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--teal-deep);
-    margin-top: 4px;
-  }
-  .envelope .badge {
-    display: inline-block;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 2px 9px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-right: 6px;
-  }
+/* ═══════════ PIE ═══════════ */
+footer { background: var(--tinta); color: rgba(245, 239, 227, 0.78); padding: clamp(64px, 8vw, 110px) 0 36px; }
+.pie-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(28px, 4vw, 60px); }
+.pie-marca { font-family: var(--serif); font-size: clamp(26px, 2.4vw, 34px); color: var(--arena); line-height: 1.1; font-variation-settings: "opsz" 96, "SOFT" 60; }
+.pie-marca em { color: var(--cobre-claro); }
+.pie-lema { font-family: var(--mono); font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; margin-top: 16px; color: rgba(245,239,227,.55); }
+footer .pie-h { font-family: var(--mono); line-height: 1.4; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--cobre-claro); font-weight: 400; margin-bottom: 16px; }
+footer ul { list-style: none; display: grid; gap: 8px; font-size: 14.5px; }
+footer a { text-decoration: none; color: rgba(245, 239, 227, 0.82); transition: color .3s; }
+footer a:hover { color: var(--arena); }
+.pie-base { margin-top: clamp(48px, 6vw, 80px); padding-top: 22px; border-top: 1px solid rgba(245,239,227,.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 12.5px; color: rgba(245,239,227,.55); }
+.pie-sello { font-family: var(--serif); font-style: italic; font-weight: 800; font-size: 64px; line-height: .8; color: var(--tinta); text-shadow: 1px 1px 0 rgba(255,255,255,.10), -1px -1px 0 rgba(0,0,0,.6); letter-spacing: -0.03em; font-variation-settings: "opsz" 144, "SOFT" 100; }
+.pie-sello small { font-family: var(--mono); font-style: normal; font-weight: 400; font-size: 10px; letter-spacing: .3em; color: rgba(245,239,227,.35); text-shadow: none; display: block; margin-top: 10px; }
 
-  /* ===== SPECS LIST ===== */
-  ul.specs {
-    list-style: none;
-    counter-reset: spec;
-    margin-top: 6px;
-  }
-  ul.specs li {
-    padding: 10px 0 10px 44px;
-    position: relative;
-    border-bottom: 1px dotted rgba(11,36,48,0.15);
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--ink-2);
-  }
-  ul.specs li:last-child { border-bottom: none; }
-  ul.specs li::before {
-    counter-increment: spec;
-    content: counter(spec, decimal-leading-zero);
-    position: absolute;
-    left: 0;
-    top: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-  }
-  ul.specs li strong {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    color: var(--ink);
-    font-size: 14.5px;
-  }
-
-  /* ===== CITATION EXAMPLES ===== */
-  .citations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px 28px;
-    margin-top: 10px;
-  }
-  .citation-card {
-    border: 1px solid rgba(11,36,48,0.15);
-    padding: 14px 16px;
-    background: var(--paper-2);
-  }
-  .citation-card h5 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-  .citation-card p {
-    font-size: 12.5px;
-    line-height: 1.55;
-    font-family: 'Fraunces', serif;
-    color: var(--ink);
-    margin-bottom: 0;
-  }
-  .citation-card p em {
-    color: var(--accent-2);
-  }
-
-  /* ===== FOOTER ===== */
-  .footer {
-    margin-top: 56px;
-    padding-top: 26px;
-    border-top: 1px solid var(--ink);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .footer .mark {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 16px;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--teal-deep);
-    font-weight: 500;
-  }
-
-  /* ===== DECORATIVE DIVIDER ===== */
-  .ornament {
-    text-align: center;
-    margin: 30px 0;
-    font-family: 'Fraunces', serif;
-    color: var(--accent);
-    font-size: 18px;
-    letter-spacing: 0.8em;
-  }
-
-  /* ===== CALLOUT ===== */
-  .callout {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 26px 32px;
-    margin: 26px 0;
-    position: relative;
-  }
-  .callout::before {
-    content: "";
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    right: 6px;
-    bottom: 6px;
-    border: 1px solid var(--accent);
-    z-index: -1;
-  }
-  .callout h4 {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .callout p {
-    color: rgba(251,248,243,0.85);
-    font-size: 13.5px;
-    line-height: 1.65;
-    margin-bottom: 0;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 720px) {
-    .page { padding: 48px 28px; margin: 16px auto; }
-    .edition-mark { font-size: 82px; }
-    .topics, .citations-grid { grid-template-columns: 1fr; }
-    .timeline { grid-template-columns: 1fr; }
-    .ti { border-right: none; border-bottom: 1px solid rgba(11,36,48,0.2); }
-    .ti:last-child { border-bottom: none; }
-    .person { grid-template-columns: 1fr; gap: 4px; }
-  }
-
-  @media print {
-    html, body { background: white; }
-    .page { box-shadow: none; margin: 0; max-width: 100%; padding: 40px 50px; border: none; }
-    section { break-inside: avoid; }
-    .callout, .envelope { break-inside: avoid; }
-    .lang { display: none; }
-  }
-
-  /* ===== UTILITY BAR (minimalista, esquina superior derecha) ===== */
-  .cfp-utilbar {
-    position: absolute;
-    top: 26px;
-    right: 80px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    z-index: 20;
-    user-select: none;
-  }
-  .cfp-utilbar .sep { color: rgba(11,36,48,0.22); }
-  .cfp-util-link {
-    color: var(--muted);
-    text-decoration: none;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
-    font-size: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-    transition: color 0.2s;
-  }
-  .cfp-util-link:hover { color: var(--teal); }
-
-  .lang {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-  .lang span { cursor: pointer; transition: color 0.2s; }
-  .lang span:hover { color: var(--ink); }
-  .lang .active { color: var(--ink); font-weight: 600; }
-  @media (max-width: 720px) {
-    .cfp-utilbar { top: 13px; right: 16px; gap: 9px; }
-  }
-  @media print { .cfp-utilbar { display: none; } }
-
-  /* ===== MENU OVERLAY (paleta CFP, estilo editorial) ===== */
-  .cfp-menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--ink);
-    background-image:
-      radial-gradient(circle at 100% 0%, rgba(15,107,124,0.16) 0%, transparent 45%),
-      radial-gradient(circle at 0% 100%, rgba(192,139,60,0.12) 0%, transparent 45%);
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0.42s;
-    display: flex;
-    flex-direction: column;
-    padding: 28px 36px 36px;
-    overflow-y: auto;
-  }
-  .cfp-menu-overlay.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1);
-  }
-  .cfp-menu-overlay::before,
-  .cfp-menu-overlay::after {
-    content: "";
-    position: absolute;
-    width: 34px;
-    height: 34px;
-    border: 1.5px solid rgba(251,248,243,0.45);
-    opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s;
-  }
-  .cfp-menu-overlay::before { top: 16px; left: 16px; border-right: none; border-bottom: none; }
-  .cfp-menu-overlay::after  { bottom: 16px; right: 16px; border-left: none; border-top: none; }
-  .cfp-menu-overlay.is-open::before,
-  .cfp-menu-overlay.is-open::after { opacity: 1; }
-
-  .cfp-menu-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 18px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid rgba(251,248,243,0.16);
-  }
-  .cfp-menu-brand {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--paper);
-    letter-spacing: -0.01em;
-  }
-  .cfp-menu-brand em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-    font-size: 13px;
-    letter-spacing: 0.05em;
-  }
-  .cfp-menu-close {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--paper);
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-  }
-  .cfp-menu-close::before {
-    content: "×";
-    font-family: 'Fraunces', serif;
-    font-size: 26px;
-    font-style: italic;
-    color: var(--accent);
-    line-height: 1;
-    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
-  }
-  .cfp-menu-close:hover::before { transform: rotate(90deg); }
-
-  .cfp-menu-links {
-    list-style: none;
-    flex: 1;
-  }
-  .cfp-menu-links li {
-    border-bottom: 1px solid rgba(251,248,243,0.08);
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
-  }
-  .cfp-menu-overlay.is-open .cfp-menu-links li { opacity: 1; transform: translateY(0); }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(1) { transition-delay: 0.08s; }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(2) { transition-delay: 0.13s; }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(3) { transition-delay: 0.18s; }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(4) { transition-delay: 0.23s; }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(5) { transition-delay: 0.28s; }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(6) { transition-delay: 0.33s; }
-  .cfp-menu-overlay.is-open .cfp-menu-links li:nth-child(7) { transition-delay: 0.38s; }
-  .cfp-menu-links a {
-    display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 14px;
-    align-items: baseline;
-    padding: 19px 0;
-    font-family: 'Fraunces', serif;
-    font-size: 34px;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--paper);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-    line-height: 1;
-    transition: color 0.25s, padding-left 0.3s cubic-bezier(0.22,1,0.36,1);
-  }
-  .cfp-menu-links a:hover { color: var(--accent); padding-left: 7px; }
-  @media (max-width: 380px) { .cfp-menu-links a { font-size: 28px; padding: 15px 0; } }
-  .cfp-menu-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-style: normal;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    text-align: right;
-    align-self: center;
-    border-right: 1px solid rgba(192,139,60,0.35);
-    padding-right: 6px;
-  }
-  .cfp-menu-foot {
-    margin-top: 26px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(251,248,243,0.16);
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.45s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.45s;
-  }
-  .cfp-menu-overlay.is-open .cfp-menu-foot { opacity: 1; transform: translateY(0); }
-  .cfp-menu-volver {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-  }
-  .cfp-menu-volver::before { content: "←"; font-size: 13px; }
-  body.cfp-menu-locked { overflow: hidden; }
+/* ═══════════ RESPONSIVO ═══════════ */
+@media (max-width: 1100px) {
+  .pie-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+}
+@media (max-width: 900px) {
+  .hero { padding-top: 104px; }
+  .t-l2 { padding-left: 0; }
+  .hero-pie { grid-template-columns: minmax(0, 1fr); }
+  .sec-head { grid-template-columns: minmax(0, 1fr); }
+  .aviso-caja { grid-template-columns: minmax(0, 1fr); }
+  .indice { grid-template-columns: minmax(0, 1fr); }
+  .casillas { grid-template-columns: minmax(0, 1fr); }
+  .casilla { min-height: 132px; }
+  .casilla + .casilla { border-left: 0; border-top: 1px solid var(--linea-2); }
+}
+@media (max-width: 640px) {
+  .eb-anio { display: none; }
+  .hero-eyebrow { letter-spacing: .22em; }
+  .pie-grid { grid-template-columns: minmax(0, 1fr); }
+  .aviso-form { grid-template-columns: minmax(0, 1fr); border-bottom: 0; }
+  .aviso-form input { border-bottom: 1px solid var(--tinta); margin-bottom: 14px; }
+  .aviso-form button { justify-self: start; }
+  .indice a { grid-template-columns: 44px minmax(0, 1fr) auto; }
+  .indice .puntos { display: none; }
+  .casilla { padding: 20px 4px 22px; }
+}
 </style>
 </head>
 <body>
-<article class="page">
 
-  <!-- Utility bar minimalista: volver al sitio · menú · idiomas -->
-  <div class="cfp-utilbar">
-    <a class="cfp-util-link" href="index.html" data-i18n="nav_back">Volver al sitio</a>
-    <span class="sep">·</span>
-    <button class="cfp-util-link" id="cfp-menu-open" type="button" aria-haspopup="dialog" data-i18n="cfp_util_menu">Menú</button>
-    <span class="sep">·</span>
-    <div class="lang">
-      <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
-    </div>
-  </div>
-
-  <!-- ============== MASTHEAD ============== -->
-  <header class="masthead">
-    <div class="eyebrow" data-i18n="cfp_eyebrow">Call for Papers · 2026 · Cerrada</div>
-
-    <div class="edition-mark">IV<span class="sup">ed.</span></div>
-
-    <h1 class="title" data-i18n="cfp_title">Call for Papers — IV Foro Internacional de Derecho y&nbsp;Tecnología</h1>
-
-    <div class="subtitle" data-i18n-html="cfp_subtitle_html">
-      “Agentes, Algoritmos y Autonomía:<br>
-      el Derecho ante la Inteligencia que&nbsp;Decide”
-    </div>
-
-    <div class="venue" data-i18n-html="cfp_venue_html">
-      <strong>21 &amp; 22 de septiembre de 2026</strong> &nbsp;·&nbsp; Modalidad híbrida &nbsp;·&nbsp; Zapopan, Jalisco
-    </div>
-
-    <div class="convened-by">
-      <strong data-i18n="cfp_convoca_label">Convoca</strong>
-      <span data-i18n="cfp_convoca_value">Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Centro Universitario de Ciencias Económico-Administrativas (CUCEA) · Centro Universitario de Guadalajara (CUGDL) · Centro Universitario de Tlajomulco (CUTlajomulco) · Departamento de Ciencias Sociales y Jurídicas · Academia de Derecho Económico Empresarial e Internacional</span>
-    </div>
-
-    <div class="convened-by" style="margin-top: 14px; padding-top: 14px;">
-      <strong data-i18n="cfp_colab_label">En colaboración institucional con</strong>
-      <span data-i18n="cfp_colab_value">Supremo Tribunal de Justicia del Estado de Jalisco · Poder Judicial del Estado de Jalisco</span>
-    </div>
-
-    <div class="convened-by" style="margin-top: 14px; padding-top: 14px;">
-      <strong id="jvnLabel">Jornada virtual · viernes 18 de septiembre</strong>
-      <span id="jvnTexto">Los trabajos aceptados se presentaron en línea en la Jornada Virtual Internacional del 18 de septiembre de 2026, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a></span>
-    </div>
-  </header>
-
-  <!-- ============== DIRECCIÓN ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section1">I · COMITÉ ORGANIZADOR</span>
-    </div>
-    <div class="people">
-      <div class="person">
-        <span class="role" data-i18n="cfp_role_director">Director del Foro</span>
-        <div>
-          <div class="name">Dr. Juan Emmanuel Delva Benavides</div>
-          <div class="affil" data-i18n="cfp_affil_lider">Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
-        </div>
-      </div>
-      <div class="person">
-        <span class="role" data-i18n="cfp_role_secacademica">Secretaría Académica</span>
-        <div>
-          <div class="name">Dr. Jorge Antonio Leos Navarro</div>
-          <div class="affil" data-i18n="cfp_affil_miembro">Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
-        </div>
-      </div>
-      <div class="person">
-        <span class="role" data-i18n="cfp_role_sectecnica">Secretaría Técnica</span>
-        <div>
-          <div class="name">Mtro. César Romero Güemez</div>
-          <div class="affil" data-i18n="cfp_affil_depto">Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG</div>
-        </div>
-      </div>
-      <div class="person">
-        <span class="role" data-i18n="cfp_role_tecnologia">Tecnología y Logística</span>
-        <div>
-          <div class="name">Mtro. Iván Said González López</div>
-          <div class="affil" data-i18n="cfp_affil_colab">Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
-        </div>
-      </div>
-      <div class="person">
-        <span class="role" data-i18n="cfp_role_coordeditorial">Coordinación Editorial y Comité Científico</span>
-        <div>
-          <div class="name">Dr. Alejandro Paul García Hernández</div>
-          <div class="affil" data-i18n="cfp_affil_miembro">Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</div>
-        </div>
-      </div>
-      <div class="person">
-        <span class="role" data-i18n="cfp_role_protocolo">Protocolo y Vinculación Cultural</span>
-        <div>
-          <div class="name">Dra. Fharide Acosta Malacón</div>
-          <div class="affil" data-i18n="cfp_affil_depto">Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============== PRESENTACIÓN ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section2">II · PRESENTACIÓN</span>
-    </div>
-    <p class="lead">
-      <span data-i18n-html="cfp_pres_p1_html">La Universidad de Guadalajara, a través del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología», con el respaldo del CUCEA, del CUGDL y del CUTlajomulco, y en colaboración institucional con el Supremo Tribunal de Justicia del Estado de Jalisco, convocó a investigadores, académicos, profesionales y estudiantes de doctorado, maestría y licenciatura interesados en la intersección del derecho y la tecnología a contribuir a la <em>cuarta edición</em> del Foro Internacional de Derecho y Tecnología.</span>
-    </p>
-    <p>
-      <span data-i18n="cfp_pres_p2">La jornada inaugural se desarrolló en CUCEA; las sesiones de trabajo fueron itinerantes entre el CUGDL y la Cineteca, y el cierre tuvo lugar en la Ciudad Judicial del Estado de Jalisco, articulando un diálogo tripartito entre la academia, la docencia universitaria y la judicatura del Estado.</span>
-    </p>
-    <p>
-      <span data-i18n="cfp_pres_p3">Este evento buscó fomentar el diálogo sobre innovaciones tecnológicas en el derecho, compartir mejores prácticas y explorar las nuevas regulaciones que moldearán el futuro legal en un contexto global en permanente transformación.</span>
-    </p>
-    <p>
-      <span data-i18n="cfp_pres_p4">La convocatoria invitó a someter contribuciones originales, rigurosas y con vocación propositiva, que ofrecieran análisis doctrinales, estudios comparados y respuestas normativas concretas a los desafíos emergentes de la sociedad digital.</span>
-    </p>
-  </section>
-
-  <!-- ============== FECHAS ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section3">III · FECHAS CLAVE</span>
-    </div>
-    <div class="timeline">
-      <div class="ti">
-        <span class="step" data-i18n="cfp_date1_step">01 · Recepción</span>
-        <div class="label" data-i18n="cfp_date1_label">envío de trabajos</div>
-        <div class="date" data-i18n-html="cfp_date1_value_html">1 de mayo &mdash;<br>15 de agosto 2026<span class="ti-cerrado">Cerrada</span></div>
-      </div>
-      <div class="ti">
-        <span class="step" data-i18n="cfp_date2_step">02 · Dictamen</span>
-        <div class="label" data-i18n="cfp_date2_label">notificación de aceptación</div>
-        <div class="date" data-i18n-html="cfp_date2_value_html">20 de agosto<br>2026<span class="ti-cerrado">Finalizado</span></div>
-      </div>
-      <div class="ti highlight">
-        <span class="step" data-i18n="cfp_date3_step">03 · Evento</span>
-        <div class="label" data-i18n="cfp_date3_label">celebración del foro</div>
-        <div class="date" data-i18n="cfp_date3_value">21 &amp; 22 de septiembre 2026</div>
-      </div>
-    </div>
-
-    <!-- fe de erratas: la fecha vencida se tacha, no se borra -->
-    <aside class="errata" role="note" aria-labelledby="errata-tit">
-      <span class="errata-rotulo" id="errata-tit" data-i18n="cfp_errata_rotulo">Prórroga definitiva</span>
-      <p class="errata-linea">
-        <del class="errata-vieja" datetime="2026-08-01" data-i18n="cfp_errata_vieja">1 de agosto</del>
-        <span class="errata-flecha" aria-hidden="true"></span>
-        <ins class="errata-nueva" datetime="2026-08-15" data-i18n="cfp_errata_nueva">15 de agosto de 2026</ins>
-      </p>
-      <span class="errata-sello"><span data-i18n="cfp_errata_sello">Definitiva</span></span>
-      <p class="errata-glosa" data-i18n-html="cfp_errata_glosa_html">Donde decía <i>1 de agosto</i>, léase <i>15 de agosto de 2026</i>. La recepción de artículos se amplía y esta es la fecha de cierre definitiva. El resto de la convocatoria no cambia: artículo completo de 15 a 20 páginas, en un solo envío.</p>
-    </aside>
-
-    <!-- segundo asiento: el cierre. No borra la prórroga, la sucede. -->
-    <aside class="errata errata--clausura" role="note" aria-labelledby="clausura-tit">
-      <span class="errata-rotulo" id="clausura-tit" data-i18n="cfp_clausura_rotulo">Cierre de la convocatoria</span>
-      <p class="errata-linea">
-        <ins class="errata-nueva" datetime="2026-08-15" data-i18n="cfp_clausura_fecha">15 de agosto de 2026</ins>
-      </p>
-      <span class="errata-sello"><span data-i18n="cfp_clausura_sello">Cerrada</span></span>
-      <p class="errata-glosa" data-i18n-html="cfp_clausura_glosa_html">La recepción de artículos cerró en la fecha señalada. El Comité Científico concluyó el proceso de dictaminación doble ciego. Estas bases quedan publicadas como documento de consulta de la cuarta edición.</p>
-    </aside>
-  </section>
-
-  <!-- ============== TEMÁTICAS ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section4">IV · LÍNEAS TEMÁTICAS</span>
-    </div>
-    <div class="topics">
-      <div class="topic">
-        <div class="num">i</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic1_t">IA Agéntica y Propiedad Intelectual Generativa</strong>
-          <span data-i18n="cfp_topic1_d">Gobernanza algorítmica, responsabilidad civil y penal de sistemas autónomos, autoría de obras sintéticas, entrenamiento de modelos y AI Act en América Latina.</span>
-        </div>
-      </div>
-      <div class="topic">
-        <div class="num">ii</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic2_t">Tecnologías Emergentes</strong>
-          <span data-i18n="cfp_topic2_d">Computación cuántica, neurotecnologías, realidades extendidas, gemelos digitales y gobernanza anticipatoria.</span>
-        </div>
-      </div>
-      <div class="topic">
-        <div class="num">iii</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic3_t">Ciberseguridad y Soberanía Digital</strong>
-          <span data-i18n="cfp_topic3_d">Protección de datos personales, la nueva Ley Federal de Protección de Datos Personales en Posesión de los Particulares, infraestructura crítica y ciberdefensa.</span>
-        </div>
-      </div>
-      <div class="topic">
-        <div class="num">iv</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic4_t">Justicia Digital e Innovación Jurídica</strong>
-          <span data-i18n="cfp_topic4_d">Resolución de disputas en línea (ODR), inteligencia jurídica aumentada, tecnología legal, automatización judicial y acceso a la justicia.</span>
-        </div>
-      </div>
-      <div class="topic">
-        <div class="num">v</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic5_t">Derechos Humanos Digitales</strong>
-          <span data-i18n="cfp_topic5_d">Democracia algorítmica, desinformación, neuroderechos y economía de datos.</span>
-        </div>
-      </div>
-      <div class="topic">
-        <div class="num">vi</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic6_t">FinTech y Economía Digital</strong>
-          <span data-i18n="cfp_topic6_d">Criptoactivos, DeFi, tokenización, monedas digitales de banco central y regulación financiera.</span>
-        </div>
-      </div>
-      <div class="topic">
-        <div class="num">vii</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic7_t">Salud Digital y Biotecnologías</strong>
-          <span data-i18n="cfp_topic7_d">Telemedicina, dispositivos conectados, datos biomédicos y edición genética.</span>
-        </div>
-      </div>
-      <div class="topic emergent">
-        <div class="num">viii</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic8_t">Tecnología, Sostenibilidad y Derecho Ecológico Digital</strong>
-          <span data-i18n="cfp_topic8_d">Huella ambiental de la IA y data centers, sostenibilidad del cómputo intensivo, derecho a reparar, obsolescencia programada, dominio público digital y bioderecho computacional.</span>
-        </div>
-      </div>
-      <div class="topic emergent">
-        <div class="num">ix</div>
-        <div class="body">
-          <strong data-i18n="cfp_topic9_t">Resolución de Conflictos Tecnológicos y Disputas en Línea</strong>
-          <span data-i18n="cfp_topic9_d">Resolución de disputas en línea (ODR), mediación asistida por IA, justicia predictiva, arbitraje digital, plataformas de resolución electrónica y acceso digital a la justicia.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="ornament">· · ·</div>
-
-  <!-- ============== ENVÍO ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section5">V · ENVÍO Y PROCESO DE SELECCIÓN</span>
-    </div>
-    <p>
-      <span data-i18n-html="cfp_envio_p1_html">Los trabajos recibidos fueron sometidos a revisión por pares bajo modalidad doble ciego. Los seleccionados se publicarán en un libro colectivo con ISBN. Se recibieron contribuciones en <strong>español, inglés y francés</strong>.</span>
-    </p>
-
-    <div class="envelope">
-      <h4 data-i18n="cfp_envelope_corr">Correspondencia editorial</h4>
-      <p>
-        <span class="mail">emmanueldelva@cucea.udg.mx</span>
-      </p>
-
-      <h4 data-i18n="cfp_envelope_subject">Asunto del correo</h4>
-      <p class="mono">«ARTÍCULO IV FORO DERECHO Y TECNOLOGÍA: NOMBRE APELLIDOS»</p>
-
-      <h4 data-i18n="cfp_envelope_body">Cuerpo del correo</h4>
-      <p data-i18n-html="cfp_envelope_body_p_html">Incluya: <span class="badge">línea temática</span><span class="badge">título</span><span class="badge">cargo</span><span class="badge">institución</span> y <span class="badge">modalidad</span> (presencial / en línea).</p>
-
-      <h4 data-i18n="cfp_envelope_attach">Archivo adjunto</h4>
-      <p data-i18n-html="cfp_envelope_attach_p_html">Formato Word (<span class="mono">.doc</span> o <span class="mono">.docx</span>).</p>
-    </div>
-  </section>
-
-  <!-- ============== ESTRUCTURA ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section6">VI · ESTRUCTURA Y PRESENTACIÓN</span>
-    </div>
-    <ul class="specs">
-      <li data-i18n-html="cfp_spec1_html"><strong>Extensión.</strong> Mínima de 15 y máxima de 20 páginas, incluyendo referencias y anexos.</li>
-      <li data-i18n-html="cfp_spec2_html"><strong>Encabezado.</strong> Título, nombre completo del autor, un único cargo y una institución de adscripción.</li>
-      <li data-i18n-html="cfp_spec3_html"><strong>Índice.</strong> Sumario de los puntos clave del trabajo. No se requiere <em>abstract</em>.</li>
-      <li data-i18n-html="cfp_spec4_html"><strong>Fuente y formato.</strong> Times New Roman 12 pt, interlineado 1.5 para texto principal; Times New Roman 10 pt, interlineado sencillo para notas al pie.</li>
-      <li><strong>Numeración de secciones.</strong> <br>
-        &nbsp;&nbsp;<span class="mono">I. INTRODUCCIÓN</span> (negritas y mayúsculas)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">1. Subsección</span> (negritas)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">a. Detalle</span> (cursiva)
-      </li>
-      <li data-i18n-html="cfp_spec6_html"><strong>Citas.</strong> En notas al pie, conforme a los estándares de publicaciones jurídicas (véase sección VIII).</li>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">V Foro</span>
+      <span class="brand-rule"></span>
+      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
+      <li><a href="cfp.html" data-i18n="nav_link_convocatoria" aria-current="page">Convocatoria</a></li>
+      <li><a href="programa.html" data-i18n="nav_link_programa">Programa</a></li>
+      <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
+      <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
+      <li><a href="ponentes.html" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="comite.html" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
-  </section>
-
-  <!-- ============== REVISIÓN ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section7">VII · REVISIÓN Y PUBLICACIÓN</span>
+    <div class="nav-cta">
+      <div class="lang">
+        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
+      </div>
+      <a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a>
     </div>
-    <p>
-      <span data-i18n-html="cfp_rev_p1_html">La evaluación se realizó bajo riguroso anonimato. Cada contribución recibió un número correlativo por parte del comité organizador; dos miembros del comité científico, sin conocimiento previo de la autoría, dictaminaron cada trabajo garantizando imparcialidad y juicio fundado en la <em>calidad, originalidad y pertinencia</em> del contenido.</span>
-    </p>
-    <p>
-      <span data-i18n-html="cfp_rev_p2_html">En una fase ulterior, el comité científico deliberó para seleccionar las contribuciones más sobresalientes, atendiendo a la actualidad del tema, la singularidad de la perspectiva, la claridad expositiva y el aporte al diálogo del Foro. Los trabajos aceptados y presentados serán considerados para su inclusión en el <strong>libro colectivo conmemorativo</strong> de la IV edición.</span>
-    </p>
-
-    <div class="callout">
-      <h4 data-i18n="cfp_callout_title">Estado de la convocatoria</h4>
-      <p>
-        <span data-i18n="cfp_callout_body">La recepción de trabajos cerró el 15 de agosto de 2026 y el proceso de dictaminación finalizó. Estas bases permanecen publicadas como documento de consulta de la cuarta edición; las normas de estilo y los formatos de citación aquí establecidos rigen la edición del libro colectivo.</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- ============== CITAS ============== -->
-  <section>
-    <div class="section-head">
-      <span class="section-num" data-i18n="cfp_section8">VIII · NORMAS DE ESTILO Y CITACIÓN</span>
-    </div>
-
-    <p data-i18n="cfp_citas_intro">Las citas deben presentarse en notas al pie, con los datos suficientes para la localización precisa de cada fuente. Se proporcionan ejemplos de referencia:</p>
-
-    <div class="citations-grid">
-      <div class="citation-card">
-        <h5>Libro</h5>
-        <p>APELLIDO, Nombre, <em>Título del Libro</em>, edición, Lugar de publicación, año.</p>
-      </div>
-      <div class="citation-card">
-        <h5>Artículo de Revista</h5>
-        <p>APELLIDO, Nombre, “Título del Artículo”, <em>Nombre de la Revista</em>, núm., año, págs.</p>
-      </div>
-      <div class="citation-card">
-        <h5>Capítulo de Libro</h5>
-        <p>APELLIDO, Nombre, “Título del Capítulo”, en <em>Nombre del Libro</em>, editor/a, Lugar, año, págs.</p>
-      </div>
-      <div class="citation-card">
-        <h5>Sitio Web</h5>
-        <p>URL (última consulta: dd/mm/aaaa).</p>
-      </div>
-      <div class="citation-card">
-        <h5>Documento en línea</h5>
-        <p>APELLIDO, Nombre (año). <em>Título del documento</em>. Nombre del sitio. URL (última consulta: dd/mm/aaaa).</p>
-      </div>
-      <div class="citation-card">
-        <h5>Artículo de Revista en línea</h5>
-        <p>APELLIDO, Nombre (año). Título. <em>Nombre de la Revista</em>, vol(núm), págs. URL (última consulta: dd/mm/aaaa).</p>
-      </div>
-      <div class="citation-card">
-        <h5>Jurisprudencia</h5>
-        <p>Nombre del Tribunal, Sentencia [núm.] (año). Tema central. URL (última consulta: dd/mm/aaaa).</p>
-      </div>
-      <div class="citation-card">
-        <h5>Legislación</h5>
-        <p>“Nombre de la Ley”, <em>Diario Oficial de la Federación</em>, fecha.</p>
-      </div>
-      <div class="citation-card">
-        <h5>Artículo de Ley</h5>
-        <p>Artículo 6º de la Constitución Política de los Estados Unidos Mexicanos, reformado, <em>DOF</em>, 11 de junio de 2013.</p>
-      </div>
-      <div class="citation-card">
-        <h5>Tesis Aislada / Jurisprudencia</h5>
-        <p>Primera Sala SCJN, Tesis 1a. CXLII/2015 (10a.), <em>Gaceta del Semanario Judicial de la Federación</em>, Libro 19, Tomo I, junio 2015, p. 814.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============== FOOTER ============== -->
-  <footer class="footer">
-    <div>
-      <div class="mark">Foro Internacional de Derecho y Tecnología</div>
-      <div style="margin-top:6px;">CUCEA · CUGDL · Cineteca · Ciudad Judicial · UdeG · Edición IV · MMXXVI</div>
-    </div>
-    <div style="text-align:right;">
-      <div>Zapopan, Jalisco · México</div>
-      <div style="margin-top:6px;">21 &amp; 22 sep · 2026</div>
-    </div>
-  </footer>
-
-</article>
-
-<!-- ============ MENU OVERLAY ============ -->
-<div class="cfp-menu-overlay" id="cfp-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menú principal">
-  <div class="cfp-menu-head">
-    <div class="cfp-menu-brand">V Foro <em>· 2027</em></div>
-    <button class="cfp-menu-close" id="cfp-menu-close" type="button" aria-label="Cerrar menú" data-i18n="cfp_util_cerrar">Cerrar</button>
   </div>
-  <ul class="cfp-menu-links" role="list">
-    <li><a href="index.html#trayectoria"><span class="cfp-menu-num">i</span><span data-i18n="nav_link_trayectoria">Trayectoria</span></a></li>
-    <li><a href="memorias.html"><span class="cfp-menu-num">ii</span><span data-i18n="nav_link_memorias">Memorias</span></a></li>
-    <li><a href="memoria-iv.html"><span class="cfp-menu-num">iii</span><span data-i18n="nav_link_iv">IV edición</span></a></li>
-    <li><a href="en-vivo.html"><span class="cfp-menu-num">iv</span><span data-i18n="nav_link_videos">Videos</span></a></li>
-    <li><a href="ejes-foro.html"><span class="cfp-menu-num">v</span><span data-i18n="nav_link_ejes">Ejes</span></a></li>
-  </ul>
-  <div class="cfp-menu-foot">
-    <a class="cfp-menu-volver" href="index.html" data-i18n="nav_back">Volver al sitio</a>
-  </div>
-</div>
+</nav>
 
-<!-- ============ i18n (cargado al final, ejecuta en DOMContentLoaded) ============ -->
+<main>
+<!-- ═══════════ CABECERA · LA PRENSA ═══════════ -->
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <p class="eyebrow hero-eyebrow"><span data-f18n="hero_eyebrow">Convocatoria de la quinta edición</span><span class="eb-anio" aria-hidden="true">·</span><span class="eb-anio">MMXXVII</span></p>
+
+    <div class="platina" id="platina">
+      <div class="impresion" id="impresion">
+        <h1 class="cfp-titulo" id="titulo">
+          <span class="t-l1" data-f18n="h1_l1">Call for papers</span>
+          <span class="t-l2"><span class="t-anio">2027</span><span class="sr"> — </span><span class="t-pronto seco" data-f18n="h1_pronto">Próximamente</span></span>
+        </h1>
+      </div>
+      <div class="forma" id="forma" aria-hidden="true"></div>
+      <div class="rodillo" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-pie">
+      <div>
+        <p class="hero-lead" data-f18n-html="hero_lead">Próximamente estaremos anunciando el <strong>call for papers</strong> para el V Foro Internacional de Derecho y Tecnología. Las fechas, las bases y la forma de envío se publicarán en esta página.</p>
+        <div class="hero-cta">
+          <a class="btn-primary" href="#aviso"><span data-f18n="hero_cta_1">Avísame cuando se publique</span><span class="flecha" aria-hidden="true">→</span></a>
+          <a class="btn-ghost" href="#ejes"><span data-f18n="hero_cta_2">Los nueve ejes temáticos</span></a>
+        </div>
+      </div>
+      <div class="hero-lado">
+        <p class="pista" aria-hidden="true"><span class="pista-cursor" data-f18n="pista_cursor">Mueve el cursor para ver la impresión a contraluz</span><span class="pista-tacto" data-f18n="pista_tacto">Desliza la página para mover la luz sobre la impresión</span></p>
+        <a class="archivo-iv" href="cfp-iv.html"><span class="ed-iv" aria-hidden="true">IV</span><span data-f18n="archivo_iv">Consulta la convocatoria de la IV edición (cerrada)</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ FECHAS ═══════════ -->
+<section class="sec fechas" id="fechas" aria-labelledby="t-fechas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 id="t-fechas" class="entinta" data-f18n-html="fechas_title">Fechas de la <em>convocatoria</em>.</h2>
+      </div>
+      <p class="sec-lead" data-f18n-html="fechas_lead">La recepción de trabajos, el dictamen y la notificación de aceptación tendrán fecha cuando se publique la convocatoria. Mientras tanto quedan <strong>impresas en seco</strong>: la forma existe y la tinta llega con el anuncio.</p>
+    </div>
+    <ol class="casillas" id="casillas">
+      <li class="casilla aparece" data-k="recepcion"><span class="c-rot" data-f18n="c_recepcion">Recepción de trabajos</span><span class="c-sello" data-f18n="sello_pend">En seco</span><span class="c-val seco" data-f18n="por_anunciar">Por anunciar</span></li>
+      <li class="casilla aparece" data-k="dictamen"><span class="c-rot" data-f18n="c_dictamen">Dictamen</span><span class="c-sello" data-f18n="sello_pend">En seco</span><span class="c-val seco" data-f18n="por_anunciar">Por anunciar</span></li>
+      <li class="casilla aparece" data-k="notificacion"><span class="c-rot" data-f18n="c_notificacion">Notificación de aceptación</span><span class="c-sello" data-f18n="sello_pend">En seco</span><span class="c-val seco" data-f18n="por_anunciar">Por anunciar</span></li>
+    </ol>
+    <p class="fechas-nota aparece" data-f18n="fechas_nota">La convocatoria se publicará en esta página junto con sus bases completas.</p>
+  </div>
+</section>
+
+<!-- ═══════════ EJES ═══════════ -->
+<section class="sec ejes" id="ejes" aria-labelledby="t-ejes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 id="t-ejes" class="entinta" data-f18n-html="ejes_title">Los nueve ejes temáticos <em>se mantienen</em>.</h2>
+      </div>
+      <p class="sec-lead" data-f18n-html="ejes_lead">La convocatoria de la quinta edición conservará los <strong>nueve ejes temáticos</strong> que la comunidad del Foro construyó hasta la cuarta edición. Cada eje tiene su página de divulgación: de qué trata, por qué importa y cuál es la conversación hoy.</p>
+    </div>
+    <ol class="indice">
+      <li><a href="ejes-foro.html#eje-1"><span class="en">I</span><span class="et" data-f18n="eje1">IA Agéntica y Propiedad Intelectual Generativa</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-2"><span class="en">II</span><span class="et" data-f18n="eje2">Tecnologías Emergentes</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-3"><span class="en">III</span><span class="et" data-f18n="eje3">Ciberseguridad y Soberanía Digital</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-4"><span class="en">IV</span><span class="et" data-f18n="eje4">Justicia Digital e Innovación Jurídica</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-5"><span class="en">V</span><span class="et" data-f18n="eje5">Derechos Humanos Digitales</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-6"><span class="en">VI</span><span class="et" data-f18n="eje6">FinTech y Economía Digital</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-7"><span class="en">VII</span><span class="et" data-f18n="eje7">Salud Digital y Biotecnologías</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-8"><span class="en">VIII</span><span class="et" data-f18n="eje8">Tecnología, Sostenibilidad y Derecho Ecológico Digital</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+      <li><a href="ejes-foro.html#eje-9"><span class="en">IX</span><span class="et" data-f18n="eje9">Resolución de Conflictos Tecnológicos y Disputas en Línea</span><span class="puntos"></span><span class="ir" aria-hidden="true">→</span></a></li>
+    </ol>
+    <div class="ejes-pie aparece">
+      <a class="btn-ghost" href="ejes-foro.html"><span data-f18n="ejes_cta">Conoce los ejes temáticos</span><span class="flecha" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ AVÍSAME ═══════════ -->
+<section class="sec aviso" id="aviso" aria-labelledby="t-aviso">
+  <div class="wrap">
+    <div class="aviso-caja">
+      <div class="aviso-texto aparece">
+        <h2 id="t-aviso" data-f18n-html="aviso_h">Recibe la convocatoria <em>en tu correo</em>.</h2>
+        <p data-f18n="aviso_p">Te escribiremos cuando se publique el call for papers de la V edición. Nada más.</p>
+        <div class="aviso-redes">
+          <a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram · @forodyt_oficial</a>
+          <a href="https://www.facebook.com/profile.php?id=61580204966427" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>
+        </div>
+      </div>
+      <div class="aparece">
+        <form class="aviso-form" id="avisoForm" novalidate>
+          <label for="avisoCorreo" data-f18n="aviso_label">Correo electrónico</label>
+          <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" required>
+          <button type="submit" class="btn-primary"><span data-f18n="aviso_btn">Avísame</span></button>
+        </form>
+        <p class="aviso-estado" id="avisoEstado" role="status" aria-live="polite"></p>
+        <p class="c-nota" data-f18n-html="aviso_privacidad"><strong>Aviso de privacidad simplificado.</strong> El Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» de la Universidad de Guadalajara usará tu correo solo para enviarte avisos del Foro. Puedes darte de baja o ejercer tus derechos de acceso, rectificación, cancelación y oposición escribiendo a <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-lema" data-f18n="pie_lema">Innovación jurídica en la era digital</p>
+      </div>
+      <div>
+        <h2 class="pie-h" data-f18n="pie_contacto">Contacto</h2>
+        <ul>
+          <li><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></li>
+          <li><a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61580204966427" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-f18n="pie_memorias">Memorias</h2>
+        <ul>
+          <li><a href="memoria-i.html" data-f18n="pie_m1">I edición · 2023</a></li>
+          <li><a href="memoria-ii.html" data-f18n="pie_m2">II edición · 2024</a></li>
+          <li><a href="memoria-iii.html" data-f18n="pie_m3">III edición · 2025</a></li>
+          <li><a href="memoria-iv.html" data-f18n="pie_m4">IV edición · 2026</a></li>
+          <li><a href="cfp-iv.html" data-f18n="pie_cfp_iv">Convocatoria de la IV edición</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-f18n="pie_organiza">Organiza</h2>
+        <ul>
+          <li data-f18n="pie_ca">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</li>
+          <li>Universidad de Guadalajara</li>
+        </ul>
+        <div class="pie-sello" aria-hidden="true" style="margin-top:26px">V<small>MMXXVII</small></div>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
+      <span data-f18n="pie_desde">Desde 2023 · Guadalajara, Jalisco, México</span>
+    </div>
+  </div>
+</footer>
+
 <script src="i18n.js" defer></script>
+<script src="mobile-menu.js" defer></script>
 <script>
-(function () {
-  var overlay = document.getElementById('cfp-menu');
-  var openBtn = document.getElementById('cfp-menu-open');
-  var closeBtn = document.getElementById('cfp-menu-close');
-  if (!overlay || !openBtn || !closeBtn) return;
-  function open() {
-    overlay.classList.add('is-open');
-    overlay.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('cfp-menu-locked');
-  }
-  function close() {
-    overlay.classList.remove('is-open');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('cfp-menu-locked');
-  }
-  openBtn.addEventListener('click', open);
-  closeBtn.addEventListener('click', close);
-  overlay.querySelectorAll('.cfp-menu-links a, .cfp-menu-volver').forEach(function (a) {
-    a.addEventListener('click', function () { setTimeout(close, 120); });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
-  });
-})();
-</script>
+/* ════════════════════════════════════════════════════════════════
+   V EDICIÓN — FECHAS DE LA CONVOCATORIA
+   Para anunciar una fecha, llena su campo y publica. Mientras valga
+   null, la casilla se muestra «en seco» (Por anunciar). Ejemplo:
+     recepcion: { es: '…', en: '…', fr: '…' }
+   Al abrir la convocatoria, además, a mano: <title>, description y
+   OG del <head>, el texto «Próximamente» de la cabecera y las bases.
+   ════════════════════════════════════════════════════════════════ */
+var V_CFP = {
+  recepcion: null,
+  dictamen: null,
+  notificacion: null
+};
 
-<script>
-/* aviso de la jornada virtual: trilingüe vía observador de <html lang>,
-   sin tocar i18n.js (mismo patrón que el puente f18n del index) */
 (function () {
-  var T = {
-    es: { l: 'Jornada virtual · viernes 18 de septiembre',
-          t: 'Los trabajos aceptados se presentaron en línea en la Jornada Virtual Internacional del 18 de septiembre de 2026, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a>' },
-    en: { l: 'Online session · Friday, September 18',
-          t: 'Accepted papers were presented online at the International Online Session on September 18, 2026, co-organized with the Observatorio Mundial de la Abogacía and the Universidad de las Hespérides (Spain) — <a href="jornada-virtual.html">discover the session →</a>' },
-    fr: { l: 'Journée virtuelle · vendredi 18 septembre',
-          t: 'Les travaux retenus ont été présentés en ligne lors de la Journée virtuelle internationale du 18 septembre 2026, coorganisée avec l\'Observatorio Mundial de la Abogacía et l\'Universidad de las Hespérides (Espagne) — <a href="jornada-virtual.html">découvrir la journée →</a>' }
+  'use strict';
+  var H = document.documentElement;
+  H.classList.remove('no-js'); H.classList.add('js');
+
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CONTRASTE = window.matchMedia('(prefers-contrast: more), (forced-colors: active)').matches;
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbz5aIcuEuYDT7dhtrOmV55-JzzgzlXOZ0_lWOe1gpHPp0OJB0q2fn4l2B4NTHxBUq6CVA/exec';
+
+  /* ───── diccionario propio (EN/FR); ES = el HTML ───── */
+  var F18N = {
+    es: null,
+    en: {
+      hero_eyebrow: 'Fifth edition of the Forum',
+      h1_l1: 'Call for papers', h1_pronto: 'Coming soon',
+      hero_lead: 'We will soon be announcing the <strong>call for papers</strong> for the 5th International Forum on Law and Technology. Dates, guidelines and submission details will be published on this page.',
+      hero_cta_1: 'Notify me when it opens', hero_cta_2: 'The nine thematic tracks',
+      pista_cursor: 'Move the cursor to see the impression against the light', pista_tacto: 'Scroll the page to move the light over the impression',
+      archivo_iv: 'See the call for papers of the 4th edition (closed)',
+      fechas_title: 'Call for papers <em>dates</em>.',
+      fechas_lead: 'Submission of papers, peer review and notification of acceptance will be dated when the call is published. Until then they remain <strong>blind-embossed</strong>: the form exists and the ink arrives with the announcement.',
+      c_recepcion: 'Submission of papers', c_dictamen: 'Peer review', c_notificacion: 'Notification of acceptance',
+      sello_pend: 'Uninked', sello_ok: 'Inked', por_anunciar: 'To be announced',
+      fechas_nota: 'The call for papers will be published on this page together with its full guidelines.',
+      ejes_title: 'The nine thematic tracks <em>remain</em>.',
+      ejes_lead: 'The call for papers of the fifth edition will keep the <strong>nine thematic tracks</strong> that the Forum community built up to the fourth edition. Each track has its own outreach page: what it is about, why it matters and where the conversation stands today.',
+      eje1: 'Agentic AI and Generative Intellectual Property', eje2: 'Emerging Technologies', eje3: 'Cybersecurity and Digital Sovereignty',
+      eje4: 'Digital Justice and Legal Innovation', eje5: 'Digital Human Rights', eje6: 'FinTech and Digital Economy',
+      eje7: 'Digital Health and Biotechnologies', eje8: 'Technology, Sustainability and Digital Ecological Law', eje9: 'Technological Conflict Resolution and Online Disputes',
+      ejes_cta: 'Explore the thematic tracks',
+      aviso_h: 'Get the call for papers <em>by email</em>.',
+      aviso_p: 'We will write to you when the call for papers of the 5th edition is published. Nothing else.',
+      aviso_label: 'Email address', aviso_btn: 'Notify me',
+      aviso_privacidad: '<strong>Simplified privacy notice.</strong> The Academic Body UDG-CA-1236 «Law and Technology» of the University of Guadalajara will use your email only to send you Forum announcements. You may unsubscribe or exercise your rights of access, rectification, cancellation and objection by writing to <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
+      pie_lema: 'Legal innovation in the digital era', pie_contacto: 'Contact', pie_memorias: 'Edition records',
+      pie_m1: '1st edition · 2023', pie_m2: '2nd edition · 2024', pie_m3: '3rd edition · 2025', pie_m4: '4th edition · 2026', pie_cfp_iv: 'Call for papers of the 4th edition',
+      pie_organiza: 'Organized by', pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico',
+      form_enviando: 'Sending…', form_ok: 'Done. We will write to you when the call for papers is published.', form_ya: 'You were already on the list. We will write to you when the call for papers is published.',
+      form_error: 'We could not register your email right now. Please try again or write to contacto@forodyt.com.', form_invalido: 'Please check your email address.'
+    },
+    fr: {
+      hero_eyebrow: 'Cinquième édition du Forum',
+      h1_l1: 'Appel à communications', h1_pronto: 'Prochainement',
+      hero_lead: 'L’<strong>appel à communications</strong> du Ve Forum International du Droit et de la Technologie sera annoncé prochainement. Les dates, les modalités et les consignes d’envoi seront publiées sur cette page.',
+      hero_cta_1: 'Me prévenir à la publication', hero_cta_2: 'Les neuf axes thématiques',
+      pista_cursor: 'Déplacez le curseur pour voir l’impression à contre-jour', pista_tacto: 'Faites défiler la page pour déplacer la lumière sur l’impression',
+      archivo_iv: 'Consulter l’appel de la IVe édition (clos)',
+      fechas_title: 'Calendrier de <em>l’appel</em>.',
+      fechas_lead: 'La réception des travaux, l’évaluation et la notification d’acceptation seront datées à la publication de l’appel. D’ici là, elles restent <strong>gaufrées à sec</strong> : la forme existe et l’encre arrive avec l’annonce.',
+      c_recepcion: 'Réception des travaux', c_dictamen: 'Évaluation', c_notificacion: 'Notification d’acceptation',
+      sello_pend: 'À sec', sello_ok: 'Encré', por_anunciar: 'À annoncer',
+      fechas_nota: 'L’appel à communications sera publié sur cette page avec ses modalités complètes.',
+      ejes_title: 'Les neuf axes thématiques <em>sont maintenus</em>.',
+      ejes_lead: 'L’appel de la cinquième édition conservera les <strong>neuf axes thématiques</strong> que la communauté du Forum a construits jusqu’à la quatrième édition. Chaque axe a sa page de vulgarisation : de quoi il s’agit, pourquoi c’est important et où en est la conversation aujourd’hui.',
+      eje1: 'IA Agentique et Propriété Intellectuelle Générative', eje2: 'Technologies Émergentes', eje3: 'Cybersécurité et Souveraineté Numérique',
+      eje4: 'Justice Numérique et Innovation Juridique', eje5: 'Droits Humains Numériques', eje6: 'FinTech et Économie Numérique',
+      eje7: 'Santé Numérique et Biotechnologies', eje8: 'Technologie, Durabilité et Droit Écologique Numérique', eje9: 'Résolution des Conflits Technologiques et Litiges en Ligne',
+      ejes_cta: 'Découvrir les axes thématiques',
+      aviso_h: 'Recevez l’appel <em>par courriel</em>.',
+      aviso_p: 'Nous vous écrirons lorsque l’appel à communications de la Ve édition sera publié. Rien de plus.',
+      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir',
+      aviso_privacidad: '<strong>Avis de confidentialité simplifié.</strong> Le Corps Académique UDG-CA-1236 « Droit et Technologie » de l’Université de Guadalajara utilisera votre adresse uniquement pour vous envoyer les annonces du Forum. Vous pouvez vous désinscrire ou exercer vos droits d’accès, de rectification, d’annulation et d’opposition en écrivant à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
+      pie_lema: 'Innovation juridique à l’ère numérique', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
+      pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026', pie_cfp_iv: 'Appel de la IVe édition',
+      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique',
+      form_enviando: 'Envoi…', form_ok: 'C’est fait. Nous vous écrirons à la publication de l’appel.', form_ya: 'Vous étiez déjà inscrit·e. Nous vous écrirons à la publication de l’appel.',
+      form_error: 'Impossible d’enregistrer votre adresse pour le moment. Réessayez ou écrivez à contacto@forodyt.com.', form_invalido: 'Vérifiez votre adresse électronique.'
+    }
   };
-  var label = document.getElementById('jvnLabel');
-  var texto = document.getElementById('jvnTexto');
-  if (!label || !texto) return;
-  function aplicar() {
-    var lang = document.documentElement.lang || 'es';
-    var d = T[lang] || T.es;
-    label.textContent = d.l;
-    texto.innerHTML = d.t;
+  var F18N_ES_EXTRA = {
+    sello_ok: 'Entintado',
+    form_enviando: 'Enviando…', form_ok: 'Listo. Te escribiremos cuando se publique la convocatoria.', form_ya: 'Ya estabas en la lista. Te escribiremos cuando se publique la convocatoria.',
+    form_error: 'No pudimos registrar tu correo ahora. Intenta de nuevo o escribe a contacto@forodyt.com.', form_invalido: 'Revisa tu correo electrónico.'
+  };
+
+  var F18N_ES = {};
+  function f18nCapture() {
+    document.querySelectorAll('[data-f18n]').forEach(function (el) { var k = el.getAttribute('data-f18n'); if (!(k in F18N_ES)) F18N_ES[k] = el.textContent; });
+    document.querySelectorAll('[data-f18n-html]').forEach(function (el) { var k = el.getAttribute('data-f18n-html'); if (!(k in F18N_ES)) F18N_ES[k] = el.innerHTML; });
+    document.querySelectorAll('[data-f18n-attr]').forEach(function (el) {
+      el.getAttribute('data-f18n-attr').split(';').forEach(function (p) { var kv = p.split(':'); var k = kv[1]; if (k && !(k in F18N_ES)) F18N_ES[k] = el.getAttribute(kv[0]) || ''; });
+    });
+    for (var k in F18N_ES_EXTRA) if (!(k in F18N_ES)) F18N_ES[k] = F18N_ES_EXTRA[k];
   }
-  aplicar();
-  if ('MutationObserver' in window) {
-    new MutationObserver(aplicar).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  function t(k, lang) {
+    lang = lang || LANG;
+    var d = F18N[lang];
+    return (d && d[k]) ? d[k] : (F18N_ES[k] !== undefined ? F18N_ES[k] : k);
   }
+  function f18nApply(lang) {
+    document.querySelectorAll('[data-f18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-f18n'), lang); });
+    document.querySelectorAll('[data-f18n-html]').forEach(function (el) { el.innerHTML = t(el.getAttribute('data-f18n-html'), lang); });
+    document.querySelectorAll('[data-f18n-attr]').forEach(function (el) {
+      el.getAttribute('data-f18n-attr').split(';').forEach(function (p) { var kv = p.split(':'); if (kv[1]) el.setAttribute(kv[0], t(kv[1], lang)); });
+    });
+  }
+  function langInicial() {
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      if (q && /^(es|en|fr)$/.test(q)) return q;
+      var s = localStorage.getItem('forodyt_lang');
+      if (s && /^(es|en|fr)$/.test(s)) return s;
+    } catch (e) {}
+    return 'es';
+  }
+  var LANG = 'es';
+
+  /* ───── nav: sombra al hacer scroll ───── */
+  var nav = document.getElementById('nav');
+  function onScrollNav() { nav.classList.toggle('scrolled', window.scrollY > 24); }
+  window.addEventListener('scroll', onScrollNav, { passive: true }); onScrollNav();
+
+  /* ───── apariciones ───── */
+  var aparece = document.querySelectorAll('.aparece');
+  if ('IntersectionObserver' in window && !REDUCED) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    aparece.forEach(function (el, i) { el.style.transitionDelay = (i % 3) * 80 + 'ms'; io.observe(el); });
+  } else { aparece.forEach(function (el) { el.classList.add('visto'); }); }
+
+  /* ════════ FECHAS (V_CFP) ════════ */
+  function pintarFechas(lang) {
+    document.querySelectorAll('.casilla').forEach(function (li) {
+      var v = V_CFP[li.dataset.k]; if (!v) return;
+      var val = li.querySelector('.c-val'), sello = li.querySelector('.c-sello');
+      li.classList.add('entintada');
+      val.classList.remove('seco'); val.removeAttribute('data-f18n');
+      val.textContent = v[lang] || v.es;
+      sello.setAttribute('data-f18n', 'sello_ok'); sello.textContent = t('sello_ok', lang);
+    });
+  }
+
+  /* ════════ LA PRENSA ════════
+     1. Se miden los glifos reales del <h1> (Range por carácter).
+     2. La forma: cada carácter se convierte en una pieza de metal,
+        colocada en espejo dentro de su línea (así se ve el tipo en la
+        forma). Entran al componedor una a una.
+     3. El cilindro recorre la forma (--x, @property): detrás de él
+        desaparecen las piezas y queda la impresión, ya al derecho.
+     4. La impresión es un relieve WebGL (mapa de alturas + normales,
+        como la V de la portada) con tinta donde hay anuncio y en seco
+        donde falta; una luz rasante sigue al cursor o al scroll. */
+  var platina = document.getElementById('platina');
+  var impresion = document.getElementById('impresion');
+  var forma = document.getElementById('forma');
+  var hero = document.getElementById('inicio');
+  var INTRO = H.classList.contains('prensa-intro');
+  var PIEZAS = [{ sel: '.t-l1', tinta: 1 }, { sel: '.t-anio', tinta: 2 }, { sel: '.t-pronto', tinta: 0 }];
+
+  var medidor = document.createElement('canvas').getContext('2d');
+  function fuenteDe(cs, px) { return cs.fontStyle + ' ' + cs.fontWeight + ' ' + px + 'px Fraunces, Georgia, serif'; }
+  function metricas(cs, px) {
+    medidor.font = fuenteDe(cs, px);
+    var m = medidor.measureText('Hgé');
+    var A = m.fontBoundingBoxAscent, D = m.fontBoundingBoxDescent;
+    if (!(A > 0)) { A = px * 0.98; D = px * 0.26; }
+    return { A: A, D: D };
+  }
+  function medirGlifos() {
+    var out = [];
+    PIEZAS.forEach(function (p) {
+      var el = impresion.querySelector(p.sel); if (!el) return;
+      var node = el.firstChild; if (!node || node.nodeType !== 3) return;
+      var cs = getComputedStyle(el), fs = parseFloat(cs.fontSize), mt = metricas(cs, fs);
+      var rg = document.createRange(), txt = node.data;
+      for (var i = 0; i < txt.length; i++) {
+        rg.setStart(node, i); rg.setEnd(node, i + 1);
+        var r = rg.getBoundingClientRect();
+        if (r.width < 0.5 || r.height < 1) continue;
+        out.push({ ch: txt.charAt(i), x: r.left, w: r.width, top: r.top, h: r.height,
+          base: r.top + (r.height - (mt.A + mt.D)) / 2 + mt.A, A: mt.A, D: mt.D,
+          fs: fs, cs: cs, tinta: p.tinta, pieza: p.sel });
+      }
+    });
+    return out;
+  }
+
+  /* ───── la forma (piezas de metal) ───── */
+  function componerForma(glifos) {
+    var P = platina.getBoundingClientRect(), lineas = [], idx = {};
+    glifos.forEach(function (g) {
+      var k = g.pieza + '|' + Math.round(g.top);
+      if (!(k in idx)) { idx[k] = lineas.length; lineas.push({ l: Infinity, r: -Infinity, gs: [] }); }
+      var L = lineas[idx[k]]; L.l = Math.min(L.l, g.x); L.r = Math.max(L.r, g.x + g.w); L.gs.push(g);
+    });
+    var frag = document.createDocumentFragment(), orden = 0, hechas = [];
+    lineas.sort(function (a, b) { return a.gs[0].base - b.gs[0].base; });
+    lineas.forEach(function (L) {
+      var g0 = L.gs[0], fs = g0.fs, cuerpoTop = g0.base - 0.8 * fs, fondo = g0.base + 0.22 * fs;
+      /* una línea no monta su cuerpo sobre la de arriba (como la regleta que las separa) */
+      hechas.forEach(function (Q) {
+        if (Q.l < L.r && Q.r > L.l && Q.base < g0.base - 4) cuerpoTop = Math.max(cuerpoTop, Q.fondo + 7);
+      });
+      var cuerpoH = Math.max(fs * 0.4, fondo - cuerpoTop);
+      hechas.push({ l: L.l, r: L.r, base: g0.base, fondo: cuerpoTop + cuerpoH });
+      var reg = document.createElement('i'); reg.className = 'regleta';
+      reg.style.left = (L.l - P.left - fs * 0.05) + 'px'; reg.style.width = (L.r - L.l + fs * 0.1) + 'px';
+      reg.style.top = (cuerpoTop + cuerpoH - P.top + 2) + 'px';
+      frag.appendChild(reg);
+      L.gs.forEach(function (g) {
+        var tp = document.createElement('i'), xm = L.l + L.r - (g.x + g.w);
+        tp.className = 'tipo';
+        tp.style.left = (xm - P.left) + 'px'; tp.style.width = g.w + 'px';
+        tp.style.top = (cuerpoTop - P.top) + 'px'; tp.style.height = cuerpoH + 'px';
+        tp.style.setProperty('--i', orden++);
+        tp.style.setProperty('--r', ((Math.random() * 6) - 3).toFixed(1) + 'deg');
+        if (/\s/.test(g.ch)) { tp.classList.add('cuadratin'); }
+        else {
+          var b = document.createElement('b');
+          b.textContent = g.ch;
+          b.style.font = fuenteDe(g.cs, g.fs);
+          b.style.fontVariationSettings = g.cs.fontVariationSettings;
+          b.style.lineHeight = '0';
+          b.style.top = (g.base - cuerpoTop - (g.A - g.D) / 2) + 'px';
+          tp.appendChild(b);
+          tp.classList.add(g.tinta === 1 ? 't-tinta' : g.tinta === 2 ? 't-cobre' : 't-seco');
+        }
+        frag.appendChild(tp);
+      });
+    });
+    forma.textContent = ''; forma.appendChild(frag);
+    return orden;
+  }
+
+  /* ───── el relieve (WebGL) ───── */
+  var RELIEVE = null;
+  function crearRelieve() {
+    if (CONTRASTE) return null;
+    var cv = document.createElement('canvas');
+    cv.className = 'titulo-gl'; cv.setAttribute('aria-hidden', 'true');
+    var gl = null;
+    try { gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false }); } catch (e) { gl = null; }
+    if (!gl) return null;
+    var VS = 'attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+    var FS = [
+      'precision mediump float;',
+      'uniform sampler2D u_h;uniform vec2 u_px;uniform vec3 u_l;uniform float u_k;uniform vec3 u_c1;uniform vec3 u_c2;',
+      'varying vec2 v;',
+      'float H(vec2 q){return texture2D(u_h,q).r;}',
+      'float hash(vec2 q){return fract(sin(dot(q,vec2(127.1,311.7)))*43758.5453);}',
+      'void main(){',
+      ' vec4 tx=texture2D(u_h,v);',
+      ' float c=tx.r;',
+      ' float dx=H(v+vec2(u_px.x,0.))-H(v-vec2(u_px.x,0.));',
+      ' float dy=H(v+vec2(0.,u_px.y))-H(v-vec2(0.,u_px.y));',
+      ' vec3 n=normalize(vec3(dx*u_k,dy*u_k,1.));',
+      ' vec3 L=normalize(u_l);',
+      ' float lit=dot(n,L)-L.z;',
+      ' vec4 o;',
+      ' if(lit>0.){float a=clamp(lit*1.5,0.,.9);o=vec4(vec3(1.,.994,.975)*a,a);}',
+      ' else{float a=clamp(-lit*.95,0.,.46);o=vec4(vec3(.33,.22,.12)*a,a);}',
+      ' float fl=smoothstep(.45,.9,c)*.06;',
+      ' o=o+vec4(vec3(.36,.24,.13)*fl,fl)*(1.-o.a);',
+      ' float m1=tx.g,m2=tx.b,m=max(m1,m2);',
+      ' float g=hash(floor(v/u_px*.5)),mo=hash(floor(v/u_px/7.));',
+      ' float ed=clamp(length(vec2(dx,dy))*5.,0.,1.);',
+      ' float ia=clamp(m*(.93+.04*g+.03*mo+.06*ed),0.,1.);',
+      ' vec3 ic=(m1*u_c1+m2*u_c2)/max(m1+m2,.001);',
+      ' float k=mix(1.,.4,ia);',
+      ' gl_FragColor=vec4(ic*ia,ia)*(1.-o.a*k)+o*k;',
+      '}'].join('\n');
+    function sh(tipo, src) { var s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
+    var pr;
+    try {
+      pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
+      if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error('link');
+    } catch (err) { return null; }
+    gl.useProgram(pr);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var U = {}; ['u_h', 'u_px', 'u_l', 'u_k', 'u_c1', 'u_c2'].forEach(function (n) { U[n] = gl.getUniformLocation(pr, n); });
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.uniform3f(U.u_c1, 26 / 255, 24 / 255, 16 / 255);     /* tinta */
+    gl.uniform3f(U.u_c2, 184 / 255, 92 / 255, 61 / 255);    /* cobre */
+    impresion.appendChild(cv);
+
+    var luz = { x: -0.55, y: 0.6 }, meta = { x: -0.55, y: 0.6 }, raf = 0, vivo = true;
+    cv.addEventListener('webglcontextlost', function (e) {
+      e.preventDefault(); vivo = false; cancelAnimationFrame(raf); raf = 0;
+      impresion.classList.remove('gl-on'); if (cv.parentNode) cv.parentNode.removeChild(cv);
+    });
+
+    function caja1(src, dst, w, h, r, hor) {
+      var n = r * 2 + 1, lim = hor ? w : h, filas = hor ? h : w;
+      for (var y = 0; y < filas; y++) {
+        var s = 0, k;
+        for (k = -r; k <= r; k++) { var kk = Math.min(Math.max(k, 0), lim - 1); s += hor ? src[y * w + kk] : src[kk * w + y]; }
+        for (var q = 0; q < lim; q++) {
+          if (hor) dst[y * w + q] = s / n; else dst[q * w + y] = s / n;
+          var o = Math.max(q - r, 0), nn = Math.min(q + r + 1, lim - 1);
+          s += hor ? src[y * w + nn] - src[y * w + o] : src[nn * w + y] - src[o * w + y];
+        }
+      }
+    }
+    function mapa() {
+      if (!vivo) return;
+      var rc = impresion.getBoundingClientRect(); if (!rc.width) return;
+      var glifos = medirGlifos(); if (!glifos.length) return;
+      var pad = Math.round(Math.max(28, rc.height * 0.14));
+      var W = Math.round(rc.width + pad * 2), Hh = Math.round(rc.height + pad * 2);
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.style.left = -pad + 'px'; cv.style.top = -pad + 'px'; cv.style.width = W + 'px'; cv.style.height = Hh + 'px';
+      cv.width = Math.round(W * dpr); cv.height = Math.round(Hh * dpr);
+      var esc = dpr, tope = 3.2e6;
+      if (cv.width * cv.height > tope) esc = dpr * Math.sqrt(tope / (cv.width * cv.height));
+      var tw = Math.max(8, Math.round(W * esc)), th = Math.max(8, Math.round(Hh * esc));
+      var ox = rc.left - pad, oy = rc.top - pad;
+      function lienzo(fondo) { var c = document.createElement('canvas'); c.width = tw; c.height = th; var x = c.getContext('2d'); x.fillStyle = fondo; x.fillRect(0, 0, tw, th); x.textBaseline = 'alphabetic'; return x; }
+      var ca = lienzo('#000'), ci = lienzo('#000'), minFs = Infinity;
+      glifos.forEach(function (g) {
+        if (/\s/.test(g.ch)) return;
+        minFs = Math.min(minFs, g.fs);
+        var f = fuenteDe(g.cs, g.fs * esc);
+        [ca, ci].forEach(function (x, j) {
+          x.font = f;
+          var mw = x.measureText(g.ch).width, sx = mw > 0 ? Math.max(0.8, Math.min(1.25, g.w * esc / mw)) : 1;
+          x.fillStyle = j === 0 ? '#fff' : (g.tinta === 1 ? '#0f0' : g.tinta === 2 ? '#00f' : '#000');
+          x.save(); x.translate((g.x - ox) * esc, (g.base - oy) * esc); x.scale(sx, 1); x.fillText(g.ch, 0, 0); x.restore();
+        });
+      });
+      var ia = ca.getImageData(0, 0, tw, th), ii = ci.getImageData(0, 0, tw, th), d = ia.data, di = ii.data;
+      var a = new Float32Array(tw * th), b = new Float32Array(tw * th), i;
+      for (i = 0; i < tw * th; i++) a[i] = d[i * 4] / 255;
+      var rad = Math.max(1, Math.min(4, Math.round(minFs * esc * 0.016)));
+      for (var pass = 0; pass < 3; pass++) { caja1(a, b, tw, th, rad, true); caja1(b, a, tw, th, rad, false); }
+      for (i = 0; i < tw * th; i++) {
+        d[i * 4] = Math.round(Math.min(1, a[i]) * 255);
+        d[i * 4 + 1] = di[i * 4 + 1]; d[i * 4 + 2] = di[i * 4 + 2]; d[i * 4 + 3] = 255;
+      }
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, ia);
+      gl.uniform2f(U.u_px, 1 / tw, 1 / th);
+      gl.uniform1f(U.u_k, 2.6 * Math.max(1, rad / 2));
+      gl.viewport(0, 0, cv.width, cv.height);
+      impresion.classList.add('gl-on');
+      pintar();
+    }
+    function pintar() {
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform3f(U.u_l, luz.x, luz.y, 0.85);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    function bucle() {
+      luz.x += (meta.x - luz.x) * 0.08; luz.y += (meta.y - luz.y) * 0.08;
+      pintar(); luzCSS(luz.x, luz.y);
+      if (Math.abs(meta.x - luz.x) > 0.002 || Math.abs(meta.y - luz.y) > 0.002) raf = requestAnimationFrame(bucle);
+      else raf = 0;
+    }
+    function mover(x, y) { meta.x = x; meta.y = y; if (!raf && vivo) raf = requestAnimationFrame(bucle); }
+    return {
+      mapa: mapa,
+      mover: mover,
+      barrido: function () { if (REDUCED) { pintar(); return; } luz.x = -1.4; luz.y = 0.15; mover(-0.55, 0.6); },
+      canvas: cv
+    };
+  }
+
+  /* la luz del relieve también orienta la huella de todo lo que está en seco */
+  var luzPend = 0;
+  function luzCSS(x, y) {
+    if (REDUCED || luzPend) return;
+    luzPend = requestAnimationFrame(function () {
+      luzPend = 0;
+      H.style.setProperty('--lx', Math.max(-1.6, Math.min(1.6, -x * 1.7)).toFixed(2));
+      H.style.setProperty('--ly', Math.max(-1.6, Math.min(1.6, y * 1.7)).toFixed(2));
+    });
+  }
+
+  /* ───── luz: cursor (fino) o scroll (táctil), solo con la cabecera a la vista ───── */
+  var heroVisible = true;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; }, { threshold: 0 }).observe(hero);
+  }
+  function luzDesdePuntero(ev) {
+    if (ev.pointerType === 'touch' || !RELIEVE) return;
+    var r = RELIEVE.canvas.getBoundingClientRect();
+    var nx = (ev.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.5);
+    var ny = -(ev.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.5);
+    RELIEVE.mover(Math.max(-1.4, Math.min(1.4, nx * 1.4)), Math.max(-1.4, Math.min(1.4, ny * 1.4)));
+  }
+  function activarLuz() {
+    if (REDUCED) return;
+    /* sobre la cabecera, la luz es la del relieve (y de ella sale la de la
+       huella en seco); en el resto de la página, la luz sigue al cursor */
+    document.addEventListener('pointermove', function (ev) {
+      if (ev.pointerType === 'touch') return;
+      if (RELIEVE && heroVisible && hero.contains(ev.target)) { luzDesdePuntero(ev); return; }
+      var nx = (ev.clientX / window.innerWidth) * 2 - 1, ny = -((ev.clientY / window.innerHeight) * 2 - 1);
+      luzCSS(nx * 0.9, ny * 0.9);
+    }, { passive: true });
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      window.addEventListener('scroll', function () {
+        var f = Math.min(1, window.scrollY / (window.innerHeight * 0.8));
+        if (RELIEVE && heroVisible) RELIEVE.mover(-0.9 + f * 1.8, 0.7 - f * 0.4);
+        else luzCSS(Math.sin(window.scrollY / 520) * 0.9, 0.6);
+      }, { passive: true });
+    }
+  }
+
+  /* ───── la función ───── */
+  var fase = INTRO ? 'espera' : 'impreso', seguro = 0;
+  function terminar() {
+    if (fase === 'impreso') return;
+    fase = 'impreso';
+    clearTimeout(seguro);
+    platina.classList.remove('componiendo'); platina.classList.add('impreso');
+    H.classList.remove('prensa-intro');
+    forma.textContent = '';
+    try { sessionStorage.setItem('forodyt_prensa_cfp', '1'); } catch (e) {}
+    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) { window.removeEventListener(ev, saltar, true); });
+    if (RELIEVE) RELIEVE.barrido();
+  }
+  function saltar(ev) {
+    if (ev && ev.type === 'keydown' && /^(Shift|Control|Alt|Meta)$/.test(ev.key)) return;
+    terminar();
+  }
+  function funcion() {
+    var glifos = medirGlifos();
+    if (!glifos.length) { terminar(); return; }
+    var n = componerForma(glifos);
+    var tRod = 260 + Math.max(0, n - 1) * 26 + 520 + 160;
+    platina.style.setProperty('--t-rodillo', tRod + 'ms');
+    fase = 'componiendo';
+    platina.classList.add('componiendo');
+    platina.addEventListener('animationend', function fin(ev) {
+      if (ev.target === platina && ev.animationName === 'rodar') { platina.removeEventListener('animationend', fin); terminar(); }
+    });
+    seguro = setTimeout(terminar, tRod + 2600);
+    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) { window.addEventListener(ev, saltar, { capture: true, passive: true }); });
+  }
+
+  /* ───── formulario «Avísame» → lista del Foro (acción newsletter del backend) ───── */
+  var form = document.getElementById('avisoForm'), estado = document.getElementById('avisoEstado');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var inp = document.getElementById('avisoCorreo'), correo = inp.value.trim().toLowerCase();
+    estado.className = 'aviso-estado';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) { estado.textContent = t('form_invalido'); estado.classList.add('error'); inp.focus(); return; }
+    var btn = form.querySelector('button'); btn.disabled = true; estado.textContent = t('form_enviando');
+    fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, redirect: 'follow',
+      body: JSON.stringify({ action: 'newsletter', correo: correo, origen: 'web_v2027_cfp' }) })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) {
+        if (!d.ok) throw new Error(d.error || 'respuesta');
+        estado.textContent = t(d.ya_suscrito ? 'form_ya' : 'form_ok'); estado.classList.add('ok'); inp.value = '';
+      })
+      .catch(function () { estado.textContent = t('form_error'); estado.classList.add('error'); })
+      .then(function () { btn.disabled = false; });
+  });
+
+  /* ───── puente de idioma: i18n.js sincroniza <html lang> ───── */
+  var listo = false, rt = 0;
+  function rehacerRelieve() {
+    if (!RELIEVE) return;
+    clearTimeout(rt); rt = setTimeout(function () { RELIEVE.mapa(); }, 60);
+  }
+  function aplicarIdioma(lang) {
+    LANG = lang; f18nApply(lang); pintarFechas(lang);
+    if (listo) { if (fase !== 'impreso') terminar(); rehacerRelieve(); }
+  }
+  function iniciar() {
+    f18nCapture();
+    aplicarIdioma(langInicial());
+    var ultimo = H.lang || 'es';
+    if ('MutationObserver' in window) {
+      new MutationObserver(function () {
+        var l = H.lang || 'es';
+        if (l !== ultimo) { ultimo = l; aplicarIdioma(l); }
+      }).observe(H, { attributes: true, attributeFilter: ['lang'] });
+    }
+    /* la función solo corre con Fraunces ya cargada (la forma se mide sobre
+       sus glifos). Si la red tarda, la cabecera se imprime sin función y el
+       relieve se rehace cuando llegue la fuente. */
+    var fuentes = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var fuentesOk = false;
+    fuentes.then(function () { fuentesOk = true; if (listo) rehacerRelieve(); });
+    var espera = new Promise(function (res) { setTimeout(res, 1800); });
+    Promise.race([fuentes, espera]).then(function () {
+      listo = true;
+      try { RELIEVE = crearRelieve(); if (RELIEVE) RELIEVE.mapa(); } catch (err) { RELIEVE = null; impresion.classList.remove('gl-on'); }
+      activarLuz();
+      if (fase === 'espera') {
+        if (fuentesOk) { try { funcion(); } catch (err) { terminar(); } }
+        else terminar();
+      }
+      else if (RELIEVE) RELIEVE.barrido();
+    });
+    window.addEventListener('resize', function () {
+      if (!listo) return;
+      if (fase !== 'impreso') terminar();
+      rehacerRelieve();
+    });
+    /* si Fraunces llega tarde (red lenta), el texto se recompone: la forma
+       ya no coincide, así que se imprime de una vez y se rehace el relieve */
+    if (document.fonts && document.fonts.addEventListener) {
+      document.fonts.addEventListener('loadingdone', function (ev) {
+        if (!listo) return;
+        var caras = (ev && ev.fontfaces) || [];
+        if (!Array.prototype.some.call(caras, function (f) { return /Fraunces/i.test(f.family); })) return;
+        if (fase !== 'impreso') terminar();
+        rehacerRelieve();
+      });
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
+
+  /* ───── anclas: nav fijo + foco (a11y). El «Avísame» del nav apunta a la
+     portada; aquí lleva al formulario de esta misma página. ───── */
+  document.querySelectorAll('a[href^="#"], a[href="index.html#aviso"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var href = a.getAttribute('href').replace(/^index\.html/, ''), tg = href.length > 1 && document.querySelector(href);
+      if (!tg) return;
+      e.preventDefault();
+      tg.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth' });
+      tg.setAttribute('tabindex', '-1'); tg.focus({ preventScroll: true });
+      try { history.pushState(null, '', location.pathname + location.search + href); } catch (err) {}
+    });
+  });
 })();
 </script>
-
-<!-- ============ Analytics (Cloudflare Web Analytics + Vercel Speed Insights) ============ -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6aee8fc9e32047d99f110e31c7993afc"}'></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>

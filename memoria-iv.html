@@ -1494,6 +1494,110 @@ body.semblanza-lock { overflow: hidden; }
   .hero-cue { display: none; }
   .edition-title { min-height: 0; }
 }
+
+/* ═══════════ ARCHIVO DE LA IV · nav IV + cinta ═══════════ */
+@view-transition { navigation: auto; }
+/* el lacre, antes de estamparse (escala 1.9), asomaba fuera del pliego en móvil */
+.cfp { overflow-x: clip; }
+.nav-links a[aria-current] { color: var(--ink); }
+.nav-links a[aria-current]::after { width: 100%; }
+.nav .btn-primary { white-space: nowrap; }
+/* la cinta corre sobre el margen superior del pliego (el hero ya deja ese aire) */
+.cinta-iv { position: absolute; top: 74px; left: 0; right: 0; z-index: 5; background: var(--noche); border-bottom: 1px solid rgba(184, 146, 62, 0.35); }
+.cinta-iv-inner { max-width: 1380px; margin: 0 auto; padding: 8px clamp(20px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 3px 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; text-align: center; line-height: 1.5; color: rgba(245, 239, 224, 0.82); }
+.cinta-iv a { color: var(--dorado-soft); text-decoration: none; border-bottom: 1px solid rgba(200, 168, 88, 0.45); white-space: nowrap; transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
+.cinta-iv a:hover { color: var(--marfil); border-bottom-color: var(--marfil); }
+.cinta-iv a:focus-visible { outline: 2px solid var(--dorado-soft); outline-offset: 3px; }
+.cinta-iv-sep { color: rgba(200, 168, 88, 0.6); }
+@media (max-width: 640px) {
+  .cinta-iv-sep { display: none; }
+  .cinta-iv-inner { font-size: 10px; letter-spacing: 0.1em; padding: 7px 16px; }
+  .hero { padding-top: 156px; }
+}
+@media (max-width: 420px) { .nav-inner { padding: 0 16px; } }
+
+/* ═══════════ MEMORIA EN VIDEO · el pliego nocturno ═══════════
+   la noche de la IV (noche + dorado): las cinco sesiones sobre la línea
+   del tiempo 18 → 21 → 22. La línea se traza y las miniaturas se
+   «revelan» (de cianotipia a color) con el scroll; sin scroll-driven
+   animations, lo mismo lo dispara el IntersectionObserver (.in-view) */
+.videos-iv { background: var(--noche); color: var(--marfil); overflow: hidden; }
+.videos-iv::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(900px 440px at 88% 0%, rgba(184, 146, 62, 0.11), transparent 62%), radial-gradient(760px 420px at 0% 100%, rgba(42, 92, 92, 0.16), transparent 60%); }
+.videos-iv .section-inner { position: relative; }
+.videos-iv .section-eyebrow { color: var(--dorado-soft); }
+.videos-iv h2 { color: var(--marfil); }
+.videos-iv h2 em { color: var(--dorado-soft); }
+.videos-iv .section-lead { color: rgba(245, 239, 224, 0.8); }
+.videos-iv .section-lead strong { color: var(--marfil); font-weight: 500; }
+.vid-grid { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.vid-item { position: relative; padding-top: 32px; view-timeline-name: --vid; }
+.vid-item::before { content: ""; position: absolute; left: 5px; right: -16px; top: 6px; height: 1px; background: linear-gradient(90deg, rgba(200, 168, 88, 0.8), rgba(200, 168, 88, 0.28)); transform-origin: 0 50%; }
+.vid-item:last-child::before { display: none; }
+.vid-punto { position: absolute; left: 0; top: 1px; z-index: 1; width: 11px; height: 11px; border-radius: 50%; background: var(--noche); border: 1px solid var(--dorado-soft); }
+.vid-item.dia .vid-punto { background: var(--dorado); border-color: var(--dorado); box-shadow: 0 0 0 4px rgba(184, 146, 62, 0.16); }
+.vid-card { display: flex; flex-direction: column; height: 100%; text-decoration: none; color: var(--marfil); background: rgba(245, 239, 224, 0.035); border: 1px solid rgba(245, 239, 224, 0.1); transition: transform 0.5s var(--ease), border-color 0.5s var(--ease), background 0.5s var(--ease); }
+.vid-card:hover { transform: translateY(-4px); border-color: rgba(200, 168, 88, 0.55); background: rgba(245, 239, 224, 0.06); }
+.vid-card:focus-visible { outline: 2px solid var(--dorado); outline-offset: 3px; }
+.vid-poster { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--ink); }
+.vid-poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.82) contrast(1.03); transition: scale 0.8s var(--ease), filter 0.8s var(--ease); }
+.vid-card:hover .vid-poster img { scale: 1.04; filter: saturate(1) contrast(1.03); }
+/* velo de cianotipia: tiñe la miniatura de noche hasta que el scroll la revela */
+.vid-poster::before { content: ""; position: absolute; inset: 0; z-index: 1; background: #1B2C45; mix-blend-mode: color; opacity: 0; pointer-events: none; }
+.vid-poster::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10, 20, 34, 0) 38%, rgba(10, 20, 34, 0.8)); pointer-events: none; }
+.vid-num { position: absolute; right: 10px; top: 2px; z-index: 2; font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 56px; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(200, 168, 88, 0.7); font-variation-settings: "opsz" 144, "SOFT" 60; }
+.vid-play { position: absolute; z-index: 2; left: 14px; bottom: 12px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(245, 239, 224, 0.75); display: grid; place-items: center; transition: background 0.4s var(--ease), border-color 0.4s var(--ease); }
+.vid-play::before { content: ""; border-left: 11px solid var(--marfil); border-top: 7px solid transparent; border-bottom: 7px solid transparent; margin-left: 3px; }
+.vid-card:hover .vid-play { background: var(--dorado); border-color: var(--dorado); }
+.vid-info { display: grid; gap: 6px; padding: 16px 16px 18px; }
+.vid-dia { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dorado-soft); }
+.vid-sede { font-family: var(--serif); font-size: 21px; font-weight: 500; line-height: 1.12; font-variation-settings: "opsz" 72, "SOFT" 40; }
+.vid-lugar { font-size: 12.5px; line-height: 1.5; color: rgba(245, 239, 224, 0.68); }
+.vid-card.pendiente .vid-poster { display: grid; place-items: center; background: repeating-linear-gradient(135deg, #0E1B2C 0 10px, #12213A 10px 20px); }
+.vid-card.pendiente .vid-poster::before, .vid-card.pendiente .vid-poster::after { display: none; }
+.vid-prep { position: relative; z-index: 2; margin: 0 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; color: rgba(245, 239, 224, 0.78); border: 1px solid rgba(245, 239, 224, 0.3); padding: 7px 10px; }
+.vid-pie { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 14px; }
+.videos-iv .btn-primary { background: var(--marfil); color: var(--noche); }
+.videos-iv .btn-ghost { color: var(--marfil); border-color: rgba(245, 239, 224, 0.32); }
+.videos-iv .btn-ghost:hover { border-color: var(--dorado-soft); background: rgba(184, 146, 62, 0.14); }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .vid-item::before { transform: scaleX(0); transition: transform 1.1s var(--ease) 0.2s; }
+  html.js .vid-item.in-view::before { transform: scaleX(1); }
+  html.js .vid-item .vid-poster::before { opacity: 1; transition: opacity 1.6s var(--ease) 0.35s; }
+  html.js .vid-item.in-view .vid-poster::before { opacity: 0; }
+  html.js .vid-item .vid-punto { transform: scale(0); transition: transform 0.6s var(--ease-stamp) 0.15s; }
+  html.js .vid-item.in-view .vid-punto { transform: none; }
+  @supports (animation-timeline: view()) {
+    html.js .vid-item::before { transition: none; animation: vid-trazo linear both; animation-timeline: --vid; animation-range: entry 15% cover 42%; }
+    html.js .vid-item .vid-poster::before { transition: none; animation: vid-revelado linear both; animation-timeline: --vid; animation-range: entry 25% cover 55%; }
+  }
+}
+@keyframes vid-trazo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes vid-trazo-v { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes vid-revelado { from { opacity: 1; } to { opacity: 0; } }
+@media (max-width: 1100px) {
+  .vid-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
+  .vid-item:nth-child(3n)::before { right: 0; }
+}
+@media (max-width: 640px) {
+  .vid-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .vid-item { padding: 0 0 0 26px; }
+  .vid-item::before { left: 5px; right: auto; top: 0; bottom: -14px; width: 1px; height: auto; background: linear-gradient(180deg, rgba(200, 168, 88, 0.8), rgba(200, 168, 88, 0.28)); transform-origin: 50% 0; }
+  .vid-item:first-child::before { top: 24px; }
+  .vid-item:last-child::before { display: block; bottom: auto; height: 24px; }
+  .vid-punto { top: 19px; }
+  .vid-card { flex-direction: row; }
+  .vid-poster { flex: 0 0 40%; aspect-ratio: auto; min-height: 112px; }
+  .vid-info { padding: 12px 14px 14px; align-content: center; }
+  .vid-sede { font-size: 18px; }
+  .vid-num { font-size: 40px; }
+  .vid-play { width: 32px; height: 32px; left: 10px; bottom: 10px; }
+  .vid-prep { margin: 0 8px; padding: 6px 6px; font-size: 9px; letter-spacing: 0.14em; }
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .vid-item::before { transform: scaleY(0); }
+    html.js .vid-item.in-view::before { transform: scaleY(1); }
+    @supports (animation-timeline: view()) { html.js .vid-item::before { animation-name: vid-trazo-v; } }
+  }
+}
 </style>
 </head>
 <body>
@@ -1503,26 +1607,21 @@ body.semblanza-lock { overflow: hidden; }
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-mark">V Foro</span>
-      <span class="brand-rule"></span>
-      <span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span>
-    </a>
+    <a href="memoria-iv.html" class="brand" aria-current="page"><span class="brand-mark">IV Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub_iv">Memoria · 2026</span></a>
     <ul class="nav-links">
-      <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
-      <li><a href="memoria-iv.html" aria-current="page" data-i18n="nav_link_iv">IV edición</a></li>
-      <li><a href="en-vivo.html" data-i18n="nav_link_videos">Videos</a></li>
+      <li><a href="cfp-iv.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
+      <li><a href="programa-iv.html" data-i18n="nav_link_programa">Programa</a></li>
+      <li><a href="#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
+      <li><a href="#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="#comite" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
-    <div class="nav-cta">
-      <div class="lang">
-        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
-      </div>
-      <a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a>
-    </div>
+    <div class="nav-cta"><div class="lang"><span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span></div><a href="index.html" class="btn-primary"><span data-i18n="nav_cta_v">V edición</span> <span aria-hidden="true">→</span></a></div>
   </div>
 </nav>
+<!-- cinta fina bajo el nav: esta página es la memoria de la IV; la V vive en la portada -->
+<div class="cinta-iv" role="note"><p class="cinta-iv-inner"><span data-f18n="cinta_iv">Estás en la memoria de la IV edición (2026)</span><span class="cinta-iv-sep" aria-hidden="true">·</span><a href="index.html"><span data-f18n="cinta_iv_ir">Ir a la V edición</span> <span aria-hidden="true">→</span></a></p></div>
 
 <!-- ============ HERO · PLIEGO I ============ -->
 <header class="hero" id="hero">
@@ -1565,8 +1664,8 @@ body.semblanza-lock { overflow: hidden; }
       </a>
     </div>
     <div class="hero-actions">
-      <a href="programa.html" class="btn-primary"><span data-i18n="m4_hero_cta_programa">Ver el programa</span></a>
-      <a href="en-vivo.html" class="btn-ghost" data-i18n="m4_hero_cta_videos">Ver los videos</a>
+      <a href="programa-iv.html" class="btn-primary"><span data-i18n="m4_hero_cta_programa">Ver el programa</span></a>
+      <a href="#videos" class="btn-ghost" data-i18n="m4_hero_cta_videos">Ver los videos</a>
     </div>
   </div>
 
@@ -1574,7 +1673,7 @@ body.semblanza-lock { overflow: hidden; }
 
 <!-- ============ FAJA DE CIERRE · el tercer asiento del mismo renglón ============
      Ni la fecha vencida ni la prórroga se borran: se les añade el asiento siguiente. -->
-<a class="faja faja--cerrada" id="prorroga" href="cfp.html" aria-label="Convocatoria cerrada el 15 de agosto de 2026; proceso de dictaminación finalizado. Consulta las bases.">
+<a class="faja faja--cerrada" id="prorroga" href="cfp-iv.html"aria-label="Convocatoria cerrada el 15 de agosto de 2026; proceso de dictaminación finalizado. Consulta las bases.">
   <div class="faja-inner">
     <span class="faja-kicker"><span class="faja-punto" aria-hidden="true"></span><span data-f18n="faja_kicker">Convocatoria cerrada</span></span>
     <span class="faja-cuerpo">
@@ -1620,6 +1719,62 @@ body.semblanza-lock { overflow: hidden; }
     </div>
   </div>
 </div>
+
+<!-- ============ MEMORIA EN VIDEO · el pliego nocturno ============
+     Las cinco sesiones sobre la línea del tiempo de la IV (18 → 21 → 22).
+     IDs de YouTube: los mismos de STREAMS en en-vivo.html; si cambian allá, cambiarlos aquí. -->
+<section class="videos-iv" id="videos" aria-labelledby="t-videos-iv">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="reveal">
+        <div class="section-eyebrow" data-f18n="vid_eyebrow">Memoria en video</div>
+        <h2 id="t-videos-iv" data-f18n-html="vid_title">Sesiones de la <em>cuarta edición</em>.</h2>
+      </div>
+      <p class="section-lead reveal" data-d="1" data-f18n-html="vid_lead">Las transmisiones de la cuarta edición quedan como memoria abierta: <strong>la jornada en línea y tres sedes</strong>, con sus mesas y conferencias, en el orden en que ocurrieron. La grabación de Ciudad Judicial está en preparación.</p>
+    </div>
+    <ol class="vid-grid">
+      <li class="vid-item dia reveal">
+        <span class="vid-punto" aria-hidden="true"></span>
+        <a class="vid-card" href="en-vivo.html#virtual">
+          <span class="vid-poster"><img src="https://i.ytimg.com/vi/zjo2Ul1AtUE/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360" onerror="this.remove()"><span class="vid-num" aria-hidden="true">18</span><span class="vid-play" aria-hidden="true"></span></span>
+          <span class="vid-info"><span class="vid-dia" data-f18n="v_vie18">Viernes 18 · En línea</span><span class="vid-sede" data-f18n="v_jv">Jornada Virtual Internacional</span><span class="vid-lugar" data-f18n="v_jv_l">Con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides</span></span>
+        </a>
+      </li>
+      <li class="vid-item dia reveal" data-d="1">
+        <span class="vid-punto" aria-hidden="true"></span>
+        <a class="vid-card" href="en-vivo.html#cucea">
+          <span class="vid-poster"><img src="https://i.ytimg.com/vi/V5ImBzZBYmQ/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360" onerror="this.remove()"><span class="vid-num" aria-hidden="true">21</span><span class="vid-play" aria-hidden="true"></span></span>
+          <span class="vid-info"><span class="vid-dia" data-f18n="v_lun21">Lunes 21 · Inaugural</span><span class="vid-sede">CUCEA</span><span class="vid-lugar">Auditorio Lic. Raúl Padilla López</span></span>
+        </a>
+      </li>
+      <li class="vid-item reveal" data-d="2">
+        <span class="vid-punto" aria-hidden="true"></span>
+        <a class="vid-card" href="en-vivo.html#cugdl">
+          <span class="vid-poster"><img src="https://i.ytimg.com/vi/TJFl8ygjG_s/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360" onerror="this.remove()"><span class="vid-num" aria-hidden="true">21</span><span class="vid-play" aria-hidden="true"></span></span>
+          <span class="vid-info"><span class="vid-dia" data-f18n="v_lun21b">Lunes 21</span><span class="vid-sede">CUGDL</span><span class="vid-lugar">Auditorio Salvador Allende</span></span>
+        </a>
+      </li>
+      <li class="vid-item dia reveal" data-d="3">
+        <span class="vid-punto" aria-hidden="true"></span>
+        <a class="vid-card" href="en-vivo.html#cineteca">
+          <span class="vid-poster"><img src="https://i.ytimg.com/vi/KtYaBEl2AmI/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360" onerror="this.remove()"><span class="vid-num" aria-hidden="true">22</span><span class="vid-play" aria-hidden="true"></span></span>
+          <span class="vid-info"><span class="vid-dia" data-f18n="v_mar22">Martes 22</span><span class="vid-sede">Cineteca FICG</span><span class="vid-lugar">Sala Guillermo del Toro</span></span>
+        </a>
+      </li>
+      <li class="vid-item reveal" data-d="4">
+        <span class="vid-punto" aria-hidden="true"></span>
+        <a class="vid-card pendiente" href="en-vivo.html#ciudad-judicial">
+          <span class="vid-poster"><span class="vid-num" aria-hidden="true">22</span><span class="vid-prep" data-f18n="v_prep">Grabación en preparación</span></span>
+          <span class="vid-info"><span class="vid-dia" data-f18n="v_mar22c">Martes 22 · Clausura</span><span class="vid-sede">Ciudad Judicial</span><span class="vid-lugar" data-f18n="v_cj">Poder Judicial del Estado de Jalisco</span></span>
+        </a>
+      </li>
+    </ol>
+    <div class="vid-pie reveal">
+      <a class="btn-primary" href="en-vivo.html"><span data-f18n="vid_cta">Ir a la memoria en video</span> <span aria-hidden="true">→</span></a>
+      <a class="btn-ghost" href="programa-iv.html" data-f18n="vid_cta2">Programa de la IV edición</a>
+    </div>
+  </div>
+</section>
 
 <!-- ============ TRAYECTORIA · PLIEGO II ============ -->
 <section class="trayectoria" id="trayectoria">
@@ -2348,7 +2503,7 @@ body.semblanza-lock { overflow: hidden; }
 
     <div class="ponentes-cta reveal">
       <p data-f18n="cta_redes">Programa definitivo · 18 · 21 · 22 de septiembre de 2026 · horarios, sedes y semblanzas</p>
-      <a href="programa.html" class="btn-ghost" data-i18n="idx_ponentes_cta_btn">Ver el programa completo</a>
+      <a href="programa-iv.html" class="btn-ghost" data-i18n="idx_ponentes_cta_btn">Ver el programa completo</a>
     </div>
   </div>
 </section>
@@ -2364,7 +2519,7 @@ body.semblanza-lock { overflow: hidden; }
         <p><span data-i18n-html="idx_cfp_p2_html">Las contribuciones aceptadas se publicarán en el libro colectivo de la serie <strong><em>Innovación Jurídica en la era digital</em></strong>, tras doble revisión ciega por dos miembros del Comité Científico.</span></p>
         <p><span data-i18n="idx_cfp_p3">La convocatoria recibió contribuciones en español, inglés y francés sobre los nueve ejes temáticos. La recepción cerró el 15 de agosto de 2026 y el proceso de dictaminación concluyó.</span></p>
         <div class="hero-actions" style="margin-top: 32px;">
-          <a href="cfp.html" class="btn-primary"><span data-i18n="idx_cfp_btn_full">Ver las bases</span></a>
+          <a href="cfp-iv.html" class="btn-primary"><span data-i18n="idx_cfp_btn_full">Ver las bases</span></a>
         </div>
       </div>
 
@@ -2509,16 +2664,17 @@ body.semblanza-lock { overflow: hidden; }
     <div class="footer-col">
       <h4 data-i18n="foot_col_edition">Edición IV</h4>
       <ul>
-        <li><a href="#trayectoria">Trayectoria</a></li>
-        <li><a href="ejes-foro.html">Ejes temáticos</a></li>
-        <li><a href="programa.html">Programa</a></li>
-        <li><a href="cfp.html">Convocatoria</a></li>
+        <li><a href="#trayectoria" data-f18n="fl_tray">Trayectoria</a></li>
+        <li><a href="ejes-foro.html" data-f18n="fl_ejes">Ejes temáticos</a></li>
+        <li><a href="programa-iv.html" data-f18n="fl_prog">Programa</a></li>
+        <li><a href="cfp-iv.html" data-f18n="fl_cfp">Convocatoria</a></li>
+        <li><a href="en-vivo.html" data-f18n="fl_videos">Memoria en video</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4 data-i18n="foot_col_institutional">Institucional</h4>
       <ul>
-        <li><a href="#comite">Comité organizador</a></li>
+        <li><a href="#comite" data-f18n="fl_comite">Comité organizador</a></li>
         <li><a href="https://www.cucea.udg.mx/" target="_blank" rel="noopener noreferrer">CUCEA-UDG</a></li>
         <li><a href="https://www.facebook.com/profile.php?id=61585803779917" target="_blank" rel="noopener noreferrer">CA UDEGCA-1236</a></li>
       </ul>
@@ -2694,6 +2850,33 @@ body.semblanza-lock { overflow: hidden; }
     }
   };
   var F18N_ES = {}; // capturado del HTML al cargar
+
+  /* ───── claves del archivo de la IV (cinta, memoria en video, pie) ─────
+     Van aparte y se suman en tiempo de ejecución: el bloque F18N de arriba
+     lo reescribe _tools/index_grupos.py y no debe tocarse a mano. */
+  var F18N_ARCHIVO = {
+    en: {
+      cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_ir: 'Go to the 5th edition',
+      vid_eyebrow: 'Video record', vid_title: 'Sessions of the <em>fourth edition</em>.',
+      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>the online session and three venues</strong>, with their panels and lectures, in the order in which they took place. The recording from Ciudad Judicial is in preparation.',
+      v_vie18: 'Friday 18 · Online', v_jv: 'International Online Session', v_jv_l: 'With the World Observatory of the Legal Profession and the Universidad de las Hespérides',
+      v_lun21: 'Monday 21 · Opening', v_lun21b: 'Monday 21', v_mar22: 'Tuesday 22', v_mar22c: 'Tuesday 22 · Closing',
+      v_prep: 'Recording in preparation', v_cj: 'Judiciary of the State of Jalisco',
+      vid_cta: 'Go to the video record', vid_cta2: '4th edition program',
+      fl_tray: 'History', fl_ejes: 'Thematic tracks', fl_prog: 'Program', fl_cfp: 'Call for papers', fl_videos: 'Video record', fl_comite: 'Organizing committee'
+    },
+    fr: {
+      cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_ir: 'Aller à la Ve édition',
+      vid_eyebrow: 'Mémoire en vidéo', vid_title: 'Séances de la <em>quatrième édition</em>.',
+      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>la journée en ligne et trois sites</strong>, avec leurs tables rondes et conférences, dans l\'ordre où elles ont eu lieu. L\'enregistrement de Ciudad Judicial est en préparation.',
+      v_vie18: 'Vendredi 18 · En ligne', v_jv: 'Journée virtuelle internationale', v_jv_l: 'Avec l\'Observatoire mondial de la profession d\'avocat et l\'Universidad de las Hespérides',
+      v_lun21: 'Lundi 21 · Ouverture', v_lun21b: 'Lundi 21', v_mar22: 'Mardi 22', v_mar22c: 'Mardi 22 · Clôture',
+      v_prep: 'Enregistrement en préparation', v_cj: 'Pouvoir judiciaire de l\'État de Jalisco',
+      vid_cta: 'Aller à la mémoire en vidéo', vid_cta2: 'Programme de la IVe édition',
+      fl_tray: 'Historique', fl_ejes: 'Axes thématiques', fl_prog: 'Programme', fl_cfp: 'Appel à communications', fl_videos: 'Mémoire en vidéo', fl_comite: 'Comité d\'organisation'
+    }
+  };
+  ['en', 'fr'].forEach(function (l) { for (var k in F18N_ARCHIVO[l]) F18N[l][k] = F18N_ARCHIVO[l][k]; });
 
   function f18nCapture() {
     document.querySelectorAll('[data-f18n]').forEach(function (el) {

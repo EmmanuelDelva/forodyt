@@ -3,6 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+/* Entrada de la página (ver «RECORRIDO» en el script del pie). Se decide antes de
+   pintar para que las pestañas no aparezcan y luego se escondan. Si el script del
+   pie no toma el control en 4 s, la clase se retira y todo queda visible. */
+(function (d) {
+  try {
+    if (!location.hash && 'animate' in d && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      d.classList.add('intro');
+      setTimeout(function () { if (!d.__introOk) d.classList.remove('intro'); }, 4000);
+    }
+  } catch (e) {}
+})(document.documentElement);
+</script>
 <title>Memoria en video · IV Foro Internacional de Derecho y Tecnología</title>
 <meta name="description" content="Grabaciones del IV Foro Internacional de Derecho y Tecnología: las cuatro sedes y la Jornada Virtual Internacional del 18, 21 y 22 de septiembre de 2026.">
 <link rel="canonical" href="https://forodyt.com/en-vivo.html">
@@ -106,137 +119,289 @@
 }
 </script>
 <style>
+/* ════════════════════════════════════════════════════════════════
+   MEMORIA EN VIDEO DE LA IV · pliego nocturno
+   El lenguaje oscuro de la sección de videos de la portada de la V
+   (tinta, cobre claro, arena) llevado a toda la página. Mismas
+   familias de la serie: Fraunces · Inter · JetBrains Mono.
+   ════════════════════════════════════════════════════════════════ */
+@view-transition { navigation: auto; }
+
 :root {
-  --ink:#0E1B2C; --ink-soft:rgba(14,27,44,.72); --ink-faint:rgba(14,27,44,.5); --ink-rule:rgba(14,27,44,.14);
-  --teal:#2A5C5C; --teal-deep:#1F4747; --dorado:#B8923E; --dorado-soft:#C8A858; --dorado-deep:#96742D;
-  --marfil:#F5EFE0; --marfil-2:#EFE8D6; --papel:rgba(251,247,236,.7); --lacre:#7E2A22; --noche:#0A1422;
-  --ease:cubic-bezier(.22,1,.36,1);
-  --mono:'JetBrains Mono','Courier New',monospace; --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,sans-serif;
-  --gutter:clamp(20px,4vw,48px); --max:1380px; --nav-h:74px;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
-body { font-family:var(--sans); font-weight:300; background:var(--marfil); color:var(--ink); line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
-::selection { background:var(--dorado); color:var(--marfil); }
-[hidden] { display:none !important; }
-a { color:inherit; }
-button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
-:focus-visible { outline:2px solid var(--dorado); outline-offset:3px; }
-body::after { content:""; position:fixed; inset:0; z-index:9997; pointer-events:none; opacity:.032;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
-
-/* ── nav ── */
-.nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(245,239,224,.88); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); border-bottom:1px solid var(--ink-rule); }
-.nav-inner { max-width:var(--max); margin:0 auto; padding:0 var(--gutter); height:var(--nav-h); display:flex; align-items:center; justify-content:space-between; gap:24px; }
-.brand { display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--ink); }
-.brand-mark { font-family:var(--serif); font-size:21px; font-weight:600; font-style:italic; font-variation-settings:"opsz" 40,"SOFT" 60; white-space:nowrap; }
-.brand-rule { width:30px; height:1px; background:var(--dorado); }
-.brand-sub { font-family:var(--mono); font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap; }
-.nav-links { display:flex; list-style:none; gap:clamp(14px,2vw,30px); }
-.nav-links a { font-size:13.5px; font-weight:400; color:var(--ink-soft); text-decoration:none; transition:color .3s; }
-.nav-links a:hover, .nav-links a[aria-current] { color:var(--ink); }
-.nav-cta { display:flex; align-items:center; gap:18px; }
-.lang { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; color:var(--ink-faint); user-select:none; }
-.lang span { cursor:pointer; padding:3px 4px; transition:color .3s; }
-.lang span.active { color:var(--dorado-deep); font-weight:500; }
-.btn-primary { display:inline-block; background:var(--ink); color:var(--marfil); font-size:13.5px; font-weight:500; padding:11px 22px; text-decoration:none; letter-spacing:.02em; white-space:nowrap; transition:background .3s, transform .3s; }
-.btn-primary:hover { background:var(--teal-deep); transform:translateY(-1px); }
-@media (max-width:1320px) { .brand-sub { display:none; } }
-@media (max-width:1024px) { .nav-links { display:none; } }
-@media (max-width:420px) { .nav .btn-primary { padding:10px 13px; font-size:12.5px; } }
-
-/* ── hero ── */
-.hero-v { max-width:var(--max); margin:0 auto; padding:clamp(130px,17vh,170px) var(--gutter) 26px; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:24px clamp(24px,5vw,80px); }
-.eyebrow { display:flex; align-items:center; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.3em; text-transform:uppercase; color:var(--dorado-deep); }
-.eyebrow::before { content:""; width:44px; height:1.5px; background:var(--dorado); }
-.hero-v h1 { margin-top:20px; font-family:var(--serif); font-weight:560; font-size:clamp(38px,5.6vw,72px); line-height:1.04; letter-spacing:-.015em; font-variation-settings:"opsz" 144,"SOFT" 25; }
-.hero-v h1 em { font-style:italic; color:var(--teal); font-variation-settings:"opsz" 144,"SOFT" 78; }
-.hero-v .lead { margin-top:16px; max-width:690px; font-size:16px; color:var(--ink-soft); }
-.hero-v .lead b { font-weight:500; color:var(--ink); }
-.hero-links { margin-top:24px; display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; }
-.btn-ink { display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--marfil); font-size:13.5px; font-weight:500; padding:12px 22px; letter-spacing:.02em; text-decoration:none; transition:background .3s; }
-.btn-ink:hover { background:var(--teal-deep); }
-.link-sub { font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--dorado-deep); text-decoration:none; border-bottom:1px solid rgba(150,116,45,.4); padding-bottom:2px; transition:color .3s, border-color .3s; }
-.link-sub:hover { color:var(--ink); border-color:var(--ink); }
-.hero-sello { display:flex; flex-direction:column; align-items:center; gap:6px; padding-bottom:6px; user-select:none; }
-.hero-sello span { font-family:var(--serif); font-style:italic; font-weight:620; font-size:clamp(90px,11vw,150px); line-height:.82; color:transparent; -webkit-text-stroke:1.4px rgba(150,116,45,.55); font-variation-settings:"opsz" 144,"SOFT" 60; }
-.hero-sello i { font-family:var(--mono); font-style:normal; font-size:10px; letter-spacing:.42em; color:var(--ink-faint); padding-left:.42em; }
-@media (max-width:760px) { .hero-v { grid-template-columns:1fr; } .hero-sello { display:none; } }
-
-/* ── grabaciones ── */
-.escenario { max-width:var(--max); margin:0 auto; padding:14px var(--gutter) clamp(40px,6vw,80px); scroll-margin-top:calc(var(--nav-h) + 10px); }
-.sedes { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
-.sede-tab { display:inline-flex; align-items:center; gap:10px; padding:9px 14px; border:1px solid var(--ink-rule); background:var(--papel); font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); text-align:left; transition:border-color .3s, background .3s, color .3s; }
-.sede-tab:hover { border-color:var(--dorado); color:var(--ink); }
-.tab-dia { display:inline-flex; align-items:baseline; gap:6px; }
-.tab-dia b { font-family:var(--serif); font-style:italic; font-weight:600; font-size:14px; letter-spacing:0; text-transform:none; color:var(--dorado-deep); }
-.tab-dia i { font-style:normal; font-size:9px; letter-spacing:.16em; color:var(--ink-faint); }
-.sede-tab[aria-selected="true"] { background:var(--ink); border-color:var(--ink); color:var(--marfil); }
-.sede-tab[aria-selected="true"] .tab-dia b { color:var(--dorado-soft); }
-.sede-tab[aria-selected="true"] .tab-dia i { color:rgba(245,239,224,.55); }
-.escenario-grid { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(300px,.85fr); gap:clamp(18px,2.5vw,32px); align-items:start; }
-@media (min-width:901px) and (min-height:640px) { .col-video { position:sticky; top:calc(var(--nav-h) + 18px); } }
-@media (max-width:900px) { .escenario-grid { grid-template-columns:1fr; } }
-
-.player { position:relative; background:var(--noche); aspect-ratio:16/9; border:1px solid rgba(200,168,88,.35); overflow:hidden; }
-.player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-.fachada { position:absolute; inset:0; width:100%; height:100%; display:block; padding:0; overflow:hidden; background:var(--noche); color:var(--marfil); text-align:left; }
-.fachada-num { position:absolute; right:4%; top:50%; transform:translateY(-50%); font-family:var(--serif); font-style:italic; font-weight:620; font-size:clamp(90px,16vw,220px); line-height:.8; color:transparent; -webkit-text-stroke:1.5px rgba(200,168,88,.4); }
-.fachada img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(.82) contrast(1.02); transition:transform .9s var(--ease), filter .6s var(--ease); }
-.fachada::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,20,34,.18) 0%, rgba(10,20,34,.12) 40%, rgba(10,20,34,.86) 100%); pointer-events:none; }
-.fachada:hover img, .fachada:focus-visible img { transform:scale(1.025); filter:saturate(1) contrast(1.02); }
-.fachada:focus-visible { outline:2px solid var(--dorado); outline-offset:-5px; }
-.fachada-play { position:absolute; left:50%; top:50%; z-index:2; width:clamp(58px,7.5vw,88px); aspect-ratio:1; border-radius:50%; background:rgba(245,239,224,.94); display:grid; place-items:center; transform:translate(-50%,-50%); box-shadow:0 14px 40px rgba(10,20,34,.4); transition:transform .45s var(--ease), background .3s; }
-.fachada-play::before { content:""; position:absolute; inset:-9px; border:1px solid rgba(245,239,224,.5); border-radius:50%; }
-.fachada-play svg { width:32%; margin-left:9%; fill:var(--noche); }
-.fachada:hover .fachada-play, .fachada:focus-visible .fachada-play { transform:translate(-50%,-50%) scale(1.07); background:var(--dorado-soft); }
-.fachada-cap { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:clamp(14px,2.4vw,26px); display:flex; flex-direction:column; gap:4px; }
-.fachada-k { font-family:var(--mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--dorado-soft); }
-.fachada-t { font-family:var(--serif); font-size:clamp(20px,2.6vw,32px); font-weight:560; line-height:1.1; font-variation-settings:"opsz" 72,"SOFT" 40; }
-
-.player-vacio { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; color:var(--marfil); gap:12px; background:radial-gradient(ellipse at 50% 40%, #13243C 0%, var(--noche) 70%); }
-.player-vacio .num { font-family:var(--serif); font-weight:620; font-style:italic; font-size:clamp(56px,8vw,112px); line-height:.9; color:transparent; -webkit-text-stroke:1.5px rgba(200,168,88,.5); }
-.vacio-t { font-family:var(--mono); font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--dorado-soft); }
-.player-vacio p:not(.vacio-t) { max-width:460px; font-size:14px; color:rgba(245,239,224,.72); }
-.player-vacio .btn-primary { margin-top:4px; background:var(--dorado); color:var(--noche); font-weight:600; }
-.player-vacio .btn-primary:hover { background:var(--dorado-soft); }
-@media (max-width:600px) {
-  .player[data-estado="preparacion"] { aspect-ratio:auto; }
-  .player[data-estado="preparacion"] .player-vacio { position:relative; padding:34px 20px 30px; }
+  --tinta: #1A1810;
+  --tinta-2: #2A2620;
+  --tinta-3: #5A5446;
+  --tinta-4: #6B6455;
+  --tinta-0: #12100B;
+  --cobre: #B85C3D;
+  --cobre-2: #8C3F26;
+  --cobre-claro: #D9A48C;
+  --arena: #F5EFE3;
+  --arena-2: #EAE0D0;
+  --musgo: #4A5840;
+  --txt: rgba(245, 239, 227, 0.92);
+  --txt-2: rgba(245, 239, 227, 0.74);
+  --txt-3: rgba(245, 239, 227, 0.62);
+  --raya: rgba(245, 239, 227, 0.14);
+  --raya-2: rgba(245, 239, 227, 0.08);
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1320px;
+  --nav-h: 72px;
+  /* alias que usa el bloque ALIADOS (generado por _tools/programa.py) */
+  --ink: var(--tinta);
+  --teal-deep: var(--cobre-2);
+  --dorado-deep: var(--cobre-2);
 }
 
-.partes { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
-.parte { font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; padding:7px 12px; border:1px solid var(--ink-rule); background:var(--papel); color:var(--ink-soft); transition:border-color .3s, background .3s, color .3s; }
-.parte:hover { border-color:var(--dorado); color:var(--ink); }
-.parte[aria-pressed="true"] { background:var(--teal-deep); border-color:var(--teal-deep); color:var(--marfil); }
-.player-pie { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px 16px; padding:10px 2px 0; font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); }
-.player-pie b { color:var(--teal); font-weight:500; }
-.player-pie a { color:var(--dorado-deep); text-decoration:none; border-bottom:1px solid rgba(150,116,45,.4); }
-.player-pie a:hover { color:var(--ink); border-color:var(--ink); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html { background: var(--tinta); scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+body {
+  background-color: var(--tinta);
+  /* fibra de papel en negativo (SVG en línea, sin base64) */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.93  0 0 0 0 0.86  0 0 0 0.045 0'/></filter><rect width='240' height='240' filter='url(%23f)'/></svg>");
+  color: var(--txt);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; text-wrap: balance; }
+p { text-wrap: pretty; }
+em { font-style: italic; }
+::selection { background: var(--cobre); color: var(--arena); }
+:focus-visible { outline: 2px solid var(--cobre-claro); outline-offset: 3px; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ─────────── NAV (clases del sitio: mobile-menu.js) ─────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(26, 24, 16, 0.84);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid var(--raya-2);
+  transition: box-shadow .5s var(--ease), background .5s var(--ease);
+}
+.nav.scrolled { background: rgba(26, 24, 16, 0.94); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+.nav-inner { max-width: 1380px; margin: 0 auto; padding: 0 var(--gutter); height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--arena); }
+.brand-mark { font-family: var(--serif); font-size: 21px; font-weight: 600; font-style: italic; font-variation-settings: "opsz" 40, "SOFT" 100; letter-spacing: -0.01em; white-space: nowrap; }
+.brand-rule { width: 30px; height: 1px; background: var(--cobre-claro); }
+.brand-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--txt-3); white-space: nowrap; }
+.nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); }
+.nav-links a { text-decoration: none; color: var(--txt-2); font-size: 13.5px; letter-spacing: .02em; position: relative; padding: 4px 0; transition: color .3s var(--ease); }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--cobre-claro); transition: width .45s var(--ease); }
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--arena); }
+.nav-links a:hover::after, .nav-links a[aria-current]::after { width: 100%; }
+.nav-cta { display: flex; align-items: center; gap: 18px; }
+.lang { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--txt-3); user-select: none; }
+.lang [data-lang] { cursor: pointer; padding: 4px 3px; transition: color .3s var(--ease); }
+.lang [data-lang]:hover { color: var(--arena); }
+.lang [data-lang].active { color: var(--cobre-claro); font-weight: 500; }
+.nav .mm-trigger { color: var(--arena); }
+
+.btn-primary, .btn-ghost { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: .06em; text-decoration: none; cursor: pointer; border: 0; white-space: nowrap; }
+.btn-primary { position: relative; overflow: hidden; background: var(--arena); color: var(--tinta); padding: 13px 26px; transition: color .45s var(--ease); }
+.btn-primary::before { content: ""; position: absolute; inset: 0; background: var(--cobre); transform: translateX(-101%); transition: transform .5s var(--ease); }
+.btn-primary:hover, .btn-primary:focus-visible { color: #fff; }
+.btn-primary:hover::before, .btn-primary:focus-visible::before { transform: translateX(0); }
+.btn-primary > * { position: relative; z-index: 1; }
+.btn-ghost { color: var(--arena); padding: 12px 24px; border: 1px solid rgba(245, 239, 227, 0.25); background: transparent; transition: border-color .4s var(--ease), background .4s var(--ease); }
+.btn-ghost:hover { border-color: var(--cobre-claro); background: rgba(217, 164, 140, 0.08); }
+.flecha { transition: transform .4s var(--ease); }
+a:hover .flecha { transform: translateX(4px); }
+
+@media (max-width: 1320px) { .brand-sub { display: none; } }
+@media (max-width: 1180px) { .nav-links { gap: 12px; } .nav-links a { font-size: 12.5px; } .nav .btn-primary { padding: 11px 18px; } }
+@media (max-width: 1024px) { .nav-links { display: none; } }
+@media (max-width: 420px) {
+  .nav-inner { gap: 10px; }
+  .nav-cta { gap: 10px; }
+  .nav .btn-primary { padding: 10px 12px; font-size: 11.5px; }
+  .brand { gap: 10px; }
+  .brand-mark { font-size: 17px; }
+  .brand-rule { width: 18px; }
+  .lang { font-size: 10px; letter-spacing: .06em; }
+  .nav .mm-trigger { margin-left: 6px; }
+}
+
+/* cinta: «estás en la memoria de la IV» */
+.cinta-iv { margin-top: var(--nav-h); background: var(--tinta-0); border-bottom: 1px solid rgba(217, 164, 140, 0.22); position: relative; z-index: 2; }
+.cinta-iv-inner { max-width: var(--max); margin: 0 auto; padding: 9px var(--gutter); display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 3px 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; text-align: center; line-height: 1.5; color: var(--txt-2); }
+.cinta-iv a { color: var(--cobre-claro); text-decoration: none; border-bottom: 1px solid rgba(217, 164, 140, 0.45); white-space: nowrap; transition: color .3s, border-color .3s; }
+.cinta-iv a:hover { color: var(--arena); border-bottom-color: var(--arena); }
+.cinta-iv-sep { color: rgba(217, 164, 140, 0.6); }
+@media (max-width: 560px) { .cinta-iv-sep { display: none; } .cinta-iv-inner { font-size: 10px; letter-spacing: .1em; } }
+
+/* ═══════════ HERO ═══════════ */
+.hero-v { padding: clamp(40px, 6vw, 84px) 0 clamp(30px, 3.4vw, 46px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--cobre-claro); display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; opacity: .6; flex: none; }
+.hero-v h1 { margin-top: 20px; font-size: clamp(40px, 5.4vw, 78px); font-weight: 350; letter-spacing: -0.02em; line-height: 1.02; font-variation-settings: "opsz" 144, "SOFT" 60; color: var(--arena); }
+.hero-v h1 em { color: var(--cobre-claro); font-weight: 300; }
+.hero-v .lead { margin-top: 22px; max-width: 600px; font-size: clamp(16px, 1.25vw, 18px); color: var(--txt-2); }
+.hero-v .lead b { color: var(--arena); font-weight: 500; }
+.hero-links { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.link-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--cobre-claro); text-decoration: none; border-bottom: 1px solid rgba(217, 164, 140, 0.4); padding-bottom: 2px; transition: color .3s, border-color .3s; }
+.link-sub:hover { color: var(--arena); border-color: var(--arena); }
+.hero-mapa { margin: 0; justify-self: end; width: 100%; max-width: 540px; }
+.mapa-lienzo { position: relative; aspect-ratio: 1.36 / 1; }
+.mapa-lienzo canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-mapa figcaption { margin-top: 10px; font-size: 12.5px; line-height: 1.55; color: var(--txt-3); max-width: 52ch; }
+.no-canvas .hero-mapa { display: none; }
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-mapa { justify-self: stretch; max-width: none; }
+}
+
+/* ═══════════ RECORRIDO · la línea del tiempo que hace de pestañas ═══════════ */
+.escenario { padding: 0 0 clamp(56px, 7vw, 100px); scroll-margin-top: calc(var(--nav-h) + 10px); }
+.riel { position: relative; margin: 0 0 clamp(24px, 2.8vw, 36px); padding-bottom: clamp(18px, 2vw, 26px); border-bottom: 1px solid var(--raya); }
+.riel-linea { position: absolute; left: 5px; right: 0; top: 37px; height: 1px; background: linear-gradient(90deg, rgba(245, 239, 227, 0.4), rgba(245, 239, 227, 0.16)); transform-origin: 0 50%; pointer-events: none; }
+.sedes { position: relative; display: flex; align-items: stretch; gap: clamp(10px, 1.6vw, 22px); }
+.sede-tab { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; padding: 58px 6px 4px 0; color: var(--txt-2); transition: color .3s var(--ease); }
+.sede-tab.dia-inicio:not(:first-child) { margin-left: clamp(8px, 2.2vw, 38px); }
+.tab-dia { position: absolute; left: 0; top: 0; display: inline-flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+.tab-dia b { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: -0.01em; color: var(--arena); font-variation-settings: "opsz" 72, "SOFT" 80; }
+.tab-dia i { font-style: normal; font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--cobre-claro); }
+.sede-tab:not(.dia-inicio) .tab-dia { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tab-punto { position: absolute; left: 0; top: 32px; width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(245, 239, 227, 0.6); background: var(--tinta); transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease); }
+.tab-txt { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.tab-sede { font-family: var(--serif); font-size: clamp(16px, 1.35vw, 19.5px); line-height: 1.2; color: inherit; font-variation-settings: "opsz" 48, "SOFT" 40; text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 6px; transition: text-decoration-color .35s var(--ease); }
+.tab-lugar { font-size: 12.5px; line-height: 1.45; color: var(--txt-3); }
+.tab-est { display: none; margin-top: 6px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--cobre-claro); border: 1px solid rgba(217, 164, 140, 0.45); padding: 3px 7px; }
+.sede-tab.sin-video .tab-est { display: inline-block; }
+.sede-tab:hover { color: var(--arena); }
+.sede-tab:hover .tab-punto { border-color: var(--cobre-claro); }
+.sede-tab[aria-selected="true"] { color: var(--arena); }
+.sede-tab[aria-selected="true"] .tab-punto { background: var(--cobre-claro); border-color: var(--cobre-claro); box-shadow: 0 0 0 5px rgba(217, 164, 140, 0.16), 0 0 18px rgba(217, 164, 140, 0.4); }
+.sede-tab[aria-selected="true"] .tab-sede { text-decoration-color: var(--cobre-claro); }
+.sede-tab:focus-visible { outline-offset: 6px; }
+@media (max-width: 700px) {
+  .riel-linea { left: 73px; right: auto; top: 20px; bottom: 30px; width: 1px; height: auto; background: linear-gradient(180deg, rgba(245, 239, 227, 0.4), rgba(245, 239, 227, 0.16)); transform-origin: 50% 0; }
+  .sedes { flex-direction: column; gap: 0; }
+  .sede-tab { flex: none; padding: 10px 0 10px 98px; min-height: 50px; }
+  .sede-tab.dia-inicio:not(:first-child) { margin-left: 0; padding-top: 22px; }
+  .tab-dia { top: 10px; flex-direction: column; align-items: flex-start; gap: 3px; }
+  .sede-tab.dia-inicio:not(:first-child) .tab-dia { top: 22px; }
+  .tab-dia b { font-size: 21px; }
+  .tab-punto { left: 68px; top: 15px; }
+  .sede-tab.dia-inicio:not(:first-child) .tab-punto { top: 27px; }
+  .tab-lugar { font-size: 12px; }
+}
+
+/* ═══════════ REPRODUCTOR + SESIONES ═══════════ */
+.escenario-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, .85fr); gap: clamp(18px, 2.5vw, 32px); align-items: start; }
+@media (min-width: 901px) and (min-height: 640px) { .col-video { position: sticky; top: calc(var(--nav-h) + 18px); } }
+@media (max-width: 900px) { .escenario-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.player { position: relative; background: var(--tinta-0); aspect-ratio: 16 / 9; border: 1px solid rgba(217, 164, 140, 0.24); overflow: hidden; box-shadow: 0 40px 90px -46px rgba(0, 0, 0, 0.85); }
+.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.fachada { position: absolute; inset: 0; width: 100%; height: 100%; display: block; padding: 0; overflow: hidden; background: var(--tinta-0); color: var(--arena); text-align: left; }
+.fachada-num { position: absolute; right: 4%; top: 46%; transform: translateY(-50%); font-family: var(--serif); font-style: italic; font-weight: 600; font-size: clamp(90px, 16vw, 220px); line-height: .8; color: transparent; -webkit-text-stroke: 1.5px rgba(217, 164, 140, 0.4); }
+.fachada img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.85) contrast(1.02); transition: transform .9s var(--ease), filter .6s var(--ease); }
+.fachada::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26, 24, 16, 0.14) 0%, rgba(26, 24, 16, 0.08) 40%, rgba(26, 24, 16, 0.88) 100%); pointer-events: none; }
+.fachada:hover img, .fachada:focus-visible img { transform: scale(1.025); filter: saturate(1) contrast(1.02); }
+.fachada:focus-visible { outline: 2px solid var(--cobre-claro); outline-offset: -5px; }
+.fachada-play { position: absolute; left: 50%; top: 50%; z-index: 2; width: clamp(58px, 7.5vw, 88px); aspect-ratio: 1; border-radius: 50%; background: rgba(245, 239, 227, 0.94); display: grid; place-items: center; transform: translate(-50%, -50%); box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45); transition: transform .45s var(--ease), background .3s; }
+.fachada-play::before { content: ""; position: absolute; inset: -9px; border: 1px solid rgba(245, 239, 227, 0.45); border-radius: 50%; }
+.fachada-play svg { width: 32%; margin-left: 9%; fill: var(--tinta); }
+.fachada:hover .fachada-play, .fachada:focus-visible .fachada-play { transform: translate(-50%, -50%) scale(1.07); background: var(--cobre-claro); }
+.fachada-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(14px, 2.4vw, 26px); display: flex; flex-direction: column; gap: 4px; }
+.fachada-k { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--cobre-claro); }
+.fachada-t { font-family: var(--serif); font-size: clamp(20px, 2.6vw, 32px); font-weight: 400; line-height: 1.1; font-variation-settings: "opsz" 72, "SOFT" 60; }
+
+.player-vacio { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; gap: 12px; color: var(--arena); background: radial-gradient(ellipse at 50% 40%, var(--tinta-2) 0%, var(--tinta-0) 72%); }
+.player-vacio .num { font-family: var(--serif); font-weight: 600; font-style: italic; font-size: clamp(56px, 8vw, 112px); line-height: .9; color: transparent; -webkit-text-stroke: 1.5px rgba(217, 164, 140, 0.5); }
+.vacio-t { font-family: var(--mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--cobre-claro); }
+.player-vacio p:not(.vacio-t) { max-width: 460px; font-size: 14px; color: var(--txt-2); }
+.player-vacio .btn-primary { margin-top: 6px; white-space: normal; text-align: center; }
+@media (max-width: 600px) {
+  .player[data-estado="preparacion"] { aspect-ratio: auto; }
+  .player[data-estado="preparacion"] .player-vacio { position: relative; padding: 34px 20px 30px; }
+}
+
+.partes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.parte { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; padding: 7px 12px; border: 1px solid var(--raya); color: var(--txt-2); transition: border-color .3s, background .3s, color .3s; }
+.parte:hover { border-color: var(--cobre-claro); color: var(--arena); }
+.parte[aria-pressed="true"] { background: var(--arena); border-color: var(--arena); color: var(--tinta); }
+.player-pie { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; padding: 12px 2px 0; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--txt-3); }
+.player-pie b { color: var(--arena); font-weight: 500; }
+.player-pie a { color: var(--cobre-claro); text-decoration: none; border-bottom: 1px solid rgba(217, 164, 140, 0.4); }
+.player-pie a:hover { color: var(--arena); border-color: var(--arena); }
 
 /* índice de sesiones del bloque */
-.indice { background:var(--papel); border:1px solid var(--ink-rule); border-top:2px solid var(--ink); padding:20px clamp(18px,2vw,24px) 18px; }
-.indice-k { font-family:var(--mono); font-size:9.5px; letter-spacing:.26em; text-transform:uppercase; color:var(--dorado-deep); }
-.indice-t { margin-top:6px; font-family:var(--serif); font-weight:560; font-size:clamp(22px,2.2vw,28px); line-height:1.12; letter-spacing:-.005em; font-variation-settings:"opsz" 72,"SOFT" 30; }
-.indice-meta { display:block; margin-top:6px; font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); }
-.indice-lista { list-style:none; margin-top:14px; }
-.ses { display:grid; grid-template-columns:50px minmax(0,1fr); gap:12px; padding:13px 0 12px; border-top:1px solid var(--ink-rule); }
-.ses-h { font-family:var(--serif); font-style:italic; font-weight:600; font-size:15px; line-height:1.3; color:var(--dorado-deep); font-variant-numeric:tabular-nums; }
-.ses-c { display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-width:0; }
-.ses-k { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); line-height:1.5; }
-.ses-t { font-family:var(--serif); font-size:15.5px; font-weight:500; line-height:1.3; color:var(--ink); }
-.ses-p { font-size:12.5px; line-height:1.5; color:var(--ink-soft); }
-.ses-a { margin-top:4px; font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--dorado-deep); text-decoration:none; border-bottom:1px solid rgba(150,116,45,.35); transition:color .3s, border-color .3s; }
-.ses-a:hover { color:var(--ink); border-color:var(--ink); }
-.indice-vacio { margin-top:14px; padding-top:12px; border-top:1px solid var(--ink-rule); font-size:13.5px; color:var(--ink-soft); }
-.indice-vacio a { color:var(--teal); }
-.indice-pie { margin-top:4px; padding-top:14px; border-top:1px solid var(--ink-rule); }
+.indice { background: rgba(245, 239, 227, 0.03); border: 1px solid var(--raya-2); border-top: 2px solid var(--cobre-claro); padding: 22px clamp(18px, 2vw, 26px) 20px; }
+.indice-k { font-family: var(--mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--cobre-claro); }
+.indice-t { margin-top: 8px; font-size: clamp(24px, 2.3vw, 32px); font-weight: 350; line-height: 1.1; letter-spacing: -0.01em; font-variation-settings: "opsz" 96, "SOFT" 60; color: var(--arena); }
+.indice-meta { display: block; margin-top: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--txt-3); }
+.indice-lista { list-style: none; margin-top: 14px; }
+.ses { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 14px 0 13px; border-top: 1px solid var(--raya-2); }
+.ses-h { font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.3; color: var(--cobre-claro); font-variant-numeric: tabular-nums; }
+.ses-c { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; }
+.ses-k { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--txt-3); line-height: 1.5; }
+.ses-t { font-family: var(--serif); font-size: 16px; line-height: 1.3; color: var(--arena); font-variation-settings: "opsz" 36; overflow-wrap: anywhere; }
+.ses-p { font-size: 12.5px; line-height: 1.5; color: var(--txt-2); overflow-wrap: anywhere; }
+.ses-a { margin-top: 5px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--cobre-claro); text-decoration: none; border-bottom: 1px solid rgba(217, 164, 140, 0.35); transition: color .3s, border-color .3s; }
+.ses-a:hover { color: var(--arena); border-color: var(--arena); }
+.indice-vacio { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--raya-2); font-size: 13.5px; color: var(--txt-2); }
+.indice-vacio a { color: var(--cobre-claro); }
+.indice-pie { margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--raya-2); }
 
-/* ── pie ── */
-footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(245,239,224,.6); padding:26px var(--gutter) 34px; }
-.footer-inner { max-width:var(--max); margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px 24px; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; }
-.footer-inner a { color:var(--dorado-soft); text-decoration:none; }
+/* ═══════════ ENTRADA · los puntos del mapa se vuelven pestañas ═══════════
+   Solo con la clase .intro (la pone el <head>; sin JS o con movimiento
+   reducido nunca existe y todo se ve en su estado final). */
+.vuelo { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 900; pointer-events: none; }
+.vuela { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: var(--cobre-claro); box-shadow: 0 0 0 3px rgba(217, 164, 140, 0.16), 0 0 22px 6px rgba(217, 164, 140, 0.32); will-change: transform; }
+.intro .riel-linea { transform: scaleX(0); }
+.intro .sede-tab .tab-punto { transform: scale(0); opacity: 0; }
+.intro .sede-tab.encendido .tab-punto { transform: none; opacity: 1; animation: encender .9s var(--ease) both; }
+@keyframes encender {
+  0% { transform: scale(.2); box-shadow: 0 0 0 0 rgba(217, 164, 140, 0.7); }
+  45% { transform: scale(1.4); box-shadow: 0 0 0 12px rgba(217, 164, 140, 0.14); }
+  100% { transform: none; }
+}
+.intro .sede-tab .tab-txt { opacity: 0; clip-path: circle(0 at 0 -16px); }
+.intro .sede-tab.abierta .tab-txt { opacity: 1; clip-path: circle(170% at 0 -16px); transition: clip-path 1s var(--ease), opacity .45s var(--ease); }
+.intro .sede-tab.dia-inicio .tab-dia { opacity: 0; transform: translateY(6px); }
+.intro .sede-tab.dia-on .tab-dia { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); }
+@media (max-width: 700px) {
+  .intro .riel-linea { transform: scaleY(0); }
+  .intro .sede-tab .tab-txt { clip-path: circle(0 at -24px 12px); }
+  .intro .sede-tab.abierta .tab-txt { clip-path: circle(170% at -24px 12px); }
+}
+
+/* ═══════════ PIE (el de la serie) ═══════════ */
+footer { background: var(--tinta); color: rgba(245, 239, 227, 0.78); padding: clamp(64px, 8vw, 110px) 0 36px; }
+.pie-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: clamp(28px, 4vw, 60px); }
+.pie-marca { font-family: var(--serif); font-size: clamp(26px, 2.4vw, 34px); color: var(--arena); line-height: 1.1; font-variation-settings: "opsz" 96, "SOFT" 60; }
+.pie-marca em { color: var(--cobre-claro); }
+.pie-lema { font-family: var(--mono); font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; margin-top: 16px; color: rgba(245, 239, 227, 0.6); }
+footer .pie-h { font-family: var(--mono); line-height: 1.4; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--cobre-claro); font-weight: 400; margin-bottom: 16px; }
+footer ul { list-style: none; display: grid; gap: 8px; font-size: 14.5px; }
+footer a { text-decoration: none; color: rgba(245, 239, 227, 0.82); transition: color .3s; }
+footer a:hover { color: var(--arena); }
+.pie-base { margin-top: clamp(48px, 6vw, 80px); padding-top: 22px; border-top: 1px solid rgba(245, 239, 227, 0.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-size: 12.5px; color: rgba(245, 239, 227, 0.6); }
+.pie-sello { margin-top: 26px; font-family: var(--serif); font-style: italic; font-weight: 800; font-size: 64px; line-height: .8; color: var(--tinta); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.1), -1px -1px 0 rgba(0, 0, 0, 0.6); letter-spacing: -0.03em; font-variation-settings: "opsz" 144, "SOFT" 100; }
+.pie-sello small { font-family: var(--mono); font-style: normal; font-weight: 400; font-size: 10px; letter-spacing: .3em; color: rgba(245, 239, 227, 0.4); text-shadow: none; display: block; margin-top: 10px; }
+@media (max-width: 1100px) { .pie-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .pie-grid { grid-template-columns: minmax(0, 1fr); } }
+
 /* ALIADOS-CSS:INICIO — «El Foro no camina solo» (copia del index; generado por programa.py) */
 .aliados { background:#C5B9A5; padding:clamp(56px,7vw,96px) var(--gutter); }
 .aliados-inner { max-width:1180px; margin:0 auto; }
@@ -251,86 +416,98 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
 @media (max-width:920px) { .aliado-cell { flex-basis:calc((100% - 2 * clamp(24px,3vw,48px)) / 3); height:76px; } }
 @media (max-width:560px) { .aliado-cell { flex-basis:calc((100% - clamp(24px,3vw,48px)) / 2); height:64px; } }
 /* ALIADOS-CSS:FIN */
+/* la banda de aliados, en el papel de la V (va después del bloque generado para no tocarlo) */
+.aliados { background-color: var(--arena); color: var(--tinta); }
+.aliados h2 em { color: var(--cobre); font-weight: 400; }
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand"><span class="brand-mark">V Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span></a>
+    <a href="memoria-iv.html" class="brand"><span class="brand-mark">IV Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub_iv">Memoria · 2026</span></a>
     <ul class="nav-links">
-      <li><a href="index.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="memorias.html" data-i18n="nav_link_memorias">Memorias</a></li>
-      <li><a href="memoria-iv.html" data-i18n="nav_link_iv">IV edición</a></li>
-      <li><a href="en-vivo.html" data-i18n="nav_link_videos" aria-current="page">Videos</a></li>
+      <li><a href="cfp-iv.html" data-i18n="nav_link_convocatoria">Convocatoria</a></li>
+      <li><a href="programa-iv.html" data-i18n="nav_link_programa">Programa</a></li>
+      <li><a href="memoria-iv.html#trayectoria" data-i18n="nav_link_trayectoria">Trayectoria</a></li>
       <li><a href="ejes-foro.html" data-i18n="nav_link_ejes">Ejes</a></li>
+      <li><a href="memoria-iv.html#ponentes" data-i18n="nav_link_ponentes">Ponentes</a></li>
+      <li><a href="memoria-iv.html#comite" data-i18n="nav_link_comite">Comité</a></li>
     </ul>
-    <div class="nav-cta">
-      <div class="lang">
-        <span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>
-      </div>
-      <a href="index.html#aviso" class="btn-primary"><span data-i18n="nav_cta_aviso">Avísame</span></a>
-    </div>
+    <div class="nav-cta"><div class="lang"><span data-lang="es" class="active">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span></div><a href="index.html" class="btn-primary"><span data-i18n="nav_cta_v">V edición</span> <span aria-hidden="true">→</span></a></div>
   </div>
 </nav>
+<div class="cinta-iv" role="note"><p class="cinta-iv-inner"><span data-f18n="cinta_iv">Estás en la memoria de la IV edición (2026)</span><span class="cinta-iv-sep" aria-hidden="true">·</span><a href="index.html"><span data-f18n="cinta_iv_ir">Ir a la V edición</span> <span aria-hidden="true">→</span></a></p></div>
 
-
+<main>
 <!-- ============ HERO ============ -->
-<header class="hero-v">
-  <div>
-    <div class="eyebrow"><span data-f18n="eyebrow">IV edición · memoria en video</span></div>
-    <h1 data-f18n-html="h1">La IV edición, <em>en video</em>.</h1>
-    <p class="lead" data-f18n-html="lead">Aquí quedan las transmisiones del IV Foro: la <b>Jornada Virtual Internacional</b> del 18 de septiembre y las jornadas en las <b>cuatro sedes</b> del 21 y 22 de septiembre de 2026. Elige una sede; junto al video encontrarás las sesiones que se presentaron en ella.</p>
-    <div class="hero-links">
-      <a class="btn-ink" href="memoria-iv.html"><span data-f18n="h_memoria">Portada de la IV edición</span><span aria-hidden="true">→</span></a>
-      <a class="link-sub" href="programa.html" data-f18n="h_programa">Programa de la IV edición</a>
+<header class="hero-v" id="inicio">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow"><span data-f18n="eyebrow">Cuarta edición</span><span aria-hidden="true">·</span><span>MMXXVI</span></p>
+      <h1 data-f18n-html="h1">Memoria en video de la <em>IV edición</em>.</h1>
+      <p class="lead" data-f18n-html="lead">Aquí quedan las transmisiones del IV Foro: la <b>Jornada Virtual Internacional</b> del 18 de septiembre y las jornadas en las <b>cuatro sedes</b> del 21 y 22 de septiembre de 2026. Elige una sede en la línea del tiempo; junto al video encontrarás las sesiones que se presentaron en ella.</p>
+      <div class="hero-links">
+        <a class="btn-primary" href="memoria-iv.html"><span data-f18n="h_memoria">Portada de la IV edición</span><span class="flecha" aria-hidden="true">→</span></a>
+        <a class="link-sub" href="programa-iv.html" data-f18n="h_programa">Programa de la IV edición</a>
+      </div>
     </div>
+    <figure class="hero-mapa">
+      <div class="mapa-lienzo"><canvas id="mapaVivo" aria-hidden="true"></canvas></div>
+      <figcaption data-f18n="mapa_cap">Los puntos cobre son los diez países con voz en la IV edición. La línea une Guadalajara con España: la Jornada Virtual Internacional fue la primera coorganización México–España del Foro.</figcaption>
+    </figure>
   </div>
-  <div class="hero-sello" aria-hidden="true"><span>IV</span><i>MMXXVI</i></div>
 </header>
 
 <!-- ============ GRABACIONES ============ -->
-<section class="escenario" id="grabaciones">
-  <div class="sedes" role="tablist" id="sedes" aria-label="Sedes de la IV edición" data-f18n-aria="tabs_aria">
-    <button type="button" class="sede-tab" role="tab" id="tab-cucea" data-sede="cucea" data-fecha="2026-09-21" aria-controls="panelVideo" aria-selected="true" tabindex="0"><span class="tab-dia"><b>21</b><i>lun</i></span><span class="tab-sede">CUCEA</span></button>
-    <button type="button" class="sede-tab" role="tab" id="tab-cugdl" data-sede="cugdl" data-fecha="2026-09-21" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>21</b><i>lun</i></span><span class="tab-sede">CUGDL</span></button>
-    <button type="button" class="sede-tab" role="tab" id="tab-cineteca" data-sede="cineteca" data-fecha="2026-09-22" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>22</b><i>mar</i></span><span class="tab-sede">Cineteca FICG</span></button>
-    <button type="button" class="sede-tab" role="tab" id="tab-ciudad-judicial" data-sede="ciudad-judicial" data-fecha="2026-09-22" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>22</b><i>mar</i></span><span class="tab-sede" data-f18n="sede_cj">Ciudad Judicial</span></button>
-    <button type="button" class="sede-tab" role="tab" id="tab-virtual" data-sede="virtual" data-fecha="2026-09-18" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>18</b><i>vie</i></span><span class="tab-sede" data-f18n="sede_virtual">Jornada Virtual Internacional</span></button>
-  </div>
-
-  <div class="escenario-grid" role="tabpanel" id="panelVideo" aria-labelledby="tab-cucea">
-    <div class="col-video">
-      <div class="player" id="player" data-estado="">
-        <button type="button" class="fachada" id="fachada" hidden>
-          <span class="fachada-num" id="fachadaNum" aria-hidden="true"></span>
-          <span class="fachada-play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 3.5v17l15-8.5z"/></svg></span>
-          <span class="fachada-cap" aria-hidden="true"><span class="fachada-k" id="fachadaK"></span><span class="fachada-t" id="fachadaT"></span></span>
-        </button>
-        <div class="player-vacio" id="playerVacio" hidden>
-          <div class="num" id="vacioNum" aria-hidden="true"></div>
-          <p class="vacio-t" data-f18n="prep_t">Grabación en preparación</p>
-          <p data-f18n="prep_p">Esta sede no tuvo transmisión en directo. Publicaremos aquí su grabación en cuanto esté lista.</p>
-          <a class="btn-primary" id="prepBtn" href="programa.html" data-f18n="prep_btn">Ver sus sesiones en el programa</a>
-        </div>
-      </div>
-      <div class="partes" id="partes" role="group" aria-label="Partes de la grabación" data-f18n-aria="partes_aria" hidden></div>
-      <div class="player-pie">
-        <span><span data-f18n="pie_sede">Sede</span> · <b id="pieSede">—</b> · <span id="pieFecha"></span></span>
-        <a id="pieYT" href="https://www.youtube.com/" target="_blank" rel="noopener" data-f18n="abrir_yt" hidden>Abrir en YouTube&nbsp;↗</a>
+<section class="escenario" id="grabaciones" aria-label="Grabaciones por sede" data-f18n-aria="grab_aria">
+  <div class="wrap">
+    <div class="riel" id="riel">
+      <span class="riel-linea" id="rielLinea" aria-hidden="true"></span>
+      <div class="sedes" role="tablist" id="sedes" aria-label="Sedes de la IV edición" data-f18n-aria="tabs_aria">
+        <button type="button" class="sede-tab dia-inicio" role="tab" id="tab-virtual" data-sede="virtual" data-fecha="2026-09-18" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>18</b><i>vie</i></span><span class="tab-punto" aria-hidden="true"></span><span class="tab-txt"><span class="tab-sede" data-f18n="sede_virtual">Jornada Virtual Internacional</span><span class="tab-lugar" data-f18n="lugar_virtual">En línea</span><span class="tab-est" data-f18n="est_prep">En preparación</span></span></button>
+        <button type="button" class="sede-tab dia-inicio" role="tab" id="tab-cucea" data-sede="cucea" data-fecha="2026-09-21" aria-controls="panelVideo" aria-selected="true" tabindex="0"><span class="tab-dia"><b>21</b><i>lun</i></span><span class="tab-punto" aria-hidden="true"></span><span class="tab-txt"><span class="tab-sede">CUCEA</span><span class="tab-lugar">Auditorio Lic. Raúl Padilla López</span><span class="tab-est" data-f18n="est_prep">En preparación</span></span></button>
+        <button type="button" class="sede-tab" role="tab" id="tab-cugdl" data-sede="cugdl" data-fecha="2026-09-21" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>21</b><i>lun</i></span><span class="tab-punto" aria-hidden="true"></span><span class="tab-txt"><span class="tab-sede">CUGDL</span><span class="tab-lugar">Auditorio Salvador Allende</span><span class="tab-est" data-f18n="est_prep">En preparación</span></span></button>
+        <button type="button" class="sede-tab dia-inicio" role="tab" id="tab-cineteca" data-sede="cineteca" data-fecha="2026-09-22" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>22</b><i>mar</i></span><span class="tab-punto" aria-hidden="true"></span><span class="tab-txt"><span class="tab-sede">Cineteca FICG</span><span class="tab-lugar">Sala Guillermo del Toro</span><span class="tab-est" data-f18n="est_prep">En preparación</span></span></button>
+        <button type="button" class="sede-tab" role="tab" id="tab-ciudad-judicial" data-sede="ciudad-judicial" data-fecha="2026-09-22" aria-controls="panelVideo" aria-selected="false" tabindex="-1"><span class="tab-dia"><b>22</b><i>mar</i></span><span class="tab-punto" aria-hidden="true"></span><span class="tab-txt"><span class="tab-sede" data-f18n="sede_cj">Ciudad Judicial</span><span class="tab-lugar" data-f18n="lugar_cj">Poder Judicial del Estado de Jalisco</span><span class="tab-est" data-f18n="est_prep">En preparación</span></span></button>
       </div>
     </div>
 
-    <aside class="indice" aria-labelledby="indiceT">
-      <span class="indice-k" data-f18n="ind_eyebrow">Sesiones de este bloque</span>
-      <h2 class="indice-t" id="indiceT">—</h2>
-      <span class="indice-meta" id="indiceMeta"></span>
-      <ol class="indice-lista" id="indiceLista"></ol>
-      <p class="indice-vacio" id="indiceVacio" hidden data-f18n-html="ind_vacio">Las sesiones de esta sede están en el <a href="programa.html">programa de la IV edición</a>.</p>
-      <div class="indice-pie"><a class="link-sub" id="indiceProg" href="programa.html" data-f18n="ind_prog">Ver el bloque completo en el programa&nbsp;→</a></div>
-    </aside>
+    <div class="escenario-grid" role="tabpanel" id="panelVideo" aria-labelledby="tab-cucea">
+      <div class="col-video">
+        <div class="player" id="player" data-estado="">
+          <button type="button" class="fachada" id="fachada" hidden>
+            <span class="fachada-num" id="fachadaNum" aria-hidden="true"></span>
+            <span class="fachada-play" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 3.5v17l15-8.5z"/></svg></span>
+            <span class="fachada-cap" aria-hidden="true"><span class="fachada-k" id="fachadaK"></span><span class="fachada-t" id="fachadaT"></span></span>
+          </button>
+          <div class="player-vacio" id="playerVacio" hidden>
+            <div class="num" id="vacioNum" aria-hidden="true"></div>
+            <p class="vacio-t" data-f18n="prep_t">Grabación en preparación</p>
+            <p data-f18n="prep_p">Esta sede no tuvo transmisión en directo. Publicaremos aquí su grabación en cuanto esté lista.</p>
+            <a class="btn-primary" id="prepBtn" href="programa-iv.html"><span data-f18n="prep_btn">Ver sus sesiones en el programa</span></a>
+          </div>
+        </div>
+        <div class="partes" id="partes" role="group" aria-label="Partes de la grabación" data-f18n-aria="partes_aria" hidden></div>
+        <div class="player-pie">
+          <span><span data-f18n="pie_sede">Sede</span> · <b id="pieSede">—</b> · <span id="pieFecha"></span></span>
+          <a id="pieYT" href="https://www.youtube.com/" target="_blank" rel="noopener" data-f18n="abrir_yt" hidden>Abrir en YouTube&nbsp;↗</a>
+        </div>
+      </div>
+
+      <aside class="indice" aria-labelledby="indiceT">
+        <span class="indice-k" data-f18n="ind_eyebrow">Sesiones de este bloque</span>
+        <h2 class="indice-t" id="indiceT">—</h2>
+        <span class="indice-meta" id="indiceMeta"></span>
+        <ol class="indice-lista" id="indiceLista"></ol>
+        <p class="indice-vacio" id="indiceVacio" hidden data-f18n-html="ind_vacio">Las sesiones de esta sede están en el <a href="programa-iv.html">programa de la IV edición</a>.</p>
+        <div class="indice-pie"><a class="link-sub" id="indiceProg" href="programa-iv.html" data-f18n="ind_prog">Ver el bloque completo en el programa&nbsp;→</a></div>
+      </aside>
+    </div>
   </div>
 </section>
+</main>
 
 <!-- ALIADOS:INICIO — generado por _tools/programa.py desde memoria-iv.html; no editar a mano -->
 <section class="aliados" id="aliados"><div class="aliados-inner"><h2 data-i18n-html="idx_aliados_title_html">El Foro <em>no camina</em> solo.</h2><div class="aliados-list">
@@ -350,11 +527,44 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
 </div></div></section>
 <!-- ALIADOS:FIN -->
 
-<footer>
-  <div class="footer-inner">
-    <span data-i18n="foot_copy">© 2026 · IV Foro Internacional de Derecho y Tecnología</span>
-    <span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>
-    <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>
+<footer id="contacto">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-lema" data-f18n="pie_lema">Memoria de la IV edición · 2026</p>
+      </div>
+      <div>
+        <h2 class="pie-h" data-f18n="pie_contacto">Contacto</h2>
+        <ul>
+          <li><a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></li>
+          <li><a href="https://www.instagram.com/forodyt_oficial" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61580204966427" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-f18n="pie_memorias">Memorias</h2>
+        <ul>
+          <li><a href="memoria-i.html" data-f18n="pie_m1">I edición · 2023</a></li>
+          <li><a href="memoria-ii.html" data-f18n="pie_m2">II edición · 2024</a></li>
+          <li><a href="memoria-iii.html" data-f18n="pie_m3">III edición · 2025</a></li>
+          <li><a href="memoria-iv.html" data-f18n="pie_m4">IV edición · 2026</a></li>
+          <li><a href="index.html" data-f18n="pie_v">V edición · 2027</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="pie-h" data-f18n="pie_organiza">Organiza</h2>
+        <ul>
+          <li data-f18n="pie_ca">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</li>
+          <li>Universidad de Guadalajara</li>
+        </ul>
+        <div class="pie-sello" aria-hidden="true">IV<small>MMXXVI</small></div>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>
+      <span data-f18n="pie_desde">Desde 2023 · Guadalajara, Jalisco, México</span>
+    </div>
   </div>
 </footer>
 
@@ -363,9 +573,12 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
 <script>
 (function () {
   'use strict';
-  document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');
+  var D = document.documentElement;
+  D.classList.remove('no-js'); D.classList.add('js');
+  D.__introOk = true;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ═══════════════ GRABACIONES (editar aquí) ═══════════════
      Por sede, la lista de IDs de YouTube en orden; si hay más de uno, la página muestra «Parte 1 · Parte 2…».
@@ -381,33 +594,44 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     'ciudad-judicial': [],
     'virtual':         ['zjo2Ul1AtUE']
   };
+  var SEDE_INICIAL = 'cucea';   // la inaugural, cuando se llega sin #sede
 
   /* ── f18n (mini-diccionario propio; el español sale del HTML) ── */
   var F18N = { es: null,
-    en: { title: 'Video archive · 4th International Forum on Law and Technology',
-      eyebrow: 'IV edition · video archive', h1: 'The IV edition, <em>on video</em>.',
-      lead: 'Here are the broadcasts of the IV Forum: the <b>International Online Session</b> on September 18 and the days at the <b>four venues</b> on September 21 and 22, 2026. Choose a venue; next to the video you will find the sessions presented there.',
-      h_memoria: 'IV edition overview', h_programa: 'IV edition program',
-      sede_cj: 'Judicial City', sede_virtual: 'International Online Session',
+    en: { title: 'Video record · 4th International Forum on Law and Technology',
+      cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_ir: 'Go to the 5th edition',
+      eyebrow: 'Fourth edition', h1: 'Video record of the <em>4th edition</em>.',
+      lead: 'Here are the broadcasts of the IV Forum: the <b>International Online Session</b> on September 18 and the days at the <b>four venues</b> on September 21 and 22, 2026. Choose a venue on the timeline; next to the video you will find the sessions presented there.',
+      h_memoria: '4th edition overview', h_programa: '4th edition program',
+      mapa_cap: 'The copper dots are the ten countries with a voice in the 4th edition. The line joins Guadalajara and Spain: the International Online Session was the Forum’s first Mexico–Spain co-organization.',
+      sede_cj: 'Judicial City', sede_virtual: 'International Online Session', lugar_virtual: 'Online', lugar_cj: 'Judiciary of the State of Jalisco', est_prep: 'In preparation',
       prep_t: 'Recording in preparation', prep_p: 'This venue was not streamed live. We will publish its recording here as soon as it is ready.', prep_btn: 'See its sessions in the program',
-      pie_sede: 'Venue', abrir_yt: 'Open on YouTube\u00a0↗',
-      ind_eyebrow: 'Sessions in this block', ind_vacio: 'The sessions at this venue are listed in the <a href="programa.html">IV edition program</a>.', ind_prog: 'See the full block in the program\u00a0→',
-      tabs_aria: 'IV edition venues', partes_aria: 'Recording parts',
+      pie_sede: 'Venue', abrir_yt: 'Open on YouTube ↗',
+      ind_eyebrow: 'Sessions in this block', ind_vacio: 'The sessions at this venue are listed in the <a href="programa-iv.html">4th edition program</a>.', ind_prog: 'See the full block in the program →',
+      tabs_aria: '4th edition venues', partes_aria: 'Recording parts', grab_aria: 'Recordings by venue',
       reproducir: 'Play the recording: {s}', parte: 'Part {n}', parte_de: 'Part {n} of {m}',
       iframe_t: 'Recording · {s} · International Forum on Law and Technology', hora_gdl: 'Guadalajara time',
-      ver_prog: 'See in the program', ver_prog_aria: 'See in the program: {s}' },
+      ver_prog: 'See in the program', ver_prog_aria: 'See in the program: {s}',
+      pie_lema: 'Record of the 4th edition · 2026', pie_contacto: 'Contact', pie_memorias: 'Edition records',
+      pie_m1: '1st edition · 2023', pie_m2: '2nd edition · 2024', pie_m3: '3rd edition · 2025', pie_m4: '4th edition · 2026', pie_v: '5th edition · 2027',
+      pie_organiza: 'Organized by', pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico' },
     fr: { title: 'Mémoire en vidéo · 4e Forum International du Droit et de la Technologie',
-      eyebrow: 'IVe édition · mémoire en vidéo', h1: 'La IVe édition, <em>en vidéo</em>.',
-      lead: 'Retrouvez ici les diffusions du IVe Forum : la <b>Journée virtuelle internationale</b> du 18 septembre et les journées dans les <b>quatre sites</b> des 21 et 22 septembre 2026. Choisissez un site ; à côté de la vidéo, vous trouverez les sessions qui y ont été présentées.',
+      cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_ir: 'Aller à la Ve édition',
+      eyebrow: 'Quatrième édition', h1: 'Mémoire en vidéo de la <em>IVe édition</em>.',
+      lead: 'Retrouvez ici les diffusions du IVe Forum : la <b>Journée virtuelle internationale</b> du 18 septembre et les journées dans les <b>quatre sites</b> des 21 et 22 septembre 2026. Choisissez un site sur la ligne du temps ; à côté de la vidéo, vous trouverez les sessions qui y ont été présentées.',
       h_memoria: 'Aperçu de la IVe édition', h_programa: 'Programme de la IVe édition',
-      sede_cj: 'Cité Judiciaire', sede_virtual: 'Journée virtuelle internationale',
+      mapa_cap: 'Les points cuivrés sont les dix pays ayant pris la parole lors de la IVe édition. La ligne relie Guadalajara à l\'Espagne : la Journée virtuelle internationale a été la première co-organisation Mexique–Espagne du Forum.',
+      sede_cj: 'Cité Judiciaire', sede_virtual: 'Journée virtuelle internationale', lugar_virtual: 'En ligne', lugar_cj: 'Pouvoir judiciaire de l\'État de Jalisco', est_prep: 'En préparation',
       prep_t: 'Enregistrement en préparation', prep_p: 'Ce site n\'a pas été diffusé en direct. Nous publierons ici son enregistrement dès qu\'il sera prêt.', prep_btn: 'Voir ses sessions dans le programme',
-      pie_sede: 'Site', abrir_yt: 'Ouvrir sur YouTube\u00a0↗',
-      ind_eyebrow: 'Sessions de ce bloc', ind_vacio: 'Les sessions de ce site figurent dans le <a href="programa.html">programme de la IVe édition</a>.', ind_prog: 'Voir le bloc complet dans le programme\u00a0→',
-      tabs_aria: 'Sites de la IVe édition', partes_aria: 'Parties de l\'enregistrement',
+      pie_sede: 'Site', abrir_yt: 'Ouvrir sur YouTube ↗',
+      ind_eyebrow: 'Sessions de ce bloc', ind_vacio: 'Les sessions de ce site figurent dans le <a href="programa-iv.html">programme de la IVe édition</a>.', ind_prog: 'Voir le bloc complet dans le programme →',
+      tabs_aria: 'Sites de la IVe édition', partes_aria: 'Parties de l\'enregistrement', grab_aria: 'Enregistrements par site',
       reproducir: 'Lire l\'enregistrement : {s}', parte: 'Partie {n}', parte_de: 'Partie {n} sur {m}',
       iframe_t: 'Enregistrement · {s} · Forum International du Droit et de la Technologie', hora_gdl: 'Heure de Guadalajara',
-      ver_prog: 'Voir dans le programme', ver_prog_aria: 'Voir dans le programme : {s}' }
+      ver_prog: 'Voir dans le programme', ver_prog_aria: 'Voir dans le programme : {s}',
+      pie_lema: 'Mémoire de la IVe édition · 2026', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
+      pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026', pie_v: 'Ve édition · 2027',
+      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique' }
   };
   var F18N_ES = { reproducir: 'Reproducir la grabación: {s}', parte: 'Parte {n}', parte_de: 'Parte {n} de {m}',
     iframe_t: 'Grabación · {s} · IV Foro Internacional de Derecho y Tecnología', hora_gdl: 'Hora de Guadalajara',
@@ -431,33 +655,43 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   function hora(iso) { try { return new Intl.DateTimeFormat(locale(), { hour: 'numeric', minute: '2-digit', hour12: false, timeZone: GDL }).format(new Date(iso)).replace(/^0(\d:)/, '$1'); } catch (e) { return ''; } }
   function fecha(ymd, opts) { try { return new Intl.DateTimeFormat(locale(), Object.assign({ timeZone: GDL }, opts)).format(new Date(ymd + 'T12:00:00-06:00')); } catch (e) { return ymd; } }
 
+  /* ── nav: sombra al hacer scroll ── */
+  var nav = $('#nav');
+  function onScrollNav() { nav.classList.toggle('scrolled', window.scrollY > 24); }
+  window.addEventListener('scroll', onScrollNav, { passive: true }); onScrollNav();
+
   /* ── estado ── */
   var tabs = $$('.sede-tab'), player = $('#player'), fachada = $('#fachada');
   var img = document.createElement('img'); img.id = 'fachadaImg'; img.alt = ''; img.width = 480; img.height = 360; img.decoding = 'async';
   fachada.insertBefore(img, $('.fachada-play', fachada));
-  var sede = null, parte = 0, P = null, datosFallaron = false;
+  var sede = null, parte = 0, P = null, datosFallaron = false, mapa = null;
   function tabDe(id) { return $('#tab-' + id); }
   function nombre(id) { var tb = tabDe(id); return tb ? $('.tab-sede', tb).textContent.trim() : id; }
   function ids() { return STREAMS[sede] || []; }
   function etiqueta() { var l = ids(); return nombre(sede) + (l.length > 1 ? ' · ' + t('parte_de').replace('{n}', parte + 1).replace('{m}', l.length) : ''); }
   function fechaLarga(id) { var tb = tabDe(id); return tb ? fecha(tb.getAttribute('data-fecha'), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
 
-  /* ── pestañas ── */
+  /* ── pestañas (la línea del tiempo) ── */
   function pintarTabs() {
-    tabs.forEach(function (tb) { var i = $('.tab-dia i', tb); if (i) i.textContent = fecha(tb.getAttribute('data-fecha'), { weekday: 'short' }).replace(/[.,]$/, ''); });
+    tabs.forEach(function (tb) {
+      var i = $('.tab-dia i', tb); if (i) i.textContent = fecha(tb.getAttribute('data-fecha'), { weekday: 'short' }).replace(/[.,]$/, '');
+      var l = STREAMS[tb.getAttribute('data-sede')] || []; tb.classList.toggle('sin-video', !l.length);
+    });
   }
   function elegir(id, conHash) {
     if (!Object.prototype.hasOwnProperty.call(STREAMS, id) || !tabDe(id)) return;
+    var cambio = id !== sede;
     sede = id; parte = 0;
     tabs.forEach(function (tb) { var on = tb.getAttribute('data-sede') === id; tb.setAttribute('aria-selected', on ? 'true' : 'false'); tb.tabIndex = on ? 0 : -1; });
     $('#panelVideo').setAttribute('aria-labelledby', 'tab-' + id);
     if (conHash) { try { history.replaceState(null, '', location.pathname + location.search + '#' + id); } catch (e) {} }
     montar(); pintarPartes(); pintarIndice();
+    if (conHash && cambio && mapa) mapa.enfasis(id);
   }
   tabs.forEach(function (tb) { tb.addEventListener('click', function () { elegir(tb.getAttribute('data-sede'), true); }); });
   $('#sedes').addEventListener('keydown', function (e) {
     var i = tabs.indexOf(document.activeElement); if (i < 0) return;
-    var n = e.key === 'ArrowRight' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' ? (i - 1 + tabs.length) % tabs.length : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : -1;
+    var n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? (i + 1) % tabs.length : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? (i - 1 + tabs.length) % tabs.length : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : -1;
     if (n < 0) return;
     e.preventDefault(); tabs[n].focus(); elegir(tabs[n].getAttribute('data-sede'), true);
   });
@@ -468,7 +702,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     var vid = ids()[parte], tb = tabDe(sede);
     if (!vid) {
       player.setAttribute('data-estado', 'preparacion'); fachada.hidden = true; $('#playerVacio').hidden = false;
-      $('#vacioNum').textContent = $('.tab-dia b', tb).textContent; $('#prepBtn').href = 'programa.html#' + sede;
+      $('#vacioNum').textContent = $('.tab-dia b', tb).textContent; $('#prepBtn').href = 'programa-iv.html#' + sede;
     } else {
       player.setAttribute('data-estado', 'fachada'); $('#playerVacio').hidden = true; fachada.hidden = false;
       img.hidden = false; img.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(vid) + '/hqdefault.jpg';
@@ -511,7 +745,7 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   function pintarIndice() {
     $('#indiceT').textContent = nombre(sede);
     $('#indiceMeta').textContent = fechaLarga(sede) + ' · ' + t('hora_gdl');
-    $('#indiceProg').href = 'programa.html#' + sede;
+    $('#indiceProg').href = 'programa-iv.html#' + sede;
     var ul = $('#indiceLista'); ul.innerHTML = '';
     var lista = P && P.sesiones ? P.sesiones.filter(function (s) { return s.bloque === sede; }).sort(function (a, b) { return new Date(a.ini) - new Date(b.ini); }) : [];
     $('#indiceVacio').hidden = lista.length > 0 || (!P && !datosFallaron);
@@ -524,11 +758,256 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
       var nombres = (s.ponentes || []).map(function (p) { return (p.nombres || []).join(' · '); }).filter(Boolean).join(' · ');
       if (nombres) c.appendChild(el('span', 'ses-p', nombres));
       if (/^[a-z0-9-]+$/.test(s.id || '')) {
-        var a = el('a', 'ses-a', t('ver_prog')); a.href = 'programa.html#s-' + s.id; a.setAttribute('aria-label', t('ver_prog_aria').replace('{s}', k + (titulo ? ' · ' + titulo : '')));
+        var a = el('a', 'ses-a', t('ver_prog')); a.href = 'programa-iv.html#s-' + s.id; a.setAttribute('aria-label', t('ver_prog_aria').replace('{s}', k + (titulo ? ' · ' + titulo : '')));
         c.appendChild(a);
       }
       li.appendChild(c); ul.appendChild(li);
     });
+  }
+
+  /* ═══════════════ MAPA DE PUNTOS (motivo estable del Foro) ═══════════════
+     Los mismos datos que el mapa de la portada (index.html): una retícula de
+     2°, recortada a América, el Atlántico y la península ibérica. En cobre, los
+     diez países con voz en la IV; el anillo es Guadalajara; la línea, el puente
+     con España de la Jornada Virtual Internacional. Solo se anima en la entrada
+     y cuando se elige una sede; en reposo no hay bucle. */
+  var MAPA = {"step":2.0,"lat0":76.0,"lon0":-170.0,"cols":180,"rows":["                         ....  ..   .  .               .....................                                        ...             . ........            . .","                       ....          ..                  .................                                      ..               ..........                .","                       .. ..... .  ..    . .....          ................                                     ..       ..   . .......................     ... .","    ........ .     . .    .........  ..    . ......       . ..............                    . ....              .   ... ...........................................     .","....................................................................................................      .. .            .                                                      ...","....................................................................................................  ...                                                                      .","     .................................... ...    ....       .....         ...             ...... ....... ......................................................................","  ....................................        ...           ....                        ......  .............................................................................","  ....... .    .......................         ...             .                        .......      ..............................................................   .","      .          ......................       ........                           kk        ..    ..........................................................         ..","     .              ......................     ........                            k      ...   ..........................................................         ....","                  . ........................ ...........                        ..  k    ................................................................ .        ..","                     ........................ ............                      .. kkk  .....................................................................       .","                     . .............................    .                             ..................................................................... .","                       uuuuuuuuuuuuuuuuuuu..........    ...                        ........................................................................","                       uuuuuuuuuuuuuuuuuuuu.......u.. .                             ................    .....   ..........................................","                       uuuuuuuuuuuuuuuuuuuuu...uuuu .                                ..... . .......     ....  ..........................................   ..","                       uuuuuuuuuuuuuuuuuuuu.uuuuuu                               eeeeee  . .   ....   .   ...  .......................................","                       uuuuuuuuuuuuuuuuuuuuuuuuu                                 .eeee e     . ..  ...........  ................................. ...      .","                        uuuuuuuuuuuuuuuuuuuuuuu                                  eeee      ..   .  ..........   ................................    .","                         uuuuuuuuuuuuuuuuuuuuuu                                       .....            ...........................................   .    ..","                          uuuuuuuuuuuuuuuuuuuu                                    ........             ..........................................      .","                           mmuuuuuuuuuuuuuuuu                                    ............  ...     ...........................................","                           m mmmmuuuuuuu  uu                                    ............................. ....................................","                            m mmmmmmu       u                                  ............................... ...................................","                              mmmmmm        u                                 ........................ .......    ...............................","                              m mmmmm                                         .........................  ...... ..     .........................","                                mmmm         q                               ..........................  ..........     .......... ..........","                                 mmmm   mm     q                             ...........................  ........        .......   .......","                                  mmmmmmm     .    .                         ...........................  .......         .....     ......       .","                                     m m.                                    ............................  .....          ....        ......     .","                                       ....           .                      ............................. ..             ...         ......     ..","                                          ..     c.                          ..............................                ..            ...       .","                                          o    cc.....                        ................................             ..         .           .","                                              ncc.......                       ...............................               .         .           ..","                                              ccccc.....                        ...... ......................                          .       . . .","                                               ccccc........                              ...................                         . .     ..","                                              ccccc.........                              ..................                          ...    ...","                                             xxxcc...........                             .................                            ..   .... .","                                             xxrcc.............                           ...............                              ..   ...  .     .  .   .","                                             xrrrrc...............                         ..............                                .       ..      .....","                                            rrrr...................                        .............                                                  ....... .","                                              rrr...................                        .............                                    ..           ... .","                                              rrrr.................                         .............                                                      ..","                                               rrrr................                         ..............                                              .   .","                                               rrrr..............                          ..............    .                                      . ...   .","                                                rrr...............                         ...............  ..                                      ......  ..","                                                  ...............                          ............    ...                                    ............","                                                  l....p.........                           ...........     ..                                   ...............","                                                  l..app.........                           ...........    ..                                 ..................","                                                  llaaappp....                               ..........    ..                                 ...................","                                                  laaaaapp...                               .........                                         ....................","                                                  laaaaaaa...                                .........                                         ...................","                                                 laaaaaa....                                  ......                                          ....................","                                                  aaaaaa....                                   .....                                           .......  ..........","                                                 laaaaaa..                                    ...                                             ...         .......","                                                 laaaaaaa                                                                                                  ......           .","                                                laaaaaaa                                                                                                   .. .             ..","                                                 laaaa                                                                                                       . .             .","                                                 aaa                                                                                                          .            .","                                                 laaa                                                                                                                     .","                                               llaa                                                                                                                     ..","                                                 aaaa","                                                aaa","                                                 la","                                                  l",""]};
+  var IV = { m: 1, e: 1, a: 1, c: 1, p: 1, r: 1, o: 1, x: 1, l: 1, n: 1 };
+  var GDL_GEO = { lon: -103.35, lat: 20.67 };
+  function MapaVivo(cv) {
+    this.cv = cv; this.ctx = cv.getContext('2d');
+    var S = MAPA.step, rc = [-126, 44], pts = [], esp = [];
+    this.c0 = (rc[0] - MAPA.lon0) / S; this.cols = (rc[1] - rc[0]) / S + 1; this.rows = MAPA.rows.length;
+    MAPA.rows.forEach(function (fila, ri) {
+      var off = (ri % 2) ? S / 2 : 0;
+      for (var ci = 0; ci < fila.length; ci++) {
+        var ch = fila.charAt(ci); if (ch === ' ') continue;
+        var lon = MAPA.lon0 + ci * S + off, lat = MAPA.lat0 - ri * S;
+        if (lon < rc[0] || lon > rc[1]) continue;
+        var dl = lon - GDL_GEO.lon, dL = lat - GDL_GEO.lat;
+        var p = { c: ci + (ri % 2 ? 0.5 : 0), r: ri, iv: !!IV[ch], d: Math.sqrt(dl * dl + dL * dL) };
+        pts.push(p); if (ch === 'e') esp.push(p);
+      }
+    });
+    this.pts = pts;
+    this.gdl = { c: (GDL_GEO.lon - MAPA.lon0) / S, r: (MAPA.lat0 - GDL_GEO.lat) / S };
+    var sc = 0, sr = 0; esp.forEach(function (p) { sc += p.c; sr += p.r; });
+    this.esp = esp.length ? { c: sc / esp.length, r: sr / esp.length } : null;
+    this.t0 = 0; this.pend = false; this.raf = 0; this.pulsos = []; this.chispa = -1; this.visible = true;
+    this.ajustar();
+  }
+  MapaVivo.prototype.ajustar = function () {
+    var r = this.cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (!r.width) return;
+    this.w = r.width; this.h = r.height;
+    this.cv.width = Math.round(r.width * dpr); this.cv.height = Math.round(r.height * dpr);
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.paso = Math.min(this.w / (this.cols + 1), this.h / (this.rows + 1));
+    this.ox = (this.w - this.paso * this.cols) / 2 - this.c0 * this.paso;
+    this.oy = (this.h - this.paso * this.rows) / 2 + this.paso / 2;
+    this.dibujar(performance.now());
+  };
+  MapaVivo.prototype.xy = function (c, r) { return [this.ox + c * this.paso + this.paso / 2, this.oy + r * this.paso]; };
+  MapaVivo.prototype.curva = function (k) {
+    // arco España → Guadalajara: cuadrática con el control al norte del punto medio
+    var a = this.xy(this.esp.c, this.esp.r), b = this.xy(this.gdl.c, this.gdl.r);
+    var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, dx = b[0] - a[0], dy = b[1] - a[1];
+    var cx = mx, cy = my - Math.sqrt(dx * dx + dy * dy) * 0.3, u = 1 - k;
+    return [u * u * a[0] + 2 * u * k * cx + k * k * b[0], u * u * a[1] + 2 * u * k * cy + k * k * b[1]];
+  };
+  MapaVivo.prototype.dibujar = function (now) {
+    if (!this.w) return;
+    var ctx = this.ctx, s = this.paso, e = this.t0 ? now - this.t0 : 1e9;
+    ctx.clearRect(0, 0, this.w, this.h);
+    if (this.pend) return;                       // la entrada aún no empieza: lienzo en blanco
+    var ola = Math.min(1, e / 1100), maxD = 150;
+    for (var i = 0; i < this.pts.length; i++) {
+      var p = this.pts[i], a = 1;
+      if (ola < 1) { a = Math.max(0, Math.min(1, (ola * 1.2 * maxD - p.d) / 16)); if (a <= 0) continue; }
+      var q = this.xy(p.c, p.r);
+      ctx.globalAlpha = (p.iv ? 0.94 : 0.2) * a;
+      ctx.fillStyle = p.iv ? '#D9A48C' : '#F5EFE3';
+      ctx.beginPath(); ctx.arc(q[0], q[1], s * (p.iv ? 0.36 : 0.2) * (ola < 1 ? 0.6 + 0.4 * a : 1), 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    var g = this.xy(this.gdl.c, this.gdl.r);
+    if (this.esp) {
+      var k = Math.max(0, Math.min(1, (e - 650) / 850)); k = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      if (k > 0) {
+        var ini = this.xy(this.esp.c, this.esp.r), N = 56, j, pt;
+        ctx.strokeStyle = 'rgba(217,164,140,0.8)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(ini[0], ini[1]);
+        for (j = 1; j <= N * k; j++) { pt = this.curva(j / N); ctx.lineTo(pt[0], pt[1]); }
+        pt = this.curva(k); ctx.lineTo(pt[0], pt[1]); ctx.stroke();
+        ctx.fillStyle = '#D9A48C'; ctx.beginPath(); ctx.arc(ini[0], ini[1], s * 0.55, 0, 6.2832); ctx.fill();
+        ctx.strokeStyle = 'rgba(217,164,140,0.5)'; ctx.beginPath(); ctx.arc(ini[0], ini[1], s * 1.2, 0, 6.2832); ctx.stroke();
+        if (k < 1) { ctx.fillStyle = '#F5EFE3'; ctx.beginPath(); ctx.arc(pt[0], pt[1], s * 0.5, 0, 6.2832); ctx.fill(); }
+      }
+      // chispa: una luz que recorre el arco cuando se elige la Jornada Virtual
+      if (this.chispa >= 0) {
+        var kc = (now - this.chispa) / 1000;
+        if (kc >= 0 && kc < 1) {
+          var ke = 1 - Math.pow(1 - kc, 3), c1 = this.curva(ke);
+          var gr = ctx.createRadialGradient(c1[0], c1[1], 0, c1[0], c1[1], s * 3.2);
+          gr.addColorStop(0, 'rgba(245,239,227,0.95)'); gr.addColorStop(0.35, 'rgba(217,164,140,0.55)'); gr.addColorStop(1, 'rgba(217,164,140,0)');
+          ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(c1[0], c1[1], s * 3.2, 0, 6.2832); ctx.fill();
+        } else if (kc >= 1) { this.chispa = -1; this.pulso(); }
+      }
+    }
+    // pulsos que parten de Guadalajara
+    var vivos = [];
+    for (var n = 0; n < this.pulsos.length; n++) {
+      var kp = (now - this.pulsos[n]) / 1100;
+      if (kp < 0) { vivos.push(this.pulsos[n]); continue; }
+      if (kp >= 1) continue;
+      vivos.push(this.pulsos[n]);
+      ctx.strokeStyle = 'rgba(217,164,140,' + (0.7 * (1 - kp)).toFixed(3) + ')'; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(g[0], g[1], s * (1.3 + 6 * (1 - Math.pow(1 - kp, 2))), 0, 6.2832); ctx.stroke();
+    }
+    this.pulsos = vivos;
+    if (ola >= 0.25) {
+      ctx.strokeStyle = 'rgba(245,239,227,0.85)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(g[0], g[1], s * 1.25, 0, 6.2832); ctx.stroke();
+      ctx.fillStyle = '#F5EFE3'; ctx.beginPath(); ctx.arc(g[0], g[1], s * 0.42, 0, 6.2832); ctx.fill();
+      if (s > 3) {
+        ctx.font = '500 ' + Math.max(9, Math.round(s * 1.8)) + 'px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(245,239,227,0.62)'; ctx.textBaseline = 'middle';
+        ctx.fillText('GUADALAJARA', g[0] - s * 3, g[1] + s * 3.4);
+      }
+    }
+  };
+  MapaVivo.prototype.activo = function (now) {
+    return (this.t0 && now - this.t0 < 1600) || this.pulsos.length > 0 || this.chispa >= 0;
+  };
+  MapaVivo.prototype.animar = function () {
+    var self = this;
+    if (this.raf || REDUCED) { if (REDUCED) this.dibujar(performance.now()); return; }
+    (function paso(now) {
+      if (!self.visible) { self.raf = 0; self.pulsos = []; self.chispa = -1; self.dibujar(now + 1e9); return; }
+      self.dibujar(now);
+      if (self.activo(now)) self.raf = requestAnimationFrame(paso); else self.raf = 0;
+    })(performance.now());
+  };
+  MapaVivo.prototype.intro = function () { this.pend = false; this.t0 = performance.now(); this.animar(); };
+  MapaVivo.prototype.finalizar = function () { this.pend = false; this.t0 = 0; this.pulsos = []; this.chispa = -1; cancelAnimationFrame(this.raf); this.raf = 0; this.dibujar(performance.now()); };
+  MapaVivo.prototype.pulso = function () { if (REDUCED) return; this.pulsos.push(performance.now()); this.animar(); };
+  MapaVivo.prototype.enfasis = function (id) {
+    if (REDUCED || this.pend) return;
+    if (id === 'virtual' && this.esp) { this.chispa = performance.now(); this.animar(); } else this.pulso();
+  };
+  MapaVivo.prototype.puntoPagina = function () {
+    var r = this.cv.getBoundingClientRect(); if (!r.width) return null;
+    var g = this.xy(this.gdl.c, this.gdl.r);
+    return { x: r.left + g[0] + window.scrollX, y: r.top + g[1] + window.scrollY };
+  };
+  function iniciarMapa() {
+    var cv = $('#mapaVivo');
+    if (!cv || !MAPA || !cv.getContext) { D.classList.add('no-canvas'); return; }
+    try { mapa = new MapaVivo(cv); } catch (err) { mapa = null; D.classList.add('no-canvas'); return; }
+    if (D.classList.contains('intro')) { mapa.pend = true; mapa.dibujar(performance.now()); }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { mapa.visible = es[0].isIntersecting; }, { threshold: 0 }).observe(cv);
+    }
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { mapa.ajustar(); medirLinea(); }, 150); });
+  }
+
+  /* ═══════════════ RECORRIDO · la línea del tiempo ═══════════════
+     La línea va del primer punto al último (se mide: en móvil es vertical). */
+  var riel = $('#riel'), linea = $('#rielLinea');
+  function vertical() { return window.matchMedia('(max-width: 700px)').matches; }
+  function medirLinea() {
+    var pts = $$('.tab-punto'); if (!pts.length) return;
+    var R = riel.getBoundingClientRect(), a = pts[0].getBoundingClientRect(), b = pts[pts.length - 1].getBoundingClientRect();
+    var ax = a.left + a.width / 2 - R.left, ay = a.top + a.height / 2 - R.top, bx = b.left + b.width / 2 - R.left, by = b.top + b.height / 2 - R.top;
+    if (vertical()) { linea.style.left = ax + 'px'; linea.style.top = ay + 'px'; linea.style.height = Math.max(0, by - ay) + 'px'; linea.style.width = ''; linea.style.right = 'auto'; linea.style.bottom = 'auto'; }
+    else { linea.style.left = ax + 'px'; linea.style.top = ay + 'px'; linea.style.width = Math.max(0, bx - ax) + 'px'; linea.style.height = ''; linea.style.right = 'auto'; linea.style.bottom = 'auto'; }
+  }
+
+  /* ═══════════════ ENTRADA · los puntos del mapa se vuelven pestañas ═══════════════
+     Guadalajara lanza un punto por sede, en el orden en que ocurrió la IV
+     (18 → 21 → 22). Cada punto vuela del mapa a su lugar en la línea (FLIP con
+     la Web Animations API), se enciende al aterrizar y la pestaña florece desde
+     él. El mapa hace su parte si se ve al llegar; la línea, cuando entra en
+     pantalla (en móvil queda bajo el pliegue). Un clic o una tecla la completan. */
+  var SALIDAS = { 'virtual': 1500, 'cucea': 2150, 'cugdl': 2330, 'cineteca': 2850, 'ciudad-judicial': 3030 };
+  var intro = { activa: false, timers: [], anims: [], io: null }, vuelo = null;
+  function enPantalla(el, frac) {
+    var r = el.getBoundingClientRect(), h = window.innerHeight;
+    return Math.min(r.bottom, h) - Math.max(r.top, 0) > Math.min(r.height, h) * frac;
+  }
+  function introFin() {
+    if (!intro.activa && !D.classList.contains('intro')) return;
+    intro.activa = false;
+    if (intro.io) { intro.io.disconnect(); intro.io = null; }
+    intro.timers.forEach(clearTimeout); intro.timers = [];
+    intro.anims.forEach(function (a) { try { a.cancel(); } catch (e) {} }); intro.anims = [];
+    if (vuelo) vuelo.textContent = '';
+    D.classList.remove('intro');
+    tabs.forEach(function (tb) { tb.classList.remove('encendido', 'abierta', 'dia-on'); });
+    if (mapa) mapa.finalizar();
+    ['click', 'keydown'].forEach(function (ev) { document.removeEventListener(ev, introFin, true); });
+  }
+  function aterrizar(tb) {
+    if (!intro.activa) return;
+    tb.classList.add('encendido');
+    if (tb.classList.contains('dia-inicio')) tb.classList.add('dia-on');
+    intro.timers.push(setTimeout(function () { tb.classList.add('abierta'); }, 140));
+  }
+  function volar(tb) {
+    if (!intro.activa) return;
+    if (mapa) mapa.pulso();
+    var p0 = mapa && mapa.visible && enPantalla(mapa.cv, 0.15) ? mapa.puntoPagina() : null;
+    if (!p0) { aterrizar(tb); return; }
+    var r = $('.tab-punto', tb).getBoundingClientRect();
+    var x0 = p0.x, y0 = p0.y, x1 = r.left + r.width / 2 + window.scrollX, y1 = r.top + r.height / 2 + window.scrollY;
+    // el punto cae desde Guadalajara y se desliza sobre la línea hasta su fecha (control a la altura del riel)
+    var cx = x0, cy = y1;
+    var fr = [];
+    for (var i = 0; i <= 18; i++) {
+      var k = i / 18, u = 1 - k;
+      var x = u * u * x0 + 2 * u * k * cx + k * k * x1, y = u * u * y0 + 2 * u * k * cy + k * k * y1;
+      fr.push({ transform: 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (1 + 0.55 * Math.sin(Math.PI * k)).toFixed(3) + ')', offset: k });
+    }
+    var dot = document.createElement('i'); dot.className = 'vuela'; vuelo.appendChild(dot);
+    var an = dot.animate(fr, { duration: 860, easing: 'cubic-bezier(.45,.05,.25,1)', fill: 'forwards' });
+    intro.anims.push(an);
+    an.onfinish = function () { if (dot.parentNode) dot.parentNode.removeChild(dot); aterrizar(tb); };
+  }
+  function secuencia(desfase) {
+    if (!intro.activa) return;
+    medirLinea();
+    intro.anims.push(linea.animate([{ transform: vertical() ? 'scaleY(0)' : 'scaleX(0)' }, { transform: 'none' }],
+      { duration: 2400, delay: Math.max(0, 1400 - desfase), easing: 'cubic-bezier(.35,.1,.2,1)', fill: 'both' }));
+    tabs.forEach(function (tb) {
+      var id = tb.getAttribute('data-sede');
+      intro.timers.push(setTimeout(function () { volar(tb); }, Math.max(0, (SALIDAS[id] || 1500) - desfase)));
+    });
+    intro.timers.push(setTimeout(introFin, 5200 - desfase));
+  }
+  function introInicio() {
+    if (!D.classList.contains('intro')) return;
+    intro.activa = true;
+    vuelo = document.createElement('div'); vuelo.className = 'vuelo'; vuelo.setAttribute('aria-hidden', 'true'); document.body.appendChild(vuelo);
+    ['click', 'keydown'].forEach(function (ev) { document.addEventListener(ev, introFin, true); });
+    if (mapa) { if (enPantalla(mapa.cv, 0.15)) mapa.intro(); else mapa.finalizar(); }
+    if (enPantalla(riel, 0.3)) { secuencia(0); return; }
+    if (!('IntersectionObserver' in window)) { introFin(); return; }
+    // la línea aún no se ve (móvil, pantallas bajas): espera a que entre
+    var t0 = performance.now();
+    intro.io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting || !intro.activa) return;
+      intro.io.disconnect(); intro.io = null;
+      secuencia(Math.min(1200, performance.now() - t0));
+    }, { threshold: 0.3 });
+    intro.io.observe(riel);
+  }
+  function cuandoActiva(fn) {
+    if (document.prerendering) { document.addEventListener('prerenderingchange', function () { cuandoActiva(fn); }, { once: true }); return; }
+    if (document.hidden) {
+      var h = function () { if (!document.hidden) { document.removeEventListener('visibilitychange', h); fn(); } };
+      document.addEventListener('visibilitychange', h); return;
+    }
+    fn();
   }
 
   /* ── arranque ── */
@@ -536,7 +1015,8 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
   function init() {
     capturar(); aplicar(); pintarTabs();
     var h = leerHash();
-    elegir(h || tabs[0].getAttribute('data-sede'), false);
+    if (h || REDUCED || !('animate' in D)) D.classList.remove('intro');
+    elegir(h || SEDE_INICIAL, false);
     if (h) { var g = $('#grabaciones'); if (g && g.scrollIntoView) g.scrollIntoView({ block: 'start' }); }
     fetch('programa-data.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) { P = d && d.sesiones ? d : null; datosFallaron = !P; pintarIndice(); })
@@ -545,8 +1025,16 @@ footer { margin-top:clamp(40px,6vw,80px); background:var(--noche); color:rgba(24
     var lastLang = document.documentElement.lang || 'es';
     if ('MutationObserver' in window) new MutationObserver(function () {
       var l = document.documentElement.lang || 'es'; if (l === lastLang) return; lastLang = l; LANG = /^(es|en|fr)$/.test(l) ? l : 'es';
-      aplicar(); pintarTabs(); pintarPie(); pintarPartes(); pintarIndice();
+      aplicar(); pintarTabs(); pintarPie(); pintarPartes(); pintarIndice(); medirLinea();
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    medirLinea();
+    var listo = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    Promise.race([listo, new Promise(function (r) { setTimeout(r, 900); })]).then(function () {
+      try { iniciarMapa(); } catch (err) { D.classList.add('no-canvas'); }
+      medirLinea();
+      if (!D.classList.contains('intro')) { if (mapa) mapa.finalizar(); return; }
+      cuandoActiva(function () { setTimeout(function () { try { introInicio(); } catch (err) { introFin(); } }, 260); });
+    });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

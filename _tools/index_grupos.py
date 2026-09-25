@@ -2,7 +2,8 @@
 """Sección «Ponentes» de memoria-iv.html en TRES grupos (decisión del director, 2026-09-14):
 
 (2026-09-24: la portada de la IV se archivó como memoria-iv.html; index.html es ahora la portada de
-la V edición y este script ya no la toca.)
+la V edición y este script ya no la toca. 2026-09-25: el programa de la IV también se archivó, como
+programa-iv.html; programa.html es la página de la V y ningún generador la escribe.)
 
   1. Voces de la discusión — quienes participan los días presenciales 21 y 22 (parrilla principal,
      en el orden que calcula _tools/parrilla.py).
@@ -112,11 +113,11 @@ def personas_de(sesion_filter):
 
 COMITE = {'delva', 'leos', 'romero', 'said', 'paul', 'acosta'}   # tienen ficha en la sección Comité, no tarjeta de ponente
 # 2026-09-14 (director): en el index solo se publican las personas que YA tienen fotografía; las demás
-# quedan en programa.html (con monograma) hasta que llegue su foto. Se listan al correr el script.
+# quedan en programa-iv.html (con monograma) hasta que llegue su foto. Se listan al correr el script.
 SOLO_CON_FOTO = True
 # 2026-09-17 (director): estas tres presentan el 18 en la Jornada Virtual, pero su TARJETA se queda
 # en la parrilla principal para no descompensar la presencia de mujeres en la portada. Solo afecta
-# al index: en programa.html y jornada-virtual.html aparecen donde realmente presentan.
+# al index: en programa-iv.html y jornada-virtual.html aparecen donde realmente presentan.
 # Tienen que estar también en la tabla de _tools/parrilla.py (género/sector/peso).
 FIJAS_EN_PARRILLA = {'garcia_torres', 'caicedo', 'pinto_garcia'}
 
@@ -351,5 +352,5 @@ print('tarjetas generadas:', ', '.join(p['slug'] for p in generadas))
 sin_sem = [p['slug'] for p in generadas if p['slug'] not in nuevo]
 print('sin semblanza (modal «en preparación»):', ', '.join(sin_sem) or 'ninguna')
 if SIN_FOTO:
-    print(f'\nSIN FOTO → no publicados en el index ({len(SIN_FOTO)}); siguen en programa.html con monograma:')
+    print(f'\nSIN FOTO → no publicados en el index ({len(SIN_FOTO)}); siguen en programa-iv.html con monograma:')
     for p in SIN_FOTO: print(f'  · {p["nombre"]}  ({p["sesion"]})')

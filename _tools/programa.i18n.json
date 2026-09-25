@@ -1158,5 +1158,13 @@
  "ui.cta_videos": {
   "en": "Watch the videos",
   "fr": "Voir les vidéos"
+ },
+ "ui.cinta_iv": {
+  "en": "You are in the record of the 4th edition (2026)",
+  "fr": "Vous êtes dans la mémoire de la IVe édition (2026)"
+ },
+ "ui.cinta_iv_ir": {
+  "en": "Go to the 5th edition",
+  "fr": "Aller à la Ve édition"
  }
 }

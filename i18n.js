@@ -416,6 +416,22 @@
       ins_cierre_detail_html: 'Gracias a quienes se registraron. Si no recibiste tu constancia, escribe a <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       cfp_pres_p2: 'La jornada inaugural se desarrolló en CUCEA; las sesiones de trabajo fueron itinerantes entre el CUGDL y la Cineteca, y el cierre tuvo lugar en la Ciudad Judicial del Estado de Jalisco, articulando un diálogo tripartito entre la academia, la docencia universitaria y la judicatura del Estado.',
       cfp_pres_p3: 'Este evento buscó fomentar el diálogo sobre innovaciones tecnológicas en el derecho, compartir mejores prácticas y explorar las nuevas regulaciones que moldearán el futuro legal en un contexto global en permanente transformación.',
+
+      // ===== V edición · navegación común y archivo de la IV (2026-09-25) =====
+      // ES se muestra siempre desde el HTML; estas claves quedan como referencia.
+      nav_brand_sub_iv: 'Memoria · 2026',
+      nav_cta_v: 'V edición',
+      nav_link_memorias: 'Memorias',
+      cinta_iv: 'Estás en la memoria de la IV edición (2026)',
+      cinta_iv_link: 'Ir a la V edición',
+      mem_link_v: 'V Foro · 2027',
+      mem_por_anunciar: 'Por anunciar',
+      e404_title: 'Esta página no existe o cambió de lugar.',
+      e404_lead: 'El contenido que buscas no está en esta dirección. Estos son los caminos de regreso al Foro Internacional de Derecho y Tecnología.',
+      e404_inicio: 'V edición · 2027',
+      e404_memorias: 'Memorias',
+      e404_iv: 'Memoria de la IV edición',
+      e404_videos: 'Videos de la IV',
     
     },
 
@@ -1555,6 +1571,31 @@
       ins_cierre_mark: 'IV edition',
       ins_cierre_title: 'Registration for the IV edition closed on September 22, 2026.',
       ins_cierre_detail_html: 'Thank you to everyone who registered. If you did not receive your certificate, write to <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
+
+      // ===== V edición · navegación común y archivo de la IV (2026-09-25) =====
+      nav_brand_sub_iv: 'Record · 2026',
+      nav_cta_v: '5th edition',
+      cinta_iv: 'You are in the record of the 4th edition (2026)',
+      cinta_iv_link: 'Go to the 5th edition',
+      mem_link_v: '5th Forum · 2027',
+      mem_por_anunciar: 'To be announced',
+      pie_lema: 'Legal innovation in the digital era',
+      pie_contacto: 'Contact',
+      pie_memorias: 'Edition records',
+      pie_m1: '1st edition · 2023',
+      pie_m2: '2nd edition · 2024',
+      pie_m3: '3rd edition · 2025',
+      pie_m4: '4th edition · 2026',
+      pie_videos: 'Video record of the 4th edition',
+      pie_organiza: 'Organized by',
+      pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»',
+      pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico',
+      e404_title: 'This page does not exist or has moved.',
+      e404_lead: 'The content you are looking for is not at this address. These are the ways back to the International Forum on Law and Technology.',
+      e404_inicio: '5th edition · 2027',
+      e404_memorias: 'Edition records',
+      e404_iv: 'Record of the 4th edition',
+      e404_videos: 'Videos of the 4th edition',
     
     },
 
@@ -2693,6 +2734,31 @@
       ins_cierre_mark: 'IVe édition',
       ins_cierre_title: 'Les inscriptions à la IVe édition ont pris fin le 22 septembre 2026.',
       ins_cierre_detail_html: 'Merci à toutes les personnes inscrites. Si vous n\'avez pas reçu votre attestation, écrivez à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
+
+      // ===== V edición · navegación común y archivo de la IV (2026-09-25) =====
+      nav_brand_sub_iv: 'Mémoire · 2026',
+      nav_cta_v: 'Ve édition',
+      cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)',
+      cinta_iv_link: 'Aller à la Ve édition',
+      mem_link_v: 'Ve Forum · 2027',
+      mem_por_anunciar: 'À annoncer',
+      pie_lema: 'Innovation juridique à l\'ère numérique',
+      pie_contacto: 'Contact',
+      pie_memorias: 'Mémoires',
+      pie_m1: 'Ire édition · 2023',
+      pie_m2: 'IIe édition · 2024',
+      pie_m3: 'IIIe édition · 2025',
+      pie_m4: 'IVe édition · 2026',
+      pie_videos: 'Mémoire en vidéo de la IVe édition',
+      pie_organiza: 'Organisé par',
+      pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »',
+      pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique',
+      e404_title: 'Cette page n\'existe pas ou a changé d\'adresse.',
+      e404_lead: 'Le contenu que vous cherchez ne se trouve pas à cette adresse. Voici les chemins pour revenir au Forum International du Droit et de la Technologie.',
+      e404_inicio: 'Ve édition · 2027',
+      e404_memorias: 'Mémoires',
+      e404_iv: 'Mémoire de la IVe édition',
+      e404_videos: 'Vidéos de la IVe édition',
     
     }
   };
