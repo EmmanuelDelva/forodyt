@@ -641,20 +641,29 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .ficha-estado { flex-basis: 100%; font-size: 12.5px; color: var(--musgo); text-align: right; word-break: break-all; }
 .ficha-estado:empty { display: none; }
 
-/* View Transitions: la hoja de la tarjeta se expande en la ficha */
-::view-transition-group(ficha-marco), ::view-transition-group(ficha-foto) { animation-duration: .62s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+/* View Transitions: la hoja de la tarjeta se expande en la ficha.
+   Capas: papel (1) · retrato (2) · contenido (3) · botones y sello (4). El sello
+   vuela de la esquina del retrato a la de la ficha; Cerrar y la barra de
+   navegación entran después del papel (y salen primero al cerrar). */
+::view-transition-group(ficha-marco), ::view-transition-group(ficha-foto), ::view-transition-group(ficha-sello) { animation-duration: .62s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
 ::view-transition-group(ficha-marco) { z-index: 1; }
 ::view-transition-group(ficha-foto) { z-index: 2; }
 ::view-transition-group(ficha-contenido) { z-index: 3; }
+::view-transition-group(ficha-barra), ::view-transition-group(ficha-cerrar), ::view-transition-group(ficha-sello) { z-index: 4; }
 ::view-transition-old(ficha-marco), ::view-transition-new(ficha-marco) { height: 100%; width: 100%; object-fit: fill; }
 ::view-transition-old(ficha-foto), ::view-transition-new(ficha-foto) { height: 100%; width: 100%; object-fit: cover; }
 ::view-transition-new(ficha-contenido):only-child { animation: vt-sube .5s .2s cubic-bezier(0.22, 1, 0.36, 1) both; }
 ::view-transition-old(ficha-contenido):only-child { animation: vt-baja .22s ease both; }
+::view-transition-new(ficha-barra):only-child, ::view-transition-new(ficha-cerrar):only-child, ::view-transition-new(ficha-sello):only-child { animation: vt-sube .4s .34s cubic-bezier(0.22, 1, 0.36, 1) both; }
+::view-transition-old(ficha-barra):only-child, ::view-transition-old(ficha-cerrar):only-child, ::view-transition-old(ficha-sello):only-child { animation: vt-baja .18s ease both; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .45s; }
-html[data-vt="sig"]::view-transition-old(ficha-contenido) { animation: vt-sale-izq .32s ease both; }
-html[data-vt="sig"]::view-transition-new(ficha-contenido) { animation: vt-entra-der .42s cubic-bezier(0.22, 1, 0.36, 1) both; }
-html[data-vt="ant"]::view-transition-old(ficha-contenido) { animation: vt-sale-der .32s ease both; }
-html[data-vt="ant"]::view-transition-new(ficha-contenido) { animation: vt-entra-izq .42s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* anterior / siguiente: el contenido sale y, cuando ya se fue, entra el nuevo (sin doble exposición) */
+html[data-vt="sig"]::view-transition-old(ficha-contenido) { animation: vt-sale-izq .26s ease both; }
+html[data-vt="sig"]::view-transition-new(ficha-contenido) { animation: vt-entra-der .42s .18s cubic-bezier(0.22, 1, 0.36, 1) both; }
+html[data-vt="ant"]::view-transition-old(ficha-contenido) { animation: vt-sale-der .26s ease both; }
+html[data-vt="ant"]::view-transition-new(ficha-contenido) { animation: vt-entra-izq .42s .18s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* al filtrar: el nav y la barra de filtros quedan por encima de las tarjetas que se reacomodan */
+::view-transition-group(nav), ::view-transition-group(filtros) { z-index: 100; animation: none; }
 ::view-transition-group(*.pon) { animation-duration: .55s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
 ::view-transition-old(*.pon):only-child { animation: vt-baja .3s ease both; }
 ::view-transition-new(*.pon):only-child { animation: vt-sube .5s .12s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -728,15 +737,31 @@ footer a:hover { color: var(--arena); }
   .grupo-cab { grid-template-columns: minmax(0, 1fr); }
   .grupo-n { display: none; }
   .f-grupos { gap: 12px; flex-direction: column; }
+  .cab .eyebrow { letter-spacing: .2em; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pon.entintando, .pon.entintando .pon-rodillo, .pon.entintada .pon-sello { animation: none !important; }
+  .pon.entintando, .pon.entintando .pon-rodillo, .pon.entintada .pon-sello, .pon.golpeando, .pon.golpeando .sello-seco { animation: none !important; }
+  .pon.por-golpear { --prof: 1; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
   .pon-foto, .pon-tinta .pon-plancha::after { transition: none; }
 }
 @media (forced-colors: active) {
   .pon-hoja { border: 1px solid CanvasText; }
-  .pon-seco .pon-plancha, .barra { border: 1px solid CanvasText; }
+  .pon-seco .pon-plancha, .barra, .camafeo { border: 1px solid CanvasText; }
+}
+/* impresión / «Guardar como PDF»: todo en su estado final, con tinta y sin capas de luz */
+@media print {
+  .nav, .filtros, .ficha, .pon-rodillo, .pon-luz, .pon-sombra, .lienzo-fondo, .aviso-form, .cab-cta, .franja a { display: none !important; }
+  body { background: #fff; }
+  .franja { background: none; color: var(--cobre-2); border-bottom: 1px solid var(--cobre); margin-top: 0; }
+  .cab { padding-top: 24px; }
+  .pon { --prof: 1 !important; transform: none !important; scale: none !important; break-inside: avoid; }
+  .pon .pon-tinta { -webkit-mask-image: none !important; mask-image: none !important; }
+  .pon:not(.pon--vacia) .pon-seco { display: none !important; }
+  .js .aparece { opacity: 1 !important; transform: none !important; }
+  .grupo--banda { background: none; box-shadow: none; clip-path: none; color: var(--tinta); padding: 0; }
+  .grupo--banda .grupo-cab h2, .grupo--banda .grupo-cab p { color: var(--tinta); }
+  .grupo--banda .pon { --papel: #F9F4EA; --c-texto: var(--tinta); --c-texto-2: var(--tinta-3); --c-acento: var(--cobre-2); --c-regla: var(--linea); }
 }
 </style>
 </head>
