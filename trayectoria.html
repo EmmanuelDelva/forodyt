@@ -330,8 +330,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .t-hero { position: relative; padding: clamp(118px, 15vh, 160px) 0 clamp(56px, 7vw, 96px); overflow: hidden; }
 .t-hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: clamp(32px, 5vw, 84px); align-items: end; }
 .t-hero-txt { display: grid; gap: clamp(20px, 2.4vw, 30px); }
-.t-hero h1 { font-size: clamp(46px, 7vw, 112px); font-weight: 350; letter-spacing: -0.03em; line-height: .96; font-variation-settings: "opsz" 144, "SOFT" 50; }
-.t-hero h1 em { display: block; color: var(--cobre); font-weight: 300; }
+.t-hero h1 { font-size: clamp(44px, 6.2vw, 98px); font-weight: 350; letter-spacing: -0.03em; line-height: .96; font-variation-settings: "opsz" 144, "SOFT" 50; }
+.t-hero h1 em { color: var(--cobre); font-weight: 300; white-space: nowrap; }
 .t-hero-lead { font-size: clamp(16.5px, 1.35vw, 19.5px); color: var(--tinta-3); max-width: 600px; }
 .t-hero-lead strong { color: var(--tinta); font-weight: 500; }
 .t-hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -391,17 +391,16 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .capitulos { --hx: 30px; --hpad: clamp(84px, 8.5vw, 132px); position: relative; padding: clamp(24px, 4vw, 56px) 0 clamp(40px, 6vw, 90px); view-timeline: --caps block; }
 .hilo { position: absolute; top: 0; bottom: 0; left: calc(max(0px, (100% - var(--max)) / 2) + var(--gutter) + var(--hx)); width: 2px; pointer-events: none; }
 .hilo-pista { position: absolute; inset: 0; background: repeating-linear-gradient(180deg, var(--linea) 0 6px, transparent 6px 12px); }
-.hilo-tinta { position: absolute; inset: 0; transform-origin: 50% 0; background: linear-gradient(180deg, var(--ed1) 0%, var(--ed1) 22%, var(--ed2) 28%, var(--ed2) 47%, var(--ed3) 53%, var(--ed3) 72%, var(--ed4) 78%, var(--ed4) 100%); }
-.hilo-tinta::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: inherit; background: var(--cobre); box-shadow: 0 0 0 5px rgba(184, 92, 61, .16); opacity: 0; transition: opacity .3s; }
-.js:not(.sda) .hilo-tinta { transform: scaleY(var(--p, 0)); }
-.js.sda .hilo-tinta { transform: scaleY(0); }
+.hilo-tinta { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ed1) 0%, var(--ed1) 22%, var(--ed2) 28%, var(--ed2) 47%, var(--ed3) 53%, var(--ed3) 72%, var(--ed4) 78%, var(--ed4) 100%); }
+.js:not(.sda) .hilo-tinta { clip-path: inset(0 0 calc((1 - var(--p, 0)) * 100%) 0); }
+.js.sda .hilo-tinta { clip-path: inset(0 0 100% 0); }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .js.sda .hilo-tinta { animation: hilo-dibuja linear both; animation-timeline: --caps; animation-range: entry 45% exit 50%; }
   }
 }
-@media (prefers-reduced-motion: reduce) { .js .hilo-tinta { transform: none !important; animation: none !important; } }
-@keyframes hilo-dibuja { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .js .hilo-tinta { clip-path: none !important; animation: none !important; } }
+@keyframes hilo-dibuja { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 
 .cap { --ed: var(--ed1); --ed-t: var(--ed1-t); --ed-d: var(--ed1-d);
   position: relative; padding: clamp(56px, 8vw, 120px) 0 clamp(40px, 5vw, 70px) var(--hpad); scroll-margin-top: 40px; }
@@ -492,7 +491,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 /* ═══════════ EL MAPA ═══════════ */
 .sec-mapa { background: linear-gradient(180deg, transparent, rgba(234, 224, 208, 0.62) 12%, rgba(234, 224, 208, 0.62) 88%, transparent); padding: clamp(80px, 10vw, 140px) 0 clamp(40px, 5vw, 80px); }
 .scrolly { position: relative; }
-.escena { position: relative; display: grid; grid-template-columns: minmax(250px, .3fr) minmax(0, 1fr); gap: clamp(20px, 3.5vw, 56px); align-items: center; }
+.escena { position: relative; display: grid; grid-template-columns: minmax(300px, .32fr) minmax(0, 1fr); gap: clamp(20px, 3.5vw, 56px); align-items: center; }
 .scrolly.activo .escena { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); }
 .leyenda { display: grid; gap: 14px; align-content: center; min-width: 0; }
 .paso-rot { font-family: var(--mono); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--paso-c, var(--cobre-2)); transition: color .5s var(--ease); min-height: 1.4em; }
@@ -602,6 +601,12 @@ footer a:hover { color: var(--arena); }
   .v-dato + .v-dato { padding-left: 0; border-left: 0; border-top: 1px solid var(--linea-2); }
   .v-dato { padding: 12px 0; }
   .v-dato dd { margin-top: 4px; }
+}
+@media (max-width: 600px) {
+  .lomos { height: 190px; }
+  .lomo-tit { display: none; }
+  .lomo-num { font-size: 30px; }
+  .lomo-v .lomo-num { font-size: 34px; }
 }
 @media (max-width: 420px) {
   .lomos { gap: 5px; }
