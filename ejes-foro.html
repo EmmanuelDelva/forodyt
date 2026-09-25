@@ -1337,7 +1337,7 @@ footer a:hover { color: var(--arena); }
       var raton = (e.pointerType || ultimoPuntero) === 'mouse';
       /* ratón: vuela al capítulo. Toque: el primero enseña la pregunta
          (también en el eje ya elegido), el segundo sobre el mismo abre el eje. */
-      if (raton ? true : i === tocado) { seleccionar(i, true); volar(i + 1); }
+      if (raton || i === tocado) { seleccionar(i, true); volar(i + 1); }
       else { tocado = i; seleccionar(i); mostrarFicha(i); }
     });
     r.addEventListener('keydown', function (e) {

@@ -508,7 +508,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .pon-ponencia { font-family: var(--serif); font-style: italic; font-size: 15.5px; line-height: 1.45; color: var(--c-texto); border-top: 1px solid var(--c-regla); padding-top: 12px; margin-top: 3px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .pon--destacada .pon-ponencia { font-size: 17px; }
 .pon-ejes { display: flex; flex-wrap: wrap; gap: 6px; }
-.pon-ejes span { font-family: var(--serif); font-style: italic; font-size: 13px; line-height: 1; color: var(--c-acento); border: 1px solid color-mix(in srgb, var(--cobre) 42%, transparent); padding: 4px 8px 5px; }
+.pon-ejes span:not(.sr) { font-family: var(--serif); font-style: italic; font-size: 13px; line-height: 1; color: var(--c-acento); border: 1px solid color-mix(in srgb, var(--cobre) 42%, transparent); padding: 4px 8px 5px; }
 .pon-ver { margin-top: auto; padding-top: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--c-acento); display: inline-flex; align-items: center; gap: 8px; }
 .pon-ver::after { content: "→"; font-family: var(--sans); letter-spacing: 0; transition: transform .4s var(--ease); }
 .pon:hover .pon-ver::after { transform: translateX(5px); }
@@ -520,15 +520,17 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   content: ""; position: absolute; left: 0; top: 0; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.35) 30%, rgba(255, 255, 255, 0) 64%);
   transform: translate(var(--mx), var(--my)); opacity: calc(var(--lit) * 0.9);
-  mix-blend-mode: soft-light; will-change: transform, opacity;
+  mix-blend-mode: soft-light;
 }
 .pon--vacia .pon-luz::before, .pon.por-entintar .pon-luz::before { mix-blend-mode: normal; opacity: calc(var(--lit) * 0.55); }
 /* penumbra: las hojas lejos de la lámpara se apagan un poco */
-.pon-luz::after { content: ""; position: absolute; inset: 0; background: #2A1E10; opacity: calc((1 - var(--lit)) * 0.06); will-change: opacity; }
+.pon-luz::after { content: ""; position: absolute; inset: 0; background: #2A1E10; opacity: calc((1 - var(--lit)) * 0.06); }
+.lampara-viva .pon-luz::before { will-change: transform, opacity; }
+.lampara-viva .pon-luz::after { will-change: opacity; }
 
 /* — el rodillo: una franja de tinta que baja por la hoja — */
 .pon-rodillo {
-  position: absolute; z-index: 4; left: -2.5%; right: -2.5%; top: var(--rodillo); height: 22px; margin-top: -11px;
+  position: absolute; z-index: 4; left: -2.5%; right: -2.5%; top: clamp(11px, var(--rodillo), calc(100% - 11px)); height: 22px; margin-top: -11px;
   pointer-events: none; opacity: 0; border-radius: 11px;
   background: linear-gradient(180deg, rgba(26, 24, 16, 0) 0%, rgba(26, 24, 16, 0.35) 20%, rgba(42, 38, 32, 0.94) 42%, rgba(140, 63, 38, 0.88) 60%, rgba(26, 24, 16, 0.4) 80%, rgba(26, 24, 16, 0) 100%);
   box-shadow: 0 12px 16px -9px rgba(26, 24, 16, 0.5);
@@ -544,8 +546,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 }
 .pon.entintando { animation: rodar 1.45s cubic-bezier(.55, .08, .32, 1) both; }
 .pon.entintando .pon-rodillo { animation: rodillo-ve 1.45s linear both; }
-@keyframes rodar { from { --rodillo: -4%; } to { --rodillo: 107%; } }
-@keyframes rodillo-ve { 0% { opacity: 0; } 7% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes rodar { from { --rodillo: 0%; } to { --rodillo: 107%; } }
+@keyframes rodillo-ve { 0%, 4% { opacity: 0; } 11% { opacity: 1; } 86% { opacity: 1; } 100% { opacity: 0; } }
 .pon.entintada .pon-seco, .pon.entintada .pon-rodillo { display: none; }
 .pon.entintada .pon-sello { animation: estampar .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: .1s; }
 @keyframes estampar { from { opacity: 0; transform: rotate(-9deg) scale(1.7); filter: blur(2px); } 60% { opacity: 1; transform: rotate(-2deg) scale(.94); filter: none; } to { opacity: 1; transform: rotate(-3deg) scale(1); } }
@@ -561,6 +563,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   --c-texto-2: rgba(245, 239, 227, 0.76);
   --c-acento: var(--cobre-claro);
   --c-regla: rgba(245, 239, 227, 0.16);
+  --mc: rgba(245, 239, 227, 0.2);
 }
 .grupo--banda .pon-hoja { box-shadow: 0 0 0 1px rgba(245, 239, 227, 0.09); }
 .grupo--banda .pon-sombra { background: rgba(0, 0, 0, 0.9); }
@@ -623,8 +626,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .fs-ponencia { font-family: var(--serif); font-style: italic; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.4; }
 .fs-donde { font-size: 13.5px; color: var(--tinta-3); }
 .ficha-ejes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.ficha-ejes span { font-size: 13px; color: var(--tinta-2); border: 1px solid var(--linea); padding: 5px 10px; }
-.ficha-ejes span i { font-family: var(--serif); font-style: italic; color: var(--cobre-2); margin-right: 6px; }
+.ficha-ejes > span { font-size: 13px; color: var(--tinta-2); border: 1px solid var(--linea); padding: 5px 10px; }
+.ficha-ejes > span i { font-family: var(--serif); font-style: italic; color: var(--cobre-2); margin-right: 6px; }
 .ficha-sem { font-family: var(--serif); font-size: 16px; line-height: 1.8; font-weight: 400; color: var(--tinta-2); margin-top: 10px; }
 .ficha-sem.pend { font-style: italic; color: var(--tinta-3); }
 .ficha-mem { display: inline-flex; gap: 8px; margin-top: 18px; font-size: 14px; color: var(--cobre-2); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--cobre); padding-bottom: 2px; }
