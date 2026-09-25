@@ -257,6 +257,7 @@ a:hover .flecha { transform: translateX(4px); }
 .cap-caja { width: 100%; max-width: 600px; background: var(--tinta); border-top: 2px solid var(--ed); padding: clamp(24px, 2.6vw, 36px) clamp(0px, 2vw, 32px) clamp(26px, 2.8vw, 38px); display: grid; gap: 18px; }
 .cap-num { display: none; font-family: var(--serif); font-style: italic; font-weight: 800; font-size: clamp(96px, 16vw, 180px); line-height: .8; letter-spacing: -0.04em; color: var(--ed); font-variation-settings: "opsz" 144, "SOFT" 100; }
 .no-js .cap-num, .sin-lienzo .cap-num { display: block; }
+.no-js .cap, .sin-lienzo .cap { padding-left: var(--gutter); justify-content: center; }
 .cap h2 { display: grid; gap: 12px; }
 .cap-ed { font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: var(--edc); line-height: 1.4; }
 .cap-tema { font-size: clamp(27px, 2.7vw, 42px); font-weight: 350; font-variation-settings: "opsz" 144, "SOFT" 50; letter-spacing: -0.015em; line-height: 1.08; color: var(--arena); }
@@ -355,6 +356,7 @@ footer a:hover { color: var(--arena); }
   .hero-mapa { margin: 18px calc(-1 * var(--gutter)) 0; }
   .m-indice a { padding: 12px 8px 4px; }
   .cap { padding: 52vh 16px 48px; padding-top: 52svh; align-items: flex-start; }
+  .no-js .cap, .sin-lienzo .cap { padding-top: 88px; min-height: 0; }
   .cap-caja { max-width: none; background: rgba(26, 24, 16, 0.94); padding: 22px 18px 24px; }
   .cap-v .cap-caja { padding: 22px 18px 24px; }
   .lienzo-folio { display: none; }

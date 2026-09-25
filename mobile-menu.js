@@ -14,7 +14,6 @@
 
   // Sin numeración en los enlaces: los numerales romanos del sitio son de las
   // ediciones (I–V) y un «IV Trayectoria» se leería como la IV edición.
-  // La columna conserva su filete fino como adorno.
 
   function init() {
     var navLinks = document.querySelector('.nav .nav-links');
@@ -68,8 +67,7 @@
       // se inyectan despues. Mejor: source of truth = el desktop nav-link,
       // que SI esta en ORIGINAL. Sincronizamos en cada cambio de idioma.
       html += '<li>'
-           +   '<a href="' + escapeHtml(href) + '">'
-           +     '<span class="mm-num" aria-hidden="true"></span>'
+           +   '<a href="' + escapeHtml(href) + '" style="grid-template-columns:minmax(0,1fr);gap:0">'
            +     '<span class="mm-label">' + escapeHtml(text) + '</span>'
            +   '</a>'
            + '</li>';
