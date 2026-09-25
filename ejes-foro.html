@@ -577,6 +577,45 @@ footer a:hover { color: var(--arena); }
   .lang { font-size: 10px; letter-spacing: .06em; }
 }
 </style>
+<style>/* ═══ celular y tableta ═══ */
+@media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "texto" "rosa" "ficha"; grid-template-rows: auto; }
+  .hero-ejes h1 { font-size: clamp(56px, 8vw, 84px); }
+  .nota { font-size: 20px; max-width: 640px; }
+  .hero-lead { font-size: 17.5px; max-width: 640px; }
+  .hero-rosa { justify-self: center; width: min(100%, 600px); margin-top: 44px; }
+  /* cada eje en dos columnas: «de qué va» y «por qué te toca» lado a lado,
+     lo que pasa hoy a todo lo ancho (líneas de lectura de ~60 caracteres) */
+  .cap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; row-gap: 40px; }
+  .cap-grid > .cap-hoy { grid-column: 1 / -1; }
+  .cap-grid > .cap-hoy ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+  .cap-bloque p { font-size: 16px; }
+}
+@media (max-width: 600px) {
+  .hero-ejes h1 { font-size: clamp(40px, 11vw, 48px); }
+  .cap-bloque p { font-size: 16px; }
+  .cap-cta { min-height: 44px; display: inline-flex; align-items: center; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); grid-template-areas: "texto rosa" "ficha rosa"; grid-template-rows: auto 1fr; }
+  .hero-ejes h1 { font-size: clamp(36px, 10vh, 46px); }
+  .hero-rosa { width: min(100%, 340px); margin-top: 0; justify-self: end; }
+  .cap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cap-grid > .cap-hoy { grid-column: 1 / -1; }
+  .folio a { padding: 12px 0 13px; }
+}
+@media (pointer: coarse) {
+  .folio a { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  footer ul a { display: inline-flex; align-items: center; min-height: 40px; }
+}
+@media (hover: none) {
+  .folio a:hover { color: var(--tinta-4); }
+  .folio li.leido a:hover { color: var(--tinta-2); }
+  .folio li.actual a:hover { color: var(--cobre-2); }
+  .btn-primary:hover::before { transform: translateX(-101%); }
+  .btn-primary:active::before { transform: translateX(0); }
+}
+</style>
 </head>
 <body>
 
