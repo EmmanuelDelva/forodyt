@@ -281,6 +281,7 @@ main { min-width: 0; padding: clamp(22px, 4vw, 48px) clamp(18px, 4vw, 56px) 110p
 .sync { display: inline-flex; align-items: center; gap: 7px; color: var(--tinta-4); }
 .sync i { width: 7px; height: 7px; border-radius: 50%; background: var(--musgo-claro); box-shadow: 0 0 0 0 rgba(143,160,127,.6); animation: late 2.4s infinite; }
 .sync.mal i { background: var(--cobre); animation: none; }
+.sync.pausa i { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; animation: none; }
 @keyframes late { 70% { box-shadow: 0 0 0 8px rgba(143,160,127,0); } 100% { box-shadow: 0 0 0 0 rgba(143,160,127,0); } }
 
 .movil-barra { display: none; }
@@ -560,7 +561,14 @@ main { min-width: 0; padding: clamp(22px, 4vw, 48px) clamp(18px, 4vw, 56px) 110p
   }
 
   /* ───── carga y sincronía ───── */
-  var temporizador = null;
+  /* Cuidar el consumo del almacén (plan Hobby de Vercel: 10 000 lecturas al mes; si se rebasa,
+     la mesa se detiene hasta 30 días). La página revisa cambios cada minuto, solo con la pestaña
+     a la vista, y deja de hacerlo tras REPOSO sin actividad; al mover el ratón, tocar o escribir
+     revisa enseguida y sigue. Además, el servidor contesta los sondeos desde la caché de Vercel. */
+  var INTERVALO = 60000, REPOSO = 5 * 60000;
+  var TEXTO_SYNC = { ok: 'Sincronizado', mal: 'Sin conexión', pausa: 'En pausa' };
+  var TITULO_PAUSA = 'Sin actividad: la mesa dejó de revisar cambios para ahorrar lecturas. Se reanuda sola al mover el ratón, tocar o escribir.';
+  var temporizador = null, ultimaActividad = Date.now(), enPausa = false, estadoSync = 'ok';
   function cargar(primera) {
     return api('GET').then(function (j) {
       if (j._status === 401) { montarEntrada(); return; }
@@ -573,16 +581,18 @@ main { min-width: 0; padding: clamp(22px, 4vw, 48px) clamp(18px, 4vw, 56px) 110p
       montarRail();
       var h = (location.hash || '').replace('#', '');
       if (SECCIONES.some(function (x) { return x[0] === h; })) S.vista = h;
+      ultimaActividad = Date.now(); enPausa = false; marcarSync(true);
       pintar();
       if (primera) tostada('Bienvenido a la mesa, ' + esc(S.usuarios[S.yo].corto) + '.');
-      clearInterval(temporizador); temporizador = setInterval(sondear, 15000);
+      clearInterval(temporizador); temporizador = setInterval(sondear, INTERVALO);
     }).catch(function () { montarEntrada(); $('#errEntrada').textContent = 'Sin conexión con el servidor.'; });
   }
   function sondear() {
     if (document.hidden || !S.yo || !S.almacen || $('.velo')) return;
+    if (Date.now() - ultimaActividad > REPOSO) { if (!enPausa) { enPausa = true; marcarSync('pausa'); } return; }
     api('GET', null, '?desde=' + encodeURIComponent(S.etag)).then(function (j) {
       if (j._status === 401) { salirLocal(); return; }
-      marcarSync(true);
+      marcarSync(enPausa ? 'pausa' : true);   // una respuesta tardía no debe borrar el «En pausa»
       if (j.sinCambios || !j.datos) return;
       var antes = (S.datos.actividad || [])[0];
       S.datos = j.datos; S.etag = j.etag;
@@ -592,8 +602,24 @@ main { min-width: 0; padding: clamp(22px, 4vw, 48px) clamp(18px, 4vw, 56px) 110p
       pintar();
     }).catch(function () { marcarSync(false); });
   }
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) sondear(); });
-  function marcarSync(ok) { $$('.sync').forEach(function (s) { s.classList.toggle('mal', !ok); var t = s.querySelector('span'); if (t) t.textContent = ok ? 'Sincronizado' : 'Sin conexión'; }); }
+  function actividad() {
+    ultimaActividad = Date.now();
+    if (enPausa) { enPausa = false; sondear(); }
+  }
+  ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(function (t) { addEventListener(t, actividad, { capture: true, passive: true }); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) { ultimaActividad = Date.now(); enPausa = false; sondear(); } });
+  /* estado del indicador: true = sincronizado, false = sin conexión, 'pausa' = en pausa por inactividad */
+  function marcarSync(ok) {
+    estadoSync = ok === 'pausa' ? 'pausa' : ok ? 'ok' : 'mal';
+    $$('.sync').forEach(function (s) {
+      s.classList.toggle('mal', estadoSync === 'mal'); s.classList.toggle('pausa', estadoSync === 'pausa');
+      s.title = estadoSync === 'pausa' ? TITULO_PAUSA : '';
+      var t = s.querySelector('span'); if (t) t.textContent = TEXTO_SYNC[estadoSync];
+    });
+  }
+  function htmlSync() {
+    return '<span class="sync mono' + (estadoSync === 'ok' ? '' : ' ' + estadoSync) + '"' + (estadoSync === 'pausa' ? ' title="' + esc(TITULO_PAUSA) + '"' : '') + '><i></i><span>' + TEXTO_SYNC[estadoSync] + '</span></span>';
+  }
   function recortar(t, n) { t = String(t || ''); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
 
   /* ───── estructura ───── */
@@ -631,7 +657,7 @@ main { min-width: 0; padding: clamp(22px, 4vw, 48px) clamp(18px, 4vw, 56px) 110p
   function cabeza(eyebrow, titulo, texto, col, extra) {
     return '<header class="cabeza"><div class="t"><div class="eyebrow mono">' + eyebrow + '</div><h1>' + titulo + '</h1><p>' + texto + '</p></div>' +
       '<div class="acciones">' + (extra || '') + (col ? '<label class="buscar"><span class="sr">Buscar</span>' + ICON.lupa + '<input type="search" placeholder="Buscar…" data-busca value="' + esc(S.busca) + '"></label><button class="btn primario" data-nuevo="' + col + '">' + ICON.mas + NUEVO[col] + '</button>' : '') +
-      '<span class="sync mono"><i></i><span>Sincronizado</span></span></div></header>' +
+      htmlSync() + '</div></header>' +
       (S.almacen ? '' : '<div class="aviso-almacen"><b>La mesa está en modo de consulta.</b> Falta conectar el almacén de datos del sitio (Vercel → Storage → Blob). En cuanto se conecte, todo lo que escriban se guardará y se verá al instante.</div>');
   }
 
