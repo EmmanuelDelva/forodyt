@@ -59,22 +59,35 @@
       + '</div>'
       + '<ul class="mm-links" role="list">';
 
+    var paginaActual = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     links.forEach(function (link, i) {
       var href = link.getAttribute('href') || '#';
       var text = link.textContent.trim();
+      var destino = href.split('#')[0].split('?')[0].toLowerCase();
+      var actual = destino && destino === paginaActual && href.indexOf('#') === -1;
       // No usamos data-i18n aqui: el restore-to-ES de i18n.js depende del
       // ORIGINAL map capturado al cargar la pagina, y nuestros elementos
       // se inyectan despues. Mejor: source of truth = el desktop nav-link,
       // que SI esta en ORIGINAL. Sincronizamos en cada cambio de idioma.
       html += '<li>'
-           +   '<a href="' + escapeHtml(href) + '" style="grid-template-columns:minmax(0,1fr);gap:0">'
+           +   '<a href="' + escapeHtml(href) + '"' + (actual ? ' aria-current="page"' : '') + '>'
            +     '<span class="mm-label">' + escapeHtml(text) + '</span>'
            +   '</a>'
            + '</li>';
     });
 
-    html += '</ul>'
-         + '<div class="mm-footer">'
+    html += '</ul>';
+
+    // CTA del encabezado (Avísame en la V, «V edición →» en el archivo de la IV):
+    // se repite dentro del menú porque en pantallas angostas el encabezado lo oculta.
+    var ctaNav = navCta ? navCta.querySelector('.btn-primary') : null;
+    if (ctaNav) {
+      html += '<a class="mm-cta" href="' + escapeHtml(ctaNav.getAttribute('href') || 'index.html') + '">'
+           +    '<span class="mm-cta-label">' + escapeHtml(ctaNav.textContent.replace(/\s+/g, ' ').trim()) + '</span>'
+           +  '</a>';
+    }
+
+    html += '<div class="mm-footer">'
          +   '<div class="mm-lang" data-mm-lang>'
          +     '<span data-lang="es">ES</span>·<span data-lang="en">EN</span>·<span data-lang="fr">FR</span>'
          +   '</div>';
@@ -91,6 +104,13 @@
     html += '</div>';
     overlay.innerHTML = html;
     document.body.appendChild(overlay);
+
+    // Paleta: las páginas de la V definen --cobre en :root; el archivo de la IV no.
+    try {
+      if (getComputedStyle(document.documentElement).getPropertyValue('--cobre').trim()) {
+        overlay.classList.add('mm-v'); trigger.classList.add('mm-v');
+      }
+    } catch (e) {}
 
     // ===== state =====
     // Dialogo modal: al abrir, el foco entra al overlay (boton CERRAR) y el
@@ -153,6 +173,10 @@
       navAnchors.forEach(function (a, i) {
         if (labels[i]) labels[i].textContent = a.textContent.trim();
       });
+      if (ctaNav) {
+        var ctaLabel = overlay.querySelector('.mm-cta-label');
+        if (ctaLabel) ctaLabel.textContent = ctaNav.textContent.replace(/\s+/g, ' ').trim();
+      }
       if (backLink) {
         var volverLabel = overlay.querySelector('.mm-volver-label');
         if (volverLabel) volverLabel.textContent = backLink.textContent.trim();
@@ -182,7 +206,7 @@
     trigger.addEventListener('click', open);
     overlay.querySelector('.mm-close').addEventListener('click', function () { close(true); });
 
-    overlay.querySelectorAll('.mm-links a, .mm-volver').forEach(function (a) {
+    overlay.querySelectorAll('.mm-links a, .mm-volver, .mm-cta').forEach(function (a) {
       a.addEventListener('click', function (e) {
         var href = a.getAttribute('href') || '';
         var hashIdx = href.indexOf('#');
