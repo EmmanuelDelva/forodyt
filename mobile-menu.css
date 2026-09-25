@@ -397,6 +397,8 @@ body.mm-locked { overflow: hidden; }
    (crece en alto, no en ancho: el encabezado mide 60–72 px). */
 @media (pointer: coarse) {
   .nav .lang span[data-lang] { display: inline-flex; align-items: center; min-height: 44px; min-width: 30px; justify-content: center; }
+  .nav .brand { min-height: 44px; }
+  .nav-cta > .btn-primary { min-height: 44px; display: inline-flex; align-items: center; }
 }
 @media (max-width: 700px) {
   .brand-sub,

@@ -605,6 +605,10 @@ footer a:hover { color: var(--arena); }
   .folio a { padding: 12px 0 13px; }
 }
 @media (pointer: coarse) {
+  /* cada numeral de la rosa: área de toque de 48 px centrada en el número */
+  .rumbo::before { content: ""; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; transform: translate(-50%, -50%); }
+  .ficha-ir { min-height: 44px; }
+  .cierre .volver { padding: 14px 0; }
   .folio a { min-height: 44px; display: flex; align-items: center; justify-content: center; }
   footer ul a { display: inline-flex; align-items: center; min-height: 40px; }
 }

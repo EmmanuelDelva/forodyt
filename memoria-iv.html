@@ -1636,6 +1636,10 @@ body.semblanza-lock { overflow: hidden; }
   .ponente.destacado { grid-column: span 3; grid-template-columns: minmax(0, .7fr) minmax(0, 1fr); }
   #tinta { opacity: .5; }
 }
+@media (pointer: coarse) {
+  .footer-col a, .social-link { display: inline-flex; align-items: center; min-height: 40px; }
+  .cinta-iv a { display: inline-block; padding: 14px 0; margin: -6px 0; }
+}
 @media (hover: none) {
   .ponente:hover { border-color: rgba(245, 239, 224, 0.12); background: rgba(245, 239, 224, 0.035); }
   .ponente:hover .ponente-photo img { filter: grayscale(0.92) sepia(0.14) contrast(1.02); transform: scale(1.015); }
