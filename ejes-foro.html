@@ -525,9 +525,14 @@ footer a:hover { color: var(--arena); }
 }
 
 /* ═══════════ RESPONSIVO ═══════════ */
-/* En francés el menú es más largo: entre 1025 y 1320 px se retira el
-   subtítulo de la marca (y su filete, para no dejarlo colgando). */
-@media (min-width: 1025px) and (max-width: 1320px) {
+/* Menú completo con poco ancho: se retira el subtítulo de la marca junto
+   con su filete (para no dejarlo colgando) solo donde los siete enlaces
+   no caben con él: hasta 1240 px en todos los idiomas y hasta 1320 px en
+   francés, cuyo menú es más largo. */
+@media (min-width: 1025px) and (max-width: 1240px) {
+  .brand-sub, .brand-rule { display: none; }
+}
+@media (min-width: 1241px) and (max-width: 1320px) {
   html[lang="fr"] .brand-sub, html[lang="fr"] .brand-rule { display: none; }
 }
 @media (max-width: 1100px) {
@@ -1309,7 +1314,7 @@ footer a:hover { color: var(--arena); }
   pintarAguja();
 
   /* ── elegir un eje: la rosa funciona como pestañas ── */
-  var sel = 0, hoverT = 0, ultimoPuntero = '';
+  var sel = 0, hoverT = 0, ultimoPuntero = '', tocado = -1;
   var tablist = rosa.querySelector('.rumbos');
   tablist.setAttribute('role', 'tablist');
   function seleccionar(i, inmediato) {
@@ -1330,8 +1335,10 @@ footer a:hover { color: var(--arena); }
       e.preventDefault();
       terminarIntro();
       var raton = (e.pointerType || ultimoPuntero) === 'mouse';
-      if (raton || i === sel) { seleccionar(i, true); volar(i + 1); }
-      else { seleccionar(i); mostrarFicha(i); }
+      /* ratón: vuela al capítulo. Toque: el primero enseña la pregunta
+         (también en el eje ya elegido), el segundo sobre el mismo abre el eje. */
+      if (raton ? true : i === tocado) { seleccionar(i, true); volar(i + 1); }
+      else { tocado = i; seleccionar(i); mostrarFicha(i); }
     });
     r.addEventListener('keydown', function (e) {
       var dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key], j;

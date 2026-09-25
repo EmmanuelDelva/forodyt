@@ -379,27 +379,67 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .pon--destacada .pon-plancha { aspect-ratio: 4 / 5; }
 .pon-cuerpo { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 9px; flex: 1; min-width: 0; }
 
-/* — en seco: plancha rehundida, silueta en relieve, rótulos sin tinta — */
+/* — en seco: plancha rehundida con marcas de corte y de registro, camafeo en
+   relieve con el numeral de la edición, rótulos sin tinta. Todo el relieve se
+   multiplica por --prof: a 0 la hoja está en blanco (solo las marcas), a 1 prensada. — */
 .pon-seco .pon-plancha {
-  background: var(--papel);
+  background: var(--papel); overflow: visible;
   box-shadow:
-    inset calc(var(--sx) * 3.2px) calc(var(--sy) * 3.2px) 3px var(--c-sombra),
-    inset calc(var(--sx) * -2px) calc(var(--sy) * -2px) 1.4px var(--c-luz);
+    inset calc(var(--sx) * 3.2px * var(--prof)) calc(var(--sy) * 3.2px * var(--prof)) calc(3px * var(--prof)) var(--c-sombra),
+    inset calc(var(--sx) * -2px * var(--prof)) calc(var(--sy) * -2px * var(--prof)) calc(1.4px * var(--prof)) var(--c-luz);
 }
-.pon-silueta {
-  position: absolute; left: 50%; bottom: -1px; width: 74%; height: auto; transform: translateX(-50%);
-  fill: var(--papel); overflow: visible;
-  filter:
-    drop-shadow(calc(var(--sx) * -1.6px) calc(var(--sy) * -1.6px) 0 var(--c-luz))
-    drop-shadow(calc(var(--sx) * 2.6px) calc(var(--sy) * 2.6px) 1.2px var(--c-sombra));
+/* marcas de corte en las cuatro esquinas, fuera del área de la plancha */
+.pon-seco .pon-plancha::before {
+  content: ""; position: absolute; inset: -11px; pointer-events: none;
+  background:
+    linear-gradient(var(--mc), var(--mc)) left 0 top 11px / 8px 1px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) left 11px top 0 / 1px 8px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) right 0 top 11px / 8px 1px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) right 11px top 0 / 1px 8px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) left 0 bottom 11px / 8px 1px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) left 11px bottom 0 / 1px 8px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) right 0 bottom 11px / 8px 1px no-repeat,
+    linear-gradient(var(--mc), var(--mc)) right 11px bottom 0 / 1px 8px no-repeat;
 }
-.pon--destacada .pon-silueta { width: 82%; }
+/* marca de registro (círculo con cruz) centrada sobre la plancha */
+.pon-seco .pon-plancha::after {
+  content: ""; position: absolute; top: -14px; left: calc(50% - 7px); width: 14px; height: 14px; pointer-events: none;
+  background:
+    radial-gradient(circle, transparent 0 3.4px, var(--mc) 3.6px 4.5px, transparent 4.7px),
+    linear-gradient(var(--mc), var(--mc)) center / 1px 100% no-repeat,
+    linear-gradient(var(--mc), var(--mc)) center / 100% 1px no-repeat;
+}
+.camafeo {
+  position: absolute; left: 50%; top: 48%; width: 50%; aspect-ratio: 4 / 5; transform: translate(-50%, -50%);
+  border-radius: 50%; background: var(--papel);
+  display: flex; align-items: center; justify-content: center; container-type: inline-size;
+  box-shadow:
+    calc(var(--sx) * -1.5px * var(--prof)) calc(var(--sy) * -1.5px * var(--prof)) calc(1px * var(--prof)) var(--c-luz),
+    calc(var(--sx) * 3px * var(--prof)) calc(var(--sy) * 3px * var(--prof)) calc(2.4px * var(--prof)) var(--c-sombra),
+    calc(var(--sx) * 8px * var(--prof)) calc(var(--sy) * 9px * var(--prof)) calc(16px * var(--prof)) var(--c-sombra-2);
+}
+.pon--destacada .camafeo { width: 54%; }
+/* anillo rehundido del camafeo */
+.camafeo::before {
+  content: ""; position: absolute; inset: 7%; border-radius: 50%;
+  box-shadow:
+    inset calc(var(--sx) * 1.6px * var(--prof)) calc(var(--sy) * 1.6px * var(--prof)) calc(1.4px * var(--prof)) var(--c-sombra),
+    inset calc(var(--sx) * -1.2px * var(--prof)) calc(var(--sy) * -1.2px * var(--prof)) calc(1px * var(--prof)) var(--c-luz);
+}
+.camafeo-num {
+  position: relative; font-family: var(--serif); font-style: italic; font-weight: 500; line-height: 1;
+  font-size: 40px; font-size: 44cqi; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--papel);
+  text-shadow:
+    calc(var(--sx) * 1.6px * var(--prof)) calc(var(--sy) * 1.6px * var(--prof)) 0 var(--c-luz),
+    calc(var(--sx) * -1.6px * var(--prof)) calc(var(--sy) * -1.6px * var(--prof)) calc(0.5px * var(--prof)) var(--c-sombra);
+}
 .sd {
   color: var(--papel);
   text-shadow:
-    calc(var(--sx) * 1.2px) calc(var(--sy) * 1.2px) 0 var(--c-luz),
-    calc(var(--sx) * -1.2px) calc(var(--sy) * -1.2px) 0.3px var(--c-sombra),
-    0 0 1px var(--c-sombra-2);
+    calc(var(--sx) * 1.2px * var(--prof)) calc(var(--sy) * 1.2px * var(--prof)) 0 var(--c-luz),
+    calc(var(--sx) * -1.2px * var(--prof)) calc(var(--sy) * -1.2px * var(--prof)) calc(0.3px * var(--prof)) var(--c-sombra),
+    0 0 calc(1px * var(--prof)) var(--c-sombra-2);
 }
 .pon-seco .rot { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
 .pon-seco .nom { font-family: var(--serif); font-size: clamp(23px, 1.95vw, 29px); line-height: 1.06; font-weight: 450; font-variation-settings: "opsz" 72, "SOFT" 60; letter-spacing: -0.01em; }
@@ -407,18 +447,33 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .barra {
   display: block; height: 7px; border-radius: 4px; width: var(--w, 80%);
   box-shadow:
-    inset calc(var(--sx) * 1.6px) calc(var(--sy) * 1.6px) 1.4px var(--c-sombra),
-    inset calc(var(--sx) * -1.2px) calc(var(--sy) * -1.2px) 1px var(--c-luz);
+    inset calc(var(--sx) * 1.6px * var(--prof)) calc(var(--sy) * 1.6px * var(--prof)) calc(1.4px * var(--prof)) var(--c-sombra),
+    inset calc(var(--sx) * -1.2px * var(--prof)) calc(var(--sy) * -1.2px * var(--prof)) calc(1px * var(--prof)) var(--c-luz);
 }
+/* renglón del nombre en las tarjetas que esperan tinta (sin texto: nunca afirma nada) */
+.barra--nom { height: 15px; border-radius: 8px; margin: 3px 0 5px; }
 .pon-seco .rot.sep { margin-top: 8px; }
 .sello-seco {
   position: absolute; top: 28px; right: 28px; z-index: 1;
   font-family: var(--mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
   padding: 5px 9px; transform: rotate(-3deg);
   box-shadow:
-    inset calc(var(--sx) * 1.2px) calc(var(--sy) * 1.2px) 1px var(--c-sombra),
-    inset calc(var(--sx) * -1px) calc(var(--sy) * -1px) 0.6px var(--c-luz);
+    inset calc(var(--sx) * 1.2px * var(--prof)) calc(var(--sy) * 1.2px * var(--prof)) calc(1px * var(--prof)) var(--c-sombra),
+    inset calc(var(--sx) * -1px * var(--prof)) calc(var(--sy) * -1px * var(--prof)) calc(0.6px * var(--prof)) var(--c-luz);
 }
+/* — el golpe de la prensa: la hoja en blanco se levanta, la platina baja y el
+   relieve aparece con un rebote de profundidad; el sello se estampa después — */
+.pon.por-golpear { --prof: 0; }
+.pon.golpeando { animation: golpe 1s cubic-bezier(.3, .6, .3, 1) both; }
+.pon.golpeando .sello-seco { animation: estampar-seco .62s .3s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes golpe {
+  0%   { --prof: 0; scale: 1.024; }
+  28%  { --prof: 1.6; scale: .993; }
+  54%  { --prof: .86; scale: 1.003; }
+  78%  { --prof: 1.06; scale: 1; }
+  100% { --prof: 1; scale: 1; }
+}
+@keyframes estampar-seco { from { opacity: 0; transform: rotate(-10deg) scale(1.6); } to { opacity: 1; transform: rotate(-3deg) scale(1); } }
 
 /* — entintada: retrato a dos tintas, texto real — */
 .pon-tinta .pon-plancha {
