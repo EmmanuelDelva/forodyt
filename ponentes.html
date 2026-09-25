@@ -361,6 +361,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   --c-texto-2: var(--tinta-3);
   --c-acento: var(--cobre-2);
   --c-regla: var(--linea);
+  --mc: rgba(92, 64, 36, 0.34);
   transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(calc(var(--alza) * -6px));
 }
 /* la hoja: papel con su sombra proyectada lejos de la lámpara */
@@ -369,8 +370,8 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   position: absolute; z-index: -1; left: 6%; right: 6%; top: 9%; bottom: 0; pointer-events: none;
   background: rgba(40, 28, 14, 0.62); filter: blur(17px); opacity: calc(0.62 + var(--alza) * 0.3);
   transform: translate(calc(var(--sx) * 14px), calc(var(--sy) * 16px + var(--alza) * 14px)) scale(calc(1 + var(--alza) * 0.04));
-  will-change: transform, opacity;
 }
+.lampara-viva .pon-sombra { will-change: transform, opacity; }
 .pon-seco { position: absolute; inset: 0; display: flex; flex-direction: column; pointer-events: none; }
 .pon--vacia .pon-seco { position: relative; flex: 1; }
 .pon-tinta { position: relative; display: flex; flex-direction: column; flex: 1; }
