@@ -6,6 +6,16 @@
  * Las escrituras usan la ETag del documento (ifMatch) y, si otra persona guardó
  * a la vez, se vuelve a leer y a aplicar el cambio: nadie pisa a nadie.
  *
+ * Consumo del plan Hobby (10 000 lecturas y 2 000 escrituras al mes; si se rebasan,
+ * Vercel bloquea el almacén hasta 30 días). Solo cuentan las lecturas que no salen
+ * de la caché de Vercel. Por eso:
+ *   - la carga inicial y toda escritura leen «en fresco» (useCache: false), porque
+ *     necesitan la ETag vigente;
+ *   - los sondeos de la página (GET ?desde=<etag>) miran primero la copia en caché,
+ *     que no cuenta; solo si difiere de lo que ya tiene el navegador se lee en fresco.
+ *   La copia en caché dura hasta CACHE_SEG; al sobrescribir, Vercel la renueva en
+ *   60 s como máximo, así que los cambios de otros se ven en uno o dos minutos.
+ *
  * Variables de entorno (Vercel → Settings → Environment Variables):
  *   COMITE_CLAVE           clave común de acceso (obligatoria)
  *   COMITE_CLAVE_<USUARIO> clave propia de una persona, p. ej. COMITE_CLAVE_JORGE (opcional)
@@ -29,6 +39,7 @@ const COOKIE = 'fdc';
 const DURACION = 30 * 24 * 3600; // 30 días
 const MAX_TEXTO = 6000;
 const MAX_ACTIVIDAD = 250;
+const CACHE_SEG = 3600; // vida de la copia de mesa.json en la caché de Vercel (1 h)
 
 /* ───────── utilidades ───────── */
 function sha(s) { return crypto.createHash('sha256').update(String(s)).digest(); }
@@ -89,14 +100,26 @@ function limpiar(item) {
 function blob() { return require('@vercel/blob'); }
 function hayAlmacen() { return !!process.env.BLOB_READ_WRITE_TOKEN; }
 
+/* lectura en fresco (sin caché): la versión vigente, con la ETag que exigen las escrituras */
 async function leer() {
   const r = await blob().get(RUTA, { access: 'private', useCache: false });
   if (!r || r.statusCode !== 200) return null;
   const txt = await new Response(r.stream).text();
   return { datos: JSON.parse(txt), etag: r.blob.etag };
 }
+/* ETag de la copia en caché de Vercel: un acierto de caché no cuenta como lectura del plan.
+   Solo interesa la ETag, así que el cuerpo no se descarga. */
+async function etagEnCache() {
+  const r = await blob().get(RUTA, { access: 'private' });
+  if (!r || r.statusCode !== 200) return '';
+  try { await r.stream.cancel(); } catch (e) { /* sin cuerpo que cancelar */ }
+  return r.blob.etag || '';
+}
+/* la ETag de put() y la de get() pueden diferir solo en comillas o en el prefijo W/ */
+function limpiaEtag(e) { return String(e || '').replace(/^W\//, '').replace(/"/g, ''); }
+function mismaEtag(a, b) { return !!a && !!b && limpiaEtag(a) === limpiaEtag(b); }
 async function escribir(datos, etag) {
-  const opts = { access: 'private', contentType: 'application/json', addRandomSuffix: false, cacheControlMaxAge: 60 };
+  const opts = { access: 'private', contentType: 'application/json', addRandomSuffix: false, cacheControlMaxAge: CACHE_SEG };
   if (etag) opts.ifMatch = etag; else opts.allowOverwrite = false;
   const r = await blob().put(RUTA, JSON.stringify(datos), opts);
   return r.etag;
@@ -142,9 +165,15 @@ module.exports = async function (req, res) {
       if (!u) return json(res, 401, { error: 'sin_sesion' });
       const base = { yo: u, usuarios: USUARIOS, colecciones: COLECCIONES };
       if (!hayAlmacen()) return json(res, 200, Object.assign(base, { almacen: false, datos: semilla(), etag: '' }));
+      const desde = String((req.query && req.query.desde) || '');
+      if (desde) {
+        /* sondeo: si la copia en caché coincide con la del navegador, no hay nada nuevo (y no se gasta una lectura) */
+        let enCache = '';
+        try { enCache = await etagEnCache(); } catch (e) { /* si la caché falla, se lee en fresco */ }
+        if (mismaEtag(enCache, desde)) return json(res, 200, { sinCambios: true, etag: desde });
+      }
       const d = await leerOSembrar();
-      const desde = (req.query && req.query.desde) || '';
-      if (desde && d.etag === desde) return json(res, 200, { sinCambios: true, etag: d.etag });
+      if (mismaEtag(d.etag, desde)) return json(res, 200, { sinCambios: true, etag: d.etag });
       return json(res, 200, Object.assign(base, { almacen: true, datos: d.datos, etag: d.etag }));
     }
 
