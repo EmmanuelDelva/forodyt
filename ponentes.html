@@ -783,6 +783,70 @@ footer a:hover { color: var(--arena); }
 @media (max-width: 1180px) { .nav-links { gap: 16px; } .nav-links a { font-size: 13px; } .nav-cta { gap: 12px; } .nav-cta > .btn-primary { padding: 12px 18px; } }
 footer :focus-visible { outline-color: #D9A48C; }
 </style>
+<style>/* ═══ celular y tableta ═══ */
+/* iPad en vertical: tres columnas (no dos tarjetas enormes) y cabecera a lo ancho */
+@media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait) {
+  .rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .cab-grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .cab h1 { font-size: clamp(64px, 9vw, 94px); }
+  .cab-lead { font-size: 18px; max-width: 640px; }
+  .cab-datos dd.seco { font-size: 19px; }
+  .aviso-caja { grid-template-columns: minmax(0, 1fr); }
+  .pon-cargo { font-size: 13px; }
+}
+/* la ficha en iPad vertical: retrato arriba y lectura cómoda, como una hoja */
+@media (min-width: 761px) and (max-width: 1100px) and (orientation: portrait) {
+  .ficha { width: min(720px, calc(100vw - 48px)); }
+  .ficha-marco { display: block; height: auto; max-height: calc(100svh - 48px); overflow-y: auto; overscroll-behavior: contain; }
+  .ficha-lado { padding: 24px 24px 0; }
+  .ficha-foto { aspect-ratio: 16 / 10; }
+  .ficha-contenido { overflow: visible; padding: 30px 36px 24px; }
+  .ficha-barra { position: sticky; left: auto; right: auto; bottom: 0; padding: 20px 36px 18px; background: linear-gradient(to top, #FBF7EE 72%, rgba(251, 247, 238, 0)); }
+}
+@media (max-width: 600px) {
+  .cab h1 { font-size: clamp(42px, 11.6vw, 52px); }
+  .cab-cta { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .cab-cta .btn-primary, .cab-cta .btn-ghost { justify-content: center; min-height: 52px; font-size: 14px; }
+  .cab-datos dd.seco { font-size: 14px; white-space: nowrap; }
+  .aviso-form button { justify-self: stretch; justify-content: center; min-height: 52px; }
+  .aviso-form input { font-size: 20px; min-height: 52px; }
+  .f-buscar input { font-size: 18px; min-height: 44px; }
+  /* con la barra fija y los filtros abiertos, las fichas no quedan tapadas */
+  .filtros.pegada .f-mas[open] .f-grupos { max-height: 38svh; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 6px; }
+}
+/* teléfono en horizontal: dos columnas y la ficha en dos paneles bajos */
+@media (max-height: 520px) and (orientation: landscape) {
+  .cab { padding-top: 92px; }
+  .cab-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: end; }
+  .cab h1 { font-size: clamp(36px, 10vh, 48px); margin: 12px 0 16px; }
+  .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .filtros { position: relative; top: 0; }
+}
+/* toque: 44 px en filtros, ficha y enlaces */
+@media (pointer: coarse) {
+  .chip { min-height: 44px; min-width: 44px; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; }
+  .chip.num { padding: 0 12px; }
+  .f-mas > summary { min-height: 44px; }
+  .f-limpiar { min-height: 44px; }
+  .ficha-nav { min-height: 44px; padding: 0 14px; }
+  .ficha-cerrar { min-height: 44px; padding: 0 16px; }
+  .ficha-copiar { min-height: 44px; }
+  .ficha-redes a { width: 44px; height: 44px; }
+  .ficha-mem { min-height: 44px; align-items: center; }
+  .vacia-nota a, .aviso-redes a { display: inline-flex; align-items: center; min-height: 44px; }
+  footer ul a { display: inline-flex; align-items: center; min-height: 40px; }
+}
+@media (hover: none) {
+  .chip:hover { border-color: var(--linea); color: var(--tinta-3); }
+  .chip[aria-pressed="true"]:hover { border-color: var(--tinta); color: var(--arena); }
+  .ficha-nav:hover { border-color: var(--linea); background: transparent; }
+  .ficha-nav:active { border-color: var(--cobre); background: rgba(184, 92, 61, 0.08); }
+  .ficha-redes a:hover { background: transparent; border-color: var(--linea, rgba(26,24,16,.18)); color: var(--tinta-2, #2A2620); }
+  .ficha-redes a:active { background: var(--cobre, #B85C3D); border-color: var(--cobre, #B85C3D); color: #F5EFE3; }
+  .btn-primary:hover::before { transform: translateX(-101%); }
+  .btn-primary:active::before { transform: translateX(0); }
+}
+</style>
 </head>
 <body>
 
