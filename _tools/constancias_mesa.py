@@ -199,7 +199,7 @@ LOGOS['oma'] = data_uri(os.path.join(ROOT, 'img', 'aliados', 'oma.png'), alto_ma
 # Solo hay imagen de firma del director: las otras dos van con la línea en blanco, para firma autógrafa.
 FIRMANTES = [
     dict(slug='delva',   nombre='Dr. Juan Emmanuel Delva Benavides', cargo='Director del Foro',
-         sub='Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', firma_propia=True),
+         sub='Líder del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»', firma_propia=True),
     dict(slug='calzada', nombre='Dr. Gabriel Calzada Álvarez', cargo='Rector',
          sub='Universidad de las Hespérides'),
     dict(slug='caicedo', nombre='Dra. Juliana Caicedo Buitrago', cargo='Presidenta',
@@ -271,14 +271,14 @@ def constancias_de(sid, ix, con_ponentes=True, con_moderacion=True):
 # García Torres y Juliana Caicedo Buitrago como coorganizadoras, más el rector de Hespérides como
 # institución organizadora. Cargos tomados de la sección Comité de index.html.
 ORGANIZACION = [
-    ('delva',   'Dr. Juan Emmanuel Delva Benavides', 'Líder del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Dirección del Foro', 'org'),
+    ('delva',   'Dr. Juan Emmanuel Delva Benavides', 'Líder del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»', 'Dirección del Foro', 'org'),
     ('garcia_torres', 'Dra. María Luisa García Torres', 'Universidad Alfonso X el Sabio · IusConnect (España)', 'Organización', 'orga'),
     ('caicedo', 'Dra. Juliana Caicedo Buitrago',     'Presidenta del Observatorio Mundial de la Abogacía (OMA)', 'Organización', 'orga'),
     ('calzada', 'Dr. Gabriel Calzada Álvarez',       'Rector · Universidad de las Hespérides', 'Institución organizadora', 'inst'),
-    ('leos',    'Dr. Jorge Antonio Leos Navarro',    'Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Secretaría Académica', 'comite'),
+    ('leos',    'Dr. Jorge Antonio Leos Navarro',    'Miembro del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»', 'Secretaría Académica', 'comite'),
     ('romero',  'Mtro. César Romero Güemez',         'Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG', 'Secretaría Técnica', 'comite'),
-    ('said',    'Mtro. Iván Said González López',    'Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Tecnología y Logística', 'comite'),
-    ('paul',    'Dr. Alejandro Paul García Hernández', 'Miembro del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'Coordinación Editorial y Comité Científico', 'comite'),
+    ('said',    'Mtro. Iván Said González López',    'Colaborador del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»', 'Tecnología y Logística', 'comite'),
+    ('paul',    'Dr. Alejandro Paul García Hernández', 'Miembro del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»', 'Coordinación Editorial y Comité Científico', 'comite'),
 ]
 
 # Corrección del director (2026-09-18): él, Juliana y María Luisa son ORGANIZADORES; el comité

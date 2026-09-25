@@ -134,7 +134,7 @@
               "modera": {
                 "nombre": "Mtro. Iván Said González López",
                 "slug": "said",
-                "afil": "Colaborador del Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»"
+                "afil": "Colaborador del Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»"
               },
               "ponentes": [
                 {
@@ -418,7 +418,7 @@
                 1
               ],
               "modera": {
-                "nombre": "Mtro. Marco Romero Güemez",
+                "nombre": "Mtro. Marco Antonio Romero Güémez",
                 "slug": "romero_guemez",
                 "afil": "Jefe de División · CU Tlajomulco, UdeG"
               },
@@ -868,7 +868,7 @@
               "modera": {
                 "nombre": "Dr. Jorge Antonio Leos Navarro",
                 "slug": "leos",
-                "afil": "Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»"
+                "afil": "Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»"
               },
               "ponentes": [
                 {
@@ -1303,7 +1303,7 @@
     "cta_jornada": "Conocer la jornada virtual",
     "cta_ejes": "Ver los nueve ejes",
     "cta_volver": "Volver al sitio",
-    "pie_organiza": "Organiza el Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
+    "pie_organiza": "Organiza el Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara",
     "pie_hibrido": "Memoria en video de las sesiones transmitidas · #ForoDyT",
     "jv_est_eyebrow": "El programa de la jornada",
     "jv_est_t_html": "Así se ordena <em>el 18 de septiembre</em>.",

@@ -286,7 +286,7 @@ def dia_html(dia):
             f'</div></header>' + ''.join(bloques) + '</section>')
 
 # ─────────────────────────── JSON-LD ───────────────────────────
-ORGANIZADOR_LD = {'@type': 'Organization', 'name': 'Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»', 'url': 'https://forodyt.com/'}
+ORGANIZADOR_LD = {'@type': 'Organization', 'name': 'Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»', 'url': 'https://forodyt.com/'}
 # 2026-09-24: sin «offers» (la IV ya se celebró; la oferta InStock dejó de ser cierta).
 
 def desc_bloque(d, b):
@@ -1294,7 +1294,7 @@ def pagina_html():
 '''
     body = (NAV + cinta_iv_html() + hero_html() + riel_html() + '<main id="programa">' + dias + '</main>' + banda + aliados_html() +
             f'<footer><div class="footer-inner"><span data-i18n="foot_copy">© 2026 · Foro Internacional de Derecho y Tecnología</span>'
-            f'<span data-i18n="foot_inst">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</span>'
+            f'<span data-i18n="foot_inst">Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología»</span>'
             f'<a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a></div></footer>' + pill + modal_html())
     tail = ('\n<script src="i18n.js" defer></script>\n<script src="mobile-menu.js" defer></script>\n<script>' + js_pagina() + '</script>\n<script>' + modal_js(SLUGS_USADOS) + '</script>\n'
             '<!-- ============ Analytics (Cloudflare Web Analytics + Vercel Speed Insights) ============ -->\n'

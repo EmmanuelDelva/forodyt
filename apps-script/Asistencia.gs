@@ -399,7 +399,7 @@ function emitirConstanciasBloque(idPlatica) {
           <p>Al cierre del Foro, quienes acumulen al menos 10 horas verificadas recibirán además la constancia con valor curricular.</p>
           <p>Cualquier aclaración: <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>, indicando el folio ${escapeHtml_(folioConst)}.</p>
           <hr style="border:0;border-top:1px solid rgba(14,27,44,.14);margin:24px 0">
-          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,27,44,.5);font-family:'Courier New',monospace">Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología · Universidad de Guadalajara</div></div>`,
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(14,27,44,.5);font-family:'Courier New',monospace">Cuerpo Académico UDEG-CA-1236 · Derecho y Tecnología · Universidad de Guadalajara</div></div>`,
         attachments: [pdf]
       });
       sh.appendRow([folioConst, folio, String(idPlatica), u.correo, datos.horas, true, archivo ? archivo.getId() : '', '']); emitidas++;

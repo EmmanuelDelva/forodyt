@@ -70,8 +70,8 @@
  *   simplificado»):
  *     · Responsable: la Universidad de Guadalajara, a través del CUCEA. No es el Cuerpo Académico ni el director.
  *     · Finalidades secundarias, con consentimiento expreso por casilla: información sobre futuras ediciones del
- *       Foro y actividades del CA UDG-CA-1236. Esa casilla es acepto_news («Quiero recibir comunicaciones sobre
- *       futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236»).
+ *       Foro y actividades del CA UDEG-CA-1236. Esa casilla es acepto_news («Quiero recibir comunicaciones sobre
+ *       futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236»).
  *     · Conservación: hasta dos años tras el cierre, EXCLUSIVAMENTE para auditoría académica y emisión de
  *       duplicados de constancia.
  *     · Transferencias: ninguna a terceros distintos del comité organizador.
@@ -1201,7 +1201,7 @@ function enviarConstancia_(item, pdfBlob) {
         <hr style="border: 0; border-top: 1px solid rgba(14, 27, 44, 0.14); margin: 24px 0;">
         <div style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14, 27, 44, 0.5); font-family: 'Courier New', monospace;">
           CUCEA · Universidad de Guadalajara<br>
-          Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología
+          Cuerpo Académico UDEG-CA-1236 · Derecho y Tecnología
         </div>
       </div>
     `,
@@ -1229,7 +1229,7 @@ function crearPlantillaConstancia_() {
 
   body.appendParagraph('').setSpacingBefore(24);
 
-  body.appendParagraph('La Universidad de Guadalajara, a través del Centro Universitario de Ciencias Económico Administrativas (CUCEA) y el Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología», otorga la presente:')
+  body.appendParagraph('La Universidad de Guadalajara, a través del Centro Universitario de Ciencias Económico Administrativas (CUCEA) y el Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología», otorga la presente:')
     .setAlignment(DocumentApp.HorizontalAlignment.JUSTIFY);
 
   body.appendParagraph('').setSpacingBefore(18);
@@ -1509,7 +1509,7 @@ function construirHtmlNewsletter_(cuerpoHtml) {
   </div>
   <div class="footer">
     <p>Recibes este correo porque te suscribiste para recibir actualizaciones del IV Foro Internacional de Derecho y Tecnología.</p>
-    <p>CUCEA · Universidad de Guadalajara · Cuerpo Académico UDG-CA-1236</p>
+    <p>CUCEA · Universidad de Guadalajara · Cuerpo Académico UDEG-CA-1236</p>
     <p>Para darte de baja, responde a este correo con asunto «Baja newsletter» y removeremos tu correo manualmente en menos de 48 horas.</p>
   </div>
 </div>
@@ -2032,7 +2032,7 @@ function construirHtmlAvisoV_(cuerpoHtml) {
     '<tr><td style="padding:20px 32px 28px;border-top:1px solid #EAE0D0;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.55;color:#5A5446;">' +
     '<p style="margin:0 0 8px;">Recibes este correo porque pediste avisos del Foro Internacional de Derecho y Tecnología: al inscribirte en la IV edición marcaste la casilla de comunicaciones sobre futuras ediciones, o te suscribiste en forodyt.com.</p>' +
     '<p style="margin:0 0 10px;">Para darte de baja, responde a este correo con el asunto «Baja» o escribe a <a href="mailto:contacto@forodyt.com?subject=Baja" style="color:#8C3F26;">contacto@forodyt.com</a>.</p>' +
-    '<p style="margin:0;font-family:\'Courier New\',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6B6455;">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara · <a href="https://forodyt.com" style="color:#6B6455;">forodyt.com</a></p>' +
+    '<p style="margin:0;font-family:\'Courier New\',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6B6455;">Cuerpo Académico UDEG-CA-1236 «Derecho y Tecnología» · Universidad de Guadalajara · <a href="https://forodyt.com" style="color:#6B6455;">forodyt.com</a></p>' +
     '</td></tr></table></td></tr></table></body></html>';
 }
 

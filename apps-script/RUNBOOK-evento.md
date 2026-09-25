@@ -119,7 +119,7 @@ Vista previa local (sin tocar el backend): `FIRMA_PNG=… FIRMA_LEOS_PNG=… pyt
 
 **Privacidad. Leer antes de sembrar y antes del primer aviso.** Esto dice el *Aviso de privacidad simplificado* que aceptaron los inscritos de la IV (`inscripcion.html`):
 - **Responsable:** la **Universidad de Guadalajara, a través del CUCEA**. No es el Cuerpo Académico ni el director. La UdeG es sujeto obligado, así que aplica también la LGPDPPSO.
-- **Finalidades secundarias** (con consentimiento expreso por casilla): información sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236. La casilla es `acepto_news`: «Quiero recibir comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236 “Derecho y Tecnología”».
+- **Finalidades secundarias** (con consentimiento expreso por casilla): información sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236. La casilla es `acepto_news`: «Quiero recibir comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDEG-CA-1236 “Derecho y Tecnología”».
 - **Conservación:** hasta dos años tras el cierre, **exclusivamente** para auditoría académica y emisión de duplicados de constancia.
 - **Transferencias:** ninguna a terceros distintos del comité organizador.
 - **ARCO:** las solicitudes llegan a `emmanueldelva@cucea.udg.mx` con el asunto «ARCO · IV Foro».
