@@ -1603,6 +1603,46 @@ body.semblanza-lock { overflow: hidden; }
   }
 }
 </style>
+<style>/* ═══ celular y tableta (solo CSS: la parrilla la escribe _tools/index_grupos.py) ═══ */
+/* el polvo de tinta compone el IV detrás del titular en pantallas angostas: más tenue, se lee el texto */
+@media (max-width: 1100px) and (orientation: portrait), (max-width: 700px) {
+  #tinta { opacity: .42; }
+}
+/* iPad en vertical: tres columnas de láminas y la destacada en dos paneles */
+@media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait) {
+  .ponentes-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .ponente { padding: 22px 18px 24px; }
+  .ponente.destacado { grid-column: span 3; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); }
+  .ponente.destacado .ponente-photo { margin-bottom: 0; }
+  .ponente-name { font-size: 18px; }
+  .hero { min-height: auto; padding-top: 170px; padding-bottom: 96px; }
+}
+/* teléfono: lámina compacta (retrato a la izquierda) en lugar de una foto a pantalla completa por ponente */
+@media (max-width: 640px) {
+  .ponentes-grid { gap: 12px; }
+  .ponente:not(.destacado) { display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 16px; align-items: start; padding: 16px 16px 18px; }
+  .ponente:not(.destacado) > * { grid-column: 2; }
+  .ponente:not(.destacado) .ponente-photo { grid-column: 1; grid-row: 1 / span 8; margin-bottom: 0; }
+  .ponente:not(.destacado) .sello { display: none; }
+  .ponente:not(.destacado) .ponente-name { font-size: 18px; margin-bottom: 6px; }
+  .ponente:not(.destacado) .ponente-affil { margin-bottom: 10px; }
+  .ponente:not(.destacado) .ponente-topic { padding-top: 10px; margin-bottom: 10px; }
+  .ponente:not(.destacado) .ponente-talk-title { padding-top: 10px; }
+  .ponente .ver-semblanza { min-height: 36px; margin-top: 8px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { min-height: auto; padding-top: 140px; padding-bottom: 56px; }
+  .ponentes-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ponente.destacado { grid-column: span 3; grid-template-columns: minmax(0, .7fr) minmax(0, 1fr); }
+  #tinta { opacity: .5; }
+}
+@media (hover: none) {
+  .ponente:hover { border-color: rgba(245, 239, 224, 0.12); background: rgba(245, 239, 224, 0.035); }
+  .ponente:hover .ponente-photo img { filter: grayscale(0.92) sepia(0.14) contrast(1.02); transform: scale(1.015); }
+  .ponente:active { border-color: rgba(184, 146, 62, 0.5); background: rgba(245, 239, 224, 0.06); }
+  .edition:hover { transform: none; box-shadow: none; }
+}
+</style>
 </head>
 <body>
 
