@@ -25,3 +25,6 @@ secrets.local.*
 # Salida generada por _tools/programa.py (se vuelve a crear en cada corrida)
 _tools/out/
 _tools/__pycache__/
+
+# Dependencias de api/
+node_modules/

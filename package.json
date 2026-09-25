@@ -1,0 +1,8 @@
+{
+  "name": "forodyt",
+  "private": true,
+  "description": "Sitio estático del Foro Internacional de Derecho y Tecnología. La única dependencia es para el servicio de la mesa del comité (api/comite.js).",
+  "dependencies": {
+    "@vercel/blob": "^2.8.0"
+  }
+}
