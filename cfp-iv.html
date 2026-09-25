@@ -893,6 +893,10 @@
   }
   @media print { .nav, .cinta-iv { display: none !important; } body { padding-top: 0; } }
 </style>
+<style>/* nav del archivo IV: sin cortes ni desbordes entre 1025 y 1360 px (y en FR) */
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav .nav-links { gap: 16px; } .nav .nav-links a { font-size: 13px; } .nav .nav-cta { gap: 12px; } .nav .nav-cta > .btn-primary { padding: 12px 18px; } }
+</style>
 </head>
 <body>
 
