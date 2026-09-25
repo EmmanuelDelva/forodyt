@@ -73,8 +73,10 @@
 /* ════════════════════════════════════════════════════════════════
    PONENTES · V EDICIÓN · «RETRATOS POR IMPRIMIR»
    Cada ponente es una prueba de imprenta sobre la mesa del taller.
-   Mientras no se anuncia, la tarjeta existe «en seco»: la plancha,
-   la silueta y los rótulos están grabados en el papel, sin tinta.
+   Mientras no se anuncia, la tarjeta existe «en seco»: la plancha con
+   sus marcas de corte y de registro, un camafeo con el numeral de la
+   edición y los rótulos, prensados en el papel sin tinta. Al entrar en
+   pantalla, cada hoja recibe el golpe de la prensa.
    Una lámpara recorre la parrilla: el relieve de cada hoja responde
    a la dirección de su luz, y la hoja se inclina hacia el cursor.
    Al anunciarse (o en ?demo=estructura), un rodillo entinta cada
@@ -263,7 +265,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 }
 @keyframes golpe-texto { 0% { --prof: 0; } 30% { --prof: 1.9; } 58% { --prof: .8; } 80% { --prof: 1.08; } 100% { --prof: 1; } }
 .cab .eyebrow { flex-wrap: wrap; row-gap: 6px; }
-.cab .eyebrow .anio { white-space: nowrap; }
+.cab .eyebrow .anio { white-space: nowrap; display: inline-flex; gap: 14px; }
 @keyframes tinta-llega { from { color: var(--arena-2); filter: blur(2px); } to { color: var(--tinta); filter: none; } }
 
 /* ═══════════ LIENZO · la mesa del taller ═══════════ */
@@ -767,10 +769,6 @@ footer a:hover { color: var(--arena); }
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="silueta" viewBox="0 0 100 100"><path d="M50 12C39.4 12 32 20.6 32 32.4c0 8.6 4 16.1 10 19.8V57c-15.2 2.4-27.1 9.8-29.6 25L10 101h80l-2.4-19C85.1 66.8 73.2 59.4 58 57v-4.8c6-3.7 10-11.2 10-19.8C68 20.6 60.6 12 50 12z"/></symbol>
-</svg>
-
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="index.html" class="brand"><span class="brand-mark">V Foro</span><span class="brand-rule"></span><span class="brand-sub" data-i18n="nav_brand_sub">Derecho · Tecnología · 2027</span></a>
@@ -800,7 +798,7 @@ footer a:hover { color: var(--arena); }
 <header class="cab" id="inicio">
   <div class="wrap cab-grid">
     <div>
-      <p class="eyebrow"><span data-f18n="cab_eyebrow">Ponentes · V edición</span><span aria-hidden="true">·</span><span>MMXXVII</span></p>
+      <p class="eyebrow"><span id="cabEyebrow" data-f18n="cab_eyebrow">Ponentes · V edición</span><span class="anio"><span aria-hidden="true">·</span><span id="cabAnio">MMXXVII</span></span></p>
       <h1 id="cabH1" data-f18n-html="cab_h1">Ponentes de la <em>quinta edición</em>.</h1>
       <p class="cab-lead" id="cabLead" data-f18n-html="cab_lead">Próximamente anunciaremos a las y los ponentes de la quinta edición. Cada confirmación se imprimirá en esta página con su fotografía, su cargo, su país, su ponencia y la sesión y sede en que participa.</p>
       <div class="cab-cta">
@@ -854,12 +852,12 @@ footer a:hover { color: var(--arena); }
     <div id="vacia">
       <p class="sr" data-f18n="vacia_sr">Las y los ponentes de la quinta edición aún no se han anunciado.</p>
       <ol class="rejilla" aria-hidden="true">
-        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:94%"></span><span class="barra" style="--w:62%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:88%"></span><span class="barra" style="--w:71%"></span></div></div><span class="pon-luz"></span></li>
-        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:90%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:96%"></span><span class="barra" style="--w:54%"></span></div></div><span class="pon-luz"></span></li>
-        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:86%"></span><span class="barra" style="--w:58%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:92%"></span><span class="barra" style="--w:66%"></span></div></div><span class="pon-luz"></span></li>
-        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:70%"></span><span class="barra" style="--w:88%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:84%"></span><span class="barra" style="--w:48%"></span></div></div><span class="pon-luz"></span></li>
-        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:66%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:92%"></span></div></div><span class="pon-luz"></span></li>
-        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:82%"></span><span class="barra" style="--w:74%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:60%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><span class="camafeo"><span class="camafeo-num">V</span></span></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:94%"></span><span class="barra" style="--w:62%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:88%"></span><span class="barra" style="--w:71%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><span class="camafeo"><span class="camafeo-num">V</span></span></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:90%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:96%"></span><span class="barra" style="--w:54%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><span class="camafeo"><span class="camafeo-num">V</span></span></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:86%"></span><span class="barra" style="--w:58%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:92%"></span><span class="barra" style="--w:66%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><span class="camafeo"><span class="camafeo-num">V</span></span></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:70%"></span><span class="barra" style="--w:88%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:84%"></span><span class="barra" style="--w:48%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><span class="camafeo"><span class="camafeo-num">V</span></span></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:66%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:92%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><span class="camafeo"><span class="camafeo-num">V</span></span></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:82%"></span><span class="barra" style="--w:74%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:60%"></span></div></div><span class="pon-luz"></span></li>
       </ol>
       <p class="vacia-nota"><span data-f18n="vacia_nota">Cada tarjeta se imprimirá con tinta en cuanto se confirme su ponente.</span> <a href="memoria-iv.html#ponentes"><span data-f18n="cta_iv">Conoce a los ponentes de la IV edición</span> <span aria-hidden="true">→</span></a></p>
     </div>
@@ -883,7 +881,7 @@ footer a:hover { color: var(--arena); }
     <div class="aparece">
       <form class="aviso-form" id="avisoForm" novalidate>
         <label for="avisoCorreo" data-f18n="aviso_label">Correo electrónico</label>
-        <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" required>
+        <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" data-f18n-attr="placeholder:aviso_ph" required>
         <button type="submit" class="btn-primary"><span data-f18n="aviso_btn">Avísame</span></button>
       </form>
       <p class="aviso-estado" id="avisoEstado" role="status" aria-live="polite"></p>
