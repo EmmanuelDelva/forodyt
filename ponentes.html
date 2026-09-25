@@ -92,7 +92,9 @@
 @property --my { syntax: '<length>'; inherits: true; initial-value: -180px; }
 @property --rx { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 @property --ry { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-@property --alza { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --alza { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --lx { syntax: '<length>'; inherits: false; initial-value: 320px; }
+@property --ly { syntax: '<length>'; inherits: false; initial-value: -120px; }
 
 :root {
   --tinta: #1A1810;
@@ -128,7 +130,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-padding-top: 132px; scrollbar-gutter: stable; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 132px; -webkit-text-size-adjust: 100%; }
 html:has(.ficha[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
@@ -227,10 +229,10 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .franja .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 22px; padding-top: 11px; padding-bottom: 11px; }
 .franja p { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
 .franja a { font-size: 13px; color: var(--arena); text-underline-offset: 3px; }
-.franja + .cab { padding-top: clamp(48px, 6vw, 72px); }
+.franja:not([hidden]) + .cab { padding-top: clamp(48px, 6vw, 72px); }
 
 /* ═══════════ CABECERA ═══════════ */
-.cab { position: relative; padding: clamp(124px, 13vw, 164px) 0 clamp(36px, 4.4vw, 60px); }
+.cab { position: relative; padding: clamp(118px, 12vw, 156px) 0 clamp(28px, 3vw, 44px); }
 .cab-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 84px); align-items: end; }
 .cab h1 { font-size: clamp(46px, 6.6vw, 100px); font-variation-settings: "opsz" 144, "SOFT" 60; font-weight: 350; letter-spacing: -0.025em; line-height: .98; margin: 20px 0 24px; }
 .cab h1 em { color: var(--cobre); font-weight: 300; }
@@ -248,16 +250,21 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 @keyframes tinta-llega { from { color: var(--arena-2); filter: blur(2px); } to { color: var(--tinta); filter: none; } }
 
 /* ═══════════ LIENZO · la mesa del taller ═══════════ */
-.lienzo {
-  position: relative; isolation: isolate;
-  padding: clamp(20px, 3vw, 36px) 0 clamp(72px, 9vw, 130px);
-  --lx: 22%; --ly: -8%;
+.lienzo { position: relative; isolation: isolate; padding: clamp(16px, 2.4vw, 28px) 0 clamp(72px, 9vw, 130px); }
+/* la lámpara: la mesa queda en penumbra y un charco de luz cálida sigue a la luz del motor.
+   El charco es una capa propia que se desplaza con transform: no repinta la página. */
+.lienzo-fondo {
+  position: absolute; inset: 0; z-index: -1; overflow: clip; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 200px, #000 calc(100% - 120px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 200px, #000 calc(100% - 120px), transparent 100%);
+  background: linear-gradient(180deg, rgba(58, 42, 22, 0) 0, rgba(58, 42, 22, 0.075) 260px, rgba(58, 42, 22, 0.075) calc(100% - 200px), rgba(58, 42, 22, 0) 100%);
 }
-/* la lámpara: charco de luz cálida que sigue a la luz del motor */
-.lienzo::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(circle min(62vw, 820px) at var(--lx) var(--ly), rgba(255, 251, 242, 0.85), rgba(255, 251, 242, 0) 62%);
+.lienzo-fondo::before {
+  content: ""; position: absolute; left: 0; top: 0; width: 1500px; height: 1500px; margin: -750px 0 0 -750px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 252, 244, 0.96) 0%, rgba(255, 252, 244, 0.62) 24%, rgba(255, 252, 244, 0.18) 44%, rgba(255, 252, 244, 0) 62%);
+  transform: translate(var(--lx), var(--ly)); will-change: transform;
 }
+@media (prefers-reduced-motion: reduce) { .lienzo-fondo::before { will-change: auto; } }
 .vacia-nota { margin-top: clamp(26px, 3vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; font-size: 14.5px; color: var(--tinta-3); }
 .vacia-nota a { color: var(--cobre-2); font-weight: 500; text-underline-offset: 3px; }
 
@@ -318,9 +325,9 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .rejilla { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 34px); }
 .pon {
   position: relative; display: flex; flex-direction: column; min-width: 0; isolation: isolate;
-  --papel: #FBF7EE;
-  --c-luz: rgba(255, 255, 255, 0.97);
-  --c-sombra: rgba(92, 64, 36, 0.34);
+  --papel: #F9F4EA;
+  --c-luz: rgba(255, 255, 255, 1);
+  --c-sombra: rgba(92, 64, 36, 0.42);
   --c-sombra-2: rgba(92, 64, 36, 0.12);
   --c-texto: var(--tinta);
   --c-texto-2: var(--tinta-3);
@@ -329,14 +336,12 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(calc(var(--alza) * -6px));
 }
 /* la hoja: papel con su sombra proyectada lejos de la lámpara */
-.pon-hoja {
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    radial-gradient(circle 340px at var(--mx) var(--my), rgba(255, 255, 255, calc(var(--lit) * 0.9)), rgba(255, 255, 255, 0) 72%),
-    var(--papel);
-  box-shadow:
-    0 0 0 1px rgba(26, 24, 16, 0.06),
-    calc(var(--sx) * 8px) calc(var(--sy) * 10px + var(--alza) * 12px) calc(22px + var(--alza) * 18px) -13px rgba(26, 24, 16, 0.42);
+.pon-hoja { position: absolute; inset: 0; z-index: -1; background: var(--papel); box-shadow: 0 0 0 1px rgba(26, 24, 16, 0.07); }
+.pon-sombra {
+  position: absolute; z-index: -1; left: 6%; right: 6%; top: 9%; bottom: 0; pointer-events: none;
+  background: rgba(40, 28, 14, 0.62); filter: blur(17px); opacity: calc(0.62 + var(--alza) * 0.3);
+  transform: translate(calc(var(--sx) * 14px), calc(var(--sy) * 16px + var(--alza) * 14px)) scale(calc(1 + var(--alza) * 0.04));
+  will-change: transform, opacity;
 }
 .pon-seco { position: absolute; inset: 0; display: flex; flex-direction: column; pointer-events: none; }
 .pon--vacia .pon-seco { position: relative; flex: 1; }
@@ -349,22 +354,22 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .pon-seco .pon-plancha {
   background: var(--papel);
   box-shadow:
-    inset calc(var(--sx) * 2.4px) calc(var(--sy) * 2.4px) 2.6px var(--c-sombra),
-    inset calc(var(--sx) * -1.6px) calc(var(--sy) * -1.6px) 1.2px var(--c-luz);
+    inset calc(var(--sx) * 3.2px) calc(var(--sy) * 3.2px) 3px var(--c-sombra),
+    inset calc(var(--sx) * -2px) calc(var(--sy) * -2px) 1.4px var(--c-luz);
 }
 .pon-silueta {
   position: absolute; left: 50%; bottom: -1px; width: 74%; height: auto; transform: translateX(-50%);
   fill: var(--papel); overflow: visible;
   filter:
-    drop-shadow(calc(var(--sx) * -1.3px) calc(var(--sy) * -1.3px) 0 var(--c-luz))
-    drop-shadow(calc(var(--sx) * 1.9px) calc(var(--sy) * 1.9px) 0.9px var(--c-sombra));
+    drop-shadow(calc(var(--sx) * -1.6px) calc(var(--sy) * -1.6px) 0 var(--c-luz))
+    drop-shadow(calc(var(--sx) * 2.6px) calc(var(--sy) * 2.6px) 1.2px var(--c-sombra));
 }
 .pon--destacada .pon-silueta { width: 82%; }
 .sd {
   color: var(--papel);
   text-shadow:
-    calc(var(--sx) * 1px) calc(var(--sy) * 1px) 0 var(--c-luz),
-    calc(var(--sx) * -1px) calc(var(--sy) * -1px) 0 var(--c-sombra),
+    calc(var(--sx) * 1.2px) calc(var(--sy) * 1.2px) 0 var(--c-luz),
+    calc(var(--sx) * -1.2px) calc(var(--sy) * -1.2px) 0.3px var(--c-sombra),
     0 0 1px var(--c-sombra-2);
 }
 .pon-seco .rot { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
@@ -373,12 +378,12 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .barra {
   display: block; height: 7px; border-radius: 4px; width: var(--w, 80%);
   box-shadow:
-    inset calc(var(--sx) * 1.3px) calc(var(--sy) * 1.3px) 1.3px var(--c-sombra),
-    inset calc(var(--sx) * -1px) calc(var(--sy) * -1px) 1px var(--c-luz);
+    inset calc(var(--sx) * 1.6px) calc(var(--sy) * 1.6px) 1.4px var(--c-sombra),
+    inset calc(var(--sx) * -1.2px) calc(var(--sy) * -1.2px) 1px var(--c-luz);
 }
 .pon-seco .rot.sep { margin-top: 8px; }
 .sello-seco {
-  position: absolute; top: 14px; right: 14px; z-index: 1;
+  position: absolute; top: 28px; right: 28px; z-index: 1;
   font-family: var(--mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
   padding: 5px 9px; transform: rotate(-3deg);
   box-shadow:
@@ -424,12 +429,18 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .pon-ver::after { content: "→"; font-family: var(--sans); letter-spacing: 0; transition: transform .4s var(--ease); }
 .pon:hover .pon-ver::after { transform: translateX(5px); }
 
-/* el reflejo de la lámpara sobre la hoja y el barniz del retrato */
-.pon-brillo {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background: radial-gradient(circle 200px at var(--mx) var(--my), rgba(255, 255, 255, calc(var(--lit) * 0.6)), rgba(255, 255, 255, 0) 70%);
-  mix-blend-mode: soft-light;
+/* el reflejo de la lámpara: sobre el papel en seco, luz directa; sobre el retrato
+   entintado, un barniz (soft-light). Capa propia movida con transform. */
+.pon-luz { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.pon-luz::before {
+  content: ""; position: absolute; left: 0; top: 0; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.35) 30%, rgba(255, 255, 255, 0) 64%);
+  transform: translate(var(--mx), var(--my)); opacity: calc(var(--lit) * 0.9);
+  mix-blend-mode: soft-light; will-change: transform, opacity;
 }
+.pon--vacia .pon-luz::before, .pon.por-entintar .pon-luz::before { mix-blend-mode: normal; opacity: calc(var(--lit) * 0.55); }
+/* penumbra: las hojas lejos de la lámpara se apagan un poco */
+.pon-luz::after { content: ""; position: absolute; inset: 0; background: #2A1E10; opacity: calc((1 - var(--lit)) * 0.06); will-change: opacity; }
 
 /* — el rodillo: una franja de tinta que baja por la hoja — */
 .pon-rodillo {
@@ -467,14 +478,13 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   --c-acento: var(--cobre-claro);
   --c-regla: rgba(245, 239, 227, 0.16);
 }
-.grupo--banda .pon-hoja {
-  background: radial-gradient(circle 360px at var(--mx) var(--my), rgba(245, 239, 227, calc(var(--lit) * 0.11)), rgba(245, 239, 227, 0) 72%), var(--papel);
-  box-shadow: 0 0 0 1px rgba(245, 239, 227, 0.08), calc(var(--sx) * 8px) calc(var(--sy) * 10px + var(--alza) * 12px) calc(24px + var(--alza) * 18px) -12px rgba(0, 0, 0, 0.7);
-}
+.grupo--banda .pon-hoja { box-shadow: 0 0 0 1px rgba(245, 239, 227, 0.09); }
+.grupo--banda .pon-sombra { background: rgba(0, 0, 0, 0.9); }
+.grupo--banda .pon-luz::before { mix-blend-mode: screen; opacity: calc(var(--lit) * 0.16); background: radial-gradient(circle, rgba(255, 236, 214, 0.9) 0%, rgba(255, 236, 214, 0) 60%); }
+.grupo--banda .pon-luz::after { background: #000; opacity: calc((1 - var(--lit)) * 0.12); }
 .grupo--banda .pon-tinta .pon-plancha { background: #DCCAB0; box-shadow: none; }
 .grupo--banda .pon-tinta .pon-plancha::after { background: #2B170E; }
 .grupo--banda .pon-sello { background: rgba(26, 24, 16, 0.85); color: var(--cobre-claro); border-color: var(--cobre-claro); }
-.grupo--banda .pon-brillo { mix-blend-mode: screen; background: radial-gradient(circle 220px at var(--mx) var(--my), rgba(255, 236, 214, calc(var(--lit) * 0.1)), rgba(255, 236, 214, 0) 70%); }
 .grupo--banda .pon-rodillo { background: linear-gradient(180deg, rgba(217, 164, 140, 0) 0%, rgba(217, 164, 140, 0.3) 22%, rgba(245, 239, 227, 0.85) 44%, rgba(217, 164, 140, 0.8) 60%, rgba(217, 164, 140, 0.25) 80%, rgba(217, 164, 140, 0) 100%); box-shadow: 0 12px 16px -9px rgba(0, 0, 0, 0.7); }
 
 /* ═══════════ AVISO ═══════════ */
@@ -541,10 +551,14 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .ficha-nav:hover { border-color: var(--cobre); background: rgba(184, 92, 61, 0.06); }
 .ficha-pos { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--tinta-4); }
 .ficha-copiar { margin-left: auto; font: inherit; font-size: 13px; background: none; border: 0; color: var(--cobre-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.ficha-estado { flex-basis: 100%; font-size: 12.5px; color: var(--musgo); min-height: 1.2em; text-align: right; }
+.ficha-estado { flex-basis: 100%; font-size: 12.5px; color: var(--musgo); text-align: right; word-break: break-all; }
+.ficha-estado:empty { display: none; }
 
 /* View Transitions: la hoja de la tarjeta se expande en la ficha */
 ::view-transition-group(ficha-marco), ::view-transition-group(ficha-foto) { animation-duration: .62s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+::view-transition-group(ficha-marco) { z-index: 1; }
+::view-transition-group(ficha-foto) { z-index: 2; }
+::view-transition-group(ficha-contenido) { z-index: 3; }
 ::view-transition-old(ficha-marco), ::view-transition-new(ficha-marco) { height: 100%; width: 100%; object-fit: fill; }
 ::view-transition-old(ficha-foto), ::view-transition-new(ficha-foto) { height: 100%; width: 100%; object-fit: cover; }
 ::view-transition-new(ficha-contenido):only-child { animation: vt-sube .5s .2s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -601,6 +615,10 @@ footer a:hover { color: var(--arena); }
   .ficha-contenido { overflow: visible; padding: 22px 20px 20px; }
   .ficha-barra { position: sticky; left: auto; right: auto; bottom: 0; padding: 18px 20px 16px; background: linear-gradient(to top, #FBF7EE 72%, rgba(251, 247, 238, 0)); }
   .ficha-cerrar { position: fixed; top: 20px; right: 20px; }
+  .ficha-barra { gap: 8px; padding-left: 16px; padding-right: 16px; }
+  .ficha-nav { padding: 8px 11px; font-size: 12.5px; }
+  .ficha-pos { font-size: 10px; letter-spacing: .06em; }
+  .ficha-copiar { font-size: 12.5px; }
   .ficha-estado { text-align: left; }
 }
 @media (max-width: 640px) {
@@ -638,7 +656,7 @@ footer a:hover { color: var(--arena); }
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="silueta" viewBox="0 0 100 100"><path d="M50 14.5c-10.6 0-18.2 8.7-18.2 20.3 0 8.4 4 15.6 9.7 19.6-12.5 2.7-25 10.4-28.8 26.4L10.6 101h78.8l-2.1-20.2C83.5 64.8 71 57.1 58.5 54.4c5.7-4 9.7-11.2 9.7-19.6 0-11.6-7.6-20.3-18.2-20.3z"/></symbol>
+  <symbol id="silueta" viewBox="0 0 100 100"><path d="M50 12C39.4 12 32 20.6 32 32.4c0 8.6 4 16.1 10 19.8V57c-15.2 2.4-27.1 9.8-29.6 25L10 101h80l-2.4-19C85.1 66.8 73.2 59.4 58 57v-4.8c6-3.7 10-11.2 10-19.8C68 20.6 60.6 12 50 12z"/></symbol>
 </svg>
 
 <nav class="nav" id="nav">
@@ -688,16 +706,18 @@ footer a:hover { color: var(--arena); }
 
 <!-- ═══════════ LA PARRILLA ═══════════ -->
 <section class="lienzo" id="parrilla" aria-labelledby="t-parrilla">
+  <div class="lienzo-fondo" id="lienzoFondo" aria-hidden="true"></div>
   <div class="wrap">
     <h2 class="sr" id="t-parrilla" data-f18n="parrilla_sr">Parrilla de ponentes</h2>
 
     <!-- barra de búsqueda y filtros (se muestra cuando hay ponentes) -->
+    <div id="filtrosCentinela" aria-hidden="true"></div>
     <div class="filtros" id="filtros" role="search" hidden>
       <div class="f-fila">
         <label class="f-buscar">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
           <span class="sr" data-f18n="f_buscar_sr">Buscar ponentes</span>
-          <input type="search" id="fBuscar" autocomplete="off" spellcheck="false" placeholder="Buscar por nombre, institución o ponencia" data-f18n-attr="placeholder:f_buscar">
+          <input type="search" id="fBuscar" autocomplete="off" spellcheck="false" placeholder="Nombre, institución o ponencia" data-f18n-attr="placeholder:f_buscar">
         </label>
         <p class="f-n" id="fN" aria-live="polite"></p>
         <button class="f-limpiar" id="fLimpiar" type="button" hidden data-f18n="f_limpiar">Limpiar filtros</button>
@@ -722,12 +742,12 @@ footer a:hover { color: var(--arena); }
     <div id="vacia">
       <p class="sr" data-f18n="vacia_sr">Las y los ponentes de la quinta edición aún no se han anunciado.</p>
       <ol class="rejilla" aria-hidden="true">
-        <li class="pon pon--vacia"><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:94%"></span><span class="barra" style="--w:62%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:88%"></span><span class="barra" style="--w:71%"></span></div></div><span class="pon-brillo"></span></li>
-        <li class="pon pon--vacia"><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:90%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:96%"></span><span class="barra" style="--w:54%"></span></div></div><span class="pon-brillo"></span></li>
-        <li class="pon pon--vacia"><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:86%"></span><span class="barra" style="--w:58%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:92%"></span><span class="barra" style="--w:66%"></span></div></div><span class="pon-brillo"></span></li>
-        <li class="pon pon--vacia"><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:70%"></span><span class="barra" style="--w:88%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:84%"></span><span class="barra" style="--w:48%"></span></div></div><span class="pon-brillo"></span></li>
-        <li class="pon pon--vacia"><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:66%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:92%"></span></div></div><span class="pon-brillo"></span></li>
-        <li class="pon pon--vacia"><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:82%"></span><span class="barra" style="--w:74%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:60%"></span></div></div><span class="pon-brillo"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:94%"></span><span class="barra" style="--w:62%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:88%"></span><span class="barra" style="--w:71%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:90%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:96%"></span><span class="barra" style="--w:54%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:86%"></span><span class="barra" style="--w:58%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:92%"></span><span class="barra" style="--w:66%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:70%"></span><span class="barra" style="--w:88%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:84%"></span><span class="barra" style="--w:48%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:66%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:78%"></span><span class="barra" style="--w:92%"></span></div></div><span class="pon-luz"></span></li>
+        <li class="pon pon--vacia"><span class="pon-sombra"></span><div class="pon-hoja"></div><div class="pon-seco"><div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100"><use href="#silueta"/></svg></div><span class="sello-seco sd" data-f18n="sello_v">V · 2027</span><div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion">Sesión · Sede</span><span class="nom sd" data-f18n="por_anunciar">Por anunciar</span><span class="barra" style="--w:82%"></span><span class="barra" style="--w:74%"></span><span class="rot sd sep" data-f18n="s_ponencia">Ponencia</span><span class="barra" style="--w:90%"></span><span class="barra" style="--w:60%"></span></div></div><span class="pon-luz"></span></li>
       </ol>
       <p class="vacia-nota"><span data-f18n="vacia_nota">Cada tarjeta se imprimirá con tinta en cuanto se confirme su ponente.</span> <a href="memoria-iv.html#ponentes"><span data-f18n="cta_iv">Conoce a los ponentes de la IV edición</span> <span aria-hidden="true">→</span></a></p>
     </div>
@@ -985,7 +1005,7 @@ var DEMO_IV = [
       sello_v: 'V · 2027', s_sesion: 'Session · Venue', s_ponencia: 'Talk',
       vacia_sr: 'The speakers of the fifth edition have not yet been announced.',
       vacia_nota: 'Each card will be printed in ink as soon as its speaker is confirmed.',
-      f_buscar_sr: 'Search speakers', f_buscar: 'Search by name, institution or talk', f_limpiar: 'Clear filters',
+      f_buscar_sr: 'Search speakers', f_buscar: 'Name, institution or talk', f_limpiar: 'Clear filters',
       f_filtrar: 'Filter by venue, country or track', f_sede: 'Venue', f_pais: 'Country', f_eje: 'Track',
       sin_res: 'No speaker matches the search.',
       aviso_eyebrow: 'Notice', aviso_title: 'Get the <em>speaker announcement</em>.',
@@ -1018,7 +1038,7 @@ var DEMO_IV = [
       sello_v: 'V · 2027', s_sesion: 'Séance · Lieu', s_ponencia: 'Communication',
       vacia_sr: 'Les intervenants de la cinquième édition n’ont pas encore été annoncés.',
       vacia_nota: 'Chaque carte sera imprimée à l’encre dès la confirmation de son intervenant.',
-      f_buscar_sr: 'Rechercher des intervenants', f_buscar: 'Rechercher par nom, institution ou communication', f_limpiar: 'Effacer les filtres',
+      f_buscar_sr: 'Rechercher des intervenants', f_buscar: 'Nom, institution ou communication', f_limpiar: 'Effacer les filtres',
       f_filtrar: 'Filtrer par lieu, pays ou axe', f_sede: 'Lieu', f_pais: 'Pays', f_eje: 'Axe',
       sin_res: 'Aucun intervenant ne correspond à la recherche.',
       aviso_eyebrow: 'Annonce', aviso_title: 'Recevez l’annonce <em>des intervenants</em>.',
@@ -1117,13 +1137,13 @@ var DEMO_IV = [
   function Lampara(raiz) {
     this.raiz = raiz; this.items = []; this.raf = 0; this.en = false;
     this.L = null; this.T = null; this.P = null; this.barrido = null; this.ultimo = -1e9;
-    this.rr = null;
+    this.rr = null; this.fondo = document.getElementById('lienzoFondo'); this.fw = {}; this.tAnt = 0;
     var self = this;
     this.paso = function (now) { self.frame(now); };
   }
   Lampara.prototype.reposo = function () { return { x: innerWidth * 0.2, y: Math.max(-40, innerHeight * 0.04) }; };
   Lampara.prototype.poner = function (els) {
-    this.items = Array.prototype.map.call(els, function (el) { return { el: el, r: null, rx: 0, ry: 0, al: 0, w: {} }; });
+    this.items = Array.prototype.map.call(els, function (el) { return { el: el, luz: el.querySelector('.pon-luz'), r: null, rx: 0, ry: 0, al: 0, w: {} }; });
     this.medir();
   };
   Lampara.prototype.medir = function () {
@@ -1145,14 +1165,19 @@ var DEMO_IV = [
     this.ultimo = performance.now();
     this.pedir();
   };
+  // escribe una variable solo si cambió (los reflejos van en .pon-luz; el relieve y la
+  // inclinación en la tarjeta)
   Lampara.prototype.escribir = function (it, k, v, dec) {
-    var s = v.toFixed(dec);
-    if (it.w[k] !== s) { it.w[k] = s; it.el.style.setProperty(k, s + (k === '--rx' || k === '--ry' ? 'deg' : (k === '--mx' || k === '--my' ? 'px' : ''))); }
+    var s = v.toFixed(dec), el = (k === '--mx' || k === '--my' || k === '--lit') ? (it.luz || it.el) : it.el;
+    if (it.w[k] !== s) { it.w[k] = s; el.style.setProperty(k, s + (k === '--rx' || k === '--ry' ? 'deg' : (k === '--mx' || k === '--my' ? 'px' : ''))); }
   };
   Lampara.prototype.frame = function (now) {
     this.raf = 0;
     if (!this.en) return;
     var mueve = false, W = innerWidth, Hh = innerHeight;
+    // suavizado independiente de los cuadros por segundo
+    var dt = this.tAnt ? Math.min(100, now - this.tAnt) : 16.7; this.tAnt = now;
+    var k12 = 1 - Math.pow(0.88, dt / 16.7), k14 = 1 - Math.pow(0.86, dt / 16.7);
     if (!this.L) { this.L = this.reposo(); this.T = this.reposo(); }
     if (this.barrido) {
       var b = this.barrido, k = Math.min(1, (now - b.t0) / b.dur);
@@ -1165,15 +1190,16 @@ var DEMO_IV = [
       var rr = this.rr, prog = rr ? clamp((window.scrollY + Hh - rr.y) / (rr.h + Hh), 0, 1) : 0;
       this.T = { x: W * (0.1 + 0.8 * prog), y: Hh * 0.08 };
     }
-    var f = this.barrido ? 0.5 : 0.12;
+    var f = this.barrido ? 1 - Math.pow(0.5, dt / 16.7) : k12;
     var dx = this.T.x - this.L.x, dy = this.T.y - this.L.y;
     this.L.x += dx * f; this.L.y += dy * f;
     if (Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4) mueve = true;
 
     var sX = window.scrollX, sY = window.scrollY, L = this.L, P = this.P;
-    if (this.rr) {
-      this.raiz.style.setProperty('--lx', (L.x - (this.rr.x - sX)).toFixed(0) + 'px');
-      this.raiz.style.setProperty('--ly', (L.y - (this.rr.y - sY)).toFixed(0) + 'px');
+    if (this.rr && this.fondo) {
+      var lx = (L.x - (this.rr.x - sX)).toFixed(0) + 'px', ly = (L.y - (this.rr.y - sY)).toFixed(0) + 'px';
+      if (this.fw.x !== lx) { this.fw.x = lx; this.fondo.style.setProperty('--lx', lx); }
+      if (this.fw.y !== ly) { this.fw.y = ly; this.fondo.style.setProperty('--ly', ly); }
     }
     for (var i = 0; i < this.items.length; i++) {
       var it = this.items[i], r = it.r;
@@ -1182,25 +1208,26 @@ var DEMO_IV = [
       if (top > Hh + 60 || top + r.h < -60) continue;
       var cx = left + r.w / 2, cy = top + r.h / 2;
       var ddx = cx - L.x, ddy = cy - L.y, d = Math.sqrt(ddx * ddx + ddy * ddy) || 1;
-      var m = clamp(d / 520, 0.3, 1);
-      this.escribir(it, '--sx', ddx / d * m, 3);
-      this.escribir(it, '--sy', ddy / d * m, 3);
+      var m = clamp(d / 480, 0.3, 1);
+      // el relieve repinta: se cuantiza en pasos de 0.04 (≈0.1 px de sombra)
+      this.escribir(it, '--sx', Math.round(ddx / d * m * 25) / 25, 2);
+      this.escribir(it, '--sy', Math.round(ddy / d * m * 25) / 25, 2);
       this.escribir(it, '--mx', L.x - left, 0);
       this.escribir(it, '--my', L.y - top, 0);
-      this.escribir(it, '--lit', clamp(1 - d / 1050, 0, 1), 3);
+      this.escribir(it, '--lit', clamp(1 - d / 1000, 0, 1), 2);
       var tx = 0, ty = 0, ta = 0;
       if (FINE && P && !this.barrido) {
         var px = (P.x - cx) / (r.w / 2), py = (P.y - cy) / (r.h / 2), a = Math.max(Math.abs(px), Math.abs(py));
-        if (a <= 1) { ty = px * 6.5; tx = -py * 5.5; ta = 1; }
-        else if (a < 2.3) { var g = (1 - (a - 1) / 1.3) * 0.22; ty = px / a * 6.5 * g; tx = -py / a * 5.5 * g; }
+        if (a <= 1) { ty = px * 8; tx = -py * 7; ta = 1; }
+        else if (a < 2.3) { var g = (1 - (a - 1) / 1.3) * 0.22; ty = px / a * 8 * g; tx = -py / a * 7 * g; }
       }
-      it.rx += (tx - it.rx) * 0.14; it.ry += (ty - it.ry) * 0.14; it.al += (ta - it.al) * 0.14;
+      it.rx += (tx - it.rx) * k14; it.ry += (ty - it.ry) * k14; it.al += (ta - it.al) * k14;
       if (Math.abs(tx - it.rx) > 0.02 || Math.abs(ty - it.ry) > 0.02 || Math.abs(ta - it.al) > 0.004) mueve = true;
       this.escribir(it, '--rx', it.rx, 2);
       this.escribir(it, '--ry', it.ry, 2);
       this.escribir(it, '--alza', it.al, 3);
     }
-    if (mueve) this.pedir();
+    if (mueve) this.pedir(); else this.tAnt = 0;
   };
   Lampara.prototype.soltar = function (it) {
     // antes de una View Transition: la hoja vuelve a plano al instante
@@ -1271,7 +1298,7 @@ var DEMO_IV = [
     li.id = 'ponente-' + p.slug;
     li.setAttribute('data-slug', p.slug);
     li.innerHTML =
-      '<div class="pon-hoja"></div>' +
+      '<span class="pon-sombra" aria-hidden="true"></span><div class="pon-hoja"></div>' +
       '<div class="pon-seco" aria-hidden="true">' + SECO_HTML + '</div>' +
       '<div class="pon-tinta">' +
         '<div class="pon-plancha"></div>' +
@@ -1286,7 +1313,7 @@ var DEMO_IV = [
         '</div>' +
       '</div>' +
       '<span class="pon-rodillo" aria-hidden="true"></span>' +
-      '<span class="pon-brillo" aria-hidden="true"></span>';
+      '<span class="pon-luz" aria-hidden="true"></span>';
     li.querySelector('.pon-seco .sello-seco').textContent = CONF.sello;
     var plancha = li.querySelector('.pon-tinta .pon-plancha');
     if (p.foto) {
@@ -1395,7 +1422,7 @@ var DEMO_IV = [
         });
         cola = [];
       }, 30);
-    }, { threshold: 0.28, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -20% 0px' });
     TARJETAS.forEach(function (tj) { if (tj.el.classList.contains('por-entintar')) io.observe(tj.el); });
   }
 
@@ -1507,7 +1534,20 @@ var DEMO_IV = [
     document.getElementById('fLimpiar').addEventListener('click', limpiar);
     document.getElementById('sinResLimpiar').addEventListener('click', function () { limpiar(); buscar.focus(); });
     var mas = document.getElementById('fMas');
-    mas.open = window.innerWidth > 760;
+    // al quedar fija bajo el nav, la barra se compacta (solo búsqueda); el lector puede
+    // volver a abrir los filtros, y entonces se respeta su elección
+    var manual = false, auto = false;
+    if (window.innerWidth > 760) { auto = true; mas.open = true; }
+    mas.addEventListener('toggle', function () { if (!auto) manual = true; auto = false; });
+    var cent = document.getElementById('filtrosCentinela');
+    if ('IntersectionObserver' in window && cent) {
+      new IntersectionObserver(function (es) {
+        var e = es[0], pegada = !e.isIntersecting && e.boundingClientRect.top < 70;
+        if (manual || window.innerWidth <= 760) return;
+        var quiere = !pegada;
+        if (mas.open !== quiere) { auto = true; mas.open = quiere; }
+      }, { rootMargin: '-64px 0px 0px 0px', threshold: 0 }).observe(cent);
+    }
     TARJETAS.forEach(function (tj) { tj.idx = indiceBusqueda(tj.p); });
   }
   function contar() {

@@ -284,7 +284,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .hero { position: relative; padding: 132px 0 72px; overflow: hidden; isolation: isolate; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); column-gap: clamp(24px, 5vw, 80px); align-items: center; }
 .hero-izq { display: grid; gap: clamp(22px, 2.6vw, 32px); position: relative; z-index: 1; }
-.hero-titulo { font-size: clamp(46px, 6.4vw, 104px); font-weight: 380; font-variation-settings: "opsz" 144, "SOFT" 40; letter-spacing: -0.03em; line-height: .98; }
+.hero-titulo { font-size: clamp(46px, 6.4vw, 104px); font-weight: 380; font-variation-settings: "opsz" 144, "SOFT" 40; letter-spacing: -0.022em; line-height: .98; }
 .hero-titulo em { color: var(--cobre); font-weight: 340; font-variation-settings: "opsz" 144, "wght" 340, "SOFT" 100; }
 @media (prefers-reduced-motion: no-preference) {
   .hero-titulo.ola em { animation: ola-h1 2.2s var(--ease) .35s both; }
@@ -356,19 +356,18 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .ficha {
   display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); column-gap: clamp(28px, 6vw, 110px);
   padding: clamp(44px, 6vw, 88px) 0; border-bottom: 1px solid var(--linea-osc); align-items: start;
-  scroll-margin-top: 80px;
 }
-.ficha.abierta { grid-template-columns: minmax(0, 470px) minmax(0, 1fr); }
+.ficha.abierta { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); }
 .ficha:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 380px); }
-.ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 470px); }
+.ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); }
 .ficha:nth-child(even) .ficha-foto { order: 2; }
 .ficha-foto { aspect-ratio: 1; width: 100%; outline: 1px solid var(--linea-osc); outline-offset: 12px; }
 .ficha.abierta .ficha-foto { position: sticky; top: 104px; }
 .ficha-cuerpo { display: grid; gap: 20px; align-content: start; padding-top: 6px; }
-.ficha-rol { font-family: var(--mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--cobre-claro); display: flex; align-items: center; gap: 14px; }
+.ficha-rol { font-family: var(--mono); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--cobre-claro); display: flex; align-items: center; gap: 14px; width: fit-content; max-width: 100%; }
 .ficha-rol::before { content: ""; width: 34px; height: 1px; background: currentColor; opacity: .6; flex: none; }
 
-.nombre { font-size: clamp(40px, 5vw, 76px); line-height: 1.02; letter-spacing: -0.02em; color: var(--arena); font-variation-settings: "opsz" 144, "wght" 360, "SOFT" 40; font-weight: 360; }
+.nombre { width: fit-content; max-width: 100%; font-size: clamp(40px, 5vw, 76px); line-height: 1.02; letter-spacing: -0.02em; color: var(--arena); font-variation-settings: "opsz" 144, "wght" 360, "SOFT" 40; font-weight: 360; }
 .nombre em { display: block; color: var(--cobre-claro); font-variation-settings: "opsz" 144, "wght" 320, "SOFT" 100; font-weight: 320; --wb: 320; --sfb: 100; }
 .nombre .n-tit { display: block; font-family: var(--mono); font-style: normal; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: rgba(245, 239, 227, 0.6); margin-bottom: 14px; font-variation-settings: normal; text-shadow: none; }
 .nombre .w { white-space: nowrap; }
@@ -380,7 +379,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
     38% { font-variation-settings: "opsz" 72, "wght" 780, "SOFT" 100; }
   }
 }
-.ficha-adsc { display: grid; gap: 6px; font-size: 14.5px; color: rgba(245, 239, 227, 0.74); }
+.ficha-adsc { display: grid; gap: 6px; width: fit-content; max-width: 100%; font-size: 14.5px; color: rgba(245, 239, 227, 0.74); }
 .adsc-rot { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: rgba(245, 239, 227, 0.56); }
 .ficha-adsc ul { list-style: none; display: grid; gap: 4px; }
 .ficha-adsc li { padding-left: 16px; position: relative; }
@@ -423,6 +422,12 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 ::view-transition-group(ficha-sem) { overflow: clip; }
 ::view-transition-old(ficha-sem) { animation-duration: .25s; }
 ::view-transition-new(ficha-sem) { animation-duration: .5s; animation-delay: .08s; }
+/* los textos no se estiran: cada instantánea conserva su tamaño natural */
+::view-transition-old(ficha-nombre), ::view-transition-new(ficha-nombre),
+::view-transition-old(ficha-rol), ::view-transition-new(ficha-rol),
+::view-transition-old(ficha-adsc), ::view-transition-new(ficha-adsc),
+::view-transition-old(ficha-sem), ::view-transition-new(ficha-sem),
+::view-transition-old(ficha-btn), ::view-transition-new(ficha-btn) { inline-size: auto; block-size: auto; }
 
 /* ═══════════ EDICIONES ═══════════ */
 .registro { background: linear-gradient(180deg, transparent, rgba(234, 224, 208, 0.55) 18%, rgba(234, 224, 208, 0.55) 82%, transparent); }
@@ -828,24 +833,24 @@ footer a:hover { color: var(--arena); }
   /* ───── semblanzas EN/FR (fuente: SEMBLANZAS de memoria-iv.html; la ES vive en el HTML) ───── */
   var SEM = {
   "delva": {
-    "en": "Dr. Juan Emmanuel Delva Benavides, Director of the Forum, leads the UDG-CA-1236 \"Law and Technology\" Research Group and is a professor-researcher in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara. He holds a PhD in Law, a master's degree in Learning Technologies, and a law degree, all from the same university, and presides over CUCEA's Academy of Economic, Business and International Law. He has supported technology management in the public sector and trains executives, administrative staff, researchers and faculty across the University of Guadalajara network in artificial intelligence — training he has also delivered to judges and magistrates in Mexico, Colombia and Argentina. His scholarship spans crypto-asset regulation, the right to repair, digital platforms and data protection, with research stays in Spain and lectures from Japan to South America. A founding partner of ALGDETIC and a member of networks such as FIADI and AMCID, he gives the Forum what makes it possible: academic curation, international alliances, and a vision that grows with every edition.",
-    "fr": "Le docteur Juan Emmanuel Delva Benavides, directeur du Forum, anime le corps académique UDG-CA-1236 « Droit et technologie » et est professeur-chercheur au Département de sciences sociales et juridiques du CUCEA, à l'Université de Guadalajara. Docteur en droit, titulaire d'un master en technologies de l'apprentissage et juriste formé dans la même université, il préside l'Académie de droit économique, des affaires et international du CUCEA. Il a accompagné la gestion de la technologie dans le secteur public et forme à l'intelligence artificielle les cadres, le personnel administratif, les chercheurs et les enseignants du réseau de l'Université de Guadalajara, ainsi que des magistrats et des juges au Mexique, en Colombie et en Argentine. Ses travaux portent sur la régulation des crypto-actifs, le droit à la réparation, les plateformes numériques et la protection des données, entre séjours de recherche en Espagne et conférences du Japon à l'Amérique du Sud. Cofondateur d'ALGDETIC et membre de réseaux comme la FIADI et l'AMCID, il donne au Forum ce qui le rend possible : curation académique, alliances internationales et une vision qui grandit d'édition en édition."
+    "en": "Dr. Juan Emmanuel Delva Benavides, Director of the Forum, leads the UDG-CA-1236 \"Law and Technology\" Research Group and is a professor-researcher in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara. He holds a PhD in Law, a master’s degree in Learning Technologies, and a law degree, all from the same university, and presides over CUCEA’s Academy of Economic, Business and International Law. He has supported technology management in the public sector and trains executives, administrative staff, researchers and faculty across the University of Guadalajara network in artificial intelligence — training he has also delivered to judges and magistrates in Mexico, Colombia and Argentina. His scholarship spans crypto-asset regulation, the right to repair, digital platforms and data protection, with research stays in Spain and lectures from Japan to South America. A founding partner of ALGDETIC and a member of networks such as FIADI and AMCID, he gives the Forum what makes it possible: academic curation, international alliances, and a vision that grows with every edition.",
+    "fr": "Le docteur Juan Emmanuel Delva Benavides, directeur du Forum, anime le corps académique UDG-CA-1236 « Droit et technologie » et est professeur-chercheur au Département de sciences sociales et juridiques du CUCEA, à l’Université de Guadalajara. Docteur en droit, titulaire d’un master en technologies de l’apprentissage et juriste formé dans la même université, il préside l’Académie de droit économique, des affaires et international du CUCEA. Il a accompagné la gestion de la technologie dans le secteur public et forme à l’intelligence artificielle les cadres, le personnel administratif, les chercheurs et les enseignants du réseau de l’Université de Guadalajara, ainsi que des magistrats et des juges au Mexique, en Colombie et en Argentine. Ses travaux portent sur la régulation des crypto-actifs, le droit à la réparation, les plateformes numériques et la protection des données, entre séjours de recherche en Espagne et conférences du Japon à l’Amérique du Sud. Cofondateur d’ALGDETIC et membre de réseaux comme la FIADI et l’AMCID, il donne au Forum ce qui le rend possible : curation académique, alliances internationales et une vision qui grandit d’édition en édition."
   },
   "leos": {
-    "en": "Dr. Jorge Antonio Leos Navarro is a full-time professor in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara, and a member of the UDG-CA-1236 \"Law and Technology\" research group. He earned his law degree and a master's in law from the University of Guadalajara, and a doctorate in law. His career has been devoted to alternative justice and the culture of peace: he coordinated CUCEA's Master's Program in Conflict Resolution and sits on the editorial board of the journal PACTUM. His recent scholarship builds bridges between mediation and technology: from the peace circles and restorative justice of Mexico's Indigenous peoples to the tax regime of digital platforms in the Mexican Law Review and, co-authored within the research group itself, authenticity standards against deepfakes in banking onboarding and financial fraud in the Journal of FinTech and Sustainable Finance (2026). As Academic Secretary of the International Forum on Law and Technology, he safeguards the intellectual rigor and coherence of its program.",
-    "fr": "Le docteur Jorge Antonio Leos Navarro est professeur à temps plein au Département de sciences sociales et juridiques du CUCEA, à l'Université de Guadalajara, et membre du corps académique UDG-CA-1236 « Droit et technologie ». Licencié et titulaire d'un master en droit de l'Université de Guadalajara, docteur en droit, il a consacré son parcours à la justice alternative et à la culture de la paix : il a coordonné le master en résolution des conflits du CUCEA et siège au comité éditorial de la revue PACTUM. Ses travaux récents jettent des ponts entre la médiation et la technologie : des cercles de paix et de la justice restaurative des peuples autochtones au régime fiscal des plateformes numériques dans la Mexican Law Review et, en coécriture au sein même du corps académique, les standards d'authenticité face aux hypertrucages dans l'onboarding bancaire et la fraude financière dans le Journal of FinTech and Sustainable Finance (2026). Comme Secrétaire académique du Forum international du droit et de la technologie, il veille à la rigueur et à la cohérence intellectuelle du programme."
+    "en": "Dr. Jorge Antonio Leos Navarro is a full-time professor in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara, and a member of the UDG-CA-1236 \"Law and Technology\" research group. He earned his law degree and a master’s in law from the University of Guadalajara, and a doctorate in law. His career has been devoted to alternative justice and the culture of peace: he coordinated CUCEA’s Master’s Program in Conflict Resolution and sits on the editorial board of the journal PACTUM. His recent scholarship builds bridges between mediation and technology: from the peace circles and restorative justice of Mexico’s Indigenous peoples to the tax regime of digital platforms in the Mexican Law Review and, co-authored within the research group itself, authenticity standards against deepfakes in banking onboarding and financial fraud in the Journal of FinTech and Sustainable Finance (2026). As Academic Secretary of the International Forum on Law and Technology, he safeguards the intellectual rigor and coherence of its program.",
+    "fr": "Le docteur Jorge Antonio Leos Navarro est professeur à temps plein au Département de sciences sociales et juridiques du CUCEA, à l’Université de Guadalajara, et membre du corps académique UDG-CA-1236 « Droit et technologie ». Licencié et titulaire d’un master en droit de l’Université de Guadalajara, docteur en droit, il a consacré son parcours à la justice alternative et à la culture de la paix : il a coordonné le master en résolution des conflits du CUCEA et siège au comité éditorial de la revue PACTUM. Ses travaux récents jettent des ponts entre la médiation et la technologie : des cercles de paix et de la justice restaurative des peuples autochtones au régime fiscal des plateformes numériques dans la Mexican Law Review et, en coécriture au sein même du corps académique, les standards d’authenticité face aux hypertrucages dans l’onboarding bancaire et la fraude financière dans le Journal of FinTech and Sustainable Finance (2026). Comme Secrétaire académique du Forum international du droit et de la technologie, il veille à la rigueur et à la cohérence intellectuelle du programme."
   },
   "romero": {
-    "en": "César Romero Güemez is a lawyer trained at the University of Guadalajara and holds a master's degree in Electoral Law from the Electoral Tribunal of the State of Jalisco. He teaches in the Department of Social and Legal Sciences at CUCEA, the university's center for economic and administrative sciences, where students know his classes for grounding theory in real-life examples. As head of the Technical Secretariat of the International Forum on Law and Technology — a role he already discharged in the 2025 edition, when the gathering ran across two venues at once — he embodies the quiet craft without which no conference reaches port: operational coordination, logistics, and the daily meshing of academic committee, speakers, and participants. It is thanks to that unobtrusive work that the Forum happens on time, in good order, and seemingly without effort.",
-    "fr": "César Romero Güemez, juriste formé à l'Université de Guadalajara et titulaire d'un master en droit électoral délivré par le Tribunal électoral de l'État de Jalisco, enseigne au Département de sciences sociales et juridiques du CUCEA, le centre universitaire de sciences économiques et administratives, où ses cours se distinguent par leur ancrage dans des exemples tirés de la vie réelle. À la tête du Secrétariat technique du Forum international du droit et de la technologie — une responsabilité qu'il avait déjà assumée lors de l'édition 2025, menée simultanément sur deux sites —, il incarne ce travail discret sans lequel aucun congrès n'arrive à bon port : coordination opérationnelle, logistique et articulation quotidienne entre comité académique, intervenants et participants. C'est grâce à ce métier silencieux que le Forum se tient, ponctuel, ordonné et sans accroc."
+    "en": "César Romero Güemez is a lawyer trained at the University of Guadalajara and holds a master’s degree in Electoral Law from the Electoral Tribunal of the State of Jalisco. He teaches in the Department of Social and Legal Sciences at CUCEA, the university’s center for economic and administrative sciences, where students know his classes for grounding theory in real-life examples. As head of the Technical Secretariat of the International Forum on Law and Technology — a role he already discharged in the 2025 edition, when the gathering ran across two venues at once — he embodies the quiet craft without which no conference reaches port: operational coordination, logistics, and the daily meshing of academic committee, speakers, and participants. It is thanks to that unobtrusive work that the Forum happens on time, in good order, and seemingly without effort.",
+    "fr": "César Romero Güemez, juriste formé à l’Université de Guadalajara et titulaire d’un master en droit électoral délivré par le Tribunal électoral de l’État de Jalisco, enseigne au Département de sciences sociales et juridiques du CUCEA, le centre universitaire de sciences économiques et administratives, où ses cours se distinguent par leur ancrage dans des exemples tirés de la vie réelle. À la tête du Secrétariat technique du Forum international du droit et de la technologie — une responsabilité qu’il avait déjà assumée lors de l’édition 2025, menée simultanément sur deux sites —, il incarne ce travail discret sans lequel aucun congrès n’arrive à bon port : coordination opérationnelle, logistique et articulation quotidienne entre comité académique, intervenants et participants. C’est grâce à ce métier silencieux que le Forum se tient, ponctuel, ordonné et sans accroc."
   },
   "said": {
-    "en": "Iván Said González López oversees Technology and Logistics for the International Forum on Law and Technology, serving as a collaborator of the UDG-CA-1236 \"Law and Technology\" Academic Body at the University of Guadalajara, where he also teaches at CUCEA. A lawyer by training, he holds a master's degree in Politics and Public Management, works as an innovation manager, and is pursuing a doctorate in Social Sciences at El Colegio de Jalisco. His research explores citizen participation, public policy, and transdisciplinarity; he has co-authored studies on the international regulation of social media and the legal landscape of esports, along with a chapter on open data in Latin America. At the Forum, his work sustains the hybrid infrastructure and keeps every session running on time.",
-    "fr": "Iván Said González López est responsable de la technologie et de la logistique du Forum international du droit et de la technologie, en qualité de collaborateur du corps académique UDG-CA-1236 « Droit et technologie » de l'Université de Guadalajara, où il enseigne au CUCEA. Juriste de formation, titulaire d'un master en politique et gestion publiques, gestionnaire de l'innovation et doctorant en sciences sociales au Colegio de Jalisco, il consacre ses recherches à la participation citoyenne, aux politiques publiques et à la transdisciplinarité. Il a cosigné des travaux sur la régulation internationale des réseaux sociaux et le cadre juridique de l'esport, ainsi qu'un chapitre sur les données ouvertes en Amérique latine. Au sein du Forum, son travail soutient l'infrastructure hybride et assure le déroulement ponctuel de chaque séance."
+    "en": "Iván Said González López oversees Technology and Logistics for the International Forum on Law and Technology, serving as a collaborator of the UDG-CA-1236 \"Law and Technology\" Academic Body at the University of Guadalajara, where he also teaches at CUCEA. A lawyer by training, he holds a master’s degree in Politics and Public Management, works as an innovation manager, and is pursuing a doctorate in Social Sciences at El Colegio de Jalisco. His research explores citizen participation, public policy, and transdisciplinarity; he has co-authored studies on the international regulation of social media and the legal landscape of esports, along with a chapter on open data in Latin America. At the Forum, his work sustains the hybrid infrastructure and keeps every session running on time.",
+    "fr": "Iván Said González López est responsable de la technologie et de la logistique du Forum international du droit et de la technologie, en qualité de collaborateur du corps académique UDG-CA-1236 « Droit et technologie » de l’Université de Guadalajara, où il enseigne au CUCEA. Juriste de formation, titulaire d’un master en politique et gestion publiques, gestionnaire de l’innovation et doctorant en sciences sociales au Colegio de Jalisco, il consacre ses recherches à la participation citoyenne, aux politiques publiques et à la transdisciplinarité. Il a cosigné des travaux sur la régulation internationale des réseaux sociaux et le cadre juridique de l’esport, ainsi qu’un chapitre sur les données ouvertes en Amérique latine. Au sein du Forum, son travail soutient l’infrastructure hybride et assure le déroulement ponctuel de chaque séance."
   },
   "paul": {
-    "en": "Dr. Alejandro Paul García Hernández is a professor in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara, and member of the UDG-CA-1236 research group on Law and Technology. He earned his doctorate in law at the Instituto de Estudios Jurídicos and, from the University of Guadalajara, his law degree and a master's in law specializing in constitutional law and amparo, and holds Mexico's PRODEP faculty profile recognition. His teaching spans commercial law, international treaties and fundamental legal concepts; his pen, tax analysis in the journal PAF. His recent scholarship, co-authored within the research group, examines the digital transformation of the workplace in Mexico and deepfakes in onboarding, identity verification and financial fraud (Journal of FinTech and Sustainable Finance, 2026). At the Forum his craft is editorial: he sat on the editorial board of Fronteras dinámicas, co-authored its strategic public-policy agenda on technology regulation, coordinated the third edition's publications, and leads Editorial Coordination and serves on the Scientific Committee of the Forum — guarding the rigor with which ideas become pages.",
-    "fr": "Alejandro Paul García Hernández est professeur au Département des sciences sociales et juridiques du CUCEA (Université de Guadalajara) et membre du corps académique UDG-CA-1236 « Droit et technologie ». Docteur en droit de l'Instituto de Estudios Jurídicos, titulaire d'un master en droit — orientation droit constitutionnel et amparo — et d'une licence en droit de l'Université de Guadalajara, il détient la reconnaissance de profil PRODEP. Son enseignement couvre le droit commercial, les traités internationaux et les concepts juridiques fondamentaux ; sa plume, l'actualité fiscale dans la revue PAF. Ses travaux récents, coécrits au sein du corps académique, examinent la transformation numérique du monde du travail au Mexique et les hypertrucages dans l'onboarding, la vérification d'identité et la fraude financière (Journal of FinTech and Sustainable Finance, 2026). Au Forum, son métier est éditorial : membre du comité éditorial de l'ouvrage Fronteras dinámicas, coauteur de son agenda stratégique de politiques publiques sur la régulation technologique, il a coordonné l'édition de la troisième rencontre et assume la coordination éditoriale et le comité scientifique du Forum, veillant à la rigueur qui fait des idées des pages."
+    "en": "Dr. Alejandro Paul García Hernández is a professor in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara, and member of the UDG-CA-1236 research group on Law and Technology. He earned his doctorate in law at the Instituto de Estudios Jurídicos and, from the University of Guadalajara, his law degree and a master’s in law specializing in constitutional law and amparo, and holds Mexico’s PRODEP faculty profile recognition. His teaching spans commercial law, international treaties and fundamental legal concepts; his pen, tax analysis in the journal PAF. His recent scholarship, co-authored within the research group, examines the digital transformation of the workplace in Mexico and deepfakes in onboarding, identity verification and financial fraud (Journal of FinTech and Sustainable Finance, 2026). At the Forum his craft is editorial: he sat on the editorial board of Fronteras dinámicas, co-authored its strategic public-policy agenda on technology regulation, coordinated the third edition’s publications, and leads Editorial Coordination and serves on the Scientific Committee of the Forum — guarding the rigor with which ideas become pages.",
+    "fr": "Alejandro Paul García Hernández est professeur au Département des sciences sociales et juridiques du CUCEA (Université de Guadalajara) et membre du corps académique UDG-CA-1236 « Droit et technologie ». Docteur en droit de l’Instituto de Estudios Jurídicos, titulaire d’un master en droit — orientation droit constitutionnel et amparo — et d’une licence en droit de l’Université de Guadalajara, il détient la reconnaissance de profil PRODEP. Son enseignement couvre le droit commercial, les traités internationaux et les concepts juridiques fondamentaux ; sa plume, l’actualité fiscale dans la revue PAF. Ses travaux récents, coécrits au sein du corps académique, examinent la transformation numérique du monde du travail au Mexique et les hypertrucages dans l’onboarding, la vérification d’identité et la fraude financière (Journal of FinTech and Sustainable Finance, 2026). Au Forum, son métier est éditorial : membre du comité éditorial de l’ouvrage Fronteras dinámicas, coauteur de son agenda stratégique de politiques publiques sur la régulation technologique, il a coordonné l’édition de la troisième rencontre et assume la coordination éditoriale et le comité scientifique du Forum, veillant à la rigueur qui fait des idées des pages."
   }
 };
 
@@ -904,22 +909,22 @@ footer a:hover { color: var(--arena); }
       doc_title: 'Comité d’organisation · Forum International du Droit et de la Technologie',
       hero_eyebrow: 'Comité d’organisation',
       hero_h1: 'Ceux qui rendent le Forum <em>possible</em>.',
-      hero_lead: 'Le Forum International du Droit et de la Technologie est une initiative académique du <strong>Corps Académique UDG-CA-1236 « Droit et Technologie »</strong> de l’Université de Guadalajara, en coordination avec le Département de Sciences Sociales et Juridiques et l’Académie de Droit Économique, Commercial et International, tous deux du CUCEA. Depuis 2023, il a tenu <strong>quatre éditions</strong> ; la cinquième se prépare pour 2027.',
+      hero_lead: 'Le Forum International du Droit et de la Technologie est une initiative académique du <strong>Corps Académique UDG-CA-1236 « Droit et Technologie »</strong> de l’Université de Guadalajara, en coordination avec le Département de Sciences Sociales et Juridiques et l’Académie de Droit Économique, Commercial et International, tous deux du CUCEA. Depuis 2023, il a tenu <strong>quatre éditions</strong> ; la cinquième se prépare pour 2027.',
       hero_cta_1: 'Découvrir ses membres', hero_cta_2: 'Écrire au comité',
       const_aria: 'Membres du comité d’organisation',
-      pista_cursor: 'Survolez le V : chaque portrait mène à une notice biographique.', pista_tacto: 'Touchez un portrait pour lire sa notice biographique.',
-      dato_organiza: 'Organisé par', dato_organiza_v: 'Corps Académique UDG-CA-1236 « Droit et Technologie »',
+      pista_cursor: 'Survolez le V : chaque portrait mène à une notice biographique.', pista_tacto: 'Touchez un portrait pour lire sa notice biographique.',
+      dato_organiza: 'Organisé par', dato_organiza_v: 'Corps Académique UDG-CA-1236 « Droit et Technologie »',
       dato_inst: 'Institution', dato_inst_v: 'Université de Guadalajara · CUCEA', dato_contacto: 'Contact',
       int_eyebrow: 'Notices biographiques',
       int_title: 'Membres du <em>comité d’organisation</em>.',
-      int_lead: 'Le comité réunit cinq responsabilités : la <strong>Direction du Forum</strong>, le <strong>Secrétariat Académique</strong>, le <strong>Secrétariat Technique</strong>, <strong>Technologie et Logistique</strong>, et la <strong>Coordination Éditoriale et le Comité Scientifique</strong>. Chaque fiche ouvre la notice biographique complète de la personne qui l’exerce.',
+      int_lead: 'Le comité réunit cinq responsabilités : la <strong>Direction du Forum</strong>, le <strong>Secrétariat Académique</strong>, le <strong>Secrétariat Technique</strong>, <strong>Technologie et Logistique</strong>, et la <strong>Coordination Éditoriale et le Comité Scientifique</strong>. Chaque fiche ouvre la notice biographique complète de la personne qui l’exerce.',
       rol_delva: 'Directeur du Forum', rol_leos: 'Secrétariat Académique', rol_romero: 'Secrétariat Technique',
       rol_said: 'Technologie et Logistique', rol_paul: 'Coordination Éditoriale et Comité Scientifique',
       rol3_delva: 'Directeur Académique', rol3_paul: 'Coordination Éditoriale',
       adsc_rot: 'Rattachement',
-      adsc_ca_lider: 'Responsable du Corps Académique UDG-CA-1236 « Droit et Technologie »',
-      adsc_ca_miembro: 'Membre du Corps Académique UDG-CA-1236 « Droit et Technologie »',
-      adsc_ca_colab: 'Collaborateur du Corps Académique UDG-CA-1236 « Droit et Technologie »',
+      adsc_ca_lider: 'Responsable du Corps Académique UDG-CA-1236 « Droit et Technologie »',
+      adsc_ca_miembro: 'Membre du Corps Académique UDG-CA-1236 « Droit et Technologie »',
+      adsc_ca_colab: 'Collaborateur du Corps Académique UDG-CA-1236 « Droit et Technologie »',
       adsc_depto: 'Département de Sciences Sociales et Juridiques · CUCEA-UDG',
       adsc_cucea: 'CUCEA · Université de Guadalajara',
       btn_leer: 'Lire la notice complète', btn_cerrar: 'Fermer la notice',
@@ -931,14 +936,14 @@ footer a:hover { color: var(--arena); }
       reg_lead: 'Tous les cinq ont fait partie du comité d’organisation de la <strong>IIIe édition (2025)</strong>, tenue dans deux espaces simultanés, et de la <strong>IVe édition (2026)</strong>, itinérante entre quatre sites et une journée en ligne.',
       reg_caption: 'Fonction de chaque membre au sein du comité d’organisation des IIIe et IVe éditions',
       th_integrante: 'Membre', reg_m3: 'Mémoire de la IIIe édition', reg_m4: 'Mémoire de la IVe édition',
-      reg_nota: 'Lors de la IIe édition (2024), Delva, Leos, González et García ont signé, en tant que comité éditorial, l’« Agenda stratégique » qui clôt l’ouvrage <i>Fronteras dinámicas : derecho y tecnología en la era digital</i>.',
+      reg_nota: 'Lors de la IIe édition (2024), Delva, Leos, González et García ont signé, en tant que comité éditorial, l’« Agenda stratégique » qui clôt l’ouvrage <i>Fronteras dinámicas : derecho y tecnología en la era digital</i>.',
       esc_eyebrow: 'Contact',
       esc_title: 'Écrivez au <em>comité d’organisation</em>.',
       esc_p: 'Le comité répond à l’adresse officielle du Forum et sur ses réseaux sociaux.',
       convoca: 'Organisé par',
       pie_lema: 'Innovation juridique à l’ère numérique', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
       pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026', pie_videos: 'Mémoire en vidéo de la IVe édition',
-      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique'
+      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique'
     }
   };
   Object.keys(SEM).forEach(function (k) { F18N.en['sem_' + k] = SEM[k].en; F18N.fr['sem_' + k] = SEM[k].fr; });
@@ -1033,6 +1038,7 @@ footer a:hover { color: var(--arena); }
   }
   function respirar(zona, letras) {
     var centros = null, px = 0, py = 0, pend = 0;
+    var bases = letras.map(function (l) { return l.closest('em') ? 320 : 360; });
     function medir() { centros = letras.map(function (l) { var r = l.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }); }
     function pintar() {
       pend = 0; if (!centros) medir();
@@ -1040,7 +1046,7 @@ footer a:hover { color: var(--arena); }
         var dx = centros[i][0] - px, dy = (centros[i][1] - py) * 1.35, d = Math.sqrt(dx * dx + dy * dy);
         var k = Math.max(0, 1 - d / 190); k = k * k * (3 - 2 * k);
         if (k > 0.015) {
-          l.style.setProperty('--w', Math.round(360 + 420 * k));
+          l.style.setProperty('--w', Math.round(bases[i] + 330 * k));
           l.style.setProperty('--sf', Math.round(40 + 60 * k));
           l.style.setProperty('--op', Math.round(144 - 72 * k));
         } else { l.style.removeProperty('--w'); l.style.removeProperty('--sf'); l.style.removeProperty('--op'); }
@@ -1097,6 +1103,7 @@ footer a:hover { color: var(--arena); }
     if (REDUCED || !document.startViewTransition || enTransicion) return sinVT(f, cambio);
     var nombrados = [];
     function nombrar(el, n) { if (el) { el.style.viewTransitionName = n; nombrados.push(el); } }
+    nombrar(nav, 'nav-foro');  // el nav fijo sigue por encima de la ficha que se abre
     nombrar(f, 'ficha-activa');
     nombrar(f.querySelector('.ficha-foto'), 'ficha-foto');
     nombrar(f.querySelector('.nombre'), 'ficha-nombre');
@@ -1104,7 +1111,10 @@ footer a:hover { color: var(--arena); }
     nombrar(f.querySelector('.ficha-adsc'), 'ficha-adsc');
     nombrar(f.querySelector('.sem'), 'ficha-sem');
     nombrar(f.querySelector('.sem-btn'), 'ficha-btn');
-    fichas.slice(fichas.indexOf(f) + 1).forEach(function (g, j) { nombrar(g, 'ficha-sig-' + j); });
+    // solo las fichas siguientes que se alcanzan a ver: el resto no necesita instantánea
+    fichas.slice(fichas.indexOf(f) + 1).forEach(function (g, j) {
+      if (g.getBoundingClientRect().top < window.innerHeight + 120) nombrar(g, 'ficha-sig-' + j);
+    });
     enTransicion = true;
     var vt;
     try { vt = document.startViewTransition(cambio); }
