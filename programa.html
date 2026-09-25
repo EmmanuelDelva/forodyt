@@ -233,7 +233,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 /* la IV, a un clic: el lomo de su tomo */
 .iv-tomo { display: grid; grid-template-columns: 74px minmax(0, 1fr); text-decoration: none; color: var(--arena); background: var(--ed4-d); position: relative; box-shadow: 0 26px 50px -34px rgba(14, 27, 44, .75); transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
 .iv-tomo:hover { transform: translateY(-4px); box-shadow: 0 32px 60px -32px rgba(14, 27, 44, .8); }
-.iv-tomo:focus-visible { outline-color: var(--ed4); outline-offset: 4px; }
+.iv-tomo:focus-visible { outline-color: var(--cobre-2); outline-offset: 4px; }
 .iv-lomo { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 22px 0 18px; border-right: 1px solid rgba(184, 146, 62, .32); }
 .iv-lomo::before, .iv-lomo::after { content: ""; position: absolute; left: 12px; right: 12px; height: 1px; background: rgba(184, 146, 62, .55); }
 .iv-lomo::before { top: 10px; } .iv-lomo::after { bottom: 10px; }
@@ -250,8 +250,26 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .hero-datos > div { padding: 16px 20px 0 0; }
 .hero-datos > div + div { padding-left: 20px; border-left: 1px solid var(--linea-2); }
 .dato-rot { font-family: var(--mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--tinta-4); display: block; margin-bottom: 6px; }
-.dato-val { font-family: var(--serif); font-size: clamp(17px, 1.4vw, 21px); font-variation-settings: "opsz" 36; }
+.dato-val { display: inline-block; font-family: var(--serif); font-size: clamp(17px, 1.4vw, 21px); font-variation-settings: "opsz" 36; }
 .dato-val.seco { color: var(--arena-2); }
+/* primera plana: el filete de los datos se imprime y cada «Por anunciar» recibe
+   su golpe en seco; luego una luz rasante lo recorre (anticipa el pliego). */
+.hero-datos { position: relative; }
+.js .hero-datos { border-top-color: transparent; }
+.js .hero-datos::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--linea); transform-origin: 0 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-datos::before { transform: scaleX(0); transition: transform 1.2s var(--ease) .2s; }
+  .js .hero-datos.imprime::before { transform: none; }
+  .js .hero-datos .dato-val.seco { opacity: 0; }
+  .js .hero-datos > .imprime .dato-val.seco { animation: golpe-dato 2.6s var(--ease) both; animation-delay: calc(.55s + var(--i, 0) * .24s); }
+}
+@keyframes golpe-dato {
+  0%   { opacity: 0; transform: scale(1.05); text-shadow: 0 0 0 rgba(255, 255, 255, 0), 0 0 0 rgba(92, 64, 36, 0); }
+  14%  { opacity: 1; transform: scale(.992); text-shadow: 2px 2px 1px rgba(255, 255, 255, 1), -2px -2px 1px rgba(92, 64, 36, .34); }
+  28%  { transform: none; text-shadow: var(--seco); }
+  58%  { text-shadow: 2px 1px 0 rgba(255, 255, 255, 1), -2px -1px 1px rgba(92, 64, 36, .40), 0 0 1px rgba(92, 64, 36, .12); }
+  100% { opacity: 1; transform: none; text-shadow: var(--seco); }
+}
 
 /* ═══════════ EL PLIEGO DEL PROGRAMA ═══════════ */
 .pliego-sec { padding-bottom: clamp(56px, 7vw, 100px); background: linear-gradient(180deg, transparent, rgba(234, 224, 208, 0.5) 16%, rgba(234, 224, 208, 0.5) 86%, transparent); }
@@ -312,10 +330,11 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
   text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.95), -1px -1px 1px rgba(92, 64, 36, 0.36), -2px -2px 3px rgba(92, 64, 36, 0.12); }
 .pl-sello .l2 { font-weight: 500; font-size: .36em; line-height: 1.2; margin-top: .25em; letter-spacing: 0; font-variation-settings: "opsz" 72, "SOFT" 60;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.95), -1px -1px 0 rgba(92, 64, 36, 0.32); }
-.pl-sello .marca { position: absolute; bottom: 16%; right: 5%; font-family: var(--mono); font-style: normal; font-size: 9px; line-height: 1; letter-spacing: .2em; text-transform: uppercase; color: var(--cobre-2); padding: 6px 8px 5px; border: 1px solid currentColor; transform: rotate(-5deg);
+.pl-sello .marca { position: absolute; bottom: -3%; right: 4%; font-family: var(--mono); font-style: normal; font-size: 9px; line-height: 1; letter-spacing: .2em; text-transform: uppercase; color: var(--cobre-2); padding: 6px 8px 5px; border: 1px solid currentColor; transform: rotate(-5deg);
   --s2: clamp(0, (var(--p) - .9) * 12, 1); opacity: var(--s2); }
 .pl.gl-on .pl-sello::before { display: none; }
 .pl.gl-on .pl-sello .l1, .pl.gl-on .pl-sello .l2 { color: transparent; text-shadow: none; }
+.pl.gl-on.l2-css .pl-sello .l2 { color: var(--papel); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.95), -1px -1px 0 rgba(92, 64, 36, 0.34); }
 .pl-hoja.midiendo .pl-sello, .pl-hoja.midiendo .pl-b { transform: none; }
 /* marcas de corte y de registro: trazo que se dibuja al empezar */
 .pl-mc { position: absolute; width: var(--m); height: var(--m); overflow: visible; fill: none; stroke: var(--tinta-3); stroke-width: 1; pointer-events: none; }
@@ -329,6 +348,15 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .pl-mc.reg.aba { bottom: 0; }
 .pl-pie { margin-top: 14px; display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; font-size: 13px; color: var(--tinta-3); }
 .pl-pie .pl-firma { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--tinta-4); }
+/* pantallas bajas (portátiles de 600–720 px): la hoja gana alto y las casillas
+   aprietan su renglonado para que nada se salga de su celda */
+@media (max-height: 720px) and (min-width: 641px) {
+  .pl-hoja { height: clamp(340px, calc(100svh - 190px), 620px); }
+  .pl-cab { padding: 10px 14px 8px; }
+  .pl-b { margin: 5px; }
+  .pl-g { inset: 7px 10px; gap: 5px; }
+  .pl-g i.t { height: 6px; }
+}
 
 /* ═══════════ AVISO (sección en tinta) ═══════════ */
 .aviso { background: var(--tinta); color: var(--arena); }
@@ -415,6 +443,9 @@ footer a:hover { color: var(--arena); }
   .nav, .pl-gl, .pl-barrido, .aviso-form, .aviso-estado { display: none !important; }
   .pl-mov .pl-pista { height: auto !important; }
   .pl-mov .pl-escena { position: static !important; height: auto !important; }
+  .pl-pista { --p: 1 !important; }
+  .hero-datos .dato-val { opacity: 1 !important; animation: none !important; }
+  .hero-datos::before { transform: none !important; }
 }
 </style>
 </head>
@@ -444,7 +475,7 @@ footer a:hover { color: var(--arena); }
       <div class="hero-izq">
         <p class="eyebrow"><span data-f18n="eyebrow">Programa · Quinta edición</span><span class="eb-anio" aria-hidden="true">·</span><span class="eb-anio">MMXXVII</span></p>
         <h1 class="hero-titulo"><span data-f18n="h1_a">El programa de la</span> <em data-f18n="h1_b">quinta edición</em><span class="sr" data-f18n="h1_sr"> del Foro Internacional de Derecho y Tecnología</span></h1>
-        <p class="hero-lead" data-f18n-html="hero_lead"><strong>Próximamente, junto a los demás anuncios, se publicará el programa.</strong> En esta página se imprimirán las jornadas, las sedes, los horarios, las mesas y las voces de la V edición del Foro Internacional de Derecho y Tecnología.</p>
+        <p class="hero-lead" data-f18n-html="hero_lead"><strong>Próximamente, junto a los demás anuncios, se publicará el programa.</strong> En esta página se imprimirán la fecha, la sede, los horarios, las sesiones y las voces de la V edición del Foro Internacional de Derecho y Tecnología.</p>
         <div class="hero-cta">
           <a class="btn-primary" href="#aviso"><span data-f18n="cta_aviso">Recibe el anuncio</span><span class="flecha" aria-hidden="true">→</span></a>
         </div>
@@ -460,10 +491,10 @@ footer a:hover { color: var(--arena); }
         </span>
       </a>
 
-      <div class="hero-datos">
-        <div><span class="dato-rot" data-f18n="dato_fecha">Fecha</span><span class="dato-val seco" id="datoFecha" data-f18n="por_anunciar">Por anunciar</span></div>
-        <div><span class="dato-rot" data-f18n="dato_sede">Sede</span><span class="dato-val seco" id="datoSede" data-f18n="por_anunciar">Por anunciar</span></div>
-        <div><span class="dato-rot" data-f18n="dato_jornadas">Jornadas</span><span class="dato-val seco" id="datoJornadas" data-f18n="por_anunciar">Por anunciar</span></div>
+      <div class="hero-datos" id="heroDatos">
+        <div><span class="dato-rot" data-f18n="dato_fecha">Fecha</span><span class="dato-val seco" id="datoFecha" style="--i:0" data-f18n="por_anunciar">Por anunciar</span></div>
+        <div><span class="dato-rot" data-f18n="dato_sede">Sede</span><span class="dato-val seco" id="datoSede" style="--i:1" data-f18n="por_anunciar">Por anunciar</span></div>
+        <div><span class="dato-rot" data-f18n="dato_jornadas">Jornadas</span><span class="dato-val seco" id="datoJornadas" style="--i:2" data-f18n="por_anunciar">Por anunciar</span></div>
       </div>
     </div>
   </div>
@@ -477,7 +508,7 @@ footer a:hover { color: var(--arena); }
         <p class="eyebrow"><span data-f18n="pl_eyebrow">Programa 2027</span></p>
         <h2 id="t-pliego" class="entinta" style="margin-top:18px" data-f18n-html="pl_title">El programa se imprimirá <em>aquí</em>.</h2>
       </div>
-      <p class="sec-lead" data-f18n-html="pl_lead">Mientras llega el anuncio, la página muestra una retícula en blanco, impresa en seco. <strong>El número de jornadas, los horarios, las sedes y las sesiones se darán a conocer junto con los demás anuncios de la V edición.</strong></p>
+      <p class="sec-lead" data-f18n-html="pl_lead">Mientras llega el anuncio, la página muestra una retícula en blanco, impresa en seco. <strong>La fecha, la sede, el número de jornadas, los horarios y las sesiones se darán a conocer junto con los demás anuncios de la V edición.</strong></p>
     </div>
   </div>
 
@@ -569,7 +600,7 @@ footer a:hover { color: var(--arena); }
       <div class="aparece">
         <form class="aviso-form" id="avisoForm" novalidate>
           <label for="avisoCorreo" data-f18n="aviso_label">Correo electrónico</label>
-          <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" required>
+          <input type="email" id="avisoCorreo" name="correo" autocomplete="email" placeholder="nombre@dominio.com" data-f18n-attr="placeholder:aviso_ph" required>
           <button type="submit" class="btn-primary"><span data-f18n="aviso_btn">Avísame</span></button>
         </form>
         <p class="aviso-estado" id="avisoEstado" role="status" aria-live="polite"></p>
@@ -656,7 +687,7 @@ var PROGRAMA_V = {
       doc_title: 'Program · 5th International Forum on Law and Technology · 2027',
       eyebrow: 'Program · Fifth edition',
       h1_a: 'The program of the', h1_b: 'fifth edition', h1_sr: ' of the International Forum on Law and Technology',
-      hero_lead: '<strong>The program will be published soon, together with the other announcements.</strong> This page will print the days, venues, times, panels and voices of the 5th edition of the International Forum on Law and Technology.',
+      hero_lead: '<strong>The program will be published soon, together with the other announcements.</strong> This page will print the date, the venue, the times, the sessions and the voices of the 5th edition of the International Forum on Law and Technology.',
       cta_aviso: 'Get the announcement',
       iv_rot: 'Looking for the 4th edition program?', iv_tit: 'Program of the 4th edition',
       iv_fecha: 'September 18, 21 and 22, 2026', iv_sedes: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial · online',
@@ -664,13 +695,13 @@ var PROGRAMA_V = {
       dato_fecha: 'Date', dato_sede: 'Venue', dato_jornadas: 'Days', por_anunciar: 'To be announced',
       pl_eyebrow: 'Program 2027',
       pl_title: 'The program will be printed <em>here</em>.',
-      pl_lead: 'Until the announcement arrives, the page shows a blank grid, printed without ink. <strong>The number of days, the times, the venues and the sessions will be made known together with the other announcements of the 5th edition.</strong>',
+      pl_lead: 'Until the announcement arrives, the page shows a blank grid, printed without ink. <strong>The date, the venue, the number of days, the times and the sessions will be made known together with the other announcements of the 5th edition.</strong>',
       pl_hora: 'Time', pl_jornada: 'Day', pl_s1: 'Program', pl_s2: 'to be announced', pl_marca: 'Uninked',
       pl_pie: 'Illustrative grid: it does not anticipate the number of days, time slots or sessions.',
       aviso_eyebrow: 'Forum announcements',
       aviso_h: 'Get the program <em>by email</em>.',
       aviso_p: 'We will write to you when the date, the call for papers and the program of the 5th edition are announced. Nothing else.',
-      aviso_label: 'Email address', aviso_btn: 'Notify me',
+      aviso_label: 'Email address', aviso_btn: 'Notify me', aviso_ph: 'name@domain.com',
       aviso_privacidad: '<strong>Simplified privacy notice.</strong> The Academic Body UDG-CA-1236 «Law and Technology» of the University of Guadalajara will use your email only to send you Forum announcements. You may unsubscribe or exercise your rights of access, rectification, cancellation and objection by writing to <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       pie_lema: 'Legal innovation in the digital era', pie_contacto: 'Contact', pie_memorias: 'Edition records',
       pie_m1: '1st edition · 2023', pie_m2: '2nd edition · 2024', pie_m3: '3rd edition · 2025', pie_m4: '4th edition · 2026',
@@ -683,7 +714,7 @@ var PROGRAMA_V = {
       doc_title: 'Programme · Ve Forum International du Droit et de la Technologie · 2027',
       eyebrow: 'Programme · Cinquième édition',
       h1_a: 'Le programme de la', h1_b: 'cinquième édition', h1_sr: ' du Forum International du Droit et de la Technologie',
-      hero_lead: '<strong>Le programme sera publié prochainement, avec les autres annonces.</strong> Cette page imprimera les journées, les lieux, les horaires, les tables rondes et les voix de la Ve édition du Forum International du Droit et de la Technologie.',
+      hero_lead: '<strong>Le programme sera publié prochainement, avec les autres annonces.</strong> Cette page imprimera la date, le lieu, les horaires, les séances et les voix de la Ve édition du Forum International du Droit et de la Technologie.',
       cta_aviso: 'Recevoir l’annonce',
       iv_rot: 'Vous cherchez le programme de la <span class="nt">IVe</span> édition\u00a0?', iv_tit: 'Programme de la IVe édition',
       iv_fecha: '18, 21 et 22 septembre 2026', iv_sedes: 'CUCEA · CUGDL · Cineteca FICG · Ciudad Judicial · en\u00a0ligne',
@@ -691,13 +722,13 @@ var PROGRAMA_V = {
       dato_fecha: 'Date', dato_sede: 'Lieu', dato_jornadas: 'Journées', por_anunciar: 'À annoncer',
       pl_eyebrow: 'Programme 2027',
       pl_title: 'Le programme sera imprimé <em>ici</em>.',
-      pl_lead: 'En attendant l’annonce, la page montre une grille vierge, imprimée à sec. <strong>Le nombre de journées, les horaires, les lieux et les séances seront communiqués avec les autres annonces de la Ve édition.</strong>',
+      pl_lead: 'En attendant l’annonce, la page montre une grille vierge, imprimée à sec. <strong>La date, le lieu, le nombre de journées, les horaires et les séances seront communiqués avec les autres annonces de la Ve édition.</strong>',
       pl_hora: 'Heure', pl_jornada: 'Journée', pl_s1: 'Programme', pl_s2: 'à annoncer', pl_marca: 'À sec',
       pl_pie: 'Grille illustrative : elle n’anticipe ni le nombre de journées, ni les horaires, ni les séances.',
       aviso_eyebrow: 'Annonces du Forum',
       aviso_h: 'Recevez le programme <em>par courriel</em>.',
       aviso_p: 'Nous vous écrirons lorsque la date, l’appel à communications et le programme de la Ve édition seront annoncés. Rien de plus.',
-      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir',
+      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir', aviso_ph: 'nom@domaine.com',
       aviso_privacidad: '<strong>Avis de confidentialité simplifié.</strong> Le Corps Académique UDG-CA-1236 « Droit et Technologie » de l’Université de Guadalajara utilisera votre adresse uniquement pour vous envoyer les annonces du Forum. Vous pouvez vous désinscrire ou exercer vos droits d’accès, de rectification, d’annulation et d’opposition en écrivant à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       pie_lema: 'Innovation juridique à l’ère numérique', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
       pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026',
@@ -760,6 +791,23 @@ var PROGRAMA_V = {
     aparece.forEach(function (el, i) { el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el); });
   } else { aparece.forEach(function (el) { el.classList.add('visto'); }); }
 
+  /* ───── primera plana: el filete de los datos se imprime al verse ───── */
+  /* cada dato recibe su golpe cuando se ve (en móvil van apilados y el primero
+     queda en el borde de la primera pantalla) */
+  var datos = document.getElementById('heroDatos');
+  if (datos) {
+    var celdas = [].slice.call(datos.children);
+    if ('IntersectionObserver' in window && !REDUCED) {
+      var ioD = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          datos.classList.add('imprime'); e.target.classList.add('imprime'); ioD.unobserve(e.target);
+        });
+      }, { threshold: 0.6 });
+      celdas.forEach(function (c) { ioD.observe(c); });
+    } else { datos.classList.add('imprime'); celdas.forEach(function (c) { c.classList.add('imprime'); }); }
+  }
+
   /* ───── datos del anuncio (PROGRAMA_V) ───── */
   function pintarDatos(lang) {
     [['datoFecha', 'fecha'], ['datoSede', 'sede'], ['datoJornadas', 'jornadas']].forEach(function (par) {
@@ -798,7 +846,8 @@ var PROGRAMA_V = {
     var pista = document.getElementById('plPista'), fig = document.getElementById('pl'), hoja = document.getElementById('plHoja');
     if (!pista || !fig || !hoja) return;
     var MOV = !REDUCED;
-    var p = MOV ? 0 : 1, pMeta = p, raf = 0, gl = null, activo = false;
+    var p = MOV ? 0 : 1, pMeta = p, pScroll = p, pMin = 0, intro = 0, raf = 0, gl = null, activo = false;
+    var P_INTRO = 0.12, T_INTRO = 1300;   // al asomar la hoja: marcas de corte, registro y primeros filetes
     function fijar(v) { pista.style.setProperty('--p', v.toFixed(4)); }
     if (MOV) document.documentElement.classList.add('pl-mov');
     fijar(p);
@@ -811,15 +860,21 @@ var PROGRAMA_V = {
     }
     function paso() {
       raf = 0;
+      if (intro) {
+        var f = Math.min(1, (performance.now() - intro) / T_INTRO);
+        pMin = P_INTRO * (1 - Math.pow(1 - f, 3));
+        if (f >= 1) intro = 0;
+      }
+      pMeta = Math.max(pScroll, pMin);
       var d = pMeta - p;
       p = Math.abs(d) < 0.0008 ? pMeta : p + d * 0.16;
       fijar(p);
-      var sigue = p !== pMeta;
+      var sigue = p !== pMeta || intro !== 0;
       if (gl) sigue = gl.avanzar(p) || sigue;
       if (sigue) raf = requestAnimationFrame(paso);
     }
     function pedir() { if (!raf) raf = requestAnimationFrame(paso); }
-    function onScroll() { pMeta = objetivo(); pedir(); }
+    function onScroll() { pScroll = objetivo(); pedir(); }
 
     if (MOV) {
       if ('IntersectionObserver' in window) {
@@ -829,7 +884,14 @@ var PROGRAMA_V = {
           else if (!dentro && activo) { activo = false; window.removeEventListener('scroll', onScroll); }
           onScroll();
         }, { rootMargin: '15% 0px 15% 0px' }).observe(pista);
-      } else { window.addEventListener('scroll', onScroll, { passive: true }); }
+        /* la hoja no entra en blanco: al asomar, se trazan solas (por tiempo) las
+           marcas de corte y de registro y el primer filete; el resto, con el scroll */
+        var ioIntro = new IntersectionObserver(function (es) {
+          if (!es[0].isIntersecting) return;
+          ioIntro.disconnect(); intro = performance.now(); pedir();
+        }, { rootMargin: '0px 0px -8% 0px' });
+        ioIntro.observe(hoja);
+      } else { window.addEventListener('scroll', onScroll, { passive: true }); pMin = P_INTRO; }
       onScroll();
     }
 
@@ -842,17 +904,29 @@ var PROGRAMA_V = {
       try { gl = luzRasante(fig, hoja, MOV, pedir); } catch (err) { gl = null; fig.classList.remove('gl-on'); }
       if (gl) { gl.avanzar(p); if (MOV) pedir(); }
     });
+    /* al cambiar de tamaño solo se rehace el relieve si la hoja cambió de verdad:
+       en móvil la barra de direcciones dispara resize sin tocar la hoja (svh) */
     var rt;
-    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (gl) gl.rehacer(); if (MOV) onScroll(); }, 200); });
+    window.addEventListener('resize', function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () { if (gl && gl.clave() !== claveHoja(hoja)) gl.rehacer(); if (MOV) onScroll(); }, 200);
+    });
     pliego = { rehacer: function () { if (gl) gl.rehacer(); } };
   }
 
   /* ════════ LUZ RASANTE (WebGL) ════════
-     Mapa de alturas del pliego (canvas en memoria): casillas y renglones en
-     seco (R), orden del golpe de cada casilla (G) y el sello final (B). El
+     Dos mapas de alturas del pliego. El de las casillas (textura 0, a baja
+     resolución: su relieve es blando) guarda casillas y renglones en seco (R) y
+     el orden del golpe de cada casilla (G). El del sello final (textura 1) solo
+     cubre el recuadro del sello y va a la resolución real del lienzo, para que
+     «Programa por anunciar» salga nítido en pantallas de alta densidad. El
      shader calcula normales y las ilumina con una luz ambiente y una lámpara
      baja que barre el pliego de izquierda a derecha con el scroll (o sigue al
      cursor). Solo pinta luces y sombras sobre el papel real de la página. */
+  function claveHoja(hoja) {
+    var r = hoja.getBoundingClientRect();
+    return Math.round(r.width) + 'x' + Math.round(r.height) + '@' + Math.min(window.devicePixelRatio || 1, 2);
+  }
   function luzRasante(fig, hoja, MOV, pedir) {
     var cv = document.createElement('canvas');
     cv.className = 'pl-gl'; cv.setAttribute('aria-hidden', 'true');
@@ -860,18 +934,32 @@ var PROGRAMA_V = {
     if (!gl) return null;
     var VS = 'attribute vec2 a;varying vec2 v;void main(){v=a*.5+.5;gl_Position=vec4(a,0.,1.);}';
     var FS = [
+      '#ifdef GL_FRAGMENT_PRECISION_HIGH',
+      'precision highp float;',
+      '#else',
       'precision mediump float;',
-      'uniform sampler2D u_h;uniform vec2 u_px;uniform float u_p;uniform float u_sx;uniform float u_asp;uniform vec4 u_box;uniform float u_k;',
+      '#endif',
+      'uniform sampler2D u_h;uniform sampler2D u_s;uniform vec2 u_px;uniform vec2 u_spx;uniform float u_p;uniform float u_sx;uniform float u_asp;uniform vec4 u_box;uniform vec4 u_sbox;uniform float u_k;uniform float u_kb;',
       'varying vec2 v;',
       'float ease(float f){return f*f*(3.-2.*f);}',
       'float golpe(float o){float f=ease(clamp((u_p-(.3+o*.3))*11.,0.,1.));return f+.42*sin(f*3.14159);}',
       'float sello(){float f=ease(clamp((u_p-.8)*8.,0.,1.));return f+.3*sin(f*3.14159);}',
       'float caja(vec2 q){vec2 d=max(u_box.xy-q,q-u_box.zw);float m=max(d.x*u_asp,d.y);return 1.-smoothstep(0.,.13,m);}',
-      'float H(vec2 q){vec4 t=texture2D(u_h,q);float s=sello();return t.r*golpe(t.g)*(1.-.78*s*caja(q))+t.b*s*1.2;}',
+      'float HR(vec2 q,float s){vec4 t=texture2D(u_h,q);return t.r*golpe(t.g)*(1.-.78*s*caja(q));}',
+      'float HS(vec2 q){return texture2D(u_s,(q-u_sbox.xy)/(u_sbox.zw-u_sbox.xy)).r;}',
       'void main(){',
-      ' float hc=H(v);',
-      ' float dx=H(v+vec2(u_px.x,0.))-H(v-vec2(u_px.x,0.));',
-      ' float dy=H(v+vec2(0.,u_px.y))-H(v-vec2(0.,u_px.y));',
+      ' float s=sello(),sb=s*1.2;',
+      ' vec2 ex=vec2(u_px.x,0.),ey=vec2(0.,u_px.y);',
+      ' float hc=HR(v,s);',
+      ' float dx=HR(v+ex,s)-HR(v-ex,s);',
+      ' float dy=HR(v+ey,s)-HR(v-ey,s);',
+      // el sello solo se consulta dentro de su recuadro y cuando ya empezó a estamparse
+      ' if(sb>0.&&v.x>u_sbox.x&&v.x<u_sbox.z&&v.y>u_sbox.y&&v.y<u_sbox.w){',
+      '  vec2 fx=vec2(u_spx.x,0.),fy=vec2(0.,u_spx.y);',
+      '  hc+=HS(v)*sb;',
+      '  dx+=(HS(v+fx)-HS(v-fx))*sb*u_kb;',
+      '  dy+=(HS(v+fy)-HS(v-fy))*sb*u_kb;',
+      ' }',
       ' vec3 n=normalize(vec3(dx*u_k,dy*u_k,1.));',
       ' vec3 L1=normalize(vec3(-.55,.6,.85));',
       ' float lit=(dot(n,L1)-L1.z)*.6;',
@@ -897,19 +985,26 @@ var PROGRAMA_V = {
     var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     var loc = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    var U = {}; ['u_h', 'u_px', 'u_p', 'u_sx', 'u_asp', 'u_box', 'u_k'].forEach(function (n) { U[n] = gl.getUniformLocation(pr, n); });
-    var tex = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    var U = {}; ['u_h', 'u_s', 'u_px', 'u_spx', 'u_p', 'u_sx', 'u_asp', 'u_box', 'u_sbox', 'u_k', 'u_kb'].forEach(function (n) { U[n] = gl.getUniformLocation(pr, n); });
+    function textura(unidad) {
+      var t = gl.createTexture();
+      gl.activeTexture(gl.TEXTURE0 + unidad); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      return t;
+    }
+    var tex = textura(0), texS = textura(1);
+    gl.uniform1i(U.u_h, 0); gl.uniform1i(U.u_s, 1);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
     hoja.appendChild(cv);
-    var vivo = true;
+    var vivo = true, clave = '';
     cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); vivo = false; fig.classList.remove('gl-on'); if (cv.parentNode) cv.parentNode.removeChild(cv); });
 
     var st = { p: 1, sx: MOV ? -0.4 : 0.8, puntero: null };
     function sxDe(p) { var f = (p - 0.42) / 0.46; return Math.max(-0.4, Math.min(1.4, -0.4 + f * 1.8)); }
 
     function desenfocar(a, w, h, r) {
+      if (r < 1) return;
       var b = new Float32Array(w * h), n = r * 2 + 1;
       function pasada(src, dst, hor) {
         var L = hor ? w : h, M = hor ? h : w;
@@ -925,20 +1020,37 @@ var PROGRAMA_V = {
       }
       for (var i = 0; i < 3; i++) { pasada(a, b, true); pasada(b, a, false); }
     }
+    // Float32 (fila 0 = arriba) → bytes en orden de WebGL (fila 0 = abajo).
+    // Con G: RGBA (R alturas, G orden del golpe); sin G: un solo canal (LUMINANCE).
+    function volcar(A, G, w, h) {
+      var nc = G ? 4 : 1, out = new Uint8Array(w * h * nc);
+      for (var y = 0; y < h; y++) {
+        var fo = y * w, fd = (h - 1 - y) * w;
+        for (var x = 0; x < w; x++) {
+          var s = fo + x, d = (fd + x) * nc, a = A[s];
+          out[d] = a >= 1 ? 255 : Math.round(a * 255);
+          if (G) { out[d + 1] = G[s]; out[d + 3] = 255; }
+        }
+      }
+      return out;
+    }
 
     function construir() {
       if (!vivo) return;
       var rh = hoja.getBoundingClientRect();
       if (!rh.width || !rh.height) return;
-      var dpr = Math.min(window.devicePixelRatio || 1, 2), esc = Math.min(dpr, 1.25);
+      clave = claveHoja(hoja);
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var esc = Math.min(dpr, 1.25);        // casillas: relieve blando, basta poca resolución
+      var escS = Math.max(dpr, 1.25);       // sello: resolución del lienzo
       cv.width = Math.round(rh.width * dpr); cv.height = Math.round(rh.height * dpr);
       var tw = Math.max(8, Math.round(rh.width * esc)), th = Math.max(8, Math.round(rh.height * esc));
-      var R = new Float32Array(tw * th), G = new Uint8Array(tw * th), B = new Float32Array(tw * th);
+      var R = new Float32Array(tw * th), G = new Uint8Array(tw * th);
       var rad = Math.max(1, Math.round(1.0 * esc)), halo = rad * 3 + 3;
       hoja.classList.add('midiendo');   // medir sin las escalas de la animación
-      function rect(el) {
-        var r = el.getBoundingClientRect();
-        return [Math.round((r.left - rh.left) * esc), Math.round((r.top - rh.top) * esc), Math.round((r.right - rh.left) * esc), Math.round((r.bottom - rh.top) * esc)];
+      function rect(el, e) {
+        var r = el.getBoundingClientRect(); e = e || esc;
+        return [Math.round((r.left - rh.left) * e), Math.round((r.top - rh.top) * e), Math.round((r.right - rh.left) * e), Math.round((r.bottom - rh.top) * e)];
       }
       function llenar(arr, q, val, max) {
         var x0 = Math.max(0, q[0]), y0 = Math.max(0, q[1]), x1 = Math.min(tw, q[2]), y1 = Math.min(th, q[3]);
@@ -948,43 +1060,59 @@ var PROGRAMA_V = {
         var q = rect(b), o = parseFloat(getComputedStyle(b).getPropertyValue('--o')) || 0;
         llenar(G, [q[0] - halo, q[1] - halo, q[2] + halo, q[3] + halo], Math.round(o * 255), false);
         llenar(R, q, 0.3, true);
-        b.querySelectorAll('.pl-g i').forEach(function (g) { llenar(R, rect(g), 0.9, true); });
+        // cada renglón se recorta a su caja (.pl-g recorta en CSS): en pantallas
+        // bajas no puede grabarse fuera de su celda
+        var cg = b.querySelector('.pl-g'), qg = cg ? rect(cg) : q;
+        b.querySelectorAll('.pl-g i').forEach(function (g) {
+          var r = rect(g), c = [Math.max(r[0], qg[0]), Math.max(r[1], qg[1]), Math.min(r[2], qg[2]), Math.min(r[3], qg[3])];
+          if (c[2] > c[0] && c[3] > c[1]) llenar(R, c, 0.9, true);
+        });
       });
-      var off = document.createElement('canvas'); off.width = tw; off.height = th;
+
+      // sello: su propio recuadro, a la resolución del lienzo
+      var sello = document.getElementById('plSello'), rs = sello.getBoundingClientRect(), mg = 14;
+      var sx0 = rs.left - rh.left - mg, sy0 = rs.top - rh.top - mg, sW = rs.width + 2 * mg, sH = rs.height + 2 * mg;
+      var sw = Math.max(8, Math.round(sW * escS)), shh = Math.max(8, Math.round(sH * escS));
+      var S = new Float32Array(sw * shh), l2css = false;
+      var off = document.createElement('canvas'); off.width = sw; off.height = shh;
       var c2 = off.getContext('2d');
-      c2.fillStyle = '#000'; c2.fillRect(0, 0, tw, th); c2.fillStyle = '#fff'; c2.textBaseline = 'alphabetic';
-      var sello = document.getElementById('plSello');
       sello.querySelectorAll('.l1, .l2').forEach(function (el) {
-        var cs = getComputedStyle(el), r = el.getBoundingClientRect(), fs = parseFloat(cs.fontSize) * esc, txt = el.textContent;
+        var cs = getComputedStyle(el), r = el.getBoundingClientRect(), fs = parseFloat(cs.fontSize) * escS, txt = el.textContent;
+        // un segundo renglón demasiado pequeño no se lee como relieve: queda en CSS
+        if (el.classList.contains('l2') && fs < 34) { l2css = true; return; }
+        c2.fillStyle = '#000'; c2.fillRect(0, 0, sw, shh); c2.fillStyle = '#fff'; c2.textBaseline = 'alphabetic';
         c2.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + fs + 'px Fraunces, Georgia, serif';
-        if ('letterSpacing' in c2) c2.letterSpacing = ((parseFloat(cs.letterSpacing) || 0) * esc) + 'px';
+        if ('letterSpacing' in c2) c2.letterSpacing = ((parseFloat(cs.letterSpacing) || 0) * escS) + 'px';
         var m = c2.measureText(txt), inkW = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
-        var x = (r.left - rh.left) * esc + (r.width * esc - inkW) / 2 + m.actualBoundingBoxLeft;
-        var y = (r.top - rh.top) * esc + r.height * esc * 0.5 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
+        var x = (r.left - rh.left - sx0) * escS + (r.width * escS - inkW) / 2 + m.actualBoundingBoxLeft;
+        var y = (r.top - rh.top - sy0) * escS + r.height * escS * 0.5 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
         c2.fillText(txt, x, y);
+        var px = c2.getImageData(0, 0, sw, shh).data, L = new Float32Array(sw * shh);
+        for (var i = 0; i < sw * shh; i++) L[i] = px[i * 4] / 255;
+        desenfocar(L, sw, shh, Math.round(fs * 0.006));   // bisel fino, proporcional al cuerpo del renglón
+        for (var j = 0; j < sw * shh; j++) if (L[j] > S[j]) S[j] = L[j];
       });
-      var rs = sello.getBoundingClientRect();
+      for (var bx = 0; bx < sw; bx++) { S[bx] = 0; S[(shh - 1) * sw + bx] = 0; }
+      for (var by = 0; by < shh; by++) { S[by * sw] = 0; S[by * sw + sw - 1] = 0; }
       hoja.classList.remove('midiendo');
-      var px = c2.getImageData(0, 0, tw, th).data;
-      for (var i = 0; i < tw * th; i++) B[i] = px[i * 4] / 255;
+      fig.classList.toggle('l2-css', l2css);
+
       desenfocar(R, tw, th, rad);
-      desenfocar(B, tw, th, Math.max(1, Math.round(parseFloat(getComputedStyle(sello).fontSize) * esc * 0.012)));
-      // textura en orden de WebGL (fila 0 = abajo)
-      var datos = new Uint8Array(tw * th * 4);
-      for (var y = 0; y < th; y++) {
-        for (var x = 0; x < tw; x++) {
-          var s = y * tw + x, d = ((th - 1 - y) * tw + x) * 4;
-          datos[d] = Math.min(255, Math.round(R[s] * 255)); datos[d + 1] = G[s]; datos[d + 2] = Math.min(255, Math.round(B[s] * 255)); datos[d + 3] = 255;
-        }
-      }
-      gl.bindTexture(gl.TEXTURE_2D, tex);
-      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, tw, th, 0, gl.RGBA, gl.UNSIGNED_BYTE, datos);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, tw, th, 0, gl.RGBA, gl.UNSIGNED_BYTE, volcar(R, G, tw, th));
+      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, texS);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, sw, shh, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, volcar(S, null, sw, shh));
+      gl.activeTexture(gl.TEXTURE0);
+
+      var W = rh.width, H = rh.height;
       gl.uniform2f(U.u_px, 1 / tw, 1 / th);
-      gl.uniform1f(U.u_asp, rh.width / rh.height);
+      gl.uniform2f(U.u_spx, (sW / W) / sw, (sH / H) / shh);
+      gl.uniform4f(U.u_sbox, sx0 / W, 1 - (sy0 + sH) / H, (sx0 + sW) / W, 1 - sy0 / H);
+      gl.uniform1f(U.u_asp, W / H);
       gl.uniform1f(U.u_k, 2.6);
+      gl.uniform1f(U.u_kb, 0.62);
       var pad = 0.03;
-      gl.uniform4f(U.u_box, (rs.left - rh.left) / rh.width - pad, 1 - (rs.bottom - rh.top) / rh.height - pad, (rs.right - rh.left) / rh.width + pad, 1 - (rs.top - rh.top) / rh.height + pad);
+      gl.uniform4f(U.u_box, (rs.left - rh.left) / W - pad, 1 - (rs.bottom - rh.top) / H - pad, (rs.right - rh.left) / W + pad, 1 - (rs.top - rh.top) / H + pad);
       gl.viewport(0, 0, cv.width, cv.height);
       fig.classList.add('gl-on');
       pintar();
@@ -1013,7 +1141,7 @@ var PROGRAMA_V = {
     }
     construir();
     if (!fig.classList.contains('gl-on')) { if (cv.parentNode) cv.parentNode.removeChild(cv); return null; }
-    return { avanzar: avanzar, rehacer: construir };
+    return { avanzar: avanzar, rehacer: construir, clave: function () { return clave; } };
   }
 
   /* ───── puente de idioma: i18n.js sincroniza <html lang> ───── */

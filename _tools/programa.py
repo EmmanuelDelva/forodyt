@@ -448,6 +448,8 @@ button { font:inherit; color:inherit; background:none; border:0; cursor:pointer;
 .cinta-iv a:hover { color:var(--marfil); border-bottom-color:var(--marfil); }
 .cinta-iv-sep { color:rgba(200,168,88,.6); }
 @media (max-width:560px) { .cinta-iv-sep { display:none; } .cinta-iv-inner { font-size:10px; letter-spacing:.1em; } }
+/* en francés las versales convertirían «IVe» / «Ve» en «IVE» / «VE»: la cinta va en caja baja */
+html[lang="fr"] .cinta-iv-inner { text-transform:none; letter-spacing:.08em; }
 
 /* ── hero ── (la cinta ya aparta el nav fijo: el hero descuenta su altura) */
 .hero-p { max-width:var(--max); margin:0 auto; padding:calc(clamp(120px,16vh,180px) - var(--nav-h)) var(--gutter) clamp(30px,4vw,54px); position:relative; }

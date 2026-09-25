@@ -5,19 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 /* Entrada de la página (ver «RECORRIDO» en el script del pie). Se decide antes de
-   pintar para que las pestañas no aparezcan y luego se escondan. Si el script del
-   pie no toma el control en 4 s, la clase se retira y todo queda visible. */
+   pintar para que las pestañas no aparezcan y luego se escondan. El script del pie
+   corre justo antes de DOMContentLoaded (espera la hoja de fuentes, igual que el
+   pintado); si al terminar init() no dejó la marca __introOk, la clase se retira
+   1,5 s después y todo queda visible. */
 (function (d) {
   try {
     if (!location.hash && 'animate' in d && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       d.classList.add('intro');
-      setTimeout(function () { if (!d.__introOk) d.classList.remove('intro'); }, 4000);
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () { if (!d.__introOk) d.classList.remove('intro'); }, 1500);
+      });
     }
   } catch (e) {}
 })(document.documentElement);
 </script>
 <title>Memoria en video · IV Foro Internacional de Derecho y Tecnología</title>
-<meta name="description" content="Grabaciones del IV Foro Internacional de Derecho y Tecnología: las cuatro sedes y la Jornada Virtual Internacional del 18, 21 y 22 de septiembre de 2026.">
+<meta name="description" content="Grabaciones del IV Foro Internacional de Derecho y Tecnología: la Jornada Virtual Internacional (18 de septiembre) y las sedes CUCEA, CUGDL y Cineteca FICG (21 y 22 de septiembre de 2026); la de Ciudad Judicial, en preparación.">
 <link rel="canonical" href="https://forodyt.com/en-vivo.html">
 <link rel="alternate" hreflang="es" href="https://forodyt.com/en-vivo.html">
 <link rel="alternate" hreflang="en" href="https://forodyt.com/en-vivo.html?lang=en">
@@ -185,6 +189,7 @@ em { font-style: italic; }
 ::selection { background: var(--cobre); color: var(--arena); }
 :focus-visible { outline: 2px solid var(--cobre-claro); outline-offset: 3px; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.ord { text-transform: none !important; font-size: 0.74em !important; letter-spacing: 0 !important; vertical-align: 0.36em; line-height: 0; }
 .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ─────────── NAV (clases del sitio: mobile-menu.js) ─────────── */
@@ -447,7 +452,7 @@ footer a:hover { color: var(--arena); }
     <div>
       <p class="eyebrow"><span data-f18n="eyebrow">Cuarta edición</span><span aria-hidden="true">·</span><span>MMXXVI</span></p>
       <h1 data-f18n-html="h1">Memoria en video de la <em>IV edición</em>.</h1>
-      <p class="lead" data-f18n-html="lead">Aquí quedan las transmisiones del IV Foro: la <b>Jornada Virtual Internacional</b> del 18 de septiembre y las jornadas en las <b>cuatro sedes</b> del 21 y 22 de septiembre de 2026. Elige una sede en la línea del tiempo; junto al video encontrarás las sesiones que se presentaron en ella.</p>
+      <p class="lead" data-f18n-html="lead">Aquí quedan las transmisiones del IV Foro: la <b>Jornada Virtual Internacional</b> del 18 de septiembre y las jornadas del 21 y 22 de septiembre de 2026 en <b>CUCEA, CUGDL y la Cineteca FICG</b>; la grabación de Ciudad Judicial está en preparación. Elige una sede en la línea del tiempo; junto al video encontrarás las sesiones que se presentaron en ella.</p>
       <div class="hero-links">
         <a class="btn-primary" href="memoria-iv.html"><span data-f18n="h_memoria">Portada de la IV edición</span><span class="flecha" aria-hidden="true">→</span></a>
         <a class="link-sub" href="programa-iv.html" data-f18n="h_programa">Programa de la IV edición</a>
@@ -575,7 +580,6 @@ footer a:hover { color: var(--arena); }
   'use strict';
   var D = document.documentElement;
   D.classList.remove('no-js'); D.classList.add('js');
-  D.__introOk = true;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -601,7 +605,7 @@ footer a:hover { color: var(--arena); }
     en: { title: 'Video record · 4th International Forum on Law and Technology',
       cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_ir: 'Go to the 5th edition',
       eyebrow: 'Fourth edition', h1: 'Video record of the <em>4th edition</em>.',
-      lead: 'Here are the broadcasts of the IV Forum: the <b>International Online Session</b> on September 18 and the days at the <b>four venues</b> on September 21 and 22, 2026. Choose a venue on the timeline; next to the video you will find the sessions presented there.',
+      lead: 'Here are the broadcasts of the IV Forum: the <b>International Online Session</b> on September 18 and the days of September 21 and 22, 2026 at <b>CUCEA, CUGDL and the Cineteca FICG</b>; the Judicial City recording is in preparation. Choose a venue on the timeline; next to the video you will find the sessions presented there.',
       h_memoria: '4th edition overview', h_programa: '4th edition program',
       mapa_cap: 'The copper dots are the ten countries with a voice in the 4th edition. The line joins Guadalajara and Spain: the International Online Session was the Forum’s first Mexico–Spain co-organization.',
       sede_cj: 'Judicial City', sede_virtual: 'International Online Session', lugar_virtual: 'Online', lugar_cj: 'Judiciary of the State of Jalisco', est_prep: 'In preparation',
@@ -618,7 +622,7 @@ footer a:hover { color: var(--arena); }
     fr: { title: 'Mémoire en vidéo · 4e Forum International du Droit et de la Technologie',
       cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_ir: 'Aller à la Ve édition',
       eyebrow: 'Quatrième édition', h1: 'Mémoire en vidéo de la <em>IVe édition</em>.',
-      lead: 'Retrouvez ici les diffusions du IVe Forum : la <b>Journée virtuelle internationale</b> du 18 septembre et les journées dans les <b>quatre sites</b> des 21 et 22 septembre 2026. Choisissez un site sur la ligne du temps ; à côté de la vidéo, vous trouverez les sessions qui y ont été présentées.',
+      lead: 'Retrouvez ici les diffusions du IVe Forum : la <b>Journée virtuelle internationale</b> du 18 septembre et les journées des 21 et 22 septembre 2026 au <b>CUCEA, au CUGDL et à la Cineteca FICG</b> ; l\'enregistrement de la Cité Judiciaire est en préparation. Choisissez un site sur la ligne du temps ; à côté de la vidéo, vous trouverez les sessions qui y ont été présentées.',
       h_memoria: 'Aperçu de la IVe édition', h_programa: 'Programme de la IVe édition',
       mapa_cap: 'Les points cuivrés sont les dix pays ayant pris la parole lors de la IVe édition. La ligne relie Guadalajara à l\'Espagne : la Journée virtuelle internationale a été la première co-organisation Mexique–Espagne du Forum.',
       sede_cj: 'Cité Judiciaire', sede_virtual: 'Journée virtuelle internationale', lugar_virtual: 'En ligne', lugar_cj: 'Pouvoir judiciaire de l\'État de Jalisco', est_prep: 'En préparation',
@@ -648,6 +652,31 @@ footer a:hover { color: var(--arena); }
     $$('[data-f18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-f18n')); });
     $$('[data-f18n-html]').forEach(function (el) { el.innerHTML = t(el.getAttribute('data-f18n-html')); });
     $$('[data-f18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-f18n-aria'))); });
+  }
+  /* En francés, text-transform: uppercase convierte «IVe» en «IVE». En los textos en
+     versalitas (cinta, enlaces, pie), la terminación del ordinal se aparta en un
+     <span class="ord"> que no se transforma y va volada. */
+  var ORD_RE = /\b([IVX]+|\d+)(e|re|er)\b/;
+  function ordinalesFR(root) {
+    if (LANG !== 'fr' || !root || !document.createTreeWalker) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, lista = [];
+    while ((n = w.nextNode())) {
+      if (!ORD_RE.test(n.data)) continue;
+      var p = n.parentNode;
+      if (!p || p.nodeType !== 1 || p.classList.contains('ord') || /^(SCRIPT|STYLE)$/.test(p.nodeName)) continue;
+      if (getComputedStyle(p).textTransform !== 'uppercase') continue;
+      lista.push(n);
+    }
+    lista.forEach(function (tx) {
+      var frag = document.createDocumentFragment(), resto = tx.data, m;
+      while ((m = ORD_RE.exec(resto))) {
+        frag.appendChild(document.createTextNode(resto.slice(0, m.index) + m[1]));
+        var sp = document.createElement('span'); sp.className = 'ord'; sp.textContent = m[2]; frag.appendChild(sp);
+        resto = resto.slice(m.index + m[0].length);
+      }
+      frag.appendChild(document.createTextNode(resto));
+      tx.parentNode.replaceChild(frag, tx);
+    });
   }
   function currentLang() { try { var q = new URLSearchParams(location.search).get('lang'); if (q && /^(es|en|fr)$/.test(q)) return q; var s = localStorage.getItem('forodyt_lang'); if (s && /^(es|en|fr)$/.test(s)) return s; } catch (e) {} return 'es'; }
   var LANG = currentLang(), GDL = 'America/Mexico_City';
@@ -870,7 +899,10 @@ footer a:hover { color: var(--arena); }
       ctx.fillStyle = '#F5EFE3'; ctx.beginPath(); ctx.arc(g[0], g[1], s * 0.42, 0, 6.2832); ctx.fill();
       if (s > 3) {
         ctx.font = '500 ' + Math.max(9, Math.round(s * 1.8)) + 'px "JetBrains Mono", monospace';
-        ctx.fillStyle = 'rgba(245,239,227,0.62)'; ctx.textBaseline = 'middle';
+        ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+        ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(26,24,16,0.94)';
+        ctx.strokeText('GUADALAJARA', g[0] - s * 3, g[1] + s * 3.4);
+        ctx.fillStyle = 'rgba(245,239,227,0.72)';
         ctx.fillText('GUADALAJARA', g[0] - s * 3, g[1] + s * 3.4);
       }
     }
@@ -953,23 +985,33 @@ footer a:hover { color: var(--arena); }
     if (tb.classList.contains('dia-inicio')) tb.classList.add('dia-on');
     intro.timers.push(setTimeout(function () { tb.classList.add('abierta'); }, 140));
   }
+  function centroPagina(elm) { var r = elm.getBoundingClientRect(); return { x: r.left + r.width / 2 + window.scrollX, y: r.top + r.height / 2 + window.scrollY }; }
+  // Guadalajara en el mapa, solo si de verdad se ve (bajo el nav fijo y dentro de la ventana)
+  function origenMapa() {
+    if (!mapa || !mapa.visible || !enPantalla(mapa.cv, 0.15)) return null;
+    var p = mapa.puntoPagina(); if (!p) return null;
+    var vx = p.x - window.scrollX, vy = p.y - window.scrollY;
+    if (vy < nav.offsetHeight + 8 || vy > window.innerHeight - 8 || vx < 0 || vx > window.innerWidth) return null;
+    return p;
+  }
   function volar(tb) {
     if (!intro.activa) return;
     if (mapa) mapa.pulso();
-    var p0 = mapa && mapa.visible && enPantalla(mapa.cv, 0.15) ? mapa.puntoPagina() : null;
-    if (!p0) { aterrizar(tb); return; }
-    var r = $('.tab-punto', tb).getBoundingClientRect();
-    var x0 = p0.x, y0 = p0.y, x1 = r.left + r.width / 2 + window.scrollX, y1 = r.top + r.height / 2 + window.scrollY;
-    // el punto cae desde Guadalajara y se desliza sobre la línea hasta su fecha (control a la altura del riel)
-    var cx = x0, cy = y1;
+    var p1 = centroPagina($('.tab-punto', tb)), p0 = origenMapa(), recta = !p0;
+    // sin Guadalajara a la vista (móvil: el mapa quedó arriba), la luz sale del inicio de la línea y la recorre
+    if (recta) p0 = centroPagina($('.tab-punto'));
+    var x0 = p0.x, y0 = p0.y, x1 = p1.x, y1 = p1.y, dist = Math.abs(x1 - x0) + Math.abs(y1 - y0);
+    if (recta && dist < 4) { aterrizar(tb); return; }
+    // desde el mapa, el punto cae desde Guadalajara y se desliza sobre la línea (control a la altura del riel)
+    var cx = recta ? (x0 + x1) / 2 : x0, cy = recta ? (y0 + y1) / 2 : y1, bote = recta ? 0.3 : 0.55;
     var fr = [];
     for (var i = 0; i <= 18; i++) {
       var k = i / 18, u = 1 - k;
       var x = u * u * x0 + 2 * u * k * cx + k * k * x1, y = u * u * y0 + 2 * u * k * cy + k * k * y1;
-      fr.push({ transform: 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (1 + 0.55 * Math.sin(Math.PI * k)).toFixed(3) + ')', offset: k });
+      fr.push({ transform: 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (1 + bote * Math.sin(Math.PI * k)).toFixed(3) + ')', offset: k });
     }
     var dot = document.createElement('i'); dot.className = 'vuela'; vuelo.appendChild(dot);
-    var an = dot.animate(fr, { duration: 860, easing: 'cubic-bezier(.45,.05,.25,1)', fill: 'forwards' });
+    var an = dot.animate(fr, { duration: recta ? Math.min(900, 380 + dist * 0.9) : 860, easing: 'cubic-bezier(.45,.05,.25,1)', fill: 'forwards' });
     intro.anims.push(an);
     an.onfinish = function () { if (dot.parentNode) dot.parentNode.removeChild(dot); aterrizar(tb); };
   }
@@ -1025,16 +1067,20 @@ footer a:hover { color: var(--arena); }
     var lastLang = document.documentElement.lang || 'es';
     if ('MutationObserver' in window) new MutationObserver(function () {
       var l = document.documentElement.lang || 'es'; if (l === lastLang) return; lastLang = l; LANG = /^(es|en|fr)$/.test(l) ? l : 'es';
-      aplicar(); pintarTabs(); pintarPie(); pintarPartes(); pintarIndice(); medirLinea();
+      aplicar(); pintarTabs(); pintarPie(); pintarPartes(); pintarIndice(); medirLinea(); ordinalesFR(document.body);
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
     medirLinea();
+    ordinalesFR(document.body);
     var listo = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     Promise.race([listo, new Promise(function (r) { setTimeout(r, 900); })]).then(function () {
       try { iniciarMapa(); } catch (err) { D.classList.add('no-canvas'); }
-      medirLinea();
-      if (!D.classList.contains('intro')) { if (mapa) mapa.finalizar(); return; }
-      cuandoActiva(function () { setTimeout(function () { try { introInicio(); } catch (err) { introFin(); } }, 260); });
+      try {
+        medirLinea();
+        if (!D.classList.contains('intro')) { if (mapa) mapa.finalizar(); return; }
+        cuandoActiva(function () { setTimeout(function () { try { introInicio(); } catch (err) { introFin(); } }, 260); });
+      } catch (err) { introFin(); }
     });
+    D.__introOk = true;   // init() llegó al final: la entrada queda en manos de este script
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -176,6 +176,7 @@ em { font-style: italic; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 2px solid var(--cobre-2); outline-offset: 3px; }
+footer :focus-visible, .integrantes :focus-visible { outline-color: var(--cobre-claro); }
 .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* ─────────── NAV (idéntico a la portada; mobile-menu.js) ─────────── */
@@ -195,7 +196,7 @@ em { font-style: italic; }
 .brand-rule { width: 30px; height: 1px; background: var(--cobre); }
 .brand-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--tinta-3); white-space: nowrap; }
 .nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); }
-.nav-links a { text-decoration: none; color: var(--tinta-3); font-size: 13.5px; letter-spacing: .02em; position: relative; padding: 4px 0; transition: color .3s var(--ease); }
+.nav-links a { text-decoration: none; color: var(--tinta-3); font-size: 13.5px; letter-spacing: .02em; position: relative; padding: 4px 0; white-space: nowrap; transition: color .3s var(--ease); }
 .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--cobre); transition: width .45s var(--ease); }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--tinta); }
 .nav-links a:hover::after, .nav-links a[aria-current="page"]::after { width: 100%; }
@@ -264,7 +265,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 /* ═══════════ RETRATO: duotono → color con rodillo de tinta ═══════════
    Por omisión (sin JS, sin soporte, movimiento reducido) el retrato
    se ve en su color natural. */
-.retrato { position: relative; overflow: hidden; background: var(--tinta); isolation: isolate; margin: 0; }
+.retrato { position: relative; overflow: hidden; background: var(--tinta); isolation: isolate; margin: 0; container-type: inline-size; }
 .retrato img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .r-duo { filter: url(#duo); }
 .r-color { position: absolute; inset: 0; background: var(--tinta); isolation: isolate; }
@@ -278,7 +279,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 }
 .rodillo::after { content: ""; position: absolute; top: 6%; bottom: 6%; right: 100%; width: 70px; background: linear-gradient(90deg, rgba(217, 164, 140, 0), rgba(217, 164, 140, .16)); }
 @keyframes rod-clip { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes rod-mov { 0% { left: 0%; opacity: 0; } 7% { opacity: 1; } 86% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes rod-mov { 0% { transform: translateX(0); opacity: 0; } 7% { opacity: 1; } 86% { opacity: 1; } 100% { transform: translateX(100cqw); opacity: 0; } }
 
 /* ═══════════ HERO ═══════════ */
 .hero { position: relative; padding: 132px 0 72px; overflow: hidden; isolation: isolate; }
@@ -354,12 +355,12 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .integrantes .sec-lead strong { color: var(--arena); font-weight: 500; }
 .fichas { border-top: 1px solid var(--linea-osc); }
 .ficha {
-  display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); column-gap: clamp(28px, 6vw, 110px);
+  display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); column-gap: clamp(28px, 6vw, 110px);
   padding: clamp(44px, 6vw, 88px) 0; border-bottom: 1px solid var(--linea-osc); align-items: start;
 }
-.ficha.abierta { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); }
-.ficha:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 380px); }
-.ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); }
+.ficha.abierta { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); }
+.ficha:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); }
+.ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 400px); }
 .ficha:nth-child(even) .ficha-foto { order: 2; }
 .ficha-foto { aspect-ratio: 1; width: 100%; outline: 1px solid var(--linea-osc); outline-offset: 12px; }
 .ficha.abierta .ficha-foto { position: sticky; top: 104px; }
@@ -495,6 +496,8 @@ footer a:hover { color: var(--arena); }
   .ficha, .ficha.abierta { grid-template-columns: minmax(0, 320px) minmax(0, 1fr); }
   .ficha:nth-child(even), .ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr) minmax(0, 320px); }
 }
+@media (max-width: 1360px) { .nav .brand-sub, .nav .brand-rule { display: none; } }
+@media (max-width: 1180px) { .nav-links { gap: 16px; } .nav-links a { font-size: 13px; } .nav-cta { gap: 12px; } .nav-cta > .btn-primary { padding: 12px 18px; } }
 @media (max-width: 1024px) {
   .nav-links { display: none; }
 }
@@ -509,7 +512,7 @@ footer a:hover { color: var(--arena); }
   .sec-head { grid-template-columns: minmax(0, 1fr); }
   .ficha, .ficha.abierta, .ficha:nth-child(even), .ficha:nth-child(even).abierta { grid-template-columns: minmax(0, 1fr); row-gap: 34px; }
   .ficha:nth-child(even) .ficha-foto { order: 0; }
-  .ficha-foto { max-width: 440px; }
+  .ficha-foto { max-width: 400px; }
   .ficha.abierta .ficha-foto { position: relative; top: auto; }
   .escribe-grid { grid-template-columns: minmax(0, 1fr); }
 }
@@ -525,8 +528,10 @@ footer a:hover { color: var(--arena); }
   .libro tbody th { width: 100%; margin-bottom: 6px; }
   .libro td::after { content: attr(data-ed); order: -1; }
   .libro td { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .libro td::before { order: -2; margin-right: 0; }
-  .libro td::after { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; color: var(--tinta-4); min-width: 64px; }
+  .libro td::before { order: -2; margin-right: 0; flex: none; }
+  .libro td::after { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; color: var(--tinta-4); flex: 0 0 8.6em; min-width: 0; white-space: nowrap; }
+  .libro td { flex-wrap: nowrap; }
+  .libro td > span { flex: 1 1 auto; min-width: 0; }
   .convoca-logos img { height: 40px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -682,7 +687,7 @@ footer a:hover { color: var(--arena); }
           <p class="ficha-rol" data-f18n="rol_romero">Secretaría Técnica</p>
           <h3 class="nombre" id="n-romero"><span class="n-tit">Mtro.</span> <span class="n-nom">César</span> <em>Romero Güemez</em></h3>
           <div class="ficha-adsc"><span class="adsc-rot" data-f18n="adsc_rot">Adscripción</span><ul><li data-f18n="adsc_depto">Departamento de Ciencias Sociales y Jurídicas · CUCEA-UDG</li></ul></div>
-          <div class="sem" id="sem-romero"><p data-f18n="sem_romero">El maestro César Romero Güemez es abogado por la Universidad de Guadalajara y maestro en Derecho Electoral, egresado del Tribunal Electoral del Estado de Jalisco. Profesor adscrito al Departamento de Ciencias Sociales y Jurídicas del Centro Universitario de Ciencias Económico Administrativas (CUCEA), su docencia se distingue por llevar al aula ejemplos tomados de la vida real. Al frente de la Secretaría Técnica del Foro Internacional de Derecho y Tecnología —responsabilidad que ya desempeñó en la edición de 2025, cuando el encuentro operó simultáneamente en dos sedes—, encarna esa labor discreta sin la cual ningún congreso llega a buen puerto: la coordinación operativa, la logística y el engranaje cotidiano entre comité académico, ponentes y participantes. Gracias a ese oficio silencioso, el Foro sucede puntual, ordenado y sin costuras.</p></div>
+          <div class="sem" id="sem-romero"><p data-f18n="sem_romero">El maestro César Romero Güemez es abogado por la Universidad de Guadalajara y maestro en Derecho Electoral, egresado del Tribunal Electoral del Estado de Jalisco. Profesor adscrito al Departamento de Ciencias Sociales y Jurídicas del Centro Universitario de Ciencias Económico Administrativas (CUCEA), su docencia se distingue por llevar al aula ejemplos tomados de la vida real. Al frente de la Secretaría Técnica del Foro Internacional de Derecho y Tecnología —responsabilidad que desempeñó en las ediciones de 2025, cuando el encuentro operó simultáneamente en dos sedes, y de 2026—, encarna esa labor discreta sin la cual ningún congreso llega a buen puerto: la coordinación operativa, la logística y el engranaje cotidiano entre comité académico, ponentes y participantes. Gracias a ese oficio silencioso, el Foro sucede puntual, ordenado y sin costuras.</p></div>
           <button class="sem-btn" type="button" aria-expanded="false" aria-controls="sem-romero"><span class="b-abrir" data-f18n="btn_leer">Leer la semblanza completa</span><span class="b-cerrar" data-f18n="btn_cerrar">Cerrar la semblanza</span><span class="sem-ico" aria-hidden="true"></span></button>
         </div>
       </article>
@@ -745,7 +750,7 @@ footer a:hover { color: var(--arena); }
         <tr><th scope="row"><a href="#paul">Dr. Alejandro Paul García Hernández</a></th><td class="e3" data-ed="III · 2025"><span data-f18n="rol3_paul">Coordinación Editorial</span></td><td class="e4" data-ed="IV · 2026"><span data-f18n="rol_paul">Coordinación Editorial y Comité Científico</span></td></tr>
       </tbody>
     </table>
-    <p class="reg-nota" data-f18n-html="reg_nota">En la II edición (2024), Delva, Leos, González y García firmaron como comité editorial la «Agenda estratégica» que cierra el libro <i>Fronteras dinámicas: derecho y tecnología en la era digital</i>.</p>
+    <p class="reg-nota" data-f18n-html="reg_nota">El libro de la II edición, <i>Fronteras dinámicas: derecho y tecnología en la era digital</i> (Editorial UDG, 2025), cierra con la «Agenda estratégica» que Delva, Leos, González y García firmaron como comité editorial.</p>
   </div>
 </section>
 
@@ -766,8 +771,8 @@ footer a:hover { color: var(--arena); }
       <div class="convoca">
         <span class="dato-rot" data-f18n="convoca">Convoca</span>
         <div class="convoca-logos">
-          <img src="img/aliados/ca-derecho-tecnologia-lockup.png" width="240" height="52" loading="lazy" decoding="async" alt="Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología">
-          <img src="img/aliados/udg.png" width="480" height="160" loading="lazy" decoding="async" alt="Universidad de Guadalajara">
+          <img src="img/aliados/ca-derecho-tecnologia-lockup.png" width="240" height="52" loading="lazy" decoding="async" alt="Cuerpo Académico UDG-CA-1236 · Derecho y Tecnología" data-f18n-attr="alt:alt_logo_ca">
+          <img src="img/aliados/udg.png" width="480" height="160" loading="lazy" decoding="async" alt="Universidad de Guadalajara" data-f18n-attr="alt:alt_logo_udg">
         </div>
       </div>
     </div>
@@ -779,7 +784,7 @@ footer a:hover { color: var(--arena); }
   <div class="wrap">
     <div class="pie-grid">
       <div>
-        <p class="pie-marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
+        <p class="pie-marca" data-f18n-html="pie_marca">Foro Internacional de Derecho <em>y Tecnología</em></p>
         <p class="pie-lema" data-f18n="pie_lema">Innovación jurídica en la era digital</p>
       </div>
       <div>
@@ -804,7 +809,7 @@ footer a:hover { color: var(--arena); }
         <h2 class="pie-h" data-f18n="pie_organiza">Organiza</h2>
         <ul>
           <li data-f18n="pie_ca">Cuerpo Académico UDG-CA-1236 «Derecho y Tecnología»</li>
-          <li>Universidad de Guadalajara</li>
+          <li data-f18n="pie_udg">Universidad de Guadalajara</li>
         </ul>
         <div class="pie-sello" aria-hidden="true" style="margin-top:26px">V<small>MMXXVII</small></div>
       </div>
@@ -838,15 +843,15 @@ footer a:hover { color: var(--arena); }
   },
   "leos": {
     "en": "Dr. Jorge Antonio Leos Navarro is a full-time professor in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara, and a member of the UDG-CA-1236 \"Law and Technology\" research group. He earned his law degree and a master’s in law from the University of Guadalajara, and a doctorate in law. His career has been devoted to alternative justice and the culture of peace: he coordinated CUCEA’s Master’s Program in Conflict Resolution and sits on the editorial board of the journal PACTUM. His recent scholarship builds bridges between mediation and technology: from the peace circles and restorative justice of Mexico’s Indigenous peoples to the tax regime of digital platforms in the Mexican Law Review and, co-authored within the research group itself, authenticity standards against deepfakes in banking onboarding and financial fraud in the Journal of FinTech and Sustainable Finance (2026). As Academic Secretary of the International Forum on Law and Technology, he safeguards the intellectual rigor and coherence of its program.",
-    "fr": "Le docteur Jorge Antonio Leos Navarro est professeur à temps plein au Département de sciences sociales et juridiques du CUCEA, à l’Université de Guadalajara, et membre du corps académique UDG-CA-1236 « Droit et technologie ». Licencié et titulaire d’un master en droit de l’Université de Guadalajara, docteur en droit, il a consacré son parcours à la justice alternative et à la culture de la paix : il a coordonné le master en résolution des conflits du CUCEA et siège au comité éditorial de la revue PACTUM. Ses travaux récents jettent des ponts entre la médiation et la technologie : des cercles de paix et de la justice restaurative des peuples autochtones au régime fiscal des plateformes numériques dans la Mexican Law Review et, en coécriture au sein même du corps académique, les standards d’authenticité face aux hypertrucages dans l’onboarding bancaire et la fraude financière dans le Journal of FinTech and Sustainable Finance (2026). Comme Secrétaire académique du Forum international du droit et de la technologie, il veille à la rigueur et à la cohérence intellectuelle du programme."
+    "fr": "Le docteur Jorge Antonio Leos Navarro est professeur à temps plein au Département de sciences sociales et juridiques du CUCEA, à l’Université de Guadalajara, et membre du corps académique UDG-CA-1236 « Droit et technologie ». Licencié et titulaire d’un master en droit de l’Université de Guadalajara, docteur en droit, il a consacré son parcours à la justice alternative et à la culture de la paix : il a coordonné le master en résolution des conflits du CUCEA et siège au comité éditorial de la revue PACTUM. Ses travaux récents jettent des ponts entre la médiation et la technologie : des cercles de paix et de la justice restaurative des peuples autochtones au régime fiscal des plateformes numériques dans la Mexican Law Review et, en coécriture au sein même du corps académique, les standards d’authenticité face aux hypertrucages dans l’onboarding bancaire et la fraude financière dans le Journal of FinTech and Sustainable Finance (2026). Comme Secrétaire académique du Forum International du Droit et de la Technologie, il veille à la rigueur et à la cohérence intellectuelle du programme."
   },
   "romero": {
-    "en": "César Romero Güemez is a lawyer trained at the University of Guadalajara and holds a master’s degree in Electoral Law from the Electoral Tribunal of the State of Jalisco. He teaches in the Department of Social and Legal Sciences at CUCEA, the university’s center for economic and administrative sciences, where students know his classes for grounding theory in real-life examples. As head of the Technical Secretariat of the International Forum on Law and Technology — a role he already discharged in the 2025 edition, when the gathering ran across two venues at once — he embodies the quiet craft without which no conference reaches port: operational coordination, logistics, and the daily meshing of academic committee, speakers, and participants. It is thanks to that unobtrusive work that the Forum happens on time, in good order, and seemingly without effort.",
-    "fr": "César Romero Güemez, juriste formé à l’Université de Guadalajara et titulaire d’un master en droit électoral délivré par le Tribunal électoral de l’État de Jalisco, enseigne au Département de sciences sociales et juridiques du CUCEA, le centre universitaire de sciences économiques et administratives, où ses cours se distinguent par leur ancrage dans des exemples tirés de la vie réelle. À la tête du Secrétariat technique du Forum international du droit et de la technologie — une responsabilité qu’il avait déjà assumée lors de l’édition 2025, menée simultanément sur deux sites —, il incarne ce travail discret sans lequel aucun congrès n’arrive à bon port : coordination opérationnelle, logistique et articulation quotidienne entre comité académique, intervenants et participants. C’est grâce à ce métier silencieux que le Forum se tient, ponctuel, ordonné et sans accroc."
+    "en": "César Romero Güemez is a lawyer trained at the University of Guadalajara and holds a master’s degree in Electoral Law from the Electoral Tribunal of the State of Jalisco. He teaches in the Department of Social and Legal Sciences at CUCEA, the university’s center for economic and administrative sciences, where students know his classes for grounding theory in real-life examples. As head of the Technical Secretariat of the International Forum on Law and Technology — a role he held in the 2025 edition, when the gathering ran across two venues at once, and again in 2026 — he embodies the quiet craft without which no conference reaches port: operational coordination, logistics, and the daily meshing of academic committee, speakers, and participants. It is thanks to that unobtrusive work that the Forum happens on time, in good order, and seemingly without effort.",
+    "fr": "César Romero Güemez, juriste formé à l’Université de Guadalajara et titulaire d’un master en droit électoral délivré par le Tribunal électoral de l’État de Jalisco, enseigne au Département de sciences sociales et juridiques du CUCEA, le centre universitaire de sciences économiques et administratives, où ses cours se distinguent par leur ancrage dans des exemples tirés de la vie réelle. À la tête du Secrétariat technique du Forum International du Droit et de la Technologie — une responsabilité qu’il a assumée lors de l’édition 2025, menée simultanément sur deux sites, puis en 2026 —, il incarne ce travail discret sans lequel aucun congrès n’arrive à bon port : coordination opérationnelle, logistique et articulation quotidienne entre comité académique, intervenants et participants. C’est grâce à ce métier silencieux que le Forum se tient, ponctuel, ordonné et sans accroc."
   },
   "said": {
     "en": "Iván Said González López oversees Technology and Logistics for the International Forum on Law and Technology, serving as a collaborator of the UDG-CA-1236 \"Law and Technology\" Academic Body at the University of Guadalajara, where he also teaches at CUCEA. A lawyer by training, he holds a master’s degree in Politics and Public Management, works as an innovation manager, and is pursuing a doctorate in Social Sciences at El Colegio de Jalisco. His research explores citizen participation, public policy, and transdisciplinarity; he has co-authored studies on the international regulation of social media and the legal landscape of esports, along with a chapter on open data in Latin America. At the Forum, his work sustains the hybrid infrastructure and keeps every session running on time.",
-    "fr": "Iván Said González López est responsable de la technologie et de la logistique du Forum international du droit et de la technologie, en qualité de collaborateur du corps académique UDG-CA-1236 « Droit et technologie » de l’Université de Guadalajara, où il enseigne au CUCEA. Juriste de formation, titulaire d’un master en politique et gestion publiques, gestionnaire de l’innovation et doctorant en sciences sociales au Colegio de Jalisco, il consacre ses recherches à la participation citoyenne, aux politiques publiques et à la transdisciplinarité. Il a cosigné des travaux sur la régulation internationale des réseaux sociaux et le cadre juridique de l’esport, ainsi qu’un chapitre sur les données ouvertes en Amérique latine. Au sein du Forum, son travail soutient l’infrastructure hybride et assure le déroulement ponctuel de chaque séance."
+    "fr": "Iván Said González López est responsable de la technologie et de la logistique du Forum International du Droit et de la Technologie, en qualité de collaborateur du corps académique UDG-CA-1236 « Droit et technologie » de l’Université de Guadalajara, où il enseigne au CUCEA. Juriste de formation, titulaire d’un master en politique et gestion publiques, gestionnaire de l’innovation et doctorant en sciences sociales au Colegio de Jalisco, il consacre ses recherches à la participation citoyenne, aux politiques publiques et à la transdisciplinarité. Il a cosigné des travaux sur la régulation internationale des réseaux sociaux et le cadre juridique de l’esport, ainsi qu’un chapitre sur les données ouvertes en Amérique latine. Au sein du Forum, son travail soutient l’infrastructure hybride et assure le déroulement ponctuel de chaque séance."
   },
   "paul": {
     "en": "Dr. Alejandro Paul García Hernández is a professor in the Department of Social and Legal Sciences at CUCEA, University of Guadalajara, and member of the UDG-CA-1236 research group on Law and Technology. He earned his doctorate in law at the Instituto de Estudios Jurídicos and, from the University of Guadalajara, his law degree and a master’s in law specializing in constitutional law and amparo, and holds Mexico’s PRODEP faculty profile recognition. His teaching spans commercial law, international treaties and fundamental legal concepts; his pen, tax analysis in the journal PAF. His recent scholarship, co-authored within the research group, examines the digital transformation of the workplace in Mexico and deepfakes in onboarding, identity verification and financial fraud (Journal of FinTech and Sustainable Finance, 2026). At the Forum his craft is editorial: he sat on the editorial board of Fronteras dinámicas, co-authored its strategic public-policy agenda on technology regulation, coordinated the third edition’s publications, and leads Editorial Coordination and serves on the Scientific Committee of the Forum — guarding the rigor with which ideas become pages.",
@@ -896,14 +901,16 @@ footer a:hover { color: var(--arena); }
       reg_lead: 'All five served on the organizing committee of the <strong>3rd edition (2025)</strong>, held in two simultaneous spaces, and of the <strong>4th edition (2026)</strong>, which travelled across four venues and an online session.',
       reg_caption: 'Role of each member on the organizing committee of the 3rd and 4th editions',
       th_integrante: 'Member', reg_m3: 'Record of the 3rd edition', reg_m4: 'Record of the 4th edition',
-      reg_nota: 'In the 2nd edition (2024), Delva, Leos, González and García signed, as editorial committee, the “Strategic Agenda” that closes the book <i>Fronteras dinámicas: derecho y tecnología en la era digital</i>.',
+      reg_nota: 'The book of the 2nd edition, <i>Fronteras dinámicas: derecho y tecnología en la era digital</i> (Editorial UDG, 2025), closes with the “Strategic Agenda” signed by Delva, Leos, González and García as its editorial committee.',
       esc_eyebrow: 'Contact',
       esc_title: 'Write to the <em>organizing committee</em>.',
       esc_p: 'The committee answers at the Forum’s official email address and on its social media.',
       convoca: 'Convened by',
       pie_lema: 'Legal innovation in the digital era', pie_contacto: 'Contact', pie_memorias: 'Edition records',
       pie_m1: '1st edition · 2023', pie_m2: '2nd edition · 2024', pie_m3: '3rd edition · 2025', pie_m4: '4th edition · 2026', pie_videos: 'Video record of the 4th edition',
-      pie_organiza: 'Organized by', pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico'
+      pie_organiza: 'Organized by', pie_ca: 'Academic Body UDG-CA-1236 «Law and Technology»', pie_desde: 'Since 2023 · Guadalajara, Jalisco, Mexico',
+      pie_marca: 'International Forum on Law <em>and Technology</em>', pie_udg: 'University of Guadalajara',
+      alt_logo_ca: 'Academic Body UDG-CA-1236 · Law and Technology', alt_logo_udg: 'University of Guadalajara'
     },
     fr: {
       doc_title: 'Comité d’organisation · Forum International du Droit et de la Technologie',
@@ -936,14 +943,16 @@ footer a:hover { color: var(--arena); }
       reg_lead: 'Tous les cinq ont fait partie du comité d’organisation de la <strong>IIIe édition (2025)</strong>, tenue dans deux espaces simultanés, et de la <strong>IVe édition (2026)</strong>, itinérante entre quatre sites et une journée en ligne.',
       reg_caption: 'Fonction de chaque membre au sein du comité d’organisation des IIIe et IVe éditions',
       th_integrante: 'Membre', reg_m3: 'Mémoire de la IIIe édition', reg_m4: 'Mémoire de la IVe édition',
-      reg_nota: 'Lors de la IIe édition (2024), Delva, Leos, González et García ont signé, en tant que comité éditorial, l’« Agenda stratégique » qui clôt l’ouvrage <i>Fronteras dinámicas : derecho y tecnología en la era digital</i>.',
+      reg_nota: 'L’ouvrage issu de la IIe édition, <i>Fronteras dinámicas: derecho y tecnología en la era digital</i> (Editorial UDG, 2025), se clôt sur l’« Agenda stratégique » signé par Delva, Leos, González et García en tant que comité éditorial.',
       esc_eyebrow: 'Contact',
       esc_title: 'Écrivez au <em>comité d’organisation</em>.',
       esc_p: 'Le comité répond à l’adresse officielle du Forum et sur ses réseaux sociaux.',
       convoca: 'Organisé par',
       pie_lema: 'Innovation juridique à l’ère numérique', pie_contacto: 'Contact', pie_memorias: 'Mémoires',
       pie_m1: 'Ire édition · 2023', pie_m2: 'IIe édition · 2024', pie_m3: 'IIIe édition · 2025', pie_m4: 'IVe édition · 2026', pie_videos: 'Mémoire en vidéo de la IVe édition',
-      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique'
+      pie_organiza: 'Organisé par', pie_ca: 'Corps Académique UDG-CA-1236 « Droit et Technologie »', pie_desde: 'Depuis 2023 · Guadalajara, Jalisco, Mexique',
+      pie_marca: 'Forum International du Droit <em>et de la Technologie</em>', pie_udg: 'Université de Guadalajara',
+      alt_logo_ca: 'Corps Académique UDG-CA-1236 · Droit et Technologie', alt_logo_udg: 'Université de Guadalajara'
     }
   };
   Object.keys(SEM).forEach(function (k) { F18N.en['sem_' + k] = SEM[k].en; F18N.fr['sem_' + k] = SEM[k].fr; });
@@ -1039,6 +1048,7 @@ footer a:hover { color: var(--arena); }
   function respirar(zona, letras) {
     var centros = null, px = 0, py = 0, pend = 0;
     var bases = letras.map(function (l) { return l.closest('em') ? 320 : 360; });
+    var sfb = letras.map(function (l) { return l.closest('em') ? 100 : 40; });
     function medir() { centros = letras.map(function (l) { var r = l.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }); }
     function pintar() {
       pend = 0; if (!centros) medir();
@@ -1047,7 +1057,7 @@ footer a:hover { color: var(--arena); }
         var k = Math.max(0, 1 - d / 190); k = k * k * (3 - 2 * k);
         if (k > 0.015) {
           l.style.setProperty('--w', Math.round(bases[i] + 330 * k));
-          l.style.setProperty('--sf', Math.round(40 + 60 * k));
+          l.style.setProperty('--sf', Math.round(sfb[i] + (100 - sfb[i]) * k));
           l.style.setProperty('--op', Math.round(144 - 72 * k));
         } else { l.style.removeProperty('--w'); l.style.removeProperty('--sf'); l.style.removeProperty('--op'); }
       });
@@ -1312,6 +1322,7 @@ footer a:hover { color: var(--arena); }
       pintarTinta(c, 1.1); pintarPluma(c, 1.1);
     }
     function dibujar() {
+      if (!capaSeca) return;  // aún sin construir (la fuente no ha llegado)
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, cv.width, cv.height);
       ctx.drawImage(capaTinta || capaSeca, 0, 0);
@@ -1344,6 +1355,7 @@ footer a:hover { color: var(--arena); }
     }
     function cuadro(ahora) {
       raf = 0;
+      if (!capaSeca) return;  // arrancar() la vuelve a pedir
       var sigue = false;
       if (!hecho && empezado) {
         var dt = ultimo ? Math.min(120, ahora - ultimo) : 16;
@@ -1362,15 +1374,22 @@ footer a:hover { color: var(--arena); }
     }
     function pedir() { if (!raf && visible) raf = requestAnimationFrame(cuadro); }
 
+    function empezar() { if (!empezado && !hecho) { empezado = true; pedir(); } }
     function arrancar() {
       if (!construir()) return;
-      if (REDUCED) { encenderTodos(); dibujar(); }
-      else { empezado = true; pedir(); }
+      if (REDUCED) encenderTodos();
+      dibujar();
+      if (!REDUCED && (empezado || !('IntersectionObserver' in window))) { empezado = false; empezar(); }
       if ('IntersectionObserver' in window) {
+        var umbrales = []; for (var u = 0; u <= 20; u++) umbrales.push(u / 20);
         new IntersectionObserver(function (es) {
-          visible = es[0].isIntersecting;
+          var e = es[0];
+          visible = e.isIntersecting;
+          // la pluma espera a que se vea el 90 % de la V (o el 90 % de la pantalla, si la V es más alta)
+          var umbral = Math.min(0.9, 0.9 * window.innerHeight / Math.max(1, e.boundingClientRect.height));
+          if (visible && !REDUCED && e.intersectionRatio >= umbral - 0.001) empezar();
           if (visible) pedir(); else if (raf) { cancelAnimationFrame(raf); raf = 0; }
-        }).observe(caja);
+        }, { threshold: umbrales }).observe(caja);
       }
       var rt;
       window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (construir()) dibujar(); }, 160); });
@@ -1385,7 +1404,7 @@ footer a:hover { color: var(--arena); }
       caja.addEventListener('pointerleave', function () { lente.meta = 0; pedir(); });
     }
     nodos.forEach(function (n, i) {
-      function entra() { foco = i; n.classList.add('foco'); mostrarQuien(n.getAttribute('data-k')); if (REDUCED) dibujar(); else pedir(); }
+      function entra() { if (!REDUCED) empezar(); foco = i; n.classList.add('foco'); mostrarQuien(n.getAttribute('data-k')); if (REDUCED) dibujar(); else pedir(); }
       function sale() { if (foco === i) foco = -1; n.classList.remove('foco'); mostrarQuien(null); if (REDUCED) dibujar(); else pedir(); }
       n.addEventListener('pointerenter', entra); n.addEventListener('pointerleave', sale);
       n.addEventListener('focus', entra); n.addEventListener('blur', sale);

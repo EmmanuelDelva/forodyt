@@ -111,6 +111,9 @@ body::after { content:""; position:fixed; inset:0; z-index:9997; pointer-events:
 .cinta-iv a:hover { color:var(--marfil); border-bottom-color:var(--marfil); }
 .cinta-iv-sep { color:rgba(200,168,88,.6); }
 @media (max-width:560px) { .cinta-iv-sep { display:none; } .cinta-iv-inner { font-size:10px; letter-spacing:.1em; } }
+/* en francés las versales convertirían «IVe» / «Ve» en «IVE» / «VE»: la cinta y el enlace de cierre van en caja baja */
+html[lang="fr"] .cinta-iv-inner, html[lang="fr"] .volver { text-transform:none; letter-spacing:.08em; }
+.nt { text-transform:none; }
 
 /* ── hero ── (la cinta ya aparta el nav fijo: el hero descuenta su altura) */
 .hero-j { max-width:1380px; margin:0 auto; padding:calc(clamp(150px,19vh,210px) - 74px) clamp(20px,4vw,48px) clamp(60px,7vw,100px); position:relative; }
@@ -411,7 +414,7 @@ html.js .reveal.in-view { opacity:1; transform:none; }
 <!-- ============ HERO ============ -->
 <header class="hero-j">
   <div class="fantasma" aria-hidden="true">18</div>
-  <div class="eyebrow reveal"><span data-f18n="hero_eyebrow">IV edición · Jornada previa</span>&nbsp;&nbsp;<span class="vivo" data-f18n="hero_vivo">En línea</span></div>
+  <div class="eyebrow reveal"><span data-f18n-html="hero_eyebrow">IV edición · Jornada previa</span>&nbsp;&nbsp;<span class="vivo" data-f18n="hero_vivo">En línea</span></div>
   <h1 class="reveal" data-d="1" data-f18n-html="hero_t">El Foro empezó <em>antes</em>.</h1>
   <p class="lead reveal" data-d="2" data-f18n-html="hero_lead"><b>Viernes 18 de septiembre de 2026.</b> Antes de encender los reflectores en Guadalajara, las ponencias aceptadas en la convocatoria se presentaron al mundo en una jornada virtual internacional, coorganizada entre México y España. Fue de acceso libre, con registro previo, en tres idiomas.</p>
 
@@ -430,7 +433,7 @@ html.js .reveal.in-view { opacity:1; transform:none; }
 
   <div class="hito reveal" data-d="4">
     <span class="hito-l1" data-f18n="hito_1">Primera coorganización México — España</span>
-    <span class="hito-l2" data-f18n="hito_2">IV edición · MMXXVI</span>
+    <span class="hito-l2" data-f18n-html="hito_2">IV edición · MMXXVI</span>
   </div>
 </header>
 
@@ -535,12 +538,12 @@ html.js .reveal.in-view { opacity:1; transform:none; }
 
 <!-- ============ CIERRE ============ -->
 <section class="cierre reveal">
-  <div class="eyebrow" style="justify-content:center"><span data-f18n="fin_eyebrow">IV Foro Internacional de Derecho y Tecnología</span></div>
-  <a href="index.html" class="volver" data-f18n="volver">Volver al inicio</a>
+  <div class="eyebrow" style="justify-content:center"><span data-f18n-html="fin_eyebrow">IV Foro Internacional de Derecho y Tecnología</span></div>
+  <a href="memoria-iv.html" class="volver" data-f18n="volver">Volver a la memoria de la IV edición</a>
 </section>
 
 <footer>
-  <span data-f18n="foot">Jornada Virtual Internacional · 18 de septiembre de 2026 — <b>forodyt.com</b></span>
+  <span data-f18n-html="foot">Jornada Virtual Internacional · 18 de septiembre de 2026 — <b>forodyt.com</b></span>
 </footer>
 
 <script src="i18n.js" defer></script>
@@ -695,17 +698,17 @@ window.F18N_PROGRAMA = {"en":{"ui.tz_gdl":"Guadalajara time","ui.tz_local":"Your
       banda_btn: 'Watch the session video',
       banda_bases: 'Read the call guidelines →',
       banda_plazo: 'Full papers: <b>closed on August 15, 2026</b> · ES · EN · FR',
-      fin_eyebrow: 'IV International Forum on Law and Technology', volver: 'Back to home',
+      fin_eyebrow: 'IV International Forum on Law and Technology', volver: 'Back to the 4th edition record',
       foot: 'International Online Session · September 18, 2026 — <b>forodyt.com</b>',
       cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_ir: 'Go to the 5th edition'
     },
     fr: {
-      hero_eyebrow: 'IVe édition · Journée préalable', hero_vivo: 'En ligne',
+      hero_eyebrow: 'IV<span class="nt">e</span> édition · Journée préalable', hero_vivo: 'En ligne',
       hero_t: 'Le Forum a commencé <em>avant</em>.',
       hero_lead: '<b>Vendredi 18 septembre 2026.</b> Avant que les projecteurs ne s\'allument à Guadalajara, les communications retenues par l\'appel ont été présentées au monde lors d\'une journée virtuelle internationale, coorganisée entre le Mexique et l\'Espagne. L\'accès était libre, sur inscription préalable, en trois langues.',
       cnt_jornada: 'Mémoire en vidéo', cnt_ver: 'Voir', cnt_cfp: 'Appel à communications', cnt_cfp_estado: 'Clôturé', cnt_dias: 'jours', cnt_dias2: 'jours',
       corto_eyebrow: 'La journée, en bref', corto_t: 'Que s\'est-il passé le <em>18 septembre</em> ?',
-      hito_1: 'Première coorganisation Mexique — Espagne', hito_2: 'IVe édition · MMXXVI',
+      hito_1: 'Première coorganisation Mexique — Espagne', hito_2: 'IV<span class="nt">e</span> édition · MMXXVI',
       cinta: '18 septembre 2026 · En ligne · Journée tenue · 15:00 Espagne · 7:00 GDL · ES — EN — FR · Mexique ↔ Espagne · Appel clôturé le 15 août · Évaluation achevée  ·  ',
       b1_t: 'Qu\'est-ce que c\'était ?',
       b1_p: 'La session virtuelle du IVe Forum lui-même : les travaux reçus et retenus par l\'<b>appel à contributions</b> ont été présentés dans des tables thématiques en ligne, devant un public international, après évaluation en double aveugle. Ce n\'était pas un événement parallèle — c\'était le Forum, qui ouvrait sa conversation au monde.',
@@ -727,7 +730,7 @@ window.F18N_PROGRAMA = {"en":{"ui.tz_gdl":"Guadalajara time","ui.tz_local":"Your
       banda_btn: 'Voir la vidéo de la journée',
       banda_bases: 'Consulter les bases de l\'appel →',
       banda_plazo: 'Réception des travaux : <b>clôturée le 15 août 2026</b> · ES · EN · FR',
-      fin_eyebrow: 'IVe Forum international de droit et technologie', volver: 'Retour à l\'accueil',
+      fin_eyebrow: 'IV<span class="nt">e</span> Forum international de droit et technologie', volver: 'Retour à la mémoire de la IVe édition',
       foot: 'Journée virtuelle internationale · 18 septembre 2026 — <b>forodyt.com</b>',
       cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_ir: 'Aller à la Ve édition'
     }

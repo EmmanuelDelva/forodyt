@@ -29,6 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mobile-menu.css">
 <style>
   /* ════════════════════════════════════════════════════════════════
      ARCHIVO · Convocatoria de la IV edición (2026, cerrada).
@@ -838,7 +839,7 @@
   .nav .brand-rule { width: 30px; height: 1px; background: var(--ed4); }
   .nav .brand-sub { font-family: var(--mono); font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--tinta-3); white-space: nowrap; }
   .nav .nav-links { display: flex; list-style: none; gap: clamp(14px, 2vw, 30px); margin: 0; }
-  .nav .nav-links a { text-decoration: none; color: var(--tinta-3); font-size: 13.5px; letter-spacing: .02em; position: relative; padding: 4px 0; transition: color .3s var(--ease); }
+  .nav .nav-links a { text-decoration: none; color: var(--tinta-3); font-size: 13.5px; letter-spacing: .02em; position: relative; padding: 4px 0; white-space: nowrap; transition: color .3s var(--ease); }
   .nav .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--cobre); transition: width .45s var(--ease); }
   .nav .nav-links a:hover, .nav .nav-links a[aria-current="page"] { color: var(--tinta); }
   .nav .nav-links a:hover::after, .nav .nav-links a[aria-current="page"]::after { width: 100%; }
@@ -868,9 +869,15 @@
   .cinta-iv a { color: #D9BE7E; text-decoration: none; border-bottom: 1px solid rgba(217, 190, 126, 0.45); padding-bottom: 1px; transition: color .3s var(--ease), border-color .3s var(--ease); }
   .cinta-iv a:hover { color: #F5EFE3; border-color: #F5EFE3; }
 
+  /* FR: «Éditions précédentes» y compañía no caben con el subtítulo de marca */
+  @media (max-width: 1360px) { html[lang="fr"] .nav .brand-sub, html[lang="fr"] .nav .brand-rule { display: none; } }
+  @media (max-width: 1180px) { html[lang="fr"] .nav .nav-links { gap: 14px; } }
   @media (max-width: 1024px) {
     .nav .nav-links { display: none; }
     .nav .nav-cta { gap: 12px; }
+    /* en móvil el menú es el del nav (mobile-menu.js), que no se va con el scroll;
+       el «Menú» de la barra del pliego solo queda en escritorio */
+    #cfp-menu-open, .cfp-utilbar .sep { display: none; }
   }
   @media (max-width: 700px) {
     .nav .brand-sub, .nav .brand-rule { display: none; }
@@ -957,8 +964,8 @@
     </div>
 
     <div class="convened-by" style="margin-top: 14px; padding-top: 14px;">
-      <strong id="jvnLabel">Jornada virtual · viernes 18 de septiembre</strong>
-      <span id="jvnTexto">Los trabajos aceptados se presentaron en línea en la Jornada Virtual Internacional del 18 de septiembre de 2026, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a></span>
+      <strong id="jvnLabel">Presentación de los trabajos aceptados</strong>
+      <span id="jvnTexto">Parte de los trabajos aceptados se presentó en línea en la Jornada Virtual Internacional del 18 de septiembre de 2026, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a>. Otros se presentaron en la sesión «Jóvenes investigadores del Call for Papers» del 21 de septiembre en CUCEA — <a href="programa-iv.html#s-d21-cfp">ver la sesión en el programa →</a></span>
     </div>
   </header>
 
@@ -1188,7 +1195,7 @@
       <li data-i18n-html="cfp_spec2_html"><strong>Encabezado.</strong> Título, nombre completo del autor, un único cargo y una institución de adscripción.</li>
       <li data-i18n-html="cfp_spec3_html"><strong>Índice.</strong> Sumario de los puntos clave del trabajo. No se requiere <em>abstract</em>.</li>
       <li data-i18n-html="cfp_spec4_html"><strong>Fuente y formato.</strong> Times New Roman 12 pt, interlineado 1.5 para texto principal; Times New Roman 10 pt, interlineado sencillo para notas al pie.</li>
-      <li><strong>Numeración de secciones.</strong> <br>
+      <li data-f18n-html="spec_numeracion"><strong>Numeración de secciones.</strong> <br>
         &nbsp;&nbsp;<span class="mono">I. INTRODUCCIÓN</span> (negritas y mayúsculas)<br>
         &nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">1. Subsección</span> (negritas)<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">a. Detalle</span> (cursiva)
@@ -1227,43 +1234,43 @@
 
     <div class="citations-grid">
       <div class="citation-card">
-        <h5>Libro</h5>
+        <h5 data-f18n="cit_libro">Libro</h5>
         <p>APELLIDO, Nombre, <em>Título del Libro</em>, edición, Lugar de publicación, año.</p>
       </div>
       <div class="citation-card">
-        <h5>Artículo de Revista</h5>
+        <h5 data-f18n="cit_revista">Artículo de Revista</h5>
         <p>APELLIDO, Nombre, “Título del Artículo”, <em>Nombre de la Revista</em>, núm., año, págs.</p>
       </div>
       <div class="citation-card">
-        <h5>Capítulo de Libro</h5>
+        <h5 data-f18n="cit_capitulo">Capítulo de Libro</h5>
         <p>APELLIDO, Nombre, “Título del Capítulo”, en <em>Nombre del Libro</em>, editor/a, Lugar, año, págs.</p>
       </div>
       <div class="citation-card">
-        <h5>Sitio Web</h5>
+        <h5 data-f18n="cit_web">Sitio Web</h5>
         <p>URL (última consulta: dd/mm/aaaa).</p>
       </div>
       <div class="citation-card">
-        <h5>Documento en línea</h5>
+        <h5 data-f18n="cit_doc">Documento en línea</h5>
         <p>APELLIDO, Nombre (año). <em>Título del documento</em>. Nombre del sitio. URL (última consulta: dd/mm/aaaa).</p>
       </div>
       <div class="citation-card">
-        <h5>Artículo de Revista en línea</h5>
+        <h5 data-f18n="cit_revista_linea">Artículo de Revista en línea</h5>
         <p>APELLIDO, Nombre (año). Título. <em>Nombre de la Revista</em>, vol(núm), págs. URL (última consulta: dd/mm/aaaa).</p>
       </div>
       <div class="citation-card">
-        <h5>Jurisprudencia</h5>
+        <h5 data-f18n="cit_juris">Jurisprudencia</h5>
         <p>Nombre del Tribunal, Sentencia [núm.] (año). Tema central. URL (última consulta: dd/mm/aaaa).</p>
       </div>
       <div class="citation-card">
-        <h5>Legislación</h5>
+        <h5 data-f18n="cit_legis">Legislación</h5>
         <p>“Nombre de la Ley”, <em>Diario Oficial de la Federación</em>, fecha.</p>
       </div>
       <div class="citation-card">
-        <h5>Artículo de Ley</h5>
+        <h5 data-f18n="cit_art_ley">Artículo de Ley</h5>
         <p>Artículo 6º de la Constitución Política de los Estados Unidos Mexicanos, reformado, <em>DOF</em>, 11 de junio de 2013.</p>
       </div>
       <div class="citation-card">
-        <h5>Tesis Aislada / Jurisprudencia</h5>
+        <h5 data-f18n="cit_tesis">Tesis Aislada / Jurisprudencia</h5>
         <p>Primera Sala SCJN, Tesis 1a. CXLII/2015 (10a.), <em>Gaceta del Semanario Judicial de la Federación</em>, Libro 19, Tomo I, junio 2015, p. 814.</p>
       </div>
     </div>
@@ -1273,11 +1280,11 @@
   <footer class="footer">
     <div>
       <div class="mark">Foro Internacional de Derecho y Tecnología</div>
-      <div style="margin-top:6px;">CUCEA · CUGDL · Cineteca · Ciudad Judicial · UdeG · Edición IV · MMXXVI</div>
+      <div style="margin-top:6px;" data-f18n="pie_sedes">CUCEA · CUGDL · Cineteca · Ciudad Judicial · UdeG · Edición IV · MMXXVI</div>
     </div>
     <div style="text-align:right;">
-      <div>Zapopan, Jalisco · México</div>
-      <div style="margin-top:6px;">21 &amp; 22 sep · 2026</div>
+      <div data-f18n="pie_lugar">Zapopan, Jalisco · México</div>
+      <div style="margin-top:6px;" data-f18n="pie_fechas">21 &amp; 22 sep · 2026</div>
     </div>
   </footer>
 
@@ -1305,6 +1312,7 @@
 
 <!-- ============ i18n (cargado al final, ejecuta en DOMContentLoaded) ============ -->
 <script src="i18n.js" defer></script>
+<script src="mobile-menu.js" defer></script>
 <script>
 (function () {
   var overlay = document.getElementById('cfp-menu');
@@ -1337,26 +1345,50 @@
    memoria): trilingües vía observador de <html lang>, sin tocar i18n.js
    (mismo patrón que el puente f18n de la portada) */
 (function () {
+  /* ES = el texto del HTML (se captura al cargar); EN/FR aquí */
   var T = {
-    es: { l: 'Jornada virtual · viernes 18 de septiembre',
-          t: 'Los trabajos aceptados se presentaron en línea en la Jornada Virtual Internacional del 18 de septiembre de 2026, coorganizada con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides (España) — <a href="jornada-virtual.html">conoce la jornada →</a>' },
-    en: { l: 'Online session · Friday, September 18',
-          t: 'Accepted papers were presented online at the International Online Session on September 18, 2026, co-organized with the Observatorio Mundial de la Abogacía and the Universidad de las Hespérides (Spain) — <a href="jornada-virtual.html">discover the session →</a>',
-          cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_link: 'Go to the 5th edition' },
-    fr: { l: 'Journée virtuelle · vendredi 18 septembre',
-          t: 'Les travaux retenus ont été présentés en ligne lors de la Journée virtuelle internationale du 18 septembre 2026, coorganisée avec l’Observatorio Mundial de la Abogacía et l’Universidad de las Hespérides (Espagne) — <a href="jornada-virtual.html">découvrir la journée →</a>',
-          cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_link: 'Aller à la Ve édition' }
+    es: { menu_aria: 'Menú principal', cerrar_aria: 'Cerrar menú' },
+    en: { l: 'Presentation of accepted papers',
+          t: 'Some of the accepted papers were presented online at the International Online Session on September 18, 2026, co-organized with the Observatorio Mundial de la Abogacía and the Universidad de las Hespérides (Spain) — <a href="jornada-virtual.html">discover the session →</a>. Others were presented at the «Young Researchers of the Call for Papers» session on September 21 at CUCEA — <a href="programa-iv.html#s-d21-cfp">see the session in the program →</a>',
+          cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_link: 'Go to the 5th edition',
+          spec_numeracion: '<strong>Section numbering.</strong> <br>\n        &nbsp;&nbsp;<span class="mono">I. INTRODUCTION</span> (bold and capitals)<br>\n        &nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">1. Subsection</span> (bold)<br>\n        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">a. Detail</span> (italics)',
+          cit_libro: 'Book', cit_revista: 'Journal article', cit_capitulo: 'Book chapter', cit_web: 'Website',
+          cit_doc: 'Online document', cit_revista_linea: 'Online journal article', cit_juris: 'Case law',
+          cit_legis: 'Legislation', cit_art_ley: 'Statutory article', cit_tesis: 'Isolated thesis / Case law',
+          pie_sedes: 'CUCEA · CUGDL · Cineteca · Ciudad Judicial · UdeG · Edition IV · MMXXVI',
+          pie_lugar: 'Zapopan, Jalisco · Mexico', pie_fechas: 'September 21 & 22 · 2026',
+          menu_aria: 'Main menu', cerrar_aria: 'Close menu' },
+    fr: { l: 'Présentation des travaux retenus',
+          t: 'Une partie des travaux retenus a été présentée en ligne lors de la Journée virtuelle internationale du 18 septembre 2026, coorganisée avec l’Observatorio Mundial de la Abogacía et l’Universidad de las Hespérides (Espagne) — <a href="jornada-virtual.html">découvrir la journée →</a>. D’autres ont été présentés lors de la session « Jeunes chercheurs de l’appel à communications » du 21 septembre au CUCEA — <a href="programa-iv.html#s-d21-cfp">voir la session dans le programme →</a>',
+          cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_link: 'Aller à la Ve édition',
+          spec_numeracion: '<strong>Numérotation des sections.</strong> <br>\n        &nbsp;&nbsp;<span class="mono">I. INTRODUCTION</span> (gras et majuscules)<br>\n        &nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">1. Sous-section</span> (gras)<br>\n        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mono">a. Détail</span> (italique)',
+          cit_libro: 'Livre', cit_revista: 'Article de revue', cit_capitulo: 'Chapitre d’ouvrage', cit_web: 'Site web',
+          cit_doc: 'Document en ligne', cit_revista_linea: 'Article de revue en ligne', cit_juris: 'Jurisprudence',
+          cit_legis: 'Législation', cit_art_ley: 'Article de loi', cit_tesis: 'Thèse isolée / Jurisprudence',
+          pie_sedes: 'CUCEA · CUGDL · Cineteca · Ciudad Judicial · UdeG · Édition IV · MMXXVI',
+          pie_lugar: 'Zapopan, Jalisco · Mexique', pie_fechas: '21 & 22 sept. · 2026',
+          menu_aria: 'Menu principal', cerrar_aria: 'Fermer le menu' }
   };
   var label = document.getElementById('jvnLabel');
   var texto = document.getElementById('jvnTexto');
-  var cinta = document.querySelectorAll('[data-f18n]');
-  cinta.forEach(function (el) { T.es[el.getAttribute('data-f18n')] = el.textContent; });
+  var menu = document.getElementById('cfp-menu');
+  var cerrar = document.getElementById('cfp-menu-close');
+  if (label) T.es.l = label.textContent;
+  if (texto) T.es.t = texto.innerHTML;
+  var planos = document.querySelectorAll('[data-f18n]');
+  var ricos = document.querySelectorAll('[data-f18n-html]');
+  planos.forEach(function (el) { T.es[el.getAttribute('data-f18n')] = el.textContent; });
+  ricos.forEach(function (el) { T.es[el.getAttribute('data-f18n-html')] = el.innerHTML; });
   function aplicar() {
     var lang = document.documentElement.lang || 'es';
     var d = T[lang] || T.es;
-    if (label) label.textContent = d.l;
-    if (texto) texto.innerHTML = d.t;
-    cinta.forEach(function (el) { var k = el.getAttribute('data-f18n'); el.textContent = d[k] || T.es[k]; });
+    function v(k) { return d[k] !== undefined ? d[k] : T.es[k]; }
+    if (label) label.textContent = v('l');
+    if (texto) texto.innerHTML = v('t');
+    planos.forEach(function (el) { el.textContent = v(el.getAttribute('data-f18n')); });
+    ricos.forEach(function (el) { el.innerHTML = v(el.getAttribute('data-f18n-html')); });
+    if (menu) menu.setAttribute('aria-label', v('menu_aria'));
+    if (cerrar) cerrar.setAttribute('aria-label', v('cerrar_aria'));
   }
   aplicar();
   if ('MutationObserver' in window) {

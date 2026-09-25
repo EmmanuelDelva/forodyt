@@ -27,6 +27,8 @@
  *      - BASE_V_HOJA: (opcional) nombre de la pestaña de la base. Sin ella se usa la primera pestaña.
  *      - BASE_V_EXCLUIR: (opcional) folios o correos de prueba separados por coma que sembrarBaseV() no copia.
  *           También respeta CIERRE_EXCLUIR (Cierre.gs).
+ *      - BASE_V_INCLUIR_HISTORICO: (opcional, APAGADA por defecto) "TRUE" hace que sembrarBaseV() copie también a
+ *           los inscritos de la IV que NO dieron consentimiento. Ver PRIVACIDAD abajo antes de activarla.
  *   3. Deploy > New deployment > Type: Web app
  *      - Execute as: Me (emmanueldelva@cucea.udg.mx)
  *      - Who has access: Anyone
@@ -53,24 +55,38 @@
  *   - _testNewsletter()        → envía correo de prueba SOLO al Director
  *
  * Base de asistentes de la V (2027) en el Drive personal del director:
- *   - sembrarBaseV()           → copia a la base TODOS los inscritos de la IV (Usuarios) y la lista Newsletter.
- *                                Idempotente: volver a correrla no duplica ni pisa correcciones hechas a mano.
+ *   - sembrarBaseV()           → copia a la base los inscritos de la IV CON consentimiento (acepto_news) y la lista
+ *                                Newsletter. Idempotente: volver a correrla no duplica y no pisa los datos corregidos
+ *                                a mano. OJO: una baja hecha a mano SIN la marca [BAJA] en notas (solo desmarcando
+ *                                acepta_comunicaciones) sí la revierte la siguiente siembra: usar bajaBaseV.
  *   - _reporteBaseV()          → conteos (total, con consentimiento, bajas, por origen). NO envía nada.
  *   - bajaBaseV('correo')      → baja explícita: acepta_comunicaciones = FALSE y deja la marca [BAJA fecha].
  *   - _testAvisoBaseV()        → aviso de prueba SOLO al Director, con el formato de la V.
  *   - enviarAvisoBaseV(asunto, htmlBody) → aviso a la base de la V, SOLO a acepta_comunicaciones = TRUE.
  *   Cada suscripción de «Avísame» (action 'newsletter', p. ej. index.html#aviso) entra sola a la base.
  *
- * PRIVACIDAD (LFPDPPP) — base de la V:
- *   Los anuncios se envían SOLO a quien tenga acepta_comunicaciones = TRUE. De dónde sale ese TRUE:
- *     · Inscritos de la IV: se copia su casilla opcional acepto_news, cuyo texto era «Quiero recibir
- *       comunicaciones sobre futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236». Ese es
- *       precisamente el consentimiento para escribirles sobre la V. Quien no la marcó queda en la base como
- *       registro histórico (asistió a la IV), con FALSE, y NO recibe anuncios.
- *     · Suscripciones de «Avísame» y de la lista Newsletter: las pidió la propia persona → TRUE.
- *   Nunca se degrada de TRUE a FALSE salvo baja explícita (bajaBaseV). Una baja no se revierte sola: ni la
- *   siembra ni un formulario público (que cualquiera puede llenar con un correo ajeno) la reactivan; el
- *   formulario solo deja la nota [PIDE RE-ALTA …] para que el director decida y ponga TRUE a mano.
+ * PRIVACIDAD — base de la V (LFPDPPP y LGPDPPSO: la UdeG es sujeto obligado):
+ *   Lo que dice el Aviso de privacidad de la inscripción de la IV (inscripcion.html, «Aviso de privacidad
+ *   simplificado»):
+ *     · Responsable: la Universidad de Guadalajara, a través del CUCEA. No es el Cuerpo Académico ni el director.
+ *     · Finalidades secundarias, con consentimiento expreso por casilla: información sobre futuras ediciones del
+ *       Foro y actividades del CA UDG-CA-1236. Esa casilla es acepto_news («Quiero recibir comunicaciones sobre
+ *       futuras ediciones del Foro y actividades del Cuerpo Académico UDG-CA-1236»).
+ *     · Conservación: hasta dos años tras el cierre, EXCLUSIVAMENTE para auditoría académica y emisión de
+ *       duplicados de constancia.
+ *     · Transferencias: ninguna a terceros distintos del comité organizador.
+ *   Por eso:
+ *     · sembrarBaseV() copia SOLO a quien tiene consentimiento: marcó acepto_news, o se suscribió (lista
+ *       Newsletter o «Avísame»). Todos ellos quedan con acepta_comunicaciones = TRUE.
+ *     · A quien NO marcó la casilla no se le copia. Una base de avisos en un Drive personal no es auditoría ni
+ *       duplicado de constancia, así que sus datos se quedan solo en el Sheet institucional.
+ *     · BASE_V_INCLUIR_HISTORICO = TRUE copia también a esas personas, con FALSE y sin avisos, como registro
+ *       histórico. Activarla SOLO después de consultarlo con la Unidad de Transparencia de la UdeG.
+ *     · Los anuncios se envían SOLO a quien tenga acepta_comunicaciones = TRUE.
+ *   Nunca se degrada de TRUE a FALSE salvo baja explícita (bajaBaseV, o [BAJA] escrito a mano en notas). Una baja
+ *   no se revierte sola: ni la siembra ni un formulario público (que cualquiera puede llenar con un correo ajeno)
+ *   la reactivan. El formulario solo deja la nota [PIDE RE-ALTA …] para que el director decida y ponga TRUE a mano.
+ *   La fila de una baja se conserva con el correo y la marca para que nada vuelva a darla de alta.
  */
 
 // ============ CONFIG ============
@@ -1017,11 +1033,14 @@ function suscribirNewsletter(payload) {
   // vuelve a pedirlo expresamente, así que se registra el origen nuevo y la fecha de la confirmación.
   // Un fallo aquí (sin permiso, Sheet movido, lock ocupado) NUNCA rompe la suscripción: queda en _logs y
   // sembrarBaseV() lo recupera después, porque el correo ya está en la pestaña Newsletter.
-  try {
-    const r = upsertBaseV_(registroSuscripcionBaseV_(correo, origen));
-    if (r && r.error) log_('baseV', correo, r.error, null);
-  } catch (err) {
-    log_('baseV', correo, 'error: ' + err.message, null);
+  // Sin BASE_V_SHEET_ID no se hace nada más (ni siquiera se lee Usuarios).
+  if (idBaseV_()) {
+    try {
+      const r = upsertBaseV_(registroSuscripcionBaseV_(correo, origen));
+      if (r && r.error) log_('baseV', correo, r.error, null);
+    } catch (err) {
+      log_('baseV', correo, 'error: ' + err.message, null);
+    }
   }
   return resultado;
 }
@@ -1548,11 +1567,14 @@ function _testNewsletter() {
  * Reglas de fusión (fusionarBaseV_), iguales para un alta suelta y para la siembra:
  *   - correo (minúsculas, sin espacios) es la llave: nunca se duplica.
  *   - Los datos (nombre, institución, país…) solo rellenan celdas vacías: no pisan lo que el director corrija a mano.
+ *     A una fila dada de baja no se le añade ningún dato: se queda con el correo y la marca.
  *   - origen acumula los orígenes distintos separados por « + » (p. ej. «IV-2026 inscripción + web_v2027»).
  *   - fecha_alta no cambia nunca. fecha_actualizacion se pone cuando algo cambia o cuando la persona vuelve a pedir
  *     los avisos, así queda la fecha de su último consentimiento expreso.
  *   - acepta_comunicaciones: ver PRIVACIDAD en la cabecera del archivo. Las marcas [BAJA fecha] y [RE-ALTA fecha]
- *     de la columna notas dicen si la fila está dada de baja (manda la última que aparezca).
+ *     de la columna notas dicen si la fila está dada de baja (manda la última que aparezca; [BAJA] sin fecha
+ *     también vale). Poner FALSE a mano SIN esa marca no es una baja: la siguiente siembra la vuelve a TRUE si la
+ *     persona sigue con acepto_news o en la lista Newsletter. Para dar de baja, bajaBaseV('correo').
  *   - Las columnas que el director añada a mano se respetan: el script solo escribe las celdas que cambia.
  */
 const BASE_V_COLS = ['correo', 'nombre', 'institucion', 'pais', 'tipo', 'grado', 'modalidad_iv', 'folio_iv',
@@ -1564,11 +1586,22 @@ const BASE_V_AVISOS = 'Avisos';               // pestaña del Sheet personal don
 const BASE_V_LOTE = 250;                      // filas nuevas por volcado en sembrarBaseV()
 const BASE_V_MAX_MS = 4.5 * 60 * 1000;        // margen frente al límite de 6 min por ejecución de Apps Script
 const BASE_V_NOMBRE_REMITENTE = 'Foro Internacional de Derecho y Tecnología';
+const BASE_V_ESPERA_WEB_MS = 5000;            // cuánto espera un «Avísame» (app web) a que se libere el candado
+const BASE_V_ENVIO_PROP = 'BASE_V_AVISO_EN_CURSO';   // bandera de enviarAvisoBaseV() (Script Property temporal)
+const BASE_V_ENVIO_TTL_MS = 7 * 60 * 1000;    // una bandera más vieja que esto es de una ejecución que murió
 
 function idBaseV_() { return String(PROPS.getProperty('BASE_V_SHEET_ID') || '').trim(); }
 
-/** Candado de la base. El de documento no choca con el de script que usa enviarCierre() (Cierre.gs). */
-function lockBaseV_() { return LockService.getDocumentLock() || LockService.getScriptLock(); }
+/**
+ * Candado de la base: SIEMPRE el de script, el mismo en la app web, en el editor y en los disparadores.
+ * (getDocumentLock() no sirve: devuelve null en la app web y otro candado distinto en el editor, así que la
+ * siembra y los «Avísame» no se excluirían entre sí.)
+ * Se retiene solo segundos: una fusión suelta o una siembra, que trabaja en memoria. enviarAvisoBaseV() NO lo
+ * retiene durante el envío (usa una bandera). enviarCierre() (Cierre.gs) sí lo retiene en cada tanda (hasta
+ * 4 min): un «Avísame» que llegue entonces queda en la pestaña Newsletter y en _logs (baseV · base_v_ocupada),
+ * y la siguiente sembrarBaseV() lo recupera.
+ */
+function lockBaseV_() { return LockService.getScriptLock(); }
 
 /**
  * Un texto que empieza por = + - @ se guardaría como FÓRMULA. El origen y el correo llegan de un formulario
@@ -1668,9 +1701,11 @@ function fusionarBaseV_(actual, r, ahora, I, n) {
     const esFecha = Object.prototype.toString.call(r.fecha) === '[object Date]' && !isNaN(r.fecha.getTime());
     poner('fecha_alta', esFecha ? r.fecha : ahora);
   }
+  // A una fila dada de baja no se le añaden datos personales: se queda solo con el correo y la marca.
+  const deBaja = r.baja || enBajaBaseV_(f[I.notas]);
   BASE_V_DATOS.forEach(c => {
     const v = r[c] == null ? '' : String(r[c]).trim();
-    if (v && vacia(f[I[c]])) poner(c, v);
+    if (v && !deBaja && vacia(f[I[c]])) poner(c, v);
   });
   if (r.origen) {
     const lista = String(f[I.origen] || '').split('+').map(s => s.trim()).filter(Boolean);
@@ -1710,7 +1745,7 @@ function upsertBaseV_(registro) {
   if (!r) return { ok: false, error: 'correo_invalido' };
   if (!idBaseV_()) return { ok: false, omitido: 'sin_BASE_V_SHEET_ID' };
   const lock = lockBaseV_();
-  if (!lock.tryLock(10000)) return { ok: false, error: 'base_v_ocupada' };
+  if (!lock.tryLock(BASE_V_ESPERA_WEB_MS)) return { ok: false, error: 'base_v_ocupada' };
   try {
     const base = baseV_();
     const sh = base.sh, I = base.i, n = base.n;
@@ -1737,13 +1772,42 @@ function upsertBaseV_(registro) {
   }
 }
 
-/** Todo lo que se siembra desde el Sheet institucional: inscritos de la IV (Usuarios) y la lista Newsletter. */
+/**
+ * Todo lo que se siembra desde el Sheet institucional: inscritos de la IV (Usuarios) con consentimiento y la lista
+ * Newsletter. Un inscrito SIN acepto_news solo entra si también está en la lista Newsletter (ahí sí pidió los
+ * avisos) o si BASE_V_INCLUIR_HISTORICO = TRUE (ver PRIVACIDAD en la cabecera).
+ */
 function fuentesSiembraBaseV_() {
   const excluir = {};
   [PROPS.getProperty('BASE_V_EXCLUIR'), PROPS.getProperty('CIERRE_EXCLUIR')].forEach(p =>
     String(p || '').split(',').map(s => s.toLowerCase().trim()).filter(Boolean).forEach(s => { excluir[s] = true; }));
+  const historico = esTrue_(PROPS.getProperty('BASE_V_INCLUIR_HISTORICO'));
   const registros = [];
-  const cuenta = { usuarios: 0, newsletter: 0, excluidos: 0, invalidos: 0 };
+  const cuenta = { usuarios: 0, newsletter: 0, excluidos: 0, invalidos: 0, sin_consentimiento_omitidos: 0, incluye_historico: historico };
+
+  // Primero la lista Newsletter: quien está en ella pidió los avisos aunque no marcara la casilla al inscribirse.
+  const shN = SS.getSheetByName(SHEETS.newsletter);
+  const deNewsletter = [], enNewsletter = {};
+  if (shN && shN.getLastRow() > 1) {
+    const d = shN.getDataRange().getValues();
+    const h = d[0].map(x => String(x).trim().toLowerCase());
+    const iC = h.indexOf('correo') !== -1 ? h.indexOf('correo') : 0;
+    const iF = h.indexOf('fecha'), iO = h.indexOf('origen');
+    for (let k = 1; k < d.length; k++) {
+      const correo = String(d[k][iC] || '').toLowerCase().trim();
+      if (!correo) continue;
+      if (!isEmailValid_(correo)) { cuenta.invalidos++; continue; }
+      if (excluir[correo]) { cuenta.excluidos++; continue; }
+      enNewsletter[correo] = true;
+      deNewsletter.push({
+        correo: correo,
+        acepta: true,                          // se suscribió ella misma
+        origen: (iO !== -1 && String(d[k][iO] || '').trim()) || 'newsletter',
+        fecha: iF !== -1 ? d[k][iF] : ''
+      });
+      cuenta.newsletter++;
+    }
+  }
 
   const shU = SS.getSheetByName(SHEETS.usuarios);
   if (shU && shU.getLastRow() > 1) {
@@ -1758,52 +1822,39 @@ function fuentesSiembraBaseV_() {
       if (!correo) continue;
       if (!isEmailValid_(correo)) { cuenta.invalidos++; continue; }
       if (excluir[correo] || excluir[String(u.folio || '').toLowerCase().trim()]) { cuenta.excluidos++; continue; }
+      const acepta = esTrue_(u.acepto_news);  // la casilla opcional de la IV = consentimiento para futuras ediciones
+      if (!acepta && !enNewsletter[correo] && !historico) { cuenta.sin_consentimiento_omitidos++; continue; }
       registros.push(Object.assign(datosUsuarioBaseV_(u), {
         correo: correo,
-        acepta: esTrue_(u.acepto_news),       // la casilla opcional de la IV = consentimiento para futuras ediciones
+        acepta: acepta,
         origen: BASE_V_ORIGEN_IV,
         fecha: u.fecha_registro || u.fecha
       }));
       cuenta.usuarios++;
     }
   }
-
-  const shN = SS.getSheetByName(SHEETS.newsletter);
-  if (shN && shN.getLastRow() > 1) {
-    const d = shN.getDataRange().getValues();
-    const h = d[0].map(x => String(x).trim().toLowerCase());
-    const iC = h.indexOf('correo') !== -1 ? h.indexOf('correo') : 0;
-    const iF = h.indexOf('fecha'), iO = h.indexOf('origen');
-    for (let k = 1; k < d.length; k++) {
-      const correo = String(d[k][iC] || '').toLowerCase().trim();
-      if (!correo) continue;
-      if (!isEmailValid_(correo)) { cuenta.invalidos++; continue; }
-      if (excluir[correo]) { cuenta.excluidos++; continue; }
-      registros.push({
-        correo: correo,
-        acepta: true,                          // se suscribió ella misma
-        origen: (iO !== -1 && String(d[k][iO] || '').trim()) || 'newsletter',
-        fecha: iF !== -1 ? d[k][iF] : ''
-      });
-      cuenta.newsletter++;
-    }
-  }
-  return { registros: registros, cuenta: cuenta };
+  // Los de Newsletter van después: si la misma persona también se inscribió, su fila ya trae los datos de la IV
+  // y la suscripción le suma el origen y el TRUE.
+  return { registros: registros.concat(deNewsletter), cuenta: cuenta };
 }
 
 /**
- * sembrarBaseV() — correr desde el editor. Copia a la base de la V a TODOS los inscritos de la IV (Usuarios:
- * acepta_comunicaciones = su acepto_news, origen «IV-2026 inscripción», modalidad_iv, folio_iv…) y todos los
- * correos de la lista Newsletter (acepta_comunicaciones = TRUE, origen el suyo).
+ * sembrarBaseV() — correr desde el editor. Copia a la base de la V:
+ *   · los inscritos de la IV (Usuarios) que marcaron acepto_news: acepta_comunicaciones = TRUE, origen
+ *     «IV-2026 inscripción», nombre, institución, país, tipo, grado, modalidad_iv y folio_iv;
+ *   · todos los correos de la lista Newsletter: acepta_comunicaciones = TRUE, origen el suyo;
+ *   · a los inscritos SIN consentimiento solo si BASE_V_INCLUIR_HISTORICO = TRUE (con FALSE; ver PRIVACIDAD).
  * Idempotente: una segunda corrida no duplica ni reescribe nada que no haya cambiado. Si se acerca al límite de
  * 6 min, se detiene limpia y basta con volver a ejecutarla. Devuelve los conteos.
+ * Retiene el candado de script mientras escribe (unos segundos): no correrla mientras enviarCierre() (Cierre.gs)
+ * tenga tandas pendientes, porque una tanda que no consigue el candado en 10 s se descarta sin reprogramarse.
  */
 function sembrarBaseV() {
   if (!idBaseV_()) throw new Error('Falta la Script Property BASE_V_SHEET_ID (ver RUNBOOK-evento.md §8).');
   const inicio = Date.now();
   const fuentes = fuentesSiembraBaseV_();        // se lee el Sheet institucional antes de tomar el candado
   const lock = lockBaseV_();
-  if (!lock.tryLock(30000)) throw new Error('La base de la V está ocupada (otra siembra o un alta en curso). Vuelve a intentarlo en un minuto.');
+  if (!lock.tryLock(30000)) throw new Error('La base de la V está ocupada (otra siembra, un alta o una tanda de enviarCierre en curso). Vuelve a intentarlo en unos minutos.');
   try {
     const base = baseV_();
     const sh = base.sh, I = base.i, n = base.n;
@@ -1817,8 +1868,16 @@ function sembrarBaseV() {
     const tocadas = {};
     let enHoja = inicial;                         // valores[0 .. enHoja-1] ya están escritos en la hoja
     let sinCambios = 0, procesados = 0, completo = true;
+    // Con el candado ningún proceso del script escribe en la base, pero el director sí puede editarla a mano
+    // mientras corre. Si la hoja ya no termina donde se leyó, se detiene ANTES de escribir en una fila equivocada.
+    const comprobarBase = () => {
+      if (sh.getLastRow() !== enHoja + 1) {
+        throw new Error('La base cambió mientras se sembraba (se añadió o se borró una fila). Lo ya escrito es correcto: vuelve a ejecutar sembrarBaseV().');
+      }
+    };
     const volcar = () => {                        // escribe de un golpe las filas nuevas pendientes
       if (valores.length === enHoja) return;
+      comprobarBase();
       const bloque = valores.slice(enHoja).map(f => f.map(celdaSegura_));
       asegurarFilasBaseV_(sh, enHoja + 1 + bloque.length);
       sh.getRange(enHoja + 2, 1, bloque.length, n).setValues(bloque);
@@ -1840,7 +1899,10 @@ function sembrarBaseV() {
         continue;
       }
       valores[k] = res.fila;
-      if (k < enHoja) res.cols.forEach(c => sh.getRange(k + 2, c + 1).setValue(celdaSegura_(res.fila[c])));
+      if (k < enHoja) {
+        comprobarBase();
+        res.cols.forEach(c => sh.getRange(k + 2, c + 1).setValue(celdaSegura_(res.fila[c])));
+      }
       if (k < inicial) tocadas[k] = true;
     }
     volcar();
@@ -1852,6 +1914,8 @@ function sembrarBaseV() {
       procesados: procesados,
       de_usuarios_iv: fuentes.cuenta.usuarios,
       de_newsletter: fuentes.cuenta.newsletter,
+      sin_consentimiento_omitidos: fuentes.cuenta.sin_consentimiento_omitidos,
+      incluye_historico: fuentes.cuenta.incluye_historico,
       excluidos: fuentes.cuenta.excluidos,
       correos_invalidos: fuentes.cuenta.invalidos,
       altas: valores.length - inicial,
@@ -1862,6 +1926,10 @@ function sembrarBaseV() {
     };
     Logger.log('sembrarBaseV: ' + JSON.stringify(resultado, null, 2));
     if (!completo) Logger.log('Se detuvo por tiempo: vuelve a ejecutar sembrarBaseV(). Lo ya copiado no se repite.');
+    if (resultado.sin_consentimiento_omitidos) {
+      Logger.log(resultado.sin_consentimiento_omitidos + ' inscritos de la IV no marcaron la casilla de comunicaciones: ' +
+        'NO se copiaron (se quedan solo en el Sheet institucional). Ver PRIVACIDAD en la cabecera de Code.gs.');
+    }
     log_('sembrarBaseV', completo ? 'completo' : 'parcial', 'altas=' + resultado.altas + ' actualizados=' + resultado.actualizados, null);
     return resultado;
   } finally {
@@ -1983,8 +2051,7 @@ function enviarAvisoBaseV(asunto, htmlBody) {
   }
   const base = baseV_();
   if (!base) throw new Error('Falta la Script Property BASE_V_SHEET_ID (ver RUNBOOK-evento.md §8).');
-  const lock = LockService.getScriptLock();
-  if (!lock.tryLock(5000)) throw new Error('Ya hay un envío en curso.');
+  marcarEnvioAvisoBaseV_();
   try {
     const hoja = hojaAvisosBaseV_(base.ss);
     const ya = {};
@@ -2017,6 +2084,29 @@ function enviarAvisoBaseV(asunto, htmlBody) {
     };
     Logger.log('enviarAvisoBaseV: ' + JSON.stringify(res) + (pausa ? ' → se detuvo por ' + pausa + ': volver a ejecutar con el mismo asunto.' : ''));
     return res;
+  } finally {
+    PROPS.deleteProperty(BASE_V_ENVIO_PROP);
+  }
+}
+
+/**
+ * Bandera de «hay un aviso enviándose», para que dos ejecuciones no manden el mismo aviso a la vez. NO se retiene
+ * el candado de script durante el envío (hasta 4.5 min): bloquearía los «Avísame» de la app web. El candado solo
+ * se toma unos milisegundos para comprobar y poner la bandera de forma atómica. La bandera es una Script Property
+ * con la hora: si la ejecución muere sin borrarla, deja de contar a los BASE_V_ENVIO_TTL_MS.
+ */
+function marcarEnvioAvisoBaseV_() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(15000)) {
+    throw new Error('El candado del script está ocupado (quizá una tanda de enviarCierre o una siembra). Vuelve a intentarlo en unos minutos.');
+  }
+  try {
+    const desde = Number(PROPS.getProperty(BASE_V_ENVIO_PROP)) || 0;
+    if (desde && Date.now() - desde < BASE_V_ENVIO_TTL_MS) {
+      throw new Error('Ya hay un aviso de la V enviándose (empezó ' + Utilities.formatDate(new Date(desde), TZ, 'HH:mm') +
+        '). Espera a que termine y, si faltó gente, vuelve a ejecutarla con el mismo asunto.');
+    }
+    PROPS.setProperty(BASE_V_ENVIO_PROP, String(Date.now()));
   } finally {
     lock.releaseLock();
   }

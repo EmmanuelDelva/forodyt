@@ -250,6 +250,7 @@ a:hover .flecha { transform: translateX(4px); }
   padding: 104px var(--gutter) 72px calc(50% + clamp(24px, 3vw, 56px));
   scroll-margin-top: 0;
 }
+.cap:focus { outline: none; } /* foco programático del índice: contexto para lectores de pantalla, sin marco */
 .cap[data-ed="2"] { --ed: var(--ed2); --edc: var(--ed2-c); }
 .cap[data-ed="3"] { --ed: var(--ed3); --edc: var(--ed3-c); }
 .cap[data-ed="4"] { --ed: var(--ed4); --edc: var(--ed4-c); }
@@ -308,6 +309,7 @@ a:hover .flecha { transform: translateX(4px); }
 .cap-v .cap-cta { color: var(--tinta); border-color: var(--cobre); }
 .cap-v .cap-cta:hover { color: var(--cobre-2); border-color: var(--cobre-2); }
 .cap-v .btn-primary { background: var(--tinta); color: var(--arena); }
+.cap-v :focus-visible, .mm-overlay :focus-visible { outline-color: var(--cobre-2); } /* sobre papel: ≥ 3:1 */
 
 /* golpe seco → tinta ligado al scroll (mejora progresiva) */
 @supports (animation-timeline: view()) {
@@ -356,6 +358,9 @@ footer a:hover { color: var(--arena); }
   .hero-mapa { margin: 18px calc(-1 * var(--gutter)) 0; }
   .m-indice a { padding: 12px 8px 4px; }
   .cap { padding: 52vh 16px 48px; padding-top: 52svh; align-items: flex-start; }
+  /* hueco tras cada tarjeta: ahí vuela el numeral siguiente, sin nada que lo tape */
+  .lienzo-on .cap:not(.cap-v) { padding-bottom: 40vh; padding-bottom: 40svh; }
+  @media (prefers-reduced-motion: reduce) { .lienzo-on .cap:not(.cap-v) { padding-bottom: 48px; } }
   .no-js .cap, .sin-lienzo .cap { padding-top: 88px; min-height: 0; }
   .cap-caja { max-width: none; background: rgba(26, 24, 16, 0.94); padding: 22px 18px 24px; }
   .cap-v .cap-caja { padding: 22px 18px 24px; }
@@ -495,7 +500,7 @@ footer a:hover { color: var(--arena); }
           <li><a href="programa-iv.html"><span class="ac-t" data-f18n="ac2_t">Programa</span><span class="ac-d" data-f18n="ac2_d">18, 21 y 22 de septiembre de 2026</span><span class="ac-ir" aria-hidden="true">→</span></a></li>
           <li><a href="cfp-iv.html"><span class="ac-t" data-f18n="ac3_t">Convocatoria</span><span class="ac-d" data-f18n="ac3_d">Call for Papers de la IV edición · cerrada</span><span class="ac-ir" aria-hidden="true">→</span></a></li>
           <li><a href="jornada-virtual.html"><span class="ac-t" data-f18n="ac4_t">Jornada Virtual Internacional</span><span class="ac-d" data-f18n="ac4_d">Viernes 18 · con el Observatorio Mundial de la Abogacía y la Universidad de las Hespérides</span><span class="ac-ir" aria-hidden="true">→</span></a></li>
-          <li><a href="en-vivo.html"><span class="ac-t" data-f18n="ac5_t">Videos</span><span class="ac-d" data-f18n="ac5_d">Transmisiones de las sedes y de la jornada en línea</span><span class="ac-ir" aria-hidden="true">→</span></a></li>
+          <li><a href="en-vivo.html"><span class="ac-t" data-f18n="ac5_t">Videos</span><span class="ac-d" data-f18n="ac5_d">Transmisiones de CUCEA, CUGDL, la Cineteca FICG y la Jornada Virtual</span><span class="ac-ir" aria-hidden="true">→</span></a></li>
         </ul>
       </div>
     </article>
@@ -598,13 +603,13 @@ footer a:hover { color: var(--arena); }
       c3_st1: '33 speakers', c3_st2: '8 represented', c3_st3: 'Two simultaneous venues · 6 tracks',
       c4_ed: '4th edition · 2026', c4_tema: '“Agents, Algorithms and Autonomy: Law in the Face of the Intelligence that Decides”',
       c4_meta: 'September 18, 21 and 22, 2026 · Itinerant edition',
-      c4_ruta_aria: 'Route of the 4th edition', c4_r1: 'Online Session',
+      c4_ruta_aria: 'Route of the 4th edition', c4_r1: 'International Online Session',
       c4_st1: '68 speakers', c4_st2: '10 countries', c4_st3: '4 venues + International Online Session',
       ac1_t: 'Record of the 4th edition', ac1_d: 'The main page of the fourth Forum: speakers, committee and trajectory.',
       ac2_t: 'Program', ac2_d: 'September 18, 21 and 22, 2026',
       ac3_t: 'Call for papers', ac3_d: 'Call for papers of the 4th edition · closed',
       ac4_t: 'International Online Session', ac4_d: 'Friday 18 · with the World Observatory of the Legal Profession and the Universidad de las Hespérides',
-      ac5_t: 'Videos', ac5_d: 'Broadcasts from the venues and the online session',
+      ac5_t: 'Videos', ac5_d: 'Broadcasts from CUCEA, CUGDL, Cineteca FICG and the International Online Session',
       c5_ed: '5th edition · 2027', c5_tema: '5th International Forum on Law and Technology',
       por_anunciar: 'To be announced',
       c5_p: 'The fifth edition is being written. Its pages are still blank: date, venue, theme and tracks will be printed as they are announced.',
@@ -643,7 +648,7 @@ footer a:hover { color: var(--arena); }
       ac2_t: 'Programme', ac2_d: '18, 21 et 22 septembre 2026',
       ac3_t: 'Appel à communications', ac3_d: 'Appel à communications de la IVe édition · clos',
       ac4_t: 'Journée virtuelle internationale', ac4_d: 'Vendredi 18 · avec l’Observatoire mondial de la profession d’avocat et l’Universidad de las Hespérides',
-      ac5_t: 'Vidéos', ac5_d: 'Retransmissions des sites et de la journée en ligne',
+      ac5_t: 'Vidéos', ac5_d: 'Retransmissions depuis le CUCEA, le CUGDL, la Cineteca FICG et la Journée virtuelle internationale',
       c5_ed: 'Ve édition · 2027', c5_tema: 'Ve Forum International du Droit et de la Technologie',
       por_anunciar: 'À annoncer',
       c5_p: 'La cinquième édition est en cours d’écriture. Ses pages sont encore blanches : date, lieu, thème et axes y seront imprimés au fil des annonces.',
@@ -757,21 +762,55 @@ footer a:hover { color: var(--arena); }
     }
     function lerpR(a, b, q) { return { paso: a.paso + (b.paso - a.paso) * q, ox: a.ox + (b.ox - a.ox) * q, oy: a.oy + (b.oy - a.oy) * q }; }
 
+    /* posición en el documento sin transformaciones (.aparece desplaza la caja 22 px) */
+    function arribaDoc(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
+    /* En el teléfono el numeral vive en la mitad superior y las tarjetas pasan por
+       encima: cada vuelo k → k+1 ocurre en la ventana VENT[k], entre el momento en que
+       la tarjeta k termina de salir de la caja del numeral y el momento en que la
+       tarjeta k+1 empieza a taparla. Así el vuelo siempre se ve. */
+    var VENT = null;
     function anclas() {
       var y0 = window.scrollY || window.pageYOffset || 0;
       A = [H * 0.5];
       caps.forEach(function (c) { var r = c.getBoundingClientRect(); A.push(r.top + y0 + Math.min(r.height, H) * 0.5); });
+      VENT = null;
+      if (MOVIL && BOX) {
+        VENT = [null];
+        for (var k = 0; k < caps.length - 1; k++) {
+          var ca = caps[k].querySelector('.cap-caja'), cb = caps[k + 1].querySelector('.cap-caja');
+          if (!ca || !cb) { VENT = null; return; }
+          var ini = arribaDoc(ca) + ca.offsetHeight - BOX.y;
+          var fin = arribaDoc(cb) - (BOX.y + BOX.h);
+          if (fin - ini < 80) { var c = (ini + fin) / 2; ini = c - 40; fin = c + 40; }
+          VENT.push([ini, fin]);
+        }
+      }
     }
     function sDeScroll() {
-      var m = (window.scrollY || window.pageYOffset || 0) + H * 0.5;
+      var y = window.scrollY || window.pageYOffset || 0, m = y + H * 0.5, f, k;
       if (m <= A[0]) return 0;
-      for (var k = 0; k < A.length - 1; k++) {
+      if (VENT && m >= A[1]) {
+        for (k = 1; k < VENT.length; k++) {
+          if (y < VENT[k][0]) return k;
+          if (y < VENT[k][1]) {
+            f = (y - VENT[k][0]) / (VENT[k][1] - VENT[k][0]);
+            return k + (REDUCED ? (f >= 0.5 ? 1 : 0) : suave(0.04, 0.96, f));
+          }
+        }
+        return A.length - 1;
+      }
+      for (k = 0; k < A.length - 1; k++) {
         if (m < A[k + 1]) {
-          var f = (m - A[k]) / (A[k + 1] - A[k]);
+          f = (m - A[k]) / (A[k + 1] - A[k]);
           return k + (REDUCED ? (f >= 0.5 ? 1 : 0) : suave(0.2, 0.8, f));
         }
       }
       return A.length - 1;
+    }
+    /* desplazamiento en que la edición k se ve completa (enlaces #ed-k y el índice) */
+    function destino(k) {
+      if (VENT && k >= 2 && VENT[k - 1]) return Math.max(0, VENT[k - 1][1] + 2);
+      return Math.max(0, A[k] - H * 0.5);
     }
 
     function construir() {
@@ -806,18 +845,26 @@ footer a:hover { color: var(--arena); }
         var f = Math.min(100 * off.width * 0.92 / w, 100 * off.height * 0.84 / h);
         FIT.push(f); fs = Math.min(fs, f);
       });
-      /* un mismo cuerpo para la serie; los numerales angostos crecen hasta un 30 % */
-      var IMG = NUMS.map(function (n, k) {
-        o.clearRect(0, 0, off.width, off.height);
-        o.font = 'italic 800 ' + Math.min(FIT[k], fs * 1.3).toFixed(1) + 'px Fraunces, Georgia, serif';
-        o.fillStyle = '#000'; o.textBaseline = 'alphabetic';
-        var m = o.measureText(n);
-        var w = (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
-        var x = (off.width - w) / 2 + (m.actualBoundingBoxLeft || 0);
-        var y = (off.height + (m.actualBoundingBoxAscent || FIT[k] * 0.72) - (m.actualBoundingBoxDescent || 0)) / 2;
-        o.fillText(n, x, y);
-        return o.getImageData(0, 0, off.width, off.height).data;
-      });
+      /* un mismo cuerpo para la serie; los numerales angostos crecen hasta un 30 %.
+         El trazo (sw) engruesa los perfiles finos de la itálica —el asta derecha de
+         la V— hasta que ninguna fila de la rejilla los salte al muestrear. */
+      function rasterizar(sw) {
+        return NUMS.map(function (n, k) {
+          o.clearRect(0, 0, off.width, off.height);
+          o.font = 'italic 800 ' + Math.min(FIT[k], fs * 1.3).toFixed(1) + 'px Fraunces, Georgia, serif';
+          o.fillStyle = '#000'; o.textBaseline = 'alphabetic';
+          var m = o.measureText(n);
+          var w = (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
+          var x = (off.width - w) / 2 + (m.actualBoundingBoxLeft || 0);
+          var y = (off.height + (m.actualBoundingBoxAscent || FIT[k] * 0.72) - (m.actualBoundingBoxDescent || 0)) / 2;
+          o.fillText(n, x, y);
+          if (sw > 0) { o.lineWidth = sw; o.lineJoin = 'round'; o.strokeStyle = '#000'; o.strokeText(n, x, y); }
+          return o.getImageData(0, 0, off.width, off.height).data;
+        });
+      }
+      var TRAZO = 0.72;
+      G = Math.max(MOVIL ? 4.4 : 5.4, RB.paso);
+      var swIMG = G * TRAZO, IMG = rasterizar(swIMG);
       function muestrear(g) {
         return IMG.map(function (d) {
           var xs = [], ys = [];
@@ -830,9 +877,13 @@ footer a:hover { color: var(--arena); }
         });
       }
       function mayor(S) { var q = 0; S.forEach(function (s) { q = Math.max(q, s.x.length); }); return q; }
-      G = Math.max(MOVIL ? 4.4 : 5.4, RB.paso);
       var S = muestrear(G), M = mayor(S);
       for (var it = 0; it < 6 && M > CAP; it++) { G *= Math.sqrt(M / CAP) * 1.015; S = muestrear(G); M = mayor(S); }
+      /* si la rejilla se abrió, el trazo de refuerzo se ajusta a la nueva separación */
+      if (G * TRAZO > swIMG * 1.12) {
+        swIMG = G * TRAZO; IMG = rasterizar(swIMG); S = muestrear(G); M = mayor(S);
+        for (it = 0; it < 3 && M > CAP * 1.04; it++) { G *= Math.sqrt(M / CAP) * 1.01; S = muestrear(G); M = mayor(S); }
+      }
       N = M;
 
       /* partículas: un hogar en el mapa para cada una (semilla fija) */
@@ -858,16 +909,16 @@ footer a:hover { color: var(--arena); }
         TX.push(tx); TY.push(ty); TM.push(tm);
       });
 
+      raiz.classList.add('lienzo-on'); /* antes de medir: cambia el hueco entre tarjetas en el teléfono */
       anclas();
       if (!listo) {
         /* enlace directo a una edición (#ed-3): aterriza con su numeral completo */
         var hh = /^#ed-([1-5])$/.exec(location.hash);
-        if (hh && A[+hh[1]]) { try { window.scrollTo({ top: Math.max(0, A[+hh[1]] - H * 0.5), behavior: 'instant' }); } catch (e) { window.scrollTo(0, Math.max(0, A[+hh[1]] - H * 0.5)); } }
+        if (hh && A[+hh[1]]) { var yd = destino(+hh[1]); try { window.scrollTo({ top: yd, behavior: 'instant' }); } catch (e) { window.scrollTo(0, yd); } }
       }
       sObj = sDeScroll();
       if (!listo) sCur = sObj;
       listo = true;
-      raiz.classList.add('lienzo-on');
       pintar();
     }
 
@@ -1062,23 +1113,39 @@ footer a:hover { color: var(--arena); }
     }
     document.addEventListener('visibilitychange', function () { if (!document.hidden) pedir(); });
     if (FINO) {
+      /* la lupa solo despierta el lienzo cerca de lo dibujado (mapa o numeral) */
+      function cerca(x, y) {
+        if (!R || !BOX) return false;
+        var pad = 120, x0 = R.ox + C0 * R.paso, x1 = R.ox + (C0 + NC) * R.paso, y0 = R.oy - R.paso, y1 = R.oy + NR * R.paso;
+        var enMapa = x > x0 - pad && x < x1 + pad && y > y0 - pad && y < y1 + pad;
+        var enCaja = x > BOX.x - pad && x < BOX.x + BOX.w + pad && y > BOX.y - pad && y < BOX.y + BOX.h + pad;
+        return enMapa || enCaja;
+      }
       window.addEventListener('pointermove', function (ev) {
         if (ev.pointerType !== 'mouse' && ev.pointerType !== 'pen') return;
-        mx = ev.clientX; my = ev.clientY; lenteObj = 1; pedir();
+        if (cerca(ev.clientX, ev.clientY)) { mx = ev.clientX; my = ev.clientY; lenteObj = 1; pedir(); }
+        else if (lenteObj !== 0) { lenteObj = 0; pedir(); }
       }, { passive: true });
       document.documentElement.addEventListener('pointerleave', function () { lenteObj = 0; pedir(); });
       window.addEventListener('blur', function () { lenteObj = 0; pedir(); });
     }
+
+    /* un cambio de #ed-k dentro de la página también aterriza con el numeral completo */
+    window.addEventListener('hashchange', function () {
+      var hh = /^#ed-([1-5])$/.exec(location.hash);
+      if (!listo || !hh || !A[+hh[1]]) return;
+      window.scrollTo(0, destino(+hh[1]));
+    });
 
     /* índice de la portada: aterriza donde el numeral queda completo */
     document.querySelectorAll('.m-indice a').forEach(function (lk, k) {
       lk.addEventListener('click', function (ev) {
         if (!listo || !A[k + 1]) return;
         ev.preventDefault();
-        var destino = document.getElementById(lk.getAttribute('href').slice(1));
-        window.scrollTo({ top: Math.max(0, A[k + 1] - H * 0.5), behavior: REDUCED ? 'auto' : 'smooth' });
+        var objetivo = document.getElementById(lk.getAttribute('href').slice(1));
+        window.scrollTo({ top: destino(k + 1), behavior: REDUCED ? 'auto' : 'smooth' });
         try { history.pushState(null, '', lk.getAttribute('href')); } catch (e) {}
-        if (destino) { destino.setAttribute('tabindex', '-1'); destino.focus({ preventScroll: true }); }
+        if (objetivo) { objetivo.setAttribute('tabindex', '-1'); objetivo.focus({ preventScroll: true }); }
       });
     });
 
@@ -1101,8 +1168,15 @@ footer a:hover { color: var(--arena); }
     if (!lz) { raiz.classList.add('sin-lienzo'); return; }
     var fuente = (document.fonts && document.fonts.load) ? document.fonts.load('italic 800 100px Fraunces') : Promise.resolve();
     var tope = new Promise(function (res) { setTimeout(res, 2500); });
+    var CUERPO = 'italic 800 100px Fraunces';
     Promise.race([fuente, tope]).catch(function () {}).then(function () {
-      try { lz.construir(); } catch (err) { raiz.classList.add('sin-lienzo'); raiz.classList.remove('lienzo-on'); }
+      try { lz.construir(); } catch (err) { raiz.classList.add('sin-lienzo'); raiz.classList.remove('lienzo-on'); return; }
+      /* si la itálica de Fraunces llega tarde (red lenta), se rehacen los numerales con ella */
+      if (document.fonts && document.fonts.check && !document.fonts.check(CUERPO)) {
+        fuente.then(function () {
+          if (document.fonts.check(CUERPO)) { try { lz.construir(); } catch (err) {} }
+        }).catch(function () {});
+      }
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();

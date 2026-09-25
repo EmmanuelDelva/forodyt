@@ -93,7 +93,15 @@
     document.body.appendChild(overlay);
 
     // ===== state =====
+    // Dialogo modal: al abrir, el foco entra al overlay (boton CERRAR) y el
+    // tabulador circula solo dentro de el; al cerrar vuelve al boton MENU.
     var isOpen = false;
+    function focusables() {
+      return Array.prototype.filter.call(
+        overlay.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+        function (el) { return el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement; }
+      );
+    }
     function open() {
       if (isOpen) return;
       isOpen = true;
@@ -102,15 +110,33 @@
       trigger.setAttribute('aria-expanded', 'true');
       document.body.classList.add('mm-locked');
       syncLangActive();
+      var cb = overlay.querySelector('.mm-close');
+      if (cb) { try { cb.focus({ preventScroll: true }); } catch (e) { cb.focus(); } }
     }
-    function close() {
+    function close(devolverFoco) {
       if (!isOpen) return;
       isOpen = false;
       overlay.classList.remove('is-open');
       overlay.setAttribute('aria-hidden', 'true');
       trigger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('mm-locked');
+      if (devolverFoco) { try { trigger.focus({ preventScroll: true }); } catch (e) { trigger.focus(); } }
     }
+    overlay.addEventListener('keydown', function (e) {
+      if (!isOpen || e.key !== 'Tab') return;
+      var f = focusables();
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1], act = document.activeElement;
+      if (e.shiftKey && (act === first || !overlay.contains(act))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (act === last || !overlay.contains(act))) { e.preventDefault(); first.focus(); }
+    });
+    // Si el foco se escapa (clic fuera, lector de pantalla), se devuelve al overlay.
+    document.addEventListener('focusin', function (e) {
+      if (isOpen && !overlay.contains(e.target)) {
+        var f = focusables();
+        if (f.length) f[0].focus();
+      }
+    });
     function syncLangActive() {
       var lang = (window.foroI18n && typeof window.foroI18n.getLang === 'function')
         ? window.foroI18n.getLang() : 'es';
@@ -154,7 +180,7 @@
 
     // ===== events =====
     trigger.addEventListener('click', open);
-    overlay.querySelector('.mm-close').addEventListener('click', close);
+    overlay.querySelector('.mm-close').addEventListener('click', function () { close(true); });
 
     overlay.querySelectorAll('.mm-links a, .mm-volver').forEach(function (a) {
       a.addEventListener('click', function (e) {
@@ -210,7 +236,7 @@
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && isOpen) close();
+      if (e.key === 'Escape' && isOpen) close(true);
     });
 
     // re-sincroniza si el idioma cambia desde el switcher de desktop

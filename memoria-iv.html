@@ -1521,7 +1521,7 @@ body.semblanza-lock { overflow: hidden; }
    del tiempo 18 → 21 → 22. La línea se traza y las miniaturas se
    «revelan» (de cianotipia a color) con el scroll; sin scroll-driven
    animations, lo mismo lo dispara el IntersectionObserver (.in-view) */
-.videos-iv { background: var(--noche); color: var(--marfil); overflow: hidden; }
+.videos-iv { background: var(--noche); color: var(--marfil); overflow: hidden; overflow: clip; }
 .videos-iv::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(900px 440px at 88% 0%, rgba(184, 146, 62, 0.11), transparent 62%), radial-gradient(760px 420px at 0% 100%, rgba(42, 92, 92, 0.16), transparent 60%); }
 .videos-iv .section-inner { position: relative; }
 .videos-iv .section-eyebrow { color: var(--dorado-soft); }
@@ -1552,9 +1552,11 @@ body.semblanza-lock { overflow: hidden; }
 .vid-dia { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dorado-soft); }
 .vid-sede { font-family: var(--serif); font-size: 21px; font-weight: 500; line-height: 1.12; font-variation-settings: "opsz" 72, "SOFT" 40; }
 .vid-lugar { font-size: 12.5px; line-height: 1.5; color: rgba(245, 239, 224, 0.68); }
-.vid-card.pendiente .vid-poster { display: grid; place-items: center; background: repeating-linear-gradient(135deg, #0E1B2C 0 10px, #12213A 10px 20px); }
+.vid-card.pendiente .vid-poster { display: grid; place-items: end center; padding-bottom: 14px; background: repeating-linear-gradient(135deg, #0E1B2C 0 10px, #12213A 10px 20px); }
 .vid-card.pendiente .vid-poster::before, .vid-card.pendiente .vid-poster::after { display: none; }
-.vid-prep { position: relative; z-index: 2; margin: 0 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; color: rgba(245, 239, 224, 0.78); border: 1px solid rgba(245, 239, 224, 0.3); padding: 7px 10px; }
+.vid-prep { position: relative; z-index: 2; margin: 0 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; color: rgba(245, 239, 224, 0.78); background: rgba(10, 20, 34, 0.92); border: 1px solid rgba(245, 239, 224, 0.3); padding: 7px 10px; }
+/* ordinales franceses en versalitas: la «e» volada no se vuelve mayúscula (IVᵉ, no IVE) */
+.ord { text-transform: none !important; font-size: 0.74em !important; letter-spacing: 0 !important; vertical-align: 0.36em; line-height: 0; }
 .vid-pie { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 14px; }
 .videos-iv .btn-primary { background: var(--marfil); color: var(--noche); }
 .videos-iv .btn-ghost { color: var(--marfil); border-color: rgba(245, 239, 224, 0.32); }
@@ -1567,8 +1569,8 @@ body.semblanza-lock { overflow: hidden; }
   html.js .vid-item .vid-punto { transform: scale(0); transition: transform 0.6s var(--ease-stamp) 0.15s; }
   html.js .vid-item.in-view .vid-punto { transform: none; }
   @supports (animation-timeline: view()) {
-    html.js .vid-item::before { transition: none; animation: vid-trazo linear both; animation-timeline: --vid; animation-range: entry 15% cover 42%; }
-    html.js .vid-item .vid-poster::before { transition: none; animation: vid-revelado linear both; animation-timeline: --vid; animation-range: entry 25% cover 55%; }
+    html.js .vid-item::before { transition: none; animation: vid-trazo linear both; animation-timeline: --vid; animation-range: entry 10% cover 35%; }
+    html.js .vid-item .vid-poster::before { transition: none; animation: vid-revelado linear both; animation-timeline: --vid; animation-range: entry 20% contain 20%; }
   }
 }
 @keyframes vid-trazo { from { transform: scaleX(0); } to { transform: scaleX(1); } }
@@ -1592,6 +1594,8 @@ body.semblanza-lock { overflow: hidden; }
   .vid-num { font-size: 40px; }
   .vid-play { width: 32px; height: 32px; left: 10px; bottom: 10px; }
   .vid-prep { margin: 0 8px; padding: 6px 6px; font-size: 9px; letter-spacing: 0.14em; }
+  .vid-card.pendiente .vid-poster { padding-bottom: 10px; }
+  .vid-card.pendiente .vid-num { font-size: 32px; }
   @media (prefers-reduced-motion: no-preference) {
     html.js .vid-item::before { transform: scaleY(0); }
     html.js .vid-item.in-view::before { transform: scaleY(1); }
@@ -1635,7 +1639,7 @@ body.semblanza-lock { overflow: hidden; }
       de Derecho<br>
       <span class="accent">y Tecnología</span>
     </h1>
-    <p class="hero-tagline" data-i18n="idx_hero_lead">
+    <p class="hero-tagline" data-f18n="hero_lead_iv">
       Innovación Jurídica en la era digital. Cuatro años pensando, desde Iberoamérica, las preguntas que el derecho aún no sabe contestarle a la tecnología.
     </p>
     <div class="hero-meta">
@@ -1657,7 +1661,7 @@ body.semblanza-lock { overflow: hidden; }
       </div>
     </div>
     <div class="hero-counts">
-      <a class="cuenta cuenta-memoria" href="en-vivo.html" aria-label="Memoria en video del IV Foro, sede por sede.">
+      <a class="cuenta cuenta-memoria" href="en-vivo.html" aria-label="Memoria en video del IV Foro, sede por sede." data-f18n-aria="cnt_vivo_aria">
         <span class="cuenta-label" data-f18n="cnt_vivo">Memoria en video</span>
         <span class="cuenta-num"><b class="cuenta-estado" data-f18n="cnt_vivo_estado">Ver</b></span>
         <span class="cuenta-fecha">18 · 21 · 22 · SEP · 2026</span>
@@ -1673,7 +1677,7 @@ body.semblanza-lock { overflow: hidden; }
 
 <!-- ============ FAJA DE CIERRE · el tercer asiento del mismo renglón ============
      Ni la fecha vencida ni la prórroga se borran: se les añade el asiento siguiente. -->
-<a class="faja faja--cerrada" id="prorroga" href="cfp-iv.html"aria-label="Convocatoria cerrada el 15 de agosto de 2026; proceso de dictaminación finalizado. Consulta las bases.">
+<a class="faja faja--cerrada" id="prorroga" href="cfp-iv.html" aria-label="Convocatoria cerrada el 15 de agosto de 2026; proceso de dictaminación finalizado. Consulta las bases." data-f18n-aria="faja_aria">
   <div class="faja-inner">
     <span class="faja-kicker"><span class="faja-punto" aria-hidden="true"></span><span data-f18n="faja_kicker">Convocatoria cerrada</span></span>
     <span class="faja-cuerpo">
@@ -1691,7 +1695,7 @@ body.semblanza-lock { overflow: hidden; }
 </a>
 
 <!-- ============ PRENSA · cifras ============ -->
-<div class="prensa" role="region" aria-label="Cifras del Foro">
+<div class="prensa" role="region" aria-label="Cifras del Foro" data-f18n-aria="prensa_aria">
   <div class="prensa-inner">
     <div class="cifra reveal">
       <span class="cifra-rom" aria-hidden="true">IV</span>
@@ -1765,7 +1769,7 @@ body.semblanza-lock { overflow: hidden; }
         <span class="vid-punto" aria-hidden="true"></span>
         <a class="vid-card pendiente" href="en-vivo.html#ciudad-judicial">
           <span class="vid-poster"><span class="vid-num" aria-hidden="true">22</span><span class="vid-prep" data-f18n="v_prep">Grabación en preparación</span></span>
-          <span class="vid-info"><span class="vid-dia" data-f18n="v_mar22c">Martes 22 · Clausura</span><span class="vid-sede">Ciudad Judicial</span><span class="vid-lugar" data-f18n="v_cj">Poder Judicial del Estado de Jalisco</span></span>
+          <span class="vid-info"><span class="vid-dia" data-f18n="v_mar22c">Martes 22 · Clausura</span><span class="vid-sede" data-f18n="v_cj_sede">Ciudad Judicial</span><span class="vid-lugar" data-f18n="v_cj">Poder Judicial del Estado de Jalisco</span></span>
         </a>
       </li>
     </ol>
@@ -1790,7 +1794,7 @@ body.semblanza-lock { overflow: hidden; }
     </div>
 
     <div class="timeline">
-      <a class="edition reveal" href="memoria-i.html" aria-label="Ver la memoria de la I Edición">
+      <a class="edition reveal" href="memoria-i.html" aria-label="Ver la memoria de la I Edición" data-f18n-aria="ed1_aria">
         <div class="edition-num">I<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2023</div>
         <h3 class="edition-title" data-i18n="idx_ed1_title">Origen del Foro Internacional</h3>
@@ -1801,7 +1805,7 @@ body.semblanza-lock { overflow: hidden; }
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
       </a>
 
-      <a class="edition reveal" data-d="1" href="memoria-ii.html" aria-label="Ver la memoria de la II Edición">
+      <a class="edition reveal" data-d="1" href="memoria-ii.html" aria-label="Ver la memoria de la II Edición" data-f18n-aria="ed2_aria">
         <div class="edition-num">II<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2024</div>
         <h3 class="edition-title" data-i18n="idx_ed2_title">Consolidación temática y comité científico</h3>
@@ -1812,7 +1816,7 @@ body.semblanza-lock { overflow: hidden; }
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
       </a>
 
-      <a class="edition reveal" data-d="2" href="memoria-iii.html" aria-label="Ver la memoria de la III Edición">
+      <a class="edition reveal" data-d="2" href="memoria-iii.html" aria-label="Ver la memoria de la III Edición" data-f18n-aria="ed3_aria">
         <div class="edition-num">III<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2025</div>
         <h3 class="edition-title" data-f18n="ed3_title">Ocho países, treinta y tres ponentes</h3>
@@ -1823,7 +1827,7 @@ body.semblanza-lock { overflow: hidden; }
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
       </a>
 
-      <a class="edition reveal" data-d="3" href="#hero" aria-label="IV Edición: volver al inicio de esta memoria">
+      <a class="edition reveal" data-d="3" href="#hero" aria-label="IV Edición: volver al inicio de esta memoria" data-f18n-aria="ed4_aria">
         <div class="edition-num">IV<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2026</div>
         <h3 class="edition-title" data-i18n="idx_ed4_title">Justicia agéntica e inteligencia regulada</h3>
@@ -1834,7 +1838,7 @@ body.semblanza-lock { overflow: hidden; }
         <span class="edition-status" data-i18n="idx_status_memoria">Memoria</span>
       </a>
 
-      <a class="edition current proxima reveal" href="index.html" aria-label="V Edición · 2027: fecha por anunciar">
+      <a class="edition current proxima reveal" href="index.html" aria-label="V Edición · 2027: fecha por anunciar" data-f18n-aria="ed5_aria">
         <div class="edition-num">V<span class="edition-label" data-i18n="idx_edition_label"> Edición</span></div>
         <div class="edition-year">2027</div>
         <h3 class="edition-title" data-i18n="m4_ed5_title">Fecha por anunciar</h3>
@@ -1956,7 +1960,7 @@ body.semblanza-lock { overflow: hidden; }
       <a class="btn-primary" href="jornada-virtual.html"><span data-f18n="jv_btn">Conoce la jornada virtual</span></a>
     </div>
     <div class="jv-sello reveal" data-d="1">
-      <div class="jv-fecha"><b>18</b><span>SEP · 2026 · EN LÍNEA</span></div>
+      <div class="jv-fecha"><b>18</b><span data-f18n="jv_fecha">SEP · 2026 · EN LÍNEA</span></div>
       <div class="jv-hito"><span data-f18n="jv_hito">Primera coorganización México — España</span></div>
     </div>
   </div>
@@ -2858,27 +2862,44 @@ body.semblanza-lock { overflow: hidden; }
     en: {
       cinta_iv: 'You are in the record of the 4th edition (2026)', cinta_iv_ir: 'Go to the 5th edition',
       vid_eyebrow: 'Video record', vid_title: 'Sessions of the <em>fourth edition</em>.',
-      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>the online session and three venues</strong>, with their panels and lectures, in the order in which they took place. The recording from Ciudad Judicial is in preparation.',
+      vid_lead: 'The broadcasts of the fourth edition remain as an open record: <strong>the online session and three venues</strong>, with their panels and lectures, in the order in which they took place. The Judicial City recording is in preparation.',
       v_vie18: 'Friday 18 · Online', v_jv: 'International Online Session', v_jv_l: 'With the World Observatory of the Legal Profession and the Universidad de las Hespérides',
       v_lun21: 'Monday 21 · Opening', v_lun21b: 'Monday 21', v_mar22: 'Tuesday 22', v_mar22c: 'Tuesday 22 · Closing',
-      v_prep: 'Recording in preparation', v_cj: 'Judiciary of the State of Jalisco',
+      v_prep: 'Recording in preparation', v_cj: 'Judiciary of the State of Jalisco', v_cj_sede: 'Judicial City',
       vid_cta: 'Go to the video record', vid_cta2: '4th edition program',
+      title_iv: 'IV International Forum on Law and Technology · 2026 · Record',
+      hero_lead_iv: 'Legal Innovation in the Digital Era. Four years of thinking, from Ibero-America, about the questions the law still cannot answer for technology.',
+      jv_fecha: 'SEP · 2026 · ONLINE',
+      faja_aria: 'Call closed on August 15, 2026; review process completed. See the guidelines.',
+      cnt_vivo_aria: 'Video record of the IV Forum, venue by venue.',
+      prensa_aria: 'The Forum in figures',
+      ed1_aria: 'See the record of the 1st edition', ed2_aria: 'See the record of the 2nd edition', ed3_aria: 'See the record of the 3rd edition',
+      ed4_aria: '4th edition: back to the top of this record', ed5_aria: '5th edition · 2027: date to be announced',
       fl_tray: 'History', fl_ejes: 'Thematic tracks', fl_prog: 'Program', fl_cfp: 'Call for papers', fl_videos: 'Video record', fl_comite: 'Organizing committee'
     },
     fr: {
       cinta_iv: 'Vous êtes dans la mémoire de la IVe édition (2026)', cinta_iv_ir: 'Aller à la Ve édition',
       vid_eyebrow: 'Mémoire en vidéo', vid_title: 'Séances de la <em>quatrième édition</em>.',
-      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>la journée en ligne et trois sites</strong>, avec leurs tables rondes et conférences, dans l\'ordre où elles ont eu lieu. L\'enregistrement de Ciudad Judicial est en préparation.',
+      vid_lead: 'Les retransmissions de la quatrième édition restent en mémoire ouverte : <strong>la journée en ligne et trois sites</strong>, avec leurs tables rondes et conférences, dans l\'ordre où elles ont eu lieu. L\'enregistrement de la Cité Judiciaire est en préparation.',
       v_vie18: 'Vendredi 18 · En ligne', v_jv: 'Journée virtuelle internationale', v_jv_l: 'Avec l\'Observatoire mondial de la profession d\'avocat et l\'Universidad de las Hespérides',
       v_lun21: 'Lundi 21 · Ouverture', v_lun21b: 'Lundi 21', v_mar22: 'Mardi 22', v_mar22c: 'Mardi 22 · Clôture',
-      v_prep: 'Enregistrement en préparation', v_cj: 'Pouvoir judiciaire de l\'État de Jalisco',
+      v_prep: 'Enregistrement en préparation', v_cj: 'Pouvoir judiciaire de l\'État de Jalisco', v_cj_sede: 'Cité Judiciaire',
       vid_cta: 'Aller à la mémoire en vidéo', vid_cta2: 'Programme de la IVe édition',
+      title_iv: 'IVe Forum International du Droit et de la Technologie · 2026 · Mémoire',
+      hero_lead_iv: 'Innovation juridique à l\'ère numérique. Quatre années à réfléchir, depuis l\'Ibéro-Amérique, aux questions auxquelles le droit ne sait pas encore répondre face à la technologie.',
+      jv_fecha: 'SEPT. · 2026 · EN LIGNE',
+      faja_aria: 'Appel clôturé le 15 août 2026 ; évaluation achevée. Consulter les bases.',
+      cnt_vivo_aria: 'Mémoire en vidéo du IVe Forum, site par site.',
+      prensa_aria: 'Le Forum en chiffres',
+      ed1_aria: 'Voir la mémoire de la Ire édition', ed2_aria: 'Voir la mémoire de la IIe édition', ed3_aria: 'Voir la mémoire de la IIIe édition',
+      ed4_aria: 'IVe édition : retour au début de cette mémoire', ed5_aria: 'Ve édition · 2027 : date à annoncer',
       fl_tray: 'Historique', fl_ejes: 'Axes thématiques', fl_prog: 'Programme', fl_cfp: 'Appel à communications', fl_videos: 'Mémoire en vidéo', fl_comite: 'Comité d\'organisation'
     }
   };
   ['en', 'fr'].forEach(function (l) { for (var k in F18N_ARCHIVO[l]) F18N[l][k] = F18N_ARCHIVO[l][k]; });
 
   function f18nCapture() {
+    if (!('title_iv' in F18N_ES)) F18N_ES.title_iv = document.title;
     document.querySelectorAll('[data-f18n]').forEach(function (el) {
       var k = el.getAttribute('data-f18n');
       if (!(k in F18N_ES)) F18N_ES[k] = el.textContent;
@@ -2887,9 +2908,14 @@ body.semblanza-lock { overflow: hidden; }
       var k = el.getAttribute('data-f18n-html');
       if (!(k in F18N_ES)) F18N_ES[k] = el.innerHTML;
     });
+    document.querySelectorAll('[data-f18n-aria]').forEach(function (el) {
+      var k = el.getAttribute('data-f18n-aria');
+      if (!(k in F18N_ES)) F18N_ES[k] = el.getAttribute('aria-label') || '';
+    });
   }
   function f18nApply(lang) {
     var dict = F18N[lang];
+    document.title = (dict && dict.title_iv) ? dict.title_iv : (F18N_ES.title_iv || document.title);
     document.querySelectorAll('[data-f18n]').forEach(function (el) {
       var k = el.getAttribute('data-f18n');
       el.textContent = (dict && dict[k]) ? dict[k] : (F18N_ES[k] || el.textContent);
@@ -2897,6 +2923,37 @@ body.semblanza-lock { overflow: hidden; }
     document.querySelectorAll('[data-f18n-html]').forEach(function (el) {
       var k = el.getAttribute('data-f18n-html');
       el.innerHTML = (dict && dict[k]) ? dict[k] : (F18N_ES[k] || el.innerHTML);
+    });
+    document.querySelectorAll('[data-f18n-aria]').forEach(function (el) {
+      var k = el.getAttribute('data-f18n-aria');
+      el.setAttribute('aria-label', (dict && dict[k]) ? dict[k] : (F18N_ES[k] || el.getAttribute('aria-label') || ''));
+    });
+    if (lang === 'fr') ordinalesFR(document.body);
+  }
+  /* En francés, text-transform: uppercase convierte «IVe» en «IVE». En los textos
+     que se muestran en versalitas, la terminación del ordinal (e, re, er) se aparta
+     en un <span class="ord"> que no se transforma y va volada. Se corre tras cada
+     cambio de idioma (i18n.js y este diccionario reescriben los textos). */
+  var ORD_RE = /\b([IVX]+|\d+)(e|re|er)\b/;
+  function ordinalesFR(root) {
+    if (!root || !document.createTreeWalker) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, lista = [];
+    while ((n = w.nextNode())) {
+      if (!ORD_RE.test(n.data)) continue;
+      var p = n.parentNode;
+      if (!p || p.nodeType !== 1 || (p.classList && p.classList.contains('ord')) || /^(SCRIPT|STYLE|TITLE)$/.test(p.nodeName)) continue;
+      if (getComputedStyle(p).textTransform !== 'uppercase') continue;
+      lista.push(n);
+    }
+    lista.forEach(function (t) {
+      var frag = document.createDocumentFragment(), resto = t.data, m;
+      while ((m = ORD_RE.exec(resto))) {
+        frag.appendChild(document.createTextNode(resto.slice(0, m.index) + m[1]));
+        var sp = document.createElement('span'); sp.className = 'ord'; sp.textContent = m[2]; frag.appendChild(sp);
+        resto = resto.slice(m.index + m[0].length);
+      }
+      frag.appendChild(document.createTextNode(resto));
+      t.parentNode.replaceChild(frag, t);
     });
   }
   function currentLang() {
@@ -3076,7 +3133,7 @@ body.semblanza-lock { overflow: hidden; }
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(card); }
       });
     });
-    // enlace profundo desde programa.html: #semblanza-<slug> abre la ficha
+    // enlace profundo desde programa-iv.html: #semblanza-<slug> abre la ficha
     var mSem = (location.hash || '').match(/^#semblanza-([a-z0-9_]+)$/);
     if (mSem) {
       var cardSem = document.querySelector('[data-semblanza="' + mSem[1] + '"]');
