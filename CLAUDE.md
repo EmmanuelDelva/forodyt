@@ -505,6 +505,12 @@ Resultado verificado en el DOM: peso medio por fila **9.0 · 8.8 · 7.8 · 7.5 �
 - **II edición = 9 países** (con Rusia) en memoria-ii y memorias, ES/EN/FR.
 - **Trampa nueva:** `perl -CSD -i -pe 's/Güémez/…/'` NO sustituye texto con acentos (el patrón del script no se decodifica como UTF-8 sin `-Mutf8`): usar Python para cualquier sustitución con caracteres no ASCII. Las cadenas francesas del sitio usan espacios duros U+00A0 junto a «» y — : búscalas con ellos.
 
+### Sesión 2026-09-25 (noche) — Bolivia y PUBLICACIÓN de la V (PR #32 fusionado)
+
+- **Bolivia confirmada por el director** (Flavio Díaz Portela, II edición): letra `b` en `PAISES` y 23 puntos en `MAPA` (`mapa-foro.js`, `index.html`, `en-vivo.html`; código ISO 068 en `dotmap.py`, superpuesto solo sobre puntos de tierra del mapa aprobado). **Son 16 países** (portada ES/EN/FR y og:description «dieciséis/sixteen/seize») y la **II suma 10** (estante de la portada, memoria-ii con BOL, memorias ES/EN/FR). Trayectoria y el mapa de la portada calculan solos desde `PAISES`.
+- **Publicación aprobada por el director** («Ya ayúdame a subirlo a la página, quiero que lo puedan ver»): el PR #32 se fusiona a `main` y forodyt.com pasa a mostrar la V. Desde aquí, las notas «BORRADOR en la rama del PR #32» de la §4 describen lo que ya está en producción. La base de asistentes de la V sigue inactiva hasta que el director pegue `Code.gs` en CUCEA (el «Avísame» ya funciona porque la acción `newsletter` existe en la versión 5 del backend).
+- **Ejes de la V:** la propuesta (con fusiones y enfoque iberoamericano) vive en Drive para discutirla; **el sitio sigue con los ejes en seco** hasta que el director los apruebe.
+
 ## 10. Pendientes abiertos
 
 - **V edición (PR #32, borrador — NO fusionar sin aprobación)**: aprobar el diseño; activar la base V en CUCEA (pegar Code.gs + `activarBaseV` + «Nueva versión», RUNBOOK §8); confirmar Bolivia; completar la I edición (ver faltantes en la base de ponentes); ejes de la V con el comité; fotos reales del comité (hoy avatares ilustrados); roles del comité para 2027; decidir si se publican ponentes sin foto; cortes de video de CUCEA y grabación de Ciudad Judicial; comprobar en navegador real la inserción de los videos de YouTube.
