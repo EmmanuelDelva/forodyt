@@ -488,6 +488,113 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .cap-link:hover { color: var(--ed-d); }
 .cap-link.principal { font-size: 15px; }
 
+/* ═══════════ EL TRÁILER · la trayectoria en imágenes ═══════════
+   Sin JS o con movimiento reducido: galería estática.
+   Con .cine (JS): escena fijada; el scroll hace de cabezal de lectura. */
+.trailer { background: #12110B; color: var(--arena); padding-top: clamp(80px, 10vw, 140px); position: relative; }
+.tr-cab { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.tr-cab h2 { font-size: clamp(34px, 4.8vw, 70px); font-variation-settings: "opsz" 144, "SOFT" 60; font-weight: 350; letter-spacing: -0.02em; color: var(--arena); }
+.tr-cab h2 em { color: var(--cobre-claro); font-weight: 300; }
+.tr-cab .sec-lead { color: rgba(245, 239, 227, 0.7); }
+.tr-pista { padding: 0 var(--gutter) clamp(70px, 8vw, 120px); }
+.tr-escena { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.plano { margin: 0; position: relative; min-width: 0; }
+.plano-titulo, .rotulo, .tr-grano, .tr-banda { display: none; }
+.plano-foto { aspect-ratio: 3 / 2; overflow: hidden; background: #1f1d16; }
+.plano-foto img { width: 100%; height: 100%; object-fit: cover; }
+.plano-foto figcaption { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 2; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+.plano-foto::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55)); }
+.plano-iv { grid-column: 1 / -1; background: var(--ed4-d); padding: 22px; }
+.tr-iv-rot { font-family: var(--mono); font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--ed4); margin-bottom: 14px; }
+.tira { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.cuadro { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: linear-gradient(135deg, #1b2a3f, #0E1B2C 60%); border: 1px solid rgba(184, 146, 62, .35); }
+.cuadro img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.8); }
+.cuadro::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(8, 14, 24, .85)); }
+.cuadro.pend { background: repeating-linear-gradient(135deg, #13202f 0 10px, #0E1B2C 10px 20px); }
+.cuadro-t { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 1; display: grid; gap: 3px; }
+.cuadro-t b { font-family: var(--serif); font-weight: 500; font-size: clamp(15px, 1.4vw, 21px); line-height: 1.15; color: var(--arena); }
+.cuadro-t i { font-style: normal; font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(245, 239, 227, .72); }
+.plano-v { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 24px; padding: 30px; }
+.tr-v { font-family: var(--serif); font-style: italic; font-weight: 800; font-variation-settings: "opsz" 144, "SOFT" 100; font-size: 120px; line-height: .8; color: #12110B; text-shadow: 2px 2px 1px rgba(255,255,255,.10), -2px -2px 2px rgba(0,0,0,.75); letter-spacing: -0.04em; }
+.tr-v-txt { font-family: var(--mono); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: rgba(245, 239, 227, .55); }
+
+/* ── modo cine ── */
+.trailer.cine .tr-pista { padding: 0; position: relative; }
+.trailer.cine .tr-escena { position: sticky; top: 60px; height: calc(100svh - 60px); max-width: none; display: block; overflow: hidden; background: #0B0A07; contain: layout paint; }
+.trailer.cine .plano { position: absolute; inset: 0; opacity: 0; visibility: hidden; will-change: opacity; aspect-ratio: auto; }
+.trailer.cine .plano.vivo { visibility: visible; }
+.trailer.cine .plano-foto { background: #0B0A07; }
+.trailer.cine .plano-foto img { position: absolute; left: -6%; top: -6%; width: 112%; height: 112%; max-width: none; will-change: transform; filter: saturate(.8) contrast(1.06) brightness(.86); }
+.trailer.cine .plano-foto::after { background: radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(0,0,0,.55)), linear-gradient(180deg, rgba(0,0,0,.25), transparent 30%, transparent 55%, rgba(0,0,0,.7)); }
+.trailer.cine .plano-foto figcaption { left: var(--gutter); right: auto; bottom: calc(var(--banda) + 16px); font-size: 10.5px; opacity: .85; }
+.trailer.cine .plano-titulo { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 0 var(--gutter); background: radial-gradient(80% 70% at 50% 50%, #1d1a12, #0B0A07); }
+.tr-sobre { font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--cobre-claro); }
+.tr-anios { font-family: var(--serif); font-weight: 300; font-size: clamp(56px, 10vw, 160px); line-height: .9; letter-spacing: -0.03em; font-variation-settings: "opsz" 144, "SOFT" 40; color: var(--arena); white-space: nowrap; }
+.tr-anios span { color: var(--cobre); font-style: italic; }
+.tr-sub { font-family: var(--serif); font-style: italic; font-size: clamp(17px, 1.8vw, 24px); color: rgba(245, 239, 227, .72); }
+.trailer.cine .plano-iv { padding: 0; background: radial-gradient(90% 80% at 60% 45%, #16253a, var(--ed4-d)); }
+.trailer.cine .tr-iv-rot { position: absolute; left: var(--gutter); top: calc(var(--banda) + 22px); }
+.trailer.cine .tira { position: absolute; left: 0; top: 50%; display: flex; gap: clamp(10px, 1.4vw, 18px); will-change: transform; }
+.trailer.cine .cuadro { flex: 0 0 auto; width: clamp(230px, 30vw, 460px); }
+.trailer.cine .plano-v { flex-direction: column; gap: 14px; background: #12110B; }
+.trailer.cine .tr-v { font-size: clamp(200px, 42vh, 460px); }
+.rotulo { position: absolute; left: var(--gutter); bottom: calc(var(--banda) + 52px); z-index: 3; align-items: flex-end; gap: clamp(14px, 2vw, 28px); opacity: 0; pointer-events: none; will-change: opacity, transform; max-width: calc(100% - 2 * var(--gutter)); }
+.trailer.cine .rotulo { display: flex; }
+.r-num { position: relative; font-family: var(--serif); font-style: italic; font-weight: 800; font-variation-settings: "opsz" 144, "SOFT" 100; font-size: clamp(96px, 15vw, 240px); line-height: .78; letter-spacing: -0.04em; padding-right: .06em; }
+.r-seco { color: transparent; -webkit-text-stroke: 1px rgba(245, 239, 227, .55); }
+.r-tinta { position: absolute; left: 0; top: 0; color: var(--ed); opacity: 0; will-change: opacity; }
+.rotulo[data-ed="1"] { --ed: #3F8BE0; } .rotulo[data-ed="2"] { --ed: #B04F63; } .rotulo[data-ed="3"] { --ed: #4FB0AA; } .rotulo[data-ed="4"] { --ed: #D4AA4F; }
+.r-txt { display: grid; gap: 6px; padding-bottom: .6em; min-width: 0; }
+.r-txt b { font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: .3em; color: var(--ed); }
+.r-txt i { font-family: var(--serif); font-size: clamp(18px, 2.2vw, 32px); line-height: 1.1; color: var(--arena); text-shadow: 0 2px 18px rgba(0,0,0,.5); }
+.trailer.cine .tr-banda { display: block; position: absolute; left: 0; right: 0; height: var(--banda); background: #0B0A07; z-index: 5; transform: scaleY(var(--lb, 1)); }
+.tr-banda-sup { top: 0; transform-origin: 50% 0; }
+.tr-banda-inf { bottom: 0; transform-origin: 50% 100%; display: flex; align-items: center; }
+.tr-escena { --banda: clamp(34px, 7svh, 64px); }
+.tr-tiempo { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); width: min(640px, calc(100% - 2 * var(--gutter))); margin: 0 auto; padding-top: 12px; }
+.tt-linea { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(245, 239, 227, .18); }
+.tt-fill { position: absolute; inset: 0; background: linear-gradient(90deg, var(--ed1), var(--ed2) 30%, var(--ed3) 55%, var(--ed4) 78%, var(--cobre)); transform-origin: 0 50%; transform: scaleX(0); will-change: transform; }
+.tt-anio { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; color: rgba(245, 239, 227, .38); text-align: center; transition: color .4s var(--ease); }
+.tt-anio.on { color: var(--arena); }
+.trailer.cine .tr-grano { display: block; position: absolute; inset: -60px; z-index: 4; pointer-events: none; opacity: .11; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23g)'/></svg>"); }
+@media (prefers-reduced-motion: no-preference) {
+  .trailer.cine .tr-grano { animation: grano .9s steps(5) infinite; }
+}
+@keyframes grano { 0% { transform: translate(0, 0); } 20% { transform: translate(-18px, 12px); } 40% { transform: translate(14px, -20px); } 60% { transform: translate(-10px, -8px); } 80% { transform: translate(20px, 16px); } 100% { transform: translate(0, 0); } }
+
+/* ── videos de la IV (fachadas: el iframe solo se carga al pulsar) ── */
+.videos-iv { margin-top: clamp(40px, 5vw, 64px); padding-top: 26px; border-top: 1px solid var(--linea-2); }
+.fachadas { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+.fachadas li { min-width: 0; }
+.fachadas li.reproduciendo { grid-column: 1 / -1; }
+.fachada { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.fachada.pend { cursor: default; }
+.fa-img { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: linear-gradient(135deg, #1b2a3f, var(--ed4-d) 60%); }
+.fa-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.fachada:hover .fa-img img { transform: scale(1.04); }
+.fa-play { position: absolute; left: 12px; bottom: 10px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(245,239,227,.8); background: rgba(14, 27, 44, .45); display: grid; place-items: center; transition: background .4s var(--ease); }
+.fa-play::before { content: ""; border-left: 11px solid var(--arena); border-top: 7px solid transparent; border-bottom: 7px solid transparent; margin-left: 3px; }
+.fachada:hover .fa-play, .fachada:focus-visible .fa-play { background: var(--ed4-t); }
+.fa-pend { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 10px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,239,227,.7); background: repeating-linear-gradient(135deg, #13202f 0 10px, #0E1B2C 10px 20px); }
+.fa-t { display: grid; gap: 2px; padding: 10px 2px 0; }
+.fa-t i { font-style: normal; font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ed4-t); }
+.fa-t b { font-family: var(--serif); font-weight: 400; font-size: 17px; line-height: 1.2; }
+.fa-video { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.fa-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.videos-nota { margin-top: 18px; }
+@media (max-width: 1100px) { .fachadas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .tr-cab { grid-template-columns: minmax(0, 1fr); } .tr-escena { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tira { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .fachadas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tr-escena { grid-template-columns: minmax(0, 1fr); }
+  .tira { grid-template-columns: minmax(0, 1fr); }
+  .rotulo { flex-direction: column; align-items: flex-start; gap: 6px; bottom: calc(var(--banda) + 44px); }
+  .r-txt { padding-bottom: 0; }
+  .trailer.cine .plano-foto figcaption { bottom: calc(var(--banda) + 12px); font-size: 9.5px; }
+  .tt-anio { font-size: 9px; letter-spacing: .12em; }
+}
+
 /* ═══════════ EL MAPA ═══════════ */
 .sec-mapa { background: linear-gradient(180deg, transparent, rgba(234, 224, 208, 0.62) 12%, rgba(234, 224, 208, 0.62) 88%, transparent); padding: clamp(80px, 10vw, 140px) 0 clamp(40px, 5vw, 80px); }
 .scrolly { position: relative; }
@@ -1140,7 +1247,25 @@ footer :focus-visible { outline-color: #D9A48C; }
       paso_0: 'The four editions', paso_1: '1st edition · 2023', paso_2: '2nd edition · 2024', paso_3: '3rd edition · 2025', paso_4: '4th edition · 2026',
       mapa_rot_0: 'countries with a voice in the Forum since 2023', mapa_rot_1: 'countries with a voice in the 1st edition', mapa_rot_2: 'countries with a voice in the 2nd edition',
       mapa_rot_3: 'countries with a voice in the 3rd edition', mapa_rot_4: 'countries with a voice in the 4th edition',
-      nuevo: 'first time'
+      nuevo: 'first time',
+      tr_title: 'The trajectory, <em>in pictures</em>.',
+      tr_lead: 'Photographs of the first three editions and the broadcasts of the fourth, in the order in which they happened.',
+      tr_sobre: 'International Forum on Law and Technology', tr_sub: 'Four editions at the University of Guadalajara',
+      tr1_alt: 'Panel of the 1st Forum in front of the institutional banner, at CUCEA', tr1_cap: 'Panel of the 1st Forum · CUCEA, 2023',
+      tr2_alt: 'The audience raises their hands during an interactive session of the 1st Forum', tr2_cap: 'The audience takes part · 2023',
+      tr3_alt: 'Group photo with authorities, speakers and audience of the 1st Forum', tr3_cap: 'Authorities, speakers and audience · 2023',
+      tr4_alt: 'Participants of the 2nd Forum in front of the edition banner, at CUCEA', tr4_cap: '2nd Forum · CUCEA, 2024',
+      tr5_alt: 'Panoramic view of the full CUCEA Central Auditorium during the 2nd Forum', tr5_cap: 'The Central Auditorium, full · 2024',
+      tr6_alt: 'Students applaud in the auditorium during the 2nd Forum', tr6_cap: 'Audience of the 2nd Forum · 2024',
+      tr7_alt: 'Broadcast camera at CUCEA Smart Tower during the 3rd Forum', tr7_cap: 'Broadcasting from the Smart Tower · 2025',
+      tr8_alt: 'Audience at CUCEA Smart Tower during the 3rd Forum', tr8_cap: 'CUCEA Smart Tower · 2025',
+      tr9_alt: 'Group photo of speakers and organizers at the Smart Tower during the 3rd Forum', tr9_cap: 'Speakers and organizers · 2025',
+      tr_iv_rot: 'The broadcasts of the fourth edition',
+      tr_jv: 'International Online Session', tr_jv_f: 'Fri 18 · online', tr_cucea_f: 'Mon 21 · opening', tr_cugdl_f: 'Mon 21', tr_cine_f: 'Tue 22',
+      tr_cj: 'Judicial City', tr_cj_f: 'Tue 22 · closing · recording in preparation', tr_cj_f2: 'Tue 22 · closing',
+      h_videos: 'The sessions, on video', fa_pend: 'Recording in preparation', fa_todas: 'See the full video record',
+      fa_jv_aria: 'Play the International Online Session', fa_cucea_aria: 'Play the CUCEA session', fa_cugdl_aria: 'Play the CUGDL session', fa_cine_aria: 'Play the Cineteca FICG session',
+      fa_iframe: 'video of the 4th edition'
     },
     fr: {
       hero_eyebrow: 'Forum International du Droit et de la Technologie',
@@ -1207,7 +1332,25 @@ footer :focus-visible { outline-color: #D9A48C; }
       paso_0: 'Les quatre éditions', paso_1: 'Ire édition · 2023', paso_2: 'IIe édition · 2024', paso_3: 'IIIe édition · 2025', paso_4: 'IVe édition · 2026',
       mapa_rot_0: 'pays ayant pris la parole au Forum depuis 2023', mapa_rot_1: 'pays ayant pris la parole lors de la Ire édition', mapa_rot_2: 'pays ayant pris la parole lors de la IIe édition',
       mapa_rot_3: 'pays ayant pris la parole lors de la IIIe édition', mapa_rot_4: 'pays ayant pris la parole lors de la IVe édition',
-      nuevo: 'première fois'
+      nuevo: 'première fois',
+      tr_title: 'Le parcours, <em>en images</em>.',
+      tr_lead: 'Photographies des trois premières éditions et retransmissions de la quatrième, dans l’ordre où elles ont eu lieu.',
+      tr_sobre: 'Forum International du Droit et de la Technologie', tr_sub: 'Quatre éditions à l’Université de Guadalajara',
+      tr1_alt: 'Table ronde du Ier Forum devant la bannière institutionnelle, au CUCEA', tr1_cap: 'Table ronde du Ier Forum · CUCEA, 2023',
+      tr2_alt: 'Le public lève la main lors d’un moment participatif du Ier Forum', tr2_cap: 'Le public participe · 2023',
+      tr3_alt: 'Photo de groupe avec les autorités, les intervenants et le public du Ier Forum', tr3_cap: 'Autorités, intervenants et public · 2023',
+      tr4_alt: 'Participants du IIe Forum devant la bannière de l’édition, au CUCEA', tr4_cap: 'IIe Forum · CUCEA, 2024',
+      tr5_alt: 'Vue panoramique de l’Auditorium central du CUCEA comble lors du IIe Forum', tr5_cap: 'L’Auditorium central, comble · 2024',
+      tr6_alt: 'Des étudiants applaudissent dans l’auditorium lors du IIe Forum', tr6_cap: 'Public du IIe Forum · 2024',
+      tr7_alt: 'Caméra de retransmission à la Tour Smart du CUCEA lors du IIIe Forum', tr7_cap: 'La retransmission depuis la Tour Smart · 2025',
+      tr8_alt: 'Public à la Tour Smart du CUCEA lors du IIIe Forum', tr8_cap: 'Tour Smart du CUCEA · 2025',
+      tr9_alt: 'Photo de groupe des intervenants et organisateurs à la Tour Smart lors du IIIe Forum', tr9_cap: 'Intervenants et organisateurs · 2025',
+      tr_iv_rot: 'Les retransmissions de la quatrième édition',
+      tr_jv: 'Journée virtuelle internationale', tr_jv_f: 'Ven. 18 · en ligne', tr_cucea_f: 'Lun. 21 · ouverture', tr_cugdl_f: 'Lun. 21', tr_cine_f: 'Mar. 22',
+      tr_cj: 'Cité Judiciaire', tr_cj_f: 'Mar. 22 · clôture · enregistrement en préparation', tr_cj_f2: 'Mar. 22 · clôture',
+      h_videos: 'Les séances, en vidéo', fa_pend: 'Enregistrement en préparation', fa_todas: 'Voir toute la mémoire en vidéo',
+      fa_jv_aria: 'Lire la Journée virtuelle internationale', fa_cucea_aria: 'Lire la séance du CUCEA', fa_cugdl_aria: 'Lire la séance du CUGDL', fa_cine_aria: 'Lire la séance de la Cineteca FICG',
+      fa_iframe: 'vidéo de la IVe édition'
     }
   };
   /* cadenas que solo existen en el script (ES) */
@@ -1215,7 +1358,8 @@ footer :focus-visible { outline-color: #D9A48C; }
     paso_0: 'Las cuatro ediciones', paso_1: 'I edición · 2023', paso_2: 'II edición · 2024', paso_3: 'III edición · 2025', paso_4: 'IV edición · 2026',
     mapa_rot_0: 'países con voz en el Foro desde 2023', mapa_rot_1: 'países con voz en la I edición', mapa_rot_2: 'países con voz en la II edición',
     mapa_rot_3: 'países con voz en la III edición', mapa_rot_4: 'países con voz en la IV edición',
-    nuevo: 'primera vez'
+    nuevo: 'primera vez',
+    fa_iframe: 'video de la IV edición'
   };
 
   var F18N_ES = {};
@@ -1472,6 +1616,113 @@ footer :focus-visible { outline-color: #D9A48C; }
   var scrollPend = false;
   window.addEventListener('scroll', function () { if (!scrollPend) { scrollPend = true; requestAnimationFrame(function () { scrollPend = false; onScrollMapa(); }); } }, { passive: true });
 
+  /* ════════ EL TRÁILER ════════
+     La escena queda fijada y el scroll funciona como cabezal: cada foto
+     entra en fundido con un Ken Burns lento, el numeral de la edición pasa
+     del golpe seco a la tinta y la barra de tiempo avanza de 2023 a la V.
+     Solo se tocan transform y opacity; los planos lejanos no se pintan
+     (visibility) y ninguna foto aparece antes de estar decodificada. */
+  var trailer = document.getElementById('trailer'), trPista = document.getElementById('trPista'), trEscena = document.getElementById('trEscena');
+  var planos = Array.prototype.slice.call(trEscena.querySelectorAll('.plano'));
+  var rotulos = Array.prototype.slice.call(trEscena.querySelectorAll('.rotulo'));
+  var tira = document.getElementById('trTira'), ttFill = document.getElementById('ttFill');
+  var ttAnios = Array.prototype.slice.call(trEscena.querySelectorAll('.tt-anio'));
+  var bandas = Array.prototype.slice.call(trEscena.querySelectorAll('.tr-banda'));
+  var NP = planos.length, trCine = false, trPaso = 0, trPend = false, trVisible = false;
+  var ANIO_DE = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 5];   // plano → año de la barra
+  function sat(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function suave(a, b, x) { var u = sat((x - a) / (b - a)); return u * u * (3 - 2 * u); }
+  planos.forEach(function (pl) {
+    var img = pl.querySelector('.plano-foto > img');
+    pl._listo = !img;
+    if (!img) return;
+    var hecho = function () { pl._listo = true; if (trCine) pedirTrailer(); };
+    if (img.complete && img.naturalWidth) { (img.decode ? img.decode() : Promise.resolve()).then(hecho, hecho); }
+    else img.addEventListener('load', function () { (img.decode ? img.decode() : Promise.resolve()).then(hecho, hecho); });
+  });
+  function medirTrailer() {
+    if (REDUCED) { trailer.classList.remove('cine'); trPista.style.height = ''; return; }
+    trailer.classList.add('cine');
+    var vh = window.innerHeight, esc = vh - 60;
+    trPaso = Math.max(300, Math.round(vh * 0.62));
+    trPista.style.height = (esc + trPaso * (NP - 1) + Math.round(trPaso * 0.4)) + 'px';
+    trCine = true;
+    // las fotos se cargan todas cuando la sección se acerca (no antes)
+    planos.forEach(function (pl) { var im = pl.querySelector('img'); if (im && trVisible) im.loading = 'eager'; });
+    pintarTrailer();
+  }
+  function pintarTrailer() {
+    trPend = false;
+    if (!trCine) return;
+    var r = trPista.getBoundingClientRect();
+    if (r.bottom < -50 || r.top > window.innerHeight + 50) return;
+    var total = trPaso * (NP - 1);
+    var t = sat(-(r.top - 60) / total) * (NP - 1);
+    var vw = trEscena.clientWidth;
+    planos.forEach(function (pl, i) {
+      var d = Math.abs(t - i);
+      var op = d < 0.3 ? 1 : d > 0.8 ? 0 : 1 - (d - 0.3) / 0.5;
+      if (i === 0 && t < 0.3) op = 1;
+      if (i === NP - 1 && t > NP - 1.3) op = 1;
+      // si la foto aún no está lista, el plano anterior se sostiene
+      if (!pl._listo) op = 0;
+      pl.style.opacity = op.toFixed(3);
+      pl.classList.toggle('vivo', op > 0.001);
+      if (op <= 0.001) return;
+      var u = sat((t - i + 1) / 2);
+      var img = pl.querySelector('.plano-foto > img');
+      if (img) {
+        var dir = +pl.getAttribute('data-dir') || 1;
+        var s = 1.02 + 0.09 * u, x = dir * (u - 0.5) * 3.2, y = (0.5 - u) * 1.6;
+        img.style.transform = 'translate3d(' + x.toFixed(2) + '%,' + y.toFixed(2) + '%,0) scale(' + s.toFixed(4) + ')';
+      }
+      if (pl === planos[10] && tira) {
+        var sw = tira.scrollWidth, ini = vw * 0.55, fin = Math.min(vw * 0.08, vw - sw - vw * 0.06);
+        var tx = ini + (fin - ini) * suave(0, 1, u * 1.15 - 0.05);
+        tira.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,-50%,0)';
+      }
+    });
+    rotulos.forEach(function (ro) {
+      var a = +ro.getAttribute('data-de'), b = +ro.getAttribute('data-a');
+      var op = suave(a - 0.55, a - 0.15, t) * (1 - suave(b + 0.2, b + 0.6, t));
+      ro.style.opacity = op.toFixed(3);
+      if (op <= 0.001) return;
+      var tinta = suave(a - 0.15, a + 0.45, t);
+      ro.querySelector('.r-tinta').style.opacity = tinta.toFixed(3);
+      ro.style.transform = 'translate3d(0,' + ((1 - suave(a - 0.55, a + 0.2, t)) * 24).toFixed(1) + 'px,0)';
+    });
+    var lb = suave(0, 0.35, t);
+    bandas.forEach(function (b) { b.style.setProperty('--lb', (0.35 + 0.65 * lb).toFixed(3)); });
+    ttFill.style.transform = 'scaleX(' + (t / (NP - 1)).toFixed(4) + ')';
+    var an = ANIO_DE[Math.min(NP - 1, Math.round(t))];
+    ttAnios.forEach(function (s) { s.classList.toggle('on', +s.getAttribute('data-tt') <= an && t > 0.5); });
+  }
+  function pedirTrailer() { if (!trPend) { trPend = true; requestAnimationFrame(pintarTrailer); } }
+  window.addEventListener('scroll', function () { if (trVisible) pedirTrailer(); }, { passive: true });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      trVisible = es[0].isIntersecting;
+      if (trVisible) { planos.forEach(function (pl) { var im = pl.querySelector('img'); if (im) im.loading = 'eager'; }); pedirTrailer(); }
+    }, { rootMargin: '100% 0px 100% 0px' }).observe(trPista);
+  } else trVisible = true;
+
+  /* ───── videos de la IV: fachada → iframe al pulsar ───── */
+  document.querySelectorAll('.fachada[data-vid]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var vid = b.getAttribute('data-vid'), li = b.parentNode;
+      var caja = document.createElement('div'); caja.className = 'fa-video';
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(vid) + '?autoplay=1&rel=0';
+      f.title = (b.querySelector('.fa-t b') || b).textContent + ' · ' + t('fa_iframe');
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen';
+      f.setAttribute('allowfullscreen', ''); f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      caja.appendChild(f);
+      var pie = b.querySelector('.fa-t').cloneNode(true);
+      li.innerHTML = ''; li.appendChild(caja); li.appendChild(pie); li.classList.add('reproduciendo');
+      try { f.focus(); } catch (e) {}
+    });
+  });
+
   /* ───── redimensionar ───── */
   var rt, anchoPrevio = window.innerWidth;
   window.addEventListener('resize', function () {
@@ -1481,7 +1732,8 @@ footer :focus-visible { outline-color: #D9A48C; }
       minis.forEach(function (m) { m.ajustar(); });
       if (grande) { grande.recortar(recorteGrande()); grande.ajustar(); }
       // en móvil la barra de direcciones cambia el alto: solo se remide si cambia el ancho o mucho el alto
-      if (window.innerWidth !== anchoPrevio || !activo) { anchoPrevio = window.innerWidth; medirScrolly(); }
+      if (window.innerWidth !== anchoPrevio || !activo) { anchoPrevio = window.innerWidth; medirScrolly(); medirTrailer(); }
+      pedirTrailer();
     }, 160);
   });
 
@@ -1494,6 +1746,7 @@ footer :focus-visible { outline-color: #D9A48C; }
     f18nCapture();
     LANG = langInicial();
     f18nApply(LANG); pintarPaises();
+    medirTrailer();
     medirScrolly();
     var ultimo = document.documentElement.lang || 'es';
     if ('MutationObserver' in window) {
@@ -1508,7 +1761,7 @@ footer :focus-visible { outline-color: #D9A48C; }
       iniciarMinis(); iniciarGrande(); medirScrolly(); degradadoHilo();
       if (progresoHilo) progresoHilo();
     });
-    window.addEventListener('load', function () { degradadoHilo(); medirScrolly(); });
+    window.addEventListener('load', function () { degradadoHilo(); medirScrolly(); pedirTrailer(); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
 
