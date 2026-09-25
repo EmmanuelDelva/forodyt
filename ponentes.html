@@ -313,7 +313,10 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .f-buscar input { flex: 1; min-width: 0; font: inherit; font-family: var(--serif); font-size: clamp(17px, 1.4vw, 20px); background: transparent; border: 0; color: var(--tinta); padding: 8px 0; }
 .f-buscar input::placeholder { color: var(--tinta-4); opacity: .85; }
 .f-buscar input:focus { outline: none; }
-.f-buscar input::-webkit-search-cancel-button { cursor: pointer; }
+.f-buscar input::-webkit-search-cancel-button {
+  -webkit-appearance: none; appearance: none; width: 13px; height: 13px; cursor: pointer;
+  background: linear-gradient(45deg, transparent 44%, var(--tinta-3) 44% 56%, transparent 56%), linear-gradient(-45deg, transparent 44%, var(--tinta-3) 44% 56%, transparent 56%);
+}
 .f-n { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-3); }
 .f-n b { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 17px; letter-spacing: 0; text-transform: none; color: var(--cobre-2); }
 .f-limpiar { font: inherit; font-size: 13px; background: none; border: 0; color: var(--cobre-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 4px 0; }
@@ -1161,7 +1164,7 @@ var DEMO_IV = [
       sin_res: 'Aucun intervenant ne correspond à la recherche.',
       aviso_eyebrow: 'Annonce', aviso_title: 'Recevez l’annonce <em>des intervenants</em>.',
       aviso_p: 'Nous vous écrirons lorsque les intervenants de la Ve édition seront annoncés et lorsque son appel à communications ouvrira. Rien de plus.',
-      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir',
+      aviso_label: 'Adresse électronique', aviso_btn: 'Me prévenir', aviso_ph: 'nom@domaine.com',
       aviso_privacidad: '<strong>Avis de confidentialité simplifié.</strong> Le Corps Académique UDG-CA-1236 « Droit et Technologie » de l’Université de Guadalajara utilisera votre adresse uniquement pour vous envoyer les annonces du Forum. Vous pouvez vous désinscrire ou exercer vos droits d’accès, de rectification, d’annulation et d’opposition en écrivant à <a href="mailto:contacto@forodyt.com">contacto@forodyt.com</a>.',
       fi_participa: 'Participation', fi_ejes: 'Axes', fi_sem: 'Notice biographique', fi_mem: 'Voir dans la mémoire de la IVe édition',
       fi_ant: 'Précédent', fi_sig: 'Suivant', fi_copiar: 'Copier le lien', fi_cerrar: 'Fermer',
@@ -1173,11 +1176,12 @@ var DEMO_IV = [
       u_ver: 'Voir la fiche', u_modera: 'Modération', u_mas1: 'et 1 autre séance', u_mas: 'et {n} autres séances',
       u_n: '<b>{n}</b> intervenants', u_n1: '<b>1</b> intervenant', u_nf: '<b>{v}</b> sur {n} intervenants',
       u_todas: 'Tous', u_todos: 'Tous', u_eje: 'Axe', u_linea: 'et en ligne', u_sem_pend: 'Notice biographique en préparation.',
-      u_copiado: 'Lien copié.', u_copia_error: 'Impossible de copier le lien.', u_pos: '{i} sur {n}', u_zona_madrid: 'heure d’Espagne'
+      u_copiado: 'Lien copié.', u_copia_error: 'Impossible de copier le lien.', u_pos: '{i} sur {n}', u_zona_madrid: 'heure d’Espagne', u_zona_gdl: 'heure de Guadalajara'
     }
   };
   /* ES de las cadenas que no están en el HTML */
   var F18N_ES_EXTRA = {
+    doc_demo: 'Vista de ejemplo · ', cab_eyebrow_demo: 'Ponentes · IV edición',
     cab_h1_demo: 'Así se presentarán <em>las y los ponentes</em>.',
     cab_lead_demo: 'Vista de ejemplo armada con doce ponentes de la IV edición: fotografía, cargo, país, ponencia, sesión y sede, con búsqueda y filtros. Cuando se anuncie la quinta edición, esta página mostrará a sus ponentes.',
     cab_lead_v: 'Conoce la trayectoria, la ponencia y la sesión de cada persona. Filtra por sede, país o eje, o busca por nombre.',
@@ -1186,7 +1190,7 @@ var DEMO_IV = [
     u_ver: 'Ver ficha', u_modera: 'Modera', u_mas1: 'y 1 sesión más', u_mas: 'y {n} sesiones más',
     u_n: '<b>{n}</b> ponentes', u_n1: '<b>1</b> ponente', u_nf: '<b>{v}</b> de {n} ponentes',
     u_todas: 'Todas', u_todos: 'Todos', u_eje: 'Eje', u_linea: 'y en línea', u_sem_pend: 'Semblanza en preparación.',
-    u_copiado: 'Enlace copiado.', u_copia_error: 'No se pudo copiar el enlace.', u_pos: '{i} de {n}', u_zona_madrid: 'hora de España'
+    u_copiado: 'Enlace copiado.', u_copia_error: 'No se pudo copiar el enlace.', u_pos: '{i} de {n}', u_zona_madrid: 'hora de España', u_zona_gdl: 'hora de Guadalajara'
   };
 
   var F18N_ES = {};
@@ -1197,6 +1201,7 @@ var DEMO_IV = [
       el.getAttribute('data-f18n-attr').split(';').forEach(function (p) { var kv = p.split(':'); var k = kv[1]; if (k && !(k in F18N_ES)) F18N_ES[k] = el.getAttribute(kv[0]) || ''; });
     });
     for (var k in F18N_ES_EXTRA) if (!(k in F18N_ES)) F18N_ES[k] = F18N_ES_EXTRA[k];
+    if (!('doc_title' in F18N_ES)) F18N_ES.doc_title = document.title;
   }
   var LANG = 'es';
   function t(k, lang) {
@@ -1244,80 +1249,129 @@ var DEMO_IV = [
 
   /* ════════════════════════════════════════════════════════════════
      LA LÁMPARA · una luz puntual sobre la mesa del taller
-     Luz en coordenadas de la ventana. Para cada hoja visible calcula
-     la dirección de la luz (--sx/--sy: el relieve y la sombra
-     proyectada), la posición del reflejo (--mx/--my, --lit) y, con
-     puntero fino, la inclinación hacia el cursor (--rx/--ry/--alza).
-     Barrido de entrada, sigue al cursor, deriva con el scroll en
-     pantallas táctiles. Se detiene cuando todo queda quieto y fuera
-     de pantalla. Con movimiento reducido: estado estático del CSS.
+     Para cada hoja visible calcula la dirección de la luz (--sx/--sy:
+     el relieve y la sombra proyectada), la posición del reflejo
+     (--mx/--my, --lit) y, con puntero fino, la inclinación hacia el
+     cursor (--rx/--ry/--alza).
+     · Con ratón, la luz vive en coordenadas de la ventana y sigue al
+       cursor; al hacer scroll cada hoja pasa bajo la lámpara y su
+       relieve gira (luz rasante).
+     · En pantallas táctiles la luz vive en coordenadas de la página:
+       el scroll no reescribe ninguna variable y la luz solo se mueve
+       en los barridos.
+     · Cada fila recibe un barrido de la lámpara cuando entra bien en
+       pantalla (como mucho una vez cada 8 s por fila).
+     Se detiene cuando todo queda quieto o fuera de pantalla; las capas
+     propias (will-change) solo existen mientras la luz se mueve.
+     Con movimiento reducido no se crea: queda el estado estático del CSS.
      ════════════════════════════════════════════════════════════════ */
   function Lampara(raiz) {
     this.raiz = raiz; this.items = []; this.raf = 0; this.en = false;
-    this.L = null; this.T = null; this.P = null; this.barrido = null; this.ultimo = -1e9;
+    this.doc = !FINE;
+    this.L = null; this.T = null; this.P = null; this.barrido = null; this.cola = null; this.ancla = null;
     this.rr = null; this.fondo = document.getElementById('lienzoFondo'); this.fw = {}; this.tAnt = 0;
+    this.escr = 0; this.viva = false; this.tv = 0; this.filas = {}; this.lado = 0.2;
     var self = this;
     this.paso = function (now) { self.frame(now); };
   }
-  Lampara.prototype.reposo = function () { return { x: innerWidth * 0.2, y: Math.max(-40, innerHeight * 0.04) }; };
+  // reposo: arriba a la izquierda al empezar; tras un barrido, arriba a la derecha (donde acabó)
+  Lampara.prototype.reposo = function () {
+    if (this.doc) {
+      if (this.ancla) return { x: this.ancla.x, y: this.ancla.y };
+      return { x: innerWidth * 0.2, y: this.rr ? this.rr.y - innerHeight * 0.2 : window.scrollY };
+    }
+    return { x: innerWidth * this.lado, y: Math.max(-40, innerHeight * 0.04) };
+  };
   Lampara.prototype.poner = function (els) {
-    this.items = Array.prototype.map.call(els, function (el) { return { el: el, luz: el.querySelector('.pon-luz'), r: null, rx: 0, ry: 0, al: 0, w: {} }; });
+    this.items = Array.prototype.map.call(els, function (el) { return { el: el, luz: el.querySelector('.pon-luz'), r: null, fila: null, rx: 0, ry: 0, al: 0, w: {} }; });
     this.medir();
   };
+  Lampara.prototype.item = function (el) { for (var i = 0; i < this.items.length; i++) if (this.items[i].el === el) return this.items[i]; return null; };
   Lampara.prototype.medir = function () {
     var sx = window.scrollX, sy = window.scrollY;
     var rr = this.raiz.getBoundingClientRect();
     this.rr = { x: rr.left + sx, y: rr.top + sy, w: rr.width, h: rr.height };
     this.items.forEach(function (it) {
-      if (!it.el.isConnected || it.el.hidden || !it.el.offsetParent) { it.r = null; return; }
+      if (!it.el.isConnected || it.el.hidden || !it.el.offsetParent) { it.r = null; it.fila = null; return; }
       var r = it.el.getBoundingClientRect();
       it.r = { x: r.left + sx, y: r.top + sy, w: r.width, h: r.height };
+      it.fila = Math.round(it.r.y / 6);
     });
     this.pedir();
   };
   Lampara.prototype.pedir = function () { if (!this.raf && this.en && !document.hidden) this.raf = requestAnimationFrame(this.paso); };
-  Lampara.prototype.barrer = function () {
-    var W = innerWidth, Hh = innerHeight;
-    this.barrido = { t0: performance.now(), dur: 2600, x0: -0.14 * W, y0: 0.66 * Hh, x1: 1.1 * W, y1: 0.3 * Hh, arco: -0.14 * Hh };
-    if (!this.L) { this.L = { x: this.barrido.x0, y: this.barrido.y0 }; this.T = { x: this.L.x, y: this.L.y }; }
-    this.ultimo = performance.now();
+  // la mesa está «viva» mientras la luz se mueve: solo entonces hay capas propias
+  Lampara.prototype.vivir = function () {
+    var self = this;
+    if (!this.viva) { this.viva = true; this.raiz.classList.add('lampara-viva'); }
+    clearTimeout(this.tv);
+    this.tv = setTimeout(function () { self.viva = false; self.raiz.classList.remove('lampara-viva'); }, 700);
+  };
+  // barrido a lo ancho de una fila, en coordenadas de la página
+  Lampara.prototype.barrerFila = function (it) {
+    if (!it || !it.r) return;
+    var W = innerWidth, Hh = innerHeight, top = it.r.y, h = it.r.h;
+    this.barrido = { t0: performance.now() + 420, dur: 2300, x0: -0.14 * W, y0: top + h * 0.62, x1: 1.1 * W, y1: top + h * 0.16, arco: -Math.min(Hh * 0.16, h * 0.3) };
+    this.lado = 0.84;
+    if (this.doc) this.ancla = { x: W * 0.84, y: top - Hh * 0.22 };
+    if (!this.L) {
+      this.L = { x: this.barrido.x0, y: this.barrido.y0 - (this.doc ? 0 : window.scrollY) };
+      this.T = { x: this.L.x, y: this.L.y };
+    }
     this.pedir();
+  };
+  Lampara.prototype.pedirBarrido = function (it) {
+    if (!it || !it.r || it.el.hidden) return;
+    if (FINE && this.P) return;              // con el cursor sobre la mesa, la luz es suya
+    var now = performance.now(), f = this.filas[it.fila] || (this.filas[it.fila] = { t: -1e9 });
+    if (now - f.t < 8000) return;
+    f.t = now;
+    if (this.barrido) { this.cola = it; return; }
+    this.barrerFila(it);
   };
   // escribe una variable solo si cambió (los reflejos van en .pon-luz; el relieve y la
   // inclinación en la tarjeta)
   Lampara.prototype.escribir = function (it, k, v, dec) {
     var s = v.toFixed(dec), el = (k === '--mx' || k === '--my' || k === '--lit') ? (it.luz || it.el) : it.el;
-    if (it.w[k] !== s) { it.w[k] = s; el.style.setProperty(k, s + (k === '--rx' || k === '--ry' ? 'deg' : (k === '--mx' || k === '--my' ? 'px' : ''))); }
+    if (it.w[k] !== s) { it.w[k] = s; this.escr++; el.style.setProperty(k, s + (k === '--rx' || k === '--ry' ? 'deg' : (k === '--mx' || k === '--my' ? 'px' : ''))); }
   };
   Lampara.prototype.frame = function (now) {
     this.raf = 0;
     if (!this.en) return;
-    var mueve = false, W = innerWidth, Hh = innerHeight;
+    var mueve = false, W = innerWidth, Hh = innerHeight, sX = window.scrollX, sY = window.scrollY;
     // suavizado independiente de los cuadros por segundo
     var dt = this.tAnt ? Math.min(100, now - this.tAnt) : 16.7; this.tAnt = now;
     var k12 = 1 - Math.pow(0.88, dt / 16.7), k14 = 1 - Math.pow(0.86, dt / 16.7);
     if (!this.L) { this.L = this.reposo(); this.T = this.reposo(); }
+    var enBarrido = false;
     if (this.barrido) {
-      var b = this.barrido, k = Math.min(1, (now - b.t0) / b.dur);
-      var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-      this.T = { x: b.x0 + (b.x1 - b.x0) * e, y: b.y0 + (b.y1 - b.y0) * e + Math.sin(k * Math.PI) * b.arco };
-      if (k >= 1) { this.barrido = null; this.T = this.P ? { x: this.P.x, y: this.P.y } : this.reposo(); }
+      var b = this.barrido;
+      if (now >= b.t0) {
+        enBarrido = true;
+        var k = Math.min(1, (now - b.t0) / b.dur);
+        var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        var px = b.x0 + (b.x1 - b.x0) * e, py = b.y0 + (b.y1 - b.y0) * e + Math.sin(k * Math.PI) * b.arco;
+        this.T = this.doc ? { x: px, y: py } : { x: px, y: py - sY };
+        if (k >= 1) {
+          this.barrido = null;
+          this.T = (FINE && this.P) ? { x: this.P.x, y: this.P.y } : this.reposo();
+          var c = this.cola; this.cola = null;
+          if (c && c.r && !c.el.hidden && c.r.y - sY < Hh && c.r.y - sY + c.r.h > 0) this.barrerFila(c);
+        }
+      }
       mueve = true;
-    } else if (!FINE) {
-      // pantallas táctiles: la luz deriva de izquierda a derecha con el scroll
-      var rr = this.rr, prog = rr ? clamp((window.scrollY + Hh - rr.y) / (rr.h + Hh), 0, 1) : 0;
-      this.T = { x: W * (0.1 + 0.8 * prog), y: Hh * 0.08 };
     }
-    var f = this.barrido ? 1 - Math.pow(0.5, dt / 16.7) : k12;
+    var f = enBarrido ? 1 - Math.pow(0.5, dt / 16.7) : k12;
     var dx = this.T.x - this.L.x, dy = this.T.y - this.L.y;
     this.L.x += dx * f; this.L.y += dy * f;
     if (Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4) mueve = true;
 
-    var sX = window.scrollX, sY = window.scrollY, L = this.L, P = this.P;
+    // la luz, en coordenadas de la ventana
+    var L = this.doc ? { x: this.L.x - sX, y: this.L.y - sY } : this.L, P = this.P;
     if (this.rr && this.fondo) {
       var lx = (L.x - (this.rr.x - sX)).toFixed(0) + 'px', ly = (L.y - (this.rr.y - sY)).toFixed(0) + 'px';
-      if (this.fw.x !== lx) { this.fw.x = lx; this.fondo.style.setProperty('--lx', lx); }
-      if (this.fw.y !== ly) { this.fw.y = ly; this.fondo.style.setProperty('--ly', ly); }
+      if (this.fw.x !== lx) { this.fw.x = lx; this.escr++; this.fondo.style.setProperty('--lx', lx); }
+      if (this.fw.y !== ly) { this.fw.y = ly; this.escr++; this.fondo.style.setProperty('--ly', ly); }
     }
     for (var i = 0; i < this.items.length; i++) {
       var it = this.items[i], r = it.r;
@@ -1333,11 +1387,12 @@ var DEMO_IV = [
       this.escribir(it, '--mx', L.x - left, 0);
       this.escribir(it, '--my', L.y - top, 0);
       this.escribir(it, '--lit', clamp(1 - d / 1000, 0, 1), 2);
+      if (!FINE) continue;
       var tx = 0, ty = 0, ta = 0;
-      if (FINE && P && !this.barrido) {
-        var px = (P.x - cx) / (r.w / 2), py = (P.y - cy) / (r.h / 2), a = Math.max(Math.abs(px), Math.abs(py));
-        if (a <= 1) { ty = px * 8; tx = -py * 7; ta = 1; }
-        else if (a < 2.3) { var g = (1 - (a - 1) / 1.3) * 0.22; ty = px / a * 8 * g; tx = -py / a * 7 * g; }
+      if (P && !this.barrido) {
+        var qx = (P.x - cx) / (r.w / 2), qy = (P.y - cy) / (r.h / 2), a = Math.max(Math.abs(qx), Math.abs(qy));
+        if (a <= 1) { ty = qx * 8; tx = -qy * 7; ta = 1; }
+        else if (a < 2.3) { var g = (1 - (a - 1) / 1.3) * 0.22; ty = qx / a * 8 * g; tx = -qy / a * 7 * g; }
       }
       it.rx += (tx - it.rx) * k14; it.ry += (ty - it.ry) * k14; it.al += (ta - it.al) * k14;
       if (Math.abs(tx - it.rx) > 0.02 || Math.abs(ty - it.ry) > 0.02 || Math.abs(ta - it.al) > 0.004) mueve = true;
@@ -1345,6 +1400,8 @@ var DEMO_IV = [
       this.escribir(it, '--ry', it.ry, 2);
       this.escribir(it, '--alza', it.al, 3);
     }
+    if (mueve || this.escr) this.vivir();
+    this.escr = 0;
     if (mueve) this.pedir(); else this.tAnt = 0;
   };
   Lampara.prototype.soltar = function (it) {
@@ -1358,7 +1415,7 @@ var DEMO_IV = [
       raiz.addEventListener('pointermove', function (ev) {
         if (ev.pointerType === 'touch') return;
         self.P = { x: ev.clientX, y: ev.clientY };
-        if (self.barrido && performance.now() - self.barrido.t0 > 500) self.barrido = null;
+        if (self.barrido && performance.now() - self.barrido.t0 > 500) { self.barrido = null; self.cola = null; }
         if (!self.barrido) self.T = { x: ev.clientX, y: ev.clientY };
         self.pedir();
       });
@@ -1366,17 +1423,24 @@ var DEMO_IV = [
     }
     window.addEventListener('scroll', function () { self.pedir(); }, { passive: true });
     var rt;
-    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (!self.P && !self.barrido) self.T = self.reposo(); self.medir(); }, 120); });
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { self.medir(); if (!self.P && !self.barrido) self.T = self.reposo(); }, 120); });
     if ('ResizeObserver' in window) new ResizeObserver(function () { self.medir(); }).observe(raiz);
     document.addEventListener('visibilitychange', function () { if (!document.hidden) self.pedir(); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         self.en = es[0].isIntersecting;
-        if (self.en) {
-          self.medir();
-          if (performance.now() - self.ultimo > 45000) self.barrer();
-        }
+        if (self.en) self.medir();
       }, { threshold: 0 }).observe(raiz);
+      // cada fila recibe su barrido cuando ya está bien dentro de la pantalla
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var it = self.item(e.target); if (!it) return;
+          if (!it.r) self.medir();
+          self.pedirBarrido(it);
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -18% 0px' });
+      this.items.forEach(function (it) { io.observe(it.el); });
     } else { this.en = true; this.medir(); }
   };
 
@@ -1400,13 +1464,35 @@ var DEMO_IV = [
   function fechaLarga(f) {
     try { return new Intl.DateTimeFormat(loc(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(f + 'T12:00:00Z')); } catch (e) { return f; }
   }
+  /* hora de la sesión con su zona; las sesiones en otra zona llevan además la hora de Guadalajara */
+  var ZONA_GDL = 'America/Mexico_City';
+  function desfase(zona, d) {   // minutos que la zona va por delante de UTC en ese instante
+    var p = {}; new Intl.DateTimeFormat('en-US', { timeZone: zona, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      .formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+    return (Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute) - d.getTime()) / 60000;
+  }
+  function horaSesion(s) {
+    if (!s.hora) return '';
+    var zona = s.zona || ZONA_GDL;
+    if (zona === ZONA_GDL) return s.hora + ' h (' + t('u_zona_gdl') + ')';
+    var txt = s.hora + ' h' + (zona === 'Europe/Madrid' ? ' (' + t('u_zona_madrid') + ')' : '');
+    try {
+      var base = new Date(s.fecha + 'T' + s.hora + ':00Z'), d = new Date(base.getTime() - desfase(zona, base) * 60000);
+      d = new Date(base.getTime() - desfase(zona, d) * 60000);
+      var gdl = new Intl.DateTimeFormat('es-MX', { timeZone: ZONA_GDL, hour: 'numeric', minute: '2-digit', hourCycle: 'h23' }).format(d);
+      txt += ' · ' + gdl + ' h (' + t('u_zona_gdl') + ')';
+    } catch (e) {}
+    return txt;
+  }
   function etiquetaSesion(s) { return (s.rol === 'modera' ? t('u_modera') + ' · ' : '') + L3(s.etiqueta); }
   function lineaSesion(s) { return [etiquetaSesion(s), L3(sede(s.sede).nombre), fechaCorta(s.fecha)].filter(Boolean).join(' · '); }
 
+  /* la capa en seco de una tarjeta con ponente: sin texto que afirme nada (ni
+     «Por anunciar»), solo renglones prensados, por si alguien la ve antes del rodillo */
   var SECO_HTML =
-    '<div class="pon-plancha"><svg class="pon-silueta" viewBox="0 0 100 100" aria-hidden="true"><use href="#silueta"/></svg></div>' +
+    '<div class="pon-plancha"><span class="camafeo"><span class="camafeo-num"></span></span></div>' +
     '<span class="sello-seco sd"></span>' +
-    '<div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion"></span><span class="nom sd" data-f18n="por_anunciar"></span>' +
+    '<div class="pon-cuerpo"><span class="rot sd" data-f18n="s_sesion"></span><span class="barra barra--nom" style="--w:78%"></span>' +
     '<span class="barra" style="--w:92%"></span><span class="barra" style="--w:64%"></span>' +
     '<span class="rot sd sep" data-f18n="s_ponencia"></span><span class="barra" style="--w:88%"></span><span class="barra" style="--w:70%"></span></div>';
 
@@ -1433,11 +1519,12 @@ var DEMO_IV = [
       '<span class="pon-rodillo" aria-hidden="true"></span>' +
       '<span class="pon-luz" aria-hidden="true"></span>';
     li.querySelector('.pon-seco .sello-seco').textContent = CONF.sello;
+    li.querySelector('.pon-seco .camafeo-num').textContent = CONF.num;
     var plancha = li.querySelector('.pon-tinta .pon-plancha');
     if (p.foto) {
       var img = document.createElement('img');
       img.className = 'pon-foto'; img.src = p.foto; img.width = 400; img.height = 400;
-      img.loading = 'lazy'; img.decoding = 'async'; img.alt = p.nombre;
+      img.loading = 'lazy'; img.decoding = 'async'; img.alt = '';   // el nombre está en el h3 contiguo
       plancha.appendChild(img);
     } else {
       var mono = document.createElement('span');
@@ -1469,6 +1556,7 @@ var DEMO_IV = [
     if (CONF.ejes && p.ejes && p.ejes.length) {
       p.ejes.forEach(function (n) {
         var sp = document.createElement('span'); sp.textContent = ROM[n] || n;
+        sp.setAttribute('aria-hidden', 'true');   // el lector de pantalla recibe el nombre completo abajo
         sp.title = t('u_eje') + ' ' + (ROM[n] || n) + ' · ' + L3(CONF.ejes[n]);
         ej.appendChild(sp);
       });
@@ -1506,13 +1594,53 @@ var DEMO_IV = [
     });
   }
 
-  /* ─── el rodillo: cada hoja se entinta al entrar en pantalla ─── */
+  /* ─── revelado al entrar en pantalla ───
+     Observa una lista de tarjetas; cuando cada una entra bien en pantalla la
+     anima (en orden de lectura, escalonadas) y, si el lector la deja atrás sin
+     que el observador la haya visto (salto con un ancla, tecla Fin, scroll muy
+     rápido), la deja en su estado final sin animación. todo() lo termina todo
+     (antes de imprimir). */
   var PROP_OK = !!(window.CSS && CSS.supports && CSS.supports('mask-image', 'linear-gradient(#000, transparent)')) && typeof window.CSSPropertyRule !== 'undefined';
+  function revelar(lista, alEntrar, alSaltar) {
+    var pend = lista.slice(), cola = [], timer = 0, tick = 0, arranque = performance.now() + 550;
+    function quitar(x) {
+      io.unobserve(x.el);
+      var i = pend.indexOf(x); if (i >= 0) pend.splice(i, 1);
+      if (!pend.length) window.removeEventListener('scroll', alScroll);
+    }
+    function de(el) { for (var i = 0; i < pend.length; i++) if (pend[i].el === el) return pend[i]; return null; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (!e.isIntersecting) return; var x = de(e.target); if (x) { quitar(x); cola.push(x); } });
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        cola.sort(function (a, b) { var ra = a.el.getBoundingClientRect(), rb = b.el.getBoundingClientRect(); return (ra.top - rb.top) || (ra.left - rb.left); });
+        var base = Math.max(0, arranque - performance.now());
+        cola.forEach(function (x, i) { alEntrar(x, base + i * 150); });
+        cola = [];
+      }, 30);
+    }, { threshold: 0, rootMargin: '0px 0px -18% 0px' });
+    function alScroll() {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        tick = 0;
+        pend.slice().forEach(function (x) {
+          if (x.el.hidden) return;
+          if (x.el.getBoundingClientRect().bottom < 0) { quitar(x); alSaltar(x); }
+        });
+      });
+    }
+    window.addEventListener('scroll', alScroll, { passive: true });
+    pend.forEach(function (x) { io.observe(x.el); });
+    return { todo: function () { pend.slice().forEach(function (x) { quitar(x); alSaltar(x); }); cola.slice().forEach(alSaltar); } };
+  }
+
+  /* ─── el rodillo: cada hoja con ponente se entinta al entrar en pantalla ─── */
   function entintar(tj, retraso) {
     var el = tj.el;
     if (!el.classList.contains('por-entintar')) return;
     if (REDUCED || !PROP_OK) { terminar(); return; }
     setTimeout(function () {
+      if (!el.classList.contains('por-entintar')) return;
       el.classList.add('entintando');
       var hecho = false;
       el.addEventListener('animationend', function fin(ev) {
@@ -1524,25 +1652,38 @@ var DEMO_IV = [
     function terminar() { el.classList.remove('por-entintar', 'entintando'); el.classList.add('entintada'); }
   }
   function entintarYa(tj) { tj.el.classList.remove('por-entintar', 'entintando'); tj.el.classList.add('entintada', 'sin-anim'); }
+  var REV_TINTA = null;
   function prepararRodillos() {
     if (REDUCED || !PROP_OK || !('IntersectionObserver' in window)) { TARJETAS.forEach(entintarYa); return; }
     TARJETAS.forEach(function (tj) { if (!tj.el.classList.contains('entintada')) tj.el.classList.add('por-entintar'); });
-    var cola = [], timer = 0, arranque = performance.now() + 650;
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { cola.push(e.target); io.unobserve(e.target); } });
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        cola.sort(function (a, b) { var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(); return (ra.top - rb.top) || (ra.left - rb.left); });
-        var base = Math.max(0, arranque - performance.now());
-        cola.forEach(function (el, i) {
-          var tj = TARJETAS.filter(function (x) { return x.el === el; })[0];
-          if (tj) entintar(tj, base + i * 150);
-        });
-        cola = [];
-      }, 30);
-    }, { threshold: 0, rootMargin: '0px 0px -20% 0px' });
-    TARJETAS.forEach(function (tj) { if (tj.el.classList.contains('por-entintar')) io.observe(tj.el); });
+    REV_TINTA = revelar(TARJETAS.filter(function (tj) { return tj.el.classList.contains('por-entintar'); }), entintar, entintarYa);
   }
+
+  /* ─── el golpe seco: cada hoja en blanco recibe el golpe de la prensa ─── */
+  function golpear(x, retraso) {
+    var el = x.el;
+    setTimeout(function () {
+      if (!el.classList.contains('por-golpear')) return;
+      el.classList.add('golpeando'); el.classList.remove('por-golpear');
+      var hecho = false;
+      function fin() { if (hecho) return; hecho = true; el.classList.remove('golpeando'); }
+      el.addEventListener('animationend', function h(ev) { if (ev.target === el && ev.animationName === 'golpe') { el.removeEventListener('animationend', h); fin(); } });
+      setTimeout(fin, 1700);
+    }, retraso || 0);
+  }
+  function golpeada(x) { x.el.classList.remove('por-golpear', 'golpeando'); }
+  var REV_GOLPE = null;
+  function prepararGolpes(els) {
+    if (REDUCED || !PROP_OK || !('IntersectionObserver' in window)) return;
+    var lista = Array.prototype.map.call(els, function (el) { el.classList.add('por-golpear'); return { el: el }; });
+    REV_GOLPE = revelar(lista, golpear, golpeada);
+  }
+  window.addEventListener('beforeprint', function () {
+    if (REV_TINTA) REV_TINTA.todo();
+    if (REV_GOLPE) REV_GOLPE.todo();
+    TARJETAS.forEach(entintarYa);
+    document.querySelectorAll('.pon.por-golpear, .pon.golpeando').forEach(function (el) { golpeada({ el: el }); });
+  });
 
   /* ─── cifras de la cabecera ─── */
   var CIFRAS_OK = false;
@@ -1651,23 +1792,42 @@ var DEMO_IV = [
     function limpiar() { F.q = ''; F.sede = F.pais = F.eje = null; buscar.value = ''; marcarChips(); filtrar(true); }
     document.getElementById('fLimpiar').addEventListener('click', limpiar);
     document.getElementById('sinResLimpiar').addEventListener('click', function () { limpiar(); buscar.focus(); });
-    var mas = document.getElementById('fMas');
-    // al quedar fija bajo el nav, la barra se compacta (solo búsqueda); el lector puede
-    // volver a abrir los filtros, y entonces se respeta su elección
-    var manual = false, auto = false;
-    if (window.innerWidth > 760) { auto = true; mas.open = true; }
-    mas.addEventListener('toggle', function () { if (!auto) manual = true; auto = false; });
+    var mas = document.getElementById('fMas'), barra = document.getElementById('filtros');
+    // Al quedar fija bajo el nav, la barra se abre a todo el ancho de la ventana y se
+    // compacta (solo búsqueda). La altura que pierde vuelve como margen (--comp), así
+    // que el contenido de abajo no salta. Si el lector abre o cierra los filtros con
+    // la barra fija, se respeta su elección y tampoco salta nada; al volver arriba,
+    // los filtros se reabren.
+    var pegada = false, manual = false, autoPend = 0, hUlt = 0;
+    function ancho() { return window.innerWidth > 760; }
+    function ponerComp(v) { COMP = Math.max(0, Math.round(v)); barra.style.setProperty('--comp', COMP + 'px'); }
+    function abrirAuto(v) {
+      if (mas.open === v) return;
+      var h0 = barra.offsetHeight; autoPend++; mas.open = v; hUlt = barra.offsetHeight;
+      ponerComp(COMP + (h0 - hUlt));
+    }
+    if (ancho()) { autoPend++; mas.open = true; }
+    hUlt = barra.offsetHeight;
+    mas.addEventListener('toggle', function () {
+      if (autoPend) { autoPend = 0; hUlt = barra.offsetHeight; return; }
+      manual = true;
+      var h = barra.offsetHeight, d = h - hUlt; hUlt = h;
+      if (pegada) ponerComp(COMP - d);
+    });
     var cent = document.getElementById('filtrosCentinela');
     if ('IntersectionObserver' in window && cent) {
       new IntersectionObserver(function (es) {
-        var e = es[0], pegada = !e.isIntersecting && e.boundingClientRect.top < 70;
-        if (manual || window.innerWidth <= 760) return;
-        var quiere = !pegada;
-        if (mas.open !== quiere) { auto = true; mas.open = quiere; }
+        var e = es[0], ahora = !e.isIntersecting && e.boundingClientRect.top < 70;
+        if (ahora === pegada) return;
+        pegada = ahora;
+        barra.classList.toggle('pegada', pegada);
+        if (pegada) { if (ancho() && !manual) abrirAuto(false); }
+        else { manual = false; if (ancho()) abrirAuto(true); ponerComp(0); }
       }, { rootMargin: '-64px 0px 0px 0px', threshold: 0 }).observe(cent);
     }
     TARJETAS.forEach(function (tj) { tj.idx = indiceBusqueda(tj.p); });
   }
+  var COMP = 0;   // altura devuelta como margen bajo la barra compacta
   function contar() {
     var v = TARJETAS.filter(function (tj) { return !tj.el.hidden; }).length, n = TARJETAS.length;
     var fn = document.getElementById('fN');
@@ -1681,28 +1841,40 @@ var DEMO_IV = [
     });
     ORDEN = TARJETAS.filter(function (tj) { return !tj.el.hidden; });
   }
+  // Tras filtrar con la barra ya fija, la página se acorta y el navegador recortaría el
+  // desplazamiento: el resultado, la barra y el campo de búsqueda quedarían fuera de la
+  // pantalla. Se devuelve la parrilla justo debajo de la barra.
+  function reencuadrar() {
+    var c = document.getElementById('filtrosCentinela');
+    if (!c) return;
+    var tope = Math.max(0, Math.round(c.getBoundingClientRect().top + window.scrollY - 60 + COMP));
+    if (window.scrollY > tope + 1) window.scrollTo({ top: tope, left: 0, behavior: 'instant' });
+  }
   function filtrar(conVT) {
     function aplicar() {
-      TARJETAS.forEach(function (tj) {
-        var ok = coincide(tj);
-        tj.el.hidden = !ok;
-        if (ok && tj.el.classList.contains('por-entintar') && !tj.el.classList.contains('entintando')) { /* el IO la entintará */ }
-      });
+      TARJETAS.forEach(function (tj) { tj.el.hidden = !coincide(tj); });
       contar();
+      reencuadrar();
     }
     var puedeVT = conVT && !REDUCED && typeof document.startViewTransition === 'function';
     if (!puedeVT) { aplicar(); if (lampara) lampara.medir(); return; }
-    var nombrados = [];
+    // solo las tarjetas cercanas a la pantalla se animan una a una; las lejanas se funden con la página
+    var nombrados = [], H0 = window.innerHeight, barraF = document.getElementById('filtros');
     TARJETAS.forEach(function (tj) {
+      var r = tj.el.getBoundingClientRect();
+      if (r.bottom < -H0 || r.top > 2 * H0) return;
       tj.el.style.viewTransitionName = 'pon-' + tj.p.slug;
       tj.el.style.setProperty('view-transition-class', 'pon');
       nombrados.push(tj.el);
     });
     GRUPOS_EL.forEach(function (G) { G.el.querySelector('.grupo-cab').style.viewTransitionName = 'grupo-' + G.g.id; });
+    // el nav y la barra quedan por encima de las tarjetas que se reacomodan
+    nav.style.viewTransitionName = 'nav'; barraF.style.viewTransitionName = 'filtros';
     var vt = document.startViewTransition(aplicar);
     vt.finished.catch(function () {}).then(function () {
       nombrados.forEach(function (el) { el.style.viewTransitionName = ''; el.style.removeProperty('view-transition-class'); });
       GRUPOS_EL.forEach(function (G) { G.el.querySelector('.grupo-cab').style.viewTransitionName = ''; });
+      nav.style.viewTransitionName = ''; barraF.style.viewTransitionName = '';
       if (lampara) lampara.medir();
     });
   }
@@ -1715,7 +1887,8 @@ var DEMO_IV = [
     eyebrow: document.getElementById('fichaEyebrow'), nombre: document.getElementById('fichaNombre'), cargo: document.getElementById('fichaCargo'),
     pais: document.getElementById('fichaPais'), sesiones: document.getElementById('fichaSesiones'), ejes: document.getElementById('fichaEjes'),
     ejesCaja: document.getElementById('fichaEjesCaja'), sem: document.getElementById('fichaSem'), mem: document.getElementById('fichaMem'),
-    pos: document.getElementById('fichaPos'), estado: document.getElementById('fichaEstado')
+    pos: document.getElementById('fichaPos'), estado: document.getElementById('fichaEstado'),
+    barra: ficha.querySelector('.ficha-barra'), cerrar: document.getElementById('fichaCerrar')
   };
   var ACTUAL = null;   // tarjeta abierta
   function tarjetaDe(slug) { return TARJETAS.filter(function (tj) { return tj.p.slug === slug; })[0] || null; }
@@ -1727,13 +1900,13 @@ var DEMO_IV = [
     FI.cargo.textContent = L3(p.cargo);
     FI.pais.textContent = PAISES[p.pais] ? L3(PAISES[p.pais]) : '';
     FI.sello.textContent = CONF.sello;
-    if (p.foto) { FI.img.src = p.foto; FI.img.alt = p.nombre; FI.img.hidden = false; FI.mono.hidden = true; }
+    if (p.foto) { FI.img.src = p.foto; FI.img.alt = ''; FI.img.hidden = false; FI.mono.hidden = true; }
     else { FI.img.hidden = true; FI.img.removeAttribute('src'); FI.mono.textContent = monograma(p.nombre); FI.mono.hidden = false; }
     FI.sesiones.textContent = '';
     (p.sesiones || []).forEach(function (s) {
       var art = document.createElement('div'); art.className = 'ficha-sesion';
       var sd = sede(s.sede);
-      var hora = s.hora ? s.hora + ' h' + (s.zona === 'Europe/Madrid' ? ' (' + t('u_zona_madrid') + ')' : '') : '';
+      var hora = horaSesion(s);
       var partes = [
         ['fs-rot', etiquetaSesion(s)],
         ['fs-titulo', L3(s.titulo)],
@@ -1747,8 +1920,10 @@ var DEMO_IV = [
     FI.ejes.textContent = '';
     if (CONF.ejes && p.ejes && p.ejes.length) {
       p.ejes.forEach(function (n) {
-        var sp = document.createElement('span'); var i = document.createElement('i'); i.textContent = (ROM[n] || n);
-        sp.appendChild(i); sp.appendChild(document.createTextNode(L3(CONF.ejes[n]))); FI.ejes.appendChild(sp);
+        var sp = document.createElement('span'), i = document.createElement('i'), sr = document.createElement('span');
+        i.textContent = (ROM[n] || n); i.setAttribute('aria-hidden', 'true');
+        sr.className = 'sr'; sr.textContent = t('u_eje') + ' ' + (ROM[n] || n) + ': ';
+        sp.appendChild(i); sp.appendChild(sr); sp.appendChild(document.createTextNode(L3(CONF.ejes[n]))); FI.ejes.appendChild(sp);
       });
       FI.ejesCaja.hidden = false;
     } else FI.ejesCaja.hidden = true;
@@ -1766,8 +1941,13 @@ var DEMO_IV = [
   }
   function vtPosible() { return !REDUCED && typeof document.startViewTransition === 'function'; }
   function nombrar(pares) { pares.forEach(function (p) { if (p[0]) p[0].style.viewTransitionName = p[1]; }); }
-  function paresTarjeta(tj) { return [[tj.el.querySelector('.pon-hoja'), 'ficha-marco'], [tj.el.querySelector('.pon-tinta .pon-plancha'), 'ficha-foto']]; }
-  function paresFicha() { return [[FI.hoja, 'ficha-marco'], [FI.foto, 'ficha-foto'], [FI.cont, 'ficha-contenido']]; }
+  function paresTarjeta(tj) {
+    return [[tj.el.querySelector('.pon-hoja'), 'ficha-marco'], [tj.el.querySelector('.pon-tinta .pon-plancha'), 'ficha-foto'], [tj.el.querySelector('.pon-tinta .pon-sello'), 'ficha-sello']];
+  }
+  // la ficha completa: papel, retrato, contenido y, por encima, sello, Cerrar y barra de navegación
+  function paresFicha() {
+    return [[FI.hoja, 'ficha-marco'], [FI.foto, 'ficha-foto'], [FI.cont, 'ficha-contenido'], [FI.sello, 'ficha-sello'], [FI.barra, 'ficha-barra'], [FI.cerrar, 'ficha-cerrar']];
+  }
   function limpiarNombres(pares) { pares.forEach(function (p) { if (p[0]) p[0].style.viewTransitionName = ''; }); }
   function enPantalla(el) { var r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; }
   function hashDe(tj) { return '#ponente-' + tj.p.slug; }
@@ -1812,10 +1992,10 @@ var DEMO_IV = [
     if (!tj.el.classList.contains('entintada')) entintarYa(tj);
     if (!vtPosible() || !dir) { llenarFicha(tj); return; }
     H.setAttribute('data-vt', dir > 0 ? 'sig' : 'ant');
-    FI.cont.style.viewTransitionName = 'ficha-contenido';
-    FI.foto.style.viewTransitionName = 'ficha-foto';
+    var pares = paresFicha().slice(1);   // sin el papel: no cambia
+    nombrar(pares);
     var vt = document.startViewTransition(function () { llenarFicha(tj); });
-    vt.finished.catch(function () {}).then(function () { H.removeAttribute('data-vt'); FI.cont.style.viewTransitionName = ''; FI.foto.style.viewTransitionName = ''; });
+    vt.finished.catch(function () {}).then(function () { H.removeAttribute('data-vt'); limpiarNombres(pares); });
   }
   function vecino(d) {
     if (!ACTUAL || !ORDEN.length) return null;
@@ -1878,6 +2058,7 @@ var DEMO_IV = [
   /* ───── puente de idioma: i18n.js sincroniza <html lang> ───── */
   function aplicarIdioma(lang) {
     LANG = lang; f18nApply(lang);
+    document.title = (DEMO && HAY ? t('doc_demo') : '') + t('doc_title');
     if (HAY) {
       pintarGrupos();
       TARJETAS.forEach(pintarTarjeta);
@@ -1904,7 +2085,8 @@ var DEMO_IV = [
         document.getElementById('franja').hidden = false;
         h1.setAttribute('data-f18n-html', 'cab_h1_demo');
         lead.setAttribute('data-f18n-html', 'cab_lead_demo');
-        document.title = 'Vista de ejemplo · ' + document.title;
+        document.getElementById('cabEyebrow').setAttribute('data-f18n', 'cab_eyebrow_demo');
+        document.getElementById('cabAnio').textContent = CONF.anio;
         var rob = document.createElement('meta'); rob.name = 'robots'; rob.content = 'noindex'; document.head.appendChild(rob);
       } else {
         lead.setAttribute('data-f18n-html', 'cab_lead_v');
@@ -1930,6 +2112,8 @@ var DEMO_IV = [
       listo.then(function () { lampara.medir(); });
       window.addEventListener('load', function () { lampara.medir(); });
     }
+    // estado actual (sin ponentes): cada hoja en blanco recibe el golpe de la prensa al entrar en pantalla
+    if (!HAY) prepararGolpes(raiz.querySelectorAll('.pon--vacia'));
     if (HAY) {
       pintarCifras(true);
       contar();

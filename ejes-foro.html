@@ -378,7 +378,7 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .indice a:hover, .indice a:focus-visible { background-color: rgba(184, 92, 61, 0.05); }
 .indice a:hover::before, .indice a:focus-visible::before { transform: scaleX(1); }
 .indice a:focus-visible { outline-offset: -2px; }
-.ind-num { flex: none; min-width: 2.3em; font-family: var(--serif); font-style: italic; font-size: 25px; line-height: 1; color: var(--cobre-2); font-variation-settings: "opsz" 72, "SOFT" 100, "wght" 560; transition: font-variation-settings .5s var(--ease); }
+.ind-num { flex: none; min-width: 2.1em; font-family: var(--serif); font-style: italic; font-size: 25px; line-height: 1; color: var(--cobre-2); font-variation-settings: "opsz" 72, "SOFT" 100, "wght" 560; transition: font-variation-settings .5s var(--ease); }
 .indice a:hover .ind-num, .indice a:focus-visible .ind-num { font-variation-settings: "opsz" 72, "SOFT" 100, "wght" 820; }
 .ind-cuerpo { display: grid; justify-items: start; gap: 8px; min-width: 0; }
 .ind-t { font-family: var(--serif); font-size: clamp(16.5px, 1.3vw, 19px); line-height: 1.25; letter-spacing: -0.005em; font-variation-settings: "opsz" 36, "SOFT" 40; }
@@ -1514,8 +1514,9 @@ footer a:hover { color: var(--arena); }
       p = i + Math.max(0, Math.min(1, (ref - tops[i]) / Math.max(1, sig - tops[i])));
     }
     folio.style.setProperty('--p', p.toFixed(4));
-    /* se apaga antes de que el cierre (fondo tinta) pase por debajo del folio */
-    folio.classList.toggle('on', i >= 0 && (finTop - window.scrollY) > folioBajo + 12);
+    /* se apaga (y termina de desvanecerse) antes de que el cierre, de fondo
+       tinta, pase por debajo del folio */
+    folio.classList.toggle('on', i >= 0 && (finTop - window.scrollY) > folioBajo + 48);
     var act = i >= 0 ? Math.min(8, i) : -1;
     if (act !== actual) {
       actual = act;
