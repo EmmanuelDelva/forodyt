@@ -95,6 +95,8 @@
 @property --alza { syntax: '<number>'; inherits: true; initial-value: 0; }
 @property --lx { syntax: '<length>'; inherits: false; initial-value: 320px; }
 @property --ly { syntax: '<length>'; inherits: false; initial-value: -120px; }
+/* profundidad del golpe seco: 0 = hoja sin prensar, 1 = relieve completo */
+@property --prof { syntax: '<number>'; inherits: true; initial-value: 1; }
 
 :root {
   --tinta: #1A1810;
@@ -130,7 +132,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-padding-top: 132px; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 132px; -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
 html:has(.ficha[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
@@ -247,10 +249,25 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .cab-datos dd.seco { font-size: clamp(17px, 1.45vw, 21px); line-height: 1.2; font-weight: 400; font-variation-settings: "opsz" 36; color: var(--arena-2); margin-top: 14px; }
 .cab-datos dd small { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-4); margin-top: 8px; }
 .cab-datos dd.recien { animation: tinta-llega 1.4s var(--ease) both; }
+/* las cifras en seco reciben el golpe de la prensa al cargar la página */
+.cab-datos dd.seco {
+  text-shadow:
+    calc(var(--prof) * 1px) calc(var(--prof) * 1px) 0 rgba(255, 255, 255, 0.95),
+    calc(var(--prof) * -1px) calc(var(--prof) * -1px) 0 rgba(92, 64, 36, 0.24),
+    0 0 calc(var(--prof) * 1px) rgba(92, 64, 36, 0.10);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .cab-datos dd.seco { animation: golpe-texto 1s cubic-bezier(.3, .6, .3, 1) .45s both; }
+  .js .cab-datos .dato:nth-child(2) dd.seco { animation-delay: .62s; }
+  .js .cab-datos .dato:nth-child(3) dd.seco { animation-delay: .79s; }
+}
+@keyframes golpe-texto { 0% { --prof: 0; } 30% { --prof: 1.9; } 58% { --prof: .8; } 80% { --prof: 1.08; } 100% { --prof: 1; } }
+.cab .eyebrow { flex-wrap: wrap; row-gap: 6px; }
+.cab .eyebrow .anio { white-space: nowrap; }
 @keyframes tinta-llega { from { color: var(--arena-2); filter: blur(2px); } to { color: var(--tinta); filter: none; } }
 
 /* ═══════════ LIENZO · la mesa del taller ═══════════ */
-.lienzo { position: relative; isolation: isolate; padding: clamp(16px, 2.4vw, 28px) 0 clamp(72px, 9vw, 130px); }
+.lienzo { position: relative; isolation: isolate; overflow-x: clip; padding: clamp(16px, 2.4vw, 28px) 0 clamp(72px, 9vw, 130px); }
 /* la lámpara: la mesa queda en penumbra y un charco de luz cálida sigue a la luz del motor.
    El charco es una capa propia que se desplaza con transform: no repinta la página. */
 .lienzo-fondo {
@@ -262,20 +279,31 @@ a:hover .flecha, button:hover .flecha { transform: translateX(4px); }
 .lienzo-fondo::before {
   content: ""; position: absolute; left: 0; top: 0; width: 1500px; height: 1500px; margin: -750px 0 0 -750px; border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 252, 244, 0.96) 0%, rgba(255, 252, 244, 0.62) 24%, rgba(255, 252, 244, 0.18) 44%, rgba(255, 252, 244, 0) 62%);
-  transform: translate(var(--lx), var(--ly)); will-change: transform;
+  transform: translate(var(--lx), var(--ly));
 }
-@media (prefers-reduced-motion: reduce) { .lienzo-fondo::before { will-change: auto; } }
+/* capas propias solo mientras la lámpara se mueve (la clase la pone y quita el motor) */
+.lampara-viva .lienzo-fondo::before { will-change: transform; }
 .vacia-nota { margin-top: clamp(26px, 3vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; font-size: 14.5px; color: var(--tinta-3); }
 .vacia-nota a { color: var(--cobre-2); font-weight: 500; text-underline-offset: 3px; }
 
 /* ═══════════ FILTROS ═══════════ */
+/* La barra es fija bajo el nav. El papel y las reglas viven en ::before: en reposo
+   ocupan el ancho de la columna; al quedar fija se abren a todo el ancho de la
+   ventana (sobre la banda negra no queda un rectángulo flotante). --comp compensa
+   la altura que pierde la barra al compactarse, para que la página no salte. */
 .filtros {
   position: sticky; top: 60px; z-index: 40;
+  padding: 12px 0 14px; margin-bottom: calc(clamp(36px, 5vw, 64px) + var(--comp, 0px));
+}
+.filtros::before {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 0; right: 0; pointer-events: none;
   background: rgba(245, 239, 227, 0.95);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--linea);
-  padding: 12px 0 14px; margin-bottom: clamp(36px, 5vw, 64px);
+  transition: left .45s var(--ease), right .45s var(--ease), box-shadow .45s var(--ease);
 }
+.filtros.pegada::before { left: calc(50% - 50vw); right: calc(50% - 50vw); box-shadow: 0 12px 26px rgba(26, 24, 16, 0.07); }
+@media (prefers-reduced-motion: reduce) { .filtros::before { transition: none; } }
 .f-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; }
 .f-buscar { flex: 1 1 320px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--tinta); }
 .f-buscar:focus-within { border-bottom-color: var(--cobre); }
