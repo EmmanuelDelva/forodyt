@@ -454,6 +454,51 @@ footer a:hover { color: var(--arena); }
 @media (max-width: 1180px) { .nav-links { gap: 16px; } .nav-links a { font-size: 13px; } .nav-cta { gap: 12px; } .nav-cta > .btn-primary { padding: 12px 18px; } }
 footer :focus-visible { outline-color: #D9A48C; }
 </style>
+<style>/* ═══ celular y tableta ═══ */
+@media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait) {
+  .hero { padding-top: 132px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
+  .hero-titulo { font-size: clamp(64px, 9vw, 96px); }
+  .hero-lead { font-size: 18.5px; max-width: 640px; }
+  .iv-tomo { max-width: 600px; }
+  .hero-datos { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; }
+  .hero-datos > div { padding: 16px 18px 0 0; }
+  .hero-datos > div + div { padding-left: 18px; border-left: 1px solid var(--linea-2); border-top: 0; }
+  .sec-head { grid-template-columns: minmax(0, 1fr); }
+  /* el pliego aprovecha el alto de la tableta */
+  .pl-hoja { --hcol: 64px; height: clamp(520px, calc(100svh - 330px), 880px); }
+  .aviso-caja { grid-template-columns: minmax(0, 1fr); }
+  .aviso-texto p { max-width: 600px; }
+}
+@media (max-width: 600px) {
+  .hero { padding-top: 104px; }
+  .hero-titulo { font-size: clamp(42px, 11.6vw, 52px); }
+  .hero-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .hero-cta .btn-primary, .hero-cta .btn-ghost { justify-content: center; min-height: 52px; font-size: 14px; }
+  .aviso-form button { justify-self: stretch; justify-content: center; min-height: 52px; }
+  .aviso-form input { font-size: 20px; min-height: 52px; }
+  .iv-ir { min-height: 44px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { padding-top: 92px; }
+  .hero-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: start; }
+  .hero-titulo { font-size: clamp(38px, 11vh, 52px); }
+  .hero-datos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero-datos > div + div { padding-left: 16px; border-left: 1px solid var(--linea-2); border-top: 0; }
+  .pl-hoja { height: 420px; }
+}
+@media (pointer: coarse) {
+  .aviso-redes a { display: inline-flex; align-items: center; min-height: 44px; padding-bottom: 0; }
+  footer ul a { display: inline-flex; align-items: center; min-height: 40px; }
+}
+@media (hover: none) {
+  .iv-tomo:hover { transform: none; box-shadow: 0 26px 50px -34px rgba(14, 27, 44, .75); }
+  .iv-tomo:active { transform: scale(.99); }
+  .btn-primary:hover::before { transform: translateX(-101%); }
+  .btn-primary:active::before { transform: translateX(0); }
+  a:hover .flecha, button:hover .flecha { transform: none; }
+}
+</style>
 </head>
 <body>
 
