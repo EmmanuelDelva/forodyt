@@ -419,3 +419,10 @@ body.mm-locked { overflow: hidden; }
 @media (max-width: 359px) {
   .nav-cta > .btn-primary { display: none; }
 }
+
+/* iPad en horizontal (menú de escritorio con dedo): área de toque de 44 px
+   en cada enlace del nav sin mover el subrayado ni la línea base. */
+@media (pointer: coarse) and (min-width: 1025px) {
+  .nav .nav-links a { position: relative; }
+  .nav .nav-links a::before { content: ""; position: absolute; left: -6px; right: -6px; top: 50%; height: 44px; transform: translateY(-50%); }
+}
